@@ -239,6 +239,7 @@ function validateOTP(model){
                         body=JSON.parse(body);
                         if(body.Response&&body.Response.length>0){
                             if(body.Response[0].JoinAccId){
+                                console.log(JSON.stringify(body.Response[0])+"ACCOUNT DETAILS")
                                 delete model.stage;
                                 return resolve(model);
                             }
