@@ -67,7 +67,7 @@ function filter(request){
 function getMobile(model){
     return new Promise(function(resolve, reject){
         try{
-            if(model.data.match(/[0-9]{10}/g)){
+            if(model.data.match(/[0-9]/g)){
                 let mobileData = model.data.match(/[0-9]{10}/g);
                 if(mobileData&&mobileData instanceof Array&&mobileData[0].length==10){
                     model.tags["mobile"]=mobileData[0];
@@ -75,7 +75,7 @@ function getMobile(model){
                     return resolve(model);
                 }
                 else{
-                    return reject("Please enter a valid 10 digit number.")
+                    return reject("Please enter a valid 10 digit mobile number.")
                 }
             }
             else{
