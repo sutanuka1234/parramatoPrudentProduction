@@ -33,6 +33,8 @@ function filter(request){
             
             case "getMobile"        :   
                                         getMobile(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{return reject(e)})
                 break;
                 
                 
