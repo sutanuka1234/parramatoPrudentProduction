@@ -31,19 +31,19 @@ function filter(request){
     return new Promise(function(resolve, reject){
         switch(request.params.type){
             
-            case "getMobile"        :   
-                                        getMobile(request.body)
-                                        .then((model)=>{return resolve(model)})
-                                        .catch((e)=>{return reject(e)})
-                break;
-                
-                
-//            case "validatePanMobile"    :  
-//                                        getPanMobile(request.body)
-//                                        .then(validatePanMobile)
+//            case "getMobile"        :   
+//                                        getMobile(request.body)
 //                                        .then((model)=>{return resolve(model)})
 //                                        .catch((e)=>{return reject(e)})
 //                break;
+                
+                
+            case "validatePanMobile"    :  
+                                        getPanMobile(request.body)
+                                        .then(validatePanMobile)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{return reject(e)})
+                break;
             
             case "validateOTP"      :   
                                         if(request.body.data.toLowerCase().includes("resend")&&request.body.tags.sessionId){
