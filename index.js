@@ -81,7 +81,7 @@ function getMobile(model){
                 }
             }
             else{
-                return resolve(model);
+                return reject("Please enter a valid mobile number.");
             }
         }
         catch(e){
