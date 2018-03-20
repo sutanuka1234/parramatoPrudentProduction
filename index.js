@@ -30,12 +30,18 @@ app.post('/:type',(req, res)=>{
 function filter(request){
     return new Promise(function(resolve, reject){
         switch(request.params.type){
-            case "validatePanMobile"    :  
-                                        getPanMobile(request.body)
-                                        .then(validatePanMobile)
-                                        .then((model)=>{return resolve(model)})
-                                        .catch((e)=>{return reject(e)})
+            
+            case "getMobile"        :   
+                                        getMobile(request.body)
                 break;
+                
+                
+//            case "validatePanMobile"    :  
+//                                        getPanMobile(request.body)
+//                                        .then(validatePanMobile)
+//                                        .then((model)=>{return resolve(model)})
+//                                        .catch((e)=>{return reject(e)})
+//                break;
             
             case "validateOTP"      :   
                                         if(request.body.data.toLowerCase().includes("resend")&&request.body.tags.sessionId){
@@ -54,6 +60,30 @@ function filter(request){
             default                 :   
                                         return reject("No service at this domain.");
                 break;
+        }
+    });
+}
+
+function getMobile(model){
+    return new Promise(function(resolve, reject){
+        try{
+            if(model.data.match(/[0-9]{10}/g)){
+                let mobileData = model.data.match(/[0-9]{10}/g);
+                if(mobileData&&mobileData instanceof Array&&mobileData[0].length==10){
+                    model.tags["mobile"]=mobileData[0];
+                    delete model.stage;
+                    return resolve(model);
+                }
+                else{
+                    return reject("Please enter a valid 10 digit number.")
+                }
+            }
+            else{
+                return resolve(model);
+            }
+        }
+        catch(e){
+            return reject(e);
         }
     });
 }
@@ -239,7 +269,9 @@ function validateOTP(model){
                         body=JSON.parse(body);
                         if(body.Response&&body.Response.length>0){
                             if(body.Response[0].JoinAccId){
-                                console.log(JSON.stringify(body.Response[0])+"ACCOUNT DETAILS")
+                                console.log(JSON.stringify(body.Response[0])+"ACCOUNT DETAILS");
+                                model.tags.JoinAccId=body.Response[0].JoinAccId;
+                                model.tags.JoinHolderName=body.Response[0].JoinHolderName;
                                 delete model.stage;
                                 return resolve(model);
                             }
@@ -418,4 +450,8 @@ function sendExternalData(data){
             return reject(e)
         }
     });
+}
+
+function makeRequest(){
+    
 }
