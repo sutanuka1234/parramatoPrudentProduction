@@ -180,7 +180,7 @@ function validatePanMobile(model){
         }
         else if(model.tags.pan){
             let reply={
-                text    : "Ive got your pan ..please share your number as well.",
+                text    : "Please share your mobile number as well.",
                 type    : "text",
                 sender  : model.sender,
                 language: "en"
@@ -193,7 +193,7 @@ function validatePanMobile(model){
         }
         else if(model.tags.mobile){
              let reply={
-                text    : "Ive got your mobile ..please share your pan as well.",
+                text    : "Please share your pan as well.",
                 type    : "text",
                 sender  : model.sender,
                 language: "en"
