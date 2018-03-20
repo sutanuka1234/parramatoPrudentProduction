@@ -71,12 +71,14 @@ function getMobile(model){
         try{
             if(model.data.match(/[0-9]/g)){
                 let mobileData = model.data.match(/[0-9]{10}/g);
-                if(mobileData&&mobileData instanceof Array&&mobileData[0].length==10){
+                if(mobileData&&mobileData[0].length==10&&mobileData instanceof Array){
+                    console.log("NO present")
                     model.tags["mobile"]=mobileData[0];
                     delete model.stage;
                     return resolve(model);
                 }
                 else{
+                    console.log("No present but not 10 length")
                     return reject("Please enter a valid 10 digit mobile number.")
                 }
             }
