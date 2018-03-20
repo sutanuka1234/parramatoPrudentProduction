@@ -71,7 +71,7 @@ function getMobile(model){
         try{
             if(model.data.match(/[0-9]/g)){
                 let mobileData = model.data.match(/[0-9]{10}/g);
-                if(mobileData&&mobileData[0].length==10&&mobileData instanceof Array){
+                if(mobileData&&mobileData[0].toString().length==10&&mobileData instanceof Array){
                     console.log("NO present")
                     model.tags["mobile"]=mobileData[0];
                     delete model.stage;
