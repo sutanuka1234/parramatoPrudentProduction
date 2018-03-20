@@ -40,7 +40,7 @@ function filter(request){
                 
             case "validatePanMobile"    :  
                                         getPanMobile(request.body)
-                                        .then(validatePanMobile)
+                                            .then(validatePanMobile)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{return reject(e)})
                 break;
@@ -145,6 +145,8 @@ function validatePanMobile(model){
                     return resolve(model);
                 }
                 else if(data.fail){
+                    delete model.tags.pan;
+                    delete model.tags.mobile;
                     let reply={
                         text    : data.reason,
                         type    : "text",
