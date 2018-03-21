@@ -73,8 +73,9 @@ function validateMobile(model){
             if(model.data.match(/^\d+$/g)){
 //                let mobileData = model.data.match(/[0-9]{10}/g);
                 let mobileData = model.data.match(/^\d+$/g);
+                console.log(mobileData[0]+"---");
+                
                 if(mobileData && mobileData[0].toString().length==10 && mobileData instanceof Array){
-                    console.log(mobileData[0]);
                     model.tags["mobile"]=mobileData[0];
                     delete model.stage;
                     return resolve(model);
