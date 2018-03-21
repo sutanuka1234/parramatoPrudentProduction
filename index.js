@@ -188,11 +188,11 @@ function postValidateMobile(model){
                         text=model.tags.mobileValidatedData;
                     }
                     else{
-                        text="Please enter a valid mobile number."
+                        text="Hey, that doesn't seem a correct one :( Kindly enter a valid mobile phone number."
                     }
                 }
                 else{
-                    text="Please enter a valid mobile number."
+                    text="Hey, that doesn't seem a correct one :( Kindly enter a valid mobile phone number."
                 }
                 model.reply={
                     text:text,
@@ -224,11 +224,11 @@ function postValidatePan(model){
                         text=model.tags.panValidatedData;
                     }
                     else{
-                        text="Please enter a valid pan."
+                        text="Sorry thats not the one :( You are requested to enter a valid PAN number. A valid PAN  looks like this- abcde1234f :)"
                     }
                 }
                 else{
-                    text="Please enter a valid pan."
+                    text="Sorry thats not the one :( You are requested to enter a valid PAN number. A valid PAN  looks like this- abcde1234f :)"
                 }
                 model.reply={
                     text:text,
