@@ -661,16 +661,9 @@ function resendOTP(model){
                             else{
                                 let reply={
                                     text    : body.Response[0].reject_reason,
-                                    type    : "button",
+                                    type    : "text",
                                     sender  : model.sender,
-                                    next    : {
-                                                "data": [
-                                                {
-                                                    "text": "Resend OTP",
-                                                    "data": "Resend OTP"
-                                                }
-                                            ]
-                                    },
+                                    next    : {},
                                     language: "en"
                                 }
                                 sendExternalData(reply)
