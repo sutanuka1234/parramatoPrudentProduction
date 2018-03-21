@@ -73,6 +73,12 @@ function filter(request){
                                         .catch((e)=>{return reject(e)})
                 break;
                 
+            case "postValidatePan"  :
+                                        postValidatePan(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{return reject(e)})
+                break;
+                
             default                 :   
                                         return reject("No service at this domain.");
                 break;
@@ -124,7 +130,8 @@ function validatePan(model){
             }
             else{
                 model.tags.panValidated="not validated";
-                return reject("Please enter a valid pan.")
+                model.tags.panValidatedData="Please enter a valid pan.";
+                return reject(null)
             }
         }
         catch(e){
@@ -144,9 +151,43 @@ function postValidateMobile(model){
                 if(model.tags.mobileValidatedData){
                     text=model.tags.mobileValidatedData;
                 }
+                else{
+                    text="Please enter a valid mobile number."
+                }
+                
             }
             else{
                 text="Please enter a valid mobile number."
+            }
+            model.reply={
+                text:text,
+                type:"text",
+                next:{}
+            }
+        }
+        catch(e){
+            return reject(e);
+        }
+    });
+}
+
+function postValidatePan(model){
+    return new Promise(function(resolve, reject){
+        try{
+            let text;
+            if(model.tags.panValidated&&model.tags.panValidated=="validated"){
+                return resolve(model);
+            }
+            else if(model.tags.panValidated&&model.tags.panValidated=="not validated"){
+                if(model.tags.panValidatedData){
+                    text=model.tags.panValidatedData;
+                }
+                else{
+                    text="Please enter a valid pan."
+                }
+            }
+            else{
+                text="Please enter a valid pan."
             }
             model.reply={
                 text:text,
