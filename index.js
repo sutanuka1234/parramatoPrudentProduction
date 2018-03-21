@@ -72,7 +72,7 @@ function validateMobile(model){
             if(model.data.match(/[0-9]/g)){
                 let mobileData = model.data.match(/[0-9]{10}/g);
                 if(mobileData && mobileData[0].toString().length==10 && mobileData instanceof Array){
-                    console.log(mobileData[0].length+"mobileData[0]length")
+                    console.log(mobileData[0]+"mobileData[0]")
                     model.tags["mobile"]=mobileData[0];
                     delete model.stage;
                     return resolve(model);
