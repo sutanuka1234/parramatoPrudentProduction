@@ -125,7 +125,7 @@ function validatePan(model){
             let panData = model.data.match("[a-z|A-Z]{5}[0-9]{4}[a-z|A-Z]");
             if(panData&&panData instanceof Array){
                 model.tags["pan"]=panData[0];
-                 model.tags.panValidated="validated";
+                model.tags.panValidated="validated";
                 return resolve(model);
             }
             else{
@@ -143,26 +143,28 @@ function validatePan(model){
 function postValidateMobile(model){
     return new Promise(function(resolve, reject){   
         try{
-            let text;
-            if(model.tags.mobileValidated&&model.tags.mobileValidated=="validated"){
-                return resolve(model);
-            }
-            else if(model.tags.mobileValidated&&model.tags.mobileValidated=="not validated"){
-                if(model.tags.mobileValidatedData){
-                    text=model.tags.mobileValidatedData;
+            if(model.tags.mobileValidated){
+                let text;
+                if(model.tags.mobileValidated&&model.tags.mobileValidated=="validated"){
+                    return resolve(model);
+                }
+                else if(model.tags.mobileValidated&&model.tags.mobileValidated=="not validated"){
+                    if(model.tags.mobileValidatedData){
+                        text=model.tags.mobileValidatedData;
+                    }
+                    else{
+                        text="Please enter a valid mobile number."
+                    }
+
                 }
                 else{
                     text="Please enter a valid mobile number."
                 }
-                
-            }
-            else{
-                text="Please enter a valid mobile number."
-            }
-            model.reply={
-                text:text,
-                type:"text",
-                next:{}
+                model.reply={
+                    text:text,
+                    type:"text",
+                    next:{}
+                }
             }
             return resolve(model);
         }
@@ -175,27 +177,29 @@ function postValidateMobile(model){
 function postValidatePan(model){
     return new Promise(function(resolve, reject){
         try{
-            let text;
-            if(model.tags.panValidated&&model.tags.panValidated=="validated"){
-                return resolve(model);
-            }
-            else if(model.tags.panValidated&&model.tags.panValidated=="not validated"){
-                if(model.tags.panValidatedData){
-                    text=model.tags.panValidatedData;
+            if(model.tags.panValidated){
+                let text;
+                if(model.tags.panValidated&&model.tags.panValidated=="validated"){
+                    return resolve(model);
+                }
+                else if(model.tags.panValidated&&model.tags.panValidated=="not validated"){
+                    if(model.tags.panValidatedData){
+                        text=model.tags.panValidatedData;
+                    }
+                    else{
+                        text="Please enter a valid pan."
+                    }
                 }
                 else{
                     text="Please enter a valid pan."
                 }
+                model.reply={
+                    text:text,
+                    type:"text",
+                    next:{}
+                }
+                return resolve(model);
             }
-            else{
-                text="Please enter a valid pan."
-            }
-            model.reply={
-                text:text,
-                type:"text",
-                next:{}
-            }
-            return resolve(model);
         }
         catch(e){
             return reject(e);
