@@ -38,12 +38,20 @@ function filter(request){
                 break;
                 
                 
-//            case "validatePanMobile"    :  
+//            case "validatePanMobileByApi"    :  
 //                                        getPanMobile(request.body)
-//                                            .then(validatePanMobile)
+//                                            .then(validatePanMobileByApi)
 //                                        .then((model)=>{return resolve(model)})
 //                                        .catch((e)=>{return reject(e)})
 //                break;
+                
+            case "validatePan"      :
+                                        validatePan(request.body)
+                                        .then(validatePanMobileByApi)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{return reject(e)})
+                                        
+                break;
             
             case "validateOTP"      :   
                                         if(request.body.data.toLowerCase().includes("resend")&&request.body.tags.sessionId){
@@ -95,6 +103,24 @@ function validateMobile(model){
     });
 }
 
+function validatePan(model){
+    return new Promise(function(resolve, reject){
+        try{
+            let panData = model.data.match("[a-z|A-Z]{5}[0-9]{4}[a-z|A-Z]");
+            if(panData&&panData instanceof Array){
+                model.tags["pan"]=panData[0];
+                return resolve(model);
+            }
+            else{
+                return reject("Please enter a valid pan.")
+            }
+        }
+        catch(e){
+            return reject(e);
+        }
+    });
+}
+
 function getPanMobile(model){
     return new Promise(function(resolve, reject){
         try{
@@ -135,7 +161,7 @@ function getOTP(model){
     })
 }
 
-function validatePanMobile(model){
+function validatePanMobileByApi(model){
     return new Promise(function(resolve, reject){
         console.log(JSON.stringify(model)+"++++++++++++++++++++")
         if(model.tags.pan&&model.tags.mobile){
