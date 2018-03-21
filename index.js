@@ -85,6 +85,7 @@ function filter(request){
                                         postValidateOtp(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{return reject(e)})
+                break;
                 
             default                 :   
                                         return reject("No service at this domain.");
