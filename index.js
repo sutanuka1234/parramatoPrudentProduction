@@ -225,8 +225,12 @@ function postValidateOtp(model){
         try{
             if(model.tags.otpValidateReply){
                 model.reply=model.tags.otpValidateReply;
+                delete model.tags.otpValidateReply;
             }
-            delete model.tags.otpValidateReply;
+            else if(model.tags.otpResentReply){
+                model.reply=model.tags.otpResentReply;
+                delete model.tags.otpResentReply;
+            }
             return resolve(model);
         }
         catch(e){
@@ -570,6 +574,10 @@ function resendOTP(model){
                                 }
                                 sendExternalData(reply)
                                 .then((data)=>{
+                                    model.tags.otpResent={
+                                        text    : "Please try again.",
+                                        type    : "text"
+                                    };
                                     return resolve(model)})
                                 .catch((e)=>{return reject(e)})
                         }
@@ -590,6 +598,10 @@ function resendOTP(model){
                             }
                             sendExternalData(reply)
                             .then((data)=>{
+                                model.tags.otpResent={
+                                        text    : "Please try again.",
+                                        type    : "text"
+                                };
                                 return resolve(model)})
                             .catch((e)=>{return reject(e)})
                         }
@@ -610,6 +622,10 @@ function resendOTP(model){
                             }
                             sendExternalData(reply)
                             .then((data)=>{
+                                model.tags.otpResent={
+                                        text    : "Please try again.",
+                                        type    : "text"
+                                };
                                 return resolve(model)})
                             .catch((e)=>{return reject(e)})
                         }
