@@ -300,7 +300,7 @@ function getOTP(model){
                 if(model.tags.otp){
                     delete model.tags.otp;
                 }
-                if(&&model.data.match(/\d+/)[0]&&&&model.data.match(/\d+/)[0]){
+                if(model.data.match(/\d+/)&&model.data.match(/\d+/)[0]){
                     model.tags.otpValidateReply={
                         text:"Enter a valid OTP code.",
                         type:"text",
