@@ -220,9 +220,9 @@ function postValidatePan(model){
 function postValidateOtp(model){
     return new Promise(function(resolve, reject){
         try{
-            if(model.tags.otpValidateReply){
-                model.reply=model.tags.otpValidateReply;
-            }
+//            if(model.tags.otpValidateReply){
+//                model.reply=model.tags.otpValidateReply;
+//            }
             console.log("IN POST VALIDATE OTP")
             return resolve(model);
         }
