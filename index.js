@@ -262,7 +262,17 @@ function validatePanMobileByApi(model){
                 if(data.sessionId){
                     model.tags.sessionId=data.sessionId;
                     delete model.stage;
-                    
+                    let reply={
+                        text    : "Your details are validated.",
+                        type    : "text",
+                        sender  : model.sender,
+                        language: "en"
+                    }
+                    sendExternalData(reply)
+                    .then((data)=>{
+                        return resolve(model);
+                    })
+                    .catch((e)=>{return reject(e)})
                     return resolve(model);
                 }
                 else if(data.fail){
