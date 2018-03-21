@@ -555,7 +555,7 @@ function validateOTP(model){
 function resendOTP(model){
     return new Promise(function(resolve, reject){
         try{
-            if(model.tags.otp){
+//            if(model.tags.otp){
                 var requestParams = {
                     method  : 'POST',
                     url     : url+"ReSend?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId,
@@ -637,10 +637,10 @@ function resendOTP(model){
                         }
                     }
                 })
-            }
+//            }
         }
         catch(e){
-            
+            return reject(e);
         }
     })                   
 }
