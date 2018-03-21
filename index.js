@@ -574,7 +574,7 @@ function resendOTP(model){
                                 }
                                 sendExternalData(reply)
                                 .then((data)=>{
-                                    model.tags.otpResent={
+                                    model.tags.otpResentReply={
                                         text    : "Please try again.",
                                         type    : "text"
                                     };
@@ -598,7 +598,7 @@ function resendOTP(model){
                             }
                             sendExternalData(reply)
                             .then((data)=>{
-                                model.tags.otpResent={
+                                model.tags.otpResentReply={
                                         text    : "Please try again.",
                                         type    : "text"
                                 };
@@ -622,7 +622,7 @@ function resendOTP(model){
                             }
                             sendExternalData(reply)
                             .then((data)=>{
-                                model.tags.otpResent={
+                                model.tags.otpResentReply={
                                         text    : "Please try again.",
                                         type    : "text"
                                 };
