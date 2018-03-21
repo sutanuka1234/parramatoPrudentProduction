@@ -134,13 +134,13 @@ function validateMobile(model){
                 }
                 else{
                     model.tags.mobileValidated="not validated";
-                    model.tags.mobileValidatedData="Please enter a valid 10 digit mobile number."
+                    model.tags.mobileValidatedData="Hey, that doesn't seem a correct one :( Kindly enter a valid 10 digit mobile phone number."
                     return resolve(model);
                 }
             }
             else{
                 model.tags.mobileValidated="not validated";
-                model.tags.mobileValidatedData="Please enter a valid mobile number.";
+                model.tags.mobileValidatedData="Hey, that doesn't seem a correct one :( Kindly enter a valid mobile phone number.";
                 return resolve(model);
             }
         }
@@ -162,7 +162,7 @@ function validatePan(model){
             }
             else{
                 model.tags.panValidated="not validated";
-                model.tags.panValidatedData="Please enter a valid pan.";
+                model.tags.panValidatedData="Sorry thats not the one :( You are requested to enter a valid PAN number. A valid PAN  looks like this- abcde1234f :)";
                 return resolve(model)
             }
         }
@@ -302,7 +302,7 @@ function getOTP(model){
                 }
                 if(model.data.match(/\d+/)&&model.data.match(/\d+/)[0]){
                     model.tags.otpValidateReply={
-                        text:"Enter a valid 6 digit OTP code.",
+                        text:"Please enter a valid 6 digit OTP code.",
                         type:"text",
                         next:{}
                     }
@@ -310,7 +310,7 @@ function getOTP(model){
                 }
                 else{
                     model.tags.otpValidateReply={
-                        text:"Enter a valid OTP code.",
+                        text:"Sorry. You are requested to enter a valid OTP code. A valid OTP looks like this- 123456 :)",
                         type:"text",
                         next:{}
                     }
@@ -336,7 +336,7 @@ function validatePanMobileByApi(model){
                     model.tags.sessionId=data.sessionId;
                     delete model.stage;
                     let reply={
-                        text    : "Your details are validated.",
+                        text    : "Congratulations! Your details have been validated!",
                         type    : "text",
                         sender  : model.sender,
                         language: "en"
@@ -355,7 +355,7 @@ function validatePanMobileByApi(model){
                     delete model.tags.pan;
                     delete model.tags.mobile;
                     let reply={
-                        text    : data.reason,
+                        text    : "Sorry. It seems this client does not exist. Can you please provide your mobile number?",
                         type    : "text",
                         sender  : model.sender,
                         language: "en"
@@ -499,7 +499,7 @@ function validateOTP(model){
                                     delete model.tags.otpValidateReply;
                                 }
                                 let reply={
-                                    text    : "Correct OTP",
+                                    text    : "Thanks, your OTP is verified ! We can now continue with your investment process :)",
                                     type    : "text",
                                     sender  : model.sender,
                                     next    : {},
@@ -534,7 +534,7 @@ function validateOTP(model){
 //                                    return resolve(model)})
 //                                .catch((e)=>{return reject(e)})
                                 model.tags.otpValidateReply={
-                                    text    :body.Response[0].reject_reason,
+                                    text    :"Oh no, OTP you entered was found to be wrong. Could you please re-enter the OTP?",
                                     type    : "button",
                                     next    : {
                                                 "data": [
@@ -567,7 +567,7 @@ function validateOTP(model){
 //                                    return resolve(model)})
 //                                .catch((e)=>{return reject(e)})
                                 model.tags.otpValidateReply={
-                                    text    :"Something went wrong during API Call",
+                                    text    :"Apologies! Something went wrong while validating your OTP.",
                                     type    : "button",
                                     next    : {
                                                 "data": [
@@ -623,7 +623,7 @@ function resendOTP(model){
                         body=JSON.parse(body);
                         if(body.Response[0].result==="SUCCESS"){
                                 let reply={
-                                    text    : "New OTP has been sent.",
+                                    text    : "Hello! Your new OTP has been sent to your mobile number :)",
                                     type    : "text",
                                     sender  : model.sender,
                                     language: "en"
@@ -631,7 +631,7 @@ function resendOTP(model){
                                 sendExternalData(reply)
                                 .then((data)=>{
                                     model.tags.otpResentReply={
-                                        text    : "Please try again.",
+                                        text    : "You are requested to attempt again.",
                                         type    : "text"
                                     };
                                     return resolve(model)})
@@ -659,7 +659,7 @@ function resendOTP(model){
                                 sendExternalData(reply)
                                 .then((data)=>{
                                     model.tags.otpResentReply={
-                                            text    : "Please try again.",
+                                            text    : "You are requested to attempt again.",
                                             type    : "text"
                                     };
                                     return resolve(model)})
@@ -670,7 +670,7 @@ function resendOTP(model){
                             }
                             else{
                                 let reply={
-                                    text    : body.Response[0].reject_reason,
+                                    text    : "Apologies! The OTP can only be sent two times :(",
                                     type    : "text",
                                     sender  : model.sender,
                                     next    : {},
@@ -689,7 +689,7 @@ function resendOTP(model){
                         }
                         else if(body.Response[0].result==="BADREQUEST"){
                             let reply={
-                                text    : "Something went wrong while resending the OTP.Ending the conversation.",
+                                text    : "Apologies! Something went wrong when re-sending the OTP. I will have to end the conversation.",
                                 type    : "text",
                                 sender  : model.sender,
                                 next    : {},
@@ -698,7 +698,7 @@ function resendOTP(model){
                             sendExternalData(reply)
                             .then((data)=>{
 //                                model.tags.otpResentReply={
-//                                        text    : "Please try again.",
+//                                        text    : "You are requested to attempt again.",
 //                                        type    : "text"
 //                                };
                                 model.stage="final";
