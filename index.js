@@ -81,6 +81,11 @@ function filter(request){
                                         .catch((e)=>{return reject(e)})
                 break;
                 
+            case "postValidateOtp"  :
+                                        postValidateOtp(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{return reject(e)})
+                
             default                 :   
                                         return reject("No service at this domain.");
                 break;
@@ -159,7 +164,6 @@ function postValidateMobile(model){
                     else{
                         text="Please enter a valid mobile number."
                     }
-
                 }
                 else{
                     text="Please enter a valid mobile number."
@@ -213,6 +217,20 @@ function postValidatePan(model){
     });
 }
 
+function postValidateOtp(model){
+    return new Promise(function(resolve, reject){
+        try{
+            if(model.tags.otpValidateReply){
+                model.reply=model.tags.otpValidateReply;
+            }
+            return resolve(model);
+        }
+        catch(e){
+            return reject(e);
+        }
+    })
+}
+
 function getPanMobile(model){
     return new Promise(function(resolve, reject){
         try{
@@ -244,7 +262,13 @@ function getOTP(model){
                 return resolve(model);
             }
             else{
-                return reject("Enter a valid 6 digit OTP code.")
+                model.tags.otpValidateReply={
+                    text:"Enter a valid 6 digit OTP code.";
+                    type:"text";
+                    next:{}
+                }
+                return resolve(model);
+//                return reject("Enter a valid 6 digit OTP code.")
             }
         }
         catch(e){
@@ -411,6 +435,9 @@ function validateOTP(model){
                                 console.log(JSON.stringify(body.Response[0])+"ACCOUNT DETAILS");
                                 model.tags.JoinAccId=body.Response[0].JoinAccId;
                                 model.tags.JoinHolderName=body.Response[0].JoinHolderName;
+                                if(model.tags.otpValidateReply){
+                                    delete model.tags.otpValidateReply;
+                                }
                                 let reply={
                                     text    : "Correct OTP",
                                     type    : "text",
@@ -425,10 +452,27 @@ function validateOTP(model){
                                 .catch((e)=>{return reject(e)})
                             }
                             else if(body.Response[0].result==="FAIL"){
-                                let reply={
-                                    text    : body.Response[0].reject_reason,
+//                                let reply={
+//                                    text    : body.Response[0].reject_reason,
+//                                    type    : "button",
+//                                    sender  : model.sender,
+//                                    next    : {
+//                                                "data": [
+//                                                {
+//                                                    "text": "Resend OTP",
+//                                                    "data": "Resend OTP"
+//                                                }
+//                                            ]
+//                                    },
+//                                    language: "en"
+//                                }
+//                                sendExternalData(reply)
+//                                .then((data)=>{
+//                                    return resolve(model)})
+//                                .catch((e)=>{return reject(e)})
+                                model.tags.otpValidateReply={
+                                    text    :body.Response[0].reject_reason,
                                     type    : "button",
-                                    sender  : model.sender,
                                     next    : {
                                                 "data": [
                                                 {
@@ -436,19 +480,32 @@ function validateOTP(model){
                                                     "data": "Resend OTP"
                                                 }
                                             ]
-                                    },
-                                    language: "en"
+                                    }
                                 }
-                                sendExternalData(reply)
-                                .then((data)=>{
-                                    return resolve(model)})
-                                .catch((e)=>{return reject(e)})
+                                return resolve(model);
                             }
                             else if(body.Response[0].result==="BADREQUEST"){
-                                let reply={
-                                    text    : "Something went wrong during API Call",
+//                                let reply={
+//                                    text    : "Something went wrong during API Call",
+//                                    type    : "button",
+//                                    sender  : model.sender,
+//                                    next    : {
+//                                                "data": [
+//                                                {
+//                                                    "text": "Resend OTP",
+//                                                    "data": "Resend OTP"
+//                                                }
+//                                            ]
+//                                    },
+//                                    language: "en"
+//                                }
+//                                sendExternalData(reply)
+//                                .then((data)=>{
+//                                    return resolve(model)})
+//                                .catch((e)=>{return reject(e)})
+                                model.tags.otpValidateReply={
+                                    text    :"Something went wrong during API Call",
                                     type    : "button",
-                                    sender  : model.sender,
                                     next    : {
                                                 "data": [
                                                 {
@@ -456,13 +513,9 @@ function validateOTP(model){
                                                     "data": "Resend OTP"
                                                 }
                                             ]
-                                    },
-                                    language: "en"
+                                    }
                                 }
-                                sendExternalData(reply)
-                                .then((data)=>{
-                                    return resolve(model)})
-                                .catch((e)=>{return reject(e)})
+                                return resolve(model);
                             }
                             else{
                                 return reject("API Call was not made correctly.");        
