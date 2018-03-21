@@ -62,7 +62,9 @@ function filter(request){
                                         else{
                                             getOTP(request.body)
                                             .then(validateOTP)
-                                            .then((model)=>{return resolve(model)})
+                                            .then((model)=>{
+                                                console.log(JSON.stringify(model)+"AT FILTER--------------")
+                                                return resolve(model)})
                                             .catch((e)=>{return reject(e)})
                                         }
                 break;
