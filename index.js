@@ -274,7 +274,7 @@ function validatePanMobileByApi(model){
                     }
                     sendExternalData(reply)
                     .then((data)=>{
-                        console.log("INVALID DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                        console.log(JSON.stringify(model)+"INVALID DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
                         model.stage="validateMobile"
                         return resolve(model)})
                     .catch((e)=>{return reject(e)})
