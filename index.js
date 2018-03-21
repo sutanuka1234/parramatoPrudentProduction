@@ -355,7 +355,7 @@ function validatePanMobileByApi(model){
                     delete model.tags.pan;
                     delete model.tags.mobile;
                     let reply={
-                        text    : "Sorry. It seems this client does not exist. Can you please provide your mobile number?",
+                        text    : "Sorry. It seems this client does not exist.",
                         type    : "text",
                         sender  : model.sender,
                         language: "en"
