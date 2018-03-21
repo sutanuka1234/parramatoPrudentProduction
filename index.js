@@ -85,15 +85,18 @@ function validateMobile(model){
                 
                 if(mobileData && mobileData[0].toString().length==10 && mobileData instanceof Array){
                     model.tags["mobile"]=mobileData[0];
+                    model.tags.mobileValidated="validated";
                     delete model.stage;
                     return resolve(model);
                 }
                 else{
+                    model.tags.mobileValidated="not validated";
                     console.log("No present but not 10 length")
                     return reject("Please enter a valid 10 digit mobile number.")
                 }
             }
             else{
+                model.tags.mobileValidated="not validated";
                 return reject("Please enter a valid mobile number.");
             }
         }
@@ -109,9 +112,11 @@ function validatePan(model){
             let panData = model.data.match("[a-z|A-Z]{5}[0-9]{4}[a-z|A-Z]");
             if(panData&&panData instanceof Array){
                 model.tags["pan"]=panData[0];
+                 model.tags.panValidated="validated";
                 return resolve(model);
             }
             else{
+                model.tags.panValidated="not validated";
                 return reject("Please enter a valid pan.")
             }
         }
