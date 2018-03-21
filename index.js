@@ -69,8 +69,10 @@ function filter(request){
 function validateMobile(model){
     return new Promise(function(resolve, reject){
         try{
-            if(model.data.match(/[0-9]/g)){
-                let mobileData = model.data.match(/[0-9]{10}/g);
+//            if(model.data.match(/[0-9]/g)){
+            if(model.data.match(/^\d+$/g)){
+//                let mobileData = model.data.match(/[0-9]{10}/g);
+                let mobileData = model.data.match(/^\d+$/g);
                 if(mobileData && mobileData[0].toString().length==10 && mobileData instanceof Array){
                     console.log(mobileData[0]);
                     model.tags["mobile"]=mobileData[0];
