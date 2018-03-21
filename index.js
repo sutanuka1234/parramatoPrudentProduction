@@ -199,7 +199,7 @@ function postValidatePan(model){
                     next:{}
                 }
             }
-            return resolve(model);
+            return resolve(model);    
         }
         catch(e){
             return reject(e);
