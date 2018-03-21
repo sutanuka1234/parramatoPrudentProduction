@@ -274,12 +274,13 @@ function validatePanMobileByApi(model){
                         sender  : model.sender,
                         language: "en"
                     }
-                    sendExternalData(reply)
-                    .then((data)=>{
-                        model.stage="validateMobile"
-                        console.log(JSON.stringify(model)+"INVALID DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-                        return resolve(model)})
-                    .catch((e)=>{return reject(e)})
+//                    sendExternalData(reply)
+//                    .then((data)=>{
+                    model.stage="validateMobile"
+                    console.log(JSON.stringify(model)+"INVALID DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+//                        return resolve(model)
+//                    })
+//                    .catch((e)=>{return reject(e)})
                     model.message=data.reason;
                     return resolve(model);
                 }
