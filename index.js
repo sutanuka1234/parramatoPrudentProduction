@@ -223,6 +223,7 @@ function postValidateOtp(model){
             if(model.tags.otpValidateReply){
                 model.reply=model.tags.otpValidateReply;
             }
+            console.log("IN POST VALIDATE OTP")
             return resolve(model);
         }
         catch(e){
