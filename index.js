@@ -298,31 +298,31 @@ function validatePanMobileByApi(model){
             })
             .catch((e)=>{return reject(e)})
         }
-        else if(model.tags.pan){
-            let reply={
-                text    : "Please share your mobile number as well.",
-                type    : "text",
-                sender  : model.sender,
-                language: "en"
-            }
-            sendExternalData(reply)
-            .then((data)=>{
-                return resolve(model)
-                            })
-            .catch((e)=>{return reject(e)})
-        }
-        else if(model.tags.mobile){
-             let reply={
-                text    : "Please share your pan as well.",
-                type    : "text",
-                sender  : model.sender,
-                language: "en"
-            }
-            sendExternalData(reply)
-            .then((data)=>{
-                return resolve(model)})
-            .catch((e)=>{return reject(e)})
-        }
+//        else if(model.tags.pan){
+//            let reply={
+//                text    : "Please share your mobile number as well.",
+//                type    : "text",
+//                sender  : model.sender,
+//                language: "en"
+//            }
+//            sendExternalData(reply)
+//            .then((data)=>{
+//                return resolve(model)
+//                            })
+//            .catch((e)=>{return reject(e)})
+//        }
+//        else if(model.tags.mobile){
+//             let reply={
+//                text    : "Please share your pan as well.",
+//                type    : "text",
+//                sender  : model.sender,
+//                language: "en"
+//            }
+//            sendExternalData(reply)
+//            .then((data)=>{
+//                return resolve(model)})
+//            .catch((e)=>{return reject(e)})
+//        }
         else{
             return resolve(model);
         }
