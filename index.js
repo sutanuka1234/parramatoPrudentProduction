@@ -226,6 +226,7 @@ function postValidateOtp(model){
             if(model.tags.otpValidateReply){
                 model.reply=model.tags.otpValidateReply;
             }
+            delete model.tags.otpValidateReply;
             return resolve(model);
         }
         catch(e){
