@@ -263,8 +263,8 @@ function getOTP(model){
             }
             else{
                 model.tags.otpValidateReply={
-                    text:"Enter a valid 6 digit OTP code.";
-                    type:"text";
+                    text:"Enter a valid 6 digit OTP code.",
+                    type:"text",
                     next:{}
                 }
                 return resolve(model);
