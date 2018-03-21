@@ -689,7 +689,7 @@ function resendOTP(model){
                         }
                         else if(body.Response[0].result==="BADREQUEST"){
                             let reply={
-                                text    : "Something went wrong during API Call",
+                                text    : "Something went wrong while resending the OTP.Ending the conversation.",
                                 type    : "text",
                                 sender  : model.sender,
                                 next    : {},
