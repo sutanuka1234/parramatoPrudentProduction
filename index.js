@@ -732,7 +732,7 @@ function sendExternalData(data){
                 request({
                     uri     :'http://bot.meetaina.com/backend/'+projectId+'/external/send',
                     json    :data,
-                    method  :'POST'
+                    method  :'POST'   
                 },(err,req,body)=>{
                     if(err){   
                         console.log(err)
