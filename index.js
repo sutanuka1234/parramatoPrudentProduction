@@ -292,7 +292,7 @@ function getOTP(model){
 //            if(otpData&&otpData instanceof Array){
 //                model.tags["otp"]=otpData[0]
 //            }
-            if(model.data.match(/\d+/)&&model.data.match(/\d+/)[0].length == 6){
+            if(model.data.match(/\d+/)&&model.data.match(/\d+/)[0]&&model.data.match(/\d+/)[0].length == 6){
                 model.tags["otp"]=model.data.match(/\d+/)[0];
                 return resolve(model);
             }
@@ -300,12 +300,22 @@ function getOTP(model){
                 if(model.tags.otp){
                     delete model.tags.otp;
                 }
-                model.tags.otpValidateReply={
-                    text:"Enter a valid 6 digit OTP code.",
-                    type:"text",
-                    next:{}
+                if(&&model.data.match(/\d+/)[0]&&&&model.data.match(/\d+/)[0]){
+                    model.tags.otpValidateReply={
+                        text:"Enter a valid OTP code.",
+                        type:"text",
+                        next:{}
+                    }
+                    return resolve(model);
                 }
-                return resolve(model);
+                else{
+                    model.tags.otpValidateReply={
+                        text:"Enter a valid 6 digit OTP code.",
+                        type:"text",
+                        next:{}
+                    }
+                    return resolve(model);
+                }
 //                return reject("Enter a valid 6 digit OTP code.")
             }
         }
