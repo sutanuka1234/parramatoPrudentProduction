@@ -376,12 +376,12 @@ function makePanMobileValidationRequest(requestData,urlExtension){
                         }
                     }
                     else{
-                        return reject("Something went wrong.1111");
+                        return reject("Something went wrong.");
                     }
                 }
                 else{
                     console.log(error)
-                    return reject("Something went wrong.2222222");
+                    return reject("Something went wrong.");
                 }
             })
         }
@@ -411,8 +411,18 @@ function validateOTP(model){
                                 console.log(JSON.stringify(body.Response[0])+"ACCOUNT DETAILS");
                                 model.tags.JoinAccId=body.Response[0].JoinAccId;
                                 model.tags.JoinHolderName=body.Response[0].JoinHolderName;
-                                delete model.stage;
-                                return resolve(model);
+                                let reply={
+                                    text    : "Correct OTP",
+                                    type    : "text",
+                                    sender  : model.sender,
+                                    next    : {},
+                                    language: "en"
+                                }
+                                sendExternalData(reply)
+                                .then((data)=>{
+                                    delete model.stage;
+                                    return resolve(model)})
+                                .catch((e)=>{return reject(e)})
                             }
                             else if(body.Response[0].result==="FAIL"){
                                 let reply={
@@ -459,7 +469,7 @@ function validateOTP(model){
                             }
                         }
                         else{
-                            return reject("Something went wrong.33333");
+                            return reject("Something went wrong.");
                         }
                     }
                     else{
@@ -582,7 +592,7 @@ function sendExternalData(data){
                 })		
             }
             else{
-                return reject("Something went wrong.44444");    
+                return reject("Something went wrong.");    
             }
         }catch(e){
             console.log(e)
