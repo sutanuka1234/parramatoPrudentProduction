@@ -104,13 +104,13 @@ function validateMobile(model){
                 else{
                     model.tags.mobileValidated="not validated";
                     model.tags.mobileValidatedData="Please enter a valid 10 digit mobile number."
-                    return resolve(null);
+                    return resolve(model);
                 }
             }
             else{
                 model.tags.mobileValidated="not validated";
                 model.tags.mobileValidatedData="Please enter a valid mobile number.";
-                return resolve(null);
+                return resolve(model);
             }
         }
         catch(e){
@@ -131,7 +131,7 @@ function validatePan(model){
             else{
                 model.tags.panValidated="not validated";
                 model.tags.panValidatedData="Please enter a valid pan.";
-                return resolve(null)
+                return resolve(model)
             }
         }
         catch(e){
