@@ -34,7 +34,10 @@ function filter(request){
             case "validateMobile"   :   
                                         validateMobile(request.body)
                                         .then((model)=>{return resolve(model)})
-                                        .catch((e)=>{return reject(e)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
                 break;
                 
                 
@@ -49,7 +52,10 @@ function filter(request){
                                         validatePan(request.body)
                                         .then(validatePanMobileByApi)
                                         .then((model)=>{return resolve(model)})
-                                        .catch((e)=>{return reject(e)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
                                         
                 break;
             
@@ -58,7 +64,10 @@ function filter(request){
                                             console.log("IN RESEND PART");
                                             resendOTP(request.body)
                                             .then((model)=>{return resolve(model)})
-                                            .catch((e)=>{return reject(e)})
+                                            .catch((e)=>{
+                                                console.log(e);
+                                                return reject("Something went wrong.")
+                                            })
                                         }
                                         else{
                                             console.log("VALIDATING OTP")
@@ -67,26 +76,38 @@ function filter(request){
                                             .then((model)=>{
                                                 console.log(JSON.stringify(model)+"AT FILTER--------------")
                                                 return resolve(model)})
-                                            .catch((e)=>{return reject(e)})
+                                            .catch((e)=>{
+                                                console.log(e);
+                                                return reject("Something went wrong.");
+                                            })
                                         }
                 break;
             
             case "postValidateMobile":
                                         postValidateMobile(request.body)
                                         .then((model)=>{return resolve(model)})
-                                        .catch((e)=>{return reject(e)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
                 break;
                 
             case "postValidatePan"  :
                                         postValidatePan(request.body)
                                         .then((model)=>{return resolve(model)})
-                                        .catch((e)=>{return reject(e)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        })
                 break;
                 
             case "postValidateOtp"  :
                                         postValidateOtp(request.body)
                                         .then((model)=>{return resolve(model)})
-                                        .catch((e)=>{return reject(e)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
                 break;
                 
             default                 :   
@@ -124,7 +145,8 @@ function validateMobile(model){
             }
         }
         catch(e){
-            return reject(e);
+            console.log(e)
+            return reject("Something went wrong.");
         }
     });
 }
@@ -145,7 +167,8 @@ function validatePan(model){
             }
         }
         catch(e){
-            return reject(e);
+            console.log(e);
+            return reject("Something went wrong.");
         }
     });
 }
@@ -180,7 +203,8 @@ function postValidateMobile(model){
             return resolve(model);
         }
         catch(e){
-            return reject(e);
+            console.log(e);
+            return reject("Something went wrong.");
         }
     });
 }
@@ -215,7 +239,8 @@ function postValidatePan(model){
             return resolve(model);    
         }
         catch(e){
-            return reject(e);
+            console.log(e);
+            return reject("Something went wrong.");
         }
     });
 }
@@ -234,7 +259,8 @@ function postValidateOtp(model){
             return resolve(model);
         }
         catch(e){
-            return reject(e);
+            console.log(e)
+            return reject("Something went wrong.");
         }
     })
 }
@@ -253,7 +279,8 @@ function getPanMobile(model){
             return resolve(model);
         }
         catch(e){
-            return reject(e);
+            console.log(e);
+            return reject("Something went wrong.");
         }
     });
 }
@@ -283,7 +310,8 @@ function getOTP(model){
             }
         }
         catch(e){
-            return reject(e);
+            console.log(e);
+            return reject("Something went wrong.");
         }
     })
 }
@@ -307,8 +335,11 @@ function validatePanMobileByApi(model){
                     .then((data)=>{
                         return resolve(model);
                     })
-                    .catch((e)=>{return reject(e)})
-                    return resolve(model);
+                    .catch((e)=>{
+                        console.log(e);
+                        return reject("Something went wrong.")
+                    })
+//                    return resolve(model);
                 }
                 else if(data.fail){
                     delete model.tags.pan;
@@ -326,7 +357,10 @@ function validatePanMobileByApi(model){
                         model.message=data.reason;
                         return resolve(model);
                     })
-                    .catch((e)=>{return reject(e)})
+                    .catch((e)=>{
+                        console.log(e);
+                        return reject("Something went wrong.");
+                    })
                 }
                 else if(data.badRequest){
                     let reply={
@@ -337,14 +371,18 @@ function validatePanMobileByApi(model){
                     }
                     sendExternalData(reply)
                     .then((data)=>{
+                        model.message=data.reason;
                         return resolve(model)})
-                    .catch((e)=>{return reject(e)})
-                    model.message=data.reason;
-                    return resolve(model);
-                    return resolve(model);    
+                    .catch((e)=>{
+                        console.log(e);    
+                        return reject("Something went wrong.")
+                    })   
                 }
             })
-            .catch((e)=>{return reject(e)})
+            .catch((e)=>{
+                console.log(e);
+                return reject("Something went wrong.")
+            });
         }
 //        else if(model.tags.pan){
 //            let reply={
@@ -421,7 +459,8 @@ function makePanMobileValidationRequest(requestData,urlExtension){
             })
         }
         catch(e){
-            return reject(e)
+            console.log(e);
+            return reject("Something went wrong.");
         }
     })
 }
@@ -460,7 +499,10 @@ function validateOTP(model){
                                 .then((data)=>{
                                     delete model.stage;
                                     return resolve(model)})
-                                .catch((e)=>{return reject(e)})
+                                .catch((e)=>{
+                                    console.log(e);
+                                    return reject("Something went wrong.");
+                                })
                             }
                             else if(body.Response[0].result==="FAIL"){
 //                                let reply={
@@ -547,7 +589,8 @@ function validateOTP(model){
             }
         }
         catch(e){
-            return reject(e);
+            console.log(e);
+            return reject("Something went wrong.");
         }
     })
 }
@@ -582,65 +625,96 @@ function resendOTP(model){
                                         type    : "text"
                                     };
                                     return resolve(model)})
-                                .catch((e)=>{return reject(e)})
+                                .catch((e)=>{
+                                    console.log(e);
+                                    return reject("Something went wrong.")
+                                })
                         }
                         else if(body.Response[0].result==="FAIL"){
-                            let reply={
-                                text    : body.Response[0].reject_reason,
-                                type    : "button",
-                                sender  : model.sender,
-                                next    : {
-                                            "data": [
-                                            {
-                                                "text": "Resend OTP",
-                                                "data": "Resend OTP"
-                                            }
-                                        ]
-                                },
-                                language: "en"
+                            if(body.Response[0].reject_reason=="Wrong OTP re-enter OTP code."){
+                                let reply={
+                                    text    : body.Response[0].reject_reason,
+                                    type    : "button",
+                                    sender  : model.sender,
+                                    next    : {
+                                                "data": [
+                                                {
+                                                    "text": "Resend OTP",
+                                                    "data": "Resend OTP"
+                                                }
+                                            ]
+                                    },
+                                    language: "en"
+                                }
+                                sendExternalData(reply)
+                                .then((data)=>{
+                                    model.tags.otpResentReply={
+                                            text    : "Please try again.",
+                                            type    : "text"
+                                    };
+                                    return resolve(model)})
+                                .catch((e)=>{
+                                    console.log(e);
+                                    return reject("Something went wrong.")
+                                });
                             }
-                            sendExternalData(reply)
-                            .then((data)=>{
-                                model.tags.otpResentReply={
-                                        text    : "Please try again.",
-                                        type    : "text"
-                                };
-                                return resolve(model)})
-                            .catch((e)=>{return reject(e)})
+                            else{
+                                let reply={
+                                    text    : body.Response[0].reject_reason,
+                                    type    : "button",
+                                    sender  : model.sender,
+                                    next    : {
+                                                "data": [
+                                                {
+                                                    "text": "Resend OTP",
+                                                    "data": "Resend OTP"
+                                                }
+                                            ]
+                                    },
+                                    language: "en"
+                                }
+                                sendExternalData(reply)
+                                .then((data)=>{
+                                    model.stage="final";
+                                    return resolve(model)})
+                                .catch((e)=>{
+                                    console.log(e);
+                                    return reject("Something went wrong.")
+                                });
+                                
+                            }
                         }
                         else if(body.Response[0].result==="BADREQUEST"){
                             let reply={
                                 text    : "Something went wrong during API Call",
-                                type    : "button",
+                                type    : "text",
                                 sender  : model.sender,
-                                next    : {
-                                            "data": [
-                                            {
-                                                "text": "Resend OTP",
-                                                "data": "Resend OTP"
-                                            }
-                                        ]
-                                },
+                                next    : {},
                                 language: "en"
                             }
                             sendExternalData(reply)
                             .then((data)=>{
-                                model.tags.otpResentReply={
-                                        text    : "Please try again.",
-                                        type    : "text"
-                                };
+//                                model.tags.otpResentReply={
+//                                        text    : "Please try again.",
+//                                        type    : "text"
+//                                };
+                                model.stage="final";
                                 return resolve(model)})
-                            .catch((e)=>{return reject(e)})
+                            .catch((e)=>{
+                                console.log(e);
+                                return reject("Something went wrong.")
+                            })
                         }
                         else{
-                            return reject("API Call was not made correctly.");        
+                            return reject("Something went wrong.");        
                         }
                     }
                 })
 //            }
         }
         catch(e){
-            return reject(e);
+            console.log(e);
+            return reject("Something went wrong.");
         }
     })                   
 }
@@ -659,7 +733,7 @@ function sendExternalData(data){
                 },(err,req,body)=>{
                     if(err){   
                         console.log(err)
-                        return reject(err);
+                        return reject("Something went wrong.");
                     }
                     else{
                         console.log(body);
@@ -672,11 +746,7 @@ function sendExternalData(data){
             }
         }catch(e){
             console.log(e)
-            return reject(e)
+            return reject("Something went wrong.")
         }
     });
-}
-
-function makeRequest(){
-    
 }
