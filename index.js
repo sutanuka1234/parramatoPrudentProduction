@@ -146,6 +146,8 @@ function postValidateMobile(model){
             if(model.tags.mobileValidated){
                 let text;
                 if(model.tags.mobileValidated&&model.tags.mobileValidated=="validated"){
+                    delete model.tags.mobileValidated;
+                    delete model.tags.mobileValidated;
                     return resolve(model);
                 }
                 else if(model.tags.mobileValidated&&model.tags.mobileValidated=="not validated"){
@@ -180,6 +182,8 @@ function postValidatePan(model){
             if(model.tags.panValidated){
                 let text;
                 if(model.tags.panValidated&&model.tags.panValidated=="validated"){
+                    delete model.tags.panValidated;
+                    delete model.tags.panValidated;
                     return resolve(model);
                 }
                 else if(model.tags.panValidated&&model.tags.panValidated=="not validated"){
