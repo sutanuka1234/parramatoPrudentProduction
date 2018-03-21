@@ -31,19 +31,19 @@ function filter(request){
     return new Promise(function(resolve, reject){
         switch(request.params.type){
             
-//            case "getMobile"        :   
-//                                        getMobile(request.body)
-//                                        .then((model)=>{return resolve(model)})
-//                                        .catch((e)=>{return reject(e)})
-//                break;
-                
-                
-            case "validatePanMobile"    :  
-                                        getPanMobile(request.body)
-                                            .then(validatePanMobile)
+            case "validateMobile"   :   
+                                        validateMobile(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{return reject(e)})
                 break;
+                
+                
+//            case "validatePanMobile"    :  
+//                                        getPanMobile(request.body)
+//                                            .then(validatePanMobile)
+//                                        .then((model)=>{return resolve(model)})
+//                                        .catch((e)=>{return reject(e)})
+//                break;
             
             case "validateOTP"      :   
                                         if(request.body.data.toLowerCase().includes("resend")&&request.body.tags.sessionId){
@@ -66,13 +66,13 @@ function filter(request){
     });
 }
     
-function getMobile(model){
+function validateMobile(model){
     return new Promise(function(resolve, reject){
         try{
             if(model.data.match(/[0-9]/g)){
                 let mobileData = model.data.match(/[0-9]{10}/g);
-                if(mobileData&&mobileData[0].toString().length==10&&mobileData instanceof Array){
-                    console.log("NO present")
+                if(mobileData && mobileData[0].toString().length==10 && mobileData instanceof Array){
+                    console.log(mobileData[0].length+"mobileData[0]length")
                     model.tags["mobile"]=mobileData[0];
                     delete model.stage;
                     return resolve(model);
