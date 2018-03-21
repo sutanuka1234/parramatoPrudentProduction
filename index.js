@@ -55,11 +55,13 @@ function filter(request){
             
             case "validateOTP"      :   
                                         if(request.body.data.toLowerCase().includes("resend")&&request.body.tags.sessionId){
+                                            console.log("IN RESEND PART");
                                             resendOTP(request.body)
                                             .then((model)=>{return resolve(model)})
                                             .catch((e)=>{return reject(e)})
                                         }
                                         else{
+                                            console.log("VALIDATING OTP")
                                             getOTP(request.body)
                                             .then(validateOTP)
                                             .then((model)=>{
