@@ -67,6 +67,12 @@ function filter(request){
                                         }
                 break;
             
+            case "postValidateMobile":
+                                        postValidateMobile(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{return reject(e)})
+                break;
+                
             default                 :   
                                         return reject("No service at this domain.");
                 break;
@@ -91,13 +97,14 @@ function validateMobile(model){
                 }
                 else{
                     model.tags.mobileValidated="not validated";
-                    console.log("No present but not 10 length")
-                    return reject("Please enter a valid 10 digit mobile number.")
+                    model.tags.mobileValidatedData="Please enter a valid 10 digit mobile number."
+                    return reject(null);
                 }
             }
             else{
                 model.tags.mobileValidated="not validated";
-                return reject("Please enter a valid mobile number.");
+                model.tags.mobileValidatedData="Please enter a valid mobile number.";
+                return reject(null);
             }
         }
         catch(e){
@@ -118,6 +125,33 @@ function validatePan(model){
             else{
                 model.tags.panValidated="not validated";
                 return reject("Please enter a valid pan.")
+            }
+        }
+        catch(e){
+            return reject(e);
+        }
+    });
+}
+
+function postValidateMobile(model){
+    return new Promise(function(resolve, reject){
+        try{
+            let text;
+            if(model.tags.mobileValidated&&model.tags.mobileValidated=="validated"){
+                return resolve(model);
+            }
+            else if(model.tags.mobileValidated&&model.tags.mobileValidated=="not validated"){
+                if(model.tags.mobileValidatedData){
+                    text=model.tags.mobileValidatedData;
+                }
+            }
+            else{
+                text="Please enter a valid mobile number."
+            }
+            model.reply={
+                text:text,
+                type:"text",
+                next:{}
             }
         }
         catch(e){
