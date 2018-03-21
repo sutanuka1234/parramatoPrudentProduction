@@ -302,7 +302,7 @@ function getOTP(model){
                 }
                 if(model.data.match(/\d+/)&&model.data.match(/\d+/)[0]){
                     model.tags.otpValidateReply={
-                        text:"Enter a valid OTP code.",
+                        text:"Enter a valid 6 digit OTP code.",
                         type:"text",
                         next:{}
                     }
@@ -310,7 +310,7 @@ function getOTP(model){
                 }
                 else{
                     model.tags.otpValidateReply={
-                        text:"Enter a valid 6 digit OTP code.",
+                        text:"Enter a valid OTP code.",
                         type:"text",
                         next:{}
                     }
