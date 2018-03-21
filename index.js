@@ -141,7 +141,7 @@ function validatePan(model){
 }
 
 function postValidateMobile(model){
-    return new Promise(function(resolve, reject){
+    return new Promise(function(resolve, reject){   
         try{
             let text;
             if(model.tags.mobileValidated&&model.tags.mobileValidated=="validated"){
