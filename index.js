@@ -22,7 +22,7 @@ app.listen(process.env.PORT||80,()=>{
 app.post('/:type',(req, res)=>{
     filter(req)
     .then((model)=>{
-        console.log("final response")
+        console.log("final response"+JSON.stringify(model))
         res.json(model).status(200)})
     .catch((e)=>{res.status(203).json({message:e})})
 })
