@@ -198,8 +198,8 @@ function postValidatePan(model){
                     type:"text",
                     next:{}
                 }
-                return resolve(model);
             }
+            return resolve(model);
         }
         catch(e){
             return reject(e);
