@@ -224,6 +224,7 @@ function postValidateOtp(model){
 //                model.reply=model.tags.otpValidateReply;
 //            }
             console.log("IN POST VALIDATE OTP")
+            console.log(JSON.stringify(model))
             return resolve(model);
         }
         catch(e){
