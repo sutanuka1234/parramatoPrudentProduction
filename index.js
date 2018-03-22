@@ -738,6 +738,7 @@ function createHoldingPatternResponse(model){
     return new Promise(function(resolve,reject){
         try{
             if(model.tags.holdingPattern){
+                model.tags.JoinAccIds=[];
                 let reply={};
                 reply.type="generic";
                 reply.text="You can choose from the following holding patterns."
@@ -747,8 +748,8 @@ function createHoldingPatternResponse(model){
                 for(let i=0;i<5;i++){
                     if(model.tags.holdingPattern[i]){
                         reply.next.data.push({
-                            title   :"",
-                            text    :model.tags.holdingPattern[i].JoinHolderName,
+                            title   :model.tags.holdingPattern[i].JoinHolderName,
+                            text    :model.tags.holdingPattern[i].JoinAccId,
                             buttons :[
                                 {
                                     text:"Use this",
@@ -756,9 +757,25 @@ function createHoldingPatternResponse(model){
                                 }
                             ]
                         })
+                        model.tags.JoinAccIds.push(model.tags.holdingPattern[i].JoinAccId);
                     }
                 }
                 model.reply=reply;
+            }
+            return resolve(model);
+        }
+        catch(e){
+            console.log(e);
+            return reject("Something went wrong.")
+        }
+    })
+}
+
+function validateHoldingPattern(model){
+    return new Promise(function(resolve,reject){
+        try{
+            if(){
+               
             }
             return resolve(model);
         }
