@@ -784,7 +784,7 @@ function validateHoldingPattern(model){
     return new Promise(function(resolve,reject){
         try{
             if(model.data.match(/\d+/g)){
-                if(model.data.JoinAccIds.includes(model.data.match(/\d+/g)[0])){
+                if(model.tags.JoinAccIds.includes(model.data.match(/\d+/g)[0])){
                     delete model.stage;
                 }
             }
