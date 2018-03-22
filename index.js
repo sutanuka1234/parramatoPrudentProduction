@@ -740,6 +740,7 @@ function createHoldingPatternResponse(model){
             if(model.tags.holdingPattern){
                 let reply={};
                 reply.type="generic";
+                reply.text="You can from the following holding patterns."
                 reply.next={
                         data: []
                 }
