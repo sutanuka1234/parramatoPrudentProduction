@@ -757,7 +757,7 @@ function createHoldingPatternResponse(model){
                         })
                     }
                 }
-                model.reply;
+                model.reply=reply;
             }
             return resolve(model);
         }
