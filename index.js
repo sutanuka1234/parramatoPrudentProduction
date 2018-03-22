@@ -434,9 +434,10 @@ function makePanMobileValidationRequest(requestData,urlExtension){
                 headers : headers,
                 body    : JSON.stringify(requestData)
             }
+            console.log(JSON.stringify(requestParams)+"PAN MOBILE VALIDATION REQUEST")
             request(requestParams,function(error,response,body){
                 if(body){
-                    console.log(body+"-----------------------")
+                    console.log(body+"PAN MOBILE VALIDATION RESPONSE")
                     body=JSON.parse(body);
                     if(body.Response&&body.Response.length>0){
                         let data={};
@@ -486,9 +487,10 @@ function validateOTP(model){
                     headers : headers,
                     body    : JSON.stringify({})
                 }
+                console.log(JSON.stringify(requestParams)+"OTP VALIDATION REQUEST")
                 request(requestParams,function(error,response,body){
                     if(body){
-                        console.log(body);
+                        console.log(body+"OTP VALIDATION RESPONSE");
                         body=JSON.parse(body);
                         if(body.Response&&body.Response.length>0){
                             if(body.Response[0].JoinAccId){
