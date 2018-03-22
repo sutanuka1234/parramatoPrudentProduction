@@ -110,6 +110,15 @@ function filter(request){
                                         });
                 break;
                 
+            case "createHoldingPatternResponse":
+                                        createHoldingPatternResponse(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
+                break;
+                
             default                 :   
                                         return reject("No service at this domain.");
                 break;
@@ -493,10 +502,11 @@ function validateOTP(model){
                         console.log(body+"OTP VALIDATION RESPONSE");
                         body=JSON.parse(body);
                         if(body.Response&&body.Response.length>0){
-                            if(body.Response[0].JoinAccId){
+                            if(body.Response[0]&&body.Response[0].JoinAccId&&body.Response[0].JoinHolderName){
                                 console.log(JSON.stringify(body.Response[0])+"ACCOUNT DETAILS");
-                                model.tags.JoinAccId=body.Response[0].JoinAccId;
-                                model.tags.JoinHolderName=body.Response[0].JoinHolderName;
+//                                model.tags.JoinAccId=body.Response[0].JoinAccId;
+//                                model.tags.JoinHolderName=body.Response[0].JoinHolderName;
+                                model.tags.holdingPattern=body.Response;
                                 if(model.tags.otpValidateReply){
                                     delete model.tags.otpValidateReply;
                                 }
@@ -722,6 +732,37 @@ function resendOTP(model){
             return reject("Something went wrong.");
         }
     })                   
+}
+
+function createHoldingPatternResponse(model){
+    return new Promise(function(resolve,reject){
+        try{
+            if(model.tags.holdingPattern){
+                reply.type="generic";
+                reply.next={
+                        data: []
+                }
+                for(let i=0;i<5;i++){
+                    if(model.tags.holdingPattern[i]){
+                        reply.next.data.push({
+                            title   :"",
+                            text    :model.tags.holdingPattern[i].JoinHolderName,
+                            buttons :[
+                                {
+                                    text:"Use this",
+                                    data:model.tags.holdingPattern[i].JoinAccId
+                                }
+                            ]
+                        })
+                    }
+                }
+            }
+        }
+        catch(e){
+            console.log(e);
+            return reject("Something went wrong.")
+        }
+    })
 }
 
 function sendExternalData(data){
