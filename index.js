@@ -738,6 +738,7 @@ function createHoldingPatternResponse(model){
     return new Promise(function(resolve,reject){
         try{
             if(model.tags.holdingPattern){
+                let reply={};
                 reply.type="generic";
                 reply.next={
                         data: []
@@ -756,7 +757,9 @@ function createHoldingPatternResponse(model){
                         })
                     }
                 }
+                model.reply;
             }
+            return resolve(model);
         }
         catch(e){
             console.log(e);
