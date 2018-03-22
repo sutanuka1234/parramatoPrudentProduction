@@ -119,6 +119,15 @@ function filter(request){
                                         });
                 break;
                 
+            case "validateHoldingPattern":
+                                        validateHoldingPattern(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
+                break;
+                
             default                 :   
                                         return reject("No service at this domain.");
                 break;
@@ -774,10 +783,12 @@ function createHoldingPatternResponse(model){
 function validateHoldingPattern(model){
     return new Promise(function(resolve,reject){
         try{
-            if(model.tags){
-               
+            if(model.data.match(/\d+/g)){
+                if(model.data.JoinAccIds.includes(model.data.match(/\d+/g)[0])){
+                    delete model.stage;
+                }
+                return resolve(model);
             }
-            return resolve(model);
         }
         catch(e){
             console.log(e);
