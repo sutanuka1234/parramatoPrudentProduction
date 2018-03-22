@@ -763,6 +763,12 @@ function createHoldingPatternResponse(model){
                                 {
                                     text:"Use this",
                                     data:model.tags.holdingPattern[i].JoinAccId
+                                },{
+                                    text:"test"+i,
+                                    data:"test"+i
+                                },{
+                                    text:"test"+(i+1),
+                                    data:"test"+(i+1)
                                 }
                             ]
                         })
