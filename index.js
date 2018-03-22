@@ -787,8 +787,8 @@ function validateHoldingPattern(model){
                 if(model.data.JoinAccIds.includes(model.data.match(/\d+/g)[0])){
                     delete model.stage;
                 }
-                return resolve(model);
             }
+            return resolve(model);
         }
         catch(e){
             console.log(e);
