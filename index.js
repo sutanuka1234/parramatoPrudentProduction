@@ -758,7 +758,7 @@ function createHoldingPatternResponse(model){
                     if(model.tags.holdingPattern[i]){
                         reply.next.data.push({
                             title   :model.tags.holdingPattern[i].JoinHolderName,
-                            text    :model.tags.holdingPattern[i].JoinAccId,
+                            text    :"",
                             buttons :[
                                 {
                                     text:"Use this",
