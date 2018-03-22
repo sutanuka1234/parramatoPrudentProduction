@@ -774,7 +774,7 @@ function createHoldingPatternResponse(model){
 function validateHoldingPattern(model){
     return new Promise(function(resolve,reject){
         try{
-            if(){
+            if(model.tags){
                
             }
             return resolve(model);
