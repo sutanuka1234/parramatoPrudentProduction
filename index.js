@@ -1,5 +1,6 @@
 var request = require('request');
-
+var stringSimilarity = require('string-similarity');
+ 
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -153,6 +154,8 @@ function filter(request){
 function vaildateSelectedAmc(model) {
     return new Promise(function(resolve, reject) {
         console.log("validate amc" + JSON.stringify(model))
+        var matches = stringSimilarity.findBestMatch(model.data, model.AMCNames);
+        console.log("matches=========" + matches)
         return resolve(model)
     });
 }
@@ -174,7 +177,9 @@ function getAmc(model) {
             else{
               console.log("get Amc " + JSON.stringify(body,null,3))
               if(body){
-                return resolve(body)
+                model.tags.AMCNames = body.Response[0]
+                console.log("sas===============888" + body.Response[0])
+                return resolve(model)
               }
               else{
                 return reject("failed")
