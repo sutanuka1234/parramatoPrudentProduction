@@ -177,8 +177,8 @@ function getAmc(model) {
             else{
               console.log("get Amc " + JSON.stringify(body,null,3))
               if(body){
-                model.tags.AMCNames = body.["Response"][0][0]
-                console.log("sas===============888" +body.["Response"][0][0])
+                model.tags.AMCNames = body["Response"][0][0]
+                console.log("sas===============888" +body["Response"][0][0])
                 return resolve(model)
               }
               else{
