@@ -427,7 +427,8 @@ function validatePanMobileByApi(model){
                         type    : "text",
                         sender  : model.sender,
                         language: "en"
-                    }x
+                    }
+                    sendExternalData(reply)
                     .then((data)=>{
                         model.message=data.reason;
                         return resolve(model)})
