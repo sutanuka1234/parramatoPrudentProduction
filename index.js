@@ -127,7 +127,14 @@ function filter(request){
                                             return reject("Something went wrong.")
                                         });
                 break;
-                
+            case "getAmc" :
+                                        getAmc(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
+            break;
             default                 :   
                                         return reject("No service at this domain.");
                 break;
@@ -135,6 +142,38 @@ function filter(request){
     });
 }
     
+function getAmc(argument) {
+    return new Promise(function(resolve, reject) {
+        var getAmcReq={
+                    method  : 'POST',
+                    url     : url+"GetAMC?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId,
+                    headers : headers,
+                    body    : JSON.stringify({})
+        }
+        console.log(getAmcReq)
+        request(getAmcReq, (err, http, body)=>{
+            if(err){
+              console.log(err)
+              callback(err);
+            }
+            else{
+              console.log(JSON.stringify(body,null,3))
+              let data=""
+              if(body){
+                let errorMessage;
+                for(let errorIndex = 0; errorIndex < body.length; errorIndex++) {
+                    errorMessage += body[errorIndex]
+                }
+                callback({error : errorMessage})
+              }
+              else{
+                callback({flag : true})
+              }
+            }
+        })
+    })
+}
+
 function validateMobile(model){
     return new Promise(function(resolve, reject){
         try{
@@ -388,8 +427,7 @@ function validatePanMobileByApi(model){
                         type    : "text",
                         sender  : model.sender,
                         language: "en"
-                    }
-                    sendExternalData(reply)
+                    }x
                     .then((data)=>{
                         model.message=data.reason;
                         return resolve(model)})
@@ -710,6 +748,7 @@ function validateHoldingPattern(model){
         try{
             if(model.data.match(/\d+/g)){
                 if(model.tags.JoinAccIds.includes(model.data.match(/\d+/g)[0])){
+                    model.tags.JoinAccId = model.data.match(/\d+/g)[0]
                     delete model.stage;
                 }
             }
