@@ -135,6 +135,14 @@ function filter(request){
                                             return reject("Something went wrong.")
                                         });
             break;
+            case "validateAmcName" :
+                                        vaildateSelectedAmc(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
+            break;          
             default                 :   
                                         return reject("No service at this domain.");
                 break;
@@ -142,7 +150,15 @@ function filter(request){
     });
 }
     
-function getAmc(argument) {
+function vaildateSelectedAmc(model) {
+    return new Promise(function(resolve, reject) {
+        console.log("validate amc" + JSON.stringify(model))
+        return resolve(model)
+    });
+}
+function getAmc(model) {
+    console.log("getAmc")
+    console.log("get amc" + JSON.stringify(model))
     return new Promise(function(resolve, reject) {
         var getAmcReq={
                     method  : 'POST',
@@ -153,21 +169,15 @@ function getAmc(argument) {
         console.log(getAmcReq)
         request(getAmcReq, (err, http, body)=>{
             if(err){
-              console.log(err)
-              callback(err);
+              console.log("get amc" + err)
             }
             else{
-              console.log(JSON.stringify(body,null,3))
-              let data=""
+              console.log("get Amc " + JSON.stringify(body,null,3))
               if(body){
-                let errorMessage;
-                for(let errorIndex = 0; errorIndex < body.length; errorIndex++) {
-                    errorMessage += body[errorIndex]
-                }
-                callback({error : errorMessage})
+                return resolve(body)
               }
               else{
-                callback({flag : true})
+                return reject("failed")
               }
             }
         })
