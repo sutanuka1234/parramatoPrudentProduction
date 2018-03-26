@@ -229,16 +229,11 @@ function getAmc(model) {
                   if(body){
                     body= JSON.parse(body);
                     model.tags.AMCNames= body["Response"][0]
-                    console.log("sas===============888" +body["Response"][0])
                     let amcNamesArray = []
-    //                for (var i = AMCNames.length - 1; i >= 0; i--) {
-    //                    amcNamesArray.push(AMCNames[i])
-    //                }
                     for(let i=0;i<model.tags.AMCNames.length;i++){
                         amcNamesArray.push(model.tags.AMCNames[i].AMCName.replace(" Mutual Fund","").trim());
                     }
                     model.tags.amcNamesArray = amcNamesArray
-    //                console.log(body+ "----------------")
                     console.log(JSON.stringify(amcNamesArray))
                     return resolve(model)
                   }
