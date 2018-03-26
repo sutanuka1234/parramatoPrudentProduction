@@ -161,6 +161,7 @@ function vaildateSelectedAmc(model) {
                 delete model.stage;
             }
             else if(model.data.toLowerCase().includes("no")){
+                delete model.tags.match
                 return resolve(model);
             }
         }
