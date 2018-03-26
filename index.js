@@ -179,6 +179,7 @@ function vaildateSelectedAmc(model) {
     });
 }
 function getAmc(model) {
+return new Promise(function(resolve, reject) {  
     console.log("getAmc")
 //    console.log("get amc" + JSON.stringify(model))
     if(model.tags.AMCNames){
@@ -212,7 +213,6 @@ function getAmc(model) {
     }
     else{
         console.log("IN ELSE")
-        return new Promise(function(resolve, reject) {
             var getAmcReq={
                         method  : 'POST',
                         url     : url+"GetAMC?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId,
@@ -242,8 +242,8 @@ function getAmc(model) {
                   }
                 }
             })
-        })
-    }
+        }
+    })
 }
 
 function validateMobile(model){
