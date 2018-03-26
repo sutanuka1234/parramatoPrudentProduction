@@ -187,7 +187,7 @@ return new Promise(function(resolve, reject) {
         if(model.tags.match){
             model.reply={
                 type:"button",
-                text:"Did you mean"+model.tags.match,
+                text:"Did you mean "+model.tags.match +"Mutual Fund",
                 next:{
                         "data": [
                             {
