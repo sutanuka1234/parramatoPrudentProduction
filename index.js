@@ -208,6 +208,7 @@ function getAmc(model) {
                 next:{}
             }
         }
+        return resolve(model);
     }
     else{
         return new Promise(function(resolve, reject) {
