@@ -189,7 +189,8 @@ function getAmc(model) {
                     amcNamesArray.push(model.tags.AMCNames[i].AMCName)
                 }
                 model.tags.amcNamesArray = amcNamesArray
-                console.log(body+ "----------------")
+//                console.log(body+ "----------------")
+                console.log(JSON.stringify(amcNamesArray))
                 return resolve(model)
               }
               else{
