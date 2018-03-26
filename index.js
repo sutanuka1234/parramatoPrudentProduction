@@ -179,11 +179,14 @@ function getAmc(model) {
               console.log("get Amc " + body)
               if(body){
                 body= JSON.parse(body);
-                model.tags.AMCNames = body["Response"][0]
+                model.tags.AMCNames= body["Response"][0]
                 console.log("sas===============888" +body["Response"][0])
                 let amcNamesArray = []
-                for (var i = AMCNames.length - 1; i >= 0; i--) {
-                    amcNamesArray.push(AMCNames[i])
+//                for (var i = AMCNames.length - 1; i >= 0; i--) {
+//                    amcNamesArray.push(AMCNames[i])
+//                }
+                for(let i=0;i<model.tags.AMCNames.length;i++){
+                    amcNamesArray.push(model.tags.AMCNames[i].AMCName)
                 }
                 model.tags.amcNamesArray = amcNamesArray
                 console.log(body+ "----------------")
