@@ -164,7 +164,7 @@ function vaildateSelectedAmc(model) {
                 delete model.tags.match
                 return resolve(model);
             }
-            model.tags.amcConfirmation;
+            delete model.tags.amcConfirmation;
         }
         else{
             if(match.bestMatch.rating>=0.5){
