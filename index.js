@@ -155,50 +155,98 @@ function filter(request){
 function vaildateSelectedAmc(model) {
     return new Promise(function(resolve, reject) {
         console.log("validate amc" + JSON.stringify(model))
-        var matches = stringSimilarity.findBestMatch(model.data, model.AMCNames);
-        console.log("matches=========" + matches)
-        return resolve(model)
+        var match = stringSimilarity.findBestMatch(model.data, model.AMCNames);
+        if(model.tags.amcConfirmation){
+            if(model.data.toLowerCase().includes("yes")){
+                delete model.stage;
+            }
+            else if(model.data.toLowerCase().includes("no")){
+                return resolve(model);
+            }
+        }
+        else{
+            if(match.bestMatch.rating>=0.5){
+                model.tags.match=match.bestMatch.target;
+                console.log("matches=========" + matches);
+            }
+            else{
+                if(model.tags.match){
+                    delete model.tags.match;
+                }
+            }
+        }
+        return resolve(model);
     });
 }
 function getAmc(model) {
     console.log("getAmc")
-    console.log("get amc" + JSON.stringify(model))
-    return new Promise(function(resolve, reject) {
-        var getAmcReq={
-                    method  : 'POST',
-                    url     : url+"GetAMC?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId,
-                    headers : headers,
-                    body    : JSON.stringify({})
-        }
-        console.log(getAmcReq)
-        request(getAmcReq, (err, http, body)=>{
-            if(err){
-              console.log("get amc" + err)
-            }
-            else{
-              console.log("get Amc " + body)
-              if(body){
-                body= JSON.parse(body);
-                model.tags.AMCNames= body["Response"][0]
-                console.log("sas===============888" +body["Response"][0])
-                let amcNamesArray = []
-//                for (var i = AMCNames.length - 1; i >= 0; i--) {
-//                    amcNamesArray.push(AMCNames[i])
-//                }
-                for(let i=0;i<model.tags.AMCNames.length;i++){
-                    amcNamesArray.push(model.tags.AMCNames[i].AMCName)
+//    console.log("get amc" + JSON.stringify(model))
+    if(model.tags.AMCNames){
+        if(model.tags.match){
+            model.reply={
+                type:"button",
+                text:"Did you mean"+model.tags.match,
+                next:{
+                        "data": [
+                            {
+                                "text": "yes",
+                                "data": "yes"
+                            },
+                            {
+                                "text": "no",
+                                "data": "no"
+                            }
+                        ]
                 }
-                model.tags.amcNamesArray = amcNamesArray
-//                console.log(body+ "----------------")
-                console.log(JSON.stringify(amcNamesArray))
-                return resolve(model)
-              }
-              else{
-                return reject("failed")
-              }
             }
+            model.tags.amcConfirmation=true;
+        }
+        else{
+            model.reply={
+                type:"text",
+                text:"Please type in amc again.",
+                next:{}
+            }
+        }
+    }
+    else{
+        return new Promise(function(resolve, reject) {
+            var getAmcReq={
+                        method  : 'POST',
+                        url     : url+"GetAMC?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId,
+                        headers : headers,
+                        body    : JSON.stringify({})
+            }
+            console.log(getAmcReq)
+            request(getAmcReq, (err, http, body)=>{
+                if(err){
+                  console.log("get amc" + err)
+                }
+                else{
+                  console.log("get Amc " + body)
+                  if(body){
+                    body= JSON.parse(body);
+                    model.tags.AMCNames= body["Response"][0]
+                    console.log("sas===============888" +body["Response"][0])
+                    let amcNamesArray = []
+    //                for (var i = AMCNames.length - 1; i >= 0; i--) {
+    //                    amcNamesArray.push(AMCNames[i])
+    //                }
+                    for(let i=0;i<model.tags.AMCNames.length;i++){
+                        amcNamesArray.push(model.tags.AMCNames[i].AMCName.replace(" Mutual Fund","").trim());
+                    }
+                    model.tags.amcNamesArray = amcNamesArray
+    //                console.log(body+ "----------------")
+                    console.log(JSON.stringify(amcNamesArray))
+                    return resolve(model)
+                  }
+                  else{
+                    return reject("failed")
+                  }
+                }
+            })
         })
-    })
+    }
 }
 
 function validateMobile(model){
