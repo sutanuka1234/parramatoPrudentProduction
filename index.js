@@ -211,6 +211,7 @@ function getAmc(model) {
         return resolve(model);
     }
     else{
+        console.log("IN ELSE")
         return new Promise(function(resolve, reject) {
             var getAmcReq={
                         method  : 'POST',
