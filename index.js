@@ -155,7 +155,7 @@ function filter(request){
 function vaildateSelectedAmc(model) {
     return new Promise(function(resolve, reject) {
         console.log("validate amc" + JSON.stringify(model))
-        var match = stringSimilarity.findBestMatch(model.data, model.AMCNames);
+        var match = stringSimilarity.findBestMatch(model.data, model.amcNamesArray);
         if(model.tags.amcConfirmation){
             if(model.data.toLowerCase().includes("yes")){
                 delete model.stage;
