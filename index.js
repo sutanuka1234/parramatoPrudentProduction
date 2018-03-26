@@ -167,7 +167,7 @@ function vaildateSelectedAmc(model) {
         else{
             if(match.bestMatch.rating>=0.5){
                 model.tags.match=match.bestMatch.target;
-                console.log("matches=========" + matches);
+                console.log("matches========="+match);
             }
             else{
                 if(model.tags.match){
