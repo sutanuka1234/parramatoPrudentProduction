@@ -181,10 +181,9 @@ function validateSubnatureOptions(model){
                             if(model.tags.subnatureMatch===model.tags.subnatureOptions[i].SubNature){
                                 model.tags.subnature=model.tags.subnatureOptions[i].SubNature;
                                 model.tags.subnatureId=model.tags.subnatureOptions[i].ID;
-//                                delete model.stage;
+                                delete model.stage;
                             }
-                        }
-                        delete model.stage;   
+                        }  
                     }
                     delete model.tags.subnatureMatch;
                     delete model.tags.confirmSubnature;
@@ -201,7 +200,7 @@ function validateSubnatureOptions(model){
                             if(model.tags.subnatureMatch===model.tags.subnatureOptions[i].SubNature){
                                 model.tags.subnature=model.tags.subnatureOptions[i].SubNature;
                                 model.tags.subnatureId=model.tags.subnatureOptions[i].ID;
-//                                delete model.stage;
+                                delete model.stage;
                             }
                         }
                     }
