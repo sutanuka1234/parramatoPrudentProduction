@@ -162,20 +162,40 @@ function filter(request){
 }
 
 function getSubnatureOptions(model){
-//    return new Promise(function(resolve,reject){
-//        try{
-//            if(model.tags.subnatureOptions){
-//                let reply={};
-//                reply.type="generic";
-//                reply.text="You can choose from the following sub-natures."
-//                reply.next={
-//                    data: []
-//                }
-////                let loop=parseInt(model.tags.subnatureOptions.length/3);
-////                if(!model.tags.subnatureOptions.length/3){
-////                   
-////                }
-//                for(let i=0;i<model.tags.subnatureOptions.length;i++){
+    return new Promise(function(resolve,reject){
+        try{
+            if(model.tags.subnatureOptions){
+                let reply={};
+                reply.type="generic";
+                reply.text="You can choose from the following sub-natures."
+                reply.next={
+                    data: []
+                }
+                
+                let loop=model.tags.subnatureOptions.length;
+                
+                let min=0;
+                let max=3
+                
+                for(let i=0;i<=loop;i++){
+                    reply.next.data.push({
+                        title   :"Select from the following Sub-natures.",
+                        text    :"",
+                        buttons :[]
+                    })
+                    for(let j=min;j<max;j++){
+                        if(model.tags.subnatureOptions[min].SubNature){
+                            reply.next.data[i].buttons.push({
+                                text:"Use this",
+                                data:model.tags.subnatureOptions[min].SubNature
+                            })
+                        }
+                    }
+                    min=max;
+                    max=max+3;
+                }
+                
+//                for(let i=1;i<model.tags.subnatureOptions.length+1;i++){
 //                    reply.next.data.push({
 //                        title   :"Select from the following SUb-natures.",
 //                        text    :"",
@@ -186,18 +206,18 @@ function getSubnatureOptions(model){
 //                            }
 //                        ]
 //                    })
-//                    for(){
-//                            
+//                    for(let j=1;j<4;j++){
+//                        
 //                    }
 //                }
-//                model.reply=reply;
-//            }
-//        }
-//        catch(e){
-//            console.log(e);
-//            return reject("Something went wrong.");
-//        }
-//    })
+                model.reply=reply;
+            }
+        }
+        catch(e){
+            console.log(e);
+            return reject("Something went wrong.");
+        }
+    })
 }
     
 function vaildateSelectedAmc(model){
