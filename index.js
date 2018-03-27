@@ -164,8 +164,33 @@ function filter(request){
 function getSubnatureOptions(model){
     return new Promise(function(resolve,reject){
         try{
-            if(model.tags.){
-               
+            if(model.tags.subnatureOptions){
+                let reply={};
+                reply.type="generic";
+                reply.text="You can choose from the following sub-natures."
+                reply.next={
+                    data: []
+                }
+//                let loop=parseInt(model.tags.subnatureOptions.length/3);
+//                if(!model.tags.subnatureOptions.length/3){
+//                   
+//                }
+                for(let i=0;i<model.tags.subnatureOptions.length;i++){
+                    reply.next.data.push({
+                        title   :"Select from the following SUb-natures.",
+                        text    :"",
+                        buttons :[
+                            {
+                                text:"Use this",
+                                data:
+                            }
+                        ]
+                    })
+                    for(){
+                            
+                    }
+                }
+                model.reply=reply;
             }
         }
         catch(e){
