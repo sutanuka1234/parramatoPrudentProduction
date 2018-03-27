@@ -1,4 +1,4 @@
-xvar request = require('request');
+var request = require('request');
 var stringSimilarity = require('string-similarity');
  
 const express = require('express');
