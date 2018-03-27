@@ -168,7 +168,11 @@ function vaildateSelectedAmc(model) {
             delete model.tags.amcConfirmation;
         }
 //        else{
-            if(match.bestMatch.rating>=0.3){
+            if( match
+               &&match.bestMatch
+               &&match.bestMatch.rating
+               &&match.bestMatch.rating>=0.3){
+                console.log("ABOVE THRESHOLD-----------------")
                 model.tags.match=match.bestMatch.target;
             }
             else{
