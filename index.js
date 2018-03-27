@@ -162,7 +162,25 @@ function filter(request){
                                             return reject("Something went wrong.")
                                         });
                 break;
+                
+            case "showSchemes"      :
+                                        showSchemes(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
+                break;
             
+            case "validateSchemeName":
+                                        validateSchemeName(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
+                break;
+                
             default                 :   
                                         return reject("No service at this domain.");
                 break;
@@ -170,8 +188,131 @@ function filter(request){
     });
 }
 
+function validateSchemeName(model){
+    return new Promise(function(resolve,reject){
+        try{
+            if(model.data.match(/\d+/g)){
+                if(model.tags.schemeCodes.includes(model.data.match(/\d+/g)[0])){
+                    for(let i=0;i<model.tags.schemeDetails.length;i++){
+                        if(parseInt(model.tags.schemeDetails[i].SCHEMECODE)===model.data.match(/\d+/g)[0]){
+                            model.tags.schemeData=model.tags.schemeDetails[i]
+                            delete model.stage;
+                        }
+                    }
+                }
+            }
+            return resolve(model);
+        }
+        .catch((e)=>{
+            console.log(e);
+            return reject("Something went wrong.")
+        });
+    })
+}
+
+function showSchemes(model){
+    return new Promise(function(resolve,reject){
+        try{
+            if(!model.tags.fundsType){
+                if(model.tags.schemeCategory==="Suggested Funds"){
+                    model.tags.fundsType=1;
+                }
+                else if(model.tags.schemeCategory==="All Funds"){
+                    model.tags.fundsType=2;
+                }
+                else if(model.tags.schemeCategory==="NFO"||model.tags.schemeCategory==="FMP"){
+                    model.tags.fundsType=3;
+                }
+            }
+            if(!model.tags.madeSchemeRequest){
+                request({
+                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId,
+                    json    :data,
+                    method  :'POST'   
+                },(err,req,body)=>{
+                    if(err){   
+                        console.log(err)
+                        return reject("Something went wrong.");
+                    }
+                    else{
+                        try{
+                            console.log(body);
+                            body=JSON.parse(body);
+                            if(body.Response){
+                                if(body.Response[0].result){
+                                    return reject("Something went wrong."); 
+                                }
+                                else{
+                                    model.tags.madeSchemeRequest=true;
+                                    model.tags.schemeDetails=body.Response[0];
+                                    model.tags.folioDetails=body.Response[1];
+                                    let reply={};
+                                    reply.type="generic";
+                                    reply.text="You can choose from the following Schemes."
+                                    reply.next={
+                                            data: []
+                                    }
+                                    for(let i=0;i<10;i++){
+                                        if(model.tags.schemeDetails[i]){
+                                            reply.next.data.push({
+                                                title   :model.tags.schemeDetails[i].SchemeName,
+                                                text    :"",
+                                                buttons :[
+                                                    {
+                                                        text:"Use this",
+                                                        data:model.tags.schemeDetails[i].SCHEMECODE
+                                                    }
+                                                ]
+                                            })
+                                            model.tags.schemeCodes.push(model.tags.schemeDetails[i].SCHEMECODE);
+                                        }
+                                    }
+                                    model.reply=reply;
+                                    return resolve(body);
+                                }
+                            }
+                        }
+                        catch(e){
+                            console.log(e);
+                            return reject("Something went wrong.");
+                        }
+                    }
+                })
+            }
+            else{
+                let reply={};
+                reply.type="generic";
+                reply.text="You can choose from the following Schemes."
+                reply.next={
+                        data: []
+                }
+                for(let i=0;i<10;i++){
+                    if(model.tags.schemeDetails[i]){
+                        reply.next.data.push({
+                            title   :model.tags.schemeDetails[i].SchemeName,
+                            text    :"",
+                            buttons :[
+                                {
+                                    text:"Use this",
+                                    data:model.tags.schemeDetails[i].SCHEMECODE
+                                }
+                            ]
+                        })
+                        model.tags.schemeCodes.push(model.tags.schemeDetails[i].SCHEMECODE);
+                    }
+                }
+                model.reply=reply;
+                return resolve(body);
+            }
+        }
+        catch(e){
+            console.log(e);
+            return reject("Something went wrong.");
+        }
+    })
+}
+
 function validateSubnatureOptions(model){
-    console.log("VALIDATE SUB NATURE OPS")
     return new Promise(function(resolve,reject){
         try{
             if(model.tags.subnatureOptionNames){
@@ -190,7 +331,6 @@ function validateSubnatureOptions(model){
                 }
                 else{
                     var match = stringSimilarity.findBestMatch(model.data, model.tags.subnatureOptionNames);
-                    console.log(JSON.stringify(match)+"MATCH--------------------")
                     if( match
                        &&match.bestMatch
                        &&match.bestMatch.rating
