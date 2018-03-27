@@ -184,7 +184,7 @@ function getSubnatureOptions(model){
                         buttons :[]
                     })
                     for(let j=min;j<max;j++){
-                        if(model.tags.subnatureOptions[min].SubNature){
+                        if(model.tags.subnatureOptions[min]&&model.tags.subnatureOptions[min].SubNature){
                             reply.next.data[i].buttons.push({
                                 text:"Use this",
                                 data:model.tags.subnatureOptions[min].SubNature
