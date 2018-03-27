@@ -196,7 +196,7 @@ function validateSubnatureOptions(model){
                        &&match.bestMatch.rating
                        &&((match.bestMatch.rating)>0.5)){
                         model.tags.subnatureMatch=match.bestMatch.target;
-                        for(let i=0;<model.tags.subnatureOptions.length;i++){
+                        for(let i=0;i<model.tags.subnatureOptions.length;i++){
                             if(model.tags.subnatureMatch===model.tags.subnatureOptions[i].SubNature){
                                 model.tags.subnature=model.tags.subnatureOptions[i].SubNature;
                                 model.tags.subnatureId=model.tags.subnatureOptions[i].ID;
