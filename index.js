@@ -182,14 +182,15 @@ function getSubnatureOptions(model){
                 console.log(loop+"////////////////////")
                 
                 
-                for(let i=0;i<loop;i++){
+                for(let i=0;i<Math.ceil(loop);i++){
                     reply.next.data.push({
                         title   :"Select from the following Sub-natures.",
                         text    :"",
                         buttons :[]
                     })
                     for(let j=min;j<max;j++){
-                        if(model.tags.subnatureOptions[min]&&model.tags.subnatureOptions[j].SubNature){
+                        if(     model.tags.subnatureOptions[j]
+                           &&   model.tags.subnatureOptions[j].SubNature){
                             reply.next.data[i].buttons.push({
                                 text:model.tags.subnatureOptions[j].SubNature,
                                 data:model.tags.subnatureOptions[j  ].SubNature
