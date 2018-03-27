@@ -176,7 +176,7 @@ function validateSubnatureOptions(model){
         try{
             if(model.tags.subnatureOptionNames){
                 if(model.tags.confirmSubnature){
-                    if(model.data.toLowerCase().includes("confirm")){
+                    if(model.data.toLowerCase().includes("yes")){
                         for(let i=0;i<model.tags.subnatureOptions.length;i++){
                             if(model.tags.subnatureMatch===model.tags.subnatureOptions[i].SubNature){
                                 model.tags.subnature=model.tags.subnatureOptions[i].SubNature;
@@ -233,8 +233,12 @@ function getSubnatureOptions(model){
                     type:"button",
                     next:{
                         data:[{
-                                data:"confirm",
-                                text:"Confirm"
+                                data:"yes",
+                                text:"Yes"
+                            },
+                             {
+                                data:"no",
+                                text:"No"
                             }]
                     }
                 }
