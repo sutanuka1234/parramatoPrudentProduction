@@ -153,6 +153,15 @@ function filter(request){
                                             return reject("Something went wrong.")
                                         });
                 break;
+                
+            case "validateSubnatureOptions":
+                                        validateSubnatureOptions(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
+                break;
             
             default                 :   
                                         return reject("No service at this domain.");
@@ -161,62 +170,110 @@ function filter(request){
     });
 }
 
+function validateSubnatureOptions(model){
+    console.log("VALIDATE SUB NATURE OPS")
+    return new Promise(function(resolve,reject){
+        try{
+            if(model.tags.subnatureOptionNames){
+                if(model.tags.confirmSubnature){
+                    if(model.data.toLowerCase().includes("confirm")){
+                        for(let i=0;<model.tags.subnatureOptions.length;i++){
+                            if(model.tags.subnatureMatch===model.tags.subnatureOptions[i].SubNature){
+                                model.tags.subnature=model.tags.subnatureOptions[i].SubNature;
+                                model.tags.subnatureId=model.tags.subnatureOptions[i].ID;
+                                delete model.stage;
+                            }
+                        }
+                        delete model.stage;   
+                    }
+                    delete model.tags.subnatureMatch;
+                    delete model.tags.confirmSubnature;
+                }
+                else{
+                    var match = stringSimilarity.findBestMatch(model.data, model.tags.subnatureOptionNames);
+                    if( match
+                       &&match.bestMatch
+                       &&match.bestMatch.rating
+                       &&((match.bestMatch.rating)>0.5)){
+                        model.tags.subnatureMatch=match.bestMatch.target;
+                        for(let i=0;<model.tags.subnatureOptions.length;i++){
+                            if(model.tags.subnatureMatch===model.tags.subnatureOptions[i].SubNature){
+                                model.tags.subnature=model.tags.subnatureOptions[i].SubNature;
+                                model.tags.subnatureId=model.tags.subnatureOptions[i].ID;
+                                delete model.stage;
+                            }
+                        }
+                    }
+                    else if(match
+                       &&match.bestMatch
+                       &&match.bestMatch.rating
+                       &&(match.bestMatch.rating>0.1)
+                       &&(match.bestMatch.rating<0.5)){
+                        model.tags.subnatureMatch=match.bestMatch.target;
+                        model.tags.reaffirm=match.bestMatch.target;
+                    }
+                }
+            }
+            return resolve(model);
+        }
+        catch(e){
+            console.log(e);
+            return reject("Something went wrong.");
+        }
+    })
+}
+
 function getSubnatureOptions(model){
     return new Promise(function(resolve,reject){
         try{
-            if(model.tags.subnatureOptions){
-                let reply={};
-                reply.type="generic";
-                reply.text="You can choose from the following sub-natures."
-                reply.next={
-                    data: []
-                }
-                
-                model.tags.subnatureOptions.pop();
-                
-                let loop=model.tags.subnatureOptions.length/3;
-                
-                let min=0;
-                let max=3
-                
-                console.log(loop+"////////////////////")
-                
-                
-                for(let i=0;i<Math.ceil(loop);i++){
-                    reply.next.data.push({
-                        title   :"Select from the following Sub-natures.",
-                        text    :"",
-                        buttons :[]
-                    })
-                    for(let j=min;j<max;j++){
-                        if(     model.tags.subnatureOptions[j]
-                           &&   model.tags.subnatureOptions[j].SubNature){
-                            reply.next.data[i].buttons.push({
-                                text:model.tags.subnatureOptions[j].SubNature,
-                                data:model.tags.subnatureOptions[j  ].SubNature
-                            })
-                        }
+            if(model.tags.reaffirm){
+                model.reply={
+                    text:"Did you mean "+model.tags.reaffirm,
+                    type:"text",
+                    next:{
+                        data:[{
+                                data:"confirm",
+                                text:"Confirm"
+                            }]
                     }
-                    min=max;
-                    max=max+3;
                 }
-                
-//                for(let i=1;i<model.tags.subnatureOptions.length+1;i++){
-//                    reply.next.data.push({
-//                        title   :"Select from the following SUb-natures.",
-//                        text    :"",
-//                        buttons :[
-//                            {
-//                                text:"Use this",
-//                                data:
-//                            }
-//                        ]
-//                    })
-//                    for(let j=1;j<4;j++){
-//                        
-//                    }
-//                }
-                model.reply=reply;
+                model.tags.confirmSubnature=true;
+                delete model.tags.reaffirm;
+            }
+            else{
+                if(model.tags.subnatureOptions){
+                    let reply={};
+                    reply.type="generic";
+                    reply.text="Please choose from the following sub-natures."
+                    reply.next={
+                        data: []
+                    }
+
+                    let loop=model.tags.subnatureOptions.length/3;
+
+                    let min=0;
+                    let max=3
+
+                    for(let i=0;i<Math.ceil(loop);i++){
+                        reply.next.data.push({
+                            title   :"Select from the following Sub-natures.",
+                            text    :"",
+                            buttons :[]
+                        })
+                        for(let j=min;j<max;j++){
+                            if(     model.tags.subnatureOptions[j]
+                               &&   model.tags.subnatureOptions[j].SubNature){
+                                reply.next.data[i].buttons.push({
+                                    text:model.tags.subnatureOptions[j].SubNature,
+                                    data:model.tags.subnatureOptions[j  ].SubNature
+                                })
+                            }
+                        }
+                        min=max;
+                        max=max+3;
+                    }
+                    model.reply=reply;
+                }
             }
             return resolve(model);
         }
@@ -344,6 +401,10 @@ function getAmc(model){
                         }
                         model.tags.amcNamesArray=amcNamesArray;
                         model.tags.subnatureOptions=body["Response"][2];
+                        model.tags.subnatureOptionNames=[];
+                        for(let j=0;j<model.tags.subnatureOptions.length;j++){
+                            model.tags.subnatureOptionNames.push(model.tags.subnatureOptions[j].SubNature)
+                        }
                         return resolve(model)
                       }
                       else{
