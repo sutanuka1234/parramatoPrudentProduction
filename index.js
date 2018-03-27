@@ -236,7 +236,7 @@ function getAmc(model){
                                 ]
                         }
                     }
-                    delete model.tags.match;
+//                    delete model.tags.match;
                     model.tags.amcConfirmation=true;
                 }
                 else{
