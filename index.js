@@ -167,6 +167,7 @@ function vaildateSelectedAmc(model) {
             }
             delete model.tags.amcConfirmation;
         }
+        console.log(typeof match.bestMatch.rating+"TYPE OF RATING")
 //        else{
             if( match
                &&match.bestMatch
