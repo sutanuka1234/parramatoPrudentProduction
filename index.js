@@ -265,6 +265,7 @@ function showSchemes(model){
                                                     }
                                                 ]
                                             })
+                                            model.tags.schemeCodes = [];
                                             model.tags.schemeCodes.push(model.tags.schemeDetails[i].SCHEMECODE);
                                         }
                                     }
@@ -275,7 +276,7 @@ function showSchemes(model){
                         }
                         catch(e){
                             console.log(e);
-                            return reject("Something went wrong.");
+                            return reject("Something went wrong. Catch");
                         }
                     }
                 })
