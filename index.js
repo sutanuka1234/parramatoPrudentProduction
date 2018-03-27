@@ -203,10 +203,10 @@ function validateSchemeName(model){
             }
             return resolve(model);
         }
-        catch((e)=>{
+        catch(e){
             console.log(e);
             return reject("Something went wrong.")
-        });
+        };
     })
 }
 
