@@ -144,36 +144,59 @@ function filter(request){
                                             console.log(e);
                                             return reject("Something went wrong.")
                                         });
-            break;          
+                break;          
+            case "getSubnatureOptions":
+                                        getSubnatureOptions(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
+                break;
+            
             default                 :   
                                         return reject("No service at this domain.");
                 break;
         }
     });
 }
-    
-function vaildateSelectedAmc(model) {
-    return new Promise(function(resolve, reject) {
-//        console.log("validate amc" + JSON.stringify(model))
-        var match = stringSimilarity.findBestMatch(model.data.replace("invest",""), model.tags.amcNamesArray);
-        console.log("matches========="+JSON.stringify(match));
-        if(model.tags.amcConfirmation){
-            if(model.data.toLowerCase().includes("yes")){
-                delete model.stage;
-            }
-            else if(model.data.toLowerCase().includes("no")){
-                delete model.tags.match
-                return resolve(model);
-            }
-            delete model.tags.amcConfirmation;
+
+function getSubnatureOptions(model){
+    return new Promise(function(resolve,reject){
+        try{
+            
         }
-        console.log(typeof match.bestMatch.rating+"TYPE OF RATING")
-//        else{
+        catch(e){
+            
+        }
+    })
+}
+    
+function vaildateSelectedAmc(model){
+    return new Promise(function(resolve,reject){
+        try{
+            var match = stringSimilarity.findBestMatch(model.data.replace("invest",""), model.tags.amcNamesArray);
+            if(model.tags.amcConfirmation){
+                if(model.data.toLowerCase().includes("yes")){
+                    for(let i=0;i<model.tags.AMCNames;i++){
+                        if(model.tags.match+" Mutual Fund"===model.tags.AMCNames[i].AMCName){
+                            model.tags.amcName=model.tags.match+" Mutual Fund";
+                            model.tags.amcId=model.tags.AMCNames[i].ID
+                            delete model.stage;
+                            break;
+                        }
+                    }
+                }
+                else if(model.data.toLowerCase().includes("no")){
+                    delete model.tags.match
+                    return resolve(model);
+                }
+                delete model.tags.amcConfirmation;
+            }
             if( match
                &&match.bestMatch
                &&match.bestMatch.rating
                &&((match.bestMatch.rating)>0.2)){
-                console.log("ABOVE THRESHOLD-----------------")
                 model.tags.match=match.bestMatch.target;
             }
             else{
@@ -181,75 +204,81 @@ function vaildateSelectedAmc(model) {
                     delete model.tags.match;
                 }
             }
-//        }
-        return resolve(model);
+            return resolve(model);
+        }
+        catch(e){
+            console.log(e)
+            return reject("Something went wrong.");
+        }
     });
 }
-function getAmc(model) {
-return new Promise(function(resolve, reject) {  
-    console.log("getAmc")
-//    console.log("get amc" + JSON.stringify(model))
-    if(model.tags.AMCNames){
-        if(model.tags.match){
-            model.reply={
-                type:"quickReply",
-                text:"Did you mean "+model.tags.match +" Mutual Fund",
-                next:{
-                        "data": [
-                            {
-                                "text": "yes",
-                                "data": "yes"
-                            },
-                            {
-                                "text": "no",
-                                "data": "no"
-                            }
-                        ]
-                }
-            }
-            delete model.tags.match;
-            model.tags.amcConfirmation=true;
-        }
-        else{
-            model.reply={
-                type:"text",
-                text:"Please type in amc again.",
-                next:{}
-            }
-        }
-        return resolve(model);
-    }
-    else{
-        console.log("IN ELSE")
-            var getAmcReq={
-                        method  : 'POST',
-                        url     : url+"GetAMC?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId,
-                        headers : headers,
-                        body    : JSON.stringify({})
-            }
-            console.log(getAmcReq)
-            request(getAmcReq, (err, http, body)=>{
-                if(err){
-                  console.log("get amc" + err)
+function getAmc(model){
+    return new Promise(function(resolve, reject){
+        try{
+            if(model.tags.AMCNames){
+                if(model.tags.match){
+                    model.reply={
+                        type:"quickReply",
+                        text:"Did you mean "+model.tags.match +" Mutual Fund",
+                        next:{
+                                "data": [
+                                    {
+                                        "text": "yes",
+                                        "data": "yes"
+                                    },
+                                    {
+                                        "text": "no",
+                                        "data": "no"
+                                    }
+                                ]
+                        }
+                    }
+                    delete model.tags.match;
+                    model.tags.amcConfirmation=true;
                 }
                 else{
-                  console.log("get Amc " + body)
-                  if(body){
-                    body= JSON.parse(body);
-                    model.tags.AMCNames= body["Response"][0]
-                    let amcNamesArray = []
-                    for(let i=0;i<model.tags.AMCNames.length;i++){
-                        amcNamesArray.push(model.tags.AMCNames[i].AMCName.replace(" Mutual Fund","").trim());
+                    model.reply={
+                        type:"text",
+                        text:"Please type in amc again.",
+                        next:{}
                     }
-                    model.tags.amcNamesArray = amcNamesArray
-                    console.log(JSON.stringify(amcNamesArray))
-                    return resolve(model)
-                  }
-                  else{
-                    return reject("failed")
-                  }
                 }
-            })
+                return resolve(model);
+            }
+            else{
+                var getAmcReq={
+                    method  : 'POST',
+                    url     : url+"GetAMC?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId,
+                    headers : headers,
+                    body    : JSON.stringify({})
+                }
+                request(getAmcReq,(err,http,body)=>{
+                    if(err){
+                        console.log("get amc" + err)
+                        return reject("failed");
+                    }
+                    else{
+                      console.log("get Amc " + body)
+                      if(body){
+                        body= JSON.parse(body);
+                        model.tags.AMCNames= body["Response"][0]
+                        let amcNamesArray = []
+                        for(let i=0;i<model.tags.AMCNames.length;i++){
+                            amcNamesArray.push(model.tags.AMCNames[i].AMCName.replace(" Mutual Fund","").trim());
+                        }
+                        model.tags.amcNamesArray=amcNamesArray;
+                        return resolve(model)
+                      }
+                      else{
+                        return reject("failed")
+                      }
+                    }
+                })
+            }
+        }
+        catch(e){
+            console.log(e)
+            return reject("Something went wrong.");
         }
     })
 }
