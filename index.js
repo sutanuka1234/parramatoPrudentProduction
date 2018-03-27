@@ -202,6 +202,7 @@ return new Promise(function(resolve, reject) {
                         ]
                 }
             }
+            delete model.tags.match;
             model.tags.amcConfirmation=true;
         }
         else{
