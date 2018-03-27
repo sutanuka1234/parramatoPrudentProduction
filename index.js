@@ -289,6 +289,9 @@ function getAmc(model){
                         next:{}
                     }
                 }
+                if(model.tags.amcConfirmation;){
+                    delete model.tags.amcConfirmation;
+                }
                 return resolve(model);
             }
             else{
