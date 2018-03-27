@@ -195,7 +195,7 @@ function validateSubnatureOptions(model){
                     if( match
                        &&match.bestMatch
                        &&match.bestMatch.rating
-                       &&((match.bestMatch.rating)>0.5)){
+                       &&((match.bestMatch.rating)==1)){
                         model.tags.subnatureMatch=match.bestMatch.target;
                         for(let i=0;i<model.tags.subnatureOptions.length;i++){
                             if(model.tags.subnatureMatch===model.tags.subnatureOptions[i].SubNature){
@@ -208,8 +208,8 @@ function validateSubnatureOptions(model){
                     else if(match
                        &&match.bestMatch
                        &&match.bestMatch.rating
-                       &&(match.bestMatch.rating>0.1)
-                       &&(match.bestMatch.rating<0.5)){
+                       &&(match.bestMatch.rating>0)
+                       &&(match.bestMatch.rating<1)){
                         model.tags.subnatureMatch=match.bestMatch.target;
                         model.tags.reaffirm=match.bestMatch.target;
                     }
