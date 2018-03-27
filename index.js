@@ -177,6 +177,8 @@ function getSubnatureOptions(model){
                 let min=0;
                 let max=3
                 
+                console.log(loop+"////////////////////")
+                
                 for(let i=0;i<=loop;i++){
                     reply.next.data.push({
                         title   :"Select from the following Sub-natures.",
@@ -186,7 +188,7 @@ function getSubnatureOptions(model){
                     for(let j=min;j<max;j++){
                         if(model.tags.subnatureOptions[min]&&model.tags.subnatureOptions[min].SubNature){
                             reply.next.data[i].buttons.push({
-                                text:"Use this",
+                                text:model.tags.subnatureOptions[min].SubNature,
                                 data:model.tags.subnatureOptions[min].SubNature
                             })
                         }
