@@ -230,7 +230,7 @@ function getSubnatureOptions(model){
             if(model.tags.reaffirm){
                 model.reply={
                     text:"Did you mean "+model.tags.reaffirm,
-                    type:"text",
+                    type:"button",
                     next:{
                         data:[{
                                 data:"confirm",
