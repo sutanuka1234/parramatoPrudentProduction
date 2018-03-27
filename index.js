@@ -164,10 +164,13 @@ function filter(request){
 function getSubnatureOptions(model){
     return new Promise(function(resolve,reject){
         try{
-            
+            if(model.tags.){
+               
+            }
         }
         catch(e){
-            
+            console.log(e);
+            return reject("Something went wrong.");
         }
     })
 }
@@ -223,7 +226,7 @@ function vaildateSelectedAmc(model){
             return resolve(model);
         }
         catch(e){
-            console.log(e)
+            console.log(e);
             return reject("Something went wrong.");
         }
     });
@@ -285,6 +288,7 @@ function getAmc(model){
                             amcNamesArray.push(model.tags.AMCNames[i].AMCName.replace(" Mutual Fund","").trim());
                         }
                         model.tags.amcNamesArray=amcNamesArray;
+                        model.tags.subnatureOptions=body["Response"][2];
                         return resolve(model)
                       }
                       else{
