@@ -179,6 +179,7 @@ function vaildateSelectedAmc(model){
             if(model.tags.amcConfirmation){
                 if(model.data.toLowerCase().includes("yes")){
                     for(let i=0;i<model.tags.AMCNames;i++){
+                        console.log(model.tags.match+" Mutual Fund"+"---------------"+model.tags.AMCNames[i].AMCName);
                         if(model.tags.match+" Mutual Fund"===model.tags.AMCNames[i].AMCName){
                             model.tags.amcName=model.tags.match+" Mutual Fund";
                             model.tags.amcId=model.tags.AMCNames[i].ID
