@@ -24,7 +24,7 @@ app.listen(process.env.PORT||80,()=>{
 app.post('/:type',(req, res)=>{
     filter(req)
     .then((model)=>{
-        console.log("final response"+JSON.stringify(model))
+//        console.log("final response"+JSON.stringify(model))
         res.json(model).status(200)})
     .catch((e)=>{res.status(203).json({message:e})})
 })
@@ -156,6 +156,7 @@ function vaildateSelectedAmc(model) {
     return new Promise(function(resolve, reject) {
 //        console.log("validate amc" + JSON.stringify(model))
         var match = stringSimilarity.findBestMatch(model.data, model.tags.amcNamesArray);
+        console.log("matches========="+match);
         if(model.tags.amcConfirmation){
             if(model.data.toLowerCase().includes("yes")){
                 delete model.stage;
@@ -169,7 +170,6 @@ function vaildateSelectedAmc(model) {
         else{
             if(match.bestMatch.rating>=0.5){
                 model.tags.match=match.bestMatch.target;
-                console.log("matches========="+match);
             }
             else{
                 if(model.tags.match){
