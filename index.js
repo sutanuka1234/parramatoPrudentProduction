@@ -179,7 +179,7 @@ function getSubnatureOptions(model){
                 
                 console.log(loop+"////////////////////")
                 
-                for(let i=0;i<=loop;i++){
+                for(let i=0;i<loop;i++){
                     reply.next.data.push({
                         title   :"Select from the following Sub-natures.",
                         text    :"",
@@ -189,7 +189,7 @@ function getSubnatureOptions(model){
                         if(model.tags.subnatureOptions[min]&&model.tags.subnatureOptions[j].SubNature){
                             reply.next.data[i].buttons.push({
                                 text:model.tags.subnatureOptions[j].SubNature,
-                                data:model.tags.subnatureOptions[j].SubNature
+                                data:model.tags.subnatureOptions[j  ].SubNature
                             })
                         }
                     }
