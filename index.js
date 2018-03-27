@@ -308,9 +308,9 @@ function getAmc(model){
                         text:"Please type in amc again.",
                         next:{}
                     }
-                }
-                if(model.tags.amcConfirmation){
-                    delete model.tags.amcConfirmation;
+                    if(model.tags.amcConfirmation){
+                        delete model.tags.amcConfirmation;
+                    }
                 }
                 return resolve(model);
             }
