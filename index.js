@@ -183,6 +183,7 @@ function vaildateSelectedAmc(model){
                             model.tags.amcName=model.tags.match+" Mutual Fund";
                             model.tags.amcId=model.tags.AMCNames[i].ID
                             delete model.stage;
+                            console.log(JSON.stringify(model.tags)+"TAGS")
                             break;
                         }
                     }
