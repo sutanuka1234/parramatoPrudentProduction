@@ -172,12 +172,15 @@ function getSubnatureOptions(model){
                     data: []
                 }
                 
+                model.tags.subnatureOptions.pop();
+                
                 let loop=model.tags.subnatureOptions.length/3;
                 
                 let min=0;
                 let max=3
                 
                 console.log(loop+"////////////////////")
+                
                 
                 for(let i=0;i<loop;i++){
                     reply.next.data.push({
