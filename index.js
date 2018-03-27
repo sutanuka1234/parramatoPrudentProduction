@@ -177,7 +177,7 @@ function validateSubnatureOptions(model){
             if(model.tags.subnatureOptionNames){
                 if(model.tags.confirmSubnature){
                     if(model.data.toLowerCase().includes("confirm")){
-                        for(let i=0;<model.tags.subnatureOptions.length;i++){
+                        for(let i=0;i<model.tags.subnatureOptions.length;i++){
                             if(model.tags.subnatureMatch===model.tags.subnatureOptions[i].SubNature){
                                 model.tags.subnature=model.tags.subnatureOptions[i].SubNature;
                                 model.tags.subnatureId=model.tags.subnatureOptions[i].ID;
