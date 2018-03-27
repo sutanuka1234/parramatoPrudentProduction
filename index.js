@@ -181,7 +181,7 @@ function validateSubnatureOptions(model){
                             if(model.tags.subnatureMatch===model.tags.subnatureOptions[i].SubNature){
                                 model.tags.subnature=model.tags.subnatureOptions[i].SubNature;
                                 model.tags.subnatureId=model.tags.subnatureOptions[i].ID;
-                                delete model.stage;
+//                                delete model.stage;
                             }
                         }
                         delete model.stage;   
@@ -191,6 +191,7 @@ function validateSubnatureOptions(model){
                 }
                 else{
                     var match = stringSimilarity.findBestMatch(model.data, model.tags.subnatureOptionNames);
+                    console.log(JSON.stringify(match)+"MATCH--------------------")
                     if( match
                        &&match.bestMatch
                        &&match.bestMatch.rating
@@ -200,7 +201,7 @@ function validateSubnatureOptions(model){
                             if(model.tags.subnatureMatch===model.tags.subnatureOptions[i].SubNature){
                                 model.tags.subnature=model.tags.subnatureOptions[i].SubNature;
                                 model.tags.subnatureId=model.tags.subnatureOptions[i].ID;
-                                delete model.stage;
+//                                delete model.stage;
                             }
                         }
                     }
