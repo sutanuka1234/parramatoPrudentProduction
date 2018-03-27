@@ -167,7 +167,7 @@ function vaildateSelectedAmc(model) {
             }
             delete model.tags.amcConfirmation;
         }
-        else{
+//        else{
             if(match.bestMatch.rating>=0.3){
                 model.tags.match=match.bestMatch.target;
             }
@@ -176,7 +176,7 @@ function vaildateSelectedAmc(model) {
                     delete model.tags.match;
                 }
             }
-        }
+//        }
         return resolve(model);
     });
 }
