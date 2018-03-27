@@ -172,7 +172,7 @@ function getSubnatureOptions(model){
                     data: []
                 }
                 
-                let loop=model.tags.subnatureOptions.length;
+                let loop=model.tags.subnatureOptions.length/3;
                 
                 let min=0;
                 let max=3
@@ -186,10 +186,10 @@ function getSubnatureOptions(model){
                         buttons :[]
                     })
                     for(let j=min;j<max;j++){
-                        if(model.tags.subnatureOptions[min]&&model.tags.subnatureOptions[min].SubNature){
+                        if(model.tags.subnatureOptions[min]&&model.tags.subnatureOptions[j].SubNature){
                             reply.next.data[i].buttons.push({
-                                text:model.tags.subnatureOptions[min].SubNature,
-                                data:model.tags.subnatureOptions[min].SubNature
+                                text:model.tags.subnatureOptions[j].SubNature,
+                                data:model.tags.subnatureOptions[j].SubNature
                             })
                         }
                     }
