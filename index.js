@@ -1,4 +1,4 @@
-var request = require('request');
+xvar request = require('request');
 var stringSimilarity = require('string-similarity');
  
 const express = require('express');
@@ -15,6 +15,7 @@ const headers={
 }
 
 const url="https://www.prudentcorporate.com/cbapi/";
+
 
 app.listen(process.env.PORT||80,()=>{
     console.log("Server is listening.")
@@ -178,8 +179,13 @@ function getAmc(model) {
               console.log("get Amc " + body)
               if(body){
                 body= JSON.parse(body);
-                model.tags.AMCNames = body["Response"][0][0]
-                console.log("sas===============888" +body["Response"][0][0])
+                model.tags.AMCNames = body["Response"][0]
+                console.log("sas===============888" +body["Response"][0])
+                let amcNamesArray = []
+                for (var i = AMCNames.length - 1; i >= 0; i--) {
+                    amcNamesArray.push(AMCNames[i])
+                }
+                model.tags.amcNamesArray = amcNamesArray
                 console.log(body+ "----------------")
                 return resolve(model)
               }
