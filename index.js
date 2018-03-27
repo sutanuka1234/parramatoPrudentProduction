@@ -171,7 +171,7 @@ function vaildateSelectedAmc(model) {
             if( match
                &&match.bestMatch
                &&match.bestMatch.rating
-               &&match.bestMatch.rating>0){
+               &&match.bestMatch.rating>0.2){
                 console.log("ABOVE THRESHOLD-----------------")
                 model.tags.match=match.bestMatch.target;
             }
