@@ -212,6 +212,7 @@ function getSubnatureOptions(model){
 //                }
                 model.reply=reply;
             }
+            return resolve(model);
         }
         catch(e){
             console.log(e);
