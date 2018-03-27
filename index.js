@@ -194,15 +194,17 @@ function vaildateSelectedAmc(model){
                 }
                 delete model.tags.amcConfirmation;
             }
-            if( match
-               &&match.bestMatch
-               &&match.bestMatch.rating
-               &&((match.bestMatch.rating)>0.2)){
-                model.tags.match=match.bestMatch.target;
-            }
             else{
-                if(model.tags.match){
-                    delete model.tags.match;
+                if( match
+                   &&match.bestMatch
+                   &&match.bestMatch.rating
+                   &&((match.bestMatch.rating)>0.2)){
+                    model.tags.match=match.bestMatch.target;
+                }
+                else{
+                    if(model.tags.match){
+                        delete model.tags.match;
+                    }
                 }
             }
             return resolve(model);
