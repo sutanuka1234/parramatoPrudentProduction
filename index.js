@@ -304,7 +304,7 @@ function showSchemes(model){
                     }
                 }
                 model.reply=reply;
-                return resolve(body);
+                return resolve(model);
             }
         }
         catch(e){
