@@ -210,6 +210,7 @@ function validateFolio(model){
     return new Promise(function(resolve,reject){
         try{
             if(model.data.match(/\d+/g)){
+                console.log(model.data+"USER SAID")
                 if(model.tags.foliosArray.includes(parseInt(model.data.match(/\d+/g)[0]))){
                     model.tags.folioSelected=model.data.match(/\d+/g)[0]
                     delete model.stage;     
