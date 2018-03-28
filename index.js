@@ -265,7 +265,7 @@ function insertBuyCart(model){
                         body=JSON.parse(body);
                         if(body.Response){
                             if(body.Response[0].result){
-                                return reject("Buy Cart Unsucessful."); 
+                                return reject("Buy Cart Unsuccessful."); 
                             }   
                             else{
                                 model.reply={
