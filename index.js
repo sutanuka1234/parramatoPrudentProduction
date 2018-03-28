@@ -436,12 +436,12 @@ function vaildateSelectedAmc(model){
                 
                 if(model.data.toLowerCase().includes("yes")){
                     for(let i=0;i<model.tags.AMCNames.length;i++){
-                        console.log(model.tags.match+" Mutual Fund"+"---------------"+model.tags.AMCNames[i].AMCName);
+//                        console.log(model.tags.match+" Mutual Fund"+"---------------"+model.tags.AMCNames[i].AMCName);
                         if(model.tags.match+" Mutual Fund"===model.tags.AMCNames[i].AMCName){
                             model.tags.amcName=model.tags.match+" Mutual Fund";
                             model.tags.amcId=model.tags.AMCNames[i].ID
                             delete model.stage;
-                            console.log(JSON.stringify(model.tags)+"TAGS")
+//                            console.log(JSON.stringify(model.tags)+"TAGS")
                             break;
                         }
                     }
@@ -459,6 +459,19 @@ function vaildateSelectedAmc(model){
                         }
                     }
                     return resolve(model);
+                }
+                else{
+                    if( match
+                       &&match.bestMatch
+                       &&match.bestMatch.rating
+                       &&((match.bestMatch.rating)>0.2)){
+                        model.tags.match=match.bestMatch.target;
+                    }
+                    else{
+                        if(model.tags.match){
+                            delete model.tags.match;
+                        }
+                    }
                 }
                 delete model.tags.amcConfirmation;
             }
