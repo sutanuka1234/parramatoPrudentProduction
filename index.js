@@ -249,6 +249,7 @@ function showFolio(model){
                     model.tags.foliosArray.push(model.tags.folioDetails[i].FolioNo);
                 }
             }
+            return resolve(model);
         }
         catch(e){
             console.log(e);
