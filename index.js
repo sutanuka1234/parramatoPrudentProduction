@@ -181,11 +181,80 @@ function filter(request){
                                         });
                 break;
                 
+            case "showFolio"        :
+                                        showFolio(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
+                break;
+                
+            case "validateFolio"    :
+                                        validateFolio(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
+                break;
+                
             default                 :   
                                         return reject("No service at this domain.");
                 break;
         }
     });
+}
+
+function validateFolio(model){
+    return new Promise(function(resolve,reject){
+        try{
+            if(model.data.match(/\d+/g)){
+                if(model.tags.foliosArray.includes(parseInt(model.data.match(/\d+/g)[0]))){
+                    model.tags.folioSelected=model.data.match(/\d+/g)[0]
+                    delete model.stage;     
+                }
+            }
+            return resolve(model);
+        }
+        catch(e){
+            console.log(e);
+            return reject("Something went wrong.");
+        }
+    })
+}
+
+function showFolio(model){
+    return new Promise(function(resolve,reject){
+        try{
+            let reply={};
+            reply.type="generic";
+            reply.text="You can choose from the following folios."
+            reply.next={
+                data:[]  
+            };
+            model.tags.foliosArray=[];
+            for(let i=0;i<model.tags.folioDetails;i++){
+                if(model.tags.folioDetails[i]){
+                    reply.next.data.push({
+                        title   :model.tags.folioDetails[i].FolioNo,
+                        text    :"",
+                        buttons :[
+                            {
+                                text:"Use this",
+                                data:model.tags.folioDetails[i].FolioNo
+                            }
+                        ]
+                    })
+                    model.tags.foliosArray.push(model.tags.folioDetails[i].FolioNo);
+                }
+            }
+        }
+        catch(e){
+            console.log(e);
+            return reject("Something went wrong.")
+        }
+    })
 }
 
 function validateSchemeName(model){
