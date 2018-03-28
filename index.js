@@ -249,8 +249,8 @@ function showFolio(model){
                     model.tags.foliosArray.push(model.tags.folioDetails[i].FolioNo);
                 }
             }
+            console.log(JSON.stringify(reply)+"FOLIOS")
             model.reply=reply;
-            console.log(JSON.stringify(model.reply)+"FOLIOS")
             return resolve(model);
         }
         catch(e){
