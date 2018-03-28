@@ -290,7 +290,7 @@ function insertBuyCart(model){
                         return reject("Something went wrong."); 
                     }
                 }
-            })
+            })    
         }
          catch(e){
              console.log(e);
