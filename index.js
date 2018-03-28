@@ -266,7 +266,7 @@ function insertBuyCart(model){
                         if(body.Response){
                             if(body.Response[0].result){
                                 return reject("Something went wrong."); 
-                            }
+                            }   
                             else{
                                 model.reply={
                                     type:"text",
@@ -352,7 +352,7 @@ function validateAmount(model){
                             console.log("IN ZZZZZZZZZZZZZZZZZ")
                             model.tags.divOpt=0;
                         }
-                        model.stage="final"
+                        model.stage="insertBuyCart"
                     }
                 }
                 else{
