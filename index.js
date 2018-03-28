@@ -250,6 +250,9 @@ function showSchemes(model){
                                     let reply={};
                                     reply.type="generic";
                                     reply.text="You can choose from the following Schemes."
+                                    reply.next={
+                                        data:[]  
+                                    };
                                     for(let i=0;i<10;i++){
                                         if(model.tags.schemeDetails[i]){
                                             reply.next.data.push({
