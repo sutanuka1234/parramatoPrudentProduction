@@ -47,6 +47,14 @@ function filter(request){
                                         });
                 break;
                 
+            case "mobileDecoration":
+                                        pre.mobileDecoration(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.")
+                                        });
+                break;
                 
 //            case "validatePanMobileByApi"    :  
 //                                        getPanMobile(request.body)
@@ -90,14 +98,6 @@ function filter(request){
                                         }
                 break;
             
-            case "mobileDecoration":
-                                        pre.mobileDecoration(request.body)
-                                        .then((model)=>{return resolve(model)})
-                                        .catch((e)=>{
-                                            console.log(e);
-                                            return reject("Something went wrong.")
-                                        });
-                break;
                 
             case "postValidatePan"  :
                                         postValidatePan(request.body)
@@ -240,6 +240,15 @@ function filter(request){
 function insertBuyCart(model){
      return new Promise(function(resolve,reject){
         try{
+            if(model.tags.schemeData.DividendOption==="B"){
+                if(model.tags.divOps=="Reinvest"){
+                    model.tags.divOpt=1
+                }
+                else if(model.tags.divOps=="Payout"){
+                    model.tags.divOpt=2
+                }
+            }
+            
             request({
                 uri     :"https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SubNature="+model.tags.subnatureId+"&SchemeName="+model.tags.schemeData.SchemeName+"&DividentOption="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&TransactionType=2",
                 headers : headers,
