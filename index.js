@@ -201,6 +201,7 @@ function validateSchemeName(model){
                         if(parseInt(model.tags.schemeDetails[i].SCHEMECODE)===parseInt(model.data.match(/\d+/g)[0])){
                             model.tags.schemeData=model.tags.schemeDetails[i]
                             delete model.stage;
+                            break;
                         }
                     }
                 }
