@@ -268,6 +268,11 @@ function insertBuyCart(model){
                                 return reject("Something went wrong."); 
                             }
                             else{
+                                model.reply={
+                                    type:"text",
+                                    text:"Success",
+                                    next:{}
+                                }
                                 return resolve(model);
                             }
                         }
