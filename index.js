@@ -285,25 +285,6 @@ function postValidateAmount(model){
                     if(model.tags.validateAmountFlag=="validated"){
                         delete model.tags.validateAmountFlag;
                         console.log(model.tags.schemeData.DividendOption+"----------------")
-                        if(model.tags.schemeData.DividendOption==="B"){
-                            console.log("IN BBBBBBBBBBBBBBBBBB")
-                            delete model.stage;
-                        }
-                        else{
-                            if(model.tags.schemeData.DividendOption==="Y"){
-                                console.log("IN YYYYYYYYYYYYYYY")
-                                model.tags.divOpt=1;  
-                            }
-                            else if(model.tags.schemeData.DividendOption==="N"){
-                                console.log("IN NNNNNNNNNNNN")
-                                model.tags.divOpt=2;
-                            }
-                            else if(model.tags.schemeData.DividendOption==="Z"){
-                                console.log("IN ZZZZZZZZZZZZZZZZZ")
-                                model.tags.divOpt=0;
-                            }
-                            model.stage="final"
-                        }
                     }
                     else if(model.tags.validateAmountFlag=="not validated"){
                         model.reply={
@@ -340,6 +321,25 @@ function validateAmount(model){
                     &&  model.data>=parseInt(model.tags.schemeData.MinimumInvestment)){
                     model.tags.amount=model.data;
                     model.tags.validateAmountFlag="validated";
+                    if(model.tags.schemeData.DividendOption==="B"){
+                            console.log("IN BBBBBBBBBBBBBBBBBB")
+                            delete model.stage;
+                    }
+                    else{
+                        if(model.tags.schemeData.DividendOption==="Y"){
+                            console.log("IN YYYYYYYYYYYYYYY")
+                            model.tags.divOpt=1;  
+                        }
+                        else if(model.tags.schemeData.DividendOption==="N"){
+                            console.log("IN NNNNNNNNNNNN")
+                            model.tags.divOpt=2;
+                        }
+                        else if(model.tags.schemeData.DividendOption==="Z"){
+                            console.log("IN ZZZZZZZZZZZZZZZZZ")
+                            model.tags.divOpt=0;
+                        }
+                        model.stage="final"
+                    }
                     delete model.stage;
                 }
                 else{
