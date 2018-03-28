@@ -211,6 +211,7 @@ function validateFolio(model){
         try{
             if(model.data.match(/\d+/g)){
                 console.log(model.data+"USER SAID")
+                console.log(JSON.stringify(model.tags.foliosArray)+"//");
                 if(model.tags.foliosArray.includes(parseInt(model.data.match(/\d+/g)[0]))){
                     model.tags.folioSelected=model.data.match(/\d+/g)[0]
                     delete model.stage;     
@@ -248,7 +249,7 @@ function showFolio(model){
                             }
                         ]
                     })
-                    model.tags.foliosArray.push(model.tags.folioDetails[i].FolioNo);
+                    model.tags.foliosArray.push(parseInt(model.tags.folioDetails[i].FolioNo));
                 }
             }
             model.reply=reply;
