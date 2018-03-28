@@ -234,6 +234,7 @@ function showFolio(model){
                 data:[]  
             };
             model.tags.foliosArray=[];
+            console.log(JSON.stringify(model.tags.folioDetails)+"FOLIOS")
             for(let i=0;i<model.tags.folioDetails;i++){
                 if(model.tags.folioDetails[i]){
                     reply.next.data.push({
