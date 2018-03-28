@@ -360,7 +360,7 @@ function validateAmount(model){
                             console.log("IN ZZZZZZZZZZZZZZZZZ")
                             model.tags.divOpt=0;
                         }
-                        model.stage="insertBuyCart"
+                        delete model.stage;
                     }
                 }
                 else{
