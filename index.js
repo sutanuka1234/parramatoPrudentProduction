@@ -55,7 +55,7 @@ function filter(request){
 //                break;
                 
             case "validatePan"      :
-                                        pre.validatePan(request.body)
+                                        validatePan(request.body)
                                         .then(validatePanMobileByApi)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
@@ -90,7 +90,7 @@ function filter(request){
                 break;
             
             case "mobileDecoration":
-                                        mobileDecoration(request.body)
+                                        pre.mobileDecoration(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
