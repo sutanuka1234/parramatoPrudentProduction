@@ -1,4 +1,4 @@
-var validateMobile=require('./post/validateMonile.js');
+var validateMobile=require('./post/validateMobile.js');
 
 module.exports={
     validateMobile:validateMobile
