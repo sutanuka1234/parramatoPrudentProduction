@@ -286,6 +286,7 @@ function postValidateAmount(model){
                         delete model.tags.validateAmountFlag;
                         console.log(model.tags.schemeData.DividendOption+"----------------")
                         if(model.tags.schemeData.DividendOption==="B"){
+                            console.log("IN BBBBBBBBBBBBBBBBBB")
                             delete model.stage;
                         }
                         else{
