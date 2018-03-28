@@ -284,7 +284,7 @@ function postValidateAmount(model){
                 if(model.tags.validateAmountFlag){
                     if(model.tags.validateAmountFlag=="validated"){
                         delete model.tags.validateAmountFlag;
-                        if(!model.tags.schemeData.DividendOption==="B"){
+                        if(model.tags.schemeData.DividendOption==="B"){
                             delete model.stage;
                         }
                         else{
