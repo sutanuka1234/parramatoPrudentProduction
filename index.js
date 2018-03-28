@@ -227,7 +227,7 @@ function validateFolio(model){
 function showFolio(model){
     return new Promise(function(resolve,reject){
         try{
-            model.reply={};
+            let reply={};
             reply.type="generic";
             reply.text="You can choose from the following folios."
             reply.next={
@@ -249,8 +249,8 @@ function showFolio(model){
                     model.tags.foliosArray.push(model.tags.folioDetails[i].FolioNo);
                 }
             }
-            console.log(JSON.stringify(reply)+"FOLIOS")
-//            model.reply=reply;
+            model.reply=reply;
+            console.log(JSON.stringify(model)+"FOLIOS")
             return resolve(model);
         }
         catch(e){
