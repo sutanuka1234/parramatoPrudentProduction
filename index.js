@@ -234,7 +234,6 @@ function showFolio(model){
                 data:[]  
             };
             model.tags.foliosArray=[];
-            console.log(JSON.stringify(model.tags.folioDetails)+"FOLIOS")
             for(let i=0;i<model.tags.folioDetails;i++){
                 if(model.tags.folioDetails[i]){
                     reply.next.data.push({
@@ -250,6 +249,7 @@ function showFolio(model){
                     model.tags.foliosArray.push(model.tags.folioDetails[i].FolioNo);
                 }
             }
+            console.log(JSON.stringify(model.reply)+"FOLIOS")
             model.reply=reply;
             return resolve(model);
         }
