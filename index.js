@@ -222,11 +222,59 @@ function filter(request){
                                         });  
                 break;
                 
+            case "insertBuyCart"    :
+                                        insertBuyCart(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.");
+                                        });  
+                
             default                 :   
                                         return reject("No service at this domain.");
                 break;
         }
     });
+}
+
+function insertBuyCart(model){
+     return new Promise(function(resolve,reject){
+        try{
+            request({
+                uri     :"https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SubNature="+model.tags.subnatureId+"&SchemeName="+model.tags.schemeData.SchemeName+"&DividentOption="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&TransactionType=2",
+                headers : headers,
+                body    : JSON.stringify({}),
+                method  :'POST'   
+            },(err,req,body)=>{
+                if(err){   
+                    console.log(err)
+                    return reject("Something went wrong.");
+                }
+                else{
+                    try{
+                        console.log(body);
+                        body=JSON.parse(body);
+                        if(body.Response){
+                            if(body.Response[0].result){
+                                return reject("Something went wrong."); 
+                            }
+                            else{
+                                return resolve(model);
+                            }
+                        }
+                    }
+                    catch(e){
+                        console.log(e);
+                        return reject("Something went wrong."); 
+                    }
+                }
+            })
+        }
+         catch(e){
+             console.log(e);
+             return reject("Something went wrong.");
+         }
+     })
 }
 
 function postValidateAmount(model){
@@ -236,7 +284,21 @@ function postValidateAmount(model){
                 if(model.tags.validateAmountFlag){
                     if(model.tags.validateAmountFlag=="validated"){
                         delete model.tags.validateAmountFlag;
-                        delete model.stage;
+                        if(!model.tags.schemeData.DividendOption==="B"){
+                            delete model.stage;
+                        }
+                        else{
+                            if(model.tags.schemeData.DividendOption==="Y"){
+                                model.tags.divOpt=1;  
+                            }
+                            else if(model.tags.schemeData.DividendOption==="N"){
+                                model.tags.divOpt=2;
+                            }
+                            else if(model.tags.schemeData.DividendOption==="Z"){
+                                model.tags.divOpt=0;
+                            }
+                            model.stage="final"
+                        }
                     }
                     else if(model.tags.validateAmountFlag=="not validated"){
                         model.reply={
@@ -271,6 +333,7 @@ function validateAmount(model){
                 if(     model.data%100==0
                     &&  model.data<=parseInt(model.tags.schemeData.MaximumInvestment)
                     &&  model.data>=parseInt(model.tags.schemeData.MinimumInvestment)){
+                    model.tags.amount=model.data;
                     model.tags.validateAmountFlag="validated";
                     delete model.stage;
                 }
