@@ -191,6 +191,7 @@ function filter(request){
 function validateSchemeName(model){
     return new Promise(function(resolve,reject){
         try{
+            console.log(model.data+"USER SELECTED")
             if(model.data.match(/\d+/g)){
                 if(model.tags.schemeCodes.includes(model.data.match(/\d+/g)[0])){
                     for(let i=0;i<model.tags.schemeDetails.length;i++){
@@ -253,6 +254,7 @@ function showSchemes(model){
                                     reply.next={
                                         data:[]  
                                     };
+                                    model.tags.schemeCodes = []
                                     for(let i=0;i<10;i++){
                                         if(model.tags.schemeDetails[i]){
                                             reply.next.data.push({
@@ -265,7 +267,6 @@ function showSchemes(model){
                                                     }
                                                 ]
                                             })
-                                            model.tags.schemeCodes = []
                                             model.tags.schemeCodes.push(model.tags.schemeDetails[i].SCHEMECODE);
                                         }
                                     }
