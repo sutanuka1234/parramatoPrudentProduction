@@ -430,8 +430,10 @@ function getSubnatureOptions(model){
 function vaildateSelectedAmc(model){
     return new Promise(function(resolve,reject){
         try{
+            var match = stringSimilarity.findBestMatch(model.data.replace("invest",""), model.tags.amcNamesArray);
             if(model.tags.amcConfirmation){
                 console.log("POST CONFIRMATION")
+                
                 if(model.data.toLowerCase().includes("yes")){
                     for(let i=0;i<model.tags.AMCNames.length;i++){
                         console.log(model.tags.match+" Mutual Fund"+"---------------"+model.tags.AMCNames[i].AMCName);
@@ -461,7 +463,7 @@ function vaildateSelectedAmc(model){
                 delete model.tags.amcConfirmation;
             }
             else{
-                var match = stringSimilarity.findBestMatch(model.data.replace("invest",""), model.tags.amcNamesArray);
+//                var match = stringSimilarity.findBestMatch(model.data.replace("invest",""), model.tags.amcNamesArray);
                 console.log("SEARCH FOR MATCH")
                 if( match
                    &&match.bestMatch
