@@ -244,7 +244,7 @@ function postValidateAmount(model){
             }
             else{
                 model.reply={
-                    text:"Please enter an amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment,
+                    text:"Please enter an amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.",
                     type:"text",
                     next:{}
                 }   
@@ -271,12 +271,12 @@ function validateAmount(model){
                 }
                 else{
                     model.tags.validateAmountFlag="not validated";
-                    model.tags.validatedAmountMessage="Please enter a valid amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment;   
+                    model.tags.validatedAmountMessage="Please enter a valid amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.;   
                 }
             }
             else{
                 model.tags.validatedAmount="not validated";
-                model.tags.validatedAmountMessage="Please enter a valid amount.";
+                model.tags.validatedAmountMessage="Please enter a valid amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.";
             }
             return resolve(model);
         }
