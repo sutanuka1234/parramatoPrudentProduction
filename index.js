@@ -237,7 +237,7 @@ function showFolio(model){
             };
             model.tags.foliosArray=[];
             for(let i=0;i<model.tags.folioDetails.length;i++){
-                console.log(model.tags.folioDetails[i]+"-----")
+                console.log(JSON.stringify(model.tags.folioDetails[i])+"-----")
                 if(model.tags.folioDetails[i]){
                     reply.next.data.push({
                         title   :model.tags.folioDetails[i].FolioNo,
