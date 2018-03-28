@@ -270,6 +270,7 @@ function showSchemes(model){
                                         }
                                     }
                                     model.reply=reply;
+                                    return resolve(model);
                                 }
                             }
                         }
@@ -279,7 +280,6 @@ function showSchemes(model){
                         }
                     }
                 })
-                return resolve(model);
             }
             else{
                 let reply={};
