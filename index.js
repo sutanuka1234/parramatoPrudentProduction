@@ -186,7 +186,7 @@ function filter(request){
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
-                                            return reject("Something went wrong.")
+                                            return reject("Something went wrong.");
                                         });
                 break;
                 
@@ -195,8 +195,26 @@ function filter(request){
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
-                                            return reject("Something went wrong.")
+                                            return reject("Something went wrong.");
                                         });
+                break;
+                
+            case "validateAmount"   :   
+                                        validateAmount(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.");
+                                        });
+                break;
+                
+            case "postValidateAmount":
+                                        postValidateAmount(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.");
+                                        });  
                 break;
                 
             default                 :   
@@ -204,6 +222,69 @@ function filter(request){
                 break;
         }
     });
+}
+
+function postValidateAmount(model){
+    return new Promise(function(resolve,reject){
+        try{
+            if(model.tags.validateAmountFlag){
+                if(model.tags.validateAmountFlag){
+                    if(model.tags.validateAmountFlag=="validated"){
+                        delete model.tags.validateAmountFlag;
+                        delete model.stage;
+                    }
+                    else if(model.tags.validateAmountFlag=="not validated"){
+                        model.reply={
+                            text:model.tags.validatedAmountMessage,
+                            type:"text",
+                            next:{}
+                        }  
+                    }
+                }
+            }
+            else{
+                model.reply={
+                    text:"Please enter an amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment,
+                    type:"text",
+                    next:{}
+                }   
+            }
+            return resolve(model);
+        }
+        catch(e){
+            console.log(e);
+            return reject("Something went wrong.");
+        }
+    })
+}
+
+function validateAmount(model){
+    return new Promise(function(resolve,reject){
+        try{
+            if(model.data.match(/\d+/g)){
+                model.data=Math.round(model.data.match(/\d+/g)[0]);
+                if(     model.data%100==0
+                    &&  model.data<=parseInt(model.tags.schemeData.MaximumInvestment)
+                    &&  model.data>=parseInt(model.tags.schemeData.MinimumInvestment)){
+                    model.tags.validateAmountFlag="validated";
+                    delete model.stage;
+                }
+                else{
+                    model.tags.validateAmountFlag="not validated";
+                    model.tags.validatedAmountMessage="Please enter a valid amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment;   
+                }
+            }
+            else{
+                model.tags.validatedAmount="not validated";
+                model.tags.validatedAmountMessage="Please enter a valid amount.";
+            }
+            return resolve(model);
+        }
+        catch(e){
+            console.log(e);
+            return reject("Something went wrong.");
+        }
+    })
 }
 
 function validateFolio(model){
