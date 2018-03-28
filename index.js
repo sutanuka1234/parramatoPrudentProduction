@@ -192,6 +192,7 @@ function validateSchemeName(model){
     return new Promise(function(resolve,reject){
         try{
             console.log(model.data+"USER SELECTED")
+            console.log(JSON.stringify(model.tags.schemeCodes))
             if(model.data.match(/\d+/g)){
                 console.log(model.tags.schemeCodes.includes(model.data.match(/\d+/g)[0]));
                 if(model.tags.schemeCodes.includes(model.data.match(/\d+/g)[0])){
