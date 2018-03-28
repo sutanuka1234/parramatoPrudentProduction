@@ -250,7 +250,7 @@ function showFolio(model){
                 }
             }
             model.reply=reply;
-            console.log(JSON.stringify(model)+"FOLIOS")
+            console.log(JSON.stringify(model.reply)+"FOLIOS")
             return resolve(model);
         }
         catch(e){
