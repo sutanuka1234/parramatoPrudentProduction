@@ -271,7 +271,7 @@ function validateAmount(model){
                 }
                 else{
                     model.tags.validateAmountFlag="not validated";
-                    model.tags.validatedAmountMessage="Please enter a valid amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.;   
+                    model.tags.validatedAmountMessage="Please enter a valid amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.";   
                 }
             }
             else{
