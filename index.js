@@ -195,7 +195,7 @@ function validateSchemeName(model){
             console.log(JSON.stringify(model.tags.schemeCodes))
             if(model.data.match(/\d+/g)){
                 console.log(model.tags.schemeCodes.includes(parseInt(model.data.match(/\d+/g)[0])));
-                if(model.tags.schemeCodes.includes(model.data.match(/\d+/g)[0])){
+                if(model.tags.schemeCodes.includes(parseInt(model.data.match(/\d+/g)[0])){
                     for(let i=0;i<model.tags.schemeDetails.length;i++){
                         console.log(parseInt(model.tags.schemeDetails[i].SCHEMECODE)+"--------"+model.data.match(/\d+/g)[0])
                         if(parseInt(model.tags.schemeDetails[i].SCHEMECODE)===model.data.match(/\d+/g)[0]){
