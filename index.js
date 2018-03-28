@@ -38,7 +38,7 @@ function filter(request){
         switch(request.params.type){
             
             case "validateMobile"   :   
-                                        validateMobile(request.body)
+                                        post.validateMobile(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
@@ -55,7 +55,7 @@ function filter(request){
 //                break;
                 
             case "validatePan"      :
-                                        validatePan(request.body)
+                                        pre.validatePan(request.body)
                                         .then(validatePanMobileByApi)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
