@@ -340,7 +340,6 @@ function validateAmount(model){
                         }
                         model.stage="final"
                     }
-                    delete model.stage;
                 }
                 else{
                     model.tags.validateAmountFlag="not validated";
