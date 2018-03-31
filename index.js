@@ -498,9 +498,8 @@ function showSchemes(model){
                     else{
                         try{
                             body=JSON.parse(body);
-                            console.log(body);
                             if(body.Response){
-                                if(body.Response[0].result){
+                                if(body.Response[0].result || !body.Response[0][0]){
                                     return reject("Something went wrong."); 
                                 }
                                 else{
