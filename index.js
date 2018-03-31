@@ -34,8 +34,8 @@ app.post('/:type',(req, res)=>{
 })
    
 function filter(request){
+    console.log(JSON.stringify(model.tags)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve, reject){
-        console.log(JSON.stringify(model.tags)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         switch(request.params.type){
             
                 
