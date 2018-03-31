@@ -497,12 +497,12 @@ function showSchemes(model){
                 },(err,req,body)=>{
                     if(err){   
                         console.log(err)
-                        return reject("Something went wrong.");
+                        return reject("Something went wrong.....");
                     }
                     else{
                         try{
-//                            console.log(body);
                             body=JSON.parse(body);
+                            console.log(body);
                             if(body.Response){
                                 if(body.Response[0].result){
                                     return reject("Something went wrong."); 
@@ -579,7 +579,6 @@ function showSchemes(model){
 }
 
 function validateSubnatureOptions(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve,reject){
         try{
             if(model.tags.subnatureOptionNames){
@@ -631,7 +630,6 @@ function validateSubnatureOptions(model){
 }
 
 function getSubnatureOptions(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve,reject){
         try{
             if(model.tags.reaffirm){
@@ -697,7 +695,6 @@ function getSubnatureOptions(model){
 }
     
 function vaildateSelectedAmc(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve,reject){
         try{
             var match = stringSimilarity.findBestMatch(model.data.replace("invest",""), model.tags.amcNamesArray);
@@ -769,7 +766,6 @@ function vaildateSelectedAmc(model){
     });
 }
 function getAmc(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve, reject){
         try{
             if(model.tags.AMCNames){
@@ -883,7 +879,6 @@ function getAmc(model){
 //}
 
 function validatePan(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve, reject){
         try{
             let panData = model.data.match("[a-z|A-Z]{5}[0-9]{4}[a-z|A-Z]");
@@ -942,7 +937,6 @@ function validatePan(model){
 //}
 
 function postValidatePan(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve, reject){
         try{
             if(model.tags.panValidated){
@@ -979,7 +973,6 @@ function postValidatePan(model){
 }
 
 function postValidateOtp(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve, reject){
         try{
             if(model.tags.otpValidateReply){
@@ -1000,7 +993,6 @@ function postValidateOtp(model){
 }
 
 function getPanMobile(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve, reject){
         try{
             let panData = model.data.match("[a-z|A-Z]{5}[0-9]{4}[a-z|A-Z]");
@@ -1021,7 +1013,6 @@ function getPanMobile(model){
 }
 
 function getOTP(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve, reject){
         try{
             if(model.data.match(/\d+/)&&model.data.match(/\d+/)[0]&&model.data.match(/\d+/)[0].length == 6){
@@ -1058,7 +1049,6 @@ function getOTP(model){
 }
 
 function validatePanMobileByApi(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve, reject){
         console.log(JSON.stringify(model)+"++++++++++++++++++++")
         if(model.tags.pan&&model.tags.mobile){
@@ -1183,7 +1173,6 @@ function makePanMobileValidationRequest(requestData,urlExtension){
 }
 
 function validateOTP(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     console.log(JSON.stringify(model.tags)+"::::::::::::::::")
     return new Promise(function(resolve, reject){
         try{
@@ -1278,7 +1267,6 @@ function validateOTP(model){
 }
 
 function resendOTP(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve, reject){
         try{
 //            if(model.tags.otp){
@@ -1392,7 +1380,6 @@ function resendOTP(model){
 }
 
 function createHoldingPatternResponse(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve,reject){
         try{
             if(model.tags.holdingPattern){
@@ -1430,7 +1417,6 @@ function createHoldingPatternResponse(model){
 }
 
 function validateHoldingPattern(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve,reject){
         try{
             if(model.data.match(/\d+/g)){
