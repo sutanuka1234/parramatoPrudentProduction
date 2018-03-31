@@ -483,9 +483,10 @@ function showSchemes(model){
                     Dividend : '2',
                     Bonus    : '3'
                 }
-                console.log(obj[model.tags.SchemeOption])
+                console.log(obj[model.tags.schemeType])
+                console.log("https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+obj[model.tags.schemeType]+"&SubNature="+model.tags.subnatureId.toString())
                 request({
-                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+obj[model.tags.SchemeType]+"&SubNature="+model.tags.subnatureId.toString(),
+                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+obj[model.tags.schemeType]+"&SubNature="+model.tags.subnatureId.toString(),
                     headers : headers,
                     body    : JSON.stringify({}),
                     method  :'POST'   
