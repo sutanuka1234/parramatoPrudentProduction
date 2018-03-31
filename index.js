@@ -35,6 +35,7 @@ app.post('/:type',(req, res)=>{
    
 function filter(request){
     return new Promise(function(resolve, reject){
+        console.log(JSON.stringify(model.tags)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         switch(request.params.type){
             
                 
@@ -478,8 +479,14 @@ function showSchemes(model){
                 }
             }
             if(!model.tags.madeSchemeRequest){
+                obj = {
+                    Growth   : 1,
+                    Dividend : 2,
+                    Bonus    : 3
+                }
+                object
                 request({
-                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId,
+                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+obj[model.tags.SchemeType]+"&SubNature="+,
                     headers : headers,
                     body    : JSON.stringify({}),
                     method  :'POST'   
@@ -570,7 +577,6 @@ function showSchemes(model){
 function validateSubnatureOptions(model){
     return new Promise(function(resolve,reject){
         try{
-            console.log(JSON.stringify(model.tags)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
             if(model.tags.subnatureOptionNames){
                 if(model.tags.confirmSubnature){
                     if(model.data.toLowerCase().includes("yes")){
