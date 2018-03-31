@@ -489,7 +489,6 @@ function showSchemes(model){
                     Dividend : 2,
                     Bonus    : 3
                 }
-                object
                 request({
                     uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+obj[model.tags.SchemeType]+"&SubNature="+model.tags.subnatureId,
                     headers : headers,
