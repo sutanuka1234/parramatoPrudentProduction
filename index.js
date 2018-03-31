@@ -300,7 +300,6 @@ function insertBuyCart(model){
 }
 
 function postValidateAmount(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve,reject){
         try{
             if(model.tags.validateAmountFlag){
@@ -335,7 +334,6 @@ function postValidateAmount(model){
 }
 
 function validateAmount(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve,reject){
         try{
             if(model.data.match(/\d+/g)){
@@ -385,7 +383,6 @@ function validateAmount(model){
 }
 
 function validateFolio(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve,reject){
         try{
             if(model.data.match(/\d+/g)){
@@ -406,7 +403,6 @@ function validateFolio(model){
 }
 
 function showFolio(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve,reject){
         try{
             let reply={};
@@ -444,7 +440,6 @@ function showFolio(model){
 }
 
 function validateSchemeName(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve,reject){
         try{
             if(model.data.match(/\d+/g)){
@@ -469,7 +464,6 @@ function validateSchemeName(model){
 }
 
 function showSchemes(model){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve,reject){
         try{
             if(!model.tags.fundsType){
@@ -485,12 +479,13 @@ function showSchemes(model){
             }
             if(!model.tags.madeSchemeRequest){
                 obj = {
-                    Growth   : 1,
-                    Dividend : 2,
-                    Bonus    : 3
+                    Growth   : '1',
+                    Dividend : '2',
+                    Bonus    : '3'
                 }
+                console.log(obj[model.tags.SchemeOption])
                 request({
-                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+obj[model.tags.SchemeType]+"&SubNature="+model.tags.subnatureId,
+                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+obj[model.tags.SchemeType]+"&SubNature="+model.tags.subnatureId.toString(),
                     headers : headers,
                     body    : JSON.stringify({}),
                     method  :'POST'   
