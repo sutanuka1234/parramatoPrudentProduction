@@ -570,7 +570,7 @@ function showSchemes(model){
 function validateSubnatureOptions(model){
     return new Promise(function(resolve,reject){
         try{
-            console.log(model.tags+'-------------------------------------------')
+            console.log(JSON.stringify(model.tags)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
             if(model.tags.subnatureOptionNames){
                 if(model.tags.confirmSubnature){
                     if(model.data.toLowerCase().includes("yes")){
