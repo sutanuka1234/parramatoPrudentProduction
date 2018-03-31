@@ -479,7 +479,7 @@ function showSchemes(model){
             }
             if(!model.tags.madeSchemeRequest){
                 request({
-                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId,
+                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOptions="+model.tags.+"",
                     headers : headers,
                     body    : JSON.stringify({}),
                     method  :'POST'   
@@ -570,6 +570,7 @@ function showSchemes(model){
 function validateSubnatureOptions(model){
     return new Promise(function(resolve,reject){
         try{
+            console.log(model.tags+'-------------------------------------------')
             if(model.tags.subnatureOptionNames){
                 if(model.tags.confirmSubnature){
                     if(model.data.toLowerCase().includes("yes")){
