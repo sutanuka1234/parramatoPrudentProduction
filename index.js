@@ -1133,7 +1133,6 @@ function validatePanMobileByApi(model){
 }
 
 function makePanMobileValidationRequest(requestData,urlExtension){
-    console.log(JSON.stringify(model)+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     return new Promise(function(resolve, reject){
         try{
             var requestParams = {
