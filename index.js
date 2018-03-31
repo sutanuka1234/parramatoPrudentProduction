@@ -491,7 +491,7 @@ function showSchemes(model){
                 }
                 object
                 request({
-                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+obj[model.tags.SchemeType]+"&SubNature=1",
+                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+obj[model.tags.SchemeType]+"&SubNature="+model.tags.subnatureId,
                     headers : headers,
                     body    : JSON.stringify({}),
                     method  :'POST'   
