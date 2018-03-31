@@ -503,7 +503,7 @@ function showSchemes(model){
                                 if(body.Response[0].result){
                                     return reject("Something went wrong."); 
                                 }
-                                else if(body.Response[0][0]){
+                                else if(body.Response[0][0] == undefined){
                                     console.log('@@@@@@@@@@@')
                                     model.stage = 'subnatureType'
                                     return resolve(model)
