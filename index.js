@@ -498,11 +498,13 @@ function showSchemes(model){
                     else{
                         try{
                             body=JSON.parse(body);
+                            console.log(body.Response[0][0])
                             if(body.Response){
                                 if(body.Response[0].result){
                                     return reject("Something went wrong."); 
                                 }
-                                else if(!body.Response[0][0]){
+                                else if(body.Response[0][0]){
+                                    console.log('@@@@@@@@@@@')
                                     model.stage = 'subnatureType'
                                     return resolve(model)
                                 }
