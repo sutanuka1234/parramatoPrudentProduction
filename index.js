@@ -270,6 +270,7 @@ function validateAgreement(model){
                     return reject("Something went wrong.")
                 })
             }
+            return resolve(model);
         }
         catch(e){
             console.log(e);
