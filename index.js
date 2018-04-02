@@ -223,7 +223,12 @@ function filter(request){
                 break;
                 
             case "validateAgreement":
-                                        
+                                        validateAgreement(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.");
+                                        }); 
                 break;
                 
             case "insertBuyCart"    :
@@ -246,6 +251,7 @@ function validateAgreement(model){
         try{   
             if(model.data.toLowerCase().includes("yes")){
                 model.tags.termsAgreement=true;
+                //make api call
                 delete model.stage;
             }
             else if(model.data.toLowerCase().includes("no")){
