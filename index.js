@@ -420,9 +420,9 @@ function showFolio(model){
             else{
               console.log("get folio " + body)
               if(body){
-                body= JSON.parse(body);
-                model.tags.folioDetails= body["Response"][0]
-                console.log("@@#####----------Folio-------------"+ body["Response"][0])
+                body=JSON.parse(body);
+                model.tags.folioDetails= body["Response"][0];
+//                console.log("@@#####----------Folio-------------"+ body["Response"][0])
                 try{    
                     let reply={};
                     reply.type="generic";
