@@ -30,7 +30,7 @@ app.post('/:type',(req, res)=>{
     .then((model)=>{
 //        console.log("final response"+JSON.stringify(model))
         res.status(200).json(model)})
-    .catch((e)=>{res.status(203).json({message:e})})
+    .catch((e)=>{res.status(203).json({error:e})})
 })
    
 
