@@ -224,6 +224,7 @@ function filter(request){
                 
             case "validateAgreement":
                                         validateAgreement(request.body)
+                                        .then(insertBuyCart)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
@@ -252,7 +253,7 @@ function validateAgreement(model){
             if(model.data.toLowerCase().includes("yes")){
                 model.tags.termsAgreement=true;
                 //make api call
-                delete model.stage;
+//                delete model.stage;
             }
             else if(model.data.toLowerCase().includes("no")){
                 let reply={
@@ -282,57 +283,60 @@ function validateAgreement(model){
 function insertBuyCart(model){
      return new Promise(function(resolve,reject){
         try{
-            if(model.tags.schemeData.DividendOption==="B"){
-                if(model.tags.divOps=="Reinvest"){
-                    model.tags.divOpt=1
+            if(model.tags.termsAgreement){
+                if(model.tags.schemeData.DividendOption==="B"){
+                    if(model.tags.divOps=="Reinvest"){
+                        model.tags.divOpt=1
+                    }
+                    else if(model.tags.divOps=="Payout"){
+                        model.tags.divOpt=2
+                    }
                 }
-                else if(model.tags.divOps=="Payout"){
-                    model.tags.divOpt=2
-                }
-            }
-            console.log("BUY FUNDS")
-            //console.log("https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SubNature="+model.tags.subnatureId+"&SchemeName="+model.tags.schemeData.SchemeName+"&DividentOption="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&TransactionType=2")
-            console.log("https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SchemeName="+model.tags.schemeData.SchemeName+"&DivOpt="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&isAgreeTerms=1"+"&IsEKYCTermCondition=0")
-            request({
-                uri     :"https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SchemeName="+model.tags.schemeData.SchemeName+"&DivOpt="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&isAgreeTerms=1"+"&IsEKYCTermCondition=0",
-                headers : headers,
-                body    : JSON.stringify({}),
-                method  :'POST'   
-            },(err,req,body)=>{
-                if(err){   
-                    console.log(err)
-                    return reject("Something went wrong.");
-                }
-                else{
-                    try{
-                        console.log("BUY CART" + body);
-                        body=JSON.parse(body);
-                        if(body.Response){
-                            if(body.Response[0].result){
-//                                return reject("Buy Cart Unsuccessful."); 
-                                model.reply={
-                                    type:"text",
-                                    text:"Buy Cart Unsuccessful.",
-                                    next:{}
+                console.log("BUY FUNDS")
+                //console.log("https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SubNature="+model.tags.subnatureId+"&SchemeName="+model.tags.schemeData.SchemeName+"&DividentOption="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&TransactionType=2")
+                console.log("https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SchemeName="+model.tags.schemeData.SchemeName+"&DivOpt="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&isAgreeTerms=1"+"&IsEKYCTermCondition=0")
+                request({
+                    uri     :"https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SchemeName="+model.tags.schemeData.SchemeName+"&DivOpt="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&isAgreeTerms=1"+"&IsEKYCTermCondition=1",
+                    headers : headers,
+                    body    : JSON.stringify({}),
+                    method  :'POST'   
+                },(err,req,body)=>{
+                    if(err){   
+                        console.log(err)
+                        return reject("Something went wrong.");
+                    }
+                    else{
+                        try{
+                            console.log("BUY CART" + body);
+                            body=JSON.parse(body);
+                            if(body.Response){
+                                if(body.Response[0].result){
+    //                                return reject("Buy Cart Unsuccessful."); 
+                                    model.reply={
+                                        type:"text",
+                                        text:"Buy Cart Unsuccessful.",
+                                        next:{}
+                                    }
+                                    return resolve(model);
+                                }   
+                                else{
+                                    model.reply={
+                                        type:"text",
+                                        text:"Success",
+                                        next:{}
+                                    }
+                                    return resolve(model);
                                 }
-                                return resolve(model);
-                            }   
-                            else{
-                                model.reply={
-                                    type:"text",
-                                    text:"Success",
-                                    next:{}
-                                }
-                                return resolve(model);
                             }
                         }
+                        catch(e){
+                            console.log("BUY CART" + e);
+                            return reject("Something went wrong."); 
+                        }
                     }
-                    catch(e){
-                        console.log("BUY CART" + e);
-                        return reject("Something went wrong."); 
-                    }
-                }
-            })    
+                })  
+            }
+            return resolve(model);
         }
          catch(e){
              console.log(e);
