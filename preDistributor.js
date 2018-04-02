@@ -1,4 +1,4 @@
-var mobileDecoration=require('./stages/mobileDecoration.js');
+var mobileDecoration=require('./stages/validateMobile/mobileDecoration.js');
 
 module.exports={
     mobileDecoration:mobileDecoration
