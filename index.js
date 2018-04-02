@@ -419,7 +419,7 @@ function showFolio(model){
                 return reject("failed");
             }
             else{
-              if(body){
+//              if(body){
                 console.log("get folio " + body)
                 body=JSON.parse(body);
                 model.tags.folioDetails= body["Response"][0];
@@ -456,11 +456,11 @@ function showFolio(model){
                     console.log(e);
                     return reject("Something went wrong. Folio")
                 }
-              }
-              else{
-                  console.log("ERROORRR 2")
-                return reject("failed")
-              }
+//              }
+//              else{
+//                  console.log("ERROORRR 2")
+//                return reject("failed")
+//              }
             }
         })
     })
