@@ -537,9 +537,12 @@ function showSchemes(model){
                     model.tags.fundsType=3;
                 }
             }
+            if(!model.tags.schemeOption){
+                console.log(model.tags.schemeType+"SCHEMETYPE")
+            }
             if(!model.tags.madeSchemeRequest){
                 request({
-                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId,
+                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+model.tags+"&SubNature="+model.tags.subnatureId,
                     headers : headers,
                     body    : JSON.stringify({}),
                     method  :'POST'   
