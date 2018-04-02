@@ -29,10 +29,18 @@ app.post('/:type',(req, res)=>{
     filter(req)
     .then((model)=>{
 //        console.log("final response"+JSON.stringify(model))
-        res.json(model).status(200)})
+        res.status(200).json(model)})
     .catch((e)=>{res.status(203).json({message:e})})
 })
    
+
+.then((model)=>{
+        res.status(200).json(model)
+      })
+      .catch((e)=>{
+       res.status(203).json({error : e})
+      });
+
 function filter(request){
     return new Promise(function(resolve, reject){
         switch(request.params.type){
@@ -43,7 +51,7 @@ function filter(request){
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
-                                            return reject("Something went wrong.")
+                                            return reject(e)
                                         });
                 break;
                 

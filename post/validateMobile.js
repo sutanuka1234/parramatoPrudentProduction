@@ -13,16 +13,9 @@ function validateMobile(model){
                     delete model.stage;
                     return resolve(model);
                 }
-                else{
-                    model.tags.mobileValidated="not validated";
-                    model.tags.mobileValidatedData="Hey, that doesn't seem a correct one :( Kindly enter a valid 10 digit mobile phone number."
-                    return resolve(model);
-                }
-            }
-            else{
                 model.tags.mobileValidated="not validated";
                 model.tags.mobileValidatedData="Hey, that doesn't seem a correct one :( Kindly enter a valid mobile phone number.";
-                return resolve(model);
+                return reject(model);
             }
         }
         catch(e){
