@@ -423,7 +423,7 @@ function showFolio(model){
                 body= JSON.parse(body);
                 model.tags.folioDetails= body["Response"][0]
                 console.log("@@#####----------Folio-------------"+ body["Response"][0])
-                try{
+                try{    
                     let reply={};
                     reply.type="generic";
                     reply.text="You can choose from the following folios."
