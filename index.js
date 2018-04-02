@@ -427,6 +427,7 @@ function showFolio(model){
                 console.log("get folio " + body)
                 body=JSON.parse(body);
                 model.tags.folioDetails= body["Response"];
+                model.tags.foliosArray=[];
 //                console.log("@@#####----------Folio-------------"+ body["Response"][0])
                     
                     let reply={};
