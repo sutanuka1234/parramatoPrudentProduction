@@ -248,11 +248,11 @@ function insertBuyCart(model){
                     model.tags.divOpt=2
                 }
             }
-            
-            console.log("https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SubNature="+model.tags.subnatureId+"&SchemeName="+model.tags.schemeData.SchemeName+"&DividentOption="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&TransactionType=2")
-            
+            console.log("BUY FUNDS")
+            //console.log("https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SubNature="+model.tags.subnatureId+"&SchemeName="+model.tags.schemeData.SchemeName+"&DividentOption="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&TransactionType=2")
+            console.log("https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SchemeName="+model.tags.schemeData.SchemeName+"&DivOpt="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&isAgreeTerms=1"+"&IsEKYCTermCondition=0")
             request({
-                uri     :"https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SubNature="+model.tags.subnatureId+"&SchemeName="+model.tags.schemeData.SchemeName+"&DividentOption="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&TransactionType=2",
+                uri     :"https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SchemeName="+model.tags.schemeData.SchemeName+"&DivOpt="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&isAgreeTerms=1"+"&IsEKYCTermCondition=0",
                 headers : headers,
                 body    : JSON.stringify({}),
                 method  :'POST'   
@@ -263,7 +263,7 @@ function insertBuyCart(model){
                 }
                 else{
                     try{
-                        console.log(body);
+                        console.log("BUY CART" + body);
                         body=JSON.parse(body);
                         if(body.Response){
                             if(body.Response[0].result){
@@ -286,7 +286,7 @@ function insertBuyCart(model){
                         }
                     }
                     catch(e){
-                        console.log(e);
+                        console.log("BUY CART" + e);
                         return reject("Something went wrong."); 
                     }
                 }
@@ -402,42 +402,102 @@ function validateFolio(model){
     })
 }
 
-function showFolio(model){
-    return new Promise(function(resolve,reject){
-        try{
-            let reply={};
-            reply.type="generic";
-            reply.text="You can choose from the following folios."
-            reply.next={
-                data:[]  
-            };
-            model.tags.foliosArray=[];
-            for(let i=0;i<model.tags.folioDetails.length;i++){
-                console.log(JSON.stringify(model.tags.folioDetails[i])+"-----")
-                if(model.tags.folioDetails[i]){
-                    reply.next.data.push({
-                        title   :model.tags.folioDetails[i].FolioNo,
-                        text    :"",
-                        buttons :[
-                            {
-                                text:"Use this",
-                                data:model.tags.folioDetails[i].FolioNo
-                            }
-                        ]
-                    })
-                    model.tags.foliosArray.push(parseInt(model.tags.folioDetails[i].FolioNo));
-                }
+
+function showFolio(model) {
+    return new Promise(function(resolve, reject){
+        var getFolioReq={
+            method  : 'POST',
+            url     : url+"GetFolioNo?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.text ags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&AMCId="+model.tags.AMCId,
+            headers : headers,
+            body    : JSON.stringify({})
+        }
+        request(getFolioReq,(err,http,body)=>{
+            if(err){
+                console.log("get folio" + err)
+                return reject("failed");
             }
-            model.reply=reply;
-            console.log(JSON.stringify(model.reply)+"FOLIOS")
-            return resolve(model);
-        }
-        catch(e){
-            console.log(e);
-            return reject("Something went wrong.")
-        }
+            else{
+              console.log("get folio " + body)
+              if(body){
+                body= JSON.parse(body);
+                model.tags.folioDetails= body["Response"][0]
+                console.log("@@#####----------Folio-------------"+ body["Response"][0])
+                try{
+                    let reply={};
+                    reply.type="generic";
+                    reply.text="You can choose from the following folios."
+                    reply.next={
+                        data:[]  
+                    };
+                    model.tags.foliosArray=[];
+                    for(let i=0;i<model.tags.folioDetails.length;i++){
+                        console.log(JSON.stringify(model.tags.folioDetails[i])+"-----")
+                        if(model.tags.folioDetails[i]){
+                            reply.next.data.push({
+                                title   :model.tags.folioDetails[i].FolioNo,
+                                text    :"",
+                                buttons :[
+                                    {
+                                        text:"Use this",
+                                        data:model.tags.folioDetails[i].FolioNo
+                                    }
+                                ]
+                            })
+                            model.tags.foliosArray.push(parseInt(model.tags.folioDetails[i].FolioNo));
+                        }
+                    }
+                    model.reply=reply;
+                    console.log(JSON.stringify(model.reply)+"FOLIOS")
+                    return resolve(model);
+                }
+                catch(e){
+                    console.log(e);
+                    return reject("Something went wrong. Folio")
+                }
+              }
+              else{
+                return reject("failed")
+              }
+            }
+        })
     })
 }
+// function showFolio(model){
+//     return new Promise(function(resolve,reject){
+//         try{
+//             let reply={};
+//             reply.type="generic";
+//             reply.text="You can choose from the following folios."
+//             reply.next={
+//                 data:[]  
+//             };
+//             model.tags.foliosArray=[];
+//             for(let i=0;i<model.tags.folioDetails.length;i++){
+//                 console.log(JSON.stringify(model.tags.folioDetails[i])+"-----")
+//                 if(model.tags.folioDetails[i]){
+//                     reply.next.data.push({
+//                         title   :model.tags.folioDetails[i].FolioNo,
+//                         text    :"",
+//                         buttons :[
+//                             {
+//                                 text:"Use this",
+//                                 data:model.tags.folioDetails[i].FolioNo
+//                             }
+//                         ]
+//                     })
+//                     model.tags.foliosArray.push(parseInt(model.tags.folioDetails[i].FolioNo));
+//                 }
+//             }
+//             model.reply=reply;
+//             console.log(JSON.stringify(model.reply)+"FOLIOS")
+//             return resolve(model);
+//         }
+//         catch(e){
+//             console.log(e);
+//             return reject("Something went wrong. Folio")
+//         }
+//     })
+// }
 
 function validateSchemeName(model){
     return new Promise(function(resolve,reject){
@@ -478,40 +538,28 @@ function showSchemes(model){
                 }
             }
             if(!model.tags.madeSchemeRequest){
-                obj = {
-                    Growth   : '1',
-                    Dividend : '2',
-                    Bonus    : '3'
-                }
-                console.log(obj[model.tags.schemeType])
-                console.log("https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+obj[model.tags.schemeType]+"&SubNature="+model.tags.subnatureId.toString())
                 request({
-                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+obj[model.tags.schemeType]+"&SubNature="+model.tags.subnatureId.toString(),
+                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId,
                     headers : headers,
                     body    : JSON.stringify({}),
                     method  :'POST'   
                 },(err,req,body)=>{
                     if(err){   
                         console.log(err)
-                        return reject("Something went wrong.....");
+                        return reject("Something went wrong.");
                     }
                     else{
                         try{
+//                            console.log(body);
                             body=JSON.parse(body);
-                            console.log(body.Response[0][0])
                             if(body.Response){
                                 if(body.Response[0].result){
                                     return reject("Something went wrong."); 
                                 }
-                                else if(body.Response[0][0] == undefined){
-                                    console.log('@@@@@@@@@@@')
-                                    model.stage = 'subnatureType'
-                                    return resolve(model)
-                                }
                                 else{
                                     model.tags.madeSchemeRequest=true;
                                     model.tags.schemeDetails=body.Response[0];
-                                    model.tags.folioDetails=body.Response[1];
+                                    //model.tags.folioDetails=body.Response[1];
                                     let reply={};
                                     reply.type="generic";
                                     reply.text="You can choose from the following Schemes."
