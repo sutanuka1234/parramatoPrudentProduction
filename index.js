@@ -415,6 +415,7 @@ function showFolio(model){
             if(err){
                 console.log(err+"ERROR")
 //                console.log("get folio" + err)
+                console.log("ERROORRR 1")
                 return reject("failed");
             }
             else{
@@ -457,6 +458,7 @@ function showFolio(model){
                 }
               }
               else{
+                  console.log("ERROORRR 2")
                 return reject("failed")
               }
             }
