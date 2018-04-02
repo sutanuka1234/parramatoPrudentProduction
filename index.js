@@ -407,7 +407,7 @@ function showFolio(model){
     return new Promise(function(resolve, reject){
         var getFolioReq={
             method  : 'POST',
-            url     : url+"GetFolioNo?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&AMCId="+model.tags.AMCId,
+            url     : url+"GetFolioNo?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&AMCId="+model.tags.amcId,
             headers : headers,
             body    : JSON.stringify({})
         }
