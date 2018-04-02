@@ -34,12 +34,6 @@ app.post('/:type',(req, res)=>{
 })
    
 
-.then((model)=>{
-        res.status(200).json(model)
-      })
-      .catch((e)=>{
-       res.status(203).json({error : e})
-      });
 
 function filter(request){
     return new Promise(function(resolve, reject){
