@@ -393,6 +393,10 @@ function validateFolio(model){
                     delete model.stage;     
                 }
             }
+            else if(model.data.toLowerCase().includes("new folio")){
+                model.tags.folioSelected="New Folio";
+                delete model.stage;
+            }
             return resolve(model);
         }
         catch(e){
