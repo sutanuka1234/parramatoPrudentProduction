@@ -403,7 +403,7 @@ function validateFolio(model){
 }
 
 
-function showFolio(model) {
+function showFolio(model){
     return new Promise(function(resolve, reject){
         var getFolioReq={
             method  : 'POST',
@@ -413,7 +413,8 @@ function showFolio(model) {
         }
         request(getFolioReq,(err,http,body)=>{
             if(err){
-                console.log("get folio" + err)
+                console.log(err+"ERROR")
+//                console.log("get folio" + err)
                 return reject("failed");
             }
             else{
@@ -538,7 +539,6 @@ function showSchemes(model){
                 }
             }
             if(!model.tags.schemeOption){
-                console.log(model.tags.schemeType+"SCHEMETYPE")
                 if(model.tags.schemeType==="Growth"){
                     model.tags.schemeOption=1;
                 }
