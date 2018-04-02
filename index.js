@@ -292,11 +292,9 @@ function insertBuyCart(model){
                         model.tags.divOpt=2
                     }
                 }
-                console.log("BUY FUNDS")
-                //console.log("https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SubNature="+model.tags.subnatureId+"&SchemeName="+model.tags.schemeData.SchemeName+"&DividentOption="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&TransactionType=2")
-                console.log("https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SchemeName="+model.tags.schemeData.SchemeName+"&DivOpt="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&isAgreeTerms=1"+"&IsEKYCTermCondition=0")
+                console.log("https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SchemeName="+model.tags.schemeData.SchemeName+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&isAgreeTerms=1"+"&IsEKYCTermCondition=1")
                 request({
-                    uri     :"https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SchemeName="+model.tags.schemeData.SchemeName+"&DivOpt="+model.tags.schemeData.DividendOption+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&isAgreeTerms=1"+"&IsEKYCTermCondition=1",
+                    uri     :"https://www.prudentcorporate.com/cbapi/InsertBuyCart?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&SchemeName="+model.tags.schemeData.SchemeName+"&AMCId="+model.tags.amcId+"&DivOpt="+model.tags.divOpt+"&Amount="+model.tags.amount+"&FolioNo="+model.tags.folioSelected+"&isAgreeTerms=1"+"&IsEKYCTermCondition=1",
                     headers : headers,
                     body    : JSON.stringify({}),
                     method  :'POST'   
