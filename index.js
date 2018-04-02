@@ -539,10 +539,19 @@ function showSchemes(model){
             }
             if(!model.tags.schemeOption){
                 console.log(model.tags.schemeType+"SCHEMETYPE")
+                if(model.tags.schemeType==="Growth"){
+                    model.tags.schemeOption=1;
+                }
+                else if(model.tags.schemeType==="Dividend"){
+                    model.tags.schemeOption=2;
+                }
+                else if(model.tags.schemeType==="Bonus"){
+                    model.tags.schemeOption=3;
+                }
             }
             if(!model.tags.madeSchemeRequest){
                 request({
-                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+model.tags+"&SubNature="+model.tags.subnatureId,
+                    uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+model.tags.schemeOption+"&SubNature="+model.tags.subnatureId,
                     headers : headers,
                     body    : JSON.stringify({}),
                     method  :'POST'   
