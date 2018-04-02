@@ -411,6 +411,9 @@ function showFolio(model){
             headers : headers,
             body    : JSON.stringify({})
         }
+        
+        console.log(getFolioReq.url+"GET FOLIO URL")
+        
         request(getFolioReq,(err,http,body)=>{
             if(err){
                 console.log(err+"ERROR")
