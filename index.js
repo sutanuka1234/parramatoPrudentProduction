@@ -434,7 +434,6 @@ function showFolio(model){
                     reply.next={
                         data:[]  
                     };
-                    model.tags.foliosArray=[];
                     for(let i=0;i<model.tags.folioDetails.length;i++){
                         console.log(JSON.stringify(model.tags.folioDetails[i])+"-----")
                         if(model.tags.folioDetails[i]){
