@@ -554,7 +554,7 @@ function showSchemes(model){
                             body=JSON.parse(body);
                             if(body.Response){
                                 if(body.Response[0].result){
-                                    console.log(body.Response[0]+"--------")
+                                    console.log(JSON.stringify(body.Response[0])+"--------")
                                     return reject("Something went wrong."); 
                                 }
                                 else{
