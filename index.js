@@ -222,6 +222,10 @@ function filter(request){
                                         });  
                 break;
                 
+            case "validateAgreement":
+                                        
+                break;
+                
             case "insertBuyCart"    :
                                         insertBuyCart(request.body)
                                         .then((model)=>{return resolve(model)})
@@ -229,12 +233,43 @@ function filter(request){
                                             console.log(e);
                                             return reject("Something went wrong.");
                                         });  
-                
+                break;
             default                 :   
                                         return reject("No service at this domain.");
                 break;
         }
     });
+}
+
+function validateAgreement(model){
+    return new Promise(function(resolve,reject){
+        try{   
+            if(model.data.toLowerCase().includes("yes")){
+                model.tags.termsAgreement=true;
+                delete model.stage;
+            }
+            else if(model.data.toLowerCase().includes("no")){
+                let reply={
+                    text    : "Please select yes in order to proceed.",
+                    type    : "text",
+                    sender  : model.sender,
+                    language: "en"
+                }
+                sendExternalData(reply)
+                .then((data)=>{
+                    return resolve(model);
+                })
+                .catch((e)=>{
+                    console.log(e);
+                    return reject("Something went wrong.")
+                })
+            }
+        }
+        catch(e){
+            console.log(e);
+            return reject("Something went wrong.");  
+        }
+    })
 }
 
 function insertBuyCart(model){
