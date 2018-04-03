@@ -3,6 +3,7 @@ module.exports=mobileDecoration;
 function mobileDecoration(model){
     return new Promise(function(resolve, reject){   
         try{
+            console.log("Mobile Dec")
             if(model.tags.mobileValidated){
                 let text;
                 if(model.tags.mobileValidated&&model.tags.mobileValidated=="validated"){
@@ -27,6 +28,7 @@ function mobileDecoration(model){
                     next:{}
                 }
             }
+            console.log("Mobile Dec============={{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}")
             return resolve(model);
         }
         catch(e){
