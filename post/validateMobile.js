@@ -8,6 +8,7 @@ function validateMobile(model){
                 console.log(mobileData[0]+"---");
                 
                 if(mobileData && mobileData[0].toString().length==10 && mobileData instanceof Array){
+                    console.log("asasas====")
                     model.tags["mobile"]=mobileData[0];
                     model.tags.mobileValidated="validated";
                     delete model.stage;
@@ -17,6 +18,7 @@ function validateMobile(model){
                 // model.tags.mobileValidatedData="Hey, that doesn't seem a correct one :( Kindly enter a valid mobile phone number.";
                 
             }
+            console.log("Reject")
             return reject(model);
         }
         catch(e){
