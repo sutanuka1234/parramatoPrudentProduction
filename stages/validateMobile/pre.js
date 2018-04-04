@@ -3,6 +3,10 @@ module.exports=mobileDecoration;
 function mobileDecoration(model){
     return new Promise(function(resolve, reject){   
         try{
+            if(model.tags.isAddStage) {
+                console.log("Add stage")
+                model.stage = 'validateMobile';
+            }
             if(model.tags.mobileValidated){
                 let text;
                 if(model.tags.mobileValidated&&model.tags.mobileValidated=="validated"){
