@@ -1,6 +1,10 @@
-var validateMobile=require('./stages/validateMobile/post.js');
+var validateMobile=require('./stages/validateMobile/post.js').validateMobile;
+var validatePan=require('./stages/validatePan/post.js').validatePan;
+var validatePanMobileByApi=require('./stages/validatePan/post.js').validatePanMobileByApi;
 
 module.exports={
-    validateMobile:validateMobile
+    validateMobile          :validateMobile,
+    validatePan             :validatePan,
+    validatePanMobileByApi  :validatePanMobileByApi
 }
 

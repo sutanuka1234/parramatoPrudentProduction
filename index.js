@@ -20,7 +20,6 @@ const headers={
 
 const url="https://www.prudentcorporate.com/cbapi/";
 
-
 app.listen(process.env.PORT||80,()=>{
     console.log("Server is listening.")
 })
@@ -41,8 +40,6 @@ function filter(request){
             
                 
             case "validateMobile"   :   
-
-                                console.log("sassssssssssssssssssssssssssssssssssssssss")
                                         post.validateMobile(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
@@ -51,14 +48,14 @@ function filter(request){
                                         });
                 break;
                 
-            case "mobileDecoration":
-                                        pre.mobileDecoration(request.body)
-                                        .then((model)=>{return resolve(model)})
-                                        .catch((e)=>{
-                                            console.log(e);
-                                            return reject("Something went wrong.")
-                                        });
-                break;
+//            case "mobileDecoration":
+//                                        pre.mobileDecoration(request.body)
+//                                        .then((model)=>{return resolve(model)})
+//                                        .catch((e)=>{
+//                                            console.log(e);
+//                                            return reject("Something went wrong.")
+//                                        });
+//                break;
                 
 //            case "validatePanMobileByApi"    :  
 //                                        getPanMobile(request.body)
@@ -68,8 +65,8 @@ function filter(request){
 //                break;
                 
             case "validatePan"      :
-                                        validatePan(request.body)
-                                        .then(validatePanMobileByApi)
+                                        post.validatePan(request.body)
+                                        .then(post.validatePanMobileByApi)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);

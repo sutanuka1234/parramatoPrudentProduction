@@ -1,4 +1,6 @@
-module.exports=validateMobile;
+module.exports={
+    validateMobile:validateMobile   
+};
 
 function validateMobile(model){
     return new Promise(function(resolve, reject){
