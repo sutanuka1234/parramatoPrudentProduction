@@ -91,29 +91,6 @@ function showSchemes(model){
                 })
             }
             else{
-                console.log("PREQUEST MADE--------------");
-//                let reply={};
-//                reply.type="generic";
-//                reply.text="You can choose from the following Schemes."
-//                reply.next={
-//                        data: []
-//                }
-//                for(let i=0;i<10;i++){
-//                    if(model.tags.schemeDetails[i]){
-//                        reply.next.data.push({
-//                            title   :model.tags.schemeDetails[i].SchemeName,
-//                            text    :"",
-//                            buttons :[
-//                                {
-//                                    text:"Use this",
-//                                    data:model.tags.schemeDetails[i].SCHEMECODE
-//                                }
-//                            ]
-//                        })
-//                        model.tags.schemeCodes.push(model.tags.schemeDetails[i].SCHEMECODE);
-//                    }
-//                }
-//                model.reply=reply;
                 model.reply=model.tags.schemeCards;
                 return resolve(model);
             }
