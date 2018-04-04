@@ -155,7 +155,7 @@ function filter(request){
                                         pre.showFolio(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
-                                            console.log(e);
+//                                            console.log(e);
                                             return reject("Something went wrong.");
                                         });
                 break;
@@ -164,7 +164,7 @@ function filter(request){
                                         post.validateFolio(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
-                                            console.log(e);
+//                                            console.log(e);
                                             return reject("Something went wrong.");
                                         });
                 break;

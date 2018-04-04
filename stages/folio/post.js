@@ -3,11 +3,11 @@ module.exports={
 };
 
 function validateFolio(model){
-    //console.log("FOLIO POST");
+    console.log("FOLIO POST");
     return new Promise(function(resolve,reject){
         try{
             if(model.data.match(/\d+/g)){
-//                //console.log(JSON.stringify(model.tags.foliosArray)+"//");
+//                console.log(JSON.stringify(model.tags.foliosArray)+"//");
                 if(model.tags.foliosArray.includes(parseInt(model.data.match(/\d+/g)[0]))){
                     model.tags.folioSelected=model.data.match(/\d+/g)[0]
                     delete model.stage;    
@@ -20,11 +20,11 @@ function validateFolio(model){
                 return resolve(model);
             }
             else{
-                return reject(model);
+                return reject("Please enter a valid Folio");
             }
         }
         catch(e){
-            //console.log(e);
+            console.log(e);
             return reject("Something went wrong.");
         }
     })

@@ -8,7 +8,7 @@ module.exports={
 }
 
 function showFolio(model){
-    //console.log("FOLIO PRE")
+    console.log("FOLIO PRE")
     return new Promise(function(resolve, reject){
         if(!model.tags.folioRequestMade){
             var getFolioReq={
@@ -19,18 +19,18 @@ function showFolio(model){
             }
             request(getFolioReq,(err,http,body)=>{
                 if(err){
-                    //console.log(err+"ERROR");
+                    console.log(err+"ERROR");
                     return reject("failed");
                 }
                 else{
                     try{    
-                        //console.log("get folio " + body)
+                        console.log("get folio " + body)
                         body=JSON.parse(body);
                         if(     body.Response
                            &&   body.Response[0]
                            &&   body.Response[0].result
                           ){
-                            //console.log(body.Response[0].result);
+                            console.log(body.Response[0].result);
                             return reject(model);
                         }
                         else{
@@ -45,7 +45,7 @@ function showFolio(model){
                             };
 
                             for(let i=0;i<model.tags.folioDetails.length;i++){
-                                //console.log(JSON.stringify(model.tags.folioDetails[i])+"-----")
+                                console.log(JSON.stringify(model.tags.folioDetails[i])+"-----")
                                 if(model.tags.folioDetails[i]){
                                     reply.next.data.push({
                                         title   :model.tags.folioDetails[i].FolioNo,
@@ -60,7 +60,7 @@ function showFolio(model){
                                     model.tags.foliosArray.push(parseInt(model.tags.folioDetails[i].FolioNo));
                                 }
                             }
-                            //console.log(JSON.stringify(model.reply)+"FOLIOS")
+                            console.log(JSON.stringify(model.reply)+"FOLIOS")
                             model.reply=reply;
                             model.tags.folioRequestMade=true;
                             model.tags.folioCards=reply;
@@ -68,14 +68,14 @@ function showFolio(model){
                         }
                     }
                     catch(e){
-                        //console.log(e);
+                        console.log(e);
                         return reject("Something went wrong.")
                     }
                 }
             })
         }
         else{
-            //console.log("FOLIO REQUEST MADE")
+            console.log("FOLIO REQUEST MADE")
             model.relpy=model.tags.folioCards;
             return resolve(model);
         }
