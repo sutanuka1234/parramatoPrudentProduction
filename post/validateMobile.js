@@ -3,6 +3,7 @@ module.exports=validateMobile;
 function validateMobile(model){
     return new Promise(function(resolve, reject){
         try{
+            console.log("aaaaaaaaaaaaaaaaaaa")
             if(model.data.match(/\d+/g)){
                 let mobileData = model.data.match(/\d+/g);
                 console.log(mobileData[0]+"---");
