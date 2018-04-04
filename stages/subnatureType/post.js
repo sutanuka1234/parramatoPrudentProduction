@@ -51,7 +51,7 @@ function validateSubnatureOptions(model){
                     }
 //                    }
                 }
-                return resolve(model);
+                return resolve(model);   
             }
         }
         catch(e){
