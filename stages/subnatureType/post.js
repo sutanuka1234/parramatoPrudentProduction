@@ -27,28 +27,28 @@ function validateSubnatureOptions(model){
                         delete model.tags.confirmSubnature;
                     }
 //                    else{
-                        var match = stringSimilarity.findBestMatch(model.data,model.tags.subnatureOptionNames);
-                        if(     match
-                           &&   match.bestMatch
-                           &&   match.bestMatch.rating
-                           &&   ((match.bestMatch.rating)==1)){
-                            model.tags.subnatureMatch=match.bestMatch.target;
-                            for(let i=0;i<model.tags.subnatureOptions.length;i++){
-                                if(model.tags.subnatureMatch===model.tags.subnatureOptions[i].SubNature){
-                                    model.tags.subnature=model.tags.subnatureOptions[i].SubNature;
-                                    model.tags.subnatureId=model.tags.subnatureOptions[i].ID;
-                                    delete model.stage;
-                                }
+                    var match = stringSimilarity.findBestMatch(model.data,model.tags.subnatureOptionNames);
+                    if(     match
+                       &&   match.bestMatch
+                       &&   match.bestMatch.rating
+                       &&   ((match.bestMatch.rating)==1)){
+                        model.tags.subnatureMatch=match.bestMatch.target;
+                        for(let i=0;i<model.tags.subnatureOptions.length;i++){
+                            if(model.tags.subnatureMatch===model.tags.subnatureOptions[i].SubNature){
+                                model.tags.subnature=model.tags.subnatureOptions[i].SubNature;
+                                model.tags.subnatureId=model.tags.subnatureOptions[i].ID;
+                                delete model.stage;
                             }
                         }
-                        else if (match
-                           &&   match.bestMatch
-                           &&   match.bestMatch.rating
-                           &&   (match.bestMatch.rating>0)
-                           &&   (match.bestMatch.rating<1)){
-                            model.tags.subnatureMatch=match.bestMatch.target;
-                            model.tags.reaffirm=match.bestMatch.target;
-                        }
+                    }
+                    else if (match
+                       &&   match.bestMatch
+                       &&   match.bestMatch.rating
+                       &&   (match.bestMatch.rating>0)
+                       &&   (match.bestMatch.rating<1)){
+                        model.tags.subnatureMatch=match.bestMatch.target;
+                        model.tags.reaffirm=match.bestMatch.target;
+                    }
 //                    }
                 }
                 return resolve(model);
