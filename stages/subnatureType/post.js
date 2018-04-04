@@ -26,8 +26,8 @@ function validateSubnatureOptions(model){
                         delete model.tags.subnatureMatch;
                         delete model.tags.confirmSubnature;
                     }
-                    else{
-                        var match = stringSimilarity.findBestMatch(model.data, model.tags.subnatureOptionNames);
+//                    else{
+                        var match = stringSimilarity.findBestMatch(model.data,model.tags.subnatureOptionNames);
                         if(     match
                            &&   match.bestMatch
                            &&   match.bestMatch.rating
@@ -49,7 +49,7 @@ function validateSubnatureOptions(model){
                             model.tags.subnatureMatch=match.bestMatch.target;
                             model.tags.reaffirm=match.bestMatch.target;
                         }
-                    }
+//                    }
                 }
                 return resolve(model);
             }
