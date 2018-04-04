@@ -4,6 +4,7 @@ var getSubnatureOptions=require('./stages/subnatureType/pre.js').getSubnatureOpt
 var showSchemes=require('./stages/schemeName/pre.js').showSchemes;
 var showFolio=require('./stages/folio/pre.js').showFolio;
 var amountDecoration=require('./stages/amount/pre.js').amountDecoration;
+var showMandate=require('./stages/mandate/pre.js').showMandate;
 
 module.exports={
     createHoldingPatternResponse:createHoldingPatternResponse,
@@ -11,5 +12,6 @@ module.exports={
     getSubnatureOptions         :getSubnatureOptions,
     showSchemes                 :showSchemes,
     showFolio                   :showFolio,
-    amountDecoration            :amountDecoration
+    amountDecoration            :amountDecoration,
+    showMandate                 :showMandate
 }

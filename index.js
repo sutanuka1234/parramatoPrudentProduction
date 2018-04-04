@@ -197,6 +197,16 @@ function filter(request){
                                         }); 
                 break;
                 
+            case "showMandate"      :
+                                        pre.showMandate(request.body)
+                                        .then(post.insertBuyCart)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.");
+                                        }); 
+                break
+                
             default                 :   
                                         return reject("No service at this domain.");
                 break;

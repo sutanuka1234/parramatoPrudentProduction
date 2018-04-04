@@ -88,6 +88,8 @@ function insertBuyCart(model){
                                     return resolve(model);
                                 }   
                                 else if(body.Response.length>0){
+                                    model.tags.schemeDetailsFromCart=body.Response[0];
+                                    model.tags.mandateDetails=body.Response[1];
                                     let reply={
                                         type    :"text",
                                         text    :"Congratulations!! Insert Buy Cart Successful",
