@@ -3,6 +3,7 @@ module.exports={
 }
 
 function vaildateSelectedAmc(model){
+    console.log("UPDATED GET AMC POST")
     return new Promise(function(resolve,reject){
         try{
             var match = stringSimilarity.findBestMatch(model.data.replace("invest",""), model.tags.amcNamesArray);

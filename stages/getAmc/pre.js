@@ -8,6 +8,7 @@ module.exports={
 }
 
 function getAmc(model){
+    console.log("UPDATED GET AMC PRE")
     return new Promise(function(resolve, reject){
         try{
             if(model.tags.AMCNames){
