@@ -6,7 +6,10 @@ function validateMobile(model){
             if(model.data.match(/\d+/g)){
                 let mobileData = model.data.match(/\d+/g);
                 console.log(mobileData[0]+"---");
-                
+                if(mobileData.includes("cancel")) {
+                    console.log("cancel")
+                    return reject(model)
+                }
                 if(mobileData && mobileData[0].toString().length==10 && mobileData instanceof Array){
                     model.tags["mobile"]=mobileData[0];
                     model.tags.mobileValidated="validated";
