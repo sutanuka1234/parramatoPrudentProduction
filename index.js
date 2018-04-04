@@ -152,7 +152,7 @@ function filter(request){
                 break;
                 
             case "showFolio"        :
-                                        showFolio(request.body)
+                                        pre.showFolio(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
@@ -161,7 +161,7 @@ function filter(request){
                 break;
                 
             case "validateFolio"    :
-                                        validateFolio(request.body)
+                                        post.validateFolio(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
