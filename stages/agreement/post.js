@@ -67,10 +67,11 @@ function insertBuyCart(model){
                             console.log("BUY CART" + body);
                             body=JSON.parse(body);
                             if(body.Response){
-                                if(body.Response[0].result){
+                                if(     body.Response[0]
+                                    &&  body.Response[0].result){
                                     let reply={
                                         type    :"text",
-                                        text    :"Insert Buy Cart Unsuccessful.Ending the journey.Please type 'invest now' to restart the journey. ",
+                                        text    :"Insert Buy Cart Unsuccessful.Ending the journey.Please type 'invest now' to restart the journey.",
                                         next    :{},
                                         sender  :model.sender,
                                         language:"en"
@@ -86,7 +87,7 @@ function insertBuyCart(model){
                                     })
                                     return resolve(model);
                                 }   
-                                else{
+                                else if(body.Response.length>0){
                                     let reply={
                                         type    :"text",
                                         text    :"Congratulations!! Insert Buy Cart Successful",
@@ -105,6 +106,44 @@ function insertBuyCart(model){
                                     })
                                     return resolve(model);
                                 }
+                                else{
+                                    let reply={
+                                        type    :"text",
+                                        text    :"Something went wrong while adding the purchase to cart.Ending the journey.Please type 'invest now' to restart the journey.",
+                                        next    :{},
+                                        sender  :model.sender,
+                                        language:"en"
+                                    }
+                                    sendExternalData(reply)
+                                    .then((data)=>{
+                                        model.stage="final";
+                                        return resolve(model);
+                                    })
+                                    .catch((e)=>{
+                                        console.log(e);
+                                        return reject("Something went wrong.");
+                                    })
+                                    return resolve(model);
+                                }
+                            }
+                            else{
+                                let reply={
+                                    type    :"text",
+                                    text    :"Something went wrong while adding the purchase to cart.Ending the journey.Please type 'invest now' to restart the journey.",
+                                    next    :{},
+                                    sender  :model.sender,
+                                    language:"en"
+                                }
+                                sendExternalData(reply)
+                                .then((data)=>{
+                                    model.stage="final";
+                                    return resolve(model);
+                                })
+                                .catch((e)=>{
+                                    console.log(e);
+                                    return reject("Something went wrong.");
+                                })
+                                return resolve(model);
                             }
                         }
                         catch(e){
