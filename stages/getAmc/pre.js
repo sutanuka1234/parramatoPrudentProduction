@@ -1,6 +1,6 @@
 var common=require('./../../common.js');
 var request=require('request');
-const headers=common.headers;\
+const headers=common.headers;
 const url=common.url;
 
 module.exports={
