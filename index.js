@@ -96,6 +96,7 @@ function filter(request){
                                             return reject("Something went wrong.")
                                         });
                 break;
+                
             case "getAmc" :
                                         pre.getAmc(request.body)
                                         .then((model)=>{return resolve(model)})
@@ -104,6 +105,7 @@ function filter(request){
                                             return reject("Something went wrong.")
                                         });
             break;
+                
             case "validateAmcName" :
                                         post.vaildateSelectedAmc(request.body)
                                         .then((model)=>{return resolve(model)})
@@ -112,8 +114,9 @@ function filter(request){
                                             return reject("Something went wrong.")
                                         });
                 break;          
+                
             case "getSubnatureOptions":
-                                        getSubnatureOptions(request.body)
+                                        pre.getSubnatureOptions(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
@@ -122,7 +125,7 @@ function filter(request){
                 break;
                 
             case "validateSubnatureOptions":
-                                        validateSubnatureOptions(request.body)
+                                        post.validateSubnatureOptions(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
@@ -202,6 +205,7 @@ function filter(request){
                                             return reject("Something went wrong.");
                                         });  
                 break;
+                
             default                 :   
                                         return reject("No service at this domain.");
                 break;
@@ -650,122 +654,6 @@ function showSchemes(model){
                 model.reply=reply;
                 return resolve(model);
             }
-        }
-        catch(e){
-            console.log(e);
-            return reject("Something went wrong.");
-        }
-    })
-}
-
-function validateSubnatureOptions(model){
-    return new Promise(function(resolve,reject){
-        try{
-            if(model.tags.subnatureOptionNames){
-                if(model.tags.confirmSubnature){
-                    if(model.data.toLowerCase().includes("yes")){
-                        for(let i=0;i<model.tags.subnatureOptions.length;i++){
-                            if(model.tags.subnatureMatch===model.tags.subnatureOptions[i].SubNature){
-                                model.tags.subnature=model.tags.subnatureOptions[i].SubNature;
-                                model.tags.subnatureId=model.tags.subnatureOptions[i].ID;
-                                delete model.stage;
-                            }
-                        }  
-                    }
-                    delete model.tags.subnatureMatch;
-                    delete model.tags.confirmSubnature;
-                }
-                else{
-                    var match = stringSimilarity.findBestMatch(model.data, model.tags.subnatureOptionNames);
-                    if( match
-                       &&match.bestMatch
-                       &&match.bestMatch.rating
-                       &&((match.bestMatch.rating)==1)){
-                        model.tags.subnatureMatch=match.bestMatch.target;
-                        for(let i=0;i<model.tags.subnatureOptions.length;i++){
-                            if(model.tags.subnatureMatch===model.tags.subnatureOptions[i].SubNature){
-                                model.tags.subnature=model.tags.subnatureOptions[i].SubNature;
-                                model.tags.subnatureId=model.tags.subnatureOptions[i].ID;
-                                delete model.stage;
-                            }
-                        }
-                    }
-                    else if(match
-                       &&match.bestMatch
-                       &&match.bestMatch.rating
-                       &&(match.bestMatch.rating>0)
-                       &&(match.bestMatch.rating<1)){
-                        model.tags.subnatureMatch=match.bestMatch.target;
-                        model.tags.reaffirm=match.bestMatch.target;
-                    }
-                }
-            }
-            return resolve(model);
-        }
-        catch(e){
-            console.log(e);
-            return reject("Something went wrong.");
-        }
-    })
-}
-
-function getSubnatureOptions(model){
-    return new Promise(function(resolve,reject){
-        try{
-            if(model.tags.reaffirm){
-                model.reply={
-                    text:"Did you mean "+model.tags.reaffirm,
-                    type:"button",
-                    next:{
-                        data:[{
-                                data:"yes",
-                                text:"Yes"
-                            },
-                             {
-                                data:"no",
-                                text:"No"
-                            }]
-                    }
-                }
-                model.tags.confirmSubnature=true;
-                delete model.tags.reaffirm;
-            }
-            else{
-                if(model.tags.subnatureOptions){
-                    let reply={};
-                    reply.type="generic";
-                    reply.text="Please choose from the following sub-natures."
-                    reply.next={
-                        data: []
-                    }
-
-                    let loop=model.tags.subnatureOptions.length/3;
-
-                    let min=0;
-                    let max=3
-
-                    for(let i=0;i<Math.ceil(loop);i++){
-                        reply.next.data.push({
-                            title   :"Select from the following Sub-natures.",
-                            text    :"",
-                            buttons :[]
-                        })
-                        for(let j=min;j<max;j++){
-                            if(     model.tags.subnatureOptions[j]
-                               &&   model.tags.subnatureOptions[j].SubNature){
-                                reply.next.data[i].buttons.push({
-                                    text:model.tags.subnatureOptions[j].SubNature,
-                                    data:model.tags.subnatureOptions[j  ].SubNature
-                                })
-                            }
-                        }
-                        min=max;
-                        max=max+3;
-                    }
-                    model.reply=reply;
-                }
-            }
-            return resolve(model);
         }
         catch(e){
             console.log(e);
