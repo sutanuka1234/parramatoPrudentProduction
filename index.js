@@ -170,7 +170,7 @@ function filter(request){
                 break;
                 
             case "validateAmount"   :   
-                                        validateAmount(request.body)
+                                        post.validateAmount(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
@@ -179,7 +179,7 @@ function filter(request){
                 break;
                 
             case "amountDecoration":
-                                        amountDecoration(request.body)
+                                        pre.amountDecoration(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
