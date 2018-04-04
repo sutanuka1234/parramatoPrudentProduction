@@ -60,10 +60,10 @@ function showFolio(model){
                                     model.tags.foliosArray.push(parseInt(model.tags.folioDetails[i].FolioNo));
                                 }
                             }
-                            console.log(JSON.stringify(model.reply)+"FOLIOS")
                             model.reply=reply;
                             model.tags.folioRequestMade=true;
                             model.tags.folioCards=reply;
+                            console.log(JSON.stringify(model.reply)+"FOLIOS")
                             return resolve(model);
                         }
                     }

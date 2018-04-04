@@ -12,16 +12,12 @@ function validateFolio(model){
                     model.tags.folioSelected=model.data.match(/\d+/g)[0]
                     delete model.stage;    
                 }
-                return resolve(model);
             }
             else if(model.data.toLowerCase().includes("new folio")){
                 model.tags.folioSelected="New Folio";
                 delete model.stage;
-                return resolve(model);
             }
-            else{
-                return reject("Please enter a valid Folio");
-            }
+            return resolve(model);
         }
         catch(e){
             console.log(e);
