@@ -23,7 +23,7 @@ function validateFolio(model){
                 return resolve(model);
             }
             else{
-                let reply=model.tags.folioCards;
+                let reply=model.tags.folioCards;// folio cards tag has the carousel data saved in pre.js 
                 reply.sender=model.sender;
                 reply.language="en";
                 sendExternalData(reply)

@@ -155,7 +155,7 @@ function filter(request){
                                         pre.showFolio(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
-//                                            console.log(e);
+                                            console.log(e);
                                             return reject("Something went wrong.");
                                         });
                 break;
@@ -164,7 +164,7 @@ function filter(request){
                                         post.validateFolio(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
-//                                            console.log(e);
+                                            console.log(e);
                                             return reject("Something went wrong.");
                                         });
                 break;
@@ -178,8 +178,8 @@ function filter(request){
                                         });
                 break;
                 
-            case "postValidateAmount":
-                                        postValidateAmount(request.body)
+            case "amountDecoration":
+                                        amountDecoration(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
@@ -309,90 +309,39 @@ function insertBuyCart(model){
      })
 }
 
-function postValidateAmount(model){
-    return new Promise(function(resolve,reject){
-        try{
-            if(model.tags.validateAmountFlag){
-                if(model.tags.validateAmountFlag){
-                    if(model.tags.validateAmountFlag=="validated"){
-                        delete model.tags.validateAmountFlag;
-                        console.log(model.tags.schemeData.DividendOption+"----------------")
-                    }
-                    else if(model.tags.validateAmountFlag=="not validated"){
-                        // model.reply={
-                        //     text:model.tags.validatedAmountMessage,
-                        //     type:"text",
-                        //     next:{}
-                        // }  
-                    }
-                }
-            }
-            else{
-                // model.reply={
-                //     text:"Please enter an amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.",
-                //     type:"text",
-                //     next:{}
-                // }   
-            }
-            return resolve(model);
-        }
-        catch(e){
-            console.log(e);
-            return reject("Something went wrong.");
-        }
-    })
-}
-
-function validateAmount(model){
-    return new Promise(function(resolve,reject){
-        try{
-            if(model.data.match(/\d+/g)){
-                model.data=Math.round(model.data.match(/\d+/g)[0]);
-                if(     model.data%100==0
-                    &&  model.data<=parseInt(model.tags.schemeData.MaximumInvestment)
-                    &&  model.data>=parseInt(model.tags.schemeData.MinimumInvestment)){
-                    model.tags.amount=model.data;
-                    model.tags.validateAmountFlag="validated";
-                    if(model.tags.schemeData.DividendOption==="B"){
-                            console.log("IN BBBBBBBBBBBBBBBBBB")
-                            delete model.stage;
-                    }
-                    else{
-                        if(model.tags.schemeData.DividendOption==="Y"){
-                            console.log("IN YYYYYYYYYYYYYYY")
-                            model.tags.divOpt=1;  
-                        }
-                        else if(model.tags.schemeData.DividendOption==="N"){
-                            console.log("IN NNNNNNNNNNNN")
-                            model.tags.divOpt=2;
-                        }
-                        else if(model.tags.schemeData.DividendOption==="Z"){
-                            console.log("IN ZZZZZZZZZZZZZZZZZ")
-                            model.tags.divOpt=0;
-                        }
-                        delete model.stage;
-                    }
-                }
-                else{
-                    return reject(model)
-                    // model.tags.validateAmountFlag="not validated";
-                    // model.tags.validatedAmountMessage="Please enter a valid amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.";   
-                }
-            }
-            else{
-                return reject(model)
-                // model.tags.validatedAmount="not validated";
-                // model.tags.validatedAmountMessage="Please enter an amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.";
-            }
-            console.log("+++++")
-            return resolve(model);
-        }
-        catch(e){
-            console.log(e);
-            return reject("Something went wrong.");
-        }
-    })
-}
+//function postValidateAmount(model){
+//    return new Promise(function(resolve,reject){
+//        try{
+//            if(model.tags.validateAmountFlag){
+//                if(model.tags.validateAmountFlag){
+//                    if(model.tags.validateAmountFlag=="validated"){
+//                        delete model.tags.validateAmountFlag;
+//                        console.log(model.tags.schemeData.DividendOption+"----------------")
+//                    }
+//                    else if(model.tags.validateAmountFlag=="not validated"){
+//                        // model.reply={
+//                        //     text:model.tags.validatedAmountMessage,
+//                        //     type:"text",
+//                        //     next:{}
+//                        // }  
+//                    }
+//                }
+//            }
+//            else{
+//                // model.reply={
+//                //     text:"Please enter an amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.",
+//                //     type:"text",
+//                //     next:{}
+//                // }   
+//            }
+//            return resolve(model);
+//        }
+//        catch(e){
+//            console.log(e);
+//            return reject("Something went wrong.");
+//        }
+//    })
+//}
 
 // function showFolio(model){
 //     return new Promise(function(resolve,reject){

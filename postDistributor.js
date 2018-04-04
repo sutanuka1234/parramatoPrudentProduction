@@ -9,6 +9,7 @@ var vaildateSelectedAmc=require('./stages/getAmc/post.js').vaildateSelectedAmc;
 var validateSubnatureOptions=require('./stages/subnatureType/post.js').validateSubnatureOptions;
 var validateSchemeName=require('./stages/schemeName/post.js').validateSchemeName;
 var validateFolio=require('./stages/folio/post.js').validateFolio;
+var validateAmount=require('./stages/amount/post.js').validateAmount;
 
 module.exports={
     validateMobile          :validateMobile,
@@ -21,6 +22,7 @@ module.exports={
     vaildateSelectedAmc     :vaildateSelectedAmc,
     validateSubnatureOptions:validateSubnatureOptions,
     validateSchemeName      :validateSchemeName,
-    validateFolio           :validateFolio
+    validateFolio           :validateFolio,
+    validateAmount          :validateAmount
 }
 
