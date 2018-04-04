@@ -97,7 +97,7 @@ function filter(request){
                                         });
                 break;
             case "getAmc" :
-                                        getAmc(request.body)
+                                        pre.getAmc(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
@@ -105,7 +105,7 @@ function filter(request){
                                         });
             break;
             case "validateAmcName" :
-                                        vaildateSelectedAmc(request.body)
+                                        post.vaildateSelectedAmc(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
@@ -769,159 +769,6 @@ function getSubnatureOptions(model){
         }
         catch(e){
             console.log(e);
-            return reject("Something went wrong.");
-        }
-    })
-}
-    
-function vaildateSelectedAmc(model){
-    return new Promise(function(resolve,reject){
-        try{
-            var match = stringSimilarity.findBestMatch(model.data.replace("invest",""), model.tags.amcNamesArray);
-            if(model.tags.amcConfirmation){
-                console.log("POST CONFIRMATION")
-                
-                if(model.data.toLowerCase().includes("yes")){
-                    for(let i=0;i<model.tags.AMCNames.length;i++){
-//                        console.log(model.tags.match+" Mutual Fund"+"---------------"+model.tags.AMCNames[i].AMCName);
-                        if(model.tags.match+" Mutual Fund"===model.tags.AMCNames[i].AMCName){
-                            model.tags.amcName=model.tags.match+" Mutual Fund";
-                            model.tags.amcId=model.tags.AMCNames[i].ID
-                            delete model.stage;
-//                            console.log(JSON.stringify(model.tags)+"TAGS")
-                            break;
-                        }
-                    }
-                }
-                else if(model.data.toLowerCase().includes("no")){
-                    if( match
-                       &&match.bestMatch
-                       &&match.bestMatch.rating
-                       &&((match.bestMatch.rating)>0.2)){
-                        model.tags.match=match.bestMatch.target;
-                    }
-                    else{
-                        if(model.tags.match){
-                            delete model.tags.match;
-                        }
-                    }
-                    return resolve(model);
-                }
-                else{
-                    if( match
-                       &&match.bestMatch
-                       &&match.bestMatch.rating
-                       &&((match.bestMatch.rating)>0.2)){
-                        model.tags.match=match.bestMatch.target;
-                    }
-                    else{
-                        if(model.tags.match){
-                            delete model.tags.match;
-                        }
-                    }
-                }
-                delete model.tags.amcConfirmation;
-            }
-            else{
-//                var match = stringSimilarity.findBestMatch(model.data.replace("invest",""), model.tags.amcNamesArray);
-                console.log("SEARCH FOR MATCH")
-                if( match
-                   &&match.bestMatch
-                   &&match.bestMatch.rating
-                   &&((match.bestMatch.rating)>0.2)){
-                    model.tags.match=match.bestMatch.target;
-                }
-                else{
-                    if(model.tags.match){
-                        delete model.tags.match;
-                    }
-                }
-            }
-            return resolve(model);
-        }
-        catch(e){
-            console.log(e);
-            return reject("Something went wrong.");
-        }
-    });
-}
-
-function getAmc(model){
-    return new Promise(function(resolve, reject){
-        try{
-            if(model.tags.AMCNames){
-                if(model.tags.match){
-                    console.log("MATCH EXISTS")
-                    model.reply={
-                        type:"quickReply",
-                        text:"Did you mean "+model.tags.match +" Mutual Fund",
-                        next:{
-                                "data": [
-                                    {
-                                        "text": "yes",
-                                        "data": "yes"
-                                    },
-                                    {
-                                        "text": "no",
-                                        "data": "no"
-                                    }
-                                ]
-                        }
-                    }
-//                    delete model.tags.match;
-                    model.tags.amcConfirmation=true;
-                }
-                else{
-                    console.log("MATCH DOES NOT EXIST")
-                    model.reply={
-                        type:"text",
-                        text:"Please type in amc again.",
-                        next:{}
-                    }
-                    if(model.tags.amcConfirmation){
-                        delete model.tags.amcConfirmation;
-                    }
-                }
-                return resolve(model);
-            }
-            else{
-                var getAmcReq={
-                    method  : 'POST',
-                    url     : url+"GetAMC?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId,
-                    headers : headers,
-                    body    : JSON.stringify({})
-                }
-                request(getAmcReq,(err,http,body)=>{
-                    if(err){
-                        console.log("get amc" + err)
-                        return reject("failed");
-                    }
-                    else{
-                      console.log("get Amc " + body)
-                      if(body){
-                        body= JSON.parse(body);
-                        model.tags.AMCNames= body["Response"][0]
-                        let amcNamesArray = []
-                        for(let i=0;i<model.tags.AMCNames.length;i++){
-                            amcNamesArray.push(model.tags.AMCNames[i].AMCName.replace(" Mutual Fund","").trim());
-                        }
-                        model.tags.amcNamesArray=amcNamesArray;
-                        model.tags.subnatureOptions=body["Response"][2];
-                        model.tags.subnatureOptionNames=[];
-                        for(let j=0;j<model.tags.subnatureOptions.length;j++){
-                            model.tags.subnatureOptionNames.push(model.tags.subnatureOptions[j].SubNature)
-                        }
-                        return resolve(model)
-                      }
-                      else{
-                        return reject("failed")
-                      }
-                    }
-                })
-            }
-        }
-        catch(e){
-            console.log(e)
             return reject("Something went wrong.");
         }
     })
