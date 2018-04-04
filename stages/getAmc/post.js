@@ -2,6 +2,8 @@ module.exports={
     vaildateSelectedAmc:vaildateSelectedAmc
 }
 
+var stringSimilarity = require('string-similarity');
+
 function vaildateSelectedAmc(model){
     console.log("UPDATED GET AMC POST")
     return new Promise(function(resolve,reject){
