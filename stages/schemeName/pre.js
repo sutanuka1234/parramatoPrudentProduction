@@ -3,6 +3,10 @@ var request=require('request');
 const headers=common.headers;
 const url=common.url;
 
+module.exports={
+    showSchemes:showSchemes
+}
+
 function showSchemes(model){
     return new Promise(function(resolve,reject){
         try{
