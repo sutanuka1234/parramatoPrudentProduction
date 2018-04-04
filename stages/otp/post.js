@@ -6,7 +6,8 @@ const url=common.url;
 
 module.exports={
     getOTP      :getOTP,
-    validateOTP :validateOTP
+    validateOTP :validateOTP,
+    resendOTP   :resendOTP
 };
 
 function getOTP(model){
@@ -253,4 +254,3 @@ function resendOTP(model){
         }
     })                   
 }
-
