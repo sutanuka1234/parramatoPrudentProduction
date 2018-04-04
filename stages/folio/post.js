@@ -1,3 +1,6 @@
+var common=require('./../../common.js');
+const sendExternalData=common.sendExternalData;
+
 module.exports={
     validateFolio:validateFolio
 };
@@ -17,7 +20,19 @@ function validateFolio(model){
                 model.tags.folioSelected="New Folio";
                 delete model.stage;
             }
-            return resolve(model);
+            else{
+                let reply=model.tags.folioCards;
+                reply.sender=model.sender;
+                reply.language="en";
+                sendExternalData(reply)
+                .then((data)=>{
+                    return reject("Invalid Folio.");
+                })
+                .catch((e)=>{
+                    console.log(e);
+                    return reject("Something went wrong.");
+                })
+            }
         }
         catch(e){
             console.log(e);
