@@ -90,7 +90,6 @@ function filter(request){
                                             getOTP(request.body)
                                             .then(validateOTP)
                                             .then((model)=>{
-                                                console.log(JSON.stringify(model)+"AT FILTER--------------")
                                                 return resolve(model)})
                                             .catch((e)=>{
                                                 console.log(e);
@@ -98,25 +97,24 @@ function filter(request){
                                             })
                                         }
                 break;
-            
                 
-            case "postValidatePan"  :
-                                        postValidatePan(request.body)
-                                        .then((model)=>{return resolve(model)})
-                                        .catch((e)=>{
-                                            console.log(e);
-                                            return reject("Something went wrong.")
-                                        })
-                break;
-                
-            case "postValidateOtp"  :
-                                        postValidateOtp(request.body)
-                                        .then((model)=>{return resolve(model)})
-                                        .catch((e)=>{
-                                            console.log(e);
-                                            return reject("Something went wrong.")
-                                        });
-                break;
+//            case "postValidatePan"  :
+//                                        postValidatePan(request.body)
+//                                        .then((model)=>{return resolve(model)})
+//                                        .catch((e)=>{
+//                                            console.log(e);
+//                                            return reject("Something went wrong.")
+//                                        })
+//                break;
+//                
+//            case "postValidateOtp"  :
+//                                        postValidateOtp(request.body)
+//                                        .then((model)=>{return resolve(model)})
+//                                        .catch((e)=>{
+//                                            console.log(e);
+//                                            return reject("Something went wrong.")
+//                                        });
+//                break;
                 
             case "createHoldingPatternResponse":
                                         createHoldingPatternResponse(request.body)
@@ -997,27 +995,27 @@ function getAmc(model){
 //    });
 //}
 
-function validatePan(model){
-    return new Promise(function(resolve, reject){
-        try{
-            let panData = model.data.match("[a-z|A-Z]{5}[0-9]{4}[a-z|A-Z]");
-            if(panData&&panData instanceof Array){
-                model.tags["pan"]=panData[0];
-                model.tags.panValidated="validated";
-                return resolve(model);
-            }
-            else{
-                // model.tags.panValidated="not validated";
-                // model.tags.panValidatedData="Sorry thats not the one :( You are requested to enter a valid PAN number. A valid PAN  looks like this- abcde1234f :)";
-                return reject(model)
-            }
-        }
-        catch(e){
-            console.log(e);
-            return reject("Something went wrong.");
-        }
-    });
-}
+//function validatePan(model){
+//    return new Promise(function(resolve, reject){
+//        try{
+//            let panData = model.data.match("[a-z|A-Z]{5}[0-9]{4}[a-z|A-Z]");
+//            if(panData&&panData instanceof Array){
+//                model.tags["pan"]=panData[0];
+//                model.tags.panValidated="validated";
+//                return resolve(model);
+//            }
+//            else{
+//                // model.tags.panValidated="not validated";
+//                // model.tags.panValidatedData="Sorry thats not the one :( You are requested to enter a valid PAN number. A valid PAN  looks like this- abcde1234f :)";
+//                return reject(model)
+//            }
+//        }
+//        catch(e){
+//            console.log(e);
+//            return reject("Something went wrong.");
+//        }
+//    });
+//}
 
 //function mobileDecoration(model){
 //    return new Promise(function(resolve, reject){   
@@ -1055,352 +1053,353 @@ function validatePan(model){
 //    });
 //}
 
-function postValidatePan(model){
-    return new Promise(function(resolve, reject){
-        try{
-            if(model.tags.panValidated){
-                let text;
-                if(model.tags.panValidated&&model.tags.panValidated=="validated"){
-                    delete model.tags.panValidated;
-                    delete model.tags.panValidated;
-                    return resolve(model);
-                }
-                else if(model.tags.panValidated&&model.tags.panValidated=="not validated"){
-                    if(model.tags.panValidatedData){
-                        text=model.tags.panValidatedData;
-                    }
-                    else{
-                        text="Sorry thats not the one :( You are requested to enter a valid PAN number. A valid PAN  looks like this- abcde1234f :)"
-                    }
-                }
-                else{
-                    text="Sorry thats not the one :( You are requested to enter a valid PAN number. A valid PAN  looks like this- abcde1234f :)"
-                }
-                model.reply={
-                    text:text,
-                    type:"text",
-                    next:{}
-                }
-            }
-            return resolve(model);    
-        }
-        catch(e){
-            console.log(e);
-            return reject("Something went wrong.");
-        }
-    });
-}
+//function postValidatePan(model){
+//    return new Promise(function(resolve, reject){
+//        try{
+//            if(model.tags.panValidated){
+//                let text;
+//                if(model.tags.panValidated&&model.tags.panValidated=="validated"){
+//                    delete model.tags.panValidated;
+//                    delete model.tags.panValidated;
+//                    return resolve(model);
+//                }
+//                else if(model.tags.panValidated&&model.tags.panValidated=="not validated"){
+//                    if(model.tags.panValidatedData){
+//                        text=model.tags.panValidatedData;
+//                    }
+//                    else{
+//                        text="Sorry thats not the one :( You are requested to enter a valid PAN number. A valid PAN  looks like this- abcde1234f :)"
+//                    }
+//                }
+//                else{
+//                    text="Sorry thats not the one :( You are requested to enter a valid PAN number. A valid PAN  looks like this- abcde1234f :)"
+//                }
+//                model.reply={
+//                    text:text,
+//                    type:"text",
+//                    next:{}
+//                }
+//            }
+//            return resolve(model);    
+//        }
+//        catch(e){
+//            console.log(e);
+//            return reject("Something went wrong.");
+//        }
+//    });
+//}
 
-function postValidateOtp(model){
-    return new Promise(function(resolve, reject){
-        try{
-            if(model.tags.otpValidateReply){
-                model.reply=model.tags.otpValidateReply;
-                delete model.tags.otpValidateReply;
-            }
-            else if(model.tags.otpResentReply){
-                model.reply=model.tags.otpResentReply;
-                delete model.tags.otpResentReply;
-            }
-            return resolve(model);
-        }
-        catch(e){
-            console.log(e)
-            return reject("Something went wrong.");
-        }
-    })
-}
+//function postValidateOtp(model){
+//    return new Promise(function(resolve, reject){
+//        try{
+//            if(model.tags.otpValidateReply){
+//                model.reply=model.tags.otpValidateReply;
+//                delete model.tags.otpValidateReply;
+//            }
+//            else if(model.tags.otpResentReply){
+//                model.reply=model.tags.otpResentReply;
+//                delete model.tags.otpResentReply;
+//            }
+//            return resolve(model);
+//        }
+//        catch(e){
+//            console.log(e)
+//            return reject("Something went wrong.");
+//        }
+//    })
+//}
 
-function getPanMobile(model){
-    return new Promise(function(resolve, reject){
-        try{
-            let panData = model.data.match("[a-z|A-Z]{5}[0-9]{4}[a-z|A-Z]");
-            if(panData&&panData instanceof Array){
-                model.tags["pan"]=panData[0];
-            }
-            let mobileData = model.data.match(/[0-9]{10}/g);
-            if(mobileData&&mobileData instanceof Array){
-                model.tags["mobile"]=mobileData[0];
-            }
-            return resolve(model);
-        }
-        catch(e){
-            console.log(e);
-            return reject("Something went wrong.");
-        }
-    });
-}
+//function getPanMobile(model){
+//    return new Promise(function(resolve, reject){
+//        try{
+//            let panData = model.data.match("[a-z|A-Z]{5}[0-9]{4}[a-z|A-Z]");
+//            if(panData&&panData instanceof Array){
+//                model.tags["pan"]=panData[0];
+//            }
+//            let mobileData = model.data.match(/[0-9]{10}/g);
+//            if(mobileData&&mobileData instanceof Array){
+//                model.tags["mobile"]=mobileData[0];
+//            }
+//            return resolve(model);
+//        }
+//        catch(e){
+//            console.log(e);
+//            return reject("Something went wrong.");
+//        }
+//    });
+//}
 
-function getOTP(model){
-    return new Promise(function(resolve, reject){
-        try{
-            if(model.data.match(/\d+/)&&model.data.match(/\d+/)[0]&&model.data.match(/\d+/)[0].length == 6){
-                model.tags["otp"]=model.data.match(/\d+/)[0];
-                return resolve(model);
-            }
-            else{
-                return reject(model)
-                // if(model.tags.otp){
-                //     delete model.tags.otp;
-                // }
-                // if(model.data.match(/\d+/)&&model.data.match(/\d+/)[0]){
-                //     model.tags.otpValidateReply={
-                //         text:"Please enter a valid 6 digit OTP code.",
-                //         type:"text",
-                //         next:{}
-                //     }
-                //     return resolve(model);
-                // }
-                // else{
-                //     model.tags.otpValidateReply={
-                //         text:"Sorry. You are requested to enter a valid OTP code. A valid OTP looks like this- 123456 :)",
-                //         type:"text",
-                //         next:{}
-                //     }
-                //     return resolve(model);
-                // }
-            }
-        }
-        catch(e){
-            console.log(e);
-            return reject("Something went wrong.");
-        }
-    })
-}
 
-function validatePanMobileByApi(model){
-    return new Promise(function(resolve, reject){
-        console.log(JSON.stringify(model)+"++++++++++++++++++++")
-        if(model.tags.pan&&model.tags.mobile){
-            makePanMobileValidationRequest({},"AuthenticatePANMobile?IPAddress=192.168.0.102&PanNo="+model.tags.pan+"&MobileNo="+model.tags.mobile)
-            .then((data)=>{
-                if(data.sessionId){
-                    model.tags.sessionId=data.sessionId;
-                    delete model.stage;
-                    let reply={
-                        text    : "Congratulations! Your details have been validated!",
-                        type    : "text",
-                        sender  : model.sender,
-                        language: "en"
-                    }
-                    sendExternalData(reply)
-                    .then((data)=>{
-                        return resolve(model);
-                    })
-                    .catch((e)=>{
-                        console.log(e);
-                        return reject("Something went wrong.")
-                    })
-                }
-                else if(data.fail){
-                    delete model.tags.pan;
-                    delete model.tags.mobile;
-                    let reply={
-                        text    : "Sorry. It seems this client does not exist.",
-                        type    : "text",
-                        sender  : model.sender,
-                        language: "en"
-                    }
-                    sendExternalData(reply)
-                    .then((data)=>{
-                        model.stage="validateMobile"
-                        console.log(JSON.stringify(model)+"INVALID DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-                        model.message=data.reason;
-                        return resolve(model);
-                    })
-                    .catch((e)=>{
-                        console.log(e);
-                        return reject("Something went wrong.");
-                    })
-                }
-                else if(data.badRequest){
-                    let reply={
-                        text    : data.reason,
-                        type    : "text",
-                        sender  : model.sender,
-                        language: "en"
-                    }
-                    sendExternalData(reply)
-                    .then((data)=>{
-                        model.message=data.reason;
-                        return resolve(model)})
-                    .catch((e)=>{
-                        console.log(e);    
-                        return reject("Something went wrong.")
-                    })   
-                }
-            })
-            .catch((e)=>{
-                console.log(e);
-                return reject("Something went wrong.")
-            });
-        }
-        else{
-            return resolve(model);
-        }
-    });
-}
+//function validatePanMobileByApi(model){
+//    return new Promise(function(resolve, reject){
+//        console.log(JSON.stringify(model)+"++++++++++++++++++++")
+//        if(model.tags.pan&&model.tags.mobile){
+//            makePanMobileValidationRequest({},"AuthenticatePANMobile?IPAddress=192.168.0.102&PanNo="+model.tags.pan+"&MobileNo="+model.tags.mobile)
+//            .then((data)=>{
+//                if(data.sessionId){
+//                    model.tags.sessionId=data.sessionId;
+//                    delete model.stage;
+//                    let reply={
+//                        text    : "Congratulations! Your details have been validated!",
+//                        type    : "text",
+//                        sender  : model.sender,
+//                        language: "en"
+//                    }
+//                    sendExternalData(reply)
+//                    .then((data)=>{
+//                        return resolve(model);
+//                    })
+//                    .catch((e)=>{
+//                        console.log(e);
+//                        return reject("Something went wrong.")
+//                    })
+//                }
+//                else if(data.fail){
+//                    delete model.tags.pan;
+//                    delete model.tags.mobile;
+//                    let reply={
+//                        text    : "Sorry. It seems this client does not exist.",
+//                        type    : "text",
+//                        sender  : model.sender,
+//                        language: "en"
+//                    }
+//                    sendExternalData(reply)
+//                    .then((data)=>{
+//                        model.stage="validateMobile"
+//                        console.log(JSON.stringify(model)+"INVALID DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+//                        model.message=data.reason;
+//                        return resolve(model);
+//                    })
+//                    .catch((e)=>{
+//                        console.log(e);
+//                        return reject("Something went wrong.");
+//                    })
+//                }
+//                else if(data.badRequest){
+//                    let reply={
+//                        text    : data.reason,
+//                        type    : "text",
+//                        sender  : model.sender,
+//                        language: "en"
+//                    }
+//                    sendExternalData(reply)
+//                    .then((data)=>{
+//                        model.message=data.reason;
+//                        return resolve(model)})
+//                    .catch((e)=>{
+//                        console.log(e);    
+//                        return reject("Something went wrong.")
+//                    })   
+//                }
+//            })
+//            .catch((e)=>{
+//                console.log(e);
+//                return reject("Something went wrong.")
+//            });
+//        }
+//        else{
+//            return resolve(model);
+//        }
+//    });
+//}
 
-function makePanMobileValidationRequest(requestData,urlExtension){
-    return new Promise(function(resolve, reject){
-        try{
-            var requestParams = {
-                method  : 'POST',
-                url     : url+urlExtension,
-                headers : headers,
-                body    : JSON.stringify(requestData)
-            }
-            console.log(JSON.stringify(requestParams)+"PAN MOBILE VALIDATION REQUEST")
-            request(requestParams,function(error,response,body){
-                if(body){
-                    console.log(body+"PAN MOBILE VALIDATION RESPONSE")
-                    body=JSON.parse(body);
-                    if(body.Response&&body.Response.length>0){
-                        let data={};
-                        if(body.Response[0].result==="SUCCESS"){
-                            data.sessionId=body.Response[0].SessionId;
-                            return resolve(data);
-                        }
-                        else if(body.Response[0].result==="FAIL"){
-                            data.fail=true;
-                            data.reason=body.Response[0].reject_reason;
-                            return resolve(data);
-                        }
-                        else if(body.Response[0].result==="BADREQUEST"){
-                            data.badRequest=true;
-                            data.reason="Something went wrong during API Call";
-                            return resolve(data);
-                        }
-                        else{
-                            return reject("API Call was not made correctly.");        
-                        }
-                    }
-                    else{
-                        return reject("Something went wrong.");
-                    }
-                }
-                else{
-                    console.log(error)
-                    return reject("Something went wrong.");
-                }
-            })
-        }
-        catch(e){
-            console.log(e);
-            return reject("Something went wrong.");
-        }
-    })
-}
+//function makePanMobileValidationRequest(requestData,urlExtension){
+//    return new Promise(function(resolve, reject){
+//        try{
+//            var requestParams = {
+//                method  : 'POST',
+//                url     : url+urlExtension,
+//                headers : headers,
+//                body    : JSON.stringify(requestData)
+//            }
+//            console.log(JSON.stringify(requestParams)+"PAN MOBILE VALIDATION REQUEST")
+//            request(requestParams,function(error,response,body){
+//                if(body){
+//                    console.log(body+"PAN MOBILE VALIDATION RESPONSE")
+//                    body=JSON.parse(body);
+//                    if(body.Response&&body.Response.length>0){
+//                        let data={};
+//                        if(body.Response[0].result==="SUCCESS"){
+//                            data.sessionId=body.Response[0].SessionId;
+//                            return resolve(data);
+//                        }
+//                        else if(body.Response[0].result==="FAIL"){
+//                            data.fail=true;
+//                            data.reason=body.Response[0].reject_reason;
+//                            return resolve(data);
+//                        }
+//                        else if(body.Response[0].result==="BADREQUEST"){
+//                            data.badRequest=true;
+//                            data.reason="Something went wrong during API Call";
+//                            return resolve(data);
+//                        }
+//                        else{
+//                            return reject("API Call was not made correctly.");        
+//                        }
+//                    }
+//                    else{
+//                        return reject("Something went wrong.");
+//                    }
+//                }
+//                else{
+//                    console.log(error)
+//                    return reject("Something went wrong.");
+//                }
+//            })
+//        }
+//        catch(e){
+//            console.log(e);
+//            return reject("Something went wrong.");
+//        }
+//    })
+//}
 
-function validateOTP(model){
-    console.log(JSON.stringify(model.tags)+"::::::::::::::::")
-    return new Promise(function(resolve, reject){
-        try{
-            if(model.tags.otp){
-                var requestParams = {
-                    method  : 'POST',
-                    url     : url+"ConfirmOTP?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&OTPCode="+model.tags.otp,
-                    headers : headers,
-                    body    : JSON.stringify({})
-                }
-                console.log(JSON.stringify(requestParams)+"OTP VALIDATION REQUEST")
-                request(requestParams,function(error,response,body){
-                    if(body){
-                        console.log(body+"OTP VALIDATION RESPONSE");
-                        body=JSON.parse(body);
-                        if(body.Response&&body.Response.length>0){
-                            if(body.Response[0]&&body.Response[0].JoinAccId&&body.Response[0].JoinHolderName){
-                                console.log(JSON.stringify(body.Response[0])+"ACCOUNT DETAILS");
-                                model.tags.holdingPattern=body.Response;
-                                if(model.tags.otpValidateReply){
-                                    delete model.tags.otpValidateReply;
-                                }
-                                let reply={
-                                    text    : "Thanks, your OTP is verified ! We can now continue with your investment process :)",
-                                    type    : "text",
-                                    next    : {},
-                                    sender  : model.sender,
-                                    language: "en"
-                                }
-                                sendExternalData(reply)
-                                .then((data)=>{
-                                    delete model.stage;
-                                    return resolve(model)})
-                                .catch((e)=>{
-                                    console.log(e);
-                                    return reject("Something went wrong.");
-                                })
-                            }
-                            else if(body.Response[0].result==="FAIL"){
-                                let reply={
-                                    text    :"Oh no, OTP you entered was found to be wrong. Could you please re-enter the OTP?",
-                                    type    : "button",
-                                    next    : {
-                                                "data": [
-                                                {
-                                                    "text": "Resend OTP",
-                                                    "data": "Resend OTP"
-                                                }
-                                            ]
-                                    },
-                                    sender  : model.sender,
-                                    language: "en"
-                                }
-                                sendExternalData(reply)
-                                .then((data)=>{
-                                    return reject(model)})
-                                .catch((e)=>{
-                                    console.log(e);
-                                    return reject("Something went wrong.");
-                                })
-                            }
-                            else if(body.Response[0].result==="BADREQUEST"){
-                                let reply={
-                                    text    :"Apologies! Something went wrong while validating your OTP.",
-                                    type    : "button",
-                                    next    : {
-                                                "data": [
-                                                {
-                                                    "text": "Resend OTP",
-                                                    "data": "Resend OTP"
-                                                }
-                                            ]
-                                    },
-                                    sender  : model.sender,
-                                    language: "en"
-                                }
-                                sendExternalData(reply)
-                                .then((data)=>{
-                                    return reject(model)})
-                                .catch((e)=>{
-                                    console.log(e);
-                                    return reject("Something went wrong.");
-                                })
-                            }
-                            else{
-                                return reject("API Call was not made correctly.");        
-                            }
-                        }
-                        else{
-                            return reject("Something went wrong.");
-                        }
-                    }
-                    else{
-                        console.log(error);
-                        return resolve(model);
-                    }
-                })
-            }
-            else{
-                return resolve(model);
-            }
-        }
-        catch(e){
-            console.log(e);
-            return reject("Something went wrong.");
-        }
-    })
-}
+//function getOTP(model){
+//    return new Promise(function(resolve, reject){
+//        try{
+//            if(model.data.match(/\d+/)&&model.data.match(/\d+/)[0]&&model.data.match(/\d+/)[0].length == 6){
+//                model.tags["otp"]=model.data.match(/\d+/)[0];
+//                return resolve(model);
+//            }
+//            else{
+//                return reject(model)
+//                 if(model.tags.otp){
+//                     delete model.tags.otp;
+//                 }
+//                 if(model.data.match(/\d+/)&&model.data.match(/\d+/)[0]){
+//                     model.tags.otpValidateReply={
+//                         text:"Please enter a valid 6 digit OTP code.",
+//                         type:"text",
+//                         next:{}
+//                     }
+//                     return resolve(model);
+//                 }
+//                 else{
+//                     model.tags.otpValidateReply={
+//                         text:"Sorry. You are requested to enter a valid OTP code. A valid OTP looks like this- 123456 :)",
+//                         type:"text",
+//                         next:{}
+//                     }
+//                     return resolve(model);
+//                 }
+//            }
+//        }
+//        catch(e){
+//            console.log(e);
+//            return reject("Something went wrong.");
+//        }
+//    })
+//}
+
+//function validateOTP(model){
+//    console.log(JSON.stringify(model.tags)+"::::::::::::::::")
+//    return new Promise(function(resolve, reject){
+//        try{
+//            if(model.tags.otp){
+//                var requestParams = {
+//                    method  : 'POST',
+//                    url     : url+"ConfirmOTP?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&OTPCode="+model.tags.otp,
+//                    headers : headers,
+//                    body    : JSON.stringify({})
+//                }
+//                console.log(JSON.stringify(requestParams)+"OTP VALIDATION REQUEST")
+//                request(requestParams,function(error,response,body){
+//                    if(body){
+//                        console.log(body+"OTP VALIDATION RESPONSE");
+//                        body=JSON.parse(body);
+//                        if(body.Response&&body.Response.length>0){
+//                            if(body.Response[0]&&body.Response[0].JoinAccId&&body.Response[0].JoinHolderName){
+//                                console.log(JSON.stringify(body.Response[0])+"ACCOUNT DETAILS");
+//                                model.tags.holdingPattern=body.Response;
+//                                if(model.tags.otpValidateReply){
+//                                    delete model.tags.otpValidateReply;
+//                                }
+//                                let reply={
+//                                    text    : "Thanks, your OTP is verified ! We can now continue with your investment process :)",
+//                                    type    : "text",
+//                                    next    : {},
+//                                    sender  : model.sender,
+//                                    language: "en"
+//                                }
+//                                sendExternalData(reply)
+//                                .then((data)=>{
+//                                    delete model.stage;
+//                                    return resolve(model)})
+//                                .catch((e)=>{
+//                                    console.log(e);
+//                                    return reject("Something went wrong.");
+//                                })
+//                            }
+//                            else if(body.Response[0].result==="FAIL"){
+//                                let reply={
+//                                    text    :"Oh no, OTP you entered was found to be wrong. Could you please re-enter the OTP?",
+//                                    type    : "button",
+//                                    next    : {
+//                                                "data": [
+//                                                {
+//                                                    "text": "Resend OTP",
+//                                                    "data": "Resend OTP"
+//                                                }
+//                                            ]
+//                                    },
+//                                    sender  : model.sender,
+//                                    language: "en"
+//                                }
+//                                sendExternalData(reply)
+//                                .then((data)=>{
+//                                    return reject(model)})
+//                                .catch((e)=>{
+//                                    console.log(e);
+//                                    return reject("Something went wrong.");
+//                                })
+//                            }
+//                            else if(body.Response[0].result==="BADREQUEST"){
+//                                let reply={
+//                                    text    :"Apologies! Something went wrong while validating your OTP.",
+//                                    type    : "button",
+//                                    next    : {
+//                                                "data": [
+//                                                {
+//                                                    "text": "Resend OTP",
+//                                                    "data": "Resend OTP"
+//                                                }
+//                                            ]
+//                                    },
+//                                    sender  : model.sender,
+//                                    language: "en"
+//                                }
+//                                sendExternalData(reply)
+//                                .then((data)=>{
+//                                    return reject(model)})
+//                                .catch((e)=>{
+//                                    console.log(e);
+//                                    return reject("Something went wrong.");
+//                                })
+//                            }
+//                            else{
+//                                return reject("API Call was not made correctly.");        
+//                            }
+//                        }
+//                        else{
+//                            return reject("Something went wrong.");
+//                        }
+//                    }
+//                    else{
+//                        console.log(error);
+//                        return resolve(model);
+//                    }
+//                })
+//            }
+//            else{
+//                return resolve(model);
+//            }
+//        }
+//        catch(e){
+//            console.log(e);
+//            return reject("Something went wrong.");
+//        }
+//    })
+//}
 
 function resendOTP(model){
     return new Promise(function(resolve, reject){
@@ -1570,34 +1569,34 @@ function validateHoldingPattern(model){
     })
 }
 
-function sendExternalData(data){
-    console.log("send external")
-    return new Promise(function(resolve,reject){
-        try{
-            let projectId;
-            if(data.sender&&data.sender.split("|").length===3){
-                projectId=data.sender.split("|")[1]
-                request({
-                    uri     :'http://bot.meetaina.com/backend/'+projectId+'/external/send',
-                    json    :data,
-                    method  :'POST'   
-                },(err,req,body)=>{
-                    if(err){   
-                        console.log(err)
-                        return reject("Something went wrong.");
-                    }
-                    else{
-                        console.log(body);
-                        return resolve(body);
-                    }
-                })		
-            }
-            else{
-                return reject("Something went wrong.");    
-            }
-        }catch(e){
-            console.log(e)
-            return reject("Something went wrong.")
-        }
-    });
-}
+//function sendExternalData(data){
+//    console.log("send external")
+//    return new Promise(function(resolve,reject){
+//        try{
+//            let projectId;
+//            if(data.sender&&data.sender.split("|").length===3){
+//                projectId=data.sender.split("|")[1]
+//                request({
+//                    uri     :'http://bot.meetaina.com/backend/'+projectId+'/external/send',
+//                    json    :data,
+//                    method  :'POST'   
+//                },(err,req,body)=>{
+//                    if(err){   
+//                        console.log(err)
+//                        return reject("Something went wrong.");
+//                    }
+//                    else{
+//                        console.log(body);
+//                        return resolve(body);
+//                    }
+//                })		
+//            }
+//            else{
+//                return reject("Something went wrong.");    
+//            }
+//        }catch(e){
+//            console.log(e)
+//            return reject("Something went wrong.")
+//        }
+//    });
+//}
