@@ -106,7 +106,6 @@ function insertBuyCart(model){
                                         console.log(e);
                                         return reject("Something went wrong.");
                                     })
-                                    return resolve(model);
                                 }
                                 else{
                                     let reply={
