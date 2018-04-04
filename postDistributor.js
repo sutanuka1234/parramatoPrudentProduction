@@ -10,6 +10,8 @@ var validateSubnatureOptions=require('./stages/subnatureType/post.js').validateS
 var validateSchemeName=require('./stages/schemeName/post.js').validateSchemeName;
 var validateFolio=require('./stages/folio/post.js').validateFolio;
 var validateAmount=require('./stages/amount/post.js').validateAmount;
+var validateAgreement=require('./stages/agreement/post.js').validateAgreement;
+var insertBuyCart=require('./stages/agreement/post.js').insertBuyCart;
 
 module.exports={
     validateMobile          :validateMobile,
@@ -23,6 +25,8 @@ module.exports={
     validateSubnatureOptions:validateSubnatureOptions,
     validateSchemeName      :validateSchemeName,
     validateFolio           :validateFolio,
-    validateAmount          :validateAmount
+    validateAmount          :validateAmount,
+    validateAgreement       :validateAgreement,
+    insertBuyCart           :insertBuyCart
 }
 
