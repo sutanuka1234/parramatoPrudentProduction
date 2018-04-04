@@ -845,6 +845,7 @@ function vaildateSelectedAmc(model){
         }
     });
 }
+
 function getAmc(model){
     return new Promise(function(resolve, reject){
         try{
