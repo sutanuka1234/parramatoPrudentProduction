@@ -7,7 +7,7 @@ function amountDecoration(model){
     return new Promise(function(resolve,reject){
         try{
              model.reply={
-                 text:"Please enter an amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.",
+                 text:"Enter the amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.",
                  type:"text",
                  next:{}
              }   

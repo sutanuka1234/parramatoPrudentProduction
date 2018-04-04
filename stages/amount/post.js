@@ -34,39 +34,12 @@ function validateAmount(model){
                     return resolve(model);
                 }
                 else{
-                    let reply={
-                        type    :"text",
-                        text    :"Please enter a valid amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.",
-                        sender  :model.sender,
-                        language:"en"
-                    }; 
-                    sendExternalData(reply)
-                    .then((data)=>{
-                        return reject("Invalid Amount.");
-                    })
-                    .catch((e)=>{
-                        console.log(e);
-                        return reject("Something went wrong.");
-                    })  
+                    return reject("Invalid Amount.");
                 }
             }
             else{
-                let reply={
-                        type    :"text",
-                        text    :"Please enter an amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.",
-                        sender  :model.sender,
-                        language:"en"
-                    }; 
-                sendExternalData(reply)
-                .then((data)=>{
-                    return reject("Invalid Amount.");
-                })
-                .catch((e)=>{
-                    console.log(e);
-                    return reject("Something went wrong.");
-                })  
+                return reject("Invalid Amount.");  
             }
-            return resolve(model);
         }
         catch(e){
             console.log(e);
