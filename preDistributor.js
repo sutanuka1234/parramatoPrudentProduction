@@ -1,5 +1,5 @@
-var mobileDecoration=require('./stages/validateMobile/pre.js');
+var createHoldingPatternResponse=require('./stages/holdingPatern/pre.js')createHoldingPatternResponse;
 
 module.exports={
-    mobileDecoration:mobileDecoration
+    createHoldingPatternResponse:createHoldingPatternResponse
 }

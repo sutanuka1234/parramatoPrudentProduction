@@ -80,7 +80,7 @@ function filter(request){
                 break;
                 
             case "createHoldingPatternResponse":
-                                        createHoldingPatternResponse(request.body)
+                                        pre.createHoldingPatternResponse(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
@@ -89,7 +89,7 @@ function filter(request){
                 break;
                 
             case "validateHoldingPattern":
-                                        validateHoldingPattern(request.body)
+                                        post.validateHoldingPattern(request.body)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
@@ -922,61 +922,6 @@ function getAmc(model){
         catch(e){
             console.log(e)
             return reject("Something went wrong.");
-        }
-    })
-}
-
-function createHoldingPatternResponse(model){
-    return new Promise(function(resolve,reject){
-        try{
-            if(model.tags.holdingPattern){
-                model.tags.JoinAccIds=[];
-                let reply={};
-                reply.type="generic";
-                reply.text="You can choose from the following holding patterns."
-                reply.next={
-                        data: []
-                }
-                for(let i=0;i<5;i++){
-                    if(model.tags.holdingPattern[i]){
-                        reply.next.data.push({
-                            title   :model.tags.holdingPattern[i].JoinHolderName,
-                            text    :"",
-                            buttons :[
-                                {
-                                    text:"Use this",
-                                    data:model.tags.holdingPattern[i].JoinAccId
-                                }
-                            ]
-                        })
-                        model.tags.JoinAccIds.push(model.tags.holdingPattern[i].JoinAccId);
-                    }
-                }
-                model.reply=reply;
-            }
-            return resolve(model);
-        }
-        catch(e){
-            console.log(e);
-            return reject("Something went wrong.")
-        }
-    })
-}
-
-function validateHoldingPattern(model){
-    return new Promise(function(resolve,reject){
-        try{
-            if(model.data.match(/\d+/g)){
-                if(model.tags.JoinAccIds.includes(model.data.match(/\d+/g)[0])){
-                    model.tags.JoinAccId = model.data.match(/\d+/g)[0]
-                    delete model.stage;
-                }
-            }
-            return resolve(model);
-        }
-        catch(e){
-            console.log(e);
-            return reject("Something went wrong.")
         }
     })
 }

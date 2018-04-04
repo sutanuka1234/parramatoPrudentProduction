@@ -4,6 +4,7 @@ var validatePanMobileByApi=require('./stages/validatePan/post.js').validatePanMo
 var getOTP=require('./stages/otp/post.js').getOTP;
 var validateOTP=require('./stages/otp/post.js').validateOTP;
 var resendOTP=require('./stages/otp/post.js').resendOTP;
+var validateHoldingPattern=require('./stages/holdingPattern/post.js').validateHoldingPattern;
 
 module.exports={
     validateMobile          :validateMobile,
@@ -11,6 +12,7 @@ module.exports={
     validatePanMobileByApi  :validatePanMobileByApi,
     getOTP                  :getOTP,
     validateOTP             :validateOTP,
-    resendOTP               :resendOTP
+    resendOTP               :resendOTP,
+    validateHoldingPattern  :validateHoldingPattern   
 }
 
