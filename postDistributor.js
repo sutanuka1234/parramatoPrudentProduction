@@ -8,6 +8,7 @@ var validateHoldingPattern=require('./stages/holdingPattern/post.js').validateHo
 var vaildateSelectedAmc=require('./stages/getAmc/post.js').vaildateSelectedAmc;
 var validateSubnatureOptions=require('./stages/subnatureType/post.js').validateSubnatureOptions;
 var validateSchemeName=require('./stages/schemeName/post.js').validateSchemeName;
+var validateFolio=require('./stages/folio/post.js').validateFolio;
 
 module.exports={
     validateMobile          :validateMobile,
@@ -19,6 +20,7 @@ module.exports={
     validateHoldingPattern  :validateHoldingPattern,
     vaildateSelectedAmc     :vaildateSelectedAmc,
     validateSubnatureOptions:validateSubnatureOptions,
-    validateSchemeName      :validateSchemeName
+    validateSchemeName      :validateSchemeName,
+    validateFolio           :validateFolio
 }
 
