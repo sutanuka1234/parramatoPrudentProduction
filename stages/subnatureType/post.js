@@ -57,6 +57,6 @@ function validateSubnatureOptions(model){
         catch(e){
             console.log(e);
             return reject("Something went wrong.");
-        }
+        }    
     })
 }
