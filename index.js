@@ -1142,25 +1142,26 @@ function getOTP(model){
                 return resolve(model);
             }
             else{
-                if(model.tags.otp){
-                    delete model.tags.otp;
-                }
-                if(model.data.match(/\d+/)&&model.data.match(/\d+/)[0]){
-                    model.tags.otpValidateReply={
-                        text:"Please enter a valid 6 digit OTP code.",
-                        type:"text",
-                        next:{}
-                    }
-                    return resolve(model);
-                }
-                else{
-                    model.tags.otpValidateReply={
-                        text:"Sorry. You are requested to enter a valid OTP code. A valid OTP looks like this- 123456 :)",
-                        type:"text",
-                        next:{}
-                    }
-                    return resolve(model);
-                }
+                return reject(model)
+                // if(model.tags.otp){
+                //     delete model.tags.otp;
+                // }
+                // if(model.data.match(/\d+/)&&model.data.match(/\d+/)[0]){
+                //     model.tags.otpValidateReply={
+                //         text:"Please enter a valid 6 digit OTP code.",
+                //         type:"text",
+                //         next:{}
+                //     }
+                //     return resolve(model);
+                // }
+                // else{
+                //     model.tags.otpValidateReply={
+                //         text:"Sorry. You are requested to enter a valid OTP code. A valid OTP looks like this- 123456 :)",
+                //         type:"text",
+                //         next:{}
+                //     }
+                //     return resolve(model);
+                // }
             }
         }
         catch(e){
