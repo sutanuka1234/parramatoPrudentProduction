@@ -19,6 +19,7 @@ function validateMobile(model){
                 }
             }
             else{
+                console.log("rejjjjjjjjjjjjjjjj")
                 model.tags.mobileValidated="not validated";
                 model.tags.mobileValidatedData="Hey, that doesn't seem a correct one :( Kindly enter a valid mobile phone number.";
                 return reject(model);
