@@ -1,9 +1,3 @@
-module.exports={
-    headers         :headers,
-    url             :url,
-    sendExternalData:sendExternalData
-}
-
 const headers={
     UserName    : "Prudent",
     Password    : "Prudent@123"
@@ -41,4 +35,10 @@ function sendExternalData(data){
             return reject("Something went wrong.")
         }
     });
+}
+
+module.exports={
+    headers         :headers,
+    url             :url,
+    sendExternalData:sendExternalData
 }
