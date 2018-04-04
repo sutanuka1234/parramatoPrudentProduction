@@ -2,5 +2,6 @@ var createHoldingPatternResponse=require('./stages/holdingPattern/pre.js').creat
 var getAmc=require('./stages/getAmc/pre.js').getAmc;
 
 module.exports={
-    createHoldingPatternResponse:createHoldingPatternResponse
+    createHoldingPatternResponse:createHoldingPatternResponse,
+    getAmc                      :getAmc
 }
