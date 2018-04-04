@@ -16,6 +16,7 @@ module.exports={
     validateOTP             :validateOTP,
     resendOTP               :resendOTP,
     validateHoldingPattern  :validateHoldingPattern,
-    vaildateSelectedAmc     :vaildateSelectedAmc
+    vaildateSelectedAmc     :vaildateSelectedAmc,
+    validateSubnatureOptions:validateSubnatureOptions
 }
 
