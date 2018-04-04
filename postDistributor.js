@@ -5,6 +5,7 @@ var getOTP=require('./stages/otp/post.js').getOTP;
 var validateOTP=require('./stages/otp/post.js').validateOTP;
 var resendOTP=require('./stages/otp/post.js').resendOTP;
 var validateHoldingPattern=require('./stages/holdingPattern/post.js').validateHoldingPattern;
+var vaildateSelectedAmc=require('./stages/getAmc/post.js').vaildateSelectedAmc;
 
 module.exports={
     validateMobile          :validateMobile,
@@ -13,6 +14,7 @@ module.exports={
     getOTP                  :getOTP,
     validateOTP             :validateOTP,
     resendOTP               :resendOTP,
-    validateHoldingPattern  :validateHoldingPattern   
+    validateHoldingPattern  :validateHoldingPattern,
+    vaildateSelectedAmc     :vaildateSelectedAmc
 }
 
