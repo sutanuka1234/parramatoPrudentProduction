@@ -19,17 +19,9 @@ function validateMobile(model){
                 }
             }
             else{
-                if(model.data.includes("cancel")) {
-                    //model.tags.isAddStage = true
-                    model.tags.mobileValidated="not validated";
-                    model.tags.mobileValidatedData="Hey, that doesn't seem a correct one :( Kindly enter a valid mobile phone number.";
-                    //delete model.stage;
-                    console.log("cancel====")
-                    return reject(model)
-                }
                 model.tags.mobileValidated="not validated";
                 model.tags.mobileValidatedData="Hey, that doesn't seem a correct one :( Kindly enter a valid mobile phone number.";
-                return resolve(model);
+                return reject(model);
             }
         }
         catch(e){
