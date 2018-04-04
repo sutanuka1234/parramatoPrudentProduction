@@ -7,6 +7,7 @@ var resendOTP=require('./stages/otp/post.js').resendOTP;
 var validateHoldingPattern=require('./stages/holdingPattern/post.js').validateHoldingPattern;
 var vaildateSelectedAmc=require('./stages/getAmc/post.js').vaildateSelectedAmc;
 var validateSubnatureOptions=require('./stages/subnatureType/post.js').validateSubnatureOptions;
+var validateSchemeName=require('./stages/schemeName/post.js').validateSchemeName;
 
 module.exports={
     validateMobile          :validateMobile,
@@ -17,6 +18,7 @@ module.exports={
     resendOTP               :resendOTP,
     validateHoldingPattern  :validateHoldingPattern,
     vaildateSelectedAmc     :vaildateSelectedAmc,
-    validateSubnatureOptions:validateSubnatureOptions
+    validateSubnatureOptions:validateSubnatureOptions,
+    validateSchemeName      :validateSchemeName
 }
 
