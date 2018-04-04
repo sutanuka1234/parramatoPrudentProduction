@@ -357,20 +357,20 @@ function postValidateAmount(model){
                         console.log(model.tags.schemeData.DividendOption+"----------------")
                     }
                     else if(model.tags.validateAmountFlag=="not validated"){
-                        model.reply={
-                            text:model.tags.validatedAmountMessage,
-                            type:"text",
-                            next:{}
-                        }  
+                        // model.reply={
+                        //     text:model.tags.validatedAmountMessage,
+                        //     type:"text",
+                        //     next:{}
+                        // }  
                     }
                 }
             }
             else{
-                model.reply={
-                    text:"Please enter an amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.",
-                    type:"text",
-                    next:{}
-                }   
+                // model.reply={
+                //     text:"Please enter an amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.",
+                //     type:"text",
+                //     next:{}
+                // }   
             }
             return resolve(model);
         }
@@ -412,13 +412,15 @@ function validateAmount(model){
                     }
                 }
                 else{
-                    model.tags.validateAmountFlag="not validated";
-                    model.tags.validatedAmountMessage="Please enter a valid amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.";   
+                    return reject(model)
+                    // model.tags.validateAmountFlag="not validated";
+                    // model.tags.validatedAmountMessage="Please enter a valid amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.";   
                 }
             }
             else{
-                model.tags.validatedAmount="not validated";
-                model.tags.validatedAmountMessage="Please enter an amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.";
+                return reject(model)
+                // model.tags.validatedAmount="not validated";
+                // model.tags.validatedAmountMessage="Please enter an amount between "+model.tags.schemeData.MinimumInvestment+" and "+model.tags.schemeData.MaximumInvestment+" in multiples of 100.";
             }
             console.log("+++++")
             return resolve(model);
@@ -1008,9 +1010,9 @@ function validatePan(model){
                 return resolve(model);
             }
             else{
-                model.tags.panValidated="not validated";
-                model.tags.panValidatedData="Sorry thats not the one :( You are requested to enter a valid PAN number. A valid PAN  looks like this- abcde1234f :)";
-                return resolve(model)
+                // model.tags.panValidated="not validated";
+                // model.tags.panValidatedData="Sorry thats not the one :( You are requested to enter a valid PAN number. A valid PAN  looks like this- abcde1234f :)";
+                return reject(model)
             }
         }
         catch(e){
@@ -1318,8 +1320,8 @@ function validateOTP(model){
                                 let reply={
                                     text    : "Thanks, your OTP is verified ! We can now continue with your investment process :)",
                                     type    : "text",
-                                    sender  : model.sender,
                                     next    : {},
+                                    sender  : model.sender,
                                     language: "en"
                                 }
                                 sendExternalData(reply)
@@ -1332,7 +1334,7 @@ function validateOTP(model){
                                 })
                             }
                             else if(body.Response[0].result==="FAIL"){
-                                model.tags.otpValidateReply={
+                                let reply={
                                     text    :"Oh no, OTP you entered was found to be wrong. Could you please re-enter the OTP?",
                                     type    : "button",
                                     next    : {
@@ -1342,12 +1344,20 @@ function validateOTP(model){
                                                     "data": "Resend OTP"
                                                 }
                                             ]
-                                    }
+                                    },
+                                    sender  : model.sender,
+                                    language: "en"
                                 }
-                                return resolve(model);
+                                sendExternalData(reply)
+                                .then((data)=>{
+                                    return reject(model)})
+                                .catch((e)=>{
+                                    console.log(e);
+                                    return reject("Something went wrong.");
+                                })
                             }
                             else if(body.Response[0].result==="BADREQUEST"){
-                                model.tags.otpValidateReply={
+                                let reply={
                                     text    :"Apologies! Something went wrong while validating your OTP.",
                                     type    : "button",
                                     next    : {
@@ -1357,9 +1367,17 @@ function validateOTP(model){
                                                     "data": "Resend OTP"
                                                 }
                                             ]
-                                    }
+                                    },
+                                    sender  : model.sender,
+                                    language: "en"
                                 }
-                                return resolve(model);
+                                sendExternalData(reply)
+                                .then((data)=>{
+                                    return reject(model)})
+                                .catch((e)=>{
+                                    console.log(e);
+                                    return reject("Something went wrong.");
+                                })
                             }
                             else{
                                 return reject("API Call was not made correctly.");        
