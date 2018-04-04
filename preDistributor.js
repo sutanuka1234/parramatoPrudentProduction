@@ -1,4 +1,4 @@
-var createHoldingPatternResponse=require('./stages/holdingPatern/pre.js').createHoldingPatternResponse;
+var createHoldingPatternResponse=require('./stages/holdingPattern/pre.js').createHoldingPatternResponse;
 
 module.exports={
     createHoldingPatternResponse:createHoldingPatternResponse
