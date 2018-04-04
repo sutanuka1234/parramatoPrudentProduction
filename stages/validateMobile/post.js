@@ -24,7 +24,7 @@ function validateMobile(model){
                     model.tags.mobileValidated="not validated";
                     model.tags.mobileValidatedData="Hey, that doesn't seem a correct one :( Kindly enter a valid mobile phone number.";
                     delete model.stage;
-                    console.log("cancel")
+                    console.log("cancel====")
                     return resolve(model)
                 }
                 model.tags.mobileValidated="not validated";
