@@ -1,3 +1,6 @@
+var common=require('./../../common.js');
+const sendExternalData=common.sendExternalData;
+
 module.exports={
     validateAmount:validateAmount
 }
