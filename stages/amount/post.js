@@ -3,6 +3,7 @@ module.exports={
 }
 
 function validateAmount(model){
+    console.log("AMOUNT POST----");
     return new Promise(function(resolve,reject){
         try{
             if(model.data.match(/\d+/g)){

@@ -3,6 +3,7 @@ module.exports={
 }
 
 function amountDecoration(model){
+    console.log("AMOUNT PRE----");
     return new Promise(function(resolve,reject){
         try{
              model.reply={
