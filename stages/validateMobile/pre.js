@@ -26,11 +26,11 @@ function mobileDecoration(model){
                 else{
                     text="Hey, that doesn't seem a correct one :( Kindly enter a valid mobile phone number."
                 }
-                model.reply={
-                    text:text,
-                    type:"text",
-                    next:{}
-                }
+                // model.reply={
+                //     text:text,
+                //     type:"text",
+                //     next:{}
+                // }
             }
             return resolve(model);
         }
