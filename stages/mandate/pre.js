@@ -29,7 +29,7 @@ function showMandate(model){
                                 }
                             ]
                         });
-                        model.tags.TGEditMndID.push(model.tags.mandateDetails[i].MandateID.TGEditMndID)
+                        model.tags.TGEditMndID.push(model.tags.mandateDetails[i].TGEditMndID)
                         model.tags.mandateIds.push(model.tags.mandateDetails[i].MandateID);
                     }
                 }
