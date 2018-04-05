@@ -47,11 +47,12 @@ function makePaymentUsingMandate(model){
                     method  :'POST'   
                 },(err,req,body)=>{
                     if(err){   
-                        console.log(err)
+                        console.log(err);
                         return reject("Something went wrong.2");
                     }
                     else{
                         try{
+                            console.log(body);
                             body=JSON.parse(body);
                             if(body.Response){
                                 if(     body.Response[0]
@@ -131,6 +132,7 @@ function makePaymentUsingMandate(model){
                             }
                         }
                         catch(e){
+                            console.log(e);
                             return reject("Something went wrong.6"); 
                         }
                     }
