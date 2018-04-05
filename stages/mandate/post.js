@@ -53,7 +53,7 @@ function makePaymentUsingMandate(model){
                     }
                     else{
                         try{
-                            console.log(body);
+//                            console.log(body);
                             body=JSON.parse(body);
                             if(body.Response){
                                 if(     body.Response[0]
