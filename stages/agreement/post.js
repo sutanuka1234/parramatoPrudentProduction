@@ -100,6 +100,7 @@ function insertBuyCart(model){
                                     sendExternalData(reply)
                                     .then((data)=>{
                                         delete model.stage
+                                        console.log("BUY CART STAGE COMPLETE----")
                                         return resolve(model);
                                     })
                                     .catch((e)=>{

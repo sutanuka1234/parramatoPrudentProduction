@@ -198,6 +198,7 @@ function filter(request){
                 break;
                 
             case "showMandate"      :
+                                        console.log("SHOW MANDATE");
                                         pre.showMandate(request.body)
                                         .then(post.insertBuyCart)
                                         .then((model)=>{return resolve(model)})
