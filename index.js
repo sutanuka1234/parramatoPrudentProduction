@@ -191,7 +191,6 @@ function filter(request){
                                         post.validateAgreement(request.body)
                                         .then(post.insertBuyCart)
                                         .then((model)=>{
-                                            console.log(JSON.stringify(model)+"model")
                                             return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
