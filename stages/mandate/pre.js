@@ -8,6 +8,7 @@ function showMandate(model){
             if(     model.tags.mandateDetails
               &&   !model.tags.mandateCards){
                 console.log("MANDATE CARDS CREATION")
+                model.tags.mandateIds=[]
                 let reply={
                     type:"generic",
                     text:"You can choose from the following mandates.",
