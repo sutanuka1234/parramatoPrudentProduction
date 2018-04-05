@@ -14,6 +14,7 @@ function validateAgreement(model){
         try{   
             if(model.data.toLowerCase().includes("yes")){
                 model.tags.termsAgreement=true;
+                return resolve(model);
             }
             else if(model.data.toLowerCase().includes("no")){
                 let reply={
@@ -87,7 +88,6 @@ function insertBuyCart(model){
                                         console.log(e);
                                         return reject("Something went wrong.");
                                     })
-                                    return resolve(model);
                                 }   
                                 else if(body.Response.length>0){
                                     model.tags.schemeDetailsFromCart=body.Response[0];

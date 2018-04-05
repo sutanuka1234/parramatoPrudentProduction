@@ -15,7 +15,6 @@ function validateAmount(model){
                     &&  model.data<=parseInt(model.tags.schemeData.MaximumInvestment)
                     &&  model.data>=parseInt(model.tags.schemeData.MinimumInvestment)){
                     model.tags.amount=model.data;
-                    model.tags.validateAmountFlag="validated";
                     if(model.tags.schemeData.DividendOption==="B"){
 //                        delete model.stage;model stage to be added
                     }

@@ -32,7 +32,7 @@ function vaildateSelectedAmc(model){
                             delete model.tags.match;
                         }
                     }
-                    return resolve(model);
+                    return resolve(model);//to be removed and tested
                 }
                 else{
                     if( match

@@ -7,12 +7,13 @@ function createHoldingPatternResponse(model){
         try{
             if(model.tags.holdingPattern){
                 model.tags.JoinAccIds=[];
-                let reply={};
-                reply.type="generic";
-                reply.text="You can choose from the following holding patterns."
-                reply.next={
-                    data:[]
-                }
+                let reply={
+                    type:"generic",
+                    text:"You can choose from the following holding patterns.",
+                    next:{
+                        data:[]
+                    }
+                };
                 for(let i=0;i<5;i++){
                     if(model.tags.holdingPattern[i]){
                         reply.next.data.push({
