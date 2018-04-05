@@ -125,7 +125,6 @@ function insertBuyCart(model){
                                         console.log(e);
                                         return reject("Something went wrong.");
                                     })
-                                    return resolve(model);
                                 }
                             }
                             else{
@@ -145,7 +144,6 @@ function insertBuyCart(model){
                                     console.log(e);
                                     return reject("Something went wrong.");
                                 })
-                                return resolve(model);
                             }
                         }
                         catch(e){
@@ -155,7 +153,9 @@ function insertBuyCart(model){
                     }
                 })  
             }
-            return resolve(model);
+            else{
+                return resolve(model);
+            }
         }
          catch(e){
              console.log(e);
