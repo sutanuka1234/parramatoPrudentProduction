@@ -200,7 +200,6 @@ function filter(request){
                 
             case "showMandate"      :
                                         pre.showMandate(request.body)
-                                        .then(post.insertBuyCart)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
