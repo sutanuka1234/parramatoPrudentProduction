@@ -7,8 +7,9 @@ function showMandate(model){
         try{
             if(     model.tags.mandateDetails
               &&   !model.tags.mandateCards){
-                console.log("MANDATE CARDS CREATION")
-                model.tags.mandateIds=[]
+                console.log("MANDATE CARDS CREATION");
+                model.tags.TGEditMndID=[];
+                model.tags.mandateIds=[];
                 let reply={
                     type:"generic",
                     text:"You can choose from the following mandates.",
@@ -24,10 +25,11 @@ function showMandate(model){
                             buttons :[
                                 {
                                     text:"Use this",
-                                    data:model.tags.mandateDetails[i].MandateID
+                                    data:model.tags.mandateDetails[i].TGEditMndID
                                 }
                             ]
-                        })
+                        });
+                        model.tags.TGEditMndID.push(model.tags.mandateDetails[i].MandateID.TGEditMndID)
                         model.tags.mandateIds.push(model.tags.mandateDetails[i].MandateID);
                     }
                 }
@@ -35,13 +37,13 @@ function showMandate(model){
                 model.reply=reply;
             }
             else{
-                console.log("POST MANDATE CARDS CREATION")
+                console.log("POST MANDATE CARDS CREATION");
                 model.reply=model.tags.mandateCards;
             }
             return resolve(model);
         }catch(e){
             console.log(e);
-            return reject("Something went wrong.")
+            return reject("Something went wrong.");
         }
     })
 }
