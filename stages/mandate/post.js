@@ -5,15 +5,15 @@ module.exports={
 function validateMandate(model){
     return new Promise(function(resolve,reject){
         try{
-            console.log(model.data.match(/NFB\d{7}/)[0]+"USER SAID AT MANDATE");
-            console.log(model.data.match(/NFB\d{7}/)[0].toString().length+"1");
-            console.log(JSON.stringify(model.tags.TGEditMndID));
-            console.log(model.data.match(/NFB\d{7}/)[0].toString().length==10+"2");
-            console.log(model.tags.TGEditMndID.includes(model.data.match(/NFB\d{7}/)[0])+"3");
             if(     model.data.match(/NFB\d{7}/)
               &&    model.data.match(/NFB\d{7}/)[0]
               &&    model.data.match(/NFB\d{7}/)[0].toString().length===10
               &&    model.tags.TGEditMndID.includes(model.data.match(/NFB\d{7}/)[0])){
+                console.log(model.data.match(/NFB\d{7}/)[0]+"USER SAID AT MANDATE");
+                console.log(model.data.match(/NFB\d{7}/)[0].toString().length+"1");
+                console.log(JSON.stringify(model.tags.TGEditMndID));
+                console.log(model.data.match(/NFB\d{7}/)[0].toString().length==10+"2");
+                console.log(model.tags.TGEditMndID.includes(model.data.match(/NFB\d{7}/)[0])+"3");
                 console.log(model.data.match(/NFB\d{7}/)[0]+"TGEditMndID");
                 let mandateIdTemp=model.data.match(/NFB\d{7}/)[0];
                 for(let i=0;i<model.tags.mandateDetails.length;i++){
