@@ -30,7 +30,7 @@ function validateMandate(model){
         }
         catch(e){
             console.log(e);
-            return reject("Something went wrong.1");
+            return reject("Something went wrong.");
         }
     })
 }
@@ -49,7 +49,7 @@ function makePaymentUsingMandate(model){
                 },(err,req,body)=>{
                     if(err){   
                         console.log(err);
-                        return reject("Something went wrong.2");
+                        return reject("Something went wrong.");
                     }
                     else{
                         try{
@@ -72,7 +72,7 @@ function makePaymentUsingMandate(model){
                                     })
                                     .catch((e)=>{
                                         console.log(e);
-                                        return reject("Something went wrong.3");
+                                        return reject("Something went wrong.");
                                     })
                                 }   
                                 else if(body.Response.length>0){
@@ -91,7 +91,7 @@ function makePaymentUsingMandate(model){
                                     })
                                     .catch((e)=>{
                                         console.log(e);
-                                        return reject("Something went wrong.4");
+                                        return reject("Something went wrong.");
                                     })
                                 }
                                 else{
@@ -109,7 +109,7 @@ function makePaymentUsingMandate(model){
                                     })
                                     .catch((e)=>{
                                         console.log(e);
-                                        return reject("Something went wrong.4");
+                                        return reject("Something went wrong.");
                                     })
                                 }
                             }
@@ -128,13 +128,13 @@ function makePaymentUsingMandate(model){
                                 })
                                 .catch((e)=>{
                                     console.log(e);
-                                    return reject("Something went wrong.5");
+                                    return reject("Something went wrong.");
                                 })
                             }
                         }
                         catch(e){
                             console.log(e);
-                            return reject("Something went wrong.6"); 
+                            return reject("Something went wrong."); 
                         }
                     }
                 })
@@ -145,7 +145,7 @@ function makePaymentUsingMandate(model){
         }
         catch(e){
             console.log(e);
-            return reject("Something went wrong.7");
+            return reject("Something went wrong.");
         }
     })
 }
