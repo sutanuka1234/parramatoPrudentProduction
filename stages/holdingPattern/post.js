@@ -96,6 +96,7 @@ function makeGetAmcRequest(model){
                                         for(let j=0;j<model.tags.subnatureOptions.length;j++){
                                             model.tags.subnatureOptionNames.push(model.tags.subnatureOptions[j].SubNature)
                                         }
+                                        delete model.stage;
                                         return resolve(model);
                                     }
                                     else{
