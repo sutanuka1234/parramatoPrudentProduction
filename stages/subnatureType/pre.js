@@ -33,7 +33,9 @@ function getSubnatureOptions(model){
                         reply.next={
                             data: []
                         }
-
+                        
+                        console.log(JSON.stringify(model.tags.subnatureOptions)+"================")
+                        
                         let loop=model.tags.subnatureOptions.length/3;
 
                         let min=0;
