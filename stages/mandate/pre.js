@@ -7,6 +7,7 @@ function showMandate(model){
         try{
             if(     model.tags.mandateDetails
               &&   !model.tags.mandateCards){
+                console.log("MANDATE CARDS CREATION")
                 let reply={
                     type:"generic",
                     text:"You can choose from the following mandates.",
@@ -33,6 +34,7 @@ function showMandate(model){
                 model.reply=reply;
             }
             else{
+                console.log("POST MANDATE CARDS CREATION")
                 model.reply=model.tags.mandateCards;
             }
             return resolve(model);
