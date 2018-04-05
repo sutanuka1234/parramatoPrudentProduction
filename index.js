@@ -90,6 +90,7 @@ function filter(request){
                 
             case "validateHoldingPattern":
                                         post.validateHoldingPattern(request.body)
+                                        .then(post.makeGetAmcRequest)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);

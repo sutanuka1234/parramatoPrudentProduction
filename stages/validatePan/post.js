@@ -109,28 +109,34 @@ function makePanMobileValidationRequest(requestData,urlExtension){
             request(requestParams,function(error,response,body){
                 if(body){
                     console.log(body+"PAN MOBILE VALIDATION RESPONSE")
-                    body=JSON.parse(body);
-                    if(body.Response&&body.Response.length>0){
-                        let data={};
-                        if(body.Response[0].result==="SUCCESS"){
-                            data.sessionId=body.Response[0].SessionId;
-                            return resolve(data);
-                        }
-                        else if(body.Response[0].result==="FAIL"){
-                            data.fail=true;
-                            data.reason=body.Response[0].reject_reason;
-                            return resolve(data);
-                        }
-                        else if(body.Response[0].result==="BADREQUEST"){
-                            data.badRequest=true;
-                            data.reason="Something went wrong during API Call";
-                            return resolve(data);
+                    try{
+                        body=JSON.parse(body);
+                        if(body.Response&&body.Response.length>0){
+                            let data={};
+                            if(body.Response[0].result==="SUCCESS"){
+                                data.sessionId=body.Response[0].SessionId;
+                                return resolve(data);
+                            }
+                            else if(body.Response[0].result==="FAIL"){
+                                data.fail=true;
+                                data.reason=body.Response[0].reject_reason;
+                                return resolve(data);
+                            }
+                            else if(body.Response[0].result==="BADREQUEST"){
+                                data.badRequest=true;
+                                data.reason="Something went wrong during API Call";
+                                return resolve(data);
+                            }
+                            else{
+                                return reject("API Call was not made correctly.");        
+                            }
                         }
                         else{
-                            return reject("API Call was not made correctly.");        
+                            return reject("Something went wrong.");
                         }
                     }
-                    else{
+                    catch(e){
+                        console.log(e);
                         return reject("Something went wrong.");
                     }
                 }

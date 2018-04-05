@@ -46,47 +46,50 @@ function getAmc(model){
                 return resolve(model);
             }
             else{
-                var getAmcReq={
-                    method  : 'POST',
-                    url     : url+"GetAMC?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId,
-                    headers : headers,
-                    body    : JSON.stringify({})
-                }
-                request(getAmcReq,(err,http,body)=>{
-                    if(err){
-                        console.log("get amc" + err)
-                        return reject("failed");
-                    }
-                    else{
-                        try{
-                            console.log("get Amc " + body)
-                            if(body){
-                                body= JSON.parse(body);
-                                model.tags.AMCNames= body["Response"][0]
-                                let amcNamesArray = []
-                                for(let i=0;i<model.tags.AMCNames.length;i++){
-                                    amcNamesArray.push(model.tags.AMCNames[i].AMCName.replace(" Mutual Fund","").trim());
-                                }
-                                model.tags.amcNamesArray=amcNamesArray;
-                                model.tags.subnatureOptions=body["Response"][2];
-                                model.tags.subnatureOptionNames=[];
-                                for(let j=0;j<model.tags.subnatureOptions.length;j++){
-                                    model.tags.subnatureOptionNames.push(model.tags.subnatureOptions[j].SubNature)
-                                }
-                                return resolve(model)
-                            }
-                            else{
-                                console.log(err)
-                                return reject("Something went wrong.");
-                            }
-                        }
-                        catch(e){
-                            console.log(e);
-                            return reject("Something went wrong.");
-                        }
-                    }
-                })
+                return resolve(model);
             }
+//            else{
+//                var getAmcReq={
+//                    method  : 'POST',
+//                    url     : url+"GetAMC?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId,
+//                    headers : headers,
+//                    body    : JSON.stringify({})
+//                }
+//                request(getAmcReq,(err,http,body)=>{
+//                    if(err){
+//                        console.log("get amc" + err)
+//                        return reject("failed");
+//                    }
+//                    else{
+//                        try{
+//                            console.log("get Amc " + body)
+//                            if(body){
+//                                body= JSON.parse(body);
+//                                model.tags.AMCNames= body["Response"][0]
+//                                let amcNamesArray = []
+//                                for(let i=0;i<model.tags.AMCNames.length;i++){
+//                                    amcNamesArray.push(model.tags.AMCNames[i].AMCName.replace(" Mutual Fund","").trim());
+//                                }
+//                                model.tags.amcNamesArray=amcNamesArray;
+//                                model.tags.subnatureOptions=body["Response"][2];
+//                                model.tags.subnatureOptionNames=[];
+//                                for(let j=0;j<model.tags.subnatureOptions.length;j++){
+//                                    model.tags.subnatureOptionNames.push(model.tags.subnatureOptions[j].SubNature)
+//                                }
+//                                return resolve(model)
+//                            }
+//                            else{
+//                                console.log(err)
+//                                return reject("Something went wrong.");
+//                            }
+//                        }
+//                        catch(e){
+//                            console.log(e);
+//                            return reject("Something went wrong.");
+//                        }
+//                    }
+//                })
+//            }
         }
         catch(e){
             console.log(e)
