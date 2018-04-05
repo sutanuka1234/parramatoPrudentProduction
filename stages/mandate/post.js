@@ -5,7 +5,9 @@ module.exports={
 function validateMandate(model){
     return new Promise(function(resolve,reject){
         try{
-            console.log(model.data.match(/NFB\d{7}/)+"USER SAID AT MANDATE")
+            console.log(model.data.match(/NFB\d{7}/)+"USER SAID AT MANDATE");
+            console.log(model.data.match(/NFB\d{7}/)[0].toString().length===10+"2");
+            console.log(model.tags.TGEditMndID.includes(model.data.match(/NFB\d{7}/)[0])+"3");
             if(     model.data.match(/NFB\d{7}/)
               &&    model.data.match(/NFB\d{7}/)[0]
               &&    model.data.match(/NFB\d{7}/)[0].toString().length===10
