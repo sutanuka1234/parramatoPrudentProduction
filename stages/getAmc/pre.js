@@ -80,7 +80,7 @@ function getAmc(model){
                                                     text    : "Something went wrong while getting the AMC's.",
                                                     type    : "text",
                                                     next    :{}
-                                                };.
+                                                };
                                                 model.reply=reply;
                                                 return resolve(model);
                                             }
