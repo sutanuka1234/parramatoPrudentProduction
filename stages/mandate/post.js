@@ -40,6 +40,7 @@ function makePaymentUsingMandate(model){
     return new Promise(function(resolve,reject){
         try{
             if(model.tags.selectedMandate){
+                console.log(url+"cbapi/MakePaymentUsingMandate?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&MandateID="+model.tags.selectedMandate.MandateID+"&Amount="+model.tags.amount+"&IsThirdPartyBankTerms=1")
                 request({
                     uri     : url+"cbapi/MakePaymentUsingMandate?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&MandateID="+model.tags.selectedMandate.MandateID+"&Amount="+model.tags.amount+"&IsThirdPartyBankTerms=1",
                     headers : headers,
