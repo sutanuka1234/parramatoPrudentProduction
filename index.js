@@ -190,7 +190,9 @@ function filter(request){
             case "validateAgreement":
                                         post.validateAgreement(request.body)
                                         .then(post.insertBuyCart)
-                                        .then((model)=>{return resolve(model)})
+                                        .then((model)=>{
+                                            console.log(JSON.stringify(model)+"model")
+                                            return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);
                                             return reject("Something went wrong.");
