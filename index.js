@@ -209,6 +209,7 @@ function filter(request){
                 
             case "validateMandate"  :
                                         post.validateMandate(request.body)
+                                        .then(post.makePaymentUsingMandate)
                                         .then((model)=>{return resolve(model)})
                                         .catch((e)=>{
                                             console.log(e);

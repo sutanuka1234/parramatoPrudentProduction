@@ -5,8 +5,8 @@ const sendExternalData=common.sendExternalData;
 const url=common.url;
 
 module.exports={
-    validateMandate             :validateMandate,
-    makePaymentUsingUsingMandate:makePaymentUsingUsingMandate
+    validateMandate         :validateMandate,
+    makePaymentUsingMandate :makePaymentUsingMandate
 }
 
 function validateMandate(model){
@@ -35,10 +35,12 @@ function validateMandate(model){
     })
 }
 
-function makePaymentUsingUsingMandate(model){
+function makePaymentUsingMandate(model){
+    console.log("IN MAKE PAYMENT USING MANDATE API");
     return new Promise(function(resolve,reject){
         try{
-            request({
+            if(model.tags.selectedMandate){
+                request({
                     uri     : url+"cbapi/MakePaymentUsingMandate?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&SchemeCode="+model.tags.schemeData.SCHEMECODE+"&MandateID="+model.tags.selectedMandate.MandateID+"&Amount="+model.tags.amount+"&IsThirdPartyBankTerms=1",
                     headers : headers,
                     body    : JSON.stringify({}),
@@ -132,7 +134,11 @@ function makePaymentUsingUsingMandate(model){
                             return reject("Something went wrong."); 
                         }
                     }
-                })  
+                })
+            }
+            else{
+                return reject("Select valid mandate.");
+            }
         }
         catch(e){
             console.log(e);
