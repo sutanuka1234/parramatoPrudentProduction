@@ -62,7 +62,7 @@ function getSubnatureOptions(model){
                         model.tags.subnatureCards=reply;
                         model.reply=reply;
                     }
-                    else{
+                    else{   
                         model.reply=model.tags.subnatureCards;
                     }
                 }
