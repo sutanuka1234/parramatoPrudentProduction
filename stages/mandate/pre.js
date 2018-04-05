@@ -5,7 +5,8 @@ module.exports={
 function showMandate(model){
     return new Promise(function(resolve,reject){
         try{
-            if(model.tags.mandateDetails){
+            if(     model.tags.mandateDetails
+              &&   !model.tags.mandateCards){
                 let reply={
                     type:"generic",
                     text:"You can choose from the following mandates.",
@@ -28,7 +29,11 @@ function showMandate(model){
                         model.tags.mandateIds.push(model.tags.mandateDetails[i].MandateID);
                     }
                 }
+                model.tags.mandateCards=reply;
                 model.reply=reply;
+            }
+            else{
+                model.reply=model.tags.mandateCards;
             }
             return resolve(model);
         }catch(e){
