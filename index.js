@@ -2394,9 +2394,7 @@ function addOptions(model) {
           if(map.get(options[index].AMCCode)) {
             console.log("EXISTS  UPDATE OPTIONS")
               let object = map.get(options[index].AMCCode)
-             object.OPT_CODE = options[index].OPT_CODE;
-             object.OPTION = options[index].OPTION;
-             object.AMCCode = options[index].AMCCode;
+             object.opetions = options[index];
              map.set(options[index].AMCCode, object);
           } else {
              console.log("NEW ADD 2")
