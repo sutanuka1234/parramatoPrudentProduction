@@ -59,7 +59,7 @@ function getAmc(model){
                     }
                     else{
                         try{
-                            console.log("get Amc " + body)
+                            console.log("get Amc ==========" + body)
                             if(body){
                                 try{
                                     body= JSON.parse(body);
