@@ -24,7 +24,7 @@ app.listen(process.env.PORT||80,()=>{
     console.log("Server is listening.")
 })
 
-app.post("/", (req, res) =>{
+app.get("/", (req, res) =>{
 
 
 var HashMap = require('hashmap');
