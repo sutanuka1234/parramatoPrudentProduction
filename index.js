@@ -2351,8 +2351,8 @@ createAmcMap(model)
 .then(addOptions)
 .then(addSubNature)
 .then((final)=>{
-   console.log("FINAL" + JSON.stringify(final))
-   res.json(final)
+   console.log("FINAL" + JSON.stringify(final.map))
+   res.json(final.map)
 })
 .catch((e)=>{
   console.log("*****"+ e)
