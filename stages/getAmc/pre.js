@@ -1,5 +1,6 @@
 var common=require('./../../common.js');
 var request=require('request');
+var HashMap = require('hashmap');
 const headers=common.headers;
 const url=common.url;
 
@@ -86,18 +87,33 @@ function getAmc(model){
                                             }
                                         }
                                         else if(body["Response"].length===3){
-                                            model.tags.AMCNames= body["Response"][0]
-                                            let amcNamesArray = []
-                                            for(let i=0;i<model.tags.AMCNames.length;i++){
-                                                amcNamesArray.push(model.tags.AMCNames[i].AMCName.replace(" Mutual Fund","").trim());
+                                            let modelData = {
+                                               amcs : data['Response'][0],
+                                               options :data['Response'][1],
+                                               subnatures :data['Response'][2]
                                             }
-                                            model.tags.amcNamesArray=amcNamesArray;
-                                            model.tags.subnatureOptions=body["Response"][2];
-                                            model.tags.subnatureOptionNames=[];
-                                            for(let j=0;j<model.tags.subnatureOptions.length;j++){
-                                                model.tags.subnatureOptionNames.push(model.tags.subnatureOptions[j].SubNature)
-                                            }
-                                            return resolve(model);
+
+                                            createAmcMap(modelData)
+                                            .then(addOptions)
+                                            .then(addSubNature)
+                                            .then((final)=>{
+                                               console.log("FINAL" + JSON.stringify(final.map))
+                                               model.tags.map = final.map
+
+                                                model.tags.AMCNames= body["Response"][0]
+                                                let amcNamesArray = []
+                                                for(let i=0;i<model.tags.AMCNames.length;i++){
+                                                    amcNamesArray.push(model.tags.AMCNames[i].AMCName.replace(" Mutual Fund","").trim());
+                                                }
+                                                model.tags.amcNamesArray=amcNamesArray;
+                                                return resolve(model);
+                                            })
+                                            .catch((e)=>{
+                                              return reject("Something went wrong.");
+                                              console.log("*****"+ e)
+                                            })
+
+
                                         }
                                         else{
                                             return reject("Something went wrong.");
@@ -130,4 +146,125 @@ function getAmc(model){
             return reject("Something went wrong.");
         }
     })
+}
+
+function createAmcMap(model) {
+  return new Promise(function(resolve, reject) {
+      var map = new HashMap();
+
+      let amcs = model.amcs;
+      console.log("got amcs")
+      for(let index = 0; index <amcs.length; index++) {
+        //console.log("********************" + index)
+          if(map.get(amcs[index].ID)) {
+             //console.log("EXISTS  UPDATE" + JSON.stringify(map.get(amcs[index].ID, null, 3)))
+          } else {
+             //console.log("NEW ADD 1" + index)
+             let object ={}
+             object.amcId = amcs[index].ID;
+             object.amcName = object.AMCName
+             map.set(amcs[index].ID, object);
+          }
+
+      }
+      model.map = map
+      return resolve(model)
+
+  });
+} 
+
+function addOptions(model) {
+  return new Promise(function(resolve, reject) {
+
+      let options = model.options;
+      let map = model.map
+      console.log("got options")
+      for(let index = 0; index <options.length; index++) {
+          //console.log("********************" + index)
+          if(map.get(options[index].AMCCode)) {
+            //console.log("EXISTS  UPDATE OPTIONS")
+              let object = map.get(options[index].AMCCode)
+              if(!object.options) {
+                 console.log("************CCCCCCCCCCCCCCCCCCCCCCCCCCCCCRRRRRRRRRRRRRRRRRRRRRRRRRRR**************************")
+                console.log("**************************************")
+                  object.options= []
+              }
+              if(!object.options) {
+               
+                console.log("-=========***" + JSON.stringify(object))
+                let options = []
+                options.push(options[index])
+                object.options = options;
+              } else {
+                 console.log("**************************************")
+                console.log("**************************************")
+                 console.log(JSON.stringify(object.options) + "-=========***" + JSON.stringify(options[index]))
+                 console.log("**************************************")
+                  console.log("**************************************")
+                   console.log("**************************************")
+               //console.log("sub exits")
+                if(options[index] ) {
+                  object.options.push(options[index])
+                }
+              }
+          } else {
+             console.log("NEW ADD 2")
+             // let object ={}
+             
+
+             // object.amcId = options[index].ID;
+             // object.OPTION = object.OPTION
+             // map.set(options[index], object);
+          }
+
+      }
+      model.map = map
+      return resolve(model)
+  });
+}
+
+function addSubNature(model) {
+  return new Promise(function(resolve, reject) {
+
+      let subnatures = model.subnatures;
+      let map = model.map
+      console.log("got subnatures")
+      for(let index = 0; index <subnatures.length; index++) {
+          //console.log("********************" + index)
+          if(map.get(subnatures[index].AMCCode)) {
+             //console.log("EXISTS  UPDATE subnatures" + JSON.stringify(map.get(subnatures[index].AMCCode, null, 3)))
+              let object = map.get(subnatures[index].AMCCode)
+              if(!object.subnatures) {
+                 console.log("************CCCCCCCCCCCCCCCCCCCCCCCCCCCCCRRRRRRRRRRRRRRRRRRRRRRRRRRR**************************")
+                console.log("**************************************")
+                  object.subnatures= []
+              }
+              if(!object.subnatures) {
+                // console.log("sub new")
+                 object.subnatures =[]
+                 //console.log("-=========subnatures" + JSON.stringify(object))
+                 let subnatures = []
+                 subnatures.push(subnatures[index])
+                 object.subnatures = subnatures
+              } else {
+               // console.log("sub exits")
+                if(subnatures[index])
+                  object.subnatures.push(subnatures[index])
+              }
+              map.set(subnatures[index].AMCCode, object);
+          } else {
+            // console.log("NEW ADD 3" +subnatures[index].AMCCode )
+             // let object ={}
+             
+
+             // object.amcId = subnatures[index].ID;
+             // object.OPTION = object.OPTION
+             // map.set(subnatures[index], object);
+          }
+
+      }
+      model.map = map
+      return resolve(model)
+
+  });
 }

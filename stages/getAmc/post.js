@@ -15,6 +15,20 @@ function vaildateSelectedAmc(model){
                         if(model.tags.match+" Mutual Fund"===model.tags.AMCNames[i].AMCName){
                             model.tags.amcName=model.tags.match+" Mutual Fund";
                             model.tags.amcId=model.tags.AMCNames[i].ID
+                            console.log("get subnatures for amc")
+                              console.log("**************************************")
+                              console.log("**************************************")
+                               console.log("**************************************")                           
+                            console.log("SUBNATURE" + JSON.stringify(final.map["_data"][model.tags.AMCNames[i].ID][1].subnatures))
+                         console.log("**************************************")
+                          console.log("**************************************")
+                           console.log("**************************************")
+                            model.tags.subnatureOptions=final.map["_data"][model.tags.AMCNames[i].ID][1].subnatures;
+                            model.tags.subnatureOptionNames=[];
+                            for(let j=0;j<model.tags.subnatureOptions.length;j++){
+                                model.tags.subnatureOptionNames.push(model.tags.subnatureOptions[j].SubNature)
+                            }
+
                             delete model.stage;
                             break;
                         }
