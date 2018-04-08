@@ -52,6 +52,12 @@ function showSchemes(model){
                                     return reject("Something went wrong."); 
                                 }
                                 else{
+                                    console.log("***********************************")
+                                      console.log("***********************************")
+                                        console.log("***************SCHEMS *****************" + JSON.stringify(body, null, 3))
+                                        console.log("***********************************")
+                                          console.log("***********************************")
+                                            console.log("***********************************")
                                     model.tags.madeSchemeRequest=true;
                                     model.tags.schemeDetails=body.Response[0];
                                     //model.tags.folioDetails=body.Response[1];
