@@ -59,7 +59,7 @@ function showSchemes(model){
                                           console.log("***********************************")
                                             console.log("***********************************")
                                     model.tags.madeSchemeRequest=true;
-                                    model.tags.schemeDetails=body.Response[1];
+                                    model.tags.schemeDetails=body.Response[0];
                                     //model.tags.folioDetails=body.Response[1];
                                     let reply={};
                                     reply.type="generic";
