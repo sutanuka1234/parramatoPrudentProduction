@@ -19,11 +19,11 @@ function vaildateSelectedAmc(model){
                               console.log("**************************************")
                               console.log("**************************************")
                                console.log("**************************************")                           
-                            console.log("SUBNATURE" + JSON.stringify(final.map["_data"][model.tags.AMCNames[i].ID][1].subnatures))
+                            console.log("SUBNATURE" + JSON.stringify(model.tags.map["_data"][model.tags.AMCNames[i].ID][1].subnatures))
                          console.log("**************************************")
                           console.log("**************************************")
                            console.log("**************************************")
-                            model.tags.subnatureOptions=final.map["_data"][model.tags.AMCNames[i].ID][1].subnatures;
+                            model.tags.subnatureOptions=model.tags.map["_data"][model.tags.AMCNames[i].ID][1].subnatures;
                             model.tags.subnatureOptionNames=[];
                             for(let j=0;j<model.tags.subnatureOptions.length;j++){
                                 model.tags.subnatureOptionNames.push(model.tags.subnatureOptions[j].SubNature)
