@@ -88,9 +88,9 @@ function getAmc(model){
                                         }
                                         else if(body["Response"].length===3){
                                             let modelData = {
-                                               amcs : data['Response'][0],
-                                               options :data['Response'][1],
-                                               subnatures :data['Response'][2]
+                                               amcs : body['Response'][0],
+                                               options :body['Response'][1],
+                                               subnatures :body['Response'][2]
                                             }
 
                                             createAmcMap(modelData)
