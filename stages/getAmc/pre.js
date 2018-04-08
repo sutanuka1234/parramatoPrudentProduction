@@ -47,6 +47,11 @@ function getAmc(model){
                 return resolve(model);
             }
             else{
+                console.log("******************************************************")
+                console.log("******************************************************")
+                console.log("model.tags.JoinAccId" + model.tags.JoinAccId)
+                console.log("******************************************************")
+                console.log("******************************************************")
                 var getAmcReq={
                     method  : 'POST',
                     url     : url+"GetAMC?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId,
