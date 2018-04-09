@@ -10,17 +10,19 @@ module.exports={
 function showSchemes(model){
     return new Promise(function(resolve,reject){
         try{
-            if(!model.tags.fundsType){
-                if(model.tags.schemeCategory==="Suggested Funds"){
-                    model.tags.fundsType=1;
-                }
-                else if(model.tags.schemeCategory==="All Funds"){
-                    model.tags.fundsType=2;
-                }
-                else if(model.tags.schemeCategory==="NFO"||model.tags.schemeCategory==="FMP"){
-                    model.tags.fundsType=3;
-                }
-            }
+            model.tags.fundsType=2;
+            // if(!model.tags.fundsType){
+            //     model.tags.fundsType=2;
+            //     if(model.tags.schemeCategory==="Suggested Funds"){
+            //         model.tags.fundsType=1;
+            //     }
+            //     else if(model.tags.schemeCategory==="All Funds"){
+            //         model.tags.fundsType=2;
+            //     }
+            //     else if(model.tags.schemeCategory==="NFO"||model.tags.schemeCategory==="FMP"){
+            //         model.tags.fundsType=3;
+            //     }
+            // }
             if(!model.tags.schemeOption){
                 if(model.tags.schemeType==="Growth"){
                     model.tags.schemeOption=1;
