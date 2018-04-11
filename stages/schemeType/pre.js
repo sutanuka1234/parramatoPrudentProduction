@@ -23,11 +23,13 @@ function showSchemeType(model){
 	                    data: []
 	                }
 		        for(let typeIndex = 0; typeIndex < model.tags.showOptions.length; typeIndex++) {
-		        	reply.next.data[typeIndex].buttons.push({
+		        	reply.next.data.push({
                                         text:model.tags.showOptions[typeIndex].OPTION,
                                         data:model.tags.showOptions[typeIndex].OPTION
                     })
 		        }
+		        console.log("options" + reply.next.data)
+
 		        model.reply = reply;
 		        return resolve(model)
         	}
