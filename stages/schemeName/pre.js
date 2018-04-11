@@ -49,8 +49,24 @@ function showSchemes(model){
                         try{
                             body=JSON.parse(body);
                             if(body.Response){
-                                if(body.Response[0].result){
+                                if(body.Response[0].result==="BADREQUEST"){
+                                    return resolve(model)
+                                }
+                                if(body.Response[0].result==="FAIL"){
                                     console.log(JSON.stringify(body.Response[0])+"--------");
+                                    let reply={
+                                        type    : "text",
+                                        sender  : model.sender,
+                                        language: "en"
+                                    }
+                                    reply.text=body.Response[0].reject_reason;
+                                    sendExternalData(reply)
+                                    .then((data)=>{
+                                        return reject(model)})
+                                    .catch((e)=>{
+                                        console.log(e);
+                                        return reject("Something went wrong.");
+                                    })
                                     return reject("Something went wrong."); 
                                 }
                                 else{
