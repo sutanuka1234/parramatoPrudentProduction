@@ -34,9 +34,10 @@ function showSchemeType(model){
         	console.log("No scheme types")
         	return reject("No scheme types")
 
-        }catch(e){
-
+        } catch(e){
+        	console.log(e)
+        	return reject(e)
         }
-    }
+    })
 }
 
