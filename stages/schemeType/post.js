@@ -23,8 +23,8 @@ function validateSchemeType(model){
         	    }
 
 
-        }catch(e){
+        } catch(e){
 
         }
-    }
+    })
 }
