@@ -36,7 +36,11 @@ app.post('/:type',(req, res)=>{
 function filter(request){
     return new Promise(function(resolve, reject){
         switch(request.params.type){
-            
+            console.log("*************************************************")
+            console.log("*************************************************")
+            console.log("request.params.type"+ request.params.type)
+            console.log("*************************************************")
+            console.log("*************************************************")
             case "validateMobile"   :   
                                         post.validateMobile(request.body)
                                         .then((model)=>{return resolve(model)})
