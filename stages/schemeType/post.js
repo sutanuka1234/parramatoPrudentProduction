@@ -10,11 +10,11 @@ function validateSchemeType(model){
         	 console.log("*********************")
         	 console.log("Type " + JSON.stringify(model.tags.showOptions))
         	    let containsMatch;
-        	 	for(let typeIndex; typeIndex < model.tags.showOptions.length; typeIndex++) {
+        	    for(let options of model.tags.showOptions){
         	 		console.log("*********************")
-        	 		console.log("model.tags.showOptions[typeIndex].toLowerCase()" + model.tags.showOptions[typeIndex].OPTION.toLowerCase())
+        	 		console.log("model.tags.showOptions[typeIndex].toLowerCase()" + options.OPTION.toLowerCase())
         	 		console.log("*********************")
-        	 		if(model.data.toLowerCase().includes(model.tags.showOptions[typeIndex].OPTION.toLowerCase())){
+        	 		if(model.data.toLowerCase().includes(options.OPTION.toLowerCase())){
         	 			containsMatch = true
         	 		} 
         	 	}
