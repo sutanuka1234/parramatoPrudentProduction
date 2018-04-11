@@ -12,9 +12,9 @@ function validateSchemeType(model){
         	    let containsMatch;
         	 	for(let typeIndex; typeIndex < model.tags.showOptions; typeIndex++) {
         	 		console.log("*********************")
-        	 		console.log("model.tags.showOptions[typeIndex].toLowerCase()" + model.tags.showOptions[typeIndex].toLowerCase())
+        	 		console.log("model.tags.showOptions[typeIndex].toLowerCase()" + model.tags.showOptions[typeIndex].OPTION.toLowerCase())
         	 		console.log("*********************")
-        	 		if(model.data.toLowerCase().includes(model.tags.showOptions[typeIndex].toLowerCase())){
+        	 		if(model.data.toLowerCase().includes(model.tags.showOptions[typeIndex].OPTION.toLowerCase())){
         	 			containsMatch = true
         	 		} 
         	 	}
