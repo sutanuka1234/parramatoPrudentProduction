@@ -9,23 +9,21 @@ function validateSchemeType(model){
         try{
         	 console.log("*********************")
         	 console.log("Type " + JSON.stringify(model.tags.showOptions))
-        	    let containsMatch=false;
+        	    
         	    for(let options of model.tags.showOptions){
         	 		console.log("*********************")
         	 		console.log("model.tags.showOptions[typeIndex].toLowerCase()" + options.OPTION.toLowerCase())
         	 		console.log("*********************")
         	 		if(model.data.toLowerCase().includes(options.OPTION.toLowerCase())){
-        	 			containsMatch = true
+        	 			model.tags.schemeOption = options.OPTION
+		        	 	delete model.stage;
+		        	 	return resolve(model);
         	 		} 
         	 	}
-        	    if(containsMatch===true) {
-        	    	console.log("containsMatch" + containsMatch)
-	        	 	delete model.stage;
-	        	 	return resolve(model);
-        	    } else {
-        	    	console.log("containsMatch" + containsMatch)
-        	    	return resolve(model)
-        	    }
+
+    	    	console.log("containsMatch no match")
+    	    	return resolve(model)
+        	    
 
 
         } catch(e){

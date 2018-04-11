@@ -36,6 +36,7 @@ function showSchemes(model){
                 }
             }
             if(!model.tags.madeSchemeRequest){
+                console.log("https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+model.tags.schemeOption+"&SubNature="+model.tags.subnatureId)
                 request({
                     uri     :"https://www.prudentcorporate.com/cbapi/GetScheme?IPAddress=192.168.0.102&SessionId="+model.tags.sessionId+"&JoinAccId="+model.tags.JoinAccId+"&FundsType="+model.tags.fundsType+"&InvestmentType=Purchase&AMCId="+model.tags.amcId+"&SchemeOption="+model.tags.schemeOption+"&SubNature="+model.tags.subnatureId,
                     headers : headers,
