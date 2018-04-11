@@ -14,6 +14,7 @@ var validateAgreement=require('./stages/agreement/post.js').validateAgreement;
 var insertBuyCart=require('./stages/agreement/post.js').insertBuyCart;
 var validateMandate=require('./stages/mandate/post.js').validateMandate;
 var makePaymentUsingMandate=require('./stages/mandate/post.js').makePaymentUsingMandate;
+var validateSchemeType=require('./stages/schemeType/post.js').validateSchemeType;
 
 module.exports={
     validateMobile          :validateMobile,
@@ -31,6 +32,7 @@ module.exports={
     validateAgreement       :validateAgreement,
     insertBuyCart           :insertBuyCart,
     validateMandate         :validateMandate,
-    makePaymentUsingMandate :makePaymentUsingMandate
+    makePaymentUsingMandate :makePaymentUsingMandate,
+    validateSchemeType      :validateSchemeType
 }
 

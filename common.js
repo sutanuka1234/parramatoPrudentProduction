@@ -12,6 +12,7 @@ function sendExternalData(data){
     return new Promise(function(resolve,reject){
         try{
             let projectId;
+            console.log('https://fund-bazar-backend.herokuapp.com/'+projectId+'/external/send')
             if(data.sender&&data.sender.split("|").length===3){
                 projectId=data.sender.split("|")[1]
                 request({

@@ -79,7 +79,7 @@ function insertBuyCart(model){
                                     &&  body.Response[0].result){
                                     let reply={
                                         type    :"text",
-                                        text    :"Insert Buy Cart Unsuccessful.Ending the journey.Please type 'invest now' to restart the journey.",
+                                        text    :"Oops! The transaction did not go through. "+body.Response[0]["reject_reason"],
                                         next    :{},
                                         sender  :model.sender,
                                         language:"en"
@@ -99,7 +99,7 @@ function insertBuyCart(model){
                                     model.tags.mandateDetails=body.Response[1];
                                     let reply={
                                         type    :"text",
-                                        text    :"Congratulations!! Insert Buy Cart Successful",
+                                        text    :"Congratulations!! Your transaction was successful",
                                         next    :{},
                                         sender  :model.sender,
                                         language:"en"
@@ -118,7 +118,7 @@ function insertBuyCart(model){
                                 else{
                                     let reply={
                                         type    :"text",
-                                        text    :"Something went wrong while adding the purchase to cart.Ending the journey.Please type 'invest now' to restart the journey.",
+                                        text    :"Something went wrong while making the purchase.",
                                         next    :{},
                                         sender  :model.sender,
                                         language:"en"
@@ -137,7 +137,7 @@ function insertBuyCart(model){
                             else{
                                 let reply={
                                     type    :"text",
-                                    text    :"Something went wrong while adding the purchase to cart.Ending the journey.Please type 'invest now' to restart the journey.",
+                                    text    :"Something went wrong while making the purchase.",
                                     next    :{},
                                     sender  :model.sender,
                                     language:"en"

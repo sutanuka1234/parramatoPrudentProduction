@@ -38,7 +38,7 @@ function showFolio(model){
                             model.tags.foliosArray=[];
                             let reply={
                                 type:"generic",
-                                text:"You can choose from the following folios.",
+                                text:"Choose from the following folios.",
                                 next:{
                                     data:[]  
                                 }

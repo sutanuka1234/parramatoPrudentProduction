@@ -52,7 +52,7 @@ function getSubnatureOptions(model){
                                    &&   model.tags.subnatureOptions[j].SubNature){
                                     reply.next.data[i].buttons.push({
                                         text:model.tags.subnatureOptions[j].SubNature,
-                                        data:model.tags.subnatureOptions[j  ].SubNature
+                                        data:model.tags.subnatureOptions[j].SubNature
                                     })
                                 }
                             }

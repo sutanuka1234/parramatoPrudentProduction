@@ -12,7 +12,7 @@ function showMandate(model){
                 model.tags.mandateIds=[];
                 let reply={
                     type:"generic",
-                    text:"You can choose from the following mandates.",
+                    text:"Select one of the following Bank Mandates",
                     next:{
                         data:[]
                     }

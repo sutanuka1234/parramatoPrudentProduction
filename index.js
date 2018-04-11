@@ -187,7 +187,31 @@ function filter(request){
                                             return reject("Something went wrong.");
                                         });  
                 break;
+/******/
+
+            case "validateSchemeType"   :  
+                                        console.log("validate showScheme type")
+                                        console.log("**************************************")
+                                        console.log("**************************************")
+                                        post.validateSchemeType(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.");
+                                        });
+                break;
                 
+            case "showSchemeType":      console.log("showScheme type")
+                                        console.log("**************************************")
+                                        console.log("**************************************")
+                                        pre.showSchemeType(request.body)
+                                        .then((model)=>{return resolve(model)})
+                                        .catch((e)=>{
+                                            console.log(e);
+                                            return reject("Something went wrong.");
+                                        });  
+                break;        
+/******/
             case "validateAgreement":
                                         post.validateAgreement(request.body)
                                         .then(post.insertBuyCart)

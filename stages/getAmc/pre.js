@@ -16,15 +16,15 @@ function getAmc(model){
                     console.log("MATCH EXISTS")
                     model.reply={
                         type:"quickReply",
-                        text:"Did you mean "+model.tags.match +" Mutual Fund",
+                        text:"Going ahead with "+model.tags.match +" Mutual Fund",
                         next:{
                                 "data": [
                                     {
-                                        "text": "yes",
+                                        "text": "Yes",
                                         "data": "yes"
                                     },
                                     {
-                                        "text": "no",
+                                        "text": "No",
                                         "data": "no"
                                     }
                                 ]
@@ -37,7 +37,7 @@ function getAmc(model){
                     console.log("MATCH DOES NOT EXIST")
                     model.reply={
                         type:"text",
-                        text:"Please type in amc again.",
+                        text:"Please help me with the amc name",
                         next:{}
                     }
                     if(model.tags.amcConfirmation){
