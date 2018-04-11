@@ -5,7 +5,7 @@ var showSchemes=require('./stages/schemeName/pre.js').showSchemes;
 var showFolio=require('./stages/folio/pre.js').showFolio;
 var amountDecoration=require('./stages/amount/pre.js').amountDecoration;
 var showMandate=require('./stages/mandate/pre.js').showMandate;
-var showSchemeType=require('./stages/schemeType/pre.js').showSchemeTypes;
+var showSchemeType=require('./stages/schemeType/pre.js').showSchemeType;
 
 module.exports={
     createHoldingPatternResponse:createHoldingPatternResponse,
