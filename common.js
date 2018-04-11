@@ -15,7 +15,7 @@ function sendExternalData(data){
             if(data.sender&&data.sender.split("|").length===3){
                 projectId=data.sender.split("|")[1]
                 request({
-                    uri     :'http://bot.meetaina.com/backend/'+projectId+'/external/send',
+                    uri     :'https://fund-bazar-backend.herokuapp.com/'+projectId+'/external/send',
                     json    :data,
                     method  :'POST'   
                 },(err,req,body)=>{
