@@ -9,7 +9,7 @@ function validateSchemeType(model){
         try{
         	 console.log("*********************")
         	 console.log("Type " + JSON.stringify(model.tags.showOptions))
-        	    let containsMatch;
+        	    let containsMatch=false;
         	    for(let options of model.tags.showOptions){
         	 		console.log("*********************")
         	 		console.log("model.tags.showOptions[typeIndex].toLowerCase()" + options.OPTION.toLowerCase())
@@ -18,7 +18,7 @@ function validateSchemeType(model){
         	 			containsMatch = true
         	 		} 
         	 	}
-        	    if(containsMatch) {
+        	    if(containsMatch===true) {
         	    	console.log("containsMatch" + containsMatch)
 	        	 	delete model.stage;
 	        	 	return resolve(model);
