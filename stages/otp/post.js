@@ -13,15 +13,16 @@ module.exports={
 function getOTP(model){
     return new Promise(function(resolve, reject){
         try{
-            if(     model.data.match(/\d+/)
-               &&   model.data.match(/\d+/)[0]
-               &&   model.data.match(/\d+/)[0].length == 6){
-                model.tags["otp"]=model.data.match(/\d+/)[0];
+            // if(     model.data.match(/\d+/)
+            //    &&   model.data.match(/\d+/)[0]
+            //    &&   model.data.match(/\d+/)[0].length == 6){
+            //     model.tags["otp"]=model.data.match(/\d+/)[0];
+                model.tags["otp"]=model.data;
                 return resolve(model);
-            }
-            else{
-                return reject("Invalid or no OTP found.");
-            }
+            // }
+            // else{
+            //     return reject("Invalid or no OTP found.");
+            // }
         }
         catch(e){
             console.log(e);
@@ -70,7 +71,7 @@ function validateOTP(model){
                                 }
                                 else if(body.Response[0].result==="FAIL"){
                                     let reply={
-                                        type    : "quickReply",
+                                        type    : "button",
                                         next    : {
                                                     "data": [
                                                     {
