@@ -70,7 +70,7 @@ function validateOTP(model){
                                 }
                                 else if(body.Response[0].result==="FAIL"){
                                     let reply={
-                                        type    : "button",
+                                        type    : "quickReply",
                                         next    : {
                                                     "data": [
                                                     {
