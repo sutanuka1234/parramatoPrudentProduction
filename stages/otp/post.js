@@ -84,7 +84,7 @@ function validateOTP(model){
                                         language: "en"
                                     }
                                     if(body.Response[0].reject_reason=="Wrong OTP re-enter OTP code."){
-                                        reply.text="Oh no, OTP you entered was found to be wrong. Could you please re-enter the OTP?";
+                                        reply.text="Oh no, OTP you entered was found to be wrong.";
                                     }
                                     else{
                                         reply.text=body.Response[0].reject_reason;
@@ -168,7 +168,7 @@ function resendOTP(model){
                         body=JSON.parse(body);
                         if(body.Response[0].result==="SUCCESS"){
                                 let reply={
-                                    text    : "Hello! Your new OTP has been sent to your mobile number :)",
+                                    text    : "Your new OTP has been sent to your mobile number :)",
                                     type    : "text",
                                     sender  : model.sender,
                                     language: "en"
