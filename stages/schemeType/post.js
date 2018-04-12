@@ -15,7 +15,7 @@ function validateSchemeType(model){
         	 		console.log("model.tags.showOptions[typeIndex].toLowerCase()" + options.OPTION.toLowerCase())
         	 		console.log("*********************")
         	 		if(model.data.toLowerCase().includes(options.OPTION.toLowerCase())){
-        	 			model.tags.schemeOption = options.OPTION
+        	 			model.tags.schemeOption = options.OPT_CODE
 		        	 	delete model.stage;
 		        	 	return resolve(model);
         	 		} 
