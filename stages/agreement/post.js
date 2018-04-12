@@ -97,23 +97,23 @@ function insertBuyCart(model){
                                 else if(body.Response.length>0){
                                     model.tags.schemeDetailsFromCart=body.Response[0];
                                     model.tags.mandateDetails=body.Response[1];
-                                    let reply={
-                                        type    :"text",
-                                        text    :"Congratulations!! Your transaction was successful",
-                                        next    :{},
-                                        sender  :model.sender,
-                                        language:"en"
-                                    }
-                                    sendExternalData(reply)
-                                    .then((data)=>{
-                                        delete model.stage
-                                        console.log("BUY CART STAGE COMPLETE----")
+                                    // let reply={
+                                    //     type    :"text",
+                                    //     text    :"",
+                                    //     next    :{},
+                                    //     sender  :model.sender,
+                                    //     language:"en"
+                                    // }
+                                    // sendExternalData(reply)
+                                    // .then((data)=>{
+                                    //     delete model.stage
+                                    //     console.log("BUY CART STAGE COMPLETE----")
                                         return resolve(model);
-                                    })
-                                    .catch((e)=>{
-                                        console.log(e);
-                                        return reject("Something went wrong.");
-                                    })
+                                    // })
+                                    // .catch((e)=>{
+                                    //     console.log(e);
+                                    //     return reject("Something went wrong.");
+                                    // })
                                 }
                                 else{
                                     let reply={
