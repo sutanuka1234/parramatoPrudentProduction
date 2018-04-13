@@ -11,7 +11,7 @@ function validateHoldingPattern(model){
     return new Promise(function(resolve,reject){
         try{
             console.log("########")
-            console.log(model.data.match(/\d+/g)[0] + "----" + model.tags.JoinAccIds)
+            console.log(type of model.data.match(/\d+/g)[0] + "----" +type of model.tags.JoinAccIds[0])
             console.log("########")
             if(model.data.match(/\d+/g)){
                 console.log("########")
