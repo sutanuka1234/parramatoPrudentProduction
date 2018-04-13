@@ -10,7 +10,13 @@ module.exports={
 function validateHoldingPattern(model){
     return new Promise(function(resolve,reject){
         try{
+            console.log("########")
+            console.log(model.data.match(/\d+/g))
+            console.log("########")
             if(model.data.match(/\d+/g)){
+                console.log("########")
+                console.log(model.tags.JoinAccIds.includes(model.data.match(/\d+/g)[0]))
+                console.log("########")
                 if(model.tags.JoinAccIds.includes(model.data.match(/\d+/g)[0])){
                     model.tags.JoinAccId = model.data.match(/\d+/g)[0]
                     delete model.stage;
