@@ -42,7 +42,7 @@ function panMobile(model){
 			}
 			else if(model.data.match(pan)){
 				console.log('PAN')
-				model.tags.pan = model.tags.match(pan)[0]
+				model.tags.pan = model.data.match(pan)[0]
 				delete model.stage
 				resolve(model)
 			}
