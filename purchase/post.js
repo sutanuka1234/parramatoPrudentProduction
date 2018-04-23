@@ -33,11 +33,13 @@ function panMobile(model){
 				resolve(model)
 			}
 			else if(model.data.match(/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/)){
+				console.log('PHONE')
 				model.tags.phone = model.data.match(/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/)[0]
 				model.stage = 'pan'
 				resolve(model)
 			}
 			else if(model.data.match(/[a-z]{3}p[a-z]\d{4}[a-z]/)){
+				console.log('PAN')
 				model.tags.pan = model.tags.toLowerCase().match(/[a-z]{3}p[a-z]\d{4}[a-z]/)[0]
 				delete model.stage
 				resolve(model)
