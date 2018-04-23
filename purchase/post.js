@@ -43,6 +43,9 @@ function panMobile(model){
 				model.tags.pan = model.tags.toLowerCase().match(/[a-z]{3}p[a-z]\d{4}[a-z]/)[0]
 				delete model.stage
 				resolve(model)
+			}
+			else{
+				resolve(model)
 			}			
 		}
 		else{
