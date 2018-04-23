@@ -3,7 +3,7 @@ module.exports={
 }
 
 let obj = {
-	mobile:phone,
+	phone:phone,
 	pan:pan,
 	otp:otp
 }
@@ -22,7 +22,7 @@ function main(req, res){
 	})
 }
 
-function mobile(model){
+function phone(model){
 	return new Promise(function(resolve, reject){
 		if(model.data.match(/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/) || (model.data.match(/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/) && model.data.toLowerCase().match(/[a-z]{3}p[a-z]\d{4}[a-z]/))) {
 			if(model.data.match(/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/)){
