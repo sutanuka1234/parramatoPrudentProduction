@@ -3,7 +3,6 @@ module.exports={
 }
 
 let obj = {
-	phone:phone,
 	pan:pan,
 	otp:otp
 }
