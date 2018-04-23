@@ -3,8 +3,9 @@ module.exports={
 }
 
 let obj = {
-	pan:pan,
-	otp:otp
+	phone	: phone,
+	pan		: pan,
+	otp		: otp
 }
 
 function main(req, res){
