@@ -75,6 +75,7 @@ function pan(model){
 		var pan = /[a-z]{3}p[a-z]\d{4}[a-z]/
 		if(model.data.toLowerCase().match(pan)){
 			model.tags.pan = model.data.toLowerCase().match(pan)[0]
+			delete model.stage
 			resolve(model)
 		}
 		else{
