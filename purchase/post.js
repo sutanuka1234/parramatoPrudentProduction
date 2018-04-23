@@ -28,21 +28,21 @@ function panMobile(model){
 		var phone = /((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/
 		var pan = /[a-z]{3}p[a-z]\d{4}[a-z]/
 		if((model.data.match(phone) && model.data.toLowerCase().match(pan)) || model.data.match(phone) || model.data.match(pan)) {
-			if(model.data.match(/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/) && model.data.toLowerCase().match(/[a-z]{3}p[a-z]\d{4}[a-z]/)){
-				model.tags.phone = model.data.match(/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/)[0]
-				model.tags.pan = model.data.toLowerCase().match(/[a-z]{3}p[a-z]\d{4}[a-z]/)[0]
+			if(model.data.match(phone) && model.data.toLowerCase().match(pan)){
+				model.tags.phone = model.data.match(phone)[0]
+				model.tags.pan = model.data.toLowerCase().match(pan)[0]
 				model.stage = 'otp' 
 				resolve(model)
 			}
-			else if(model.data.match(/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/)){
+			else if(model.data.match(phone)){
 				console.log('PHONE')
-				model.tags.phone = model.data.match(/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/)[0]
+				model.tags.phone = model.data.match(phone)[0]
 				model.stage = 'pan'
 				resolve(model)
 			}
-			else if(model.data.match(/[a-z]{3}p[a-z]\d{4}[a-z]/)){
+			else if(model.data.match(pan)){
 				console.log('PAN')
-				model.tags.pan = model.tags.toLowerCase().match(/[a-z]{3}p[a-z]\d{4}[a-z]/)[0]
+				model.tags.pan = model.tags.toLowerCase().match(pan)[0]
 				delete model.stage
 				resolve(model)
 			}
@@ -58,7 +58,9 @@ function panMobile(model){
 
 function phone(model){
 	return new Promise(function(resolve, reject){
-		if(model.data.match(/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/)){
+		var phone = /((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/
+		if(model.data.match(phone)){
+			model.tags.phone = model.data.match(phone)[0]
 			model.stage = 'otp'
 			resolve(model)
 		}
@@ -70,8 +72,9 @@ function phone(model){
 
 function pan(model){
 	return new Promise(function(resolve, reject){
-		if(model.data.match.toLowerCase().match(/[a-z]{3}p[a-z]\d{4}[a-z]/)){
-			model.tags.pan = model.data.toLowerCase().match(/[a-z]{3}p[a-z]\d{4}[a-z]/)[0]
+		var pan = /[a-z]{3}p[a-z]\d{4}[a-z]/
+		if(model.data.toLowerCase().match(pan)){
+			model.tags.pan = model.data.toLowerCase().match(pan)[0]
 			resolve(model)
 		}
 		else{
