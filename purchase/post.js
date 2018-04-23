@@ -25,7 +25,9 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
-		if(model.data.match(/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/) && model.data.toLowerCase().match(/[a-z]{3}p[a-z]\d{4}[a-z]/)) {
+		var phone = /((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/
+		var pan = /[a-z]{3}p[a-z]\d{4}[a-z]/
+		if((model.data.match(phone) && model.data.toLowerCase().match(pan)) || model.data.match(phone) || model.data.match(pan)) {
 			if(model.data.match(/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/) && model.data.toLowerCase().match(/[a-z]{3}p[a-z]\d{4}[a-z]/)){
 				model.tags.phone = model.data.match(/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/)[0]
 				model.tags.pan = model.data.toLowerCase().match(/[a-z]{3}p[a-z]\d{4}[a-z]/)[0]
