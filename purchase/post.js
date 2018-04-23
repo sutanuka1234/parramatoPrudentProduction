@@ -3,7 +3,7 @@ module.exports={
 }
 
 let obj = {
-	mobile:mobile,
+	mobile:phone,
 	pan:pan,
 	otp:otp
 }
