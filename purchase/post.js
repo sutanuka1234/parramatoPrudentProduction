@@ -45,7 +45,7 @@ function mobile(model){
 
 function pan(model){
 	return new Promise(function(resolve, reject){
-		if(model.data.match.toLowerCase().match(/[a-z]{3}p[a-z]\d{4}[a-z]/){
+		if(model.data.match.toLowerCase().match(/[a-z]{3}p[a-z]\d{4}[a-z]/)){
 			model.tags.pan = model.data.toLowerCase().match(/[a-z]{3}p[a-z]\d{4}[a-z]/)[0]
 			resolve(model)
 		}
