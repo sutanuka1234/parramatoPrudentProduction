@@ -40,9 +40,9 @@ function panMobile(model){
 				model.stage = 'pan'
 				resolve(model)
 			}
-			else if(model.data.match(pan).toLowerCase()){
+			else if(model.data.match(pan)){
 				console.log('PAN')
-				model.tags.pan = model.tags.match(pan)[0].toLowerCase()
+				model.tags.pan = model.tags.match(pan)[0]
 				delete model.stage
 				resolve(model)
 			}
