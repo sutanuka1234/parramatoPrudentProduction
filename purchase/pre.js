@@ -3,6 +3,7 @@ module.exports={
 }
 
 let obj = {
+	panMobile : panMobile,
 	phone	: phone,
 	pan		: pan,
 	otp		: otp
@@ -19,6 +20,12 @@ function main(req, res){
 			console.log(e)
 			res.sendStatus(203)
 		})
+	})
+}
+
+function panMobile(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
 	})
 }
 

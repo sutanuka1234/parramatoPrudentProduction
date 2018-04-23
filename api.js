@@ -32,3 +32,8 @@ function otp(session, otp, callback){
 // otp('7C772321713D21713D21713D21713D21713D21713D21713D7C77237C7723', '123456', (err, http, response)=>{
 // 	console.log(response)
 // })
+
+module.exports = {
+	panMobile 	: panMobile,
+	otp 		: otp
+}
