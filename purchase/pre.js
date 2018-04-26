@@ -8,8 +8,8 @@ let obj = {
 	pan		: pan,
 	otp		: otp,
 	holding : holding,
-	amc 	: amc
-	// subnature : subnature,
+	amc 	: amc,
+	subnature : subnature
 	// name 	: name,
 	// folio 	: folio,
 	// amount 	: amount,
@@ -101,5 +101,25 @@ function amc(model){
 			}
 			resolve(model)
 		}
+	})
+}
+
+function subNatures(model){
+	return new Promise(function(resolve, reject){
+		var arr = []
+		model.tags.subNatures[model.tags.amcNames[model.tags.matches]].forEach(function(element){
+			arr.push({
+				data : element
+				text : element
+			})
+		})
+		model.reply={
+			type:"quickReply",
+			text:"Select a sub nature"
+			next:{
+				"data" : arr
+			} 
+		}
+		resolve(model)
 	})
 }

@@ -11,8 +11,8 @@ let obj = {
 	pan		: pan,
 	otp		: otp,
 	holding : holding,
-	amc 	: amc
-	// subnature : subnature,
+	amc 	: amc,
+	subnature : subnature
 	// name 	: name,
 	// folio 	: folio,
 	// amount 	: amount,
@@ -167,14 +167,14 @@ function holding(model){
 
 function amc(model){
 	return new Promise(function(resolve, reject){
-		if(model.data){
-			var matches = stringSimilarity.findBestMatch(model.data, Object.keys(model.tags.amcNames));
-			model.tags.matches = matches.bestMatch.target
-			resolve(model)
-		}
-		else if(model.data == model.tags.matches){
+		if(model.data == model.tags.matches){
 			model.tags.amc = model.data
 			delete model.stage
+			resolve(model)
+		}
+		else if(model.data){
+			var matches = stringSimilarity.findBestMatch(model.data, Object.keys(model.tags.amcNames));
+			model.tags.matches = matches.bestMatch.target
 			resolve(model)
 		}
 		else{
@@ -182,3 +182,10 @@ function amc(model){
 		}
 	})
 }
+
+function subNatures(model){
+	return new Promise(function(resolve, reject){
+		console.log(model.data)
+		resolve(model)
+	})
+} 
