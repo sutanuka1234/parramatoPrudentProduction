@@ -183,7 +183,7 @@ function amc(model){
 	})
 }
 
-function subNatures(model){
+function subnatures(model){
 	return new Promise(function(resolve, reject){
 		console.log(model.data)
 		resolve(model)
