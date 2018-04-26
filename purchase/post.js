@@ -140,17 +140,17 @@ function holding(model){
 					model.tags.amcOptions[element.AMCCode]=[];
 					response.Response[1].forEach(function(ele){
 						if(ele.AMCCode == element.AMCCode){
-							model.tags.amcOptions[element.AMCCode].push(element.OPTION)
+							model.tags.amcOptions[element.AMCCode].push(ele.OPTION)
 						}
 					})
 				})
 				console.log(model.tags.amcOptions)
 				model.tags.subNatures = {}
 				response.Response[2].forEach(function(element){
-					model.tags.subNatures[element.subNatures]=[]
+					model.tags.subNatures[element.subNature]=[]
 					response.Response[2].forEach(function(ele){
 						if(ele.AMCCode == element.AMCCode){
-							model.tags.subNatures[element.AMCCode].push(element.SubNature)
+							model.tags.subNatures[element.AMCCode].push(ele.SubNature)
 						}
 					})
 				})
