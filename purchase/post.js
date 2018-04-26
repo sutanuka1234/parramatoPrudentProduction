@@ -147,7 +147,7 @@ function holding(model){
 				console.log(model.tags.amcOptions)
 				model.tags.subNatures = {}
 				response.Response[2].forEach(function(element){
-					model.tags.subNatures[element.subNature]=[]
+					model.tags.subNatures[element.AMCCode]=[]
 					response.Response[2].forEach(function(ele){
 						if(ele.AMCCode == element.AMCCode){
 							model.tags.subNatures[element.AMCCode].push(ele.SubNature)
