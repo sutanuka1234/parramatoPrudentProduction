@@ -2,7 +2,7 @@ module.exports={
 	main:main
 }
 
-var api = require('./api.js')
+var api = require('../api.js')
 
 let obj = {
 	panMobile : panMobile,
