@@ -3,14 +3,15 @@ module.exports={
 }
 
 var api = require('../api.js')
+var stringSimilarity = require('string-similarity');
 
 let obj = {
 	panMobile : panMobile,
 	phone	: phone,
 	pan		: pan,
 	otp		: otp,
-	holding : holding
-	// amc 	: amc,
+	holding : holding,
+	amc 	: amc
 	// subnature : subnature,
 	// name 	: name,
 	// folio 	: folio,
@@ -109,7 +110,11 @@ function otp(model){
 			model.tags.otp = model.data.match(/\d{6}/)[0]
 			api.otp(model.tags.session, model.tags.otp, (err, http, response)=>{
 				response = JSON.parse(response)
-				model.tags.joinAccId = response.Response
+				model.tags.joinAcc = response.Response
+				model.tags.joinAccId = []
+				response.Response.forEach(function(element){
+					model.tags.joinAccId.push(element.JoinAccId)
+				})
 				delete model.stage
 				resolve(model)
 			})
@@ -122,7 +127,55 @@ function otp(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.data)
-		resolve(model)
+		if(model.tags.joinAccId.includes(model.data)){
+			api.getAMC(model.tags.session, model.data, (err, http, response)=>{
+				response = JSON.parse(response)
+				model.tags.amcNames = {}
+				response.Response[0][0].forEach(function(element){
+					model.tags.amcNames[element.AMCName] : element.ID
+				})
+				model.tags.amcOptions = {}
+				response.Response[0][1].forEach(function(element){
+					model.tags.amcOptions[element.AMCCode]=[];
+					response.Response[0][1].forEach(function(ele){
+						if(ele.AMCCode == element.AMCCode){
+							model.tags.amcOptions[element.AMCCode].push(element.OPTION)
+						}
+					})
+				})
+				model.tags.subNatures = {}
+				response.Response[0][2].forEach(function(element){
+					model.tags.subNatures[element.subNatures]=[]
+					response.Response[0][2].forEach(function(ele){
+						if(ele.AMCCode == element.AMCCode){
+							model.tags.subNatures[element.AMCCode].push(element.SubNature)
+						}
+					})
+				})
+				delete model.stage
+				resolve(model)
+			})
+		}
+		else{
+			reject(model)
+		}
+	})
+}
+
+function amc(model){
+	return new Promise(function(resolve, reject){
+		if(model.data){
+			var matches = stringSimilarity.findBestMatch(model.data, Object.keys(model.tags.amcName));
+			model.tags.matches = matches.bestMatch.target
+			resolve(model)
+		}
+		else if(model.data == model.tags.matches){
+			model.tags.amc = model.data
+			delete model.stage
+			resolve(model)
+		}
+		else{
+			reject(model)
+		}
 	})
 }

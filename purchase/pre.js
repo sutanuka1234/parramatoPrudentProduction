@@ -7,8 +7,8 @@ let obj = {
 	phone	: phone,
 	pan		: pan,
 	otp		: otp,
-	holding : holding
-	// amc 	: amc,
+	holding : holding,
+	amc 	: amc
 	// subnature : subnature,
 	// name 	: name,
 	// folio 	: folio,
@@ -57,10 +57,9 @@ function otp(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.joinAccId){
+		if(model.tags.joinAcc){
 			var arr = []
-			console.log(model.tags.joinAccId)
-			model.tags.joinAccId.forEach(function(element){
+			model.tags.joinAcc.forEach(function(element){
 				arr.push({
 					data : element.JoinAccId,
 					text : element.JoinHolderName
@@ -68,9 +67,29 @@ function holding(model){
 			})
 			model.reply={
 				type:"quickReply",
-	            text:"Hey, has your previous policy expired?",
+	            text:"Select your account",
 	            next:{
 	                "data": arr
+	            }
+			}
+			resolve(model)
+		}
+	})
+}
+
+function amc(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.matches){
+			model.reply={
+				type:"quickReply",
+	            text:"Did you mean this?",
+	            next:{
+	                "data": [
+	                	{
+	                		data : model.tags.matches,
+	                		text : model.tags.matches
+	                	}
+	                ]
 	            }
 			}
 			resolve(model)

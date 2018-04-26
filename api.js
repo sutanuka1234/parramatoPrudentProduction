@@ -42,7 +42,7 @@ function getAMC(session, joinAccId, callback){
 	request(obj, callback)
 }
 
-// getAMC('7C772321713D21713D21713D21713D21713D21713D21713D7C772321713D', '334', (err, http, response)=>{
+// getAMC('7C772321713D21713D21713D21713D21713D21713D21713D7C77237C7723', '334', (err, http, response)=>{
 // 	console.log(response)
 // })
 
