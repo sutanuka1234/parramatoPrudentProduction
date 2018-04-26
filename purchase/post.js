@@ -134,7 +134,7 @@ function holding(model){
 				response.Response[0].forEach(function(element){
 					model.tags.amcNames[element.AMCName] = element.ID
 				})
-				console.log(model.tags.amcNames)
+				// console.log(model.tags.amcNames)
 				model.tags.amcOptions = {}
 				response.Response[1].forEach(function(element){
 					model.tags.amcOptions[element.AMCCode]=[];
@@ -144,7 +144,7 @@ function holding(model){
 						}
 					})
 				})
-				console.log(model.tags.amcOptions)
+				// console.log(model.tags.amcOptions)
 				model.tags.subNatures = {}
 				response.Response[2].forEach(function(element){
 					model.tags.subNatures[element.AMCCode]=[]
@@ -154,7 +154,7 @@ function holding(model){
 						}
 					})
 				})
-				console.log(model.tags.subNatures)
+				// console.log(model.tags.subNatures)
 				delete model.stage
 				resolve(model)
 			})
@@ -168,7 +168,7 @@ function holding(model){
 function amc(model){
 	return new Promise(function(resolve, reject){
 		if(model.data){
-			var matches = stringSimilarity.findBestMatch(model.data, Object.keys(model.tags.amcName));
+			var matches = stringSimilarity.findBestMatch(model.data, Object.keys(model.tags.amcNames));
 			model.tags.matches = matches.bestMatch.target
 			resolve(model)
 		}
