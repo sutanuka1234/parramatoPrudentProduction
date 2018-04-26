@@ -127,8 +127,8 @@ function otp(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
+		console.log('here')
 		if(model.tags.joinAccId.includes(model.data)){
-			console.log('here')
 			api.getAMC(model.tags.session, model.data, (err, http, response)=>{
 				response = JSON.parse(response)
 				model.tags.amcNames = {}
