@@ -109,7 +109,7 @@ function otp(model){
 			model.tags.otp = model.data.match(/\d{6}/)[0]
 			api.otp(model.tags.session, model.tags.otp, (err, http, response)=>{
 				response = JSON.parse(response)
-				model.tags.joinAccId = response.Response[0]
+				model.tags.joinAccId = response.Response
 				delete model.stage
 				resolve(model)
 			})
