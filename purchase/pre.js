@@ -7,14 +7,14 @@ let obj = {
 	phone	: phone,
 	pan		: pan,
 	otp		: otp,
-	holding : holding,
-	amc 	: amc,
-	subnature : subnature,
-	name 	: name,
-	folio 	: folio,
-	amount 	: amount,
-	term 	: term,
-	mandate : mandate
+	holding : holding
+	// amc 	: amc,
+	// subnature : subnature,
+	// name 	: name,
+	// folio 	: folio,
+	// amount 	: amount,
+	// term 	: term,
+	// mandate : mandate
 }
 
 function main(req, res){
