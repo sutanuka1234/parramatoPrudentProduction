@@ -109,7 +109,7 @@ function subNatures(model){
 		var arr = []
 		model.tags.subNatures[model.tags.amcNames[model.tags.matches]].forEach(function(element){
 			arr.push({
-				data : element
+				data : element,
 				text : element
 			})
 		})
