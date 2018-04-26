@@ -113,7 +113,7 @@ function otp(model){
 				model.tags.joinAcc = response.Response
 				model.tags.joinAccId = []
 				response.Response.forEach(function(element){
-					model.tags.joinAccId.push(element.JoinAccId)
+					model.tags.joinAccId.push(element.JoinAccId.toString())
 				})
 				delete model.stage
 				resolve(model)
@@ -127,17 +127,17 @@ function otp(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
-		if((model.data)){
-			console.log('here')
+		console.log('here')
+		if(model.tags.joinAccId.includes(model.data)){
 			api.getAMC(model.tags.session, model.data, (err, http, response)=>{
 				response = JSON.parse(response)
 				model.tags.amcNames = {}
-				response.Response[0][0].forEach(function(element){
+				response.Response[0].forEach(function(element){
 					model.tags.amcNames[element.AMCName] = element.ID
 				})
 				console.log(model.tags.amcNames)
 				model.tags.amcOptions = {}
-				response.Response[0][1].forEach(function(element){
+				response.Response[1].forEach(function(element){
 					model.tags.amcOptions[element.AMCCode]=[];
 					response.Response[0][1].forEach(function(ele){
 						if(ele.AMCCode == element.AMCCode){
@@ -147,7 +147,7 @@ function holding(model){
 				})
 				console.log(model.tags.amcOptions)
 				model.tags.subNatures = {}
-				response.Response[0][2].forEach(function(element){
+				response.Response[2].forEach(function(element){
 					model.tags.subNatures[element.subNatures]=[]
 					response.Response[0][2].forEach(function(ele){
 						if(ele.AMCCode == element.AMCCode){
