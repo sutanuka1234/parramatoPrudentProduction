@@ -127,7 +127,6 @@ function otp(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
-		console.log('here')
 		if(model.tags.joinAccId.includes(model.data)){
 			api.getAMC(model.tags.session, model.data, (err, http, response)=>{
 				response = JSON.parse(response)
@@ -139,7 +138,7 @@ function holding(model){
 				model.tags.amcOptions = {}
 				response.Response[1].forEach(function(element){
 					model.tags.amcOptions[element.AMCCode]=[];
-					response.Response[0][1].forEach(function(ele){
+					response.Response[1].forEach(function(ele){
 						if(ele.AMCCode == element.AMCCode){
 							model.tags.amcOptions[element.AMCCode].push(element.OPTION)
 						}
@@ -149,7 +148,7 @@ function holding(model){
 				model.tags.subNatures = {}
 				response.Response[2].forEach(function(element){
 					model.tags.subNatures[element.subNatures]=[]
-					response.Response[0][2].forEach(function(ele){
+					response.Response[2].forEach(function(ele){
 						if(ele.AMCCode == element.AMCCode){
 							model.tags.subNatures[element.AMCCode].push(element.SubNature)
 						}
