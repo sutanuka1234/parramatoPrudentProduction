@@ -115,7 +115,7 @@ function subNatures(model){
 		})
 		model.reply={
 			type:"quickReply",
-			text:"Select a sub nature"
+			text:"Select a sub nature",
 			next:{
 				"data" : arr
 			} 
