@@ -132,7 +132,7 @@ function holding(model){
 				response = JSON.parse(response)
 				model.tags.amcNames = {}
 				response.Response[0][0].forEach(function(element){
-					model.tags.amcNames[element.AMCName] : element.ID
+					model.tags.amcNames[element.AMCName] = element.ID
 				})
 				model.tags.amcOptions = {}
 				response.Response[0][1].forEach(function(element){
