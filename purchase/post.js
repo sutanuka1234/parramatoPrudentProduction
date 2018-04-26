@@ -2,6 +2,8 @@ module.exports={
 	main:main
 }
 
+var api = require('./api.js')
+
 let obj = {
 	panMobile : panMobile,
 	phone	: phone,
@@ -120,6 +122,7 @@ function otp(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
+		console.log(model.data)
 		resolve(model)
 	})
 }
