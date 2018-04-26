@@ -94,5 +94,12 @@ function amc(model){
 			}
 			resolve(model)
 		}
+		else{
+			model.reply={
+				type:"text"
+				text:"Enter your AMC name"
+			}
+			resolve(model)
+		}
 	})
 }
