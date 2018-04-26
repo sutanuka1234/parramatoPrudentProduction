@@ -59,6 +59,7 @@ function holding(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.joinAccId){
 			var arr = []
+			console.log(model.tags.joinAccId)
 			model.tags.joinAccId.forEach(function(element){
 				arr.push({
 					data : element.JoinAccId,
