@@ -104,7 +104,7 @@ function amc(model){
 	})
 }
 
-function subnatures(model){
+function subnature(model){
 	return new Promise(function(resolve, reject){
 		var arr = []
 		model.tags.subNatures[model.tags.amcNames[model.tags.matches]].forEach(function(element){
