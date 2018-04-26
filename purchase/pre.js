@@ -96,7 +96,7 @@ function amc(model){
 		}
 		else{
 			model.reply={
-				type:"text"
+				type:"text",
 				text:"Enter your AMC name"
 			}
 			resolve(model)
