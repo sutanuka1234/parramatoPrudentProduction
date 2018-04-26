@@ -127,14 +127,15 @@ function otp(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
-		console.log('here')
-		if(model.tags.joinAccId.includes(model.data)){
+		if((model.data)){
+			console.log('here')
 			api.getAMC(model.tags.session, model.data, (err, http, response)=>{
 				response = JSON.parse(response)
 				model.tags.amcNames = {}
 				response.Response[0][0].forEach(function(element){
 					model.tags.amcNames[element.AMCName] = element.ID
 				})
+				console.log(model.tags.amcNames)
 				model.tags.amcOptions = {}
 				response.Response[0][1].forEach(function(element){
 					model.tags.amcOptions[element.AMCCode]=[];
@@ -144,6 +145,7 @@ function holding(model){
 						}
 					})
 				})
+				console.log(model.tags.amcOptions)
 				model.tags.subNatures = {}
 				response.Response[0][2].forEach(function(element){
 					model.tags.subNatures[element.subNatures]=[]
@@ -153,7 +155,7 @@ function holding(model){
 						}
 					})
 				})
-				console.log(model.tags.amcNames)
+				console.log(model.tags.subNatures)
 				delete model.stage
 				resolve(model)
 			})
