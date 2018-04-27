@@ -101,7 +101,6 @@ function panMobile(model){
 				while(matches.ratings.length > 9){
 					matches.ratings.forEach(function(match){
 						if(match.rating > rating ){
-							// console.log(match.rating)
 							model.tags.schemes.push(match)
 						}
 					})
@@ -115,7 +114,7 @@ function panMobile(model){
 			model.reply = {}
 			model.reply.type="text"
 			model.reply.text="Going ahead with OTP?"
-
+			api.panMobile(model.tags.mobile, model.tags.pan).then(data=>{response = JSON.parse(data.body) model.tags.session = response.Response[0].SessionId}).catch(err=>console.log(err))
 		}
 
 		console.log(JSON.stringify(model.tags, null, 3))

@@ -101,7 +101,6 @@ function runRequest(obj){
 			if(error){
 				return reject(error);
 			}
-			console.log(response)
 			return resolve({response:response,body:body})
 		})
 	})
