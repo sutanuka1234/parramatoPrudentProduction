@@ -47,7 +47,7 @@ function panMobile(model){
 		if(model.tags.mobile && model.tags.pan){
 			api.panMobile(model.tags.phone, model.tags.pan)
 			.then(data=>{
-				console.log(body)
+				console.log(data.body)
 				let response = JSON.parse(data.body)
 				model.tags.session = response.Response[0].SessionId
 				model.stage = 'otp' 
