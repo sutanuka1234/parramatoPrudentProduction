@@ -199,7 +199,7 @@ function type(model){
 
 function subnature(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.subNatures.includes(model.data)){
+		if(model.tags.subNatures[model.tags.amcNames[model.tags.matches]].includes(model.data)){
 			model.tags.subnature = model.data
 			delete model.stage
 			resolve(model)
