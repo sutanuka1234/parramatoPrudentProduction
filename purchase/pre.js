@@ -3,7 +3,7 @@ module.exports={
 }
 
 var schemes = require('../new.json')
-var words = require('./words.js')
+var words = require('../words.js')
 var stringSimilarity = require('string-similarity');
 
 let obj = {
