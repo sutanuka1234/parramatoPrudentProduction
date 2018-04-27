@@ -113,7 +113,9 @@ function panMobile(model){
 		}
 		if(model.tags.mobile && model.tags.pan){
 			model.reply = {}
+			model.reply.type="text"
 			model.reply.text="Going ahead with OTP?"
+
 		}
 
 		console.log(JSON.stringify(model.tags, null, 3))
