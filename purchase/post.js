@@ -240,6 +240,7 @@ function showSchemeName(model){
 		for(let i in model.tags.schemes){
 			arr.push(i.target)
 		}
+		console.log(arr)
 		if(arr.includes(model.data) && !model.tags.divOption){
 			if(schemes[model.data].optionCode == 1){
 				model.stage = 'final'
@@ -247,8 +248,8 @@ function showSchemeName(model){
 			else{
 				delete model.stage
 			}
-			resolve(model)
 		}
+		resolve(model)
 	})
 }
 
