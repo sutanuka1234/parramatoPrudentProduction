@@ -88,6 +88,7 @@ function panMobile(model){
 			searchTerm=searchTerm.trim();
 			model.tags.schemes = []
 			let rating=0.0;
+			console.log(searchTerm)
 			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
 				console.log(matches)
 			if(matches.bestMatch.rating>0.9){
