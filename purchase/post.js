@@ -236,6 +236,7 @@ function askSchemeName(model){
 
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
+		console.log(model.tags.schemeList)
 		if(model.tags.schemeList.includes(model.data) && !model.tags.divOption){
 			if(schemes[model.data].optionCode == 1){
 				model.stage = 'final'

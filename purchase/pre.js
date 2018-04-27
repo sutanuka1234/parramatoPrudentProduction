@@ -311,7 +311,6 @@ function askSchemeName(model){
 }
 
 function showSchemeName(model){
-	console.log(model.tags.schemeList)
 	return new Promise(function(resolve, reject){
 		model.reply = {
 			type:"generic",
