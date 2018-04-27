@@ -7,7 +7,7 @@ var headers = {
 var url = 'https://www.prudentcorporate.com/cbapi/'
 var data = require('./words.json')
 
-function panMobile(mobile, pan, callback){
+function panMobile(mobile, pan){
 	var obj = {
 			method  : 'POST',
 	        headers : headers,
@@ -17,12 +17,9 @@ function panMobile(mobile, pan, callback){
 	return runRequest(obj)
 }
 
-// panMobile('9998367321', 'CPRPP3661J', (err, http, response)=>{
-// 	response = JSON.parse(response)
-// 	console.log(response.Response)
-// })
+// panMobile('9998367321', 'CPRPP3661J').then(data=>{console.log(data)}).catch(err=>console.log(err))
 
-function otp(session, otp, callback){
+function otp(session, otp){
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
@@ -31,9 +28,7 @@ function otp(session, otp, callback){
 	return runRequest(obj)
 }
 
-// otp('7C772321713D21713D21713D21713D21713D21713D21713D7C77237C7723', '123456', (err, http, response)=>{
-// 	console.log(response)
-// })
+// otp('7C772321713D21713D21713D21713D21713D21713D21713D7C7723266B7C', '123456').then(data=>{console.log(data)}).catch(err=>console.log(err))
 
 // function getAMC(session, joinAccId, callback){
 // 	var obj = {
@@ -106,6 +101,7 @@ function runRequest(obj){
 			if(error){
 				return reject(error);
 			}
+			console.log(response)
 			return resolve({response:response,body:body})
 		})
 	})
@@ -118,15 +114,3 @@ module.exports = {
 	// insertBuyCart : insertBuyCart,
 	// bankMandate : bankMandate
 }
-
-var fs = require('fs')
-
-var arr = []
-arr.push(Object.keys(data))
-
-fs.writeFile("./words.js", arr, function(err) {
-    if(err) {
-        return console.log(err);
-    }
-    console.log("The file was saved!");
-});

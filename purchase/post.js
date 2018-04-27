@@ -136,6 +136,7 @@ function otp(model){
 				model.tags.joinAcc = response.Response
 				model.tags.joinAccId = []
 				response.Response.forEach(function(element){
+					console.log(element)
 					model.tags.joinAccId.push(element.JoinAccId.toString())
 				})
 				delete model.stage
@@ -147,7 +148,7 @@ function otp(model){
 			})
 		}
 		else{
-			reject(model)
+			return reject(model)
 		}
 	})
 }
