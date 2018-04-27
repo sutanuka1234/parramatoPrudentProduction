@@ -7,7 +7,7 @@ var stringSimilarity = require('string-similarity');
 
 let obj = {
 	panMobile : panMobile,
-	phone	: phone,
+	mobile	: mobile,
 	pan		: pan,
 	otp		: otp
 	// holding : holding,
@@ -44,7 +44,11 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
-		if(model.data.match(phone) && model.data.toLowerCase().match(pan)){
+		if(model.tags.mobile && model.tags.pan){
+			model.stage = 'otp'
+			resolve(model)
+		}
+		if(model.data.match(number)[0].length == 10 && model.data.match(phone) && model.data.toLowerCase().match(pan)){
 			model.tags.phone = model.data.match(phone)[0]
 			model.tags.pan = model.data.toLowerCase().match(pan)[0]
 			api.panMobile(model.tags.phone, model.tags.pan)
@@ -77,7 +81,7 @@ function panMobile(model){
 	})	
 }
 
-function phone(model){
+function mobile(model){
 	return new Promise(function(resolve, reject){
 		if(model.data.match(number)[0].length == 10 && model.data.match(phone)){
 			model.tags.phone = model.data.match(phone)[0]
