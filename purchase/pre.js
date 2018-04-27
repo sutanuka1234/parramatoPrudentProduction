@@ -47,14 +47,17 @@ function panMobile(model){
 	return new Promise(function(resolve, reject){
 		//pan,mobile,amount,amc,scheme,option,payout,tentativeFolio
 		if(model.tags.userSays.match(regexPan)){
+			console.log('here')
 			model.tags.userSays.replace((regexPan), '')
 			model.tags.pan = regexPan[0]
 		}
 		if(model.tags.userSays.match(/\d+/) && model.tags.userSays.match(/\d+/)[0].length == 10 && model.tags.userSays.match(regexMobile)){
+			console.log('here')
 			model.tags.userSays.replace((regexMobile), '')
 			model.tags.mobile = regexMobile[0]
 		}
 		if(model.tags.userSays.match(regexAmount)){
+			console.log('here')
 			model.tags.userSays.replace((regexAmount), '')
 			model.tags.amount = regexAmount[0]
 		}
@@ -75,6 +78,7 @@ function panMobile(model){
 			}
 		}
 		if(count>0){
+			console.log('here')
 			let searchTerm=""
 			for(let i=startIndex;i<=endIndex;i++){
 				searchTerm+=wordsInUserSays[i]+" "
