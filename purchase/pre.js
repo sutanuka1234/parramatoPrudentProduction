@@ -87,13 +87,13 @@ function panMobile(model){
 			}
 			searchTerm=searchTerm.trim();
 			model.tags.schemes = []
-			var rating = 0
+			let rating=0.0;
 			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+				console.log(matches)
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(bestMatch)
 			}
 			else{
-				console.log(matches)
 				while(matches.ratings.length > 9){
 					matches.ratings.forEach(function(match){
 						if(match.rating > rating ){
