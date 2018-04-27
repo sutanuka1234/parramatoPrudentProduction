@@ -1,3 +1,4 @@
+'use strict'
 module.exports={
 	main:main
 }
@@ -100,16 +101,20 @@ function panMobile(model){
 				while(matches.ratings.length > 9){
 					matches.ratings.forEach(function(match){
 						if(match.rating > rating ){
-							console.log(match.rating)
+							// console.log(match.rating)
 							model.tags.schemes.push(match)
 						}
 					})
 					matches.ratings = model.tags.schemes
 					model.tags.schemes = []
-					rating += 0.01
+					rating += 0.05
 				}
 			}
 		}
+		if(model.tags.mobile && model.tags.pan){
+			model.reply.text="Going ahead with OTP?"
+		}
+
 		console.log(JSON.stringify(model.tags, null, 3))
 		resolve(model)
 	})
