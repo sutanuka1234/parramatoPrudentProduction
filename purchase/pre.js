@@ -6,7 +6,7 @@ module.exports={
 var schemes = require('../new.json')
 var words = require('../words.js')
 var stringSimilarity = require('string-similarity');
-
+var sortBy = require('sort-by')
 let obj = {
 	panMobile : panMobile,
 	phone	: phone,
@@ -98,16 +98,18 @@ function panMobile(model){
 				model.tags.schemes.push(bestMatch)
 			}
 			else{
-				while(matches.ratings.length > 9){
-					matches.ratings.forEach(function(match){
-						if(match.rating > rating ){
-							model.tags.schemes.push(match)
-						}
-					})
-					matches.ratings = model.tags.schemes
-					model.tags.schemes = []
-					rating += 0.05
-				}
+				matches.ratings=matches.ratings.sort(sortBy('-rating'));
+				model.tags.schemes = matches.ratings.splice(0,9);
+				// while(matches.ratings.length > 9){
+				// 	matches.ratings.forEach(function(match){
+				// 		if(match.rating > rating ){
+				// 			model.tags.schemes.push(match)
+				// 		}
+				// 	})
+				// 	matches.ratings = model.tags.schemes
+				// 	model.tags.schemes = []
+				// 	rating += 0.05
+				// }
 			}
 		}
 		if(model.tags.mobile && model.tags.pan){
