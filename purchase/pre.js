@@ -50,17 +50,17 @@ function panMobile(model){
 		var matchPan=model.tags.userSays.match(regexPan)
 		if(matchPan){
 			model.tags.pan = matchPan[0]
-			model.tags.userSays.replace(model.tags.pan, '')
+			model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
 		}
 		var matchMobile=model.tags.userSays.match(regexMobile)
 		if(model.tags.userSays.match(/\d+/) && model.tags.userSays.match(/\d+/)[0].length == 10 && matchMobile){			
 			model.tags.mobile = matchMobile[0]
-			model.tags.userSays.replace(model.tags.mobile, '')
+			model.tags.userSays=model.tags.userSays.replace(model.tags.mobile, '')
 		}
 		var matchAmount=model.tags.userSays.match(regexAmount)
 		if(matchAmount){
 			model.tags.amount = matchAmount[0]
-			model.tags.userSays.replace(model.tags.amount, '')
+			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
 		}
 
 		let wordsInUserSays=model.tags.userSays.split(" ");
