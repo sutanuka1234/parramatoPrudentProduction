@@ -2,7 +2,7 @@ module.exports={
 	main:main
 }
 
-var schemes = require('./new.json')
+var schemes = require('../new.json')
 var stringSimilarity = require('string-similarity');
 
 let obj = {
