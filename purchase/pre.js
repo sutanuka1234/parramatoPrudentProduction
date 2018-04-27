@@ -3,7 +3,7 @@ module.exports={
 }
 
 var amcNames = require('../amcNames.js')
-var schemeNames = require('../new.json')
+var schemes = require('../new.json')
 var stringSimilarity = require('string-similarity');
 
 let obj = {
@@ -26,7 +26,7 @@ let obj = {
 var regexPan=/[a-z]{3}p[a-z]\d{4}[a-z]/;
 var regexMobile=/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/;
 var regexAmount=/(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{1}(k|l))/
-schemeNames = Object.keys(schemeNames)
+var schemeNames = Object.keys(schemes)
 
 
 function main(req, res){
@@ -50,7 +50,7 @@ function panMobile(model){
 			model.data.replace((regexPan), '')
 			model.tags.pan = regexPan[0]
 		}
-		if(model.data.match(/\d+/) && model.data.match(/\d+/)[0].length == 10 && model.data.match(regexMobile))
+		if(model.data.match(/\d+/) && model.data.match(/\d+/)[0].length == 10 && model.data.match(regexMobile)){
 			model.data.replace((regexMobile), '')
 			model.tags.mobile = regexMobile[0]
 		}
@@ -59,7 +59,10 @@ function panMobile(model){
 			model.tags.amount = regexAmount[0]
 		}
 		if(stringSimilarity.findBestMatch(model.data, schemeNames).bestMatch.rating >= 0.4){
-			model.data.scheme = stringSimilarity.findBestMatch(model.data, schemeNames).bestMatch.target
+			model.tags.schemes = []
+			stringSimilarity.findBestMatch(model.data, schemeNames).ratings.forEach(function(element){
+				model.tags.schemes.push(element)
+			})
 		}
 		resolve(model)
 	})
@@ -80,6 +83,7 @@ function pan(model){
 }
 
 function otp(model){
+	console.log(model.tags.schemes)
 	return new Promise(function(resolve, reject){
 		//amount,amc,scheme,option,payout,tentativeFolio
 		resolve(model)	
