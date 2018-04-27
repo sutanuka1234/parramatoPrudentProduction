@@ -63,29 +63,29 @@ function panMobile(model){
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
 		}
 
-		let wordsInUserSays=model.tags.userSays.split(" ");
-		let count=0;
-		let startIndex;
-		let endIndex;
-		for(wordIndex in wordsInUserSays){
-			if(words.includes(wordsInUserSays[wordIndex])){
-				count++;
-				if(count==1){
-					startIndex=wordIndex;
-					endIndex=wordIndex;
-				}
-				else{
-					endIndex=wordIndex;
-				}
-			}
-		}
+		// let wordsInUserSays=model.tags.userSays.split(" ");
+		// let count=0;
+		// let startIndex;
+		// let endIndex;
+		// for(wordIndex in wordsInUserSays){
+		// 	if(words.includes(wordsInUserSays[wordIndex])){
+		// 		count++;
+		// 		if(count==1){
+		// 			startIndex=wordIndex;
+		// 			endIndex=wordIndex;
+		// 		}
+		// 		else{
+		// 			endIndex=wordIndex;
+		// 		}
+		// 	}
+		// }
 		if(true){
 			console.log('herewords')
-			let searchTerm=""
-			for(let i=startIndex;i<=endIndex;i++){
-				searchTerm+=wordsInUserSays[i]+" "
-			}
-			searchTerm=searchTerm.trim();
+			// let searchTerm=""
+			// for(let i=startIndex;i<=endIndex;i++){
+			// 	searchTerm+=wordsInUserSays[i]+" "
+			// }
+			// searchTerm=searchTerm.trim();
 			model.tags.schemes = []
 			var rating = 0
 			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
