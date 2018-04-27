@@ -141,14 +141,20 @@ function otp(model){
 			model.tags.otp = model.data.match(otpInput)[0]
 			api.otp(model.tags.session, model.tags.otp)
 			.then(data=>{
-				let response = JSON.parse(data.body)
-				model.tags.joinAcc = response.Response
-				model.tags.joinAccId = []
-				response.Response.forEach(function(element){
-					model.tags.joinAccId.push(element.JoinAccId.toString())
-				})
-				delete model.stage
-				return resolve(model)
+				try{
+					console.log(data.body)
+					let response = JSON.parse(data.body)
+					model.tags.joinAcc = response.Response
+					model.tags.joinAccId = []
+					response.Response.forEach(function(element){
+						model.tags.joinAccId.push(element.JoinAccId.toString())
+					})
+					delete model.stage
+					return resolve(model)
+				}
+				catch(e){
+					return reject(model);
+				}
 			})
 			.catch(error=>{
 				console.log(error);
