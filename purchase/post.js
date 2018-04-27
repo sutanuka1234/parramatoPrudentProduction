@@ -49,8 +49,8 @@ function panMobile(model){
 			.then(data=>{
 				console.log(data.body)
 				let response = JSON.parse(data.body)
-				
-				if(response.result=="FAIL"){
+
+				if(response.Response[0].result=="FAIL"){
 					return reject(model)
 				}
 				model.tags.session = response.Response[0].SessionId
@@ -68,7 +68,7 @@ function panMobile(model){
 			api.panMobile(model.tags.phone, model.tags.pan)
 			.then(data=>{
 				let response = JSON.parse(data.body)
-				if(response.result=="FAIL"){
+				if(response.Response[0].result=="FAIL"){
 					return reject(model)
 				}
 				model.tags.session = response.Response[0].SessionId
@@ -105,7 +105,7 @@ function mobile(model){
 			api.panMobile(model.tags.phone, model.tags.pan)
 			.then(data=>{
 				let response = JSON.parse(data.body)
-				if(response.result=="FAIL"){
+				if(response.Response[0].result=="FAIL"){
 					return reject(model)
 				}
 				model.tags.session = response.Response[0].SessionId
@@ -130,7 +130,7 @@ function pan(model){
 			api.panMobile(model.tags.phone, model.tags.pan)
 			.then(data=>{
 				let response = JSON.parse(data.body)
-				if(response.result=="FAIL"){
+				if(response.Response[0].result=="FAIL"){
 					return reject(model)
 				}
 				model.tags.session = response.Response[0].SessionId
@@ -158,7 +158,7 @@ function otp(model){
 				try{
 					console.log(data.body)
 					let response = JSON.parse(data.body)
-					if(response.result=="FAIL"){
+					if(response.Response[0].result=="FAIL"){
 						return reject(model)
 					}
 					model.tags.joinAcc = response.Response
