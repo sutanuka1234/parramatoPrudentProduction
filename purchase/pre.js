@@ -46,28 +46,22 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		//pan,mobile,amount,amc,scheme,option,payout,tentativeFolio
-		if(model.tags.userSays.match(regexPan)){
-			console.log('herepan')
-
+		var matchPan=model.tags.userSays.match(regexPan)
+		if(matchPan){
 			model.tags.userSays.replace((regexPan), '')
-			model.tags.pan = regexPan[0]
-		console.log(JSON.stringify(model.tags, null, 3))
-
+			model.tags.pan = matchPan[0]
 		}
-		if(model.tags.userSays.match(/\d+/) && model.tags.userSays.match(/\d+/)[0].length == 10 && model.tags.userSays.match(regexMobile)){
-			console.log('heremobile')
+		var matchMobile=model.tags.userSays.match(regexMobile)
+		if(model.tags.userSays.match(/\d+/) && model.tags.userSays.match(/\d+/)[0].length == 10 && matchMobile){
 			model.tags.userSays.replace((regexMobile), '')
-			model.tags.mobile = regexMobile[0]
-		console.log(JSON.stringify(model.tags, null, 3))
-
+			model.tags.mobile = matchMobile[0]
 		}
-		if(model.tags.userSays.match(regexAmount)){
-			console.log('hereamount')
+		var matchAmount=model.tags.userSays.match(regexAmount)
+		if(matchAmount){
 			model.tags.userSays.replace((regexAmount), '')
-			model.tags.amount = regexAmount[0]
-		console.log(JSON.stringify(model.tags, null, 3))
-			
+			model.tags.amount = matchAmount[0]
 		}
+
 		let wordsInUserSays=model.tags.userSays.split(" ");
 		let count=0;
 		let startIndex;
@@ -109,7 +103,6 @@ function panMobile(model){
 					rating += 0.01
 				}
 			}
-			
 		}
 		console.log(JSON.stringify(model.tags, null, 3))
 		resolve(model)
