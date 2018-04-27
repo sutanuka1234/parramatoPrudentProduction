@@ -45,7 +45,7 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.mobile && model.tags.pan){
-			api.panMobile(model.tags.phone, model.tags.pan)
+			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				console.log(data.body)
 				let response = JSON.parse(data.body)
@@ -63,9 +63,9 @@ function panMobile(model){
 			})
 		}
 		else if(model.data.match(number)[0].length == 10 && model.data.match(phone) && model.data.toLowerCase().match(pan)){
-			model.tags.phone = model.data.match(phone)[0]
+			model.tags.mobile = model.data.match(phone)[0]
 			model.tags.pan = model.data.toLowerCase().match(pan)[0]
-			api.panMobile(model.tags.phone, model.tags.pan)
+			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				let response = JSON.parse(data.body)
 				if(response.Response[0].result=="FAIL"){
@@ -83,7 +83,7 @@ function panMobile(model){
 		else{
 			 if(model.data.match(phone)){
 				console.log('PHONE')
-				model.tags.phone = model.data.match(phone)[0]
+				model.tags.mobile = model.data.match(phone)[0]
 				model.stage = 'pan'
 				return resolve(model)
 			}
@@ -101,8 +101,8 @@ function panMobile(model){
 function mobile(model){
 	return new Promise(function(resolve, reject){
 		if(model.data.match(number)[0].length == 10 && model.data.match(phone)){
-			model.tags.phone = model.data.match(phone)[0]
-			api.panMobile(model.tags.phone, model.tags.pan)
+			model.tags.mobile = model.data.match(phone)[0]
+			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				let response = JSON.parse(data.body)
 				if(response.Response[0].result=="FAIL"){
@@ -127,7 +127,7 @@ function pan(model){
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().match(pan)){
 			model.tags.pan = model.data.toLowerCase().match(pan)[0]
-			api.panMobile(model.tags.phone, model.tags.pan)
+			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				let response = JSON.parse(data.body)
 				if(response.Response[0].result=="FAIL"){
