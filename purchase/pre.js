@@ -117,7 +117,7 @@ function type(model){
 	                		text : 'Dividend'
 	                	},
 	                	{
-	                		data : 'growth'
+	                		data : 'growth',
 	                		text : 'Growth'
 	                	}
 	                ]
