@@ -86,6 +86,7 @@ function panMobile(model){
 			let searchTerm=""
 			for(let i=startIndex;i<=endIndex;i++){
 				searchTerm+=wordsInUserSays[i]+" "
+				console.log(wordsInUserSays[i])
 			}
 			searchTerm=searchTerm.trim();
 			model.tags.schemes = []
