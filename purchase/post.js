@@ -236,8 +236,11 @@ function askSchemeName(model){
 
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.tags.schemes)
-		if(model.tags.schemes.target.includes(model.data) && !model.tags.divOption){
+		var arr = []
+		for(let i in model.tags.schemes){
+			arr.push(i.target)
+		}
+		if(arr.includes(model.data) && !model.tags.divOption){
 			if(schemes[model.data].optionCode == 1){
 				model.stage = 'final'
 			}
