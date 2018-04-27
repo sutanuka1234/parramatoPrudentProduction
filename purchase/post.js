@@ -3,13 +3,17 @@ module.exports={
 }
 
 var api = require('../api.js')
+var schemes = require('../schemes.js')
 var stringSimilarity = require('string-similarity');
 
 let obj = {
 	panMobile : panMobile,
 	mobile	: mobile,
 	pan		: pan,
-	otp		: otp
+	otp		: otp,
+	askSchemeName : askSchemeName,
+	showSchemeName : showSchemeName,
+	divOps 	: divOps
 	// holding : holding,
 	// amc 	: amc,
 	// type 	: type,
@@ -183,6 +187,88 @@ function otp(model){
 		}
 	})
 }
+
+function askSchemeName(model){
+	return new Promise(function(resolve, reject){
+		let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+		if(matches.bestMatch.rating>0.9){
+			model.tags.schemes.push(bestMatch)
+		}
+		else{
+			matches.ratings=matches.ratings.sort(sortBy('-rating'));
+			model.tags.schemes = matches.ratings.splice(0,9);
+		}
+		if(model.tags.schemes){
+			model.tags.schemeList = []
+			model.tags.schemes.forEach(function(element){
+				model.tags.schemeList.push({
+					title 	: 'Schemes'
+					text 	: element.target
+					buttons : [
+						{
+							text : 'Select',
+							data : element.target
+						}
+					]
+				})
+			})
+		}
+		resolve(model)
+	})
+}
+
+function showSchemeName(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.schemeList.includes(model.data) && !model.tags.divOption){
+			if(schemes[model.data].optionCode == 1){
+				model.stage = 'final'
+			}
+			else{
+				delete model.stage
+			}
+			resolve(model)
+		}
+	})
+}
+
+function divOps(model){
+	return new Promise(function(resolve, reject){
+		if(model.data.toLowerCase().includes('reinvest') || model.data.toLowerCase().includes('payout')){
+			delete model.stage
+			resolve(model)
+		}
+	})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // function holding(model){
 // 	return new Promise(function(resolve, reject){

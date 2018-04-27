@@ -11,7 +11,10 @@ let obj = {
 	panMobile : panMobile,
 	phone	: phone,
 	pan		: pan,
-	otp		: otp
+	otp		: otp,
+	askSchemeName : askSchemeName,
+	showSchemeName : showSchemeName,
+	divOps 	: divOps
 	// holding : holding,
 	// amc 	: amc,
 	// type 	: type,
@@ -24,9 +27,11 @@ let obj = {
 	// mandate : mandate
 }
 
-var regexPan=/[a-z]{3}p[a-z]\d{4}[a-z]/;
-var regexMobile=/((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/;
-var regexAmount=/(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{1}(k|l))/
+var regexPan   	= /[a-z]{3}p[a-z]\d{4}[a-z]/;
+var regexMobile = /((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/;
+var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{1}(k|l))/
+var schemeType 	= /dividend|growth/
+var divOption 	= /re(-|\s)?invest|pay(\s)?out/
 var schemeNames = Object.keys(schemes)
 
 
@@ -63,7 +68,11 @@ function panMobile(model){
 			model.tags.amount = matchAmount[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
 		}
-
+		var matchDivOption=model.tags.userSays.match(divOption)
+		if(matchDivOption){
+			model.tags.divOption=matchDivOption[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.divOption, '')
+		}
 		let wordsInUserSays=model.tags.userSays.split(" ");
 		let count=0;
 		let startIndex;
@@ -80,45 +89,41 @@ function panMobile(model){
 				}
 			}
 		}
-		console.log(startIndex+'start')
-		console.log(endIndex+'end')
 		if(count>0){
-			console.log('herewords')
 			let searchTerm=""
 			for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
 				searchTerm+=wordsInUserSays[i]+" "
 			}
 			searchTerm=searchTerm.trim();
 			model.tags.schemes = []
-			let rating=0.0;
-			console.log(searchTerm)
 			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
-				console.log(matches)
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(bestMatch)
 			}
 			else{
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
 				model.tags.schemes = matches.ratings.splice(0,9);
-				// while(matches.ratings.length > 9){
-				// 	matches.ratings.forEach(function(match){
-				// 		if(match.rating > rating ){
-				// 			model.tags.schemes.push(match)
-				// 		}
-				// 	})
-				// 	matches.ratings = model.tags.schemes
-				// 	model.tags.schemes = []
-				// 	rating += 0.05
-				// }
 			}
 		}
-		if(model.tags.mobile && model.tags.pan){
-			model.reply = {}
-			model.reply.type="text"
-			model.reply.text="Going ahead with OTP?"
+		var matchType=model.tags.userSays.match(schemeType)
+		if(matchType){
+			model.tags.schemeType = matchType[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.schemeType, '')
 		}
-
-		console.log(JSON.stringify(model.tags, null, 3))
+		if(model.tags.mobile && model.tags.pan){
+			model.reply={
+				type:"quickReply",
+	            text:"Go ahead with OTP?",
+	            next:{
+	                "data": [
+	                	{
+	                		data : 'proceed',
+	                		text : 'Proceed'
+	                	}
+	                ]
+	            }
+			}
+		}
 		resolve(model)
 	})
 }
@@ -138,10 +143,55 @@ function pan(model){
 }
 
 function otp(model){
-	console.log(model.tags.schemes)
 	return new Promise(function(resolve, reject){
 		//amount,amc,scheme,option,payout,tentativeFolio
 		resolve(model)	
+	})
+}
+
+function askSchemeName(model){
+	return new Promise(function(resolve, reject){
+		if(!model.tags.schemes){
+			model.reply={
+				type:"text",
+	            text:"Type in a scheme name",
+			}
+		}
+		resolve(model)
+	})
+}
+
+function showSchemeName(model){
+	return new Promise(function(resolve, reject){
+		model.reply = {
+			type:"generic",
+            text:"Please select a scheme",
+            next:{ 
+            	data : model.tags.schemeList
+            }
+		}
+	})
+}
+
+function divOps(model){
+	return new Promise(function(resolve, reject){
+		model.reply={
+			type:"quickReply",
+            text:"Select an type",
+            next:{
+                "data": [
+                	{
+                		data : 'reinvest',
+                		text : 'Re Invest'
+                	},
+                	{
+                		data : 'payout',
+                		text : 'Payout'
+                	}
+                ]
+            }
+		}
+		resolve(model)
 	})
 }
 
