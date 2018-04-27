@@ -45,16 +45,19 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.mobile && model.tags.pan){
-			model.stage = 'otp'
-			api.panMobile(model.tags.mobile, model.tags.pan)
-			.then((data)=>{
-				var response = JSON.parse(data.body) 
+			api.panMobile(model.tags.phone, model.tags.pan)
+			.then(data=>{
+				let response = JSON.parse(data.body)
 				model.tags.session = response.Response[0].SessionId
-				resolve(model)
+				model.stage = 'otp' 
+				return resolve(model)
 			})
-			.catch(err=>console.log(err))
+			.catch(error=>{
+				console.log(error);
+				return reject(model)
+			})
 		}
-		if(model.data.match(number)[0].length == 10 && model.data.match(phone) && model.data.toLowerCase().match(pan)){
+		else if(model.data.match(number)[0].length == 10 && model.data.match(phone) && model.data.toLowerCase().match(pan)){
 			model.tags.phone = model.data.match(phone)[0]
 			model.tags.pan = model.data.toLowerCase().match(pan)[0]
 			api.panMobile(model.tags.phone, model.tags.pan)
