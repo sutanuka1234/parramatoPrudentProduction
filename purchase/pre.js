@@ -131,6 +131,59 @@ function panMobile(model){
 function phone(model){
 	return new Promise(function(resolve, reject){
 		//mobile,amount,amc,scheme,option,payout,tentativeFolio
+		model.tags.userSays=model.tags.userSays.toLowerCase();
+		var matchPan=model.tags.userSays.match(regexPan)
+		if(matchPan){
+			model.tags.pan = matchPan[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
+		}
+		var matchAmount=model.tags.userSays.match(regexAmount)
+		if(matchAmount){
+			model.tags.amount = matchAmount[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
+		}
+		var matchDivOption=model.tags.userSays.match(divOption)
+		if(matchDivOption){
+			model.tags.divOption=matchDivOption[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.divOption, '')
+		}
+		let wordsInUserSays=model.tags.userSays.split(" ");
+		let count=0;
+		let startIndex;
+		let endIndex;
+		for(let wordIndex in wordsInUserSays){
+			if(words.includes(wordsInUserSays[wordIndex])){
+				count++;
+				if(count==1){
+					startIndex=wordIndex;
+					endIndex=wordIndex;
+				}
+				else{
+					endIndex=wordIndex;
+				}
+			}
+		}
+		if(count>0){
+			let searchTerm=""
+			for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
+				searchTerm+=wordsInUserSays[i]+" "
+			}
+			searchTerm=searchTerm.trim();
+			model.tags.schemes = []
+			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+			if(matches.bestMatch.rating>0.9){
+				model.tags.schemes.push(bestMatch)
+			}
+			else{
+				matches.ratings=matches.ratings.sort(sortBy('-rating'));
+				model.tags.schemes = matches.ratings.splice(0,9);
+			}
+		}
+		var matchType=model.tags.userSays.match(schemeType)
+		if(matchType){
+			model.tags.schemeType = matchType[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.schemeType, '')
+		}
 		resolve(model)
 	})
 }
@@ -138,6 +191,59 @@ function phone(model){
 function pan(model){
 	return new Promise(function(resolve, reject){
 		//pan,amount,amc,scheme,option,payout,tentativeFolio
+		model.tags.userSays=model.tags.userSays.toLowerCase();
+		var matchMobile=model.tags.userSays.match(regexMobile)
+		if(model.tags.userSays.match(/\d+/) && model.tags.userSays.match(/\d+/)[0].length == 10 && matchMobile){			
+			model.tags.mobile = matchMobile[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.mobile, '')
+		}
+		var matchAmount=model.tags.userSays.match(regexAmount)
+		if(matchAmount){
+			model.tags.amount = matchAmount[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
+		}
+		var matchDivOption=model.tags.userSays.match(divOption)
+		if(matchDivOption){
+			model.tags.divOption=matchDivOption[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.divOption, '')
+		}
+		let wordsInUserSays=model.tags.userSays.split(" ");
+		let count=0;
+		let startIndex;
+		let endIndex;
+		for(let wordIndex in wordsInUserSays){
+			if(words.includes(wordsInUserSays[wordIndex])){
+				count++;
+				if(count==1){
+					startIndex=wordIndex;
+					endIndex=wordIndex;
+				}
+				else{
+					endIndex=wordIndex;
+				}
+			}
+		}
+		if(count>0){
+			let searchTerm=""
+			for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
+				searchTerm+=wordsInUserSays[i]+" "
+			}
+			searchTerm=searchTerm.trim();
+			model.tags.schemes = []
+			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+			if(matches.bestMatch.rating>0.9){
+				model.tags.schemes.push(bestMatch)
+			}
+			else{
+				matches.ratings=matches.ratings.sort(sortBy('-rating'));
+				model.tags.schemes = matches.ratings.splice(0,9);
+			}
+		}
+		var matchType=model.tags.userSays.match(schemeType)
+		if(matchType){
+			model.tags.schemeType = matchType[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.schemeType, '')
+		}
 		resolve(model)
 	})
 }
@@ -145,6 +251,49 @@ function pan(model){
 function otp(model){
 	return new Promise(function(resolve, reject){
 		//amount,amc,scheme,option,payout,tentativeFolio
+		model.tags.userSays=model.tags.userSays.toLowerCase();
+		var matchDivOption=model.tags.userSays.match(divOption)
+		if(matchDivOption){
+			model.tags.divOption=matchDivOption[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.divOption, '')
+		}
+		let wordsInUserSays=model.tags.userSays.split(" ");
+		let count=0;
+		let startIndex;
+		let endIndex;
+		for(let wordIndex in wordsInUserSays){
+			if(words.includes(wordsInUserSays[wordIndex])){
+				count++;
+				if(count==1){
+					startIndex=wordIndex;
+					endIndex=wordIndex;
+				}
+				else{
+					endIndex=wordIndex;
+				}
+			}
+		}
+		if(count>0){
+			let searchTerm=""
+			for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
+				searchTerm+=wordsInUserSays[i]+" "
+			}
+			searchTerm=searchTerm.trim();
+			model.tags.schemes = []
+			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+			if(matches.bestMatch.rating>0.9){
+				model.tags.schemes.push(bestMatch)
+			}
+			else{
+				matches.ratings=matches.ratings.sort(sortBy('-rating'));
+				model.tags.schemes = matches.ratings.splice(0,9);
+			}
+		}
+		var matchType=model.tags.userSays.match(schemeType)
+		if(matchType){
+			model.tags.schemeType = matchType[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.schemeType, '')
+		}
 		resolve(model)	
 	})
 }
@@ -162,6 +311,7 @@ function askSchemeName(model){
 }
 
 function showSchemeName(model){
+	console.log("SHOWW SCHEMEE NAMEE")
 	return new Promise(function(resolve, reject){
 		model.reply = {
 			type:"generic",
