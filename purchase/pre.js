@@ -79,6 +79,8 @@ function panMobile(model){
 				}
 			}
 		}
+		console.log(startIndex+'start')
+		console.log(endIndex+'end')
 		if(count>0){
 			console.log('herewords')
 			let searchTerm=""
