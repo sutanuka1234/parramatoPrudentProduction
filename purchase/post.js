@@ -44,39 +44,36 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
-		if((model.data.match(number)[0].length == 10 && model.data.match(phone) && model.data.toLowerCase().match(pan)) || (model.data.match(number)[0].length == 10 && model.data.match(phone)) || model.data.match(pan)) {
-			if(model.data.match(phone) && model.data.toLowerCase().match(pan)){
-				model.tags.phone = model.data.match(phone)[0]
-				model.tags.pan = model.data.toLowerCase().match(pan)[0]
-				api.panMobile(model.tags.phone, model.tags.pan)
-				.then(data=>{
-					let response = JSON.parse(data.body)
-					model.tags.session = response.Response[0].SessionId
-					model.stage = 'otp' 
-					return resolve(model)
-				})
-				.catch(error=>{
-					console.log(error);
-					return reject(model)
-				})
-			}
-			else{
-				 if(model.data.match(phone)){
-					console.log('PHONE')
-					model.tags.phone = model.data.match(phone)[0]
-					model.stage = 'pan'
-					return resolve(model)
-				}
-				if(model.data.match(pan)){
-					console.log('PAN')
-					model.tags.pan = model.data.match(pan)[0]
-					delete model.stage
-					return resolve(model)
-				}	
-				return reject(model)	
-			}
+		if(model.data.match(phone) && model.data.toLowerCase().match(pan)){
+			model.tags.phone = model.data.match(phone)[0]
+			model.tags.pan = model.data.toLowerCase().match(pan)[0]
+			api.panMobile(model.tags.phone, model.tags.pan)
+			.then(data=>{
+				let response = JSON.parse(data.body)
+				model.tags.session = response.Response[0].SessionId
+				model.stage = 'otp' 
+				return resolve(model)
+			})
+			.catch(error=>{
+				console.log(error);
+				return reject(model)
+			})
 		}
-		return reject(model)
+		else{
+			 if(model.data.match(phone)){
+				console.log('PHONE')
+				model.tags.phone = model.data.match(phone)[0]
+				model.stage = 'pan'
+				return resolve(model)
+			}
+			if(model.data.match(pan)){
+				console.log('PAN')
+				model.tags.pan = model.data.match(pan)[0]
+				delete model.stage
+				return resolve(model)
+			}	
+			return reject(model)	
+		}
 	})	
 }
 
