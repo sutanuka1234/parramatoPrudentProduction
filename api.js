@@ -28,7 +28,7 @@ function otp(session, otp){
 	return runRequest(obj)
 }
 
-// otp('7C772321713D21713D21713D21713D21713D21713D21713D7C7723266B7C', '123456').then(data=>{console.log(data)}).catch(err=>console.log(err))
+// otp('7C772321713D21713D21713D21713D21713D21713D21713D2F612A2D6721', '123456').then(data=>{console.log(data)}).catch(err=>console.log(err))
 
 // function getAMC(session, joinAccId, callback){
 // 	var obj = {

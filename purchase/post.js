@@ -53,7 +53,6 @@ function panMobile(model){
 			.then(data=>{
 				console.log(data.body)
 				let response = JSON.parse(data.body)
-
 				if(response.Response[0].result=="FAIL"){
 					return reject(model)
 				}
@@ -172,7 +171,7 @@ function otp(model){
 					})
 					if(model.tags.schemes){
 						model.tags.schemeList = []
-						model.tags.schemes.forEach(function(element){
+						for(let element of model.tags.schemes){
 							model.tags.schemeList.push({
 								title 	: 'Schemes',
 								text 	: element.target,
@@ -183,7 +182,7 @@ function otp(model){
 									}
 								]
 							})
-						})
+						}
 						model.stage = 'showSchemeName'
 					}
 					else{
