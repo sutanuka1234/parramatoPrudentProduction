@@ -63,25 +63,25 @@ function panMobile(model){
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
 		}
 
-		let wordsInUserSays=model.tags.userSays.split(" ");
-		let count=0;
-		let startIndex;
-		let endIndex;
-		for(wordIndex in wordsInUserSays){
-			if(words.includes(wordsInUserSays[wordIndex])){
-				count++;
-				if(count==1){
-					startIndex=wordIndex;
-					endIndex=wordIndex;
-				}
-				else{
-					endIndex=wordIndex;
-				}
-			}
-		}
-		if(count>0){
-			console.log('herewords')
-			let searchTerm=""
+		// let wordsInUserSays=model.tags.userSays.split(" ");
+		// let count=0;
+		// let startIndex;
+		// let endIndex;
+		// for(wordIndex in wordsInUserSays){
+		// 	if(words.includes(wordsInUserSays[wordIndex])){
+		// 		count++;
+		// 		if(count==1){
+		// 			startIndex=wordIndex;
+		// 			endIndex=wordIndex;
+		// 		}
+		// 		else{
+		// 			endIndex=wordIndex;
+		// 		}
+		// 	}
+		// }
+		// if(count>0){
+			// console.log('herewords')
+			// let searchTerm=""
 			for(let i=startIndex;i<=endIndex;i++){
 				searchTerm+=wordsInUserSays[i]+" "
 			}
@@ -104,7 +104,7 @@ function panMobile(model){
 					rating += 0.01
 				}
 			}
-		}
+		// }
 		console.log(JSON.stringify(model.tags, null, 3))
 		resolve(model)
 	})
