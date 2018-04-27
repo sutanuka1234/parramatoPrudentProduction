@@ -202,7 +202,7 @@ function askSchemeName(model){
 			model.tags.schemeList = []
 			model.tags.schemes.forEach(function(element){
 				model.tags.schemeList.push({
-					title 	: 'Schemes'
+					title 	: 'Schemes',
 					text 	: element.target
 					buttons : [
 						{
