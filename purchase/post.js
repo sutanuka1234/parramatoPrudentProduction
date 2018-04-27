@@ -46,7 +46,13 @@ function panMobile(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.mobile && model.tags.pan){
 			model.stage = 'otp'
-			resolve(model)
+			api.panMobile(model.tags.mobile, model.tags.pan)
+			.then((data)=>{
+				var response = JSON.parse(data.body) 
+				model.tags.session = response.Response[0].SessionId
+				resolve(model)
+			})
+			.catch(err=>console.log(err))
 		}
 		if(model.data.match(number)[0].length == 10 && model.data.match(phone) && model.data.toLowerCase().match(pan)){
 			model.tags.phone = model.data.match(phone)[0]

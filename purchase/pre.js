@@ -114,12 +114,6 @@ function panMobile(model){
 			model.reply = {}
 			model.reply.type="text"
 			model.reply.text="Going ahead with OTP?"
-			api.panMobile(model.tags.mobile, model.tags.pan)
-			.then((data)=>{
-				var response = JSON.parse(data.body) 
-				model.tags.session = response.Response[0].SessionId
-			})
-			.catch(err=>console.log(err))
 		}
 
 		console.log(JSON.stringify(model.tags, null, 3))
