@@ -100,7 +100,7 @@ function panMobile(model){
 			}
 			
 		}
-		console.log(JSON.stringify(model.tags.schemes, null, 3))
+		console.log(JSON.stringify(model.tags, null, 3))
 		resolve(model)
 	})
 }
