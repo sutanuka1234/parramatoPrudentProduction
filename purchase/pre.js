@@ -93,6 +93,7 @@ function panMobile(model){
 				model.tags.schemes.push(bestMatch)
 			}
 			else{
+				console.log(matches)
 				while(matches.ratings.length > 9){
 					matches.ratings.forEach(function(match){
 						if(match.rating > rating ){
