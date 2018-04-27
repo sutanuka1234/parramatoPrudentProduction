@@ -170,8 +170,8 @@ function otp(model){
 					response.Response.forEach(function(element){
 						model.tags.joinAccId.push(element.JoinAccId.toString())
 					})
-					if(model.tags.scheme&&model.tags.scheme.length>0){
-						model.stage = 'showschemename'
+					if(model.tags.schemes&&model.tags.scheme.length>0){
+						model.stage = 'showSchemeName'
 					}
 					else{
 						delete model.stage
