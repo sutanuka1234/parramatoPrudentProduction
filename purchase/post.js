@@ -75,7 +75,9 @@ function panMobile(model){
 				}	
 				return reject(model)	
 			}
-	})
+		}
+		return reject(model)
+	})	
 }
 
 function phone(model){
