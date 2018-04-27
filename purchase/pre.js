@@ -44,6 +44,7 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
+		console.log(model)
 		//pan,mobile,amount,amc,scheme,option,payout,tentativeFolio
 		if(model.data.match(regexPan)){
 			model.data.replace((regexPan), '')
