@@ -238,8 +238,7 @@ function showSchemeName(model){
 	return new Promise(function(resolve, reject){
 		var arr = []
 		for(let i in model.tags.schemes){
-			console.log(model.tags.schemes[i])
-			arr.push(i.target)
+			arr.push(model.tags.schemes[i].target)
 		}
 		console.log(arr)
 		if(arr.includes(model.data) && !model.tags.divOption){
