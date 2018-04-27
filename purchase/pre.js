@@ -112,6 +112,7 @@ function panMobile(model){
 			}
 		}
 		if(model.tags.mobile && model.tags.pan){
+			model.reply = {}
 			model.reply.text="Going ahead with OTP?"
 		}
 
