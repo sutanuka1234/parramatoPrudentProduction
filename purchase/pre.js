@@ -63,32 +63,32 @@ function panMobile(model){
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
 		}
 
-		// let wordsInUserSays=model.tags.userSays.split(" ");
-		// let count=0;
-		// let startIndex;
-		// let endIndex;
-		// for(wordIndex in wordsInUserSays){
-		// 	if(words.includes(wordsInUserSays[wordIndex])){
-		// 		count++;
-		// 		if(count==1){
-		// 			startIndex=wordIndex;
-		// 			endIndex=wordIndex;
-		// 		}
-		// 		else{
-		// 			endIndex=wordIndex;
-		// 		}
-		// 	}
-		// }
-		if(true){
+		let wordsInUserSays=model.tags.userSays.split(" ");
+		let count=0;
+		let startIndex;
+		let endIndex;
+		for(wordIndex in wordsInUserSays){
+			if(words.includes(wordsInUserSays[wordIndex])){
+				count++;
+				if(count==1){
+					startIndex=wordIndex;
+					endIndex=wordIndex;
+				}
+				else{
+					endIndex=wordIndex;
+				}
+			}
+		}
+		if(count>0){
 			console.log('herewords')
-			// let searchTerm=""
-			// for(let i=startIndex;i<=endIndex;i++){
-			// 	searchTerm+=wordsInUserSays[i]+" "
-			// }
-			// searchTerm=searchTerm.trim();
+			let searchTerm=""
+			for(let i=startIndex;i<=endIndex;i++){
+				searchTerm+=wordsInUserSays[i]+" "
+			}
+			searchTerm=searchTerm.trim();
 			model.tags.schemes = []
 			var rating = 0
-			let matches = stringSimilarity.findBestMatch(model.tags.userSays, schemeNames)
+			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(bestMatch)
 			}
@@ -96,6 +96,7 @@ function panMobile(model){
 				while(matches.ratings.length > 9){
 					matches.ratings.forEach(function(match){
 						if(match.rating > rating ){
+							console.log(match.rating)
 							model.tags.schemes.push(match)
 						}
 					})
