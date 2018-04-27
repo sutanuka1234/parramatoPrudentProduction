@@ -2,7 +2,6 @@ module.exports={
 	main:main
 }
 
-var amcNames = require('../amcNames.js')
 var schemes = require('../new.json')
 var stringSimilarity = require('string-similarity');
 
