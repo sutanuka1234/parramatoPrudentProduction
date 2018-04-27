@@ -238,7 +238,7 @@ function showSchemeName(model){
 	return new Promise(function(resolve, reject){
 		var arr = []
 		for(let i in model.tags.schemes){
-			console.log(i)
+			console.log(model.tags.schemes[i])
 			arr.push(i.target)
 		}
 		console.log(arr)
