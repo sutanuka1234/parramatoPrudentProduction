@@ -170,6 +170,7 @@ function showSchemeName(model){
             	data : model.tags.schemeList
             }
 		}
+		resolve(model)
 	})
 }
 
