@@ -63,6 +63,7 @@ function panMobile(model){
 				model.tags.schemes.push(element)
 			})
 		}
+		console.log(JSON.stringify(model.tags, null, 3))
 		resolve(model)
 	})
 }
