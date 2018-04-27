@@ -171,6 +171,19 @@ function otp(model){
 						model.tags.joinAccId.push(element.JoinAccId.toString())
 					})
 					if(model.tags.schemes){
+						model.tags.schemeList = []
+						model.tags.schemes.forEach(function(element){
+							model.tags.schemeList.push({
+								title 	: 'Schemes',
+								text 	: element.target,
+								buttons : [
+									{
+										text : 'Select',
+										data : element.target
+									}
+								]
+							})
+						})
 						model.stage = 'showSchemeName'
 					}
 					else{
