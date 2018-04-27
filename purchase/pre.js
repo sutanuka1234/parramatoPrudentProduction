@@ -65,8 +65,8 @@ function panMobile(model){
 
 		let wordsInUserSays=model.tags.userSays.split(" ");
 		let count=0;
-		let startIndex=0;
-		let endIndex=0;
+		let startIndex;
+		let endIndex;
 		for(wordIndex in wordsInUserSays){
 			if(words.includes(wordsInUserSays[wordIndex])){
 				count++;
@@ -79,14 +79,13 @@ function panMobile(model){
 				}
 			}
 		}
-		console.log(typeof startIndex+'start')
+		console.log(startIndex+'start')
 		console.log(endIndex+'end')
 		if(count>0){
 			console.log('herewords')
 			let searchTerm=""
-			for(let i=startIndex;i<=endIndex;i++){
+			for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
 				searchTerm+=wordsInUserSays[i]+" "
-				console.log(wordsInUserSays[i])
 			}
 			searchTerm=searchTerm.trim();
 			model.tags.schemes = []
