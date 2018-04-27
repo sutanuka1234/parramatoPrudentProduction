@@ -68,7 +68,7 @@ function panMobile(model){
 		let count=0;
 		let startIndex;
 		let endIndex;
-		for(wordIndex in wordsInUserSays){
+		for(let wordIndex in wordsInUserSays){
 			if(words.includes(wordsInUserSays[wordIndex])){
 				count++;
 				if(count==1){
