@@ -5,6 +5,7 @@ var headers = {
     Password    : "Prudent@123"
 }
 var url = 'https://www.prudentcorporate.com/cbapi/'
+var data = require('./words.json')
 
 function panMobile(mobile, pan, callback){
 	var obj = {
@@ -117,3 +118,15 @@ module.exports = {
 	// insertBuyCart : insertBuyCart,
 	// bankMandate : bankMandate
 }
+
+var fs = require('fs')
+
+var arr = []
+arr.push(Object.keys(data))
+
+fs.writeFile("./words.js", arr, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+    console.log("The file was saved!");
+});

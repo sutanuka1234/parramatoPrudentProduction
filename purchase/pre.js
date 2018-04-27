@@ -3,6 +3,7 @@ module.exports={
 }
 
 var schemes = require('../new.json')
+var words = require('./words.js')
 var stringSimilarity = require('string-similarity');
 
 let obj = {
@@ -57,13 +58,48 @@ function panMobile(model){
 			model.tags.userSays.replace((regexAmount), '')
 			model.tags.amount = regexAmount[0]
 		}
-		if(stringSimilarity.findBestMatch(model.tags.userSays, schemeNames).bestMatch.rating >= 0.4){
-			model.tags.schemes = []
-			stringSimilarity.findBestMatch(model.tags.userSays, schemeNames).ratings.forEach(function(element){
-				model.tags.schemes.push(element)
-			})
+		let wordsInUserSays=model.tags.userSays.split(" ");
+		let count=0;
+		let startIndex;
+		let endIndex;
+		for(wordIndex in wordsInUserSays){
+			if(words.includes(wordsInUserSays[wordIndex])){
+				count++;
+				if(count==1){
+					startIndex=wordIndex;
+					endIndex=wordIndex;
+				}
+				else{
+					endIndex=wordIndex;
+				}
+			}
 		}
-		console.log(JSON.stringify(model.tags, null, 3))
+		if(count>0){
+			let searchTerm=""
+			for(let i=startIndex;i<=endIndex;i++){
+				searchTerm+=wordsInUserSays[i]+" "
+			}
+			searchTerm=searchTerm.trim();
+			model.tags.schemes = []
+			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+			if(matches.bestMatch.rating>0.9){
+				model.tags.schemes.push(bestMatch)
+			}
+			else{
+				while(matches.ratings.length > 9){
+					matches.ratings.forEach(function(match){
+						if(match.rating > rating ){
+							model.tags.schemes.push(match)
+						}
+					})
+					matches.ratings = model.tags.schemes
+					model.tags.schemes = []
+					rating += 0.01
+				}
+			}
+			
+		}
+		console.log(JSON.stringify(model.tags.schemes, null, 3))
 		resolve(model)
 	})
 }
