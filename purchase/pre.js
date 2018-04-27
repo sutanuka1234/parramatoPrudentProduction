@@ -65,8 +65,8 @@ function panMobile(model){
 
 		let wordsInUserSays=model.tags.userSays.split(" ");
 		let count=0;
-		let startIndex;
-		let endIndex;
+		let startIndex=0;
+		let endIndex=0;
 		for(wordIndex in wordsInUserSays){
 			if(words.includes(wordsInUserSays[wordIndex])){
 				count++;
@@ -79,7 +79,7 @@ function panMobile(model){
 				}
 			}
 		}
-		console.log(startIndex+'start')
+		console.log(typeof startIndex+'start')
 		console.log(endIndex+'end')
 		if(count>0){
 			console.log('herewords')
