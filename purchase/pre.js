@@ -46,20 +46,21 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		//pan,mobile,amount,amc,scheme,option,payout,tentativeFolio
+		model.tags.userSays=model.tags.userSays.toLowerCase();
 		var matchPan=model.tags.userSays.match(regexPan)
 		if(matchPan){
-			model.tags.userSays.replace((regexPan), '')
 			model.tags.pan = matchPan[0]
+			model.tags.userSays.replace(model.tags.pan, '')
 		}
 		var matchMobile=model.tags.userSays.match(regexMobile)
-		if(model.tags.userSays.match(/\d+/) && model.tags.userSays.match(/\d+/)[0].length == 10 && matchMobile){
-			model.tags.userSays.replace((regexMobile), '')
+		if(model.tags.userSays.match(/\d+/) && model.tags.userSays.match(/\d+/)[0].length == 10 && matchMobile){			
 			model.tags.mobile = matchMobile[0]
+			model.tags.userSays.replace(model.tags.mobile, '')
 		}
 		var matchAmount=model.tags.userSays.match(regexAmount)
 		if(matchAmount){
-			model.tags.userSays.replace((regexAmount), '')
 			model.tags.amount = matchAmount[0]
+			model.tags.userSays.replace(model.tags.amount, '')
 		}
 
 		let wordsInUserSays=model.tags.userSays.split(" ");
