@@ -240,9 +240,11 @@ function showSchemeName(model){
 		for(let i in model.tags.schemes){
 			arr.push(model.tags.schemes[i].target)
 		}
-		console.log(arr)
-		if(arr.includes(model.data) && !model.tags.divOption){
+		if(arr.includes(model.data)){
 			if(schemes[model.data].optionCode == 1){
+				model.stage = 'final'
+			}
+			else if(model.tags.divOption){
 				model.stage = 'final'
 			}
 			else{
