@@ -9,6 +9,7 @@ let obj = {
 	otp		: otp,
 	holding : holding,
 	amc 	: amc,
+	type 	: type,
 	subnature : subnature
 	// name 	: name,
 	// folio 	: folio,
@@ -101,6 +102,28 @@ function amc(model){
 			}
 			resolve(model)
 		}
+	})
+}
+
+function type(model){
+	return new Promise(function(resolve, reject){
+		model.reply={
+				type:"quickReply",
+	            text:"Select a scheme type",
+	            next:{
+	                "data": [
+	                	{
+	                		data : 'dividend',
+	                		text : 'Dividend'
+	                	},
+	                	{
+	                		data : 'growth'
+	                		text : 'Growth'
+	                	}
+	                ]
+	            }
+			}
+		resolve(model)
 	})
 }
 

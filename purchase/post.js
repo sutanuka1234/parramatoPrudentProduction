@@ -12,6 +12,7 @@ let obj = {
 	otp		: otp,
 	holding : holding,
 	amc 	: amc,
+	type 	: type,
 	subnature : subnature
 	// name 	: name,
 	// folio 	: folio,
@@ -183,9 +184,28 @@ function amc(model){
 	})
 }
 
+function type(model){
+	return new Promise(function(resolve, reject){
+		if(model.data.toLowerCase.includes('dividend') || model.data.toLowerCase().includes('growth')){
+			model.tags.type = model.data
+			delete model.stage
+			resolve(model)
+		}
+		else{
+			reject(model)
+		}
+	})
+}
+
 function subnature(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.data)
-		resolve(model)
+		if(model.tags.subNatures.includes(model.data)){
+			model.tags.subnature = model.data
+			delete model.stage
+			resolve(model)
+		}
+		else{
+			reject(model)
+		}
 	})
 } 
