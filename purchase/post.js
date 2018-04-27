@@ -171,7 +171,7 @@ function otp(model){
 						model.tags.joinAccId.push(element.JoinAccId.toString())
 					})
 					if(model.tags.scheme&&model.tags.scheme.length>0){
-						model.stage = 'showSchemeName'
+						model.stage = 'showschemename'
 					}
 					else{
 						delete model.stage
