@@ -44,23 +44,22 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
-		console.log(model)
 		//pan,mobile,amount,amc,scheme,option,payout,tentativeFolio
-		if(model.data.match(regexPan)){
-			model.data.replace((regexPan), '')
+		if(model.tags.userSays.match(regexPan)){
+			model.tags.userSays.replace((regexPan), '')
 			model.tags.pan = regexPan[0]
 		}
-		if(model.data.match(/\d+/) && model.data.match(/\d+/)[0].length == 10 && model.data.match(regexMobile)){
-			model.data.replace((regexMobile), '')
+		if(model.tags.userSays.match(/\d+/) && model.tags.userSays.match(/\d+/)[0].length == 10 && model.tags.userSays.match(regexMobile)){
+			model.tags.userSays.replace((regexMobile), '')
 			model.tags.mobile = regexMobile[0]
 		}
-		if(model.data.match(regexAmount)){
-			model.data.replace((regexAmount), '')
+		if(model.tags.userSays.match(regexAmount)){
+			model.tags.userSays.replace((regexAmount), '')
 			model.tags.amount = regexAmount[0]
 		}
-		if(stringSimilarity.findBestMatch(model.data, schemeNames).bestMatch.rating >= 0.4){
+		if(stringSimilarity.findBestMatch(model.tags.userSays, schemeNames).bestMatch.rating >= 0.4){
 			model.tags.schemes = []
-			stringSimilarity.findBestMatch(model.data, schemeNames).ratings.forEach(function(element){
+			stringSimilarity.findBestMatch(model.tags.userSays, schemeNames).ratings.forEach(function(element){
 				model.tags.schemes.push(element)
 			})
 		}
