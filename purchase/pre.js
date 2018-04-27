@@ -3,10 +3,10 @@ module.exports={
 }
 
 let obj = {
-	// panMobile : panMobile,
-	// phone	: phone,
-	// pan		: pan,
-	// otp		: otp
+	panMobile : panMobile,
+	phone	: phone,
+	pan		: pan,
+	otp		: otp
 	// holding : holding,
 	// amc 	: amc,
 	// type 	: type,
@@ -33,7 +33,29 @@ function main(req, res){
 	})
 }
 
+function panMobile(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	})
+}
 
+function phone(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	})
+}
+
+function pan(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	})
+}
+
+function otp(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)	
+	})
+}
 
 // function holding(model){
 // 	return new Promise(function(resolve, reject){
