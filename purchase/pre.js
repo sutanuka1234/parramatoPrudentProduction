@@ -17,8 +17,6 @@ let obj = {
 	divOps 	: divOps,
 	holding : holding,
 	folio 	: folio
-	// holding : holding,
-	// amc 	: amc,
 	// type 	: type,
 	// subnature : subnature,
 	// category:category
@@ -349,6 +347,7 @@ function divOps(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
+		console.log('###################')
 		if(model.tags.joinAccList){
 			model.reply={
 				type:"quickReply",
