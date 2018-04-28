@@ -32,7 +32,7 @@ var regexMobile = /((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/;
 var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{1}(k|l))/
 var schemeType 	= /dividend|growth/
 var divOption 	= /re(-|\s)?invest|pay(\s)?out/
-var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|New Folio)/
+var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
 var schemeNames = Object.keys(schemes)
 
 
@@ -74,9 +74,7 @@ function panMobile(model){
 			model.tags.divOption=matchDivOption[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.divOption, '')
 		}
-		console.log(model.tags.userSays)
 		var matchFolio=model.tags.userSays.match(regexFolio)
-		console.log(matchFolio+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 		if(matchFolio){
 			model.tags.folio = matchFolio[0]
 			// model.tags.folio = model.tags.folio.match(/\d+|New Folio/)[0]
