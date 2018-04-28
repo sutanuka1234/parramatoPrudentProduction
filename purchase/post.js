@@ -280,11 +280,11 @@ function holding(model){
 				response = JSON.parse(response.body)
 				let arr = []
 				for(let i in response.Response){
-					arr.push(response.Response[i].FolioNo)
+					arr.push(response.Response[i].FolioNo.toLowerCase())
 				}
 				console.log(arr)
 				console.log(model.tags.folio)
-				if(model.tags.folio && arr.toLowerCase().includes(model.tags.folio)){
+				if(model.tags.folio && arr.includes(model.tags.folio)){
 					model.stage = 'final'
 				}
 				else if(response.Response.length > 0){
