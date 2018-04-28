@@ -51,21 +51,21 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.mobile && model.tags.pan){
-			// api.panMobile(model.tags.mobile, model.tags.pan)
-			// .then(data=>{
-			// 	console.log(data.body)
-			// 	let response = JSON.parse(data.body)
-			// 	if(response.Response[0].result=="FAIL"){
-			// 		return reject(model)
-			// 	}
-				model.tags.session = '7C772321713D21713D21713D21713D21713D21713D21713D3F632621713D'
+			api.panMobile(model.tags.mobile, model.tags.pan)
+			.then(data=>{
+				console.log(data.body)
+				let response = JSON.parse(data.body)
+				if(response.Response[0].result=="FAIL"){
+					return reject(model)
+				}
+				model.tags.session = response.Response[0].SessionId
 				model.stage = 'otp' 
 				return resolve(model)
-			// })
-			// .catch(error=>{
-			// 	console.log(error);
-			// 	return reject(model)
-			// })
+			})
+			.catch(error=>{
+				console.log(error);
+				return reject(model)
+			})
 		}
 		else if(model.data.match(number)[0].length == 10 && model.data.match(phone) && model.data.toLowerCase().match(pan)){
 			model.tags.mobile = model.data.match(phone)[0]
