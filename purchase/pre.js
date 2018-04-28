@@ -77,7 +77,7 @@ function panMobile(model){
 		var matchFolio=model.tags.userSays.match(regexFolio)
 		if(matchFolio){
 			model.tags.folio = matchFolio[0]
-			model.tags.folio = model.tags.folio.match(/\d+|New Folio/)[0]
+			// model.tags.folio = model.tags.folio.match(/\d+|New Folio/)[0]
 			model.tags.userSays=model.tags.userSays.replace(matchFolio, '')
 		}
 		let wordsInUserSays=model.tags.userSays.split(" ");
