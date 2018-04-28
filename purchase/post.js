@@ -282,6 +282,7 @@ function holding(model){
 				for(let i in response.Response){
 					arr.push(response.Response[i].FolioNo)
 				}
+				console.log(arr)
 				if(model.tags.folio && arr.includes(model.tags.folio)){
 					model.stage = 'final'
 				}
