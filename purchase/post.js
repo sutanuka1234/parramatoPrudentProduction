@@ -276,6 +276,7 @@ function holding(model){
 		if(model.tags.joinAccId.includes(model.data)){
 			api.getFolio(model.tags.session, model.data, schemes[model.tags.scheme].schemeCode, schemes[model.tags.scheme].amcCode)
 			.then(response=>{
+				console.log(response.body)
 				response = JSON.parse(response.body)
 				let arr = []
 				for(let i in response.Response){
