@@ -347,7 +347,6 @@ function divOps(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
-		console.log('###################')
 		if(model.tags.joinAccList){
 			model.reply={
 				type:"quickReply",

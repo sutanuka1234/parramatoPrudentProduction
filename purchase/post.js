@@ -244,10 +244,14 @@ function showSchemeName(model){
 		}
 		if(arr.includes(model.data)){
 			model.tags.scheme = model.data
-			if(schemes[model.data].optionCode == 1){
-				model.stage = 'holding'
-			}
-			else if(model.tags.divOption){
+			if(schemes[model.data].optionCode == 1 || model.tags.divOption){
+				model.tags.joinAccList = []
+				for(let i in model.tags.joinAcc){
+					model.tags.joinAccList.push({
+						data : model.tags.joinAcc[i].JoinAccId,
+						text : model.tags.joinAcc[i].JoinHolderName
+					})
+				}
 				model.stage = 'holding'
 			}
 			else{
@@ -292,16 +296,6 @@ function holding(model){
 				console.log(e)
 				reject(model)
 			})
-		}
-		else if(model.tags.joinAcc){
-			model.tags.joinAccList = []
-			for(let i in model.tags.joinAcc){
-				model.tags.joinAccList.push({
-					data : model.tags.joinAcc[i].JoinAccId,
-					text : model.tags.joinAcc[i].JoinHolderName
-				})
-			}
-			resolve(model)
 		}
 		else{
 			reject(model)
