@@ -74,6 +74,7 @@ function panMobile(model){
 			model.tags.divOption=matchDivOption[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.divOption, '')
 		}
+		console.log(model.tags.userSays)
 		var matchFolio=model.tags.userSays.match(regexFolio)
 		console.log(matchFolio+'~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 		if(matchFolio){
