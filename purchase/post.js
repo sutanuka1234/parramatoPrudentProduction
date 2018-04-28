@@ -244,7 +244,6 @@ function showSchemeName(model){
 		}
 		if(arr.includes(model.data)){
 			model.tags.scheme = model.data
-			console.log(schemes[model.data].optionCode)
 			if(schemes[model.data].optionCode == 1 || model.tags.divOption){
 				model.tags.joinAccList = []
 				for(let i in model.tags.joinAcc){
@@ -283,8 +282,6 @@ function holding(model){
 				for(let i in response.Response){
 					arr.push(response.Response[i].FolioNo.toLowerCase())
 				}
-				console.log(arr)
-				console.log(model.tags.folio)
 				if(model.tags.folio && arr.includes(model.tags.folio)){
 					model.stage = 'final'
 				}
