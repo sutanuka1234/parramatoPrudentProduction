@@ -265,6 +265,13 @@ function showSchemeName(model){
 function divOps(model){
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes('reinvest') || model.data.toLowerCase().includes('payout')){
+			model.tags.joinAccList = []
+			for(let i in model.tags.joinAcc){
+				model.tags.joinAccList.push({
+					data : model.tags.joinAcc[i].JoinAccId,
+					text : model.tags.joinAcc[i].JoinHolderName
+				})
+			}
 			delete model.stage
 			resolve(model)
 		}
