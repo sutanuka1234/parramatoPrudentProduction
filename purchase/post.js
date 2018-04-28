@@ -284,7 +284,7 @@ function holding(model){
 				}
 				console.log(arr)
 				console.log(model.tags.folio)
-				if(model.tags.folio && arr.includes(model.tags.folio)){
+				if(model.tags.folio && arr.toLowerCase().includes(model.tags.folio)){
 					model.stage = 'final'
 				}
 				else if(response.Response.length > 0){
