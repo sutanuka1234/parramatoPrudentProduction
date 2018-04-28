@@ -28,7 +28,7 @@ function otp(session, otp){
 	return runRequest(obj)
 }
 
-// otp('7C772321713D21713D21713D21713D21713D21713D21713D2F612A2D6721', '123456').then(data=>{console.log(data)}).catch(err=>console.log(err))
+// otp('7C772321713D21713D21713D21713D21713D21713D21713D7C772321713D', '123456').then(data=>{console.log(data)}).catch(err=>console.log(err))
 
 // function getAMC(session, joinAccId, callback){
 // 	var obj = {
@@ -56,19 +56,16 @@ function otp(session, otp){
 // 	console.log(response)
 // })
 
-// function getFolio(session, joinAccId, schemeCode, amcId, callback){
-// 	var obj = {
-// 		method 	: 'POST',
-// 		headers : headers,
-// 		url 	: url+'GetFolioNo?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId
-// 	}
-	
-// 	return runRequest(obj)
-// }
+function getFolio(session, joinAccId, schemeCode, amcId){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'GetFolioNo?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId
+	}
+	return runRequest(obj)
+}
 
-// // getFolio('7C772321713D21713D21713D21713D21713D21713D21713D7C772321713D', '334', '8408', '400040', (err, http, response)=>{
-// // 	console.log(response)
-// // })
+// getFolio('7C772321713D21713D21713D21713D21713D21713D21713D7C772321713D', '334', '8408', '400040').then(data=>{console.log(data)}).catch(err=>console.log(err))
 
 // function insertBuyCart(session, joinAccId, schemeCode, schemeName, amcId, dividendOption, amount, folioNo, callback){
 // 	var obj = {
@@ -76,14 +73,12 @@ function otp(session, otp){
 // 		headers : headers,
 // 		url 	: url+'InsertBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+schemeName+'&AMCId='+amcId+'&DivOpt='+dividendOption+'&Amount='+amount+'&FolioNo='+folioNo+'&IsAgreeTerms=1&IsEKYCTermCondition=1'
 // 	}
-	
-	
 // 	return runRequest(obj)
 // }
 
-// // insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D7C772321713D', '334', '8408', 'Axis Asset Management Company Ltd', '400040', '0', '5000', '0', (err, http, response)=>{
-// // 	console.log(response)
-// // })
+// insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D7C772321713D', '334', '8408', 'Axis Asset Management Company Ltd', '400040', '0', '5000', '0', (err, http, response)=>{
+// 	console.log(response)
+// })
 
 // function bankMandate(session, joinAccId, schemeCode, mandateId, amount, callback){
 // 	var obj = {
@@ -108,8 +103,8 @@ function runRequest(obj){
 
 module.exports = {
 	panMobile 	: panMobile,
-	otp 		: otp
-	// getFolio 	: getFolio,
+	otp 		: otp,
+	getFolio 	: getFolio
 	// insertBuyCart : insertBuyCart,
 	// bankMandate : bankMandate
 }

@@ -14,7 +14,9 @@ let obj = {
 	otp		: otp,
 	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
-	divOps 	: divOps
+	divOps 	: divOps,
+	holding : holding,
+	folio 	: folio
 	// holding : holding,
 	// amc 	: amc,
 	// type 	: type,
@@ -344,6 +346,82 @@ function divOps(model){
 		resolve(model)
 	})
 }
+
+function holding(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.joinAccList){
+			model.reply={
+				type:"quickReply",
+	            text:"Select an account",
+	            next:{
+	                "data": model.tags.joinAccList
+	            }
+			}
+		}
+		resolve(model)
+	})
+}
+
+function folio(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.folioList){
+			model.reply={
+				type:"quickReply",
+	            text:"Select a folio number",
+	            next:{
+	                "data": model.tags.folioList
+	            }
+			}
+		}
+		else if(model.tags.folioNo){
+			model.reply={
+				type:"quickReply",
+	            text:"Proceed with folio number?",
+	            next:{
+	                "data": [
+	                	{
+	                		data : model.tags.folioNo,
+	                		text : model.tags.folioNo
+	                	}
+	                ]
+	            }
+			}	
+		}
+		resolve(model)	
+	})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // function holding(model){
 // 	return new Promise(function(resolve, reject){

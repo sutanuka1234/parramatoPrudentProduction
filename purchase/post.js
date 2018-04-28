@@ -13,7 +13,9 @@ let obj = {
 	otp		: otp,
 	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
-	divOps 	: divOps
+	divOps 	: divOps,
+	holding : holding,
+	folio 	: folio
 	// holding : holding,
 	// amc 	: amc,
 	// type 	: type,
@@ -236,16 +238,17 @@ function askSchemeName(model){
 
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
-		var arr = []
+		let arr = []
 		for(let i in model.tags.schemes){
 			arr.push(model.tags.schemes[i].target)
 		}
 		if(arr.includes(model.data)){
+			model.tags.scheme = model.data
 			if(schemes[model.data].optionCode == 1){
-				model.stage = 'final'
+				model.stage = 'holding'
 			}
 			else if(model.tags.divOption){
-				model.stage = 'final'
+				model.stage = 'holding'
 			}
 			else{
 				delete model.stage
@@ -260,6 +263,64 @@ function divOps(model){
 		if(model.data.toLowerCase().includes('reinvest') || model.data.toLowerCase().includes('payout')){
 			delete model.stage
 			resolve(model)
+		}
+	})
+}
+
+function holding(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.joinAccId.includes(model.data)){
+			api.getFolio(model.tags.session, model.data, schemes[model.tags.scheme].schemeCode, schemes[model.tags.scheme].amcCode)
+			.then(response=>{
+				response = JSON.parse(response.body)
+				if(response.Response.length > 0){
+					model.tags.folioList = []
+					for(let i in response.Response){
+						model.tags.folioList.push({
+							data : response.Response[i].FolioNo,
+							text : response.Response[i].FolioNo
+						})
+					}
+				}
+				else{
+					model.tags.folioNo = response.Response[0].FolioNo
+				}
+				delete model.stage
+				resolve(model)
+			})
+			.catch(e=>{
+				console.log(e)
+				reject(model)
+			})
+		}
+		else if(model.tags.joinAcc){
+			model.tags.joinAccList = []
+			for(let i in model.tags.joinAcc){
+				model.tags.joinAccList.push({
+					data : model.tags.joinAcc[i].JoinAccId,
+					text : model.tags.joinAcc[i].JoinHolderName
+				})
+			}
+			resolve(model)
+		}
+		else{
+			reject(model)
+		}
+	})
+}
+
+function folio(model){
+	return new Promise(function(resolve, reject){
+		let arr = []
+		for(let i in model.tags.folioList){
+			arr.push(model.tags.folioList[i].data)
+		}
+		if(arr.includes(model.data)){
+			delete model.stage
+			resolve(model)
+		}
+		else{
+			reject(model)
 		}
 	})
 }
