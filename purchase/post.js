@@ -277,7 +277,14 @@ function holding(model){
 			api.getFolio(model.tags.session, model.data, schemes[model.tags.scheme].schemeCode, schemes[model.tags.scheme].amcCode)
 			.then(response=>{
 				response = JSON.parse(response.body)
-				if(response.Response.length > 0){
+				let arr = []
+				for(let i in response.Response){
+					arr.push(response.Response[i].FolioNo)
+				}
+				if(model.tags.folio && arr.includes(model.tags.folio)){
+					model.stage = 'final'
+				}
+				else if(response.Response.length > 0){
 					model.tags.folioList = []
 					for(let i in response.Response){
 						model.tags.folioList.push({
