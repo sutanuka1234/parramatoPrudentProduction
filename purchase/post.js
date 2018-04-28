@@ -244,6 +244,7 @@ function showSchemeName(model){
 		}
 		if(arr.includes(model.data)){
 			model.tags.scheme = model.data
+			console.log(schemes[model.data].optionCode)
 			if(schemes[model.data].optionCode == 1 || model.tags.divOption){
 				model.tags.joinAccList = []
 				for(let i in model.tags.joinAcc){
@@ -295,11 +296,12 @@ function holding(model){
 							text : response.Response[i].FolioNo
 						})
 					}
+					delete model.stage
 				}
 				else{
 					model.tags.folioNo = response.Response[0].FolioNo
+					delete model.stage
 				}
-				delete model.stage
 				resolve(model)
 			})
 			.catch(e=>{
