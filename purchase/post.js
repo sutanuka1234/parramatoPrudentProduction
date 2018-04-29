@@ -212,7 +212,7 @@ function otp(model){
 
 function askSchemeName(model){
 	return new Promise(function(resolve, reject){
-		let matches = stringSimilarity.findBestMatch(model.data, schemeNames)
+		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(schemes))
 		if(matches.bestMatch.rating>0.9){
 			model.tags.schemes.push(bestMatch)
 		}
