@@ -235,7 +235,6 @@ function askSchemeName(model){
 					]
 				})
 			})
-			console.log(model.tags.schemeList)
 		}
 		resolve(model)
 	})

@@ -318,6 +318,7 @@ function askSchemeName(model){
 
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
+		console.log(model.tags.schemeList)
 		model.reply = {
 			type:"generic",
             text:"Please select a scheme",
