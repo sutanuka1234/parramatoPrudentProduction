@@ -68,27 +68,8 @@ function panMobile(model){
 				return reject(model)
 			})
 		}
-		else if(model.data.match(number)[0].length == 10 && model.data.match(phone) && model.data.toLowerCase().match(pan)){
-			model.tags.mobile = model.data.match(phone)[0]
-			model.tags.pan = model.data.toLowerCase().match(pan)[0]
-			api.panMobile(model.tags.mobile, model.tags.pan)
-			.then(data=>{
-				console.log(data.body)
-				let response = JSON.parse(data.body)
-				if(response.Response[0].result=="FAIL"){
-					return reject(model)
-				}
-				model.tags.session = response.Response[0].SessionId
-				model.stage = 'otp' 
-				return resolve(model)
-			})
-			.catch(error=>{
-				console.log(error);
-				return reject(model)
-			})
-		}
 		else{
-			 if(model.data.match(phone)){
+			if(model.data.match(phone)){
 				console.log('PHONE')
 				model.tags.mobile = model.data.match(phone)[0]
 				model.stage = 'pan'

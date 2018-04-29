@@ -153,6 +153,11 @@ function phone(model){
 			model.tags.divOption=matchDivOption[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.divOption, '')
 		}
+		var matchFolio=model.tags.userSays.match(regexFolio)
+		if(matchFolio){
+			model.tags.folio = matchFolio[0].match(/\d+|new folio/)[0]
+			model.tags.userSays=model.tags.userSays.replace(matchFolio, '')
+		}
 		let wordsInUserSays=model.tags.userSays.split(" ");
 		let count=0;
 		let startIndex;
@@ -213,6 +218,11 @@ function pan(model){
 			model.tags.divOption=matchDivOption[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.divOption, '')
 		}
+		var matchFolio=model.tags.userSays.match(regexFolio)
+		if(matchFolio){
+			model.tags.folio = matchFolio[0].match(/\d+|new folio/)[0]
+			model.tags.userSays=model.tags.userSays.replace(matchFolio, '')
+		}
 		let wordsInUserSays=model.tags.userSays.split(" ");
 		let count=0;
 		let startIndex;
@@ -262,6 +272,11 @@ function otp(model){
 		if(matchDivOption){
 			model.tags.divOption=matchDivOption[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.divOption, '')
+		}
+		var matchFolio=model.tags.userSays.match(regexFolio)
+		if(matchFolio){
+			model.tags.folio = matchFolio[0].match(/\d+|new folio/)[0]
+			model.tags.userSays=model.tags.userSays.replace(matchFolio, '')
 		}
 		let wordsInUserSays=model.tags.userSays.split(" ");
 		let count=0;
