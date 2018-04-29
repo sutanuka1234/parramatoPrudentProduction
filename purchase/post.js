@@ -5,6 +5,7 @@ module.exports={
 var api = require('../api.js')
 var schemes = require('../schemes.js')
 var stringSimilarity = require('string-similarity');
+var sortBy = require('sort-by')
 
 let obj = {
 	panMobile : panMobile,
