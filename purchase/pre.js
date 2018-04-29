@@ -320,7 +320,7 @@ function showSchemeName(model){
 	return new Promise(function(resolve, reject){
 		model.reply = {
 			type:"generic",
-            text:"Please select a scheme",
+            text:"Please select a scheme or type in one of your choice",
             next:{ 
             	data : model.tags.schemeList
             }
