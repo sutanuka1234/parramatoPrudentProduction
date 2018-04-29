@@ -263,6 +263,31 @@ function showSchemeName(model){
 				delete model.stage
 			}
 		}
+		else{
+			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(schemes))
+			if(matches.bestMatch.rating>0.9){
+				model.tags.schemes.push(bestMatch)
+			}
+			else{
+				matches.ratings=matches.ratings.sort(sortBy('-rating'));
+				model.tags.schemes = matches.ratings.splice(0,9);
+			}
+			if(model.tags.schemes){
+				model.tags.schemeList = []
+				model.tags.schemes.forEach(function(element){
+					model.tags.schemeList.push({
+						title 	: 'Schemes',
+						text 	: element.target,
+						buttons : [
+							{
+								text : 'Select',
+								data : element.target
+							}
+						]
+					})
+				})
+			}
+		}
 		resolve(model)
 	})
 }
