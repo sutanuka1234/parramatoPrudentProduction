@@ -143,6 +143,11 @@ function phone(model){
 			model.tags.pan = matchPan[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
 		}
+		var matchMobile=model.tags.userSays.match(regexMobile)
+		if(model.tags.userSays.match(/\d+/) && model.tags.userSays.match(/\d+/)[0].length == 10 && matchMobile){			
+			model.tags.mobile = matchMobile[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.mobile, '')
+		}
 		var matchAmount=model.tags.userSays.match(regexAmount)
 		if(matchAmount){
 			model.tags.amount = matchAmount[0]
@@ -203,6 +208,11 @@ function pan(model){
 	return new Promise(function(resolve, reject){
 		//pan,amount,amc,scheme,option,payout,tentativeFolio
 		model.tags.userSays=model.tags.userSays.toLowerCase();
+		var matchPan=model.tags.userSays.match(regexPan)
+		if(matchPan){
+			model.tags.pan = matchPan[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
+		}
 		var matchMobile=model.tags.userSays.match(regexMobile)
 		if(model.tags.userSays.match(/\d+/) && model.tags.userSays.match(/\d+/)[0].length == 10 && matchMobile){			
 			model.tags.mobile = matchMobile[0]
