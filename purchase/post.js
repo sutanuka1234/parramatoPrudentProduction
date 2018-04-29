@@ -236,6 +236,7 @@ function askSchemeName(model){
 				})
 			})
 		}
+		delete model.stage
 		resolve(model)
 	})
 }
