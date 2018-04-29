@@ -72,6 +72,7 @@ function panMobile(model){
 			model.tags.pan = model.data.toLowerCase().match(pan)[0]
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
+				console.log(data.body)
 				let response = JSON.parse(data.body)
 				if(response.Response[0].result=="FAIL"){
 					return reject(model)
@@ -109,6 +110,7 @@ function mobile(model){
 			model.tags.mobile = model.data.match(phone)[0]
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
+				console.log(data.body)
 				let response = JSON.parse(data.body)
 				if(response.Response[0].result=="FAIL"){
 					return reject(model)
@@ -134,6 +136,7 @@ function pan(model){
 			model.tags.pan = model.data.toLowerCase().match(pan)[0]
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
+				console.log(data.body)
 				let response = JSON.parse(data.body)
 				if(response.Response[0].result=="FAIL"){
 					return reject(model)
