@@ -219,6 +219,7 @@ function askSchemeName(model){
 		}
 		else{
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
+			console.log(matches.ratings)
 			model.tags.schemes = matches.ratings.splice(0,9);
 		}
 		if(model.tags.schemes){
