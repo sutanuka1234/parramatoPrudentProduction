@@ -219,8 +219,8 @@ function askSchemeName(model){
 		}
 		else{
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
-			console.log(matches.ratings)
 			model.tags.schemes = matches.ratings.splice(0,9);
+			console.log(model.tags.schemes)
 		}
 		if(model.tags.schemes){
 			model.tags.schemeList = []
