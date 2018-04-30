@@ -52,6 +52,7 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
+		console.log(model.tags)
 		console.log(model.data)
 		if(model.tags.mobile && model.tags.pan){
 			api.panMobile(model.tags.mobile, model.tags.pan)
@@ -90,7 +91,7 @@ function panMobile(model){
 			})
 		}
 		else{
-			 if(model.data.match(phone)){
+			if(model.data.match(phone)){
 				console.log('PHONE')
 				model.tags.mobile = model.data.match(phone)[0]
 				model.stage = 'pan'
@@ -102,7 +103,7 @@ function panMobile(model){
 				model.stage = 'mobile'
 				return resolve(model)
 			}	
-			return reject(model)	
+			return resolve(model)	
 		}
 	})	
 }
