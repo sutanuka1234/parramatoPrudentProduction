@@ -117,7 +117,7 @@ function panMobile(model){
 			model.tags.schemeType = matchType[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.schemeType, '')
 		}
-		if(model.tags.mobile && model.tags.pan){
+		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
 	            text:"Go ahead with OTP?",
