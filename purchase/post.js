@@ -308,7 +308,12 @@ function divOps(model){
 					text : model.tags.joinAcc[i].JoinHolderName
 				})
 			}
-			delete model.stage
+			if(!model.tags.amount){
+				delete model.stage
+			}
+			else{
+				model.stage = 'holding'
+			}
 			resolve(model)
 		}
 	})
