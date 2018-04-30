@@ -36,6 +36,13 @@ var divOption 	= /re(-|\s)?invest|pay(\s)?out/
 var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
 var schemeNames = Object.keys(schemes)
 
+// if(model.data.includes(',')){
+// 			while(model.data.includes(','))
+// 	    		model.data = model.data.replace(',', '')
+// 		}
+// 		else if(model.data.match(/\d+(\s*)?(k|K)/)){
+// 	       	model.data = model.data.replace('k', '000').replace('K', '000')
+// 	    }
 
 function main(req, res){
 	return new Promise(function(resolve, reject){
@@ -55,6 +62,10 @@ function panMobile(model){
 	return new Promise(function(resolve, reject){
 		//pan,mobile,amount,amc,scheme,option,payout,tentativeFolio
 		model.tags.userSays=model.tags.userSays.toLowerCase();
+		if(model.data.includes(',')){
+			while(model.data.includes(','))
+	    		model.data = model.data.replace(',', '')
+		}
 		var matchPan=model.tags.userSays.match(regexPan)
 		if(matchPan){
 			model.tags.pan = matchPan[0]
@@ -67,6 +78,9 @@ function panMobile(model){
 		}
 		var matchAmount=model.tags.userSays.match(regexAmount)
 		if(matchAmount){
+			if(model.data.match(/\d+(\s*)?(k|K)/)){
+		       	model.data = model.data.replace('k', '000').replace('K', '000')
+		    }
 			model.tags.amount = matchAmount[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
 		}
@@ -154,6 +168,10 @@ function mobile(model){
 	return new Promise(function(resolve, reject){
 		//mobile,amount,amc,scheme,option,payout,tentativeFolio
 		model.tags.userSays=model.tags.userSays.toLowerCase();
+		if(model.data.includes(',')){
+			while(model.data.includes(','))
+	    		model.data = model.data.replace(',', '')
+		}
 		var matchPan=model.tags.userSays.match(regexPan)
 		if(matchPan){
 			model.tags.pan = matchPan[0]
@@ -166,6 +184,9 @@ function mobile(model){
 		}
 		var matchAmount=model.tags.userSays.match(regexAmount)
 		if(matchAmount){
+			if(model.data.match(/\d+(\s*)?(k|K)/)){
+		       	model.data = model.data.replace('k', '000').replace('K', '000')
+		    }
 			model.tags.amount = matchAmount[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
 		}
@@ -224,6 +245,10 @@ function pan(model){
 	return new Promise(function(resolve, reject){
 		//pan,amount,amc,scheme,option,payout,tentativeFolio
 		model.tags.userSays=model.tags.userSays.toLowerCase();
+		if(model.data.includes(',')){
+			while(model.data.includes(','))
+	    		model.data = model.data.replace(',', '')
+		}
 		var matchPan=model.tags.userSays.match(regexPan)
 		if(matchPan){
 			model.tags.pan = matchPan[0]
@@ -236,6 +261,9 @@ function pan(model){
 		}
 		var matchAmount=model.tags.userSays.match(regexAmount)
 		if(matchAmount){
+			if(model.data.match(/\d+(\s*)?(k|K)/)){
+		       	model.data = model.data.replace('k', '000').replace('K', '000')
+		    }
 			model.tags.amount = matchAmount[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
 		}
@@ -294,6 +322,18 @@ function otp(model){
 	return new Promise(function(resolve, reject){
 		//amount,amc,scheme,option,payout,tentativeFolio
 		model.tags.userSays=model.tags.userSays.toLowerCase();
+		if(model.data.includes(',')){
+			while(model.data.includes(','))
+	    		model.data = model.data.replace(',', '')
+		}
+		var matchAmount=model.tags.userSays.match(regexAmount)
+		if(matchAmount){
+			if(model.data.match(/\d+(\s*)?(k|K)/)){
+		       	model.data = model.data.replace('k', '000').replace('K', '000')
+		    }
+			model.tags.amount = matchAmount[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
+		}
 		var matchDivOption=model.tags.userSays.match(divOption)
 		if(matchDivOption){
 			model.tags.divOption=matchDivOption[0]
@@ -394,7 +434,14 @@ function divOps(model){
 
 function amount(model){
 	return new Promise(function(resolve, reject){
-		model.reply={
+		if(model.tags.amount){
+			model.reply={
+				type:"text",
+	            text:"Amount Invalid. Enter an amount",
+			}
+		}
+		else{
+			model.reply={
 			type:"text",
             text:"Enter an amount",
 		}

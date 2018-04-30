@@ -55,11 +55,9 @@ function panMobile(model){
 		console.log(model.tags)
 		console.log(model.data)
 		if(model.data.match(phone) && model.tags.pan){
-			console.log('saved')
 			model.tags.mobile = model.data.match(phone)[0]
 		}
 		if(model.data.match(pan) && model.tags.mobile){
-			console.log('saved')
 			model.tags.pan = model.data.match(pan)[0]
 		}
 		if(model.tags.mobile && model.tags.pan){
@@ -161,7 +159,6 @@ function pan(model){
 				console.log(error);
 				return reject(model)
 			})
-
 		}
 		else{
 			return reject(model)
@@ -268,7 +265,7 @@ function showSchemeName(model){
 						text : model.tags.joinAcc[i].JoinHolderName
 					})
 				}
-				if(model.tags.amount){
+				if(model.tags.amount && parseInt(model.tags.amount) > 499){
 					model.stage = 'holding'
 				}
 				else{
@@ -318,11 +315,11 @@ function divOps(model){
 					text : model.tags.joinAcc[i].JoinHolderName
 				})
 			}
-			if(!model.tags.amount){
-				delete model.stage
+			if(model.tags.amount && parseInt(model.tags.amount) > 499){
+				model.stage = 'holding'
 			}
 			else{
-				model.stage = 'holding'
+				delete model.stage
 			}
 			resolve(model)
 		}
