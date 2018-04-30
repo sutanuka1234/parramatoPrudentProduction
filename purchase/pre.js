@@ -130,18 +130,21 @@ function panMobile(model){
 	                ]
 	            }
 			}
+			resolve(model)
 		}
 		if(model.tags.mobile){
 			model.reply={
 				type : "text",
 				text : "Also enter the PAN"
 			}
+			resolve(model)
 		}
 		if(model.tags.pan){
 			model.reply={
 				type : "text",
 				text : "Also enter the mobile number"
 			}
+			resolve(model)
 		}
 		resolve(model)
 	})
