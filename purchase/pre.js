@@ -124,7 +124,7 @@ function panMobile(model){
 	            next:{
 	                "data": [
 	                	{
-	                		data : 'proceed',
+	                		data : model.tags.mobile ? model.tags.mobile : ''+' '+model.tags.pan ? model.tags.pan : '',
 	                		text : 'Proceed'
 	                	}
 	                ]
