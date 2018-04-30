@@ -78,7 +78,7 @@ function panMobile(model){
 			})
 		}
 		else {
-			let pan = model.data.toLowerCase().match(pan));
+			let pan = model.data.toLowerCase().match(pan);
 			let mob = model.data.match(number);
 			console.log(pan[0]+"--------"+mob[0]);
 			// if((model.data && model.data.match(number) && model.data.match(number)[0].length == 10 && model.data.match(phone) && model.data.toLowerCase().match(pan)) ){
