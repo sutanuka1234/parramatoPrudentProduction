@@ -117,19 +117,7 @@ function panMobile(model){
 			model.tags.schemeType = matchType[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.schemeType, '')
 		}
-		if(model.tags.mobile){
-			model.reply={
-				type : "text",
-				text : "Also enter the PAN"
-			}
-		}
-		else if(model.tags.pan){
-			model.reply={
-				type : "text",
-				text : "Also enter the mobile number"
-			}
-		}
-		else if(model.tags.mobile && model.tags.pan){
+		if(model.tags.mobile && model.tags.pan){
 			model.reply={
 				type:"quickReply",
 	            text:"Go ahead with OTP?",
@@ -141,6 +129,18 @@ function panMobile(model){
 	                	}
 	                ]
 	            }
+			}
+		}
+		if(model.tags.mobile){
+			model.reply={
+				type : "text",
+				text : "Also enter the PAN"
+			}
+		}
+		if(model.tags.pan){
+			model.reply={
+				type : "text",
+				text : "Also enter the mobile number"
 			}
 		}
 		resolve(model)
