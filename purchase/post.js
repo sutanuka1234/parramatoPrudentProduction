@@ -100,12 +100,12 @@ function panMobile(model){
 		else{
 			if(model.data.match(phone)){
 				console.log('PHONE')
+		console.log(model.data.toLowerCase().match(pan) && model.data.match(number)[0].length == 10 && model.data.match(phone))
 				model.tags.mobile = model.data.match(phone)[0]
 				model.stage = 'pan'
 				return resolve(model)
 			}
 			if(model.data.match(pan)){
-		console.log(model.data.toLowerCase().match(pan) && model.data.match(number)[0].length == 10 && model.data.match(phone))
 				console.log('PAN')
 				model.tags.pan = model.data.match(pan)[0]
 				model.stage = 'mobile'
