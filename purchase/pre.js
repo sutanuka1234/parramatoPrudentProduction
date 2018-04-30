@@ -15,6 +15,7 @@ let obj = {
 	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
 	divOps 	: divOps,
+	amount 	: amount,
 	holding : holding,
 	folio 	: folio
 	// type 	: type,
@@ -371,6 +372,16 @@ function divOps(model){
                 	}
                 ]
             }
+		}
+		resolve(model)
+	})
+}
+
+function amount(model){
+	return new Promise(function(resolve, reject){
+		model.reply={
+			type:"text",
+            text:"Enter an amount",
 		}
 		resolve(model)
 	})

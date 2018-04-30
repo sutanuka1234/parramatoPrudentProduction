@@ -15,6 +15,7 @@ let obj = {
 	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
 	divOps 	: divOps,
+	amount 	: amount,
 	holding : holding,
 	folio 	: folio
 	// holding : holding,
@@ -257,7 +258,12 @@ function showSchemeName(model){
 						text : model.tags.joinAcc[i].JoinHolderName
 					})
 				}
-				model.stage = 'holding'
+				if(model.tags.amount){
+					model.stage = 'holding'
+				}
+				else{
+					model.stage = 'amount'
+				}
 			}
 			else{
 				delete model.stage
@@ -305,6 +311,19 @@ function divOps(model){
 			delete model.stage
 			resolve(model)
 		}
+	})
+}
+
+function amount(model){
+	return new Promise(function(resolve, reject){
+		if(model.data.match(/\d+/)){
+			model.data.amount = model.data.match(/\d+/)[0]
+			delete model.stage
+			resolve(model)
+		}
+		else{
+			reject(model)
+		}	
 	})
 }
 

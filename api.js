@@ -28,7 +28,7 @@ function otp(session, otp){
 	return runRequest(obj)
 }
 
-// otp('7C772321713D21713D21713D21713D21713D21713D21713D7C772321713D', '123456').then(data=>{console.log(data)}).catch(err=>console.log(err))
+// otp('7C772321713D21713D21713D21713D21713D21713D21713D7C77232F612A', '123456').then(data=>{console.log(data)}).catch(err=>console.log(err))
 
 // function getAMC(session, joinAccId, callback){
 // 	var obj = {
@@ -76,7 +76,7 @@ function getFolio(session, joinAccId, schemeCode, amcId){
 // 	return runRequest(obj)
 // }
 
-// insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D7C772321713D', '334', '8408', 'Axis Asset Management Company Ltd', '400040', '0', '5000', '0', (err, http, response)=>{
+// insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D7C77232F612A', '334', '8408', 'Axis Asset Management Company Ltd', '400040', '0', '5000', '0', (err, http, response)=>{
 // 	console.log(response)
 // })
 
