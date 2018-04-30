@@ -36,14 +36,6 @@ var divOption 	= /re(-|\s)?invest|pay(\s)?out/
 var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
 var schemeNames = Object.keys(schemes)
 
-// if(model.tags.userSays.includes(',')){
-// 			while(model.tags.userSays.includes(','))
-// 	    		model.tags.userSays = model.tags.userSays.replace(',', '')
-// 		}
-// 		else if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
-// 	       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
-// 	    }
-
 function main(req, res){
 	return new Promise(function(resolve, reject){
 		console.log(req.url.split('/')[3])
@@ -66,6 +58,9 @@ function panMobile(model){
 			while(model.tags.userSays.includes(','))
 	    		model.tags.userSays = model.tags.userSays.replace(',', '')
 		}
+		if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
+	       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
+	    }
 		var matchPan=model.tags.userSays.match(regexPan)
 		if(matchPan){
 			model.tags.pan = matchPan[0]
@@ -78,9 +73,6 @@ function panMobile(model){
 		}
 		var matchAmount=model.tags.userSays.match(regexAmount)
 		if(matchAmount){
-			if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
-		       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
-		    }
 			model.tags.amount = matchAmount[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
 		}
@@ -172,6 +164,9 @@ function mobile(model){
 			while(model.tags.userSays.includes(','))
 	    		model.tags.userSays = model.tags.userSays.replace(',', '')
 		}
+		if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
+	       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
+	    }
 		var matchPan=model.tags.userSays.match(regexPan)
 		if(matchPan){
 			model.tags.pan = matchPan[0]
@@ -184,9 +179,6 @@ function mobile(model){
 		}
 		var matchAmount=model.tags.userSays.match(regexAmount)
 		if(matchAmount){
-			if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
-		       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
-		    }
 			model.tags.amount = matchAmount[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
 		}
@@ -249,6 +241,9 @@ function pan(model){
 			while(model.tags.userSays.includes(','))
 	    		model.tags.userSays = model.tags.userSays.replace(',', '')
 		}
+		if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
+	       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
+	    }
 		var matchPan=model.tags.userSays.match(regexPan)
 		if(matchPan){
 			model.tags.pan = matchPan[0]
@@ -261,9 +256,6 @@ function pan(model){
 		}
 		var matchAmount=model.tags.userSays.match(regexAmount)
 		if(matchAmount){
-			if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
-		       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
-		    }
 			model.tags.amount = matchAmount[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
 		}
@@ -326,11 +318,11 @@ function otp(model){
 			while(model.tags.userSays.includes(','))
 	    		model.tags.userSays = model.tags.userSays.replace(',', '')
 		}
+		if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
+	       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
+	    }
 		var matchAmount=model.tags.userSays.match(regexAmount)
 		if(matchAmount){
-			if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
-		       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
-		    }
 			model.tags.amount = matchAmount[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
 		}
