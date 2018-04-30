@@ -36,12 +36,12 @@ var divOption 	= /re(-|\s)?invest|pay(\s)?out/
 var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
 var schemeNames = Object.keys(schemes)
 
-// if(model.data.includes(',')){
-// 			while(model.data.includes(','))
-// 	    		model.data = model.data.replace(',', '')
+// if(model.tags.userSays.includes(',')){
+// 			while(model.tags.userSays.includes(','))
+// 	    		model.tags.userSays = model.tags.userSays.replace(',', '')
 // 		}
-// 		else if(model.data.match(/\d+(\s*)?(k|K)/)){
-// 	       	model.data = model.data.replace('k', '000').replace('K', '000')
+// 		else if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
+// 	       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
 // 	    }
 
 function main(req, res){
@@ -62,9 +62,9 @@ function panMobile(model){
 	return new Promise(function(resolve, reject){
 		//pan,mobile,amount,amc,scheme,option,payout,tentativeFolio
 		model.tags.userSays=model.tags.userSays.toLowerCase();
-		if(model.data.includes(',')){
-			while(model.data.includes(','))
-	    		model.data = model.data.replace(',', '')
+		if(model.tags.userSays.includes(',')){
+			while(model.tags.userSays.includes(','))
+	    		model.tags.userSays = model.tags.userSays.replace(',', '')
 		}
 		var matchPan=model.tags.userSays.match(regexPan)
 		if(matchPan){
@@ -78,8 +78,8 @@ function panMobile(model){
 		}
 		var matchAmount=model.tags.userSays.match(regexAmount)
 		if(matchAmount){
-			if(model.data.match(/\d+(\s*)?(k|K)/)){
-		       	model.data = model.data.replace('k', '000').replace('K', '000')
+			if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
+		       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
 		    }
 			model.tags.amount = matchAmount[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
@@ -168,9 +168,9 @@ function mobile(model){
 	return new Promise(function(resolve, reject){
 		//mobile,amount,amc,scheme,option,payout,tentativeFolio
 		model.tags.userSays=model.tags.userSays.toLowerCase();
-		if(model.data.includes(',')){
-			while(model.data.includes(','))
-	    		model.data = model.data.replace(',', '')
+		if(model.tags.userSays.includes(',')){
+			while(model.tags.userSays.includes(','))
+	    		model.tags.userSays = model.tags.userSays.replace(',', '')
 		}
 		var matchPan=model.tags.userSays.match(regexPan)
 		if(matchPan){
@@ -184,8 +184,8 @@ function mobile(model){
 		}
 		var matchAmount=model.tags.userSays.match(regexAmount)
 		if(matchAmount){
-			if(model.data.match(/\d+(\s*)?(k|K)/)){
-		       	model.data = model.data.replace('k', '000').replace('K', '000')
+			if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
+		       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
 		    }
 			model.tags.amount = matchAmount[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
@@ -245,9 +245,9 @@ function pan(model){
 	return new Promise(function(resolve, reject){
 		//pan,amount,amc,scheme,option,payout,tentativeFolio
 		model.tags.userSays=model.tags.userSays.toLowerCase();
-		if(model.data.includes(',')){
-			while(model.data.includes(','))
-	    		model.data = model.data.replace(',', '')
+		if(model.tags.userSays.includes(',')){
+			while(model.tags.userSays.includes(','))
+	    		model.tags.userSays = model.tags.userSays.replace(',', '')
 		}
 		var matchPan=model.tags.userSays.match(regexPan)
 		if(matchPan){
@@ -261,8 +261,8 @@ function pan(model){
 		}
 		var matchAmount=model.tags.userSays.match(regexAmount)
 		if(matchAmount){
-			if(model.data.match(/\d+(\s*)?(k|K)/)){
-		       	model.data = model.data.replace('k', '000').replace('K', '000')
+			if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
+		       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
 		    }
 			model.tags.amount = matchAmount[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
@@ -322,14 +322,14 @@ function otp(model){
 	return new Promise(function(resolve, reject){
 		//amount,amc,scheme,option,payout,tentativeFolio
 		model.tags.userSays=model.tags.userSays.toLowerCase();
-		if(model.data.includes(',')){
-			while(model.data.includes(','))
-	    		model.data = model.data.replace(',', '')
+		if(model.tags.userSays.includes(',')){
+			while(model.tags.userSays.includes(','))
+	    		model.tags.userSays = model.tags.userSays.replace(',', '')
 		}
 		var matchAmount=model.tags.userSays.match(regexAmount)
 		if(matchAmount){
-			if(model.data.match(/\d+(\s*)?(k|K)/)){
-		       	model.data = model.data.replace('k', '000').replace('K', '000')
+			if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
+		       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
 		    }
 			model.tags.amount = matchAmount[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
