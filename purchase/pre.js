@@ -123,7 +123,7 @@ function panMobile(model){
 				text : "Also enter the PAN"
 			}
 		}
-		if(model.tags.pan){
+		else if(model.tags.pan){
 			model.reply={
 				type : "text",
 				text : "Also enter the mobile number"
