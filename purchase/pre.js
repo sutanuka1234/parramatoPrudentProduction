@@ -437,13 +437,14 @@ function amount(model){
 		if(model.tags.amount){
 			model.reply={
 				type:"text",
-	            text:"Amount Invalid. Enter an amount",
+	            text:"Amount Invalid. Enter an amount"
 			}
 		}
 		else{
 			model.reply={
-			type:"text",
-            text:"Enter an amount",
+				type:"text",
+	            text:"Enter an amount"
+	        }
 		}
 		resolve(model)
 	})
