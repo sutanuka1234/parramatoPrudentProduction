@@ -54,12 +54,12 @@ function panMobile(model){
 	return new Promise(function(resolve, reject){
 		console.log(model.tags)
 		console.log(model.data)
-		if(model.data.match(phone) && model.tags.pan){
-			model.tags.mobile = model.data.match(phone)[0]
-		}
-		if(model.data.match(pan) && model.tags.mobile){
-			model.tags.pan = model.data.match(pan)[0]
-		}
+		// if(model.data.match(phone) && model.tags.pan){
+		// 	model.tags.mobile = model.data.match(phone)[0]
+		// }
+		// if(model.data.match(pan) && model.tags.mobile){
+		// 	model.tags.pan = model.data.match(pan)[0]
+		// }
 		if(model.tags.mobile && model.tags.pan){
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
