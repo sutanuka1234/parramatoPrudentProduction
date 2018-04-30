@@ -77,7 +77,7 @@ function panMobile(model){
 				return reject(model)
 			})
 		}
-		else if(model.data && model.data.match(number)[0].length == 10 && model.data.match(phone) && model.data.toLowerCase().match(pan)){
+		else if((model.data && model.data.match(number)[0].length == 10 && model.data.match(phone) && model.data.toLowerCase().match(pan)) || (model.data.toLowerCase().match(pan) && model.data.match(number)[0].length == 10 && model.data.match(phone)) ){
 			model.tags.mobile = model.data.match(phone)[0]
 			model.tags.pan = model.data.toLowerCase().match(pan)[0]
 			api.panMobile(model.tags.mobile, model.tags.pan)
