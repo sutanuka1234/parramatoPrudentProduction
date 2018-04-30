@@ -9,7 +9,7 @@ var stringSimilarity = require('string-similarity');
 var sortBy = require('sort-by')
 let obj = {
 	panMobile : panMobile,
-	phone	: phone,
+	mobile	: mobile,
 	pan		: pan,
 	otp		: otp,
 	askSchemeName : askSchemeName,
@@ -135,7 +135,7 @@ function panMobile(model){
 	})
 }
 
-function phone(model){
+function mobile(model){
 	return new Promise(function(resolve, reject){
 		//mobile,amount,amc,scheme,option,payout,tentativeFolio
 		model.tags.userSays=model.tags.userSays.toLowerCase();
