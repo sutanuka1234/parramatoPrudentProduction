@@ -77,41 +77,47 @@ function panMobile(model){
 				return reject(model)
 			})
 		}
-		else if((model.data && model.data.match(number) && model.data.match(number)[0].length == 10 && model.data.match(phone) && model.data.toLowerCase().match(pan)) ){
-			console.log('here')
-			console.log((model.data.match(number)[0].length == 10))
-			model.tags.mobile = model.data.match(phone)[0]
-			model.tags.pan = model.data.toLowerCase().match(pan)[0]
-			api.panMobile(model.tags.mobile, model.tags.pan)
-			.then(data=>{
-				console.log(data.body)
-				let response = JSON.parse(data.body)
-				if(response.Response[0].result=="FAIL"){
-					return reject(model)
-				}
-				model.tags.session = response.Response[0].SessionId
-				model.stage = 'otp' 
-				return resolve(model)
-			})
-			.catch(error=>{
-				console.log(error);
-				return reject(model)
-			})
-		}
-		else{
-			if(model.data.match(phone)){
-				console.log('PHONE')
+		else {
+			let pan = model.data.toLowerCase().match(pan));
+			let mob = model.data.match(number);
+			console.log(pan[0]+"--------"+mob[0]);
+			// if((model.data && model.data.match(number) && model.data.match(number)[0].length == 10 && model.data.match(phone) && model.data.toLowerCase().match(pan)) ){
+			if(pan && pan[0] && mob && mob[0].length==10){
+				console.log('here')
+				console.log((model.data.match(number)[0].length == 10))
 				model.tags.mobile = model.data.match(phone)[0]
-				model.stage = 'pan'
-				return resolve(model)
+				model.tags.pan = model.data.toLowerCase().match(pan)[0]
+				api.panMobile(model.tags.mobile, model.tags.pan)
+				.then(data=>{
+					console.log(data.body)
+					let response = JSON.parse(data.body)
+					if(response.Response[0].result=="FAIL"){
+						return reject(model)
+					}
+					model.tags.session = response.Response[0].SessionId
+					model.stage = 'otp' 
+					return resolve(model)
+				})
+				.catch(error=>{
+					console.log(error);
+					return reject(model)
+				})
 			}
-			if(model.data.match(pan)){
-				console.log('PAN')
-				model.tags.pan = model.data.match(pan)[0]
-				model.stage = 'mobile'
-				return resolve(model)
-			}	
-			return resolve(model)	
+			else{
+				if(model.data.match(phone)){
+					console.log('PHONE')
+					model.tags.mobile = model.data.match(phone)[0]
+					model.stage = 'pan'
+					return resolve(model)
+				}
+				if(model.data.match(pan)){
+					console.log('PAN')
+					model.tags.pan = model.data.match(pan)[0]
+					model.stage = 'mobile'
+					return resolve(model)
+				}	
+				return resolve(model)	
+			}
 		}
 	})	
 }
