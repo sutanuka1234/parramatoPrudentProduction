@@ -129,7 +129,7 @@ function panMobile(model){
 				text : "Also enter the mobile number"
 			}
 		}
-		if(model.tags.mobile && model.tags.pan){
+		else if(model.tags.mobile && model.tags.pan){
 			model.reply={
 				type:"quickReply",
 	            text:"Go ahead with OTP?",
