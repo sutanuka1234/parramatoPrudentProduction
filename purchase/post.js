@@ -99,7 +99,7 @@ function panMobile(model){
 			if(model.data.match(pan)){
 				console.log('PAN')
 				model.tags.pan = model.data.match(pan)[0]
-				delete model.stage
+				model.stage = 'mobile'
 				return resolve(model)
 			}	
 			return reject(model)	
