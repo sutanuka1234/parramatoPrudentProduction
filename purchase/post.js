@@ -52,6 +52,7 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
+		console.log(model.data)
 		if(model.tags.mobile && model.tags.pan){
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
