@@ -77,9 +77,9 @@ function panMobile(model){
 				return reject(model)
 			})
 		}
-		else if((model.data.toLowerCase().match(pan) && model.data.match(number) && model.data.match(phone))) {
+		else if((model.data.toLowerCase().match(pan) && model.data.match(number) && model.data.match(phone) ) {
 			console.log('here')
-			console.log((model.data.match(number)[0].length == 10))
+			console.log(model.data.match(number))
 			model.tags.mobile = model.data.match(phone)[0]
 			model.tags.pan = model.data.toLowerCase().match(pan)[0]
 			api.panMobile(model.tags.mobile, model.tags.pan)
