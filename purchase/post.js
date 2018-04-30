@@ -78,11 +78,11 @@ function panMobile(model){
 			})
 		}
 		else {
-			let pan = model.data.toLowerCase().match(pan);
-			let mob = model.data.match(number);
-			console.log(pan[0]+"--------"+mob[0]);
+			let pana = model.data.toLowerCase().match(pan);
+			let moba = model.data.match(number);
+			console.log(pana[0]+"--------"+moba[0]);
 			// if((model.data && model.data.match(number) && model.data.match(number)[0].length == 10 && model.data.match(phone) && model.data.toLowerCase().match(pan)) ){
-			if(pan && pan[0] && mob && mob[0].length==10){
+			if(pana && pana[0] && moba && moba[0].length==10){
 				console.log('here')
 				console.log((model.data.match(number)[0].length == 10))
 				model.tags.mobile = model.data.match(phone)[0]
