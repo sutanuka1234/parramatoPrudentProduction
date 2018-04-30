@@ -100,7 +100,7 @@ function panMobile(model){
 		else{
 			if(model.data.match(phone)){
 				console.log('PHONE')
-				console.log(model.data.toLowerCase().match(pan)[0] && model.data.match(phone)[0])
+				console.log(model.data.toLowerCase().match(pan)[0])
 				model.tags.mobile = model.data.match(phone)[0]
 				model.stage = 'pan'
 				return resolve(model)
