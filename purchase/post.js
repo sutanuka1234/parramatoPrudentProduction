@@ -86,14 +86,14 @@ function panMobile(model){
 		}
 		else{
 			if(model.data.includes(',')){
-				while(model.tags.userSays.includes(','))
-		    		model.tags.userSays = model.tags.userSays.replace(',', '')
+				while(model.data.includes(','))
+		    		model.data = model.data.replace(',', '')
 			}
 			if(model.data.match(/\d+(\s*)?(k)/)){
-		       	model.tags.userSays = model.tags.userSays.replace('k', '000')
+		       	model.data = model.data.replace('k', '000')
 		    }
 		    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
-		    	model.tags.userSays = model.tags.userSays.replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+		    	model.data = model.data.replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
 		    }
 		    console.log(model.data)
 			if(model.data.match(pan)){
@@ -138,7 +138,7 @@ function panMobile(model){
 				model.tags.folio = model.data.match(regexFolio)[0].match(/\d+|new folio/)[0]
 				model.data = model.data.replace(model.tags.folio, '')
 			}
-			let wordsInUserSays=model.tags.userSays.split(" ");
+			let wordsInUserSays=model.data.split(" ");
 			let count=0;
 			let startIndex;
 			let endIndex;
@@ -170,10 +170,10 @@ function panMobile(model){
 					model.tags.schemes = matches.ratings.splice(0,9);
 				}
 			}
-			var matchType=model.tags.userSays.match(schemeType)
+			var matchType=model.data.match(schemeType)
 			if(matchType){
 				model.tags.schemeType = matchType[0]
-				model.tags.userSays=model.tags.userSays.replace(model.tags.schemeType, '')
+				model.data=model.data.replace(model.tags.schemeType, '')
 			}
 			console.log(model.tags)
 			if(model.tags.pan && model.tags.mobile){
@@ -223,15 +223,15 @@ function mobile(model){
 		// else{
 		// 	return reject(model)
 		// }
-		if(model.tags.userSays.includes(',')){
-			while(model.tags.userSays.includes(','))
-	    		model.tags.userSays = model.tags.userSays.replace(',', '')
+		if(model.data.includes(',')){
+			while(model.data.includes(','))
+	    		model.data = model.data.replace(',', '')
 		}
-		if(model.tags.userSays.match(/\d+(\s*)?(k)/)){
-	       	model.tags.userSays = model.tags.userSays.replace('k', '000')
+		if(model.data.match(/\d+(\s*)?(k)/)){
+	       	model.data = model.data.replace('k', '000')
 	    }
-	    if(model.tags.userSays.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
-	    	model.tags.userSays = model.tags.userSays.replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+	    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
+	    	model.data = model.data.replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
 	    }
 		if(model.data.match(phone)){
 			console.log('PHONE')
@@ -315,15 +315,15 @@ function pan(model){
 		// else{
 		// 	return reject(model)
 		// }
-		if(model.tags.userSays.includes(',')){
-				while(model.tags.userSays.includes(','))
-		    		model.tags.userSays = model.tags.userSays.replace(',', '')
+		if(model.data.includes(',')){
+				while(model.data.includes(','))
+		    		model.data = model.data.replace(',', '')
 			}
-			if(model.tags.userSays.match(/\d+(\s*)?(k)/)){
-		       	model.tags.userSays = model.tags.userSays.replace('k', '000')
+			if(model.data.match(/\d+(\s*)?(k)/)){
+		       	model.data = model.data.replace('k', '000')
 		    }
-		    if(model.tags.userSays.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
-		    	model.tags.userSays = model.tags.userSays.replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+		    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
+		    	model.data = model.data.replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
 		    }
 			if(model.data.match(pan)){
 				console.log('PAN')
