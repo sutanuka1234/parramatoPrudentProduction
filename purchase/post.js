@@ -718,13 +718,13 @@ function folio(model){
 				data.body = JSON.parse(data.body)
 				console.log(data.body.Response)
 				console.log('DATA')
-				console.log(data.body["Response"][1])
+				console.log(data.body.Response[1])
 				if(data.body){
 					model.tags.bankMandateList = []
-					for(let i in data.body["Response"][1]){
+					for(let i in data.body.Response[1]){
 						model.tags.bankMandateList.push({
-							data : data.body["Response"][0][1][i]["MandateID"],
-							text : data.body["Response"][0][1][i]["BankAccount"]
+							data : data.body.Response[1][i].MandateID,
+							text : data.body.Response[1][i].BankAccount
 						})
 					}
 					delete model.stage
