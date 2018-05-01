@@ -118,20 +118,42 @@ function panMobile(model){
 						break;
 					}
 				}
-				console.log(model.tags.mobile+'11111111111')
 				model.data = model.data.replace(model.tags.mobile, '')
 				model.stage = 'pan'
 				// return resolve(model)
 			}
 			if(model.data.match(regexAmount)){
 				console.log('Amount')
-				model.tags.amount = model.data.match(regexAmount)[0]
+				let text = matchAll(model.data, /(\d+)/gi).toArray()
+				console.log(text)
+				for(let i in text){
+					if(text[i].length < 8){
+						model.tags.amount = text[i]
+						break;
+					}
+				}
 				model.data = model.data.replace(model.tags.amount, '')
 			}
 			if(model.tags.pan && model.tags.mobile){
-				model.stage = 'otp'
-			}	
-			return resolve(model)	
+				api.panMobile(model.tags.mobile, model.tags.pan)
+				.then(data=>{
+					console.log(data.body)
+					let response = JSON.parse(data.body)
+					if(response.Response[0].result=="FAIL"){
+						return reject(model)
+					}
+					model.tags.session = response.Response[0].SessionId
+					model.stage = 'otp' 
+					return resolve(model)
+				})
+				.catch(error=>{
+					console.log(error);
+					return reject(model)
+				})
+			}
+			else{	
+				return resolve(model)	
+			}
 		}
 	})	
 }
