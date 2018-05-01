@@ -116,6 +116,7 @@ function panMobile(model){
 			}
 			if(model.data.match(regexAmount)){
 				console.log('Amount')
+				console.log(model.data)
 				let text = matchAll(model.data, /(\d+)/gi).toArray()
 				console.log(text)
 				for(let i in text){
@@ -475,6 +476,7 @@ function showSchemeName(model){
 					})
 				}
 				if(model.tags.amount && parseInt(model.tags.amount) > 499){
+					console.log(model.tags.amount)
 					model.stage = 'holding'
 				}
 				else{
