@@ -752,8 +752,21 @@ function buyCart(model){
 			arr.push(model.tags.bankMandateList[i].data)
 		}
 		if(arr.includes(model.data)){
-			delete model.stage
-			resolve(model)
+			model.tags.bankMandate = model.data
+			api.bankMandate('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', '73-NFB0000073-100000', '10000')
+			.then((data)=>{
+				console.log(data.body)
+				data.body = JSON.parse(data.body)
+				if(data.body){
+					model.tags.paymentSummary = data.body.Response[0].STATUS
+					delete model.stage
+					resolve(model)
+				}
+			})
+			.catch(e=>{
+				console.log(e) 
+				reject(model)
+			})
 		}
 		else{
 			reject(model)
