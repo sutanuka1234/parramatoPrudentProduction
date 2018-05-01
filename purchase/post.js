@@ -41,6 +41,7 @@ var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/
 var divOption 	= /re(-|\s)?invest|pay(\s)?out/
 var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
 var schemeType 	= /dividend|growth/
+var schemeNames = Object.keys(schemes)
 
 function main(req, res){
 	return new Promise(function(resolve, reject){
