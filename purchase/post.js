@@ -81,7 +81,7 @@ function panMobile(model){
 		    		model.data = model.data.replace(',', '')
 			}
 			if(model.data.match(/\d+\s*k/)){
-				let a = model.tags.userSays
+				let a = model.data
 	       		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
 	       		model.data = model.data.replace(/\d+\s*k/, a)
 		    }
@@ -221,7 +221,7 @@ function mobile(model){
 	    		model.data = model.data.replace(',', '')
 		}
 		if(model.data.match(/\d+\s*k/)){
-			let a = model.tags.userSays
+			let a = model.data
        		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
        		model.data = model.data.replace(/\d+\s*k/, a)
 		}
@@ -355,7 +355,7 @@ function pan(model){
 	    		model.data = model.data.replace(',', '')
 		}
 		if(model.data.match(/\d+\s*k/)){
-			let a = model.tags.userSays
+			let a = model.data
        		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
        		model.data = model.data.replace(/\d+\s*k/, a)
 	    }
