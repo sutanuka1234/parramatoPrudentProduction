@@ -265,7 +265,6 @@ function mobile(model){
 			model.tags.folio = model.data.match(regexFolio)[0].match(/\d+|new folio/)[0]
 			model.data = model.data.replace(model.tags.folio, '')
 		}
-		console.log(model.tags)
 		if(model.tags.pan && model.tags.mobile){
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
