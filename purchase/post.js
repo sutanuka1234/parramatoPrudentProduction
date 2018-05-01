@@ -713,14 +713,16 @@ function folio(model){
 			console.log(model.tags.amount)
 			api.insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', 'Axis Asset Management Company Ltd.', '400040', '0', '10000', '0')
 			.then((data)=>{
-				console.log(data.body["Response"][0]+'~~~~~~~~~~~~~~~~~~~~~')
-				console.log(data.body["Response"][0][1]+'******************')
+				console.log('DATA')
+				console.log(data.body["Response"][0])
+				console.log('DATA')
+				console.log(data.body["Response"][0][1])
 				if(data.body){
 					model.tags.bankMandateList = []
 					for(let i in data.body["Response"][1]){
 						model.tags.bankMandateList.push({
-							data : data.body["Response"][1][i]["MandateID"],
-							text : data.body["Response"][1][i]["BankAccount"]
+							data : data.body["Response"][0][1][i]["MandateID"],
+							text : data.body["Response"][0][1][i]["BankAccount"]
 						})
 					}
 					delete model.stage
