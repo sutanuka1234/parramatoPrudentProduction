@@ -724,13 +724,15 @@ function folio(model){
 		for(let i in model.tags.folioList){
 			arr.push(model.tags.folioList[i].data)
 		}
+		let matches = stringSimilarity.findBestMatch(model.tags.scheme, Object.keys(data))
+		model.tags.amcName = data[matches.bestMatch.target].amcName
 		if(arr.includes(model.data)){
 			console.log(model.tags.joinAccId)
 			console.log(data[model.tags.scheme].amcName)
 			console.log(schemes[model.tags.scheme].amcCode)
 			console.log(model.tags.divOption)
 			console.log(model.tags.amount)
-			api.insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', 'Axis Asset Management Company Ltd.', '400040', '0', '10000', '0')
+			api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemes[model.tags.scheme].schemeCode, model.tags.amcName, schemes[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, '0', 'E020391')
 			.then((data)=>{
 				data.body = JSON.parse(data.body)
 				if(data.body){
