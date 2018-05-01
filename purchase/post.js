@@ -707,6 +707,7 @@ function folio(model){
 		if(arr.includes(model.data)){
 			api.insertBuyCart(model.tags.session, model.tags.joinAccId, model.tags.schemeCode, model.tags.scheme, schemes[model.tags.scheme].amcCode, model.tags.divOps, model.tags.amount, model.tags.folio, 'E20391')
 					.then((data)=>{
+						console.log(data.body)
 						data = JSON.parse(data)
 						if(data.body.Response[0].length > 1){
 							model.tags.bankMandateList = []
