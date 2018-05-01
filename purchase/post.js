@@ -5,6 +5,7 @@ module.exports={
 var api = require('../api.js')
 var schemes = require('../schemes.js')
 var words = require('../words.js')
+var data = require('../data.json')
 var stringSimilarity = require('string-similarity');
 var sortBy = require('sort-by')
 var matchAll = require('match-all')
@@ -725,7 +726,7 @@ function folio(model){
 		}
 		if(arr.includes(model.data)){
 			console.log(model.tags.joinAccId)
-			console.log(model.tags.scheme)
+			console.log(data[model.tags.scheme].amcName)
 			console.log(schemes[model.tags.scheme].amcCode)
 			console.log(model.tags.divOption)
 			console.log(model.tags.amount)
