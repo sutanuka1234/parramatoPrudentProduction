@@ -153,8 +153,16 @@ function panMobile(model){
 
 function mobile(model){
 	return new Promise(function(resolve, reject){
-		if(model.data.match(number)[0].length == 10 && model.data.match(phone)){
-			model.tags.mobile = model.data.match(phone)[0]
+		if(model.data.match(phone)){
+			let text = matchAll(model.data, /([789]\d{9})/gi).toArray()
+				console.log(text)
+				for(let i in text){
+					if(text[i].length == 10){
+						model.tags.mobile = text[i]
+						break;
+					}
+				}
+			model.data = model.data.replace(model.tags.mobile, '')
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				console.log(data.body)
