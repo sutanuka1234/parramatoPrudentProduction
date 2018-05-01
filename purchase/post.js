@@ -715,7 +715,8 @@ function folio(model){
 			.then((data)=>{
 				console.log(data.body)
 				console.log('DATA')
-				console.log(data.body["Response"])
+				data.body = JSON.parse(data.body)
+				console.log(data.body.Response)
 				console.log('DATA')
 				console.log(data.body["Response"][1])
 				if(data.body){
