@@ -107,7 +107,7 @@ function panMobile(model){
 				if(arr[i].match(pan)){
 					console.log('PAN')
 					model.tags.pan = model.data.match(pan)[0]
-					arr.splice(i, 1);
+					arr.splice(i, 1, ' ');
 					// model.data = model.data.replace(model.tags.pan, '')
 					model.stage = 'mobile'
 					// return resolve(model)
@@ -122,7 +122,7 @@ function panMobile(model){
 					// 		break;
 					// 	}
 					// }
-					arr.splice(i, 1);
+					arr.splice(i, 1, ' ');
 					// model.data = model.data.replace(model.tags.mobile, '')
 					model.stage = 'pan'
 					// return resolve(model)
