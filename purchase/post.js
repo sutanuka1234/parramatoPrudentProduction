@@ -611,7 +611,7 @@ function divOps(model){
 
 function amount(model){
 	return new Promise(function(resolve, reject){
-		if(model.data.match(/\d+/)){
+		if(parseInt(model.data) > 499){
 			model.data.amount = model.data.match(/\d+/)[0]
 			delete model.stage
 			resolve(model)
