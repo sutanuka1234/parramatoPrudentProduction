@@ -110,18 +110,17 @@ function panMobile(model){
 			}
 			if(model.data.match(phone)){
 				console.log('PHONE')
-				// let text = matchAll(model.data, /\d{10}/).toArray()
-				let s = "Hello _World_ and _Mars_";
-				console.log(matchAll(s, /_([a-z]+)_/gi).toArray());
-				// console.log(text)
-				// for(let i in text){
-				// 	if(text[i].length == 10){
-				// 		model.tags.mobile = text[i]
-				// 		break;
-				// 	}
-				// }
-				// console.log(model.tags.mobile+'11111111111')
-				// model.data = model.data.replace(model.tags.mobile, '')
+				console.log(model.data)
+				let text = matchAll(model.data, /\d{10}/).toArray()
+				console.log(text)
+				for(let i in text){
+					if(text[i].length == 10){
+						model.tags.mobile = text[i]
+						break;
+					}
+				}
+				console.log(model.tags.mobile+'11111111111')
+				model.data = model.data.replace(model.tags.mobile, '')
 				model.stage = 'pan'
 				// return resolve(model)
 			}
