@@ -499,6 +499,12 @@ function buyCart(model){
 
 function mandate(model){
 	return new Promise(function(resolve, reject){
+		if(model.tags.paymentSummary){
+			model.reply={
+				type : 'text',
+				text : 'Scheme Name : '+model.tags.paymentSummary.SchemeName+'. Folio : '+model.tags.paymentSummary.FolioNo+'. Amount : '+model.tags.paymentSummary.Amount+'. Bank : '+model.tags.paymentSummary.BankName+'. Reference ID : '+model.tags.paymentSummary.ReferenceID+'. Status : '+model.tags.paymentSummary.STATUS+'.'
+			}
+		}
 		resolve(model)
 	})
 }

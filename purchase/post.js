@@ -756,11 +756,8 @@ function buyCart(model){
 			api.bankMandate('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', '73-NFB0000073-100000', '10000')
 			.then((data)=>{
 				data.body = JSON.parse(data.body)
-				console.log(data.body.Response.STATUS)
-				console.log(data.body.Response[0])
-				console.log(data.body.Response[0].STATUS)
 				if(data.body){
-					model.tags.paymentSummary = data.body.Response[0].STATUS
+					model.tags.paymentSummary = data.body.Response[0]
 					delete model.stage
 					resolve(model)
 				}
