@@ -265,6 +265,44 @@ function mobile(model){
 			model.tags.folio = model.data.match(regexFolio)[0].match(/\d+|new folio/)[0]
 			model.data = model.data.replace(model.tags.folio, '')
 		}
+		let wordsInUserSays=model.data.split(" ");
+		let count=0;
+		let startIndex;
+		let endIndex;
+		for(let wordIndex in wordsInUserSays){
+			if(words.includes(wordsInUserSays[wordIndex])){
+				count++;
+				if(count==1){
+					startIndex=wordIndex;
+					endIndex=wordIndex;
+				}
+				else{
+					endIndex=wordIndex;
+				}
+			}
+		}
+		if(count>0){
+			let searchTerm=""
+			for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
+				searchTerm+=wordsInUserSays[i]+" "
+			}
+			searchTerm=searchTerm.trim();
+			model.tags.schemes = []
+			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+			if(matches.bestMatch.rating>0.9){
+				model.tags.schemes.push(bestMatch)
+			}
+			else{
+				matches.ratings=matches.ratings.sort(sortBy('-rating'));
+				model.tags.schemes = matches.ratings.splice(0,9);
+			}
+		}
+		var matchType=model.data.match(schemeType)
+		if(matchType){
+			model.tags.schemeType = matchType[0]
+			model.data=model.data.replace(model.tags.schemeType, '')
+		}
+		console.log(model.tags)
 		if(model.tags.pan && model.tags.mobile){
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
@@ -348,6 +386,43 @@ function pan(model){
 			console.log('Folio')
 			model.tags.folio = model.data.match(regexFolio)[0].match(/\d+|new folio/)[0]
 			model.data = model.data.replace(model.tags.folio, '')
+		}
+		let wordsInUserSays=model.data.split(" ");
+		let count=0;
+		let startIndex;
+		let endIndex;
+		for(let wordIndex in wordsInUserSays){
+			if(words.includes(wordsInUserSays[wordIndex])){
+				count++;
+				if(count==1){
+					startIndex=wordIndex;
+					endIndex=wordIndex;
+				}
+				else{
+					endIndex=wordIndex;
+				}
+			}
+		}
+		if(count>0){
+			let searchTerm=""
+			for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
+				searchTerm+=wordsInUserSays[i]+" "
+			}
+			searchTerm=searchTerm.trim();
+			model.tags.schemes = []
+			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+			if(matches.bestMatch.rating>0.9){
+				model.tags.schemes.push(bestMatch)
+			}
+			else{
+				matches.ratings=matches.ratings.sort(sortBy('-rating'));
+				model.tags.schemes = matches.ratings.splice(0,9);
+			}
+		}
+		var matchType=model.data.match(schemeType)
+		if(matchType){
+			model.tags.schemeType = matchType[0]
+			model.data=model.data.replace(model.tags.schemeType, '')
 		}
 		console.log(model.tags)
 		if(model.tags.pan && model.tags.mobile){
