@@ -311,7 +311,6 @@ function pan(model){
 		// else{
 		// 	return reject(model)
 		// }
-		console.log(model.data)
 		if(model.data.includes(',')){
 			while(model.data.includes(','))
 	    		model.data = model.data.replace(',', '')
@@ -322,6 +321,7 @@ function pan(model){
 	    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
 	    	model.data = model.data.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
 	    }
+		console.log(model.data)
 		if(model.data.match(pan)){
 			console.log('PAN')
 			model.tags.pan = model.data.match(pan)[0]
