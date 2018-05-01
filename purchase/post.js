@@ -716,10 +716,10 @@ function folio(model){
 						console.log(data.body)
 						if(data.body["Response"][0].length > 1){
 							model.tags.bankMandateList = []
-							for(let i in data.body.["Response"][0][1]){
+							for(let i in data.body["Response"][0][1]){
 								model.tags.bankMandateList.push({
-									data : data.body.["Response"][0][1][i]["MandateID"],
-									text : data.body.["Response"][0][1][i]["BankAccount"]
+									data : data.body["Response"][0][1][i]["MandateID"],
+									text : data.body["Response"][0][1][i]["BankAccount"]
 								})
 							}
 							delete model.stage
