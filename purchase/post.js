@@ -313,8 +313,8 @@ function pan(model){
 		// }
 		console.log(model.data)
 		if(model.data.includes(',')){
-				while(model.data.includes(','))
-		    		model.data = model.data.replace(',', '')
+			while(model.data.includes(','))
+	    		model.data = model.data.replace(',', '')
 		}
 		if(model.data.match(/\d+\s*k/)){
 	       	model.data = model.data.match(/\d+\s*k/)[0].replace('k', '000')
@@ -326,7 +326,6 @@ function pan(model){
 			console.log('PAN')
 			model.tags.pan = model.data.match(pan)[0]
 			model.data = model.data.replace(model.tags.pan, '')
-			delete model.stage
 		}
 		if(model.data.match(regexAmount)){
 			console.log('Amount')
