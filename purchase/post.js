@@ -110,9 +110,9 @@ function panMobile(model){
 			}
 			if(model.data.match(phone)){
 				console.log('PHONE')
-				let text = matchAll(model.data, phone).toArray()
+				let text = matchAll(model.data, /[789]\d{9}/gi).toArray()
+				console.log(text)
 				for(let i in text){
-					console.log(text)
 					if(text[i].length == 10){
 						model.tags.mobile = text[i]
 						break;
