@@ -55,6 +55,7 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model.data = model.data.toLowerCase()
+		let arr = model.data.split(/\s*/)
 		console.log(model.data)
 		if(model.data.match(phone) && model.tags.pan){
 			model.tags.mobile = model.data.match(phone)[0]
@@ -101,14 +102,14 @@ function panMobile(model){
 		// 	})
 		// }
 		else{
-			if(model.data.match(pan)){
+			if(arr.match(pan)){
 				console.log('PAN')
 				model.tags.pan = model.data.match(pan)[0]
 				model.data = model.data.replace(model.tags.pan, '')
 				model.stage = 'mobile'
 				// return resolve(model)
 			}
-			if(model.data.match(phone)){
+			if(arr.match(phone)){
 				console.log('PHONE')
 				let text = matchAll(model.data, /([789]\d{9})/gi).toArray()
 				console.log(text)
@@ -122,7 +123,7 @@ function panMobile(model){
 				model.stage = 'pan'
 				// return resolve(model)
 			}
-			if(model.data.match(regexAmount)){
+			if(arr.match(regexAmount)){
 				console.log('Amount')
 				model.tags.amount = model.data.match(regexAmount)[0]
 				model.data = model.data.replace(model.tags.amount, '')
