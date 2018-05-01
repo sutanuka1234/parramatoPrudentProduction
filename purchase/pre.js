@@ -48,7 +48,6 @@ function panMobile(model){
 	return new Promise(function(resolve, reject){
 		//pan,mobile,amount,amc,scheme,option,payout,tentativeFolio
 		model.tags.userSays=model.tags.userSays.toLowerCase();
-		console.log(model.tags.userSays)
 		if(model.tags.userSays.includes(',')){
 			while(model.tags.userSays.includes(','))
 	    		model.tags.userSays = model.tags.userSays.replace(',', '')
@@ -59,6 +58,7 @@ function panMobile(model){
 	    if(model.tags.userSays.match(/\d+\s*(lakhs|lakh|lacs|l)/)){
 	    	model.tags.userSays = model.tags.userSays.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
 	    }
+		console.log(model.tags.userSays)
 		var matchPan=model.tags.userSays.match(regexPan)
 		if(matchPan){
 			model.tags.pan = matchPan[0]
