@@ -118,7 +118,7 @@ function panMobile(model){
 					console.log(arr)
 					model.stage = 'pan'
 				}
-				if(arr[i].match(regexAmount) && arr[i].length <= 7){
+				if(arr[i].match(regexAmount)){
 					console.log('Amount')
 					model.tags.amount = arr[i]
 					arr.splice(i, 1, '');
