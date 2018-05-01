@@ -114,11 +114,11 @@ function panMobile(model){
 				for(let i in text){
 					if(text[i].length == 10){
 						model.tags.mobile = text[i]
+						model.data = model.data.replace(model.tags.mobile, '')
+						model.stage = 'pan'
 						break;
 					}
 				}
-				model.data = model.data.replace(model.tags.mobile, '')
-				model.stage = 'pan'
 			}
 			if(model.data.match(regexAmount)){
 				console.log('Amount')
@@ -127,10 +127,10 @@ function panMobile(model){
 				for(let i in text){
 					if(text[i].length < 8){
 						model.tags.amount = text[i]
+						model.data = model.data.replace(model.tags.amount, '')
 						break;
 					}
 				}
-				model.data = model.data.replace(model.tags.amount, '')
 			}
 			console.log(model.tags)
 			if(model.tags.pan && model.tags.mobile){
