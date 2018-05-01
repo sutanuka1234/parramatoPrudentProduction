@@ -54,7 +54,7 @@ function panMobile(model){
 		}
 		if(model.tags.userSays.match(/\d+\s*k/)){
 			let a = model.tags.userSays
-	       	a = a.match(/\d+\s*k/)[0].replace('k', '000')
+	       	a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
 	       	model.tags.userSays = model.tags.userSays.replace(/\d+\s*k/, a)
 	    }
 	    if(model.tags.userSays.match(/\d+\s*(lakhs|lakh|lacs|l)/)){

@@ -81,10 +81,14 @@ function panMobile(model){
 		    		model.data = model.data.replace(',', '')
 			}
 			if(model.data.match(/\d+\s*k/)){
-		       	model.data = model.data.match(/\d+\s*k/)[0].replace('k', '000')
+				let a = model.tags.userSays
+	       		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
+	       		model.data = model.data.replace(/\d+\s*k/, a)
 		    }
 		    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
-		    	model.data = model.data.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+		    	let a = model.data
+	    		a = a.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace(/\s+/, '').replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+		    	model.data = model.data.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
 		    }
 			if(model.data.match(pan)){
 				console.log('PAN')
@@ -217,10 +221,14 @@ function mobile(model){
 	    		model.data = model.data.replace(',', '')
 		}
 		if(model.data.match(/\d+\s*k/)){
-	       	model.data = model.data.match(/\d+\s*k/)[0].replace('k', '000')
-	    }
+			let a = model.tags.userSays
+       		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
+       		model.data = model.data.replace(/\d+\s*k/, a)
+		}
 	    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
-	    	model.data = model.data.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+	    	let a = model.data
+    		a = a.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace(/\s+/, '').replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+	    	model.data = model.data.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
 	    }
 	    console.log(model.data)
 		if(model.data.match(phone)){
@@ -347,10 +355,14 @@ function pan(model){
 	    		model.data = model.data.replace(',', '')
 		}
 		if(model.data.match(/\d+\s*k/)){
-	       	model.data = model.data.match(/\d+\s*k/)[0].replace('k', '000')
+			let a = model.tags.userSays
+       		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
+       		model.data = model.data.replace(/\d+\s*k/, a)
 	    }
 	    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
-	    	model.data = model.data.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+	    	let a = model.data
+    		a = a.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace(/\s+/, '').replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+	    	model.data = model.data.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
 	    }
 		console.log(model.data)
 		if(model.data.match(/[a-z]{3}p[a-z]\d{4}[a-z]/)){
