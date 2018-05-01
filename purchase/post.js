@@ -118,7 +118,6 @@ function panMobile(model){
 						break;
 					}
 				}
-				console.log(model.tags.mobile+'11111111111')
 				model.data = model.data.replace(model.tags.mobile, '')
 				model.stage = 'pan'
 				// return resolve(model)
@@ -129,7 +128,21 @@ function panMobile(model){
 				model.data = model.data.replace(model.tags.amount, '')
 			}
 			if(model.tags.pan && model.tags.mobile){
-				model.stage = 'otp'
+				api.panMobile(model.tags.mobile, model.tags.pan)
+				.then(data=>{
+					console.log(data.body)
+					let response = JSON.parse(data.body)
+					if(response.Response[0].result=="FAIL"){
+						return reject(model)
+					}
+					model.tags.session = response.Response[0].SessionId
+					model.stage = 'otp' 
+					return resolve(model)
+				})
+				.catch(error=>{
+					console.log(error);
+					return reject(model)
+				})
 			}	
 			return resolve(model)	
 		}
