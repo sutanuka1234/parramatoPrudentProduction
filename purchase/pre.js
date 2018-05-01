@@ -58,7 +58,9 @@ function panMobile(model){
 	       	model.tags.userSays = model.tags.userSays.replace(/\d+\s*k/, a)
 	    }
 	    if(model.tags.userSays.match(/\d+\s*(lakhs|lakh|lacs|l)/)){
-	    	model.tags.userSays = model.tags.userSays.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+	    	let a = model.tags.userSays
+	    	a = a.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+	    	model.tags.userSays = model.tags.userSays.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
 	    }
 		console.log(model.tags.userSays)
 		var matchPan=model.tags.userSays.match(regexPan)
