@@ -322,7 +322,7 @@ function pan(model){
 	    	model.data = model.data.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
 	    }
 		console.log(model.data)
-		if(model.data.match(pan)){
+		if(model.data.match(/[a-z]{3}p[a-z]\d{4}[a-z]/)){
 			console.log('PAN')
 			model.tags.pan = model.data.match(pan)[0]
 			model.data = model.data.replace(model.tags.pan, '')
