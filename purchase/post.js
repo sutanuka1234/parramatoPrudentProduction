@@ -640,6 +640,7 @@ function amount(model){
 function holding(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.joinAccId.includes(model.data)){
+			model.tags.joinAccId = model.data
 			api.getFolio(model.tags.session, model.data, schemes[model.tags.scheme].schemeCode, schemes[model.tags.scheme].amcCode)
 			.then(response=>{
 				console.log(response.body)
