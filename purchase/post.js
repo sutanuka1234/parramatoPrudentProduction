@@ -111,7 +111,7 @@ function panMobile(model){
 			if(model.data.match(phone)){
 				console.log('PHONE')
 				console.log(model.data)
-				let text = matchAll(model.data, /([0-9]+)]/).toArray()
+				let text = matchAll(model.data, /([0-9]+)/).toArray()
 				console.log(text)
 				for(let i in text){
 					if(text[i].length == 10){
