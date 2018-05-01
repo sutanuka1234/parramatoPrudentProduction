@@ -120,6 +120,7 @@ function panMobile(model){
 				}
 				if(arr[i].match(regexAmount)){
 					console.log('Amount')
+					console.log(arr[i])
 					model.tags.amount = arr[i]
 					arr.splice(i, 1, '');
 					model.data = model.data.replace(model.tags.amount, '')
