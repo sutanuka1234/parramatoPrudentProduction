@@ -48,6 +48,7 @@ function panMobile(model){
 	return new Promise(function(resolve, reject){
 		//pan,mobile,amount,amc,scheme,option,payout,tentativeFolio
 		model.tags.userSays=model.tags.userSays.toLowerCase();
+		console.log(model.tags.userSays)
 		if(model.tags.userSays.includes(',')){
 			while(model.tags.userSays.includes(','))
 	    		model.tags.userSays = model.tags.userSays.replace(',', '')
