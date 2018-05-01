@@ -106,38 +106,25 @@ function panMobile(model){
 			for(let i in arr){
 				if(arr[i].match(pan)){
 					console.log('PAN')
-					model.tags.pan = model.data.match(pan)[0]
+					model.tags.pan = arr[i]
 					arr.splice(i, 1, '');
-					// model.data = model.data.replace(model.tags.pan, '')
 					console.log(arr)
 					model.stage = 'mobile'
-					// return resolve(model)
 				}
 				if(arr[i].match(phone)){
 					console.log('PHONE')
-					// let text = matchAll(model.data, /([789]\d{9})/gi).toArray()
-					// console.log(text)
-					// for(let i in text){
-					// 	if(text[i].length == 10){
-					// 		model.tags.mobile = text[i]
-					// 		break;
-					// 	}
-					// }
+					model.tags.mobile = arr[i]
 					arr.splice(i, 1, '');
-					// model.data = model.data.replace(model.tags.mobile, '')
 					console.log(arr)
 					model.stage = 'pan'
-					// return resolve(model)
 				}
 				if(arr[i].match(regexAmount)){
 					console.log('Amount')
+					model.tags.amount = arr[i]
 					arr.splice(i, 1, '');
-					// model.tags.amount = model.data.match(regexAmount)[0]
-					console.log(arr)
 					model.data = model.data.replace(model.tags.amount, '')
 				}
 			}
-			console.log(arr)
 			console.log(model.tags)
 			if(model.tags.pan && model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
