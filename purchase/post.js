@@ -650,7 +650,7 @@ function holding(model){
 					arr.push(response.Response[i].FolioNo.toLowerCase())
 				}
 				if(model.tags.folio && arr.includes(model.tags.folio)){
-					api.insertBuyCart(model.tags.session, model.tags.joinAccId, model.tags.schemeCode, model.tags.scheme, schemes[model.tags.scheme].amcCode, model.tags.divOps, model.tags.amount, model.tags.folio, 'E20391')
+					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemes[model.tags.scheme]schemeCode, model.tags.scheme, schemes[model.tags.scheme].amcCode, model.tags.divOps, model.tags.amount, model.tags.folio, 'E20391')
 					.then((data)=>{
 						data = JSON.parse(data)
 						if(data.body.Response[0].length > 1){
@@ -706,8 +706,8 @@ function folio(model){
 			arr.push(model.tags.folioList[i].data)
 		}
 		if(arr.includes(model.data)){
-			console.log(model.tags.joinAccId)
-			api.insertBuyCart(model.tags.session, model.tags.joinAccId[0], model.tags.schemeCode, model.tags.scheme, schemes[model.tags.scheme].amcCode, model.tags.divOps, model.tags.amount, model.tags.folio, 'E20391')
+			console.log(schemes[model.tags.scheme].schemeCode)
+			api.insertBuyCart(model.tags.session, model.tags.joinAccId[0], schemes[model.tags.scheme]schemeCode, model.tags.scheme, schemes[model.tags.scheme].amcCode, model.tags.divOps, model.tags.amount, model.tags.folio, 'E20391')
 					.then((data)=>{
 						console.log(data.body)
 						data = JSON.parse(data)
