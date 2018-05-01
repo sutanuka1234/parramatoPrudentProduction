@@ -669,6 +669,7 @@ function holding(model){
 					arr.push(response.Response[i].FolioNo.toLowerCase())
 				}
 				if(model.tags.folio && arr.includes(model.tags.folio)){
+					console.log(model.tags.divOption)
 					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemes[model.tags.scheme].schemeCode, model.tags.scheme, schemes[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E20391')
 					.then((data)=>{
 						console.log(data.body)
