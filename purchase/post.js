@@ -143,8 +143,10 @@ function panMobile(model){
 					console.log(error);
 					return reject(model)
 				})
+			}
+			else{	
+				return resolve(model)
 			}	
-			return resolve(model)	
 		}
 	})	
 }
