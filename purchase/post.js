@@ -671,6 +671,7 @@ function holding(model){
 				if(model.tags.folio && arr.includes(model.tags.folio)){
 					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemes[model.tags.scheme].schemeCode, model.tags.scheme, schemes[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E20391')
 					.then((data)=>{
+						console.log(data.body)
 						data = JSON.parse(data)
 						if(data.body.Response[0].length > 1){
 							model.tags.bankMandateList = []
