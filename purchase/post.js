@@ -532,17 +532,6 @@ function showSchemeName(model){
 		if(arr.includes(model.data)){
 			model.tags.scheme = model.data
 			if(schemes[model.data].optionCode == 1){
-				if(model.tags.divOption){
-					if(model.tags.divOption.includes('re')){
-						model.tags.divOption = 1
-					}
-					else if(model.tags.divOption.includes('pay')){
-						model.tags.divOption = 2
-					}
-					else{
-						model.tags.divOption = 0
-					}
-				}
 				model.tags.joinAccList = []
 				for(let i in model.tags.joinAcc){
 					model.tags.joinAccList.push({
@@ -552,6 +541,24 @@ function showSchemeName(model){
 				}
 				if(model.tags.amount && parseInt(model.tags.amount) > 499){
 					console.log(model.tags.amount)
+					model.stage = 'holding'
+				}
+				else{
+					model.stage = 'amount'
+				}
+			}
+			console.log(model.tags.divOption)
+			if(model.tags.divOption){
+				if(model.tags.divOption.includes('re')){
+					model.tags.divOption = 1
+				}
+				else if(model.tags.divOption.includes('pay')){
+					model.tags.divOption = 2
+				}
+				else{
+					model.tags.divOption = 0
+				}
+				if(model.tags.amount && parseInt(model.tags.amount) > 499){
 					model.stage = 'holding'
 				}
 				else{
