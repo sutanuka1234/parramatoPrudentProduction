@@ -151,8 +151,7 @@ function panMobile(model){
 			}
 			if(model.data.match(regexFolio)){
 				console.log('Folio')
-				console.log(model.data)
-				model.tags.folio = model.data.match[0].match(/\d+|new folio/)[0]
+				model.tags.folio = model.data.match(regexFolio)[0].match(/\d+|new folio/)[0]
 				model.data = model.data.replace(model.tags.folio, '')
 			}
 			console.log(model.tags)
