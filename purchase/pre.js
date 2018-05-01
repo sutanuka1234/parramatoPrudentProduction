@@ -52,12 +52,12 @@ function panMobile(model){
 			while(model.tags.userSays.includes(','))
 	    		model.tags.userSays = model.tags.userSays.replace(',', '')
 		}
-		// if(model.tags.userSays.match(/\d+\s*(k)/)){
-	 //       	model.tags.userSays = model.tags.userSays.match(/\d+\s*(k)/)[0].replace('k', '000')
-	 //    }
-	 //    if(model.tags.userSays.match(/\d+\s*(lakhs|lakh|lacs|l)/)){
-	 //    	model.tags.userSays = model.tags.userSays.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
-	 //    }
+		if(model.tags.userSays.match(/\d+\s*k/)){
+	       	model.tags.userSays = model.tags.userSays.match(/\d+\s*k/)[0].replace('k', '000')
+	    }
+	    if(model.tags.userSays.match(/\d+\s*(lakhs|lakh|lacs|l)/)){
+	    	model.tags.userSays = model.tags.userSays.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+	    }
 		console.log(model.tags.userSays)
 		var matchPan=model.tags.userSays.match(regexPan)
 		if(matchPan){
