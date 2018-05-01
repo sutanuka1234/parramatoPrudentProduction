@@ -705,6 +705,7 @@ function folio(model){
 			arr.push(model.tags.folioList[i].data)
 		}
 		if(arr.includes(model.data)){
+			console.log(model.tags.joinAccId)
 			api.insertBuyCart(model.tags.session, model.tags.joinAccId, model.tags.schemeCode, model.tags.scheme, schemes[model.tags.scheme].amcCode, model.tags.divOps, model.tags.amount, model.tags.folio, 'E20391')
 					.then((data)=>{
 						console.log(data.body)
