@@ -76,7 +76,7 @@ function insertBuyCart(session, joinAccId, schemeCode, schemeName, amcId, divide
 	return runRequest(obj)
 }
 
-// insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', 'Axis Asset Management Company Ltd', '400040', '0', '5000', '0').then(data=>{console.log(data.body)}).catch(err=>console.log(err))
+insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', 'Axis Asset Management Company Ltd', '400040', '0', '5000', '0').then(data=>{console.log(data.body)}).catch(err=>console.log(err))
 
 function bankMandate(session, joinAccId, schemeCode, mandateId, amount){
 	var obj = {

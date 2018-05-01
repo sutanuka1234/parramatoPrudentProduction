@@ -711,7 +711,7 @@ function folio(model){
 			console.log(schemes[model.tags.scheme].amcCode)
 			console.log(model.tags.divOps)
 			console.log(model.tags.amount)
-			api.insertBuyCart(model.tags.session, '334', schemes[model.tags.scheme].schemeCode, 'Axis Asset Management Company Ltd.', schemes[model.tags.scheme].amcCode, '0', model.tags.amount, '0', 'E20391')
+			api.insertBuyCart(model.tags.session, '334', schemes[model.tags.scheme].schemeCode, 'Axis Asset Management Company Ltd.', schemes[model.tags.scheme].amcCode, '0', model.tags.amount, '0')
 					.then((data)=>{
 						console.log(data.body)
 						data = JSON.parse(data)
