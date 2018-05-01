@@ -112,6 +112,7 @@ function panMobile(model){
 				console.log('PHONE')
 				let text = matchAll(model.data, phone).toArray()
 				for(let i in text){
+					console.log(text)
 					if(text[i].length == 10){
 						model.tags.mobile = text[i]
 						break;
