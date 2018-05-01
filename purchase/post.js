@@ -93,9 +93,8 @@ function panMobile(model){
 		       	model.data = model.data.match(/\d+\s*k/)[0].replace('k', '000')
 		    }
 		    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
-		    	model.data = model.data.replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+		    	model.data = model.data.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
 		    }
-		    console.log(model.data)
 			if(model.data.match(pan)){
 				console.log('PAN')
 				model.tags.pan = model.data.match(pan)[0]
@@ -227,11 +226,11 @@ function mobile(model){
 			while(model.data.includes(','))
 	    		model.data = model.data.replace(',', '')
 		}
-		if(model.data.match(/\d+(\s*)?(k)/)){
-	       	model.data = model.data.replace('k', '000')
+		if(model.data.match(/\d+\s*k/)){
+	       	model.data = model.data.match(/\d+\s*k/)[0].replace('k', '000')
 	    }
 	    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
-	    	model.data = model.data.replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+	    	model.data = model.data.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
 	    }
 		if(model.data.match(phone)){
 			console.log('PHONE')
@@ -319,11 +318,11 @@ function pan(model){
 				while(model.data.includes(','))
 		    		model.data = model.data.replace(',', '')
 			}
-			if(model.data.match(/\d+(\s*)?(k)/)){
-		       	model.data = model.data.replace('k', '000')
+			if(model.data.match(/\d+\s*k/)){
+		       	model.data = model.data.match(/\d+\s*k/)[0].replace('k', '000')
 		    }
 		    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
-		    	model.data = model.data.replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+		    	model.data = model.data.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
 		    }
 			if(model.data.match(pan)){
 				console.log('PAN')
