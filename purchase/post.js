@@ -19,17 +19,9 @@ let obj = {
 	divOps 	: divOps,
 	amount 	: amount,
 	holding : holding,
-	folio 	: folio
-	// holding : holding,
-	// amc 	: amc,
-	// type 	: type,
-	// subnature : subnature,
-	// category: category
-	// name 	: name,
-	// folio 	: folio,
-	// amount 	: amount,
-	// term 	: term,
-	// mandate : mandate
+	folio 	: folio,
+	buyCart : buyCart,
+	mandate : mandate
 }
 
 
@@ -539,7 +531,16 @@ function showSchemeName(model){
 		}
 		if(arr.includes(model.data)){
 			model.tags.scheme = model.data
-			if(schemes[model.data].optionCode == 1 || model.tags.divOption){
+			if(schemes[model.data].optionCode == 1 || model.tags.divOps){
+				if(model.tags.divOps.includes('re')){
+					model.tags.divOps = 1
+				}
+				else if(model.tags.divOps.includes('pay')){
+					model.tags.divOps = 2
+				}
+				else{
+					model.tags.divOps = 0
+				}
 				model.tags.joinAccList = []
 				for(let i in model.tags.joinAcc){
 					model.tags.joinAccList.push({
@@ -591,6 +592,15 @@ function showSchemeName(model){
 function divOps(model){
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes('reinvest') || model.data.toLowerCase().includes('payout')){
+			if(model.tags.divOps.includes('re')){
+				model.tags.divOps = 1
+			}
+			else if(model.tags.divOps.includes('pay')){
+				model.tags.divOps = 2
+			}
+			else{
+				model.tags.divOps = 0
+			}
 			model.tags.joinAccList = []
 			for(let i in model.tags.joinAcc){
 				model.tags.joinAccList.push({
@@ -605,6 +615,9 @@ function divOps(model){
 				delete model.stage
 			}
 			resolve(model)
+		}
+		else{
+			reject(model)
 		}
 	})
 }
@@ -634,7 +647,27 @@ function holding(model){
 					arr.push(response.Response[i].FolioNo.toLowerCase())
 				}
 				if(model.tags.folio && arr.includes(model.tags.folio)){
-					model.stage = 'final'
+					api.insertBuyCart(model.tags.session, model.tags.joinAccId, model.tags.schemeCode, model.tags.scheme, schemes[model.tags.scheme].amcCode, model.tags.divOps, model.tags.amount, model.tags.folio, 'E20391')
+					.then((data)=>{
+						data = JSON.parse(data)
+						if(data.body.Response[0].length > 1){
+							model.tags.bankMandateList = []
+							for(let i in data.body.Response[0][1]){
+								model.tags.bankMandateList.push({
+									data : data.body.Response[0][1][i].MandateID,
+									text : data.body.Response[0][1][i].BankAccount
+								})
+							}
+							model.stage = 'buyCart'
+						}
+						else{
+							reject(model)
+						}
+					})
+					.catch((e)=>{
+						console.log(e)
+						reject(model)
+					})
 				}
 				else if(response.Response.length > 0){
 					model.tags.folioList = []
@@ -679,7 +712,17 @@ function folio(model){
 	})
 }
 
+function buyCart(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	})
+}
 
+function mandate(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	})
+}
 
 
 

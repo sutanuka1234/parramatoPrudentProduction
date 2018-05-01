@@ -67,28 +67,27 @@ function getFolio(session, joinAccId, schemeCode, amcId){
 
 // getFolio('7C772321713D21713D21713D21713D21713D21713D21713D7C772321713D', '334', '8408', '400040').then(data=>{console.log(data)}).catch(err=>console.log(err))
 
-// function insertBuyCart(session, joinAccId, schemeCode, schemeName, amcId, dividendOption, amount, folioNo, callback){
-// 	var obj = {
-// 		method 	: 'POST',
-// 		headers : headers,
-// 		url 	: url+'InsertBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+schemeName+'&AMCId='+amcId+'&DivOpt='+dividendOption+'&Amount='+amount+'&FolioNo='+folioNo+'&IsAgreeTerms=1&IsEKYCTermCondition=1'
-// 	}
-// 	return runRequest(obj)
-// }
+function insertBuyCart(session, joinAccId, schemeCode, schemeName, amcId, dividendOption, amount, folioNo, euin){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'InsertBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+schemeName+'&AMCId='+amcId+'&DivOpt='+dividendOption+'&Amount='+amount+'&FolioNo='+folioNo+'&EUIN='+euin+'&IsAgreeTerms=1&IsEKYCTermCondition=1'
+	}
+	return runRequest(obj)
+}
 
-// insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D7C77232F612A', '334', '8408', 'Axis Asset Management Company Ltd', '400040', '0', '5000', '0', (err, http, response)=>{
-// 	console.log(response)
-// })
+// insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', 'Axis Asset Management Company Ltd', '400040', '0', '5000', '0').then(data=>{console.log(data.body)}).catch(err=>console.log(err))
 
-// function bankMandate(session, joinAccId, schemeCode, mandateId, amount, callback){
-// 	var obj = {
-// 		method 	: 'POST',
-// 		headers : headers,
-// 		url 	: url+'MakePaymentUsingMandate?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'MandateID='+mandateId+'&Amount='+amount+'&IsThirdPartyBankTerms=1'
-// 	}
-	
-// 	return runRequest(obj)
-// }
+function bankMandate(session, joinAccId, schemeCode, mandateId, amount){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'MakePaymentUsingMandate?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&MandateID='+mandateId+'&Amount='+amount+'&IsThirdPartyBankTerms=1'
+	}
+	return runRequest(obj)
+}
+
+// bankMandate('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', '73-NFB0000073-100000', '10000').then(data=>{console.log(data.body)}).catch(e=>{console.log(e)})
 
 function runRequest(obj){
 	return new Promise(function(resolve, reject){
@@ -104,7 +103,7 @@ function runRequest(obj){
 module.exports = {
 	panMobile 	: panMobile,
 	otp 		: otp,
-	getFolio 	: getFolio
-	// insertBuyCart : insertBuyCart,
-	// bankMandate : bankMandate
+	getFolio 	: getFolio,
+	insertBuyCart : insertBuyCart,
+	bankMandate : bankMandate
 }
