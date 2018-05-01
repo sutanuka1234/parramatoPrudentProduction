@@ -104,7 +104,6 @@ function panMobile(model){
 			if(model.data.match(phone)){
 				console.log('PHONE')
 				let text = matchAll(model.data, /(\d+)/gi).toArray()
-				console.log(text)
 				for(let i in text){
 					if(text[i].length == 10){
 						model.tags.mobile = text[i]
@@ -118,7 +117,6 @@ function panMobile(model){
 				console.log('Amount')
 				console.log(model.data)
 				let text = matchAll(model.data, /(\d+)/gi).toArray()
-				console.log(text)
 				for(let i in text){
 					if(text[i].length < 8){
 						model.tags.amount = text[i]
@@ -222,6 +220,7 @@ function mobile(model){
 		// else{
 		// 	return reject(model)
 		// }
+		console.log(model.data)
 		if(model.data.includes(',')){
 			while(model.data.includes(','))
 	    		model.data = model.data.replace(',', '')
@@ -248,7 +247,6 @@ function mobile(model){
 		if(model.data.match(regexAmount)){
 			console.log('Amount')
 			let text = matchAll(model.data, /(\d+)/gi).toArray()
-			console.log(text)
 			for(let i in text){
 				if(text[i].length < 8){
 					model.tags.amount = text[i]
@@ -333,7 +331,6 @@ function pan(model){
 			if(model.data.match(regexAmount)){
 				console.log('Amount')
 				let text = matchAll(model.data, /(\d+)/gi).toArray()
-				console.log(text)
 				for(let i in text){
 					if(text[i].length < 8){
 						model.tags.amount = text[i]
