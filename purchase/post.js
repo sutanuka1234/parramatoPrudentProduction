@@ -104,21 +104,21 @@ function panMobile(model){
 		else{
 			console.log(arr)
 			for(let i in arr){
-				if(arr[i].match(pan)){
+				if(arr[i].match(pan) && arr[i].length == 10){
 					console.log('PAN')
 					model.tags.pan = arr[i]
 					arr.splice(i, 1, '');
 					console.log(arr)
 					model.stage = 'mobile'
 				}
-				if(arr[i].match(phone)){
+				if(arr[i].match(phone) && arr[i].length == 10){
 					console.log('PHONE')
 					model.tags.mobile = arr[i]
 					arr.splice(i, 1, '');
 					console.log(arr)
 					model.stage = 'pan'
 				}
-				if(arr[i].match(regexAmount)){
+				if(arr[i].match(regexAmount) && arr[i].length <= 7){
 					console.log('Amount')
 					model.tags.amount = arr[i]
 					arr.splice(i, 1, '');
