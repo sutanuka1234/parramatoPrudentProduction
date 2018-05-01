@@ -118,8 +118,8 @@ function panMobile(model){
 			}
 			if(model.data.match(divOption)){
 				console.log('Dividend Option')
-				model.tags.divOps = model.data.match(divOption)[0]
-				model.data = model.data.replace(model.tags.divOps, '')
+				model.tags.divOption = model.data.match(divOption)[0]
+				model.data = model.data.replace(model.tags.divOption, '')
 			}
 			if(model.data.match(regexFolio)){
 				console.log('Folio')
@@ -249,8 +249,8 @@ function mobile(model){
 		}
 		if(model.data.match(divOption)){
 			console.log('Dividend Option')
-			model.tags.divOps = model.data.match(divOption)[0]
-			model.data = model.data.replace(model.tags.divOps, '')
+			model.tags.divOption = model.data.match(divOption)[0]
+			model.data = model.data.replace(model.tags.divOption, '')
 		}
 		if(model.data.match(regexFolio)){
 			console.log('Folio')
@@ -371,8 +371,8 @@ function pan(model){
 		}
 		if(model.data.match(divOption)){
 			console.log('Dividend Option')
-			model.tags.divOps = model.data.match(divOption)[0]
-			model.data = model.data.replace(model.tags.divOps, '')
+			model.tags.divOption = model.data.match(divOption)[0]
+			model.data = model.data.replace(model.tags.divOption, '')
 		}
 		if(model.data.match(regexFolio)){
 			console.log('Folio')
@@ -532,15 +532,15 @@ function showSchemeName(model){
 		if(arr.includes(model.data)){
 			model.tags.scheme = model.data
 			if(schemes[model.data].optionCode == 1){
-				if(model.tags.divOps){
-					if(model.tags.divOps.includes('re')){
-						model.tags.divOps = 1
+				if(model.tags.divOption){
+					if(model.tags.divOption.includes('re')){
+						model.tags.divOption = 1
 					}
-					else if(model.tags.divOps.includes('pay')){
-						model.tags.divOps = 2
+					else if(model.tags.divOption.includes('pay')){
+						model.tags.divOption = 2
 					}
 					else{
-						model.tags.divOps = 0
+						model.tags.divOption = 0
 					}
 				}
 				model.tags.joinAccList = []
@@ -595,13 +595,13 @@ function divOps(model){
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes('reinvest') || model.data.toLowerCase().includes('payout')){
 			if(model.data.includes('re')){
-				model.tags.divOps = 1
+				model.tags.divOption = 1
 			}
 			else if(model.data.includes('pay')){
-				model.tags.divOps = 2
+				model.tags.divOption = 2
 			}
 			else{
-				model.tags.divOps = 0
+				model.tags.divOption = 0
 			}
 			model.tags.joinAccList = []
 			for(let i in model.tags.joinAcc){
@@ -650,7 +650,7 @@ function holding(model){
 					arr.push(response.Response[i].FolioNo.toLowerCase())
 				}
 				if(model.tags.folio && arr.includes(model.tags.folio)){
-					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemes[model.tags.scheme].schemeCode, model.tags.scheme, schemes[model.tags.scheme].amcCode, model.tags.divOps, model.tags.amount, model.tags.folio, 'E20391')
+					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemes[model.tags.scheme].schemeCode, model.tags.scheme, schemes[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E20391')
 					.then((data)=>{
 						data = JSON.parse(data)
 						if(data.body.Response[0].length > 1){
@@ -709,7 +709,7 @@ function folio(model){
 			console.log(model.tags.joinAccId)
 			console.log(model.tags.scheme)
 			console.log(schemes[model.tags.scheme].amcCode)
-			console.log(model.tags.divOps)
+			console.log(model.tags.divOption)
 			console.log(model.tags.amount)
 			api.insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', 'Axis Asset Management Company Ltd.', '400040', '0', '10000', '0')
 			.then((data)=>{
