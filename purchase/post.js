@@ -4,6 +4,7 @@ module.exports={
 
 var api = require('../api.js')
 var schemes = require('../schemes.js')
+var words = require('../words.js')
 var stringSimilarity = require('string-similarity');
 var sortBy = require('sort-by')
 var matchAll = require('match-all')
@@ -134,7 +135,6 @@ function panMobile(model){
 				model.tags.folio = model.data.match(regexFolio)[0].match(/\d+|new folio/)[0]
 				model.data = model.data.replace(model.tags.folio, '')
 			}
-			console.log(model.tags)
 			let wordsInUserSays=model.tags.userSays.split(" ");
 			let count=0;
 			let startIndex;
@@ -172,6 +172,7 @@ function panMobile(model){
 				model.tags.schemeType = matchType[0]
 				model.tags.userSays=model.tags.userSays.replace(model.tags.schemeType, '')
 			}
+			console.log(model.tags)
 			if(model.tags.pan && model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
 				.then(data=>{
