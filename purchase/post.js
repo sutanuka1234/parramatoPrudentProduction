@@ -106,7 +106,6 @@ function panMobile(model){
 				model.tags.pan = model.data.match(pan)[0]
 				model.data = model.data.replace(model.tags.pan, '')
 				model.stage = 'mobile'
-				// return resolve(model)
 			}
 			if(model.data.match(phone)){
 				console.log('PHONE')
@@ -120,7 +119,6 @@ function panMobile(model){
 				}
 				model.data = model.data.replace(model.tags.mobile, '')
 				model.stage = 'pan'
-				// return resolve(model)
 			}
 			if(model.data.match(regexAmount)){
 				console.log('Amount')
@@ -134,6 +132,7 @@ function panMobile(model){
 				}
 				model.data = model.data.replace(model.tags.amount, '')
 			}
+			console.log(model.tags)
 			if(model.tags.pan && model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
 				.then(data=>{
