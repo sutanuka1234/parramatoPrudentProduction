@@ -6,6 +6,7 @@ var api = require('../api.js')
 var schemes = require('../schemes.js')
 var stringSimilarity = require('string-similarity');
 var sortBy = require('sort-by')
+var matchAll = require('match-all')
 
 let obj = {
 	panMobile : panMobile,
@@ -31,10 +32,11 @@ let obj = {
 }
 
 
-var phone = /((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/
+var phone = /[789]\d{9}/
 var pan = /[a-z]{3}p[a-z]\d{4}[a-z]/
 var number=/\d+/
 var otpInput=/\d{6}/
+var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{1}(k|l))/
 
 function main(req, res){
 	return new Promise(function(resolve, reject){
@@ -77,39 +79,56 @@ function panMobile(model){
 				return reject(model)
 			})
 		}
-		else if(model.data.toLowerCase().match(pan) && model.data.match(number) && model.data.match(phone) ) {
-			console.log('here')
-			console.log(model.data.match(number))
-			model.tags.mobile = model.data.match(phone)[0]
-			model.tags.pan = model.data.toLowerCase().match(pan)[0]
-			api.panMobile(model.tags.mobile, model.tags.pan)
-			.then(data=>{
-				console.log(data.body)
-				let response = JSON.parse(data.body)
-				if(response.Response[0].result=="FAIL"){
-					return reject(model)
-				}
-				model.tags.session = response.Response[0].SessionId
-				model.stage = 'otp' 
-				return resolve(model)
-			})
-			.catch(error=>{
-				console.log(error);
-				return reject(model)
-			})
-		}
+		// else if(model.data.toLowerCase().match(pan) && model.data.match(number) && model.data.match(phone) ) {
+		// 	console.log('here')
+		// 	console.log(model.data.match(phone))
+		// 	model.tags.mobile = model.data.match(phone)[0]
+		// 	model.tags.pan = model.data.toLowerCase().match(pan)[0]
+		// 	api.panMobile(model.tags.mobile, model.tags.pan)
+		// 	.then(data=>{
+		// 		console.log(data.body)
+		// 		let response = JSON.parse(data.body)
+		// 		if(response.Response[0].result=="FAIL"){
+		// 			return reject(model)
+		// 		}
+		// 		model.tags.session = response.Response[0].SessionId
+		// 		model.stage = 'otp' 
+		// 		return resolve(model)
+		// 	})
+		// 	.catch(error=>{
+		// 		console.log(error);
+		// 		return reject(model)
+		// 	})
+		// }
 		else{
-			if(model.data.match(phone)){
-				console.log('PHONE')
-				model.tags.mobile = model.data.match(phone)[0]
-				model.stage = 'pan'
-				return resolve(model)
-			}
 			if(model.data.match(pan)){
 				console.log('PAN')
 				model.tags.pan = model.data.match(pan)[0]
+				model.data = model.data.replace(model.tags.pan, '')
 				model.stage = 'mobile'
-				return resolve(model)
+				// return resolve(model)
+			}
+			if(model.data.match(phone)){
+				console.log('PHONE')
+				let text = matchAll(model.data, phone).toArray()
+				for(let i in text){
+					if(text[i].length == 10){
+						model.tags.mobile = text[i]
+						break;
+					}
+				}
+				console.log(model.tags.mobile+'11111111111')
+				model.data = model.data.replace(model.tags.mobile, '')
+				model.stage = 'pan'
+				// return resolve(model)
+			}
+			if(model.data.match(regexAmount)){
+				console.log('Amount')
+				model.tags.amount = model.data.match(regexAmount)[0]
+				model.data = model.data.replace(model.tags.amount, '')
+			}
+			if(model.tags.pan && model.tags.mobile){
+				model.stage = 'otp'
 			}	
 			return resolve(model)	
 		}
