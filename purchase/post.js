@@ -6,7 +6,7 @@ var api = require('../api.js')
 var schemes = require('../schemes.js')
 var stringSimilarity = require('string-similarity');
 var sortBy = require('sort-by')
-// var matchAll = require('match-all')
+var matchAll = require('match-all')
 
 let obj = {
 	panMobile : panMobile,
@@ -55,7 +55,6 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model.data = model.data.toLowerCase()
-		let arr = model.data.split(/\s+/)
 		console.log(model.data)
 		if(model.data.match(phone) && model.tags.pan){
 			model.tags.mobile = model.data.match(phone)[0]
@@ -102,67 +101,45 @@ function panMobile(model){
 		// 	})
 		// }
 		else{
-			console.log(arr)
-			for(let i in arr){
-				if(arr[i].match(pan) && arr[i].length == 10){
-					console.log('PAN')
-					model.tags.pan = arr[i]
-					arr.splice(i, 1, '');
-					console.log(arr)
-					model.stage = 'mobile'
-				}
-				if(arr[i].match(phone) && arr[i].length == 10){
-					console.log('PHONE')
-					model.tags.mobile = arr[i]
-					arr.splice(i, 1, '');
-					console.log(arr)
-					model.stage = 'pan'
-				}
-				if(arr[i].match(regexAmount) && arr[i].length < 8){
-					console.log('Amount')
-					console.log(arr[i])
-					model.tags.amount = arr[i]
-					arr.splice(i, 1, '');
-					model.data = model.data.replace(model.tags.amount, '')
-				}
+			if(model.data.match(pan)){
+				console.log('PAN')
+				model.tags.pan = model.data.match(pan)[0]
+				model.data = model.data.replace(model.tags.pan, '')
+				model.stage = 'mobile'
+				// return resolve(model)
 			}
-			console.log(model.tags)
-			if(model.tags.pan && model.tags.mobile){
-				api.panMobile(model.tags.mobile, model.tags.pan)
-				.then(data=>{
-					console.log(data.body)
-					let response = JSON.parse(data.body)
-					if(response.Response[0].result=="FAIL"){
-						return reject(model)
+			if(model.data.match(phone)){
+				console.log('PHONE')
+				let text = matchAll(model.data, /\d+/gi).toArray()
+				console.log(text)
+				for(let i in text){
+					if(text[i].length == 10){
+						model.tags.mobile = text[i]
+						break;
 					}
-					model.tags.session = response.Response[0].SessionId
-					model.stage = 'otp' 
-					return resolve(model)
-				})
-				.catch(error=>{
-					console.log(error);
-					return reject(model)
-				})
+				}
+				console.log(model.tags.mobile+'11111111111')
+				model.data = model.data.replace(model.tags.mobile, '')
+				model.stage = 'pan'
+				// return resolve(model)
 			}
-			else{	
-				return resolve(model)
+			if(model.data.match(regexAmount)){
+				console.log('Amount')
+				model.tags.amount = model.data.match(regexAmount)[0]
+				model.data = model.data.replace(model.tags.amount, '')
+			}
+			if(model.tags.pan && model.tags.mobile){
+				model.stage = 'otp'
 			}	
+			return resolve(model)	
 		}
 	})	
 }
 
 function mobile(model){
 	return new Promise(function(resolve, reject){
-		if(model.data.match(phone)){
-			// let text = matchAll(model.data, /([789]\d{9})/gi).toArray()
-			// console.log(text)
-			// for(let i in text){
-			// 	if(text[i].length == 10){
-			// 		model.tags.mobile = text[i]
-			// 		break;
-			// 	}
-			// }
-			model.data = model.data.replace(model.tags.mobile, '')
+		if(model.data.match(number)[0].length == 10 && model.data.match(phone)){
+			model.tags.mobile = model.data.match(phone)[0]
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				console.log(data.body)
