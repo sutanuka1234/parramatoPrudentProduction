@@ -102,6 +102,7 @@ function panMobile(model){
 		// 	})
 		// }
 		else{
+			console.log(arr)
 			for(let i in arr){
 				if(arr[i].match(pan)){
 					console.log('PAN')
