@@ -715,9 +715,9 @@ function folio(model){
 			.then((data)=>{
 				console.log(data.body)
 				console.log('DATA')
-				console.log(data.body["Response"][0])
+				console.log(data.body["Response"])
 				console.log('DATA')
-				console.log(data.body["Response"][0][1])
+				console.log(data.body["Response"][1])
 				if(data.body){
 					model.tags.bankMandateList = []
 					for(let i in data.body["Response"][1]){
