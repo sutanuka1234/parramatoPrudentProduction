@@ -712,27 +712,27 @@ function folio(model){
 			console.log(model.tags.divOps)
 			console.log(model.tags.amount)
 			api.insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', 'Axis Asset Management Company Ltd.', '400040', '0', '10000', '0')
-					.then((data)=>{
-						console.log(data.body)
-						if(data.body){
-							model.tags.bankMandateList = []
-							for(let i in data.body["Response"][0][1]){
-								model.tags.bankMandateList.push({
-									data : data.body["Response"][0][1][i]["MandateID"],
-									text : data.body["Response"][0][1][i]["BankAccount"]
-								})
-							}
-							delete model.stage
-						}
-						else{
-							reject(model)
-						}
-					})
-					.catch((e)=>{
-						console.log(e)
-						reject(model)
-					})
-			resolve(model)
+			.then((data)=>{
+				console.log(data.body)
+				if(data.body){
+					model.tags.bankMandateList = []
+					for(let i in data.body["Response"][0][1]){
+						model.tags.bankMandateList.push({
+							data : data.body["Response"][0][1][i]["MandateID"],
+							text : data.body["Response"][0][1][i]["BankAccount"]
+						})
+					}
+					delete model.stage
+					resolve(model)
+				}
+				else{
+					reject(model)
+				}
+			})
+			.catch((e)=>{
+				console.log(e)
+				reject(model)
+			})
 		}
 		else{
 			reject(model)
