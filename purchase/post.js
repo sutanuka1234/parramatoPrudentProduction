@@ -706,7 +706,11 @@ function folio(model){
 			arr.push(model.tags.folioList[i].data)
 		}
 		if(arr.includes(model.data)){
-			console.log(schemes[model.tags.scheme].schemeCode)
+			console.log(model.tags.joinAccId[0])
+			console.log(model.tags.scheme)
+			console.log(schemes[model.tags.scheme].amcCode)
+			console.log(model.tags.divOps)
+			console.log(model.tags.amount)
 			api.insertBuyCart(model.tags.session, model.tags.joinAccId[0], schemes[model.tags.scheme].schemeCode, model.tags.scheme, schemes[model.tags.scheme].amcCode, model.tags.divOps, model.tags.amount, '0', 'E20391')
 					.then((data)=>{
 						console.log(data.body)
