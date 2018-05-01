@@ -60,7 +60,6 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model.data = model.data.toLowerCase()
-		console.log(model.data)
 		if(model.data.match(phone) && model.tags.pan){
 			model.tags.mobile = model.data.match(phone)[0]
 		}
@@ -220,6 +219,7 @@ function mobile(model){
 		// else{
 		// 	return reject(model)
 		// }
+		model.data = model.data.toLowerCase()
 		if(model.data.includes(',')){
 			while(model.data.includes(','))
 	    		model.data = model.data.replace(',', '')
@@ -311,6 +311,7 @@ function pan(model){
 		// else{
 		// 	return reject(model)
 		// }
+		model.data = model.data.toLowerCase()
 		if(model.data.includes(',')){
 			while(model.data.includes(','))
 	    		model.data = model.data.replace(',', '')
