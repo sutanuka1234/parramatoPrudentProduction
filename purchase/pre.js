@@ -53,6 +53,7 @@ function panMobile(model){
 	    		model.tags.userSays = model.tags.userSays.replace(',', '')
 		}
 		if(model.tags.userSays.match(/\d+\s*k/)){
+			console.log(model.tags.userSays.match(/\d+\s*k/)[0])
 	       	model.tags.userSays = model.tags.userSays.match(/\d+\s*k/)[0].replace('k', '000')
 	    }
 	    if(model.tags.userSays.match(/\d+\s*(lakhs|lakh|lacs|l)/)){
