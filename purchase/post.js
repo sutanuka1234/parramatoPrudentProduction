@@ -102,31 +102,33 @@ function panMobile(model){
 		// 	})
 		// }
 		else{
-			if(arr.match(pan)){
-				console.log('PAN')
-				model.tags.pan = model.data.match(pan)[0]
-				model.data = model.data.replace(model.tags.pan, '')
-				model.stage = 'mobile'
-				// return resolve(model)
-			}
-			if(arr.match(phone)){
-				console.log('PHONE')
-				// let text = matchAll(model.data, /([789]\d{9})/gi).toArray()
-				// console.log(text)
-				// for(let i in text){
-				// 	if(text[i].length == 10){
-				// 		model.tags.mobile = text[i]
-				// 		break;
-				// 	}
-				// }
-				model.data = model.data.replace(model.tags.mobile, '')
-				model.stage = 'pan'
-				// return resolve(model)
-			}
-			if(arr.match(regexAmount)){
-				console.log('Amount')
-				model.tags.amount = model.data.match(regexAmount)[0]
-				model.data = model.data.replace(model.tags.amount, '')
+			for(let i in arr){
+				if(arr[i].match(pan)){
+					console.log('PAN')
+					model.tags.pan = model.data.match(pan)[0]
+					model.data = model.data.replace(model.tags.pan, '')
+					model.stage = 'mobile'
+					// return resolve(model)
+				}
+				if(arr[i].match(phone)){
+					console.log('PHONE')
+					// let text = matchAll(model.data, /([789]\d{9})/gi).toArray()
+					// console.log(text)
+					// for(let i in text){
+					// 	if(text[i].length == 10){
+					// 		model.tags.mobile = text[i]
+					// 		break;
+					// 	}
+					// }
+					model.data = model.data.replace(model.tags.mobile, '')
+					model.stage = 'pan'
+					// return resolve(model)
+				}
+				if(arr[i].match(regexAmount)){
+					console.log('Amount')
+					model.tags.amount = model.data.match(regexAmount)[0]
+					model.data = model.data.replace(model.tags.amount, '')
+				}
 			}
 			if(model.tags.pan && model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
