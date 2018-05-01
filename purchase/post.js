@@ -531,7 +531,24 @@ function showSchemeName(model){
 		}
 		if(arr.includes(model.data)){
 			model.tags.scheme = model.data
-			if(schemes[model.data].optionCode == 1){
+			if(schemes[model.data].optionCode == 1 || model.tags.divOption){
+				if(model.tags.divOption){
+					if(model.tags.divOption.includes('re')){
+						model.tags.divOption = 1
+					}
+					else if(model.tags.divOption.includes('pay')){
+						model.tags.divOption = 2
+					}
+					else{
+						model.tags.divOption = 0
+					}
+					if(model.tags.amount && parseInt(model.tags.amount) > 499){
+						model.stage = 'holding'
+					}
+					else{
+						model.stage = 'amount'
+					}
+				}
 				model.tags.joinAccList = []
 				for(let i in model.tags.joinAcc){
 					model.tags.joinAccList.push({
@@ -547,28 +564,9 @@ function showSchemeName(model){
 					model.stage = 'amount'
 				}
 			}
-			console.log(model.tags.divOption)
-			if(model.tags.divOption){
-				if(model.tags.divOption.includes('re')){
-					model.tags.divOption = 1
-				}
-				else if(model.tags.divOption.includes('pay')){
-					model.tags.divOption = 2
-				}
-				else{
-					model.tags.divOption = 0
-				}
-				if(model.tags.amount && parseInt(model.tags.amount) > 499){
-					model.stage = 'holding'
-				}
-				else{
-					model.stage = 'amount'
-				}
-			}
 			else{
 				delete model.stage
 			}
-			// resolve(model)
 		}
 		else{
 			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(schemes))
