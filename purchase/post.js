@@ -32,11 +32,13 @@ let obj = {
 }
 
 
-var phone = /[789]\d{9}/
-var pan = /[a-z]{3}p[a-z]\d{4}[a-z]/
-var number=/\d+/
-var otpInput=/\d{6}/
-var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{1}(k|l))/
+var phone 		= /[789]\d{9}/
+var pan 		= /[a-z]{3}p[a-z]\d{4}[a-z]/
+var number		= /\d+/
+var otpInput	= /\d{6}/
+var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/
+var divOption 	= /re(-|\s)?invest|pay(\s)?out/
+var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
 
 function main(req, res){
 	return new Promise(function(resolve, reject){
@@ -101,6 +103,16 @@ function panMobile(model){
 		// 	})
 		// }
 		else{
+			if(model.tags.userSays.includes(',')){
+				while(model.tags.userSays.includes(','))
+		    		model.tags.userSays = model.tags.userSays.replace(',', '')
+			}
+			if(model.tags.userSays.match(/\d+(\s*)?(k)/)){
+		       	model.tags.userSays = model.tags.userSays.replace('k', '000')
+		    }
+		    if(model.tags.userSays.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
+		    	model.tags.userSays = model.tags.userSays.replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+		    }
 			if(model.data.match(pan)){
 				console.log('PAN')
 				model.tags.pan = model.data.match(pan)[0]
@@ -132,7 +144,16 @@ function panMobile(model){
 					}
 				}
 			}
-			console.log(model.tags)
+			if(model.data.match(divOption)){
+				console.log('Dividend Option')
+				model.tags.divOps = model.data.match(divOption)[0]
+				model.data = model.data.replace(model.tags.divOps, '')
+			}
+			if(model.data.match(regexFolio)){
+				console.log('Folio')
+				model.tags.folio = matchFolio[0].match(/\d+|new folio/)[0]
+				model.data = model.data.replace(model.tags.folio, '')
+			}
 			if(model.tags.pan && model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
 				.then(data=>{

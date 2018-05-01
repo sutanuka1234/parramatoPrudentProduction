@@ -30,7 +30,7 @@ let obj = {
 
 var regexPan   	= /[a-z]{3}p[a-z]\d{4}[a-z]/;
 var regexMobile = /((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/;
-var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{1}(k|l))/
+var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/
 var schemeType 	= /dividend|growth/
 var divOption 	= /re(-|\s)?invest|pay(\s)?out/
 var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
@@ -53,105 +53,108 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		//pan,mobile,amount,amc,scheme,option,payout,tentativeFolio
-		// model.tags.userSays=model.tags.userSays.toLowerCase();
-		// if(model.tags.userSays.includes(',')){
-		// 	while(model.tags.userSays.includes(','))
-	 //    		model.tags.userSays = model.tags.userSays.replace(',', '')
-		// }
-		// if(model.tags.userSays.match(/\d+(\s*)?(k|K)/)){
-	 //       	model.tags.userSays = model.tags.userSays.replace('k', '000').replace('K', '000')
-	 //    }
-		// var matchPan=model.tags.userSays.match(regexPan)
-		// if(matchPan){
-		// 	model.tags.pan = matchPan[0]
-		// 	model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
-		// }
-		// var matchMobile=model.tags.userSays.match(regexMobile)
-		// if(model.tags.userSays.match(/\d+/) && model.tags.userSays.match(/\d+/)[0].length == 10 && matchMobile){			
-		// 	model.tags.mobile = matchMobile[0]
-		// 	model.tags.userSays=model.tags.userSays.replace(model.tags.mobile, '')
-		// }
-		// var matchAmount=model.tags.userSays.match(regexAmount)
-		// if(matchAmount){
-		// 	model.tags.amount = matchAmount[0]
-		// 	model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
-		// }
-		// var matchDivOption=model.tags.userSays.match(divOption)
-		// if(matchDivOption){
-		// 	model.tags.divOption=matchDivOption[0]
-		// 	model.tags.userSays=model.tags.userSays.replace(model.tags.divOption, '')
-		// }
-		// var matchFolio=model.tags.userSays.match(regexFolio)
-		// if(matchFolio){
-		// 	model.tags.folio = matchFolio[0].match(/\d+|new folio/)[0]
-		// 	model.tags.userSays=model.tags.userSays.replace(matchFolio, '')
-		// }
-		// let wordsInUserSays=model.tags.userSays.split(" ");
-		// let count=0;
-		// let startIndex;
-		// let endIndex;
-		// for(let wordIndex in wordsInUserSays){
-		// 	if(words.includes(wordsInUserSays[wordIndex])){
-		// 		count++;
-		// 		if(count==1){
-		// 			startIndex=wordIndex;
-		// 			endIndex=wordIndex;
-		// 		}
-		// 		else{
-		// 			endIndex=wordIndex;
-		// 		}
-		// 	}
-		// }
-		// if(count>0){
-		// 	let searchTerm=""
-		// 	for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
-		// 		searchTerm+=wordsInUserSays[i]+" "
-		// 	}
-		// 	searchTerm=searchTerm.trim();
-		// 	model.tags.schemes = []
-		// 	let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
-		// 	if(matches.bestMatch.rating>0.9){
-		// 		model.tags.schemes.push(bestMatch)
-		// 	}
-		// 	else{
-		// 		matches.ratings=matches.ratings.sort(sortBy('-rating'));
-		// 		model.tags.schemes = matches.ratings.splice(0,9);
-		// 	}
-		// }
-		// var matchType=model.tags.userSays.match(schemeType)
-		// if(matchType){
-		// 	model.tags.schemeType = matchType[0]
-		// 	model.tags.userSays=model.tags.userSays.replace(model.tags.schemeType, '')
-		// }
-		// if(model.tags.mobile && model.tags.pan){
-		// 	model.reply={
-		// 		type:"quickReply",
-	 //            text:"Go ahead with OTP?",
-	 //            next:{
-	 //                "data": [
-	 //                	{
-	 //                		data : 'Proceed',
-	 //                		text : 'Proceed'
-	 //                	}
-	 //                ]
-	 //            }
-		// 	}
-		// 	resolve(model)
-		// }
-		// else if(model.tags.mobile){
-		// 	model.reply={
-		// 		type : "text",
-		// 		text : "Also enter the PAN"
-		// 	}
-		// 	resolve(model)
-		// }
-		// else if(model.tags.pan){
-		// 	model.reply={
-		// 		type : "text",
-		// 		text : "Also enter the mobile number"
-		// 	}
-		// 	resolve(model)
-		// }
+		model.tags.userSays=model.tags.userSays.toLowerCase();
+		if(model.tags.userSays.includes(',')){
+			while(model.tags.userSays.includes(','))
+	    		model.tags.userSays = model.tags.userSays.replace(',', '')
+		}
+		if(model.tags.userSays.match(/\d+(\s*)?(k)/)){
+	       	model.tags.userSays = model.tags.userSays.replace('k', '000')
+	    }
+	    if(model.tags.userSays.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
+	    	model.tags.userSays = model.tags.userSays.replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+	    }
+		var matchPan=model.tags.userSays.match(regexPan)
+		if(matchPan){
+			model.tags.pan = matchPan[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
+		}
+		var matchMobile=model.tags.userSays.match(regexMobile)
+		if(model.tags.userSays.match(/\d+/) && model.tags.userSays.match(/\d+/)[0].length == 10 && matchMobile){			
+			model.tags.mobile = matchMobile[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.mobile, '')
+		}
+		var matchAmount=model.tags.userSays.match(regexAmount)
+		if(matchAmount){
+			model.tags.amount = matchAmount[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
+		}
+		var matchDivOption=model.tags.userSays.match(divOption)
+		if(matchDivOption){
+			model.tags.divOption=matchDivOption[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.divOption, '')
+		}
+		var matchFolio=model.tags.userSays.match(regexFolio)
+		if(matchFolio){
+			model.tags.folio = matchFolio[0].match(/\d+|new folio/)[0]
+			model.tags.userSays=model.tags.userSays.replace(matchFolio, '')
+		}
+		let wordsInUserSays=model.tags.userSays.split(" ");
+		let count=0;
+		let startIndex;
+		let endIndex;
+		for(let wordIndex in wordsInUserSays){
+			if(words.includes(wordsInUserSays[wordIndex])){
+				count++;
+				if(count==1){
+					startIndex=wordIndex;
+					endIndex=wordIndex;
+				}
+				else{
+					endIndex=wordIndex;
+				}
+			}
+		}
+		if(count>0){
+			let searchTerm=""
+			for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
+				searchTerm+=wordsInUserSays[i]+" "
+			}
+			searchTerm=searchTerm.trim();
+			model.tags.schemes = []
+			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+			if(matches.bestMatch.rating>0.9){
+				model.tags.schemes.push(bestMatch)
+			}
+			else{
+				matches.ratings=matches.ratings.sort(sortBy('-rating'));
+				model.tags.schemes = matches.ratings.splice(0,9);
+			}
+		}
+		var matchType=model.tags.userSays.match(schemeType)
+		if(matchType){
+			model.tags.schemeType = matchType[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.schemeType, '')
+		}
+		if(model.tags.mobile && model.tags.pan){
+			model.reply={
+				type:"quickReply",
+	            text:"Go ahead with OTP?",
+	            next:{
+	                "data": [
+	                	{
+	                		data : 'Proceed',
+	                		text : 'Proceed'
+	                	}
+	                ]
+	            }
+			}
+			resolve(model)
+		}
+		else if(model.tags.mobile){
+			model.reply={
+				type : "text",
+				text : "Also enter the PAN"
+			}
+			resolve(model)
+		}
+		else if(model.tags.pan){
+			model.reply={
+				type : "text",
+				text : "Also enter the mobile number"
+			}
+			resolve(model)
+		}
 		resolve(model)
 	})
 }
