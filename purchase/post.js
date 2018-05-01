@@ -748,8 +748,8 @@ function folio(model){
 function buyCart(model){
 	return new Promise(function(resolve, reject){
 		let arr = []
-		for(let i in model.tags.bankMandateList.data){
-			arr.push(model.tags.bankMandateList.data[i])
+		for(let i in model.tags.bankMandateList){
+			arr.push(model.tags.bankMandateList[i].data)
 		}
 		if(arr.includes(model.data)){
 			delete model.stage
