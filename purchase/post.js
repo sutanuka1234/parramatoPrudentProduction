@@ -54,7 +54,7 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.tags)
+		model.data = model.data.toLowerCase()
 		console.log(model.data)
 		if(model.data.match(phone) && model.tags.pan){
 			model.tags.mobile = model.data.match(phone)[0]
