@@ -705,7 +705,27 @@ function folio(model){
 			arr.push(model.tags.folioList[i].data)
 		}
 		if(arr.includes(model.data)){
-			delete model.stage
+			api.insertBuyCart(model.tags.session, model.tags.joinAccId, model.tags.schemeCode, model.tags.scheme, schemes[model.tags.scheme].amcCode, model.tags.divOps, model.tags.amount, model.tags.folio, 'E20391')
+					.then((data)=>{
+						data = JSON.parse(data)
+						if(data.body.Response[0].length > 1){
+							model.tags.bankMandateList = []
+							for(let i in data.body.Response[0][1]){
+								model.tags.bankMandateList.push({
+									data : data.body.Response[0][1][i].MandateID,
+									text : data.body.Response[0][1][i].BankAccount
+								})
+							}
+							delete model.stage
+						}
+						else{
+							reject(model)
+						}
+					})
+					.catch((e)=>{
+						console.log(e)
+						reject(model)
+					})
 			resolve(model)
 		}
 		else{
