@@ -39,6 +39,7 @@ var otpInput	= /\d{6}/
 var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/
 var divOption 	= /re(-|\s)?invest|pay(\s)?out/
 var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
+var schemeType 	= /dividend|growth/
 
 function main(req, res){
 	return new Promise(function(resolve, reject){
@@ -81,27 +82,6 @@ function panMobile(model){
 				return reject(model)
 			})
 		}
-		// else if(model.data.toLowerCase().match(pan) && model.data.match(number) && model.data.match(phone) ) {
-		// 	console.log('here')
-		// 	console.log(model.data.match(phone))
-		// 	model.tags.mobile = model.data.match(phone)[0]
-		// 	model.tags.pan = model.data.toLowerCase().match(pan)[0]
-		// 	api.panMobile(model.tags.mobile, model.tags.pan)
-		// 	.then(data=>{
-		// 		console.log(data.body)
-		// 		let response = JSON.parse(data.body)
-		// 		if(response.Response[0].result=="FAIL"){
-		// 			return reject(model)
-		// 		}
-		// 		model.tags.session = response.Response[0].SessionId
-		// 		model.stage = 'otp' 
-		// 		return resolve(model)
-		// 	})
-		// 	.catch(error=>{
-		// 		console.log(error);
-		// 		return reject(model)
-		// 	})
-		// }
 		else{
 			if(model.tags.userSays.includes(',')){
 				while(model.tags.userSays.includes(','))
@@ -155,6 +135,43 @@ function panMobile(model){
 				model.data = model.data.replace(model.tags.folio, '')
 			}
 			console.log(model.tags)
+			let wordsInUserSays=model.tags.userSays.split(" ");
+			let count=0;
+			let startIndex;
+			let endIndex;
+			for(let wordIndex in wordsInUserSays){
+				if(words.includes(wordsInUserSays[wordIndex])){
+					count++;
+					if(count==1){
+						startIndex=wordIndex;
+						endIndex=wordIndex;
+					}
+					else{
+						endIndex=wordIndex;
+					}
+				}
+			}
+			if(count>0){
+				let searchTerm=""
+				for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
+					searchTerm+=wordsInUserSays[i]+" "
+				}
+				searchTerm=searchTerm.trim();
+				model.tags.schemes = []
+				let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+				if(matches.bestMatch.rating>0.9){
+					model.tags.schemes.push(bestMatch)
+				}
+				else{
+					matches.ratings=matches.ratings.sort(sortBy('-rating'));
+					model.tags.schemes = matches.ratings.splice(0,9);
+				}
+			}
+			var matchType=model.tags.userSays.match(schemeType)
+			if(matchType){
+				model.tags.schemeType = matchType[0]
+				model.tags.userSays=model.tags.userSays.replace(model.tags.schemeType, '')
+			}
 			if(model.tags.pan && model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
 				.then(data=>{
@@ -181,8 +198,74 @@ function panMobile(model){
 
 function mobile(model){
 	return new Promise(function(resolve, reject){
-		if(model.data.match(number)[0].length == 10 && model.data.match(phone)){
-			model.tags.mobile = model.data.match(phone)[0]
+		// if(model.data.match(number)[0].length == 10 && model.data.match(phone)){
+		// 	model.tags.mobile = model.data.match(phone)[0]
+		// 	api.panMobile(model.tags.mobile, model.tags.pan)
+		// 	.then(data=>{
+		// 		console.log(data.body)
+		// 		let response = JSON.parse(data.body)
+		// 		if(response.Response[0].result=="FAIL"){
+		// 			return reject(model)
+		// 		}
+		// 		model.tags.session = response.Response[0].SessionId
+		// 		model.stage = 'otp' 
+		// 		return resolve(model)
+		// 	})
+		// 	.catch(error=>{
+		// 		console.log(error);
+		// 		return reject(model)
+		// 	})
+		// }
+		// else{
+		// 	return reject(model)
+		// }
+		if(model.tags.userSays.includes(',')){
+			while(model.tags.userSays.includes(','))
+	    		model.tags.userSays = model.tags.userSays.replace(',', '')
+		}
+		if(model.tags.userSays.match(/\d+(\s*)?(k)/)){
+	       	model.tags.userSays = model.tags.userSays.replace('k', '000')
+	    }
+	    if(model.tags.userSays.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
+	    	model.tags.userSays = model.tags.userSays.replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+	    }
+		if(model.data.match(phone)){
+			console.log('PHONE')
+			let text = matchAll(model.data, /(\d+)/gi).toArray()
+			console.log(text)
+			for(let i in text){
+				if(text[i].length == 10){
+					model.tags.mobile = text[i]
+					model.data = model.data.replace(model.tags.mobile, '')
+					model.stage = 'pan'
+					break;
+				}
+			}
+		}
+		if(model.data.match(regexAmount)){
+			console.log('Amount')
+			let text = matchAll(model.data, /(\d+)/gi).toArray()
+			console.log(text)
+			for(let i in text){
+				if(text[i].length < 8){
+					model.tags.amount = text[i]
+					model.data = model.data.replace(model.tags.amount, '')
+					break;
+				}
+			}
+		}
+		if(model.data.match(divOption)){
+			console.log('Dividend Option')
+			model.tags.divOps = model.data.match(divOption)[0]
+			model.data = model.data.replace(model.tags.divOps, '')
+		}
+		if(model.data.match(regexFolio)){
+			console.log('Folio')
+			model.tags.folio = model.data.match(regexFolio)[0].match(/\d+|new folio/)[0]
+			model.data = model.data.replace(model.tags.folio, '')
+		}
+		console.log(model.tags)
+		if(model.tags.pan && model.tags.mobile){
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				console.log(data.body)
@@ -199,35 +282,94 @@ function mobile(model){
 				return reject(model)
 			})
 		}
-		else{
-			return reject(model)
+		else{	
+			return resolve(model)	
 		}
 	})
 }
 
 function pan(model){
 	return new Promise(function(resolve, reject){
-		if(model.data.toLowerCase().match(pan)){
-			model.tags.pan = model.data.toLowerCase().match(pan)[0]
-			api.panMobile(model.tags.mobile, model.tags.pan)
-			.then(data=>{
-				console.log(data.body)
-				let response = JSON.parse(data.body)
-				if(response.Response[0].result=="FAIL"){
-					return reject(model)
+		// if(model.data.toLowerCase().match(pan)){
+		// 	model.tags.pan = model.data.toLowerCase().match(pan)[0]
+		// 	api.panMobile(model.tags.mobile, model.tags.pan)
+		// 	.then(data=>{
+		// 		console.log(data.body)
+		// 		let response = JSON.parse(data.body)
+		// 		if(response.Response[0].result=="FAIL"){
+		// 			return reject(model)
+		// 		}
+		// 		model.tags.session = response.Response[0].SessionId
+		// 		delete model.stage 
+		// 		return resolve(model)
+		// 	})
+		// 	.catch(error=>{
+		// 		console.log(error);
+		// 		return reject(model)
+		// 	})
+		// }
+		// else{
+		// 	return reject(model)
+		// }
+		if(model.tags.userSays.includes(',')){
+				while(model.tags.userSays.includes(','))
+		    		model.tags.userSays = model.tags.userSays.replace(',', '')
+			}
+			if(model.tags.userSays.match(/\d+(\s*)?(k)/)){
+		       	model.tags.userSays = model.tags.userSays.replace('k', '000')
+		    }
+		    if(model.tags.userSays.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
+		    	model.tags.userSays = model.tags.userSays.replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+		    }
+			if(model.data.match(pan)){
+				console.log('PAN')
+				model.tags.pan = model.data.match(pan)[0]
+				model.data = model.data.replace(model.tags.pan, '')
+				model.stage = 'mobile'
+			}
+			if(model.data.match(regexAmount)){
+				console.log('Amount')
+				let text = matchAll(model.data, /(\d+)/gi).toArray()
+				console.log(text)
+				for(let i in text){
+					if(text[i].length < 8){
+						model.tags.amount = text[i]
+						model.data = model.data.replace(model.tags.amount, '')
+						break;
+					}
 				}
-				model.tags.session = response.Response[0].SessionId
-				delete model.stage 
-				return resolve(model)
-			})
-			.catch(error=>{
-				console.log(error);
-				return reject(model)
-			})
-		}
-		else{
-			return reject(model)
-		}
+			}
+			if(model.data.match(divOption)){
+				console.log('Dividend Option')
+				model.tags.divOps = model.data.match(divOption)[0]
+				model.data = model.data.replace(model.tags.divOps, '')
+			}
+			if(model.data.match(regexFolio)){
+				console.log('Folio')
+				model.tags.folio = model.data.match(regexFolio)[0].match(/\d+|new folio/)[0]
+				model.data = model.data.replace(model.tags.folio, '')
+			}
+			console.log(model.tags)
+			if(model.tags.pan && model.tags.mobile){
+				api.panMobile(model.tags.mobile, model.tags.pan)
+				.then(data=>{
+					console.log(data.body)
+					let response = JSON.parse(data.body)
+					if(response.Response[0].result=="FAIL"){
+						return reject(model)
+					}
+					model.tags.session = response.Response[0].SessionId
+					model.stage = 'otp' 
+					return resolve(model)
+				})
+				.catch(error=>{
+					console.log(error);
+					return reject(model)
+				})
+			}
+			else{	
+				return resolve(model)	
+			}
 	})
 }
 
