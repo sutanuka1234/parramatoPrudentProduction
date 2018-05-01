@@ -77,6 +77,7 @@ function panMobile(model){
 			model.tags.userSays=model.tags.userSays.replace(model.tags.amount, '')
 		}
 		var matchDivOption=model.tags.userSays.match(divOption)
+		console.log(matchDivOption)
 		if(matchDivOption){
 			model.tags.divOption=matchDivOption[0]
 			model.tags.userSays=model.tags.userSays.replace(model.tags.divOption, '')
