@@ -311,64 +311,65 @@ function pan(model){
 		// else{
 		// 	return reject(model)
 		// }
+		console.log(model.data)
 		if(model.data.includes(',')){
 				while(model.data.includes(','))
 		    		model.data = model.data.replace(',', '')
-			}
-			if(model.data.match(/\d+\s*k/)){
-		       	model.data = model.data.match(/\d+\s*k/)[0].replace('k', '000')
-		    }
-		    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
-		    	model.data = model.data.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
-		    }
-			if(model.data.match(pan)){
-				console.log('PAN')
-				model.tags.pan = model.data.match(pan)[0]
-				model.data = model.data.replace(model.tags.pan, '')
-				delete model.stage
-			}
-			if(model.data.match(regexAmount)){
-				console.log('Amount')
-				let text = matchAll(model.data, /(\d+)/gi).toArray()
-				for(let i in text){
-					if(text[i].length < 8){
-						model.tags.amount = text[i]
-						model.data = model.data.replace(model.tags.amount, '')
-						break;
-					}
+		}
+		if(model.data.match(/\d+\s*k/)){
+	       	model.data = model.data.match(/\d+\s*k/)[0].replace('k', '000')
+	    }
+	    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
+	    	model.data = model.data.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+	    }
+		if(model.data.match(pan)){
+			console.log('PAN')
+			model.tags.pan = model.data.match(pan)[0]
+			model.data = model.data.replace(model.tags.pan, '')
+			delete model.stage
+		}
+		if(model.data.match(regexAmount)){
+			console.log('Amount')
+			let text = matchAll(model.data, /(\d+)/gi).toArray()
+			for(let i in text){
+				if(text[i].length < 8){
+					model.tags.amount = text[i]
+					model.data = model.data.replace(model.tags.amount, '')
+					break;
 				}
 			}
-			if(model.data.match(divOption)){
-				console.log('Dividend Option')
-				model.tags.divOps = model.data.match(divOption)[0]
-				model.data = model.data.replace(model.tags.divOps, '')
-			}
-			if(model.data.match(regexFolio)){
-				console.log('Folio')
-				model.tags.folio = model.data.match(regexFolio)[0].match(/\d+|new folio/)[0]
-				model.data = model.data.replace(model.tags.folio, '')
-			}
-			console.log(model.tags)
-			if(model.tags.pan && model.tags.mobile){
-				api.panMobile(model.tags.mobile, model.tags.pan)
-				.then(data=>{
-					console.log(data.body)
-					let response = JSON.parse(data.body)
-					if(response.Response[0].result=="FAIL"){
-						return reject(model)
-					}
-					model.tags.session = response.Response[0].SessionId
-					model.stage = 'otp' 
-					return resolve(model)
-				})
-				.catch(error=>{
-					console.log(error);
+		}
+		if(model.data.match(divOption)){
+			console.log('Dividend Option')
+			model.tags.divOps = model.data.match(divOption)[0]
+			model.data = model.data.replace(model.tags.divOps, '')
+		}
+		if(model.data.match(regexFolio)){
+			console.log('Folio')
+			model.tags.folio = model.data.match(regexFolio)[0].match(/\d+|new folio/)[0]
+			model.data = model.data.replace(model.tags.folio, '')
+		}
+		console.log(model.tags)
+		if(model.tags.pan && model.tags.mobile){
+			api.panMobile(model.tags.mobile, model.tags.pan)
+			.then(data=>{
+				console.log(data.body)
+				let response = JSON.parse(data.body)
+				if(response.Response[0].result=="FAIL"){
 					return reject(model)
-				})
-			}
-			else{	
-				return resolve(model)	
-			}
+				}
+				model.tags.session = response.Response[0].SessionId
+				model.stage = 'otp' 
+				return resolve(model)
+			})
+			.catch(error=>{
+				console.log(error);
+				return reject(model)
+			})
+		}
+		else{	
+			return resolve(model)	
+		}
 	})
 }
 
