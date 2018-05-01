@@ -568,6 +568,7 @@ function showSchemeName(model){
 			else{
 				delete model.stage
 			}
+			resolve(model)
 		}
 		else{
 			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(schemes))
