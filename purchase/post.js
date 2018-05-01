@@ -109,6 +109,7 @@ function panMobile(model){
 					model.tags.pan = model.data.match(pan)[0]
 					arr.splice(i, 1, ' ');
 					// model.data = model.data.replace(model.tags.pan, '')
+					console.log(arr)
 					model.stage = 'mobile'
 					// return resolve(model)
 				}
@@ -124,14 +125,15 @@ function panMobile(model){
 					// }
 					arr.splice(i, 1, ' ');
 					// model.data = model.data.replace(model.tags.mobile, '')
+					console.log(arr)
 					model.stage = 'pan'
 					// return resolve(model)
 				}
-				console.log(arr)
 				if(arr[i].match(regexAmount)){
 					console.log('Amount')
 					arr.splice(i, 1);
 					// model.tags.amount = model.data.match(regexAmount)[0]
+					console.log(arr)
 					model.data = model.data.replace(model.tags.amount, '')
 				}
 			}
