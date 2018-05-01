@@ -107,7 +107,7 @@ function panMobile(model){
 				if(arr[i].match(pan)){
 					console.log('PAN')
 					model.tags.pan = model.data.match(pan)[0]
-					arr.splice(i, 1, ' ');
+					arr.splice(i, 1, '');
 					// model.data = model.data.replace(model.tags.pan, '')
 					console.log(arr)
 					model.stage = 'mobile'
@@ -123,7 +123,7 @@ function panMobile(model){
 					// 		break;
 					// 	}
 					// }
-					arr.splice(i, 1, ' ');
+					arr.splice(i, 1, '');
 					// model.data = model.data.replace(model.tags.mobile, '')
 					console.log(arr)
 					model.stage = 'pan'
@@ -131,13 +131,14 @@ function panMobile(model){
 				}
 				if(arr[i].match(regexAmount)){
 					console.log('Amount')
-					arr.splice(i, 1);
+					arr.splice(i, 1, '');
 					// model.tags.amount = model.data.match(regexAmount)[0]
 					console.log(arr)
 					model.data = model.data.replace(model.tags.amount, '')
 				}
 			}
 			console.log(arr)
+			console.log(model.tags)
 			if(model.tags.pan && model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
 				.then(data=>{
