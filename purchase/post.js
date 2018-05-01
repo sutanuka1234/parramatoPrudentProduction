@@ -230,6 +230,7 @@ function mobile(model){
 	    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
 	    	model.data = model.data.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
 	    }
+	    console.log(model.data)
 		if(model.data.match(phone)){
 			console.log('PHONE')
 			let text = matchAll(model.data, /(\d+)/gi).toArray()
