@@ -531,15 +531,17 @@ function showSchemeName(model){
 		}
 		if(arr.includes(model.data)){
 			model.tags.scheme = model.data
-			if(schemes[model.data].optionCode == 1 || model.tags.divOps){
-				if(model.tags.divOps.includes('re')){
-					model.tags.divOps = 1
-				}
-				else if(model.tags.divOps.includes('pay')){
-					model.tags.divOps = 2
-				}
-				else{
-					model.tags.divOps = 0
+			if(schemes[model.data].optionCode == 1){
+				if(model.tags.divOps){
+					if(model.tags.divOps.includes('re')){
+						model.tags.divOps = 1
+					}
+					else if(model.tags.divOps.includes('pay')){
+						model.tags.divOps = 2
+					}
+					else{
+						model.tags.divOps = 0
+					}
 				}
 				model.tags.joinAccList = []
 				for(let i in model.tags.joinAcc){
