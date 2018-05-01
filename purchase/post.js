@@ -592,10 +592,10 @@ function showSchemeName(model){
 function divOps(model){
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes('reinvest') || model.data.toLowerCase().includes('payout')){
-			if(model.tags.divOps.includes('re')){
+			if(model.data.includes('re')){
 				model.tags.divOps = 1
 			}
-			else if(model.tags.divOps.includes('pay')){
+			else if(model.data.includes('pay')){
 				model.tags.divOps = 2
 			}
 			else{
