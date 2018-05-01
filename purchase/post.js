@@ -85,14 +85,14 @@ function panMobile(model){
 			})
 		}
 		else{
-			if(model.tags.userSays.includes(',')){
+			if(model.data.includes(',')){
 				while(model.tags.userSays.includes(','))
 		    		model.tags.userSays = model.tags.userSays.replace(',', '')
 			}
-			if(model.tags.userSays.match(/\d+(\s*)?(k)/)){
+			if(model.data.match(/\d+(\s*)?(k)/)){
 		       	model.tags.userSays = model.tags.userSays.replace('k', '000')
 		    }
-		    if(model.tags.userSays.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
+		    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
 		    	model.tags.userSays = model.tags.userSays.replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
 		    }
 			if(model.data.match(pan)){
