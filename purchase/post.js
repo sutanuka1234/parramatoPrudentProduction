@@ -55,7 +55,7 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model.data = model.data.toLowerCase()
-		let arr = model.data.split(/\s*/)
+		let arr = model.data.split(/\s+/)
 		console.log(model.data)
 		if(model.data.match(phone) && model.tags.pan){
 			model.tags.mobile = model.data.match(phone)[0]
