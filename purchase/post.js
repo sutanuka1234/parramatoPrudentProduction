@@ -89,7 +89,8 @@ function panMobile(model){
 				while(model.data.includes(','))
 		    		model.data = model.data.replace(',', '')
 			}
-			if(model.data.match(/\d+(\s*)?(k)/)){
+			if(model.data.match(/\d+\s*k/)){
+				console.log('here')
 		       	model.data = model.data.replace('k', '000')
 		    }
 		    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
