@@ -35,6 +35,47 @@ var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\
 var schemeType 	= /dividend|growth/
 var regexOtp    = /\d{6}/
 var schemeNames = Object.keys(schemes)
+var amc = [  
+	'kotak',
+	'birla',
+	'sun life',
+	'aditya',
+	'sundaram',
+	'sbi',
+	'uti',
+	'dsp',
+	'black rock',
+	'blackrock',
+	'franklin',
+	'templeton',
+	'tata',
+	'reliance',
+	'idbi',
+	'icici',
+	'hdfc',
+	'lic',
+	'axis',
+	'l&t',
+	'lnt',
+	'l and t',
+	'bnp',
+	'paribas',
+	'baroda',
+	'pioneer',
+	'idfc',
+	'invesco',
+	'boi',
+	'axa',
+	'canara',
+	'robeco',
+	'dhfl',
+	'pramerica',
+	'mirae',
+	'mahindra',
+	'motilal',
+	'oswal',
+	'principal pnb'
+]
 
 function main(req, res){
 	return new Promise(function(resolve, reject){
