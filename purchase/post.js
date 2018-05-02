@@ -597,6 +597,7 @@ function extractAmount(model){
 }
 
 function extractMobile(model){
+	console.log(model.data)
 	let text = matchAll(model.data, /(d+)/gi).toArray()
 	console.log(text)
 	for(let i in text){
