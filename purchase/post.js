@@ -450,7 +450,6 @@ function holding(model){
 			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 			.then(response=>{
 				console.log(response.body)
-				let response;
 				try{
 					response = JSON.parse(response.body)
 				}
