@@ -597,6 +597,8 @@ function buyCart(model){
 		for(let i in model.tags.bankMandateList){
 			arr.push(model.tags.bankMandateList[i].data)
 		}
+		console.log(arr)
+		console.log(model.data)
 		if(arr.includes(model.data)){
 			model.tags.bankMandate = model.data
 			api.bankMandate(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.data, model.tags.amount)
