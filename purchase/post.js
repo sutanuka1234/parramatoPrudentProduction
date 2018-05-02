@@ -431,6 +431,13 @@ function holding(model){
 					arr.push(response.Response[i].FolioNo.toLowerCase())
 				}
 				if(model.tags.folio && arr.includes(model.tags.folio)){
+					console.log(model.tags.joinAccId)
+					console.log(data[model.tags.scheme].schemeCode)
+					console.log(data[model.tags.scheme].amcName)
+					console.log(data[model.tags.scheme].amcCode)
+					console.log(model.tags.divOption)
+					console.log(model.tags.amount)
+					console.log(model.tags.folio)
 					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 					.then((data)=>{
 						console.log(data.body)
