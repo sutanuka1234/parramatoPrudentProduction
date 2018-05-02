@@ -496,7 +496,12 @@ function folio(model){
 		}
 		model.tags.amcName = data[model.tags.scheme].amcName
 		if(arr.includes(model.data)){
-			model.tags.folio = 0
+			if(model.data.includes('new')){
+				model.tags.folio = '0'
+			}
+			else{
+				model.tags.folio = model.data
+			}
 			console.log(model.tags.joinAccId)
 			console.log(data[model.tags.scheme].schemeCode)
 			console.log(model.tags.scheme)
@@ -504,7 +509,7 @@ function folio(model){
 			console.log(model.tags.divOption)
 			console.log(model.tags.amount)
 			console.log(model.tags.folio)
-			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.amcName, model.tags.divOption, model.tags.amount, '0', 'E020391')
+			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 			.then((data)=>{
 				console.log(data.body)
 				data.body = JSON.parse(data.body)

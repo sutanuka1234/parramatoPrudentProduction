@@ -66,11 +66,11 @@ function getFolio(session, joinAccId, schemeCode, amcId){
 
 // getFolio('7C772321713D21713D21713D21713D21713D21713D21713D7C772321713D', '334', '8408', '400040').then(data=>{console.log(data)}).catch(err=>console.log(err))
 
-function insertBuyCart(session, joinAccId, schemeCode, schemeName, amcId, dividendOption, amount, folioNo, euin){
+function insertBuyCart(session, joinAccId, schemeCode, amcName, amcId, dividendOption, amount, folioNo, euin){
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
-		url 	: url+'InsertBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+schemeName+'&AMCId='+amcId+'&DivOpt='+dividendOption+'&Amount='+amount+'&FolioNo='+folioNo+'&EUIN='+euin+'&IsAgreeTerms=1&IsEKYCTermCondition=1'
+		url 	: url+'InsertBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+amcName+'&AMCId='+amcId+'&DivOpt='+dividendOption+'&Amount='+amount+'&FolioNo='+folioNo+'&EUIN='+euin+'&IsAgreeTerms=1&IsEKYCTermCondition=1'
 	}
 	console.log(obj.url)
 	return runRequest(obj)
