@@ -441,10 +441,10 @@ function holding(model){
 								model.tags.bankMandateList.push({
 									title: data.body.Response[1][i].BankAccount,
 									text : data.body.Response[1][i].BankAccount.split('-')[2],
-									buttons = [
+									buttons = [{
 										text : 'Select',
 										data : data.body.Response[1][i].MandateID
-									]
+									}]
 								})
 							}
 							model.stage = 'buyCart'
@@ -509,11 +509,11 @@ function folio(model){
 					for(let i in data.body.Response[1]){
 						model.tags.bankMandateList.push({
 							title: data.body.Response[1][i].BankAccount,
-							text : data.body.Response[1][i].BankAccount.split('-')[2]
-							buttons = [
+							text : data.body.Response[1][i].BankAccount.split('-')[2],
+							buttons = [{
 								text : 'Select',
 								data : data.body.Response[1][i].MandateID
-							]
+							}]
 						})
 					}
 					delete model.stage
