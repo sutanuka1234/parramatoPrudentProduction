@@ -344,7 +344,7 @@ function showSchemeName(model){
 		else{
 			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
 			if(matches.bestMatch.rating>0.9){
-				model.tags.schemes.push(bestMatch)
+				model.tags.schemes.push(matches.bestMatch.target)
 			}
 			else{
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
@@ -434,8 +434,8 @@ function holding(model){
 					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E20391')
 					.then((data)=>{
 						data = JSON.parse(data)
-						console.log(data.body.Response[0])
-						if(data.body.Response[0].SchemeCode && data.body.Response[0].SchemeName){
+						console.log(data.body.Response)
+						if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 							model.tags.bankMandateList = []
 							for(let i in data.body.Response[0][1]){
 								model.tags.bankMandateList.push({
@@ -502,8 +502,8 @@ function folio(model){
 			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 			.then((data)=>{
 				data.body = JSON.parse(data.body)
-				console.log(data.body.Response[0][0].SchemeCode)
-				if(data.body.Response[0]){
+				console.log(data.body.Response)
+				if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 					model.tags.bankMandateList = []
 					for(let i in data.body.Response[1]){
 						model.tags.bankMandateList.push({

@@ -72,7 +72,6 @@ function insertBuyCart(session, joinAccId, schemeCode, amcName, amcId, dividendO
 		headers : headers,
 		url 	: url+'InsertBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+amcName+'&AMCId='+amcId+'&DivOpt='+dividendOption+'&Amount='+amount+'&FolioNo='+folioNo+'&EUIN='+euin+'&IsAgreeTerms=1&IsEKYCTermCondition=1'
 	}
-	console.log(obj.url)
 	return runRequest(obj)
 }
 
