@@ -26,8 +26,8 @@ let obj = {
 }
 
 
-var phone 		= /[789]\d{9}/
-var pan 		= /[a-z]{3}p[a-z]\d{4}[a-z]/
+var regexMobile	= /[789]\d{9}/
+var regexPan 	= /[a-z]{3}p[a-z]\d{4}[a-z]/
 var number		= /\d+/
 var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/
 var divOption 	= /re(-|\s)?invest|pay(\s)?out/
@@ -596,7 +596,7 @@ function extractAmount(model){
 }
 
 function extractMobile(model){
-	let text = matchAll(model.data, /(\d+)/gi).toArray()
+	let text = matchAll(model.data, /regexMobile/gi).toArray()
 	for(let i in text){
 		if(text[i].length == 10){
 			model.tags.mobile = text[i]
