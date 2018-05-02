@@ -26,10 +26,10 @@ let obj = {
 }
 
 
-var regexMobile	= /[789]\d{9}/
+var regexMobile	= /[789]\d{9}/gi
 var regexPan 	= /[a-z]{3}p[a-z]\d{4}[a-z]/
 var number		= /\d+/
-var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/
+var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/gi
 var divOption 	= /re(-|\s)?invest|pay(\s)?out/
 var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
 var schemeType 	= /dividend|growth/
@@ -597,7 +597,7 @@ function extractAmount(model){
 }
 
 function extractMobile(model){
-	let text = matchAll(model.data, /(regexMobile)/gi).toArray()
+	let text = matchAll(model.data, regexAmount).toArray()
 	for(let i in text){
 		if(text[i].length == 10){
 			model.tags.mobile = text[i]
