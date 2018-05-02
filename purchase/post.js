@@ -490,7 +490,7 @@ function folio(model){
 		}
 		model.tags.amcName = data[model.tags.scheme].amcName
 		if(arr.includes(model.data)){
-			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.amcName, model.tags.divOption, model.tags.amount, '0', 'E020391')
+			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.amcName, '2', model.tags.amount, '0', 'E020391')
 			.then((data)=>{
 				console.log(data.body)
 				data.body = JSON.parse(data.body)
