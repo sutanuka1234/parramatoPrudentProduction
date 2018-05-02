@@ -504,6 +504,7 @@ function folio(model){
 				console.log(data.body)
 				data.body = JSON.parse(data.body)
 				console.log(data.body.Response[0].result)
+				console.log(data.body.Response[0])
 				if(data.body.Response[0].result != 'FAIL'){
 					model.tags.bankMandateList = []
 					for(let i in data.body.Response[1]){
