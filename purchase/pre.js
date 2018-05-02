@@ -29,6 +29,47 @@ var schemeType 	= /dividend|growth/
 var divOption 	= /re(-|\s)?invest|pay(\s)?out/
 var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
 var schemeNames = Object.keys(schemes)
+var amc = [  
+	'kotak',
+	'birla',
+	'sun life',
+	'aditya',
+	'sundaram',
+	'sbi',
+	'uti',
+	'dsp',
+	'black rock',
+	'blackrock',
+	'franklin',
+	'templeton',
+	'tata',
+	'reliance',
+	'idbi',
+	'icici',
+	'hdfc',
+	'lic',
+	'axis',
+	'l&t',
+	'lnt',
+	'l and t',
+	'bnp',
+	'paribas',
+	'baroda',
+	'pioneer',
+	'idfc',
+	'invesco',
+	'boi',
+	'axa',
+	'canara',
+	'robeco',
+	'dhfl',
+	'pramerica',
+	'mirae',
+	'mahindra',
+	'motilal',
+	'oswal',
+	'principal pnb'
+]
 
 function main(req, res){
 	return new Promise(function(resolve, reject){
@@ -89,10 +130,46 @@ function panMobile(model){
 			model.tags.folio = matchFolio[0].match(/\d+|new folio/)[0]
 			model.tags.userSays=model.tags.userSays.replace(matchFolio, '')
 		}
+		//-----------------------------------------------------------------
+		// let wordsInUserSays=model.tags.userSays.split(" ");
+		// let count=0;
+		// let startIndex;
+		// let endIndex;
+		// for(let wordIndex in wordsInUserSays){
+		// 	if(words.includes(wordsInUserSays[wordIndex])){
+		// 		count++;
+		// 		if(count==1){
+		// 			startIndex=wordIndex;
+		// 			endIndex=wordIndex;
+		// 		}
+		// 		else{
+		// 			endIndex=wordIndex;
+		// 		}
+		// 	}
+		// }
+		// if(count>0){
+		// 	let searchTerm=""
+		// 	for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
+		// 		searchTerm+=wordsInUserSays[i]+" "
+		// 	}
+		// 	searchTerm=searchTerm.trim();
+		// 	model.tags.schemes = []
+		// 	let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+		// 	if(matches.bestMatch.rating>0.9){
+		// 		model.tags.schemes.push(bestMatch)
+		// 	}
+		// 	else{
+		// 		matches.ratings=matches.ratings.sort(sortBy('-rating'));
+		// 		model.tags.schemes = matches.ratings.splice(0,9);
+		// 	}
+		// }
+		//------------------------------------------------------------------
 		let wordsInUserSays=model.tags.userSays.split(" ");
 		let count=0;
 		let startIndex;
 		let endIndex;
+		let amcIndex;
+		let amcFlag;
 		for(let wordIndex in wordsInUserSays){
 			if(words.includes(wordsInUserSays[wordIndex])){
 				count++;
@@ -104,6 +181,13 @@ function panMobile(model){
 					endIndex=wordIndex;
 				}
 			}
+			if(amc.includes(wordsInUserSays[wordIndex])&&!amcFlag){
+				amcIndex=wordIndex;
+				amcFlag=true;
+			}
+		}
+		if(amcFlag){
+			startIndex=amcIndex
 		}
 		if(count>0){
 			let searchTerm=""
@@ -121,6 +205,7 @@ function panMobile(model){
 				model.tags.schemes = matches.ratings.splice(0,9);
 			}
 		}
+		//------------------------------------------------------------------------
 		var matchType=model.tags.userSays.match(schemeType)
 		if(matchType){
 			model.tags.schemeType = matchType[0]
