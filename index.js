@@ -7,9 +7,6 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-var post=require('./postDistributor.js');
-var pre=require('./preDistributor.js');
-
 app.use(jsonParser);
 app.use(urlencodedParser);
 
@@ -17,8 +14,6 @@ const headers={
     UserName    : "Prudent",
     Password    : "Prudent@123"
 }
-
-const url="https://www.prudentcorporate.com/cbapi/";
 
 app.listen(process.env.PORT||80,()=>{
     console.log("Server is listening.")
