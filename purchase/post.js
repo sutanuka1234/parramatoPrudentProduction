@@ -431,7 +431,7 @@ function holding(model){
 					arr.push(response.Response[i].FolioNo.toLowerCase())
 				}
 				if(model.tags.folio && arr.includes(model.tags.folio)){
-					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E20391')
+					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 					.then((data)=>{
 						data = JSON.parse(data)
 						console.log(data.body.Response)
@@ -501,8 +501,8 @@ function folio(model){
 			}
 			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 			.then((data)=>{
-				console.log(data.body)
 				data.body = JSON.parse(data.body)
+				console.log(data.body.Response)
 				if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 					model.tags.bankMandateList = []
 					for(let i in data.body.Response[1]){
