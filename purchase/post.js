@@ -423,7 +423,8 @@ function holding(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.joinAccId.includes(model.data)){
 			model.tags.joinAccId = model.data
-			api.getFolio(model.tags.session, model.data, schemes[model.tags.scheme].schemeCode, schemes[model.tags.scheme].amcCode)
+			let matches = stringSimilarity.findBestMatch(model.tags.scheme, Object.keys(data))
+			api.getFolio(model.tags.session, model.data, data[matches.bestMatch.target].schemeCode, schemes[model.tags.scheme].amcCode)
 			.then(response=>{
 				console.log(response.body)
 				response = JSON.parse(response.body)
