@@ -303,6 +303,7 @@ function showSchemeName(model){
 		for(let i in model.tags.schemes){
 			arr.push(model.tags.schemes[i].target)
 		}
+		console.log(arr)
 		if(arr.includes(model.data)){
 			model.tags.scheme = model.data
 			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption){
