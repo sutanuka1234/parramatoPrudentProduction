@@ -493,10 +493,6 @@ function folio(model){
 		let matches = stringSimilarity.findBestMatch(model.tags.scheme, Object.keys(data))
 		model.tags.amcName = data[matches.bestMatch.target].amcName
 		if(arr.includes(model.data)){
-			console.log(model.tags.joinAccId)
-			console.log(match.bestMatch.amcName)
-			console.log(model.tags.divOption)
-			console.log(model.tags.amount)
 			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[matches.bestMatch.target].schemeCode, model.tags.amcName, data[matches.bestMatch.target].amcCode, model.tags.divOption, model.tags.amount, '0', 'E020391')
 			.then((data)=>{
 				data.body = JSON.parse(data.body)
