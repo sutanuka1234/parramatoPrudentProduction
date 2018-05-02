@@ -431,12 +431,18 @@ function holding(model){
 					arr.push(response.Response[i].FolioNo.toLowerCase())
 				}
 				if(model.tags.folio && arr.includes(model.tags.folio)){
+					console.log(joinAccId)
+					console.log(data[model.tags.scheme].schemeCode)
+					console.log(model.tags.scheme)
+					console.log(data[model.tags.scheme].amcCode)
 					console.log(model.tags.divOption)
+					console.log(model.tags.amount)
+					console.log(model.tags.folio)
 					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E20391')
 					.then((data)=>{
 						console.log(data.body)
 						data = JSON.parse(data)
-						if(data.body.Response[0].length > 1){
+						if(data.body.Response[0].result != 'FAIL'){
 							model.tags.bankMandateList = []
 							for(let i in data.body.Response[0][1]){
 								model.tags.bankMandateList.push({
@@ -490,6 +496,13 @@ function folio(model){
 		}
 		model.tags.amcName = data[model.tags.scheme].amcName
 		if(arr.includes(model.data)){
+			console.log(joinAccId)
+			console.log(data[model.tags.scheme].schemeCode)
+			console.log(model.tags.scheme)
+			console.log(data[model.tags.scheme].amcCode)
+			console.log(model.tags.divOption)
+			console.log(model.tags.amount)
+			console.log(model.tags.folio)
 			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.amcName, model.tags.divOption, model.tags.amount, '0', 'E020391')
 			.then((data)=>{
 				console.log(data.body)
