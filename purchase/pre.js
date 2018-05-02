@@ -72,6 +72,7 @@ var amc = [
 
 function main(req, res){
 	return new Promise(function(resolve, reject){
+		console.log(req.params.stage)
 		obj[req.params.stage](req.body)
 		.then((data)=>{
 			res.send(data)

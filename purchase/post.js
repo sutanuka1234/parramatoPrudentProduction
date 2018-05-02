@@ -79,6 +79,7 @@ var amc = [
 
 function main(req, res){
 	return new Promise(function(resolve, reject){
+		console.log(req.params.stage)
 		obj[req.params.stage](req.body)
 		.then((data)=>{
 			res.send(data)
@@ -96,7 +97,7 @@ function panMobile(model){
 			if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
 					return reject(model);
 			}
-			model=extractPan(model);
+			model = extractPan(model);
 			model = extractMobile(model);
 			model = extractAmount(model);
 			model = extractFolio(model);
@@ -596,7 +597,7 @@ function extractAmount(model){
 }
 
 function extractMobile(model){
-	let text = matchAll(model.data, /regexMobile/gi).toArray()
+	let text = matchAll(model.data, /(regexMobile)/gi).toArray()
 	for(let i in text){
 		if(text[i].length == 10){
 			model.tags.mobile = text[i]
