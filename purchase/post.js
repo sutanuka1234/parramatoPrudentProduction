@@ -439,7 +439,7 @@ function holding(model){
 							model.tags.bankMandateList = []
 							for(let i in data.body.Response[0][1]){
 								model.tags.bankMandateList.push({
-									title: data.body.Response[1][i].BankAccount,
+									title: data.body.Response[1][i].BankAccount.split('-')[0],
 									text : data.body.Response[1][i].BankAccount.split('-')[2],
 									buttons : [{
 										text : 'Select',
@@ -508,7 +508,7 @@ function folio(model){
 					model.tags.bankMandateList = []
 					for(let i in data.body.Response[1]){
 						model.tags.bankMandateList.push({
-							title: data.body.Response[1][i].BankAccount,
+							title: data.body.Response[1][i].BankAccount.split('-')[0],
 							text : data.body.Response[1][i].BankAccount.split('-')[2],
 							buttons : [{
 								text : 'Select',
