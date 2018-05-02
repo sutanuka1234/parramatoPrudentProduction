@@ -1,3 +1,4 @@
+module.exports=
 {
    "Aditya Birla Sun Life Active Debt Multi Manager FoF Scheme - Growth": {
       "amcCode": 400004,

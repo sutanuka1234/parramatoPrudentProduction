@@ -33,9 +33,8 @@ app.listen(process.env.PORT||80,()=>{
 //     .catch((e)=>{res.status(203).json({error:e})})
 // })
 
-app.post('/:type/:type/:type', (req,res)=>{
-    path = req.url.split('/')
-    require('./'+path[1]+'/'+path[2]).main(req, res)
+app.post('/:folder/:type/:stage', (req,res)=>{
+    require('./'+req.params.folder+'/'+req.params.type).main(req, res)
 })
 
 // function filter(request){
