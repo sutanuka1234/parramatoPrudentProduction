@@ -107,8 +107,9 @@ function panMobile(model){
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
 						console.log(data.body)
+						let response;
 						try{
-							let response = JSON.parse(data.body)
+							response = JSON.parse(data.body)
 						}
 						catch(e){console.log(e);
 							return reject(model);
@@ -154,8 +155,9 @@ function mobile(model){
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
 						console.log(data.body)
+						let response;
 						try{
-							let response = JSON.parse(data.body)
+							response = JSON.parse(data.body)
 						}
 						catch(e){console.log(e);
 							return reject(model);
@@ -192,8 +194,9 @@ function pan(model){
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
 						console.log(data.body)
+						let response;
 						try{
-							let response = JSON.parse(data.body)
+							response = JSON.parse(data.body)
 						}
 						catch(e){console.log(e);
 							return reject(model);
@@ -230,8 +233,9 @@ function otp(model){
 			.then(data=>{
 				try{
 					console.log(data.body)
+					let response;
 					try{
-						let response = JSON.parse(data.body)
+						response = JSON.parse(data.body)
 					}
 					catch(e){console.log(e);
 						return reject(model);
@@ -446,6 +450,7 @@ function holding(model){
 			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 			.then(response=>{
 				console.log(response.body)
+				let response;
 				try{
 					response = JSON.parse(response.body)
 				}
@@ -467,6 +472,7 @@ function holding(model){
 					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 					.then((data)=>{
 						console.log(data.body)
+						var data;
 						try{
 							data = JSON.parse(data)
 						}
