@@ -3,7 +3,7 @@ module.exports={
 }
 
 var api = require('../api.js')
-// var schemes = require('../schemes.js')
+var external = require('../external.js')
 var words = require('../words.js')
 var data = require('../data.js')
 var stringSimilarity = require('string-similarity');
@@ -561,6 +561,22 @@ function folio(model){
 					return reject(model);
 				}
 				console.log(data.body.Response)
+				if(data.body.Response[0].result=="FAIL"){
+					let reply={
+		                text    : data.body.Response[0]['reject_reason'],
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+		                return reject(model);
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
 				if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 					model.tags.bankMandateList = []
 					for(let i in data.body.Response[1]){
