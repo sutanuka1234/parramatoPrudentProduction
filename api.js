@@ -5,7 +5,6 @@ var headers = {
     Password    : "Prudent@123"
 }
 var url = 'https://www.prudentcorporate.com/cbapi/'
-var data = require('./words.json')
 
 function panMobile(mobile, pan){
 	var obj = {
