@@ -595,7 +595,7 @@ function buyCart(model){
 	return new Promise(function(resolve, reject){
 		let arr = []
 		for(let i in model.tags.bankMandateList){
-			arr.push(model.tags.bankMandateList[i].data)
+			arr.push(model.tags.bankMandateList[i].buttons[0].data)
 		}
 		console.log(arr)
 		console.log(model.data)
