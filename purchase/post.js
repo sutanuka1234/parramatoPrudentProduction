@@ -304,7 +304,8 @@ function showSchemeName(model){
 		}
 		if(arr.includes(model.data)){
 			model.tags.scheme = model.data
-			if(schemes[model.data].optionCode == 1 || model.tags.divOption){
+			let matches = stringSimilarity.findBestMatch(model.tags.scheme, Object.keys(data))
+			if(data[matches.bestMatch.target].optionCode == 1 || model.tags.divOption){
 				if(model.tags.divOption){
 					if(model.tags.divOption.includes('re')){
 						model.tags.divOption = 1
