@@ -598,6 +598,7 @@ function extractAmount(model){
 
 function extractMobile(model){
 	let text = matchAll(model.data, /(d+)/gi).toArray()
+	console.log(text)
 	for(let i in text){
 		if(text[i].length == 10){
 			model.tags.mobile = text[i]
@@ -605,6 +606,7 @@ function extractMobile(model){
 			break;
 		}
 	}
+	console.log(model.tags)
 	return model;
 }
 
