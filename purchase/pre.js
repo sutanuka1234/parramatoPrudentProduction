@@ -7,6 +7,8 @@ var schemes = require('../schemes.js')
 var words = require('../words.js')
 var stringSimilarity = require('string-similarity');
 var sortBy = require('sort-by')
+var matchAll = require('match-all')
+
 let obj = {
 	panMobile : panMobile,
 	askSchemeName : askSchemeName,
