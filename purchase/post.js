@@ -327,6 +327,8 @@ function showSchemeName(model){
 		for(let i in model.tags.schemes){
 			arr.push(model.tags.schemes[i].target)
 		}
+		console.log(model.data)
+		console.log(JSON.stringify(model.tags.schemes))
 		if((arr.includes(model.data)||model.tags.schemes.includes(model.data)) || (model.data.includes("yes")&&model.tags.schemes.length==1)){
 			if(model.tags.schemes.length==1){
 				model.tags.scheme=model.tags.schemes[0].target
