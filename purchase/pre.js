@@ -159,7 +159,7 @@ function showSchemeName(model){
 	        model.reply.next={ 
 	            	data : model.tags.schemeList
 	            }
-			}
+			
 		}
 		resolve(model)
 	})
