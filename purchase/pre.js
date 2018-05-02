@@ -149,7 +149,7 @@ function showSchemeName(model){
 	                "data": [
 	                	{
 	                		data : model.tags.schemes,
-	                		text : 'Confirm'
+	                		text : model.tags.schemes
 	                	}
 	                ]
 	            }
