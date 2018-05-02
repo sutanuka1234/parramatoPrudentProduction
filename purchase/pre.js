@@ -370,6 +370,7 @@ function extractSchemeName(model){
 }
 
 function dataClean(model){
+	console.log(model.tags.userSays)
 	model.tags.userSays = model.tags.userSays.toLowerCase()
 	if(model.tags.userSays.includes(',')){
 		while(model.tags.userSays.includes(','))
