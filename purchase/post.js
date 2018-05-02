@@ -319,6 +319,7 @@ function askSchemeName(model){
 
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
+		model = dataClean(model)
 		model = extractDivOption(model)
 		model = extractAmount(model)
 		model = extractFolio(model)
@@ -326,8 +327,13 @@ function showSchemeName(model){
 		for(let i in model.tags.schemes){
 			arr.push(model.tags.schemes[i].target)
 		}
-		if(arr.includes(model.data) || model.tags.schemes.includes(model.data)){
-			model.tags.scheme = model.data
+		if(arr.includes(model.data) || (model.data.includes("yes")&&model.tags.schemes.length==1)){
+			if(model.tags.schemes.length==1){
+				model.tags.scheme=model.tags.schemes[0].target
+			}
+			else{
+				model.tags.scheme = model.data
+			}
 			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption){
 				if(model.tags.divOption){
 					if(model.tags.divOption.includes('re') && data[model.tags.scheme].optionCode != 1){
@@ -350,8 +356,12 @@ function showSchemeName(model){
 				model.tags.joinAccList = []
 				for(let i in model.tags.joinAcc){
 					model.tags.joinAccList.push({
-						data : model.tags.joinAcc[i].JoinAccId,
+						title: 'Holding Patterns',
 						text : model.tags.joinAcc[i].JoinHolderName
+						buttons : [{
+							data : model.tags.joinAcc[i].JoinAccId
+							text : 'Select'
+						}]
 					})
 				}
 				if(model.tags.amount && parseInt(model.tags.amount) > 499){
@@ -472,7 +482,7 @@ function holding(model){
 					.then((data)=>{
 						console.log(data.body)
 						try{
-							data = JSON.parse(data)
+							data.body = JSON.parse(data.body)
 						}
 						catch(e){console.log(e);
 							return reject(model);
@@ -492,12 +502,12 @@ function holding(model){
 							model.stage = 'buyCart'
 						}
 						else{
-							reject(model)
+							return reject(model)
 						}
 					})
 					.catch((e)=>{
 						console.log(e)
-						reject(model)
+						return reject(model)
 					})
 				}
 				else if(response.Response.length > 0){
@@ -514,15 +524,15 @@ function holding(model){
 					model.tags.folioNo = response.Response[0].FolioNo
 					delete model.stage
 				}
-				resolve(model)
+				return resolve(model)
 			})
 			.catch(e=>{
 				console.log(e)
-				reject(model)
+				return reject(model)
 			})
 		}
 		else{
-			reject(model)
+			return reject(model)
 		}
 	})
 }

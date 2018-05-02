@@ -144,12 +144,12 @@ function showSchemeName(model){
 		if(model.tags.schemes.length == 1){
 			model.reply={
 				type:"quickReply",
-	            text:"Confirm scheme",
+	            text:"Would you like to go ahead with "+model.tags.schemes+"? You can also type if there is something else in your mind.",
 	            next:{
 	                "data": [
 	                	{
-	                		data : model.tags.schemes,
-	                		text : model.tags.schemes
+	                		data : "Yes",
+	                		text : "Yes"
 	                	}
 	                ]
 	            }
@@ -212,7 +212,7 @@ function holding(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.joinAccList){
 			model.reply={
-				type:"quickReply",
+				type:"generic",
 	            text:"Select an account",
 	            next:{
 	                "data": model.tags.joinAccList
