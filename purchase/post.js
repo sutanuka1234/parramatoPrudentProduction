@@ -724,6 +724,7 @@ function extractSchemeName(model){
 				searchTerm+=wordsInUserSays[i]+" "
 			}
 			searchTerm=searchTerm.trim();
+			console.log(searchTerm)
 			model.tags.schemes = []
 			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
 			if(matches.bestMatch.rating>0.9){
