@@ -3,7 +3,7 @@ module.exports={
 }
 
 var api = require('../api.js')
-var schemes = require('../schemes.js')
+// var schemes = require('../schemes.js')
 var words = require('../words.js')
 var data = require('../data.js')
 var stringSimilarity = require('string-similarity');
@@ -34,7 +34,7 @@ var divOption 	= /re(-|\s)?invest|pay(\s)?out/
 var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
 var schemeType 	= /dividend|growth/
 var regexOtp    = /\d{6}/
-var schemeNames = Object.keys(schemes)
+var schemeNames = Object.keys(data)
 var amc = [  
 	'kotak',
 	'birla',
@@ -492,7 +492,7 @@ function folio(model){
 		model.tags.amcName = data[matches.bestMatch.target].amcName
 		if(arr.includes(model.data)){
 			console.log(model.tags.joinAccId)
-			console.log(data[model.tags.scheme].amcName)
+			console.log(match.bestMatch.amcName)
 			console.log(schemes[model.tags.scheme].amcCode)
 			console.log(model.tags.divOption)
 			console.log(model.tags.amount)
