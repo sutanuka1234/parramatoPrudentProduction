@@ -99,10 +99,10 @@ function panMobile(model){
 			}
 			model = extractPan(model);
 			model = extractMobile(model);
-			model = extractAmount(model);
-			model = extractFolio(model);
 			model = extractDivOption(model);
 			model=extractSchemeName(model);
+			model = extractAmount(model);
+			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
@@ -147,10 +147,10 @@ function mobile(model){
 	return new Promise(function(resolve, reject){
 		    model=dataClean(model);
 			model = extractMobile(model);
-			model = extractAmount(model);
-			model = extractFolio(model);
 			model = extractDivOption(model);
 			model=extractSchemeName(model);
+			model = extractAmount(model);
+			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
@@ -186,10 +186,10 @@ function pan(model){
 	return new Promise(function(resolve, reject){
 			model = dataClean(model);
 			model = extractPan(model);
-			model = extractAmount(model);
-			model = extractFolio(model);
 			model = extractDivOption(model);
 			model=extractSchemeName(model);
+			model = extractAmount(model);
+			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
@@ -320,7 +320,7 @@ function askSchemeName(model){
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
 		model = extractDivOption(model)
-		model = extractAmount(model)
+		// model = extractAmount(model)
 		model = extractFolio(model)
 		let arr = []
 		for(let i in model.tags.schemes){

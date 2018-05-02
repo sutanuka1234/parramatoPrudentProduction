@@ -90,10 +90,10 @@ function panMobile(model){
 		model=dataClean(model)
 		model=extractPan(model)
 		model=extractMobile(model)
-		model=extractAmount(model)
 		model=extractDivOption(model)
-		model=extractFolio(model)
 		model=extractSchemeName(model)
+		model=extractAmount(model)
+		model=extractFolio(model)
 		if(model.tags.mobile && model.tags.pan){
 			model.reply={
 				type:"quickReply",
