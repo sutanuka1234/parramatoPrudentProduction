@@ -434,6 +434,7 @@ function holding(model){
 					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E20391')
 					.then((data)=>{
 						data = JSON.parse(data)
+						console.log(data.body.Response[0])
 						if(data.body.Response[0].SchemeCode && data.body.Response[0].SchemeName){
 							model.tags.bankMandateList = []
 							for(let i in data.body.Response[0][1]){
@@ -447,7 +448,6 @@ function holding(model){
 								})
 							}
 							model.stage = 'buyCart'
-							resolve(model)
 						}
 						else{
 							reject(model)
@@ -501,8 +501,8 @@ function folio(model){
 			}
 			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 			.then((data)=>{
-				console.log(data.body)
 				data.body = JSON.parse(data.body)
+				console.log(data.body.Response[0])
 				if(data.body.Response[0].SchemeCode && data.body.Response[0].SchemeName){
 					model.tags.bankMandateList = []
 					for(let i in data.body.Response[1]){
@@ -537,7 +537,7 @@ function buyCart(model){
 	return new Promise(function(resolve, reject){
 		let arr = []
 		for(let i in model.tags.bankMandateList){
-			arr.push(model.tags.bankMandateList[i].buttons.data)
+			arr.push(model.tags.bankMandateList[i].data)
 		}
 		if(arr.includes(model.data)){
 			model.tags.bankMandate = model.data
