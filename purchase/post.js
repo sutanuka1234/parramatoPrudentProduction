@@ -441,7 +441,7 @@ function holding(model){
 								model.tags.bankMandateList.push({
 									title: data.body.Response[1][i].BankAccount,
 									text : data.body.Response[1][i].BankAccount.split('-')[2],
-									buttons = [{
+									buttons : [{
 										text : 'Select',
 										data : data.body.Response[1][i].MandateID
 									}]
@@ -510,7 +510,7 @@ function folio(model){
 						model.tags.bankMandateList.push({
 							title: data.body.Response[1][i].BankAccount,
 							text : data.body.Response[1][i].BankAccount.split('-')[2],
-							buttons = [{
+							buttons : [{
 								text : 'Select',
 								data : data.body.Response[1][i].MandateID
 							}]
