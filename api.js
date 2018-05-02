@@ -72,10 +72,11 @@ function insertBuyCart(session, joinAccId, schemeCode, schemeName, amcId, divide
 		headers : headers,
 		url 	: url+'InsertBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+schemeName+'&AMCId='+amcId+'&DivOpt='+dividendOption+'&Amount='+amount+'&FolioNo='+folioNo+'&EUIN='+euin+'&IsAgreeTerms=1&IsEKYCTermCondition=1'
 	}
+	console.log(obj.url)
 	return runRequest(obj)
 }
 
-// insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', 'Axis Asset Management Company Ltd', '400040', '0', '5000', '0').then(data=>{console.log(data.body)}).catch(err=>console.log(err))
+// insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D2F612A246C3C', '334', '931', 'Franklin Templeton Asset Management (India) Private Limited', '400012', '0', '5000', '0', 'E020391').then(data=>{console.log(data.body)}).catch(err=>console.log(err))
 
 function bankMandate(session, joinAccId, schemeCode, mandateId, amount){
 	var obj = {
