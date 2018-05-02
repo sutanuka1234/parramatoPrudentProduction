@@ -304,8 +304,7 @@ function showSchemeName(model){
 		}
 		if(arr.includes(model.data)){
 			model.tags.scheme = model.data
-			let matches = stringSimilarity.findBestMatch(model.tags.scheme, Object.keys(data))
-			if(data[matches.bestMatch.target].optionCode == 1 || model.tags.divOption){
+			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption){
 				if(model.tags.divOption){
 					if(model.tags.divOption.includes('re')){
 						model.tags.divOption = 1
@@ -423,8 +422,7 @@ function holding(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.joinAccId.includes(model.data)){
 			model.tags.joinAccId = model.data
-			let matches = stringSimilarity.findBestMatch(model.tags.scheme, Object.keys(data))
-			api.getFolio(model.tags.session, model.data, data[matches.bestMatch.target].schemeCode, data[matches.bestMatch.target].amcCode)
+			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 			.then(response=>{
 				console.log(response.body)
 				response = JSON.parse(response.body)
@@ -434,7 +432,7 @@ function holding(model){
 				}
 				if(model.tags.folio && arr.includes(model.tags.folio)){
 					console.log(model.tags.divOption)
-					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[matches.bestMatch.target].schemeCode, model.tags.scheme, data[matches.bestMatch.target].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E20391')
+					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E20391')
 					.then((data)=>{
 						console.log(data.body)
 						data = JSON.parse(data)
@@ -490,10 +488,9 @@ function folio(model){
 		for(let i in model.tags.folioList){
 			arr.push(model.tags.folioList[i].data)
 		}
-		let matches = stringSimilarity.findBestMatch(model.tags.scheme, Object.keys(data))
-		model.tags.amcName = data[matches.bestMatch.target].amcName
+		model.tags.amcName = data[model.tags.scheme].amcName
 		if(arr.includes(model.data)){
-			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[matches.bestMatch.target].schemeCode, model.tags.amcName, data[matches.bestMatch.target].amcCode, model.tags.divOption, model.tags.amount, '0', 'E020391')
+			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.amcName, model.tags.divOption, model.tags.amount, '0', 'E020391')
 			.then((data)=>{
 				data.body = JSON.parse(data.body)
 				if(data.body){
