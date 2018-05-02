@@ -299,12 +299,10 @@ function showSchemeName(model){
 		model = extractAmount(model)
 		model = extractFolio(model)
 		let arr = []
-		console.log(model.data)
-		console.log(model.tags.schemes)
 		for(let i in model.tags.schemes){
 			arr.push(model.tags.schemes[i].target)
 		}
-		if(arr.includes(model.data)){
+		if(arr.includes(model.data) || model.tags.schemes.includes(model.data)){
 			model.tags.scheme = model.data
 			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption){
 				if(model.tags.divOption){
