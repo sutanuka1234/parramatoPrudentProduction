@@ -496,6 +496,7 @@ function folio(model){
 		}
 		model.tags.amcName = data[model.tags.scheme].amcName
 		if(arr.includes(model.data)){
+			model.tags.folio = model.data
 			console.log(model.tags.joinAccId)
 			console.log(data[model.tags.scheme].schemeCode)
 			console.log(model.tags.scheme)
