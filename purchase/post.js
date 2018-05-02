@@ -447,6 +447,7 @@ function holding(model){
 								})
 							}
 							model.stage = 'buyCart'
+							resolve(model)
 						}
 						else{
 							reject(model)
