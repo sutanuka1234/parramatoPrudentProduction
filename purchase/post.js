@@ -658,7 +658,6 @@ function extractSchemeName(model){
 				model.tags.schemes = matches.ratings.splice(0,9);
 			}
 		}
-		model.tags.schemes = extractSchemeName(model.data)
 		return model;
 }
 
