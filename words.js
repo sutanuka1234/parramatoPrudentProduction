@@ -73,59 +73,59 @@ var amc = [
   'principal pnb' 
   ]
 
-var stringSimilarity = require('string-similarity');
-var sortBy = require('sort-by')
-var schemes = require('./new.json')
-var schemeNames = Object.keys(schemes)
-var sch = []
+// var stringSimilarity = require('string-similarity');
+// var sortBy = require('sort-by')
+// var schemes = require('./new.json')
+// var schemeNames = Object.keys(schemes)
+// var sch = []
 
-let str = 'i wish to invest daily amount of rs 95 in franklin templeton bluechip fund'
+// let str = 'i wish to invest daily amount of rs 95 in franklin templeton bluechip fund'
 
 
-       let wordsInUserSays=str.split(" ");
-		let count=0;
-		let startIndex;
-		let endIndex;
-		let amcIndex;
-		let amcFlag;
-		for(let wordIndex in wordsInUserSays){
+// let wordsInUserSays=str.split(" ");
+// let count=0;
+// let startIndex;
+// let endIndex;
+// let amcIndex;
+// let amcFlag;
+// for(let wordIndex in wordsInUserSays){
 
-			if(words.includes(wordsInUserSays[wordIndex])){
-				count++;
-				if(count==1){
-					startIndex=wordIndex;
-					endIndex=wordIndex;
-				}
-				else{
-					endIndex=wordIndex;
-				}
-			}
-			if(amc.includes(wordsInUserSays[wordIndex])&&!amcFlag){
-				amcIndex=wordIndex;
-				amcFlag=true;
-				console.log("found amc "+wordsInUserSays[wordIndex])
-			}
-		}
+// 	if(words.includes(wordsInUserSays[wordIndex])){
+// 		count++;
+// 		if(count==1){
+// 			startIndex=wordIndex;
+// 			endIndex=wordIndex;
+// 		}
+// 		else{
+// 			endIndex=wordIndex;
+// 		}
+// 	}
+// 	if(amc.includes(wordsInUserSays[wordIndex])&&!amcFlag){
+// 		amcIndex=wordIndex;
+// 		amcFlag=true;
+// 		console.log("found amc "+wordsInUserSays[wordIndex])
+// 	}
+// }
 
-		if(amcFlag){
-			// startIndex=amcIndex
-		}
+// if(amcFlag){
+// 	startIndex=amcIndex
+// }
 
-		if(count>0){
-			let searchTerm=""
-			for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
-				searchTerm+=wordsInUserSays[i]+" "
-			}
-			searchTerm=searchTerm.trim();
-			console.log(searchTerm)
-			sch = []
-			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
-			if(matches.bestMatch.rating>0.9){
-				sch.push(bestMatch)
-			}
-			else{
-				matches.ratings=matches.ratings.sort(sortBy('-rating'));
-				sch = matches.ratings.splice(0,9);
-			}
-		}
-console.log(sch)
+// if(count>0){
+// 	let searchTerm=""
+// 	for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
+// 		searchTerm+=wordsInUserSays[i]+" "
+// 	}
+// 	searchTerm=searchTerm.trim();
+// 	console.log(searchTerm)
+// 	sch = []
+// 	let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+// 	if(matches.bestMatch.rating>0.9){
+// 		sch.push(bestMatch)
+// 	}
+// 	else{
+// 		matches.ratings=matches.ratings.sort(sortBy('-rating'));
+// 		sch = matches.ratings.splice(0,9);
+// 	}
+// }
+// console.log(sch)
