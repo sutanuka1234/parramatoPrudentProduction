@@ -530,8 +530,9 @@ function buyCart(model){
 		}
 		if(arr.includes(model.data)){
 			model.tags.bankMandate = model.data
-			api.bankMandate('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', '73-NFB0000073-100000', '10000')
+			api.bankMandate(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.data, model.tags.amount)
 			.then((data)=>{
+				console.log(data.body)
 				data.body = JSON.parse(data.body)
 				if(data.body){
 					model.tags.paymentSummary = data.body.Response[0]
