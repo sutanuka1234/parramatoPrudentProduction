@@ -107,7 +107,12 @@ function panMobile(model){
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
 						console.log(data.body)
-						let response = JSON.parse(data.body)
+						try{
+							let response = JSON.parse(data.body)
+						}
+						catch(e){console.log(e);
+							return reject(model);
+						}
 						if(response.Response[0].result=="FAIL"){
 							return reject(model)
 						}
@@ -149,7 +154,12 @@ function mobile(model){
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
 						console.log(data.body)
-						let response = JSON.parse(data.body)
+						try{
+							let response = JSON.parse(data.body)
+						}
+						catch(e){console.log(e);
+							return reject(model);
+						}
 						if(response.Response[0].result=="FAIL"){
 							return reject(model)
 						}
@@ -182,7 +192,12 @@ function pan(model){
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
 						console.log(data.body)
-						let response = JSON.parse(data.body)
+						try{
+							let response = JSON.parse(data.body)
+						}
+						catch(e){console.log(e);
+							return reject(model);
+						}
 						if(response.Response[0].result=="FAIL"){
 							return reject(model)
 						}
@@ -215,7 +230,12 @@ function otp(model){
 			.then(data=>{
 				try{
 					console.log(data.body)
-					let response = JSON.parse(data.body)
+					try{
+						let response = JSON.parse(data.body)
+					}
+					catch(e){console.log(e);
+						return reject(model);
+					}
 					if(response.Response[0].result=="FAIL"){
 						return reject(model)
 					}
@@ -245,7 +265,7 @@ function otp(model){
 					}
 					return resolve(model)
 				}
-				catch(e){
+				catch(e){console.log(e);
 					return reject(model);
 				}
 			})
@@ -426,7 +446,12 @@ function holding(model){
 			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 			.then(response=>{
 				console.log(response.body)
-				response = JSON.parse(response.body)
+				try{
+					response = JSON.parse(response.body)
+				}
+				catch(e){console.log(e);
+					return reject(model);
+				}
 				let arr = []
 				for(let i in response.Response){
 					arr.push(response.Response[i].FolioNo.toLowerCase())
@@ -442,7 +467,12 @@ function holding(model){
 					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 					.then((data)=>{
 						console.log(data.body)
-						data = JSON.parse(data)
+						try{
+							data = JSON.parse(data)
+						}
+						catch(e){console.log(e);
+							return reject(model);
+						}
 						if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 							model.tags.bankMandateList = []
 							for(let i in data.body.Response[0][1]){
@@ -509,7 +539,12 @@ function folio(model){
 			}
 			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 			.then((data)=>{
-				data.body = JSON.parse(data.body)
+				try{
+					data.body = JSON.parse(data.body)
+				}
+				catch(e){console.log(e);
+					return reject(model);
+				}
 				console.log(data.body.Response)
 				if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 					model.tags.bankMandateList = []
@@ -552,7 +587,12 @@ function buyCart(model){
 			api.bankMandate(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.data, model.tags.amount)
 			.then((data)=>{
 				console.log(data.body)
-				data.body = JSON.parse(data.body)
+				try{
+					data.body = JSON.parse(data.body)
+				}
+				catch(e){console.log(e);
+					return reject(model);
+				}
 				if(data.body){
 					model.tags.paymentSummary = data.body.Response[0]
 					delete model.stage
