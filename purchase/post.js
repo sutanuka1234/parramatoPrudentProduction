@@ -322,6 +322,7 @@ function showSchemeName(model){
 						model.stage = 'amount'
 					}
 				}
+				model.tags.divOption = 0
 				model.tags.joinAccList = []
 				for(let i in model.tags.joinAcc){
 					model.tags.joinAccList.push({
