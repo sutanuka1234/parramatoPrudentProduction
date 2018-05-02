@@ -431,23 +431,20 @@ function holding(model){
 					arr.push(response.Response[i].FolioNo.toLowerCase())
 				}
 				if(model.tags.folio && arr.includes(model.tags.folio)){
-					console.log(joinAccId)
-					console.log(data[model.tags.scheme].schemeCode)
-					console.log(model.tags.scheme)
-					console.log(data[model.tags.scheme].amcCode)
-					console.log(model.tags.divOption)
-					console.log(model.tags.amount)
-					console.log(model.tags.folio)
 					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E20391')
 					.then((data)=>{
-						console.log(data.body)
 						data = JSON.parse(data)
+						console.log(data.body.Response[0].result)
 						if(data.body.Response[0].result != 'FAIL'){
 							model.tags.bankMandateList = []
 							for(let i in data.body.Response[0][1]){
 								model.tags.bankMandateList.push({
-									data : data.body.Response[0][1][i].MandateID,
-									text : data.body.Response[0][1][i].BankAccount
+									title: data.body.Response[1][i].BankAccount,
+									text : data.body.Response[1][i].BankAccount.split('-')[2]
+									buttons = [
+										text : 'Select',
+										data : data.body.Response[1][i].MandateID
+									]
 								})
 							}
 							model.stage = 'buyCart'
@@ -502,13 +499,6 @@ function folio(model){
 			else{
 				model.tags.folio = model.data
 			}
-			console.log(model.tags.joinAccId)
-			console.log(data[model.tags.scheme].schemeCode)
-			console.log(model.tags.scheme)
-			console.log(data[model.tags.scheme].amcCode)
-			console.log(model.tags.divOption)
-			console.log(model.tags.amount)
-			console.log(model.tags.folio)
 			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 			.then((data)=>{
 				console.log(data.body)
@@ -518,8 +508,12 @@ function folio(model){
 					model.tags.bankMandateList = []
 					for(let i in data.body.Response[1]){
 						model.tags.bankMandateList.push({
-							data : data.body.Response[1][i].MandateID,
-							text : data.body.Response[1][i].BankAccount
+							title: data.body.Response[1][i].BankAccount,
+							text : data.body.Response[1][i].BankAccount.split('-')[2]
+							buttons = [
+								text : 'Select',
+								data : data.body.Response[1][i].MandateID
+							]
 						})
 					}
 					delete model.stage

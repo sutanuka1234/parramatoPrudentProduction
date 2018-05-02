@@ -255,7 +255,7 @@ function folio(model){
 function buyCart(model){
 	return new Promise(function(resolve, reject){
 		model.reply={
-			type:"quickReply",
+			type:"generic",
             text:"Select a bank account",
             next:{
                 "data": model.tags.bankMandateList
