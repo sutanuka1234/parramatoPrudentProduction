@@ -440,7 +440,7 @@ function holding(model){
 							for(let i in data.body.Response[0][1]){
 								model.tags.bankMandateList.push({
 									title: data.body.Response[1][i].BankAccount,
-									text : data.body.Response[1][i].BankAccount.split('-')[2]
+									text : data.body.Response[1][i].BankAccount.split('-')[2],
 									buttons = [
 										text : 'Select',
 										data : data.body.Response[1][i].MandateID
