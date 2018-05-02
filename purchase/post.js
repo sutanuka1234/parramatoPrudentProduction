@@ -307,7 +307,7 @@ function showSchemeName(model){
 			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption){
 				if(model.tags.divOption){
 					if(model.tags.divOption.includes('re') && data[model.tags.scheme].optionCode != 1){
-						model.tags.divOption = 1
+						model.tags.divOption = 2
 					}
 					else if(model.tags.divOption.includes('pay') && data[model.tags.scheme].optionCode != 1){
 						model.tags.divOption = 2
@@ -376,7 +376,7 @@ function divOps(model){
 		model = extractFolio(model)
 		if(model.data.toLowerCase().includes('reinvest') || model.data.toLowerCase().includes('payout')){
 			if(model.data.includes('re')){
-				model.tags.divOption = 1
+				model.tags.divOption = 2
 			}
 			else if(model.data.includes('pay')){
 				model.tags.divOption = 2
