@@ -488,7 +488,23 @@ function holding(model){
 						catch(e){console.log(e);
 							return reject(model);
 						}
-						if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
+						if(data.body.Response[0].result=="FAIL"){
+							let reply={
+				                text    : data.body.Response[0]['reject_reason'],
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+				                return reject(model);
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
+						}
+						else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 							model.tags.bankMandateList = []
 							for(let i in data.body.Response[0][1]){
 								model.tags.bankMandateList.push({
@@ -577,7 +593,7 @@ function folio(model){
 		                return reject(model)
 		            })
 				}
-				if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
+				else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 					model.tags.bankMandateList = []
 					for(let i in data.body.Response[1]){
 						model.tags.bankMandateList.push({
@@ -626,7 +642,23 @@ function buyCart(model){
 				catch(e){console.log(e);
 					return reject(model);
 				}
-				if(data.body){
+				if(data.body.Response[0].result=="FAIL"){
+					let reply={
+		                text    : data.body.Response[0]['reject_reason'],
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+		                return reject(model);
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+				else if(data.body){
 					model.tags.paymentSummary = data.body.Response[0]
 					delete model.stage
 					resolve(model)
