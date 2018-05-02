@@ -537,7 +537,7 @@ function buyCart(model){
 	return new Promise(function(resolve, reject){
 		let arr = []
 		for(let i in model.tags.bankMandateList){
-			arr.push(model.tags.bankMandateList[i].data)
+			arr.push(model.tags.bankMandateList[i].buttons.data)
 		}
 		if(arr.includes(model.data)){
 			model.tags.bankMandate = model.data
