@@ -129,12 +129,12 @@ function panMobile(model){
 
 function askSchemeName(model){
 	return new Promise(function(resolve, reject){
-		if(!model.tags.schemes){
-			model.reply={
-				type:"text",
-	            text:"Type in a scheme name",
-			}
-		}
+		// if(!model.tags.schemes){
+		// 	model.reply.text=
+		// 		type:"text",
+	 //            text:"Type in a scheme name",
+		// 	}
+		// }
 		resolve(model)
 	})
 }
@@ -142,10 +142,10 @@ function askSchemeName(model){
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.schemes.length == 1){
-			model.reply={
-				type:"quickReply",
-	            text:"Would you like to go ahead with "+model.tags.schemes+"? You can also type if there is something else in your mind.",
-	            next:{
+	
+			model.reply.type="quickReply"
+			model.reply.text="Would you like to go ahead with "+model.tags.schemes+"? You can also type if there is something else in your mind."
+			model.reply.next={
 	                "data": [
 	                	{
 	                		data : "Yes",
@@ -153,13 +153,10 @@ function showSchemeName(model){
 	                	}
 	                ]
 	            }
-			}
 		}
 		else{
-			model.reply = {
-				type:"generic",
-	            text:"Please select a scheme or type in one of your choice",
-	            next:{ 
+			model.reply.type="generic"
+	        model.reply.next={ 
 	            	data : model.tags.schemeList
 	            }
 			}
@@ -170,10 +167,8 @@ function showSchemeName(model){
 
 function divOps(model){
 	return new Promise(function(resolve, reject){
-		model.reply={
-			type:"quickReply",
-            text:"Select an type",
-            next:{
+		model.reply.type="quickReply",
+        model.reply.next={
                 "data": [
                 	{
                 		data : 'reinvest',
@@ -185,39 +180,20 @@ function divOps(model){
                 	}
                 ]
             }
-		}
-		resolve(model)
+		
+		return resolve(model)
 	})
 }
 
-function amount(model){
-	return new Promise(function(resolve, reject){
-		if(model.tags.amount){
-			model.reply={
-				type:"text",
-	            text:"Amount Invalid. Enter an amount"
-			}
-		}
-		else{
-			model.reply={
-				type:"text",
-	            text:"Enter an amount"
-	        }
-		}
-		resolve(model)
-	})
-}
 
 function holding(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.joinAccList){
-			model.reply={
-				type:"generic",
-	            text:"Select an account",
-	            next:{
+			model.reply.type="generic";
+	        model.reply.next:{
 	                "data": model.tags.joinAccList
 	            }
-			}
+			
 		}
 		resolve(model)
 	})
@@ -226,27 +202,23 @@ function holding(model){
 function folio(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.folioList){
-			model.reply={
-				type:"quickReply",
-	            text:"Select a folio number",
-	            next:{
+			model.reply.type="quickReply";
+	        model.reply.next:{
 	                "data": model.tags.folioList
 	            }
-			}
+			
 		}
 		else if(model.tags.folioNo){
-			model.reply={
-				type:"quickReply",
-	            text:"Proceed with folio number?",
-	            next:{
+			model.reply.type="quickReply"
+	        model.reply.next={
 	                "data": [
 	                	{
 	                		data : model.tags.folioNo,
 	                		text : model.tags.folioNo
-	                	}
-	                ]
-	            }
-			}	
+                	}
+                ]
+            }
+			
 		}
 		resolve(model)	
 	})
@@ -254,13 +226,11 @@ function folio(model){
 
 function buyCart(model){
 	return new Promise(function(resolve, reject){
-		model.reply={
-			type:"generic",
-            text:"Select a bank account",
-            next:{
+		model.reply.type="generic",
+        model.reply.next={
                 "data": model.tags.bankMandateList
             }
-		}
+		
 		resolve(model)
 	})
 }
@@ -268,10 +238,7 @@ function buyCart(model){
 function mandate(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.paymentSummary){
-			model.reply={
-				type : 'text',
-				text : 'Scheme Name : '+model.tags.paymentSummary.SchemeName+'. Folio : '+model.tags.paymentSummary.FolioNo+'. Amount : '+model.tags.paymentSummary.Amount+'. Bank : '+model.tags.paymentSummary.BankName+'. Reference ID : '+model.tags.paymentSummary.ReferenceID+'. Status : '+model.tags.paymentSummary.STATUS+'.'
-			}
+			model.reply.text : 'Scheme Name : '+model.tags.paymentSummary.SchemeName+'. Folio : '+model.tags.paymentSummary.FolioNo+'. Amount : '+model.tags.paymentSummary.Amount+'. Bank : '+model.tags.paymentSummary.BankName+'. Reference ID : '+model.tags.paymentSummary.ReferenceID+'. Status : '+model.tags.paymentSummary.STATUS+'.'
 		}
 		resolve(model)
 	})
