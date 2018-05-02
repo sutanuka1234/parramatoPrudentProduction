@@ -357,9 +357,9 @@ function showSchemeName(model){
 				for(let i in model.tags.joinAcc){
 					model.tags.joinAccList.push({
 						title: 'Holding Patterns',
-						text : model.tags.joinAcc[i].JoinHolderName
+						text : model.tags.joinAcc[i].JoinHolderName,
 						buttons : [{
-							data : model.tags.joinAcc[i].JoinAccId
+							data : model.tags.joinAcc[i].JoinAccId,
 							text : 'Select'
 						}]
 					})
