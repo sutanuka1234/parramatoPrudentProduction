@@ -256,7 +256,7 @@ function buyCart(model){
 	return new Promise(function(resolve, reject){
 		model.reply={
 			type:"generic",
-            text:"Please select the bank for payment",
+            text:"Investing Rs. "+model.tags.amount+". Please select the bank for payment",
             next:{
                 "data": model.tags.bankMandateList
             }
