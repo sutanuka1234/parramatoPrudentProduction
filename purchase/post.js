@@ -490,7 +490,7 @@ function holding(model){
 						}
 						if(data.body.Response[0].result=="FAIL"){
 							let reply={
-				                text    : data.body.Response[0]['reject_reason'],
+				                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
@@ -579,7 +579,7 @@ function folio(model){
 				console.log(data.body.Response)
 				if(data.body.Response[0].result=="FAIL"){
 					let reply={
-		                text    : data.body.Response[0]['reject_reason'],
+		                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
 		                type    : "text",
 		                sender  : model.sender,
 		                language: "en"
@@ -644,7 +644,7 @@ function buyCart(model){
 				}
 				if(data.body.Response[0].result=="FAIL"){
 					let reply={
-		                text    : data.body.Response[0]['reject_reason'],
+		                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
 		                type    : "text",
 		                sender  : model.sender,
 		                language: "en"
