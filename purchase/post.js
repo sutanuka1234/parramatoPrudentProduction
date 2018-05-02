@@ -410,10 +410,10 @@ function amount(model){
 		if(parseInt(model.data) > 499){
 			model.data.amount = model.data.match(/\d+/)[0]
 			delete model.stage
-			resolve(model)
+			return resolve(model)
 		}
 		else{
-			reject(model)
+			return reject(model)
 		}	
 	})
 }
