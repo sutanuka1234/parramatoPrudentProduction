@@ -262,7 +262,7 @@ function otp(model){
 
 function askSchemeName(model){
 	return new Promise(function(resolve, reject){
-		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(schemes))
+		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
 		model = extractDivOption(model)
 		model = extractAmount(model)
 		model = extractFolio(model)
@@ -343,7 +343,7 @@ function showSchemeName(model){
 			}
 		}
 		else{
-			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(schemes))
+			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(bestMatch)
 			}
@@ -424,7 +424,7 @@ function holding(model){
 		if(model.tags.joinAccId.includes(model.data)){
 			model.tags.joinAccId = model.data
 			let matches = stringSimilarity.findBestMatch(model.tags.scheme, Object.keys(data))
-			api.getFolio(model.tags.session, model.data, data[matches.bestMatch.target].schemeCode, schemes[model.tags.scheme].amcCode)
+			api.getFolio(model.tags.session, model.data, data[matches.bestMatch.target].schemeCode, data[matches.bestMatch.target].amcCode)
 			.then(response=>{
 				console.log(response.body)
 				response = JSON.parse(response.body)
@@ -434,7 +434,7 @@ function holding(model){
 				}
 				if(model.tags.folio && arr.includes(model.tags.folio)){
 					console.log(model.tags.divOption)
-					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemes[model.tags.scheme].schemeCode, model.tags.scheme, schemes[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E20391')
+					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[matches.bestMatch.target].schemeCode, model.tags.scheme, data[matches.bestMatch.target].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E20391')
 					.then((data)=>{
 						console.log(data.body)
 						data = JSON.parse(data)
@@ -495,10 +495,9 @@ function folio(model){
 		if(arr.includes(model.data)){
 			console.log(model.tags.joinAccId)
 			console.log(match.bestMatch.amcName)
-			console.log(schemes[model.tags.scheme].amcCode)
 			console.log(model.tags.divOption)
 			console.log(model.tags.amount)
-			api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemes[model.tags.scheme].schemeCode, model.tags.amcName, schemes[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, '0', 'E020391')
+			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[matches.bestMatch.target].schemeCode, model.tags.amcName, data[matches.bestMatch.target].amcCode, model.tags.divOption, model.tags.amount, '0', 'E020391')
 			.then((data)=>{
 				data.body = JSON.parse(data.body)
 				if(data.body){
