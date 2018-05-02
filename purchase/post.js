@@ -299,6 +299,7 @@ function showSchemeName(model){
 		model = extractAmount(model)
 		model = extractFolio(model)
 		let arr = []
+		console.log(model.data)
 		for(let i in model.tags.schemes){
 			arr.push(model.tags.schemes[i].target)
 		}
