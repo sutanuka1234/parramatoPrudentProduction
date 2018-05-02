@@ -12,10 +12,8 @@ var matchAll = require('match-all')
 
 let obj = {
 	panMobile : panMobile,
-	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
 	divOps 	: divOps,
-	amount 	: amount,
 	holding : holding,
 	folio 	: folio,
 	buyCart : buyCart,
@@ -127,17 +125,6 @@ function panMobile(model){
 	})
 }
 
-function askSchemeName(model){
-	return new Promise(function(resolve, reject){
-		// if(!model.tags.schemes){
-		// 	model.reply.text=
-		// 		type:"text",
-	 //            text:"Type in a scheme name",
-		// 	}
-		// }
-		resolve(model)
-	})
-}
 
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
