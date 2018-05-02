@@ -306,10 +306,10 @@ function showSchemeName(model){
 			model.tags.scheme = model.data
 			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption){
 				if(model.tags.divOption){
-					if(model.tags.divOption.includes('re')){
+					if(model.tags.divOption.includes('re') && data[model.tags.scheme].optionCode != 1){
 						model.tags.divOption = 1
 					}
-					else if(model.tags.divOption.includes('pay')){
+					else if(model.tags.divOption.includes('pay') && data[model.tags.scheme].optionCode != 1){
 						model.tags.divOption = 2
 					}
 					else{
