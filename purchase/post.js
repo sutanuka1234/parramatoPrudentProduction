@@ -471,7 +471,6 @@ function holding(model){
 					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 					.then((data)=>{
 						console.log(data.body)
-						var data;
 						try{
 							data = JSON.parse(data)
 						}
