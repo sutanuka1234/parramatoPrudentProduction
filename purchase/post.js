@@ -330,7 +330,7 @@ function showSchemeName(model){
 		console.log(JSON.stringify(model.tags.schemes))
 		if(arr.includes(model.data) || (model.data.toLowerCase().includes("yes")&&model.tags.schemes.length==1)){
 			if(model.tags.schemes.length==1){
-				model.tags.scheme=model.tags.schemes[0].target
+				model.tags.scheme=model.tags.schemes[0]
 			}
 			else{
 				model.tags.scheme = model.data
