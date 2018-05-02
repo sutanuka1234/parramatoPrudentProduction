@@ -496,7 +496,7 @@ function folio(model){
 		}
 		model.tags.amcName = data[model.tags.scheme].amcName
 		if(arr.includes(model.data)){
-			console.log(joinAccId)
+			console.log(model.tags.joinAccId)
 			console.log(data[model.tags.scheme].schemeCode)
 			console.log(model.tags.scheme)
 			console.log(data[model.tags.scheme].amcCode)
@@ -507,6 +507,7 @@ function folio(model){
 			.then((data)=>{
 				console.log(data.body)
 				data.body = JSON.parse(data.body)
+				console.log(data.body.Response[0].result)
 				if(data.body.Response[0].result != 'FAIL'){
 					model.tags.bankMandateList = []
 					for(let i in data.body.Response[1]){
