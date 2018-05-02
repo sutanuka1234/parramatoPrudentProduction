@@ -158,7 +158,7 @@ function showSchemeName(model){
 		else{
 			model.reply = {
 				type:"generic",
-	            text:"Please select a scheme or type in one of your choice",
+	            text:"Choose among the closest schemes, or type if you wish to invest in a different scheme.",
 	            next:{ 
 	            	data : model.tags.schemeList
 	            }
@@ -172,7 +172,7 @@ function divOps(model){
 	return new Promise(function(resolve, reject){
 		model.reply={
 			type:"quickReply",
-            text:"Select an type",
+            text:"Let us know the dividend option.",
             next:{
                 "data": [
                 	{
@@ -213,7 +213,7 @@ function holding(model){
 		if(model.tags.joinAccList){
 			model.reply={
 				type:"generic",
-	            text:"Select an account",
+	            text:" Please select your holding pattern",
 	            next:{
 	                "data": model.tags.joinAccList
 	            }
@@ -228,7 +228,7 @@ function folio(model){
 		if(model.tags.folioList){
 			model.reply={
 				type:"quickReply",
-	            text:"Select a folio number",
+	            text:"Let us know the folio you wish to invest in.",
 	            next:{
 	                "data": model.tags.folioList
 	            }
@@ -256,7 +256,7 @@ function buyCart(model){
 	return new Promise(function(resolve, reject){
 		model.reply={
 			type:"generic",
-            text:"Select a bank account",
+            text:"Please select the bank for payment",
             next:{
                 "data": model.tags.bankMandateList
             }
@@ -270,7 +270,7 @@ function mandate(model){
 		if(model.tags.paymentSummary){
 			model.reply={
 				type : 'text',
-				text : 'Scheme Name : '+model.tags.paymentSummary.SchemeName+'. Folio : '+model.tags.paymentSummary.FolioNo+'. Amount : '+model.tags.paymentSummary.Amount+'. Bank : '+model.tags.paymentSummary.BankName+'. Reference ID : '+model.tags.paymentSummary.ReferenceID+'. Status : '+model.tags.paymentSummary.STATUS+'.'
+				text : 'We have gone ahead with '+model.tags.paymentSummary.SchemeName+' with Folio '+model.tags.paymentSummary.FolioNo+' investing Rs '+model.tags.paymentSummary.Amount+' from '+model.tags.paymentSummary.BankName+'. Reference ID would be '+model.tags.paymentSummary.ReferenceID+'. Status of transaction is '+model.tags.paymentSummary.STATUS+'.'
 			}
 		}
 		resolve(model)
