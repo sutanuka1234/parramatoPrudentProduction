@@ -490,11 +490,11 @@ function folio(model){
 		}
 		model.tags.amcName = data[model.tags.scheme].amcName
 		if(arr.includes(model.data)){
-			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.amcName, '2', model.tags.amount, '0', 'E020391')
+			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.amcName, model.tags.divOption, model.tags.amount, '0', 'E020391')
 			.then((data)=>{
 				console.log(data.body)
 				data.body = JSON.parse(data.body)
-				if(data.body){
+				if(data.body.Response[0].result != 'FAIL'){
 					model.tags.bankMandateList = []
 					for(let i in data.body.Response[1]){
 						model.tags.bankMandateList.push({
