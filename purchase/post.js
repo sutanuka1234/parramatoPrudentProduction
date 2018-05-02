@@ -597,7 +597,7 @@ function extractAmount(model){
 }
 
 function extractMobile(model){
-	let text = matchAll(model.data, regexAmount).toArray()
+	let text = matchAll(model.data, /(d+)/gi).toArray()
 	for(let i in text){
 		if(text[i].length == 10){
 			model.tags.mobile = text[i]

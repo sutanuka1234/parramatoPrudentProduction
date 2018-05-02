@@ -29,7 +29,6 @@ app.listen(process.env.PORT||80,()=>{
 // })
 
 app.post('/:folder/:type/:stage', (req,res)=>{
-	console.log("requested")
     require('./'+req.params.folder+'/'+req.params.type).main(req, res)
 })
 
