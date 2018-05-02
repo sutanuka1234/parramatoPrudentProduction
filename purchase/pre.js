@@ -362,7 +362,7 @@ function extractSchemeName(model){
 			model.tags.schemes = []
 			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
 			if(matches.bestMatch.rating>0.9){
-				model.tags.schemes.push(bestMatch)
+				model.tags.schemes.push(matches.bestMatch.target)
 			}
 			else{
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
