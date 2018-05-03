@@ -663,7 +663,10 @@ function amount(model){
 				}
 				else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 					console.log('SUCCESS')
-					console.log(data.body.Response)
+					console.log(data.body.Response[0])
+					console.log("----")
+					console.log(data.body.Response[0][1])
+					
 					model.tags.bankMandateList = []
 					for(let element of data.body.Response[0][1]){
 						model.tags.bankMandateList.push({
