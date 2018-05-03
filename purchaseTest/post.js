@@ -665,13 +665,13 @@ function amount(model){
 					console.log('SUCCESS')
 					console.log(data.body.Response)
 					model.tags.bankMandateList = []
-					for(let i in data.body.Response[0][1]){
+					for(let element of data.body.Response[0][1]){
 						model.tags.bankMandateList.push({
-							title: data.body.Response[0][1][i].BankAccount.split('-')[0],
-							text : data.body.Response[0][1][i].BankAccount.split('-')[2],
+							title: element.BankAccount.split('-')[0],
+							text : element.BankAccount.split('-')[2],
 							buttons : [{
 								text : 'Select',
-								data : data.body.Response[0][1][i].MandateID
+								data : element.MandateID
 							}]
 						})
 					}
