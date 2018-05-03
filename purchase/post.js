@@ -132,9 +132,11 @@ function panMobile(model){
 				                return reject(model)
 				            })
 						}
-						model.tags.session = response.Response[0].SessionId
-						model.stage = 'otp' 
-						return resolve(model)
+						else{
+							model.tags.session = response.Response[0].SessionId
+							model.stage = 'otp' 
+							return resolve(model)
+						}
 					})
 					.catch(error=>{
 						console.log(error);
