@@ -159,12 +159,12 @@ function panMobile(model){
 					})		
 			}
 			else{
-				
+
 				return reject(model);
 			}
 		}
 		else{
-			
+
 				return reject(model);
 		}
 
@@ -794,14 +794,28 @@ function extractFolio(model){
 	return model;
 }
 function extractAmount(model){
-			// let text = matchAll(model.data, /(\d+)/gi).toArray()
-			// for(let i in text){
-			// 	if(text[i].length < 8){
-			// 		model.tags.amount = text[i]
-			// 		model.data = model.data.replace(model.tags.amount, '')
-			// 		break;
-			// 	}
-			// }
+			if(model.data.includes(',')){
+				while(model.data.includes(','))
+		    		model.data = model.data.replace(',', '')
+			}
+			if(model.data.match(/\d+\s*k/)){
+				let a = model.data
+		   		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
+		   		model.data = model.data.replace(/\d+\s*k/, a)
+			}
+		    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
+		    	let a = model.data
+				a = a.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace(/\s+/, '').replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+		    	model.data = model.data.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
+		    }
+			let text = matchAll(model.data, /(\d+)/gi).toArray()
+			for(let i in text){
+				if(text[i].length < 8){
+					model.tags.amount = text[i]
+					model.data = model.data.replace(model.tags.amount, '')
+					break;
+				}
+			}
 			return model;
 }
 
@@ -877,19 +891,6 @@ function extractSchemeName(model){
 
 function dataClean(model){
 	model.data = model.data.toLowerCase()
-	if(model.data.includes(',')){
-		while(model.data.includes(','))
-    		model.data = model.data.replace(',', '')
-	}
-	if(model.data.match(/\d+\s*k/)){
-		let a = model.data
-   		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
-   		model.data = model.data.replace(/\d+\s*k/, a)
-	}
-    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
-    	let a = model.data
-		a = a.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace(/\s+/, '').replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
-    	model.data = model.data.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
-    }
+
     return model;
 }

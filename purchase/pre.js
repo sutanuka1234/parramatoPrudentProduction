@@ -287,6 +287,20 @@ function extractFolio(model){
 	return model;
 }
 function extractAmount(model){
+	if(model.tags.userSays.includes(',')){
+		while(model.tags.userSays.includes(','))
+    		model.tags.userSays = model.tags.userSays.replace(',', '')
+	}
+	if(model.tags.userSays.match(/\d+\s*k/)){
+		let a = model.tags.userSays
+   		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
+   		model.tags.userSays = model.tags.userSays.replace(/\d+\s*k/, a)
+	}
+    if(model.tags.userSays.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
+    	let a = model.tags.userSays
+		a = a.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace(/\s+/, '').replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+    	model.tags.userSays = model.tags.userSays.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
+    }
 	let text = matchAll(model.tags.userSays, /(\d+)/gi).toArray()
 	for(let i in text){
 		if(text[i].length < 8){
@@ -370,19 +384,5 @@ function dataClean(model){
 	if(model.tags.userSays){
 		model.tags.userSays = model.tags.userSays.toLowerCase()
 	}
-	if(model.tags.userSays.includes(',')){
-		while(model.tags.userSays.includes(','))
-    		model.tags.userSays = model.tags.userSays.replace(',', '')
-	}
-	if(model.tags.userSays.match(/\d+\s*k/)){
-		let a = model.tags.userSays
-   		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
-   		model.tags.userSays = model.tags.userSays.replace(/\d+\s*k/, a)
-	}
-    if(model.tags.userSays.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
-    	let a = model.tags.userSays
-		a = a.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace(/\s+/, '').replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
-    	model.tags.userSays = model.tags.userSays.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
-    }
     return model;
 }
