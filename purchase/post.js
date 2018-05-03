@@ -788,6 +788,7 @@ function folio(model){
 				model.tags.folio = model.data
 			}
 			if(model.tags.amount){
+				console.log(model.tags.amount+'~~~~~~~~~~~~~')
 				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 				.then((data)=>{
 					console.log(data.body)
