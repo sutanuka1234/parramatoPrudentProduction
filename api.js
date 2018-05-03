@@ -51,7 +51,7 @@ function getScheme(session, joinAccId, fundsType, amcId, schemeOption, subNature
 	return runRequest(obj)
 }
 
-getScheme('7C772321713D21713D21713D21713D21713D21713D21713D5E6D3A7C7723', '334', '1', '400040', '1', '5').then(data=>{console.log(data.body)}).catch(err=>console.log(err))
+// getScheme('7C772321713D21713D21713D21713D21713D21713D21713D5E6D3A7C7723', '334', '1', '400040', '1', '5').then(data=>{console.log(data.body)}).catch(err=>console.log(err))
 
 function getFolio(session, joinAccId, schemeCode, amcId){
 	var obj = {
