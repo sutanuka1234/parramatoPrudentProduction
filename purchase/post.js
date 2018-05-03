@@ -122,8 +122,7 @@ function panMobile(model){
 				                language: "en"
 				            }
 							external(reply)
-							.then((data)=>{
-				                model.stage = 'panMobile' 
+							.then((data)=>{ 
 				                model.tags.pan=undefined;
 				                model.tags.mobile=undefined;
 								return resolve(model)
