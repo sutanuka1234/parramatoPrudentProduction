@@ -93,11 +93,95 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
-			model=dataClean(model);
-			if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
-					return reject(model);
+		model=dataClean(model);
+		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
+				return reject(model);
+		}
+		else if(model.data&&model.data.includes("proceed")&&(model.tags.mobile||model.tags.pan)){
+			if(!model.tags.mobile){
+				model.stage = 'mobile' 
+				return resolve(model)
 			}
-			else if(model.data&&model.data.includes("proceed")&&(model.tags.mobile||model.tags.pan)){
+			else if(!model.tags.pan){
+				model.stage = 'pan' 
+				return resolve(model)
+			}		
+		}
+		else{ 
+			model = extractPan(model);
+			model = extractMobile(model);
+			model = extractDivOption(model);
+			model = extractSchemeName(model);
+			model = extractAmount(model);
+			model = extractFolio(model);
+			if(model.tags.pan&&model.tags.mobile){
+				api.panMobile(model.tags.mobile, model.tags.pan)
+				.then(data=>{
+					console.log(data.body)
+					let response;
+					try{
+						response = JSON.parse(data.body)
+					}
+					catch(e){console.log(e);
+						if(!model.tags.mobile){
+							model.stage = 'mobile' 
+							return resolve(model)
+						}
+						else if(!model.tags.pan){
+							model.stage = 'pan' 
+							return resolve(model)
+						}		
+						return reject(model);
+					}
+					if(response.Response[0].result=="FAIL"){
+						if(response.Response[0]['reject_reason']=="Client does not exists."){
+							response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
+						}
+						let reply={
+			                text    : response.Response[0]['reject_reason'],
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{ 
+			                model.tags.pan=undefined;
+			                model.tags.mobile=undefined;
+							return resolve(model)
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                if(!model.tags.mobile){
+								model.stage = 'mobile' 
+								return resolve(model)
+							}
+							else if(!model.tags.pan){
+								model.stage = 'pan' 
+								return resolve(model)
+							}		
+			                return reject(model)
+			            })
+					}
+					else{
+						model.tags.session = response.Response[0].SessionId
+						model.stage = 'otp' 
+						return resolve(model)
+					}
+				})
+				.catch(error=>{
+					console.log(error);
+					if(!model.tags.mobile){
+						model.stage = 'mobile' 
+						return resolve(model)
+					}
+					else if(!model.tags.pan){
+						model.stage = 'pan' 
+						return resolve(model)
+					}		
+					return reject(model)
+				})		
+			}
+			else{
 				if(!model.tags.mobile){
 					model.stage = 'mobile' 
 					return resolve(model)
@@ -106,65 +190,9 @@ function panMobile(model){
 					model.stage = 'pan' 
 					return resolve(model)
 				}		
-			}
-			else{ 
-				model = extractPan(model);
-				model = extractMobile(model);
-				model = extractDivOption(model);
-				model = extractSchemeName(model);
-				model = extractAmount(model);
-				model = extractFolio(model);
-
-				if(model.tags.pan&&model.tags.mobile){
-					api.panMobile(model.tags.mobile, model.tags.pan)
-					.then(data=>{
-						console.log(data.body)
-						let response;
-						try{
-							response = JSON.parse(data.body)
-						}
-						catch(e){console.log(e);
-							return reject(model);
-						}
-						if(response.Response[0].result=="FAIL"){
-							if(response.Response[0]['reject_reason']=="Client does not exists."){
-								response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
-							}
-							let reply={
-				                text    : response.Response[0]['reject_reason'],
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{ 
-				                model.tags.pan=undefined;
-				                model.tags.mobile=undefined;
-								return resolve(model)
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-						}
-						else{
-							model.tags.session = response.Response[0].SessionId
-							model.stage = 'otp' 
-							return resolve(model)
-						}
-					})
-					.catch(error=>{
-						console.log(error);
-						return reject(model)
-					})		
-			}
-			else{
-
 				return reject(model);
 			}
 		}
-
-
 	})
 }
 
