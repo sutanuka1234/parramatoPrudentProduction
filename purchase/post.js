@@ -107,13 +107,14 @@ function panMobile(model){
 					return resolve(model)
 				}		
 			}
-			model = extractPan(model);
-			model = extractMobile(model);
-			model = extractDivOption(model);
-			model = extractSchemeName(model);
-			model = extractAmount(model);
-			model = extractFolio(model);
-			if(model.tags.pan&&model.tags.mobile){
+			else if(model.tags.pan&&model.tags.mobile){
+				
+					model = extractPan(model);
+					model = extractMobile(model);
+					model = extractDivOption(model);
+					model = extractSchemeName(model);
+					model = extractAmount(model);
+					model = extractFolio(model);
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
 						console.log(data.body)
