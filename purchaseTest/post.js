@@ -672,6 +672,7 @@ function amount(model){
 							}]
 						})
 					}
+					console.log(model.tags.bankMandateList)
 					model.stage = 'bankMandate'
 					return resolve(model)
 				}
