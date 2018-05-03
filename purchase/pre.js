@@ -18,8 +18,8 @@ let obj = {
 	amount 	: amount,
 	holding : holding,
 	folio 	: folio,
-	buyCart : buyCart,
-	mandate : mandate
+	bankMandate : bankMandate,
+	summary : summary
 }
 
 var regexPan   	= /[a-z]{3}p[a-z]\d{4}[a-z]/;
@@ -88,15 +88,12 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
-		console.log(model.tags)
 		model=extractPan(model)
-		console.log(model.tags)
 		model=extractMobile(model)
 		model=extractDivOption(model)
 		model=extractSchemeName(model)
 		model=extractAmount(model)
 		model=extractFolio(model)
-		console.log(model.tags)
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
@@ -244,7 +241,7 @@ function folio(model){
 	})
 }
 
-function buyCart(model){
+function bankMandate(model){
 	return new Promise(function(resolve, reject){
 		model.reply={
 			type:"generic",
@@ -257,7 +254,7 @@ function buyCart(model){
 	})
 }
 
-function mandate(model){
+function summary(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.paymentSummary){
 			model.reply={
