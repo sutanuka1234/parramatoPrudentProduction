@@ -367,6 +367,8 @@ function extractSchemeName(model){
 			}
 			else{
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
+				console.log('RATINGS')
+				console.log(matches.ratings)
 				model.tags.schemes = matches.ratings.splice(0,9);
 			}
 		}
