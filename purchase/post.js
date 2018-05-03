@@ -825,9 +825,14 @@ function folio(model){
 								})
 							}
 						}
-						console.log(model.tags.bankMandateList)
-						model.stage = 'bankMandate'
-						return resolve(model)
+						if(model.tags.bankMandateList.length==0){
+							model.stage = 'bankMandate'
+							return resolve(model)
+						}
+						else{
+							delete model.stage
+							return resolve(model)
+						}
 					}
 					else{
 						delete model.stage
@@ -840,9 +845,8 @@ function folio(model){
 				})
 			}
 			else{
-					delete model.stage
-					return resolve(model)
-				
+				delete model.stage
+				return resolve(model)
 			}
 		}
 		else{
