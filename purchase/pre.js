@@ -365,7 +365,7 @@ function extractSchemeName(model){
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(matches.bestMatch.target)
 			}
-			else{
+			else if(matches.bestMatch.rating>0.3){
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
 				console.log('RATINGS')
 				console.log(matches.ratings)
