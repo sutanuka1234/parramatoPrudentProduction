@@ -743,9 +743,12 @@ function holding(model){
 				for(let i in response.Response){
 					arr.push(response.Response[i].FolioNo.toLowerCase())
 				}
-				if(model.tags.folio && arr.includes(model.tags.folio)){
-					model.stage="amount";
+				if(model.tags.folio && arr.includes(model.tags.folio) && model.tags.amount){
+					model.stage = "folio"
 				}
+				// if(model.tags.folio && arr.includes(model.tags.folio)){
+				// 	model.stage="amount";
+				// }
 				else if(response.Response.length > 0){
 					model.tags.folioList = []
 					for(let i in response.Response){
