@@ -114,8 +114,24 @@ function panMobile(model){
 						catch(e){console.log(e);
 							return reject(model);
 						}
-						if(response.Response[0].result=="FAIL"){
-							return reject(model)
+						if(data.body.Response[0].result=="FAIL"){
+							let reply={
+				                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+				                model.stage = 'panMobile' 
+				                model.tags.pan=undefined;
+				                model.tags.mobile=undefined;
+								return resolve(model)
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
 						}
 						model.tags.session = response.Response[0].SessionId
 						model.stage = 'otp' 
@@ -162,8 +178,24 @@ function mobile(model){
 						catch(e){console.log(e);
 							return reject(model);
 						}
-						if(response.Response[0].result=="FAIL"){
-							return reject(model)
+						if(data.body.Response[0].result=="FAIL"){
+							let reply={
+				                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+				                model.stage = 'panMobile' 
+				                model.tags.pan=undefined;
+				                model.tags.mobile=undefined;
+								return resolve(model)
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
 						}
 						model.tags.session = response.Response[0].SessionId
 						model.stage = 'otp' 
@@ -201,8 +233,24 @@ function pan(model){
 						catch(e){console.log(e);
 							return reject(model);
 						}
-						if(response.Response[0].result=="FAIL"){
-							return reject(model)
+						if(data.body.Response[0].result=="FAIL"){
+							let reply={
+				                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+				                model.stage = 'panMobile' 
+				                model.tags.pan=undefined;
+				                model.tags.mobile=undefined;
+								return resolve(model)
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
 						}
 						model.tags.session = response.Response[0].SessionId
 						model.stage = 'otp' 
@@ -240,8 +288,21 @@ function otp(model){
 					catch(e){console.log(e);
 						return reject(model);
 					}
-					if(response.Response[0].result=="FAIL"){
-						return reject(model)
+					if(data.body.Response[0].result=="FAIL"){
+						let reply={
+			                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+							return reject(model)
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
 					}
 					model.tags.joinAcc = response.Response
 					model.tags.joinAccId = []
