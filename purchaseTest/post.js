@@ -97,13 +97,6 @@ function panMobile(model){
 				return reject(model);
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
-
-			model = extractPan(model);
-			model = extractMobile(model);
-			model = extractDivOption(model);
-			model = extractSchemeName(model);
-			model = extractAmount(model);
-			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
 				.then(data=>{
@@ -171,17 +164,6 @@ function panMobile(model){
 					return reject(model)
 				})		
 			}
-			else{
-				if(!model.tags.mobile){
-					model.stage = 'mobile' 
-					return resolve(model)
-				}
-				else if(!model.tags.pan){
-					model.stage = 'pan' 
-					return resolve(model)
-				}		
-				return reject(model);
-			}	
 		}
 		else if(model.data&&model.data.includes("proceed")&&(model.tags.mobile||model.tags.pan)){
 			if(!model.tags.mobile){
