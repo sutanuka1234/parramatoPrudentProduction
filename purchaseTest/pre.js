@@ -310,22 +310,32 @@ function extractAmount(model){
 }
 
 function extractMobile(model){
-	let text = matchAll(model.tags.userSays, /(\d+)/gi).toArray()
-	for(let i in text){
-		if(text[i].length == 10){
-			model.tags.mobile = text[i]
-			model.tags.userSays = model.tags.userSays.replace(model.tags.mobile, '')
-			break;
+	if(model.tags.mobile){
+		model.tags = {}
+	}
+	else{
+		let text = matchAll(model.tags.userSays, /(\d+)/gi).toArray()
+		for(let i in text){
+			if(text[i].length == 10){
+				model.tags.mobile = text[i]
+				model.tags.userSays = model.tags.userSays.replace(model.tags.mobile, '')
+				break;
+			}
 		}
 	}
 	return model;
 }
 
 function extractPan(model){
-	var matchPan=model.tags.userSays.match(regexPan)
-	if(matchPan){
-		model.tags.pan = matchPan[0]
-		model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
+	if(model.tags.pan){
+		model.tags = {}
+	}
+	else{
+		var matchPan=model.tags.userSays.match(regexPan)
+		if(matchPan){
+			model.tags.pan = matchPan[0]
+			model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
+		}
 	}
 	return model;
 }

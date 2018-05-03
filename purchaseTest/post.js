@@ -624,106 +624,6 @@ function divOps(model){
 	})
 }
 
-function amount(model){
-	return new Promise(function(resolve, reject){
-		model=extractAmount(model)
-		if(model.tags.amount){
-			console.log(model.tags.joinAccId)
-			console.log(data[model.tags.scheme].schemeCode)
-			console.log(data[model.tags.scheme].amcName)
-			console.log(data[model.tags.scheme].amcCode)
-			console.log(model.tags.divOption)
-			console.log(model.tags.amount)
-			console.log(model.tags.folio)
-			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
-			.then((data)=>{
-				console.log(data.body)
-				try{
-					data.body = JSON.parse(data.body)
-				}
-				catch(e){console.log(e);
-					return reject(model);
-				}
-				if(data.body.Response[0].result=="FAIL"){
-					let reply={
-		                text    : data.body.Response[0]['reject_reason'],
-		                type    : "text",
-		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{
-		                return reject(model);
-		            })
-		            .catch((e)=>{
-		                console.log(e);
-		                return reject(model)
-		            })
-				}
-				else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
-					model.tags.bankMandateList = []
-					let maxAmountPossible=0;
-					for(let element of data.body.Response[1]){
-						let possibleAmount
-						try{
-							possibleAmount=element.BankAccount.split('-')[2].match(/\d+/)[0]
-							if(possibleAmount){
-								possibleAmount=parseInt(possibleAmount);
-								if(maxAmountPossible<possibleAmount){
-									maxAmountPossible=possibleAmount;
-								}
-							}
-						}
-						catch(e){
-							console.log(e)
-						}
-						let expectedAmount=parseInt(model.tags.amount);
-						if(expectedAmount<=possibleAmount){
-							model.tags.bankMandateList.push({
-								title: element.BankAccount.split('-')[0],
-								text : element.BankAccount.split('-')[2],
-								buttons : [{
-									text : 'Select',
-									data : element.MandateID
-								}]
-							})
-						}
-					}
-					if(model.tags.bankMandateList.length==0){
-							let reply={
-				                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-				                return reject(model);
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-					}
-					console.log(model.tags.bankMandateList)
-					model.stage = 'bankMandate'
-					return resolve(model)
-				}
-				else{
-					return reject(model)
-				}
-			})
-			.catch((e)=>{
-				console.log(e)
-				return reject(model)
-			})
-		}
-		else{
-			return reject(model)
-		}	
-	})
-}
-
 function holding(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.joinAccId.includes(model.data)){
@@ -741,10 +641,10 @@ function holding(model){
 				for(let i in response.Response){
 					arr.push(response.Response[i].FolioNo.toLowerCase())
 				}
-				if(model.tags.folio && arr.includes(model.tags.folio)){
-					model.stage="amount";
-				}
-				else if(response.Response.length > 0){
+				// if(model.tags.folio && arr.includes(model.tags.folio)){
+				// 	model.stage="amount";
+				// }
+				if(response.Response.length > 0){
 					model.tags.folioList = []
 					for(let i in response.Response){
 						model.tags.folioList.push({
@@ -826,8 +726,14 @@ function folio(model){
 							}
 						}
 						console.log(model.tags.bankMandateList)
-						model.stage = 'bankMandate'
-						return resolve(model)
+						if(model.tags.bankMandateList.length==0){
+							delete model.stage
+							return resolve(model)
+						}
+						else{
+							model.stage = 'bankMandate'
+							return resolve(model)
+						}
 					}
 					else{
 						delete model.stage
@@ -840,9 +746,8 @@ function folio(model){
 				})
 			}
 			else{
-					delete model.stage
-					return resolve(model)
-				
+				delete model.stage
+				return resolve(model)
 			}
 		}
 		else{
@@ -851,7 +756,108 @@ function folio(model){
 	})
 }
 
-
+function amount(model){
+	return new Promise(function(resolve, reject){
+		model=dataClean(model)
+		model=extractAmount(model)
+		if(model.tags.amount){
+			console.log(model.tags.joinAccId)
+			console.log(data[model.tags.scheme].schemeCode)
+			console.log(data[model.tags.scheme].amcName)
+			console.log(data[model.tags.scheme].amcCode)
+			console.log(model.tags.divOption)
+			console.log(model.tags.amount)
+			console.log(model.tags.folio)
+			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
+			.then((data)=>{
+				console.log(data.body)
+				try{
+					data.body = JSON.parse(data.body)
+				}
+				catch(e){console.log(e);
+					return reject(model);
+				}
+				if(data.body.Response[0].result=="FAIL"){
+					let reply={
+		                text    : data.body.Response[0]['reject_reason'].trim(),
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+		                return reject(model);
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+				else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
+					model.tags.bankMandateList = []
+					let maxAmountPossible=0;
+					for(let element of data.body.Response[1]){
+						let possibleAmount
+						try{
+							possibleAmount=element.BankAccount.split('-')[2].match(/\d+/)[0]
+							if(possibleAmount){
+								possibleAmount=parseInt(possibleAmount);
+								if(maxAmountPossible<possibleAmount){
+									maxAmountPossible=possibleAmount;
+								}
+							}
+						}
+						catch(e){
+							console.log(e)
+						}
+						let expectedAmount=parseInt(model.tags.amount);
+						if(expectedAmount<=possibleAmount){
+							model.tags.bankMandateList.push({
+								title: element.BankAccount.split('-')[0],
+								text : element.BankAccount.split('-')[2],
+								buttons : [{
+									text : 'Select',
+									data : element.MandateID
+								}]
+							})
+						}
+					}
+					if(model.tags.bankMandateList.length==0){
+						let reply={
+			                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model);
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+					}
+					else{
+						console.log(model.tags.bankMandateList)
+						model.stage = 'bankMandate'
+						return resolve(model)
+					}
+				}
+				else{
+					return reject(model)
+				}
+			})
+			.catch((e)=>{
+				console.log(e)
+				return reject(model)
+			})
+		}
+		else{
+			return reject(model)
+		}	
+	})
+}
 
 function bankMandate(model){
 	return new Promise(function(resolve, reject){
@@ -958,25 +964,34 @@ function extractAmount(model){
 }
 
 function extractMobile(model){
-	console.log(model.data)
-	let text = matchAll(model.data, /(\d+)/gi).toArray()
-	console.log(text)
-	for(let i in text){
-		if(text[i].length == 10){
-			model.tags.mobile = text[i]
-			model.data = model.data.replace(model.tags.mobile, '')
-			break;
-		}
+	if(model.tags.mobile){
+		model.tags = {}
 	}
-	console.log(model.tags)
+	else{
+		let text = matchAll(model.data, /(\d+)/gi).toArray()
+		console.log(text)
+		for(let i in text){
+			if(text[i].length == 10){
+				model.tags.mobile = text[i]
+				model.data = model.data.replace(model.tags.mobile, '')
+				break;
+			}
+		}
+		console.log(model.tags)
+	}
 	return model;
 }
 
 function extractPan(model){
-	var matchPan=model.data.match(regexPan)
-	if(matchPan){
-		model.tags.pan = matchPan[0]
-		model.data=model.data.replace(model.tags.pan, '')
+	if(model.tags.pan){
+		model.tags = {}
+	}
+	else{
+		var matchPan=model.data.match(regexPan)
+		if(matchPan){
+			model.tags.pan = matchPan[0]
+			model.data=model.data.replace(model.tags.pan, '')
+		}
 	}
 	return model;
 }
@@ -1029,6 +1044,5 @@ function extractSchemeName(model){
 
 function dataClean(model){
 	model.data = model.data.toLowerCase()
-
     return model;
 }
