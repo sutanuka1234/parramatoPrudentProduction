@@ -624,8 +624,141 @@ function divOps(model){
 	})
 }
 
+function holding(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.joinAccId.includes(model.data)){
+			model.tags.joinAccId = model.data
+			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+			.then(response=>{
+				console.log(response.body)
+				try{
+					response = JSON.parse(response.body)
+				}
+				catch(e){console.log(e);
+					return reject(model);
+				}
+				let arr = []
+				for(let i in response.Response){
+					arr.push(response.Response[i].FolioNo.toLowerCase())
+				}
+				// if(model.tags.folio && arr.includes(model.tags.folio)){
+				// 	model.stage="amount";
+				// }
+				if(response.Response.length > 0){
+					model.tags.folioList = []
+					for(let i in response.Response){
+						model.tags.folioList.push({
+							data : response.Response[i].FolioNo,
+							text : response.Response[i].FolioNo
+						})
+					}
+					delete model.stage
+				}
+				else{
+					model.tags.folioNo = response.Response[0].FolioNo
+					delete model.stage
+				}
+				return resolve(model)
+			})
+			.catch(e=>{
+				console.log(e)
+				return reject(model)
+			})
+		}
+		else{
+			return reject(model)
+		}
+	})
+}
+
+function folio(model){
+	return new Promise(function(resolve, reject){
+		let arr = []
+		for(let i in model.tags.folioList){
+			arr.push(model.tags.folioList[i].data)
+		}
+		model.tags.amcName = data[model.tags.scheme].amcName
+		if(arr.includes(model.data)){
+			if(model.data.includes('new')){
+				model.tags.folio = '0'
+			}
+			else{
+				model.tags.folio = model.data
+			}
+			if(model.tags.amount){
+				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
+				.then((data)=>{
+					console.log(data.body)
+					try{
+						data.body = JSON.parse(data.body)
+					}
+					catch(e){
+						delete model.stage
+						return resolve(model)
+					}
+					if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
+						model.tags.bankMandateList = []
+						let maxAmountPossible=0;
+						for(let element of data.body.Response[1]){
+							let possibleAmount
+							try{
+								possibleAmount=element.BankAccount.split('-')[2].match(/\d+/)[0]
+								if(possibleAmount){
+									possibleAmount=parseInt(possibleAmount);
+									if(maxAmountPossible<possibleAmount){
+										maxAmountPossible=possibleAmount;
+									}
+								}
+							}
+							catch(e){
+								console.log(e)
+							}
+							let expectedAmount=parseInt(model.tags.amount);
+							if(expectedAmount<=possibleAmount){
+								model.tags.bankMandateList.push({
+									title: element.BankAccount.split('-')[0],
+									text : element.BankAccount.split('-')[2],
+									buttons : [{
+										text : 'Select',
+										data : element.MandateID
+									}]
+								})
+							}
+						}
+						console.log(model.tags.bankMandateList)
+						if(model.tags.bankMandateList.length==0){
+							model.stage = 'amount'
+							return resolve(model)
+						}
+						else{
+							delete model.stage
+							return resolve(model)
+						}
+					}
+					else{
+						delete model.stage
+						return resolve(model)
+					}
+				})
+				.catch((e)=>{
+					delete model.stage
+					return resolve(model)
+				})
+			}
+			else{
+				delete model.stage
+				return resolve(model)
+			}
+		}
+		else{
+			return reject(model)
+		}
+	})
+}
+
 function amount(model){
 	return new Promise(function(resolve, reject){
+		model=dataClean(model)
 		model=extractAmount(model)
 		if(model.tags.amount){
 			console.log(model.tags.joinAccId)
@@ -725,142 +858,6 @@ function amount(model){
 		}	
 	})
 }
-
-function holding(model){
-	return new Promise(function(resolve, reject){
-		if(model.tags.joinAccId.includes(model.data)){
-			model.tags.joinAccId = model.data
-			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-			.then(response=>{
-				console.log(response.body)
-				try{
-					response = JSON.parse(response.body)
-				}
-				catch(e){console.log(e);
-					return reject(model);
-				}
-				let arr = []
-				for(let i in response.Response){
-					arr.push(response.Response[i].FolioNo.toLowerCase())
-				}
-				if(model.tags.folio && arr.includes(model.tags.folio) && model.tags.amount){
-					console.log(model.tags.amount+'~~~~~~~~~~~~~')
-				}
-				if(model.tags.folio && arr.includes(model.tags.folio)){
-					model.stage="amount";
-				}
-				else if(response.Response.length > 0){
-					model.tags.folioList = []
-					for(let i in response.Response){
-						model.tags.folioList.push({
-							data : response.Response[i].FolioNo,
-							text : response.Response[i].FolioNo
-						})
-					}
-					delete model.stage
-				}
-				else{
-					model.tags.folioNo = response.Response[0].FolioNo
-					delete model.stage
-				}
-				return resolve(model)
-			})
-			.catch(e=>{
-				console.log(e)
-				return reject(model)
-			})
-		}
-		else{
-			return reject(model)
-		}
-	})
-}
-
-function folio(model){
-	return new Promise(function(resolve, reject){
-		let arr = []
-		for(let i in model.tags.folioList){
-			arr.push(model.tags.folioList[i].data)
-		}
-		model.tags.amcName = data[model.tags.scheme].amcName
-		if(arr.includes(model.data)){
-			if(model.data.includes('new')){
-				model.tags.folio = '0'
-			}
-			else{
-				model.tags.folio = model.data
-			}
-			if(model.tags.amount){
-				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
-				.then((data)=>{
-					console.log(data.body)
-					try{
-						data.body = JSON.parse(data.body)
-					}
-					catch(e){
-						delete model.stage
-						return resolve(model)
-					}
-					if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
-						model.tags.bankMandateList = []
-						let maxAmountPossible=0;
-						for(let element of data.body.Response[1]){
-							let possibleAmount
-							try{
-								possibleAmount=element.BankAccount.split('-')[2].match(/\d+/)[0]
-								if(possibleAmount){
-									possibleAmount=parseInt(possibleAmount);
-									if(maxAmountPossible<possibleAmount){
-										maxAmountPossible=possibleAmount;
-									}
-								}
-							}
-							catch(e){
-								console.log(e)
-							}
-							let expectedAmount=parseInt(model.tags.amount);
-							if(expectedAmount<=possibleAmount){
-								model.tags.bankMandateList.push({
-									title: element.BankAccount.split('-')[0],
-									text : element.BankAccount.split('-')[2],
-									buttons : [{
-										text : 'Select',
-										data : element.MandateID
-									}]
-								})
-							}
-						}
-						if(model.tags.bankMandateList.length==0){
-							model.stage = 'bankMandate'
-							return resolve(model)
-						}
-						else{
-							delete model.stage
-							return resolve(model)
-						}
-					}
-					else{
-						delete model.stage
-						return resolve(model)
-					}
-				})
-				.catch((e)=>{
-					delete model.stage
-					return resolve(model)
-				})
-			}
-			else{
-				delete model.stage
-				return resolve(model)
-			}
-		}
-		else{
-			return reject(model)
-		}
-	})
-}
-
-
 
 function bankMandate(model){
 	return new Promise(function(resolve, reject){
