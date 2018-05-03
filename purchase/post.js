@@ -97,6 +97,16 @@ function panMobile(model){
 			if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
 					return reject(model);
 			}
+			else if(model.data&&model.data.includes("proceed")&&(model.tags.mobile||model.tags.pan)){
+				if(!model.tags.mobile){
+					model.stage = 'mobile' 
+					return resolve(model)
+				}
+				else if(!model.tags.pan){
+					model.stage = 'pan' 
+					return resolve(model)
+				}		
+			}
 			model = extractPan(model);
 			model = extractMobile(model);
 			model = extractDivOption(model);
@@ -145,14 +155,6 @@ function panMobile(model){
 						console.log(error);
 						return reject(model)
 					})		
-			}
-			else if(model.tags.pan&&!model.tags.mobile){
-				model.stage = 'mobile' 
-				return resolve(model)
-			}
-			else if(!model.tags.pan){
-				model.stage = 'pan' 
-				return resolve(model)
 			}
 			else{
 				return reject(model);

@@ -94,27 +94,25 @@ function panMobile(model){
 		model=extractSchemeName(model)
 		model=extractAmount(model)
 		model=extractFolio(model)
-		if(model.tags.mobile && model.tags.pan){
+		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
-	            text:"Go ahead with OTP?",
+	            text:"Thank you for the details, we would proceed with the lumpsum investment.",
 	            next:{
 	                "data": [
 	                	{
 	                		data : 'Proceed',
 	                		text : 'Proceed'
+	                	},
+	                	{
+	                		data : 'Cancel',
+	                		text : 'Cancel'
 	                	}
 	                ]
 	            }
 			}
 		}
-		else if(model.tags.mobile){
-			model.stage = 'pan'
-		}
-		else if(model.tags.pan){
-			model.stage = 'mobile'
-		}
-		resolve(model)
+		return resolve(model)
 	})
 }
 
