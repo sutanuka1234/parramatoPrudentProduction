@@ -663,14 +663,15 @@ function amount(model){
 				}
 				else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 					console.log('SUCCESS')
+					console.log(data.body.Response)
 					model.tags.bankMandateList = []
 					for(let i in data.body.Response[0][1]){
 						model.tags.bankMandateList.push({
-							title: data.body.Response[1][i].BankAccount.split('-')[0],
-							text : data.body.Response[1][i].BankAccount.split('-')[2],
+							title: data.body.Response[0][1][i].BankAccount.split('-')[0],
+							text : data.body.Response[0][1][i].BankAccount.split('-')[2],
 							buttons : [{
 								text : 'Select',
-								data : data.body.Response[1][i].MandateID
+								data : data.body.Response[0][1][i].MandateID
 							}]
 						})
 					}
