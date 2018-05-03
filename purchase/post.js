@@ -183,8 +183,11 @@ function mobile(model){
 							return reject(model);
 						}
 						if(response.Response[0].result=="FAIL"){
+							if(response.Response[0]['reject_reason']=="Client does not exists."){
+								response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
+							}
 							let reply={
-				                text    : "API FAILED : "+response.Response[0]['reject_reason'],
+				                text    : response.Response[0]['reject_reason'],
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
@@ -240,8 +243,11 @@ function pan(model){
 							return reject(model);
 						}
 						if(response.Response[0].result=="FAIL"){
+							if(response.Response[0]['reject_reason']=="Client does not exists."){
+								response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
+							}
 							let reply={
-				                text    : "API FAILED : "+response.Response[0]['reject_reason'],
+				                text    : response.Response[0]['reject_reason'],
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
@@ -298,7 +304,7 @@ function otp(model){
 					}
 					if(response.Response[0].result=="FAIL"){
 						let reply={
-			                text    : "API FAILED : "+response.Response[0]['reject_reason'],
+			                text    : response.Response[0]['reject_reason'],
 			                type    : "text",
 			                sender  : model.sender,
 			                language: "en"
