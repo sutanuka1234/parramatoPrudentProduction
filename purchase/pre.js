@@ -94,6 +94,7 @@ function panMobile(model){
 		model=extractSchemeName(model)
 		model=extractAmount(model)
 		model=extractFolio(model)
+		console.log(model.tags)
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
