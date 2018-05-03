@@ -100,6 +100,7 @@ function runRequest(obj){
 module.exports = {
 	panMobile 	: panMobile,
 	otp 		: otp,
+	getScheme 	: getScheme,
 	getFolio 	: getFolio,
 	insertBuyCart : insertBuyCart,
 	bankMandate : bankMandate
