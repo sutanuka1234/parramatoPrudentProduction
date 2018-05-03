@@ -100,7 +100,7 @@ function panMobile(model){
 			model = extractPan(model);
 			model = extractMobile(model);
 			model = extractDivOption(model);
-			model=extractSchemeName(model);
+			model = extractSchemeName(model);
 			model = extractAmount(model);
 			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
@@ -115,8 +115,11 @@ function panMobile(model){
 							return reject(model);
 						}
 						if(response.Response[0].result=="FAIL"){
+							if(response.Response[0]['reject_reason']=="Client does not exists."){
+								response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
+							}
 							let reply={
-				                text    : "API FAILED : "+response.Response[0]['reject_reason'],
+				                text    : response.Response[0]['reject_reason'],
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
