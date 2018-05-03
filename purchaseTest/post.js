@@ -645,6 +645,7 @@ function amount(model){
 					return reject(model);
 				}
 				if(data.body.Response[0].result=="FAIL"){
+					console.log('FAIL')
 					let reply={
 		                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
 		                type    : "text",
@@ -661,6 +662,7 @@ function amount(model){
 		            })
 				}
 				else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
+					console.log('SUCCESS')
 					model.tags.bankMandateList = []
 					for(let i in data.body.Response[0][1]){
 						model.tags.bankMandateList.push({
@@ -677,6 +679,7 @@ function amount(model){
 					return resolve(model)
 				}
 				else{
+					console.log('REJECT')
 					return reject(model)
 				}
 			})
