@@ -779,7 +779,7 @@ function amount(model){
 				}
 				if(data.body.Response[0].result=="FAIL"){
 					let reply={
-		                text    : data.body.Response[0]['reject_reason'],
+		                text    : data.body.Response[0]['reject_reason'].trim(),
 		                type    : "text",
 		                sender  : model.sender,
 		                language: "en"
