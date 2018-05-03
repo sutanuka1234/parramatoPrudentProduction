@@ -130,7 +130,7 @@ function showSchemeName(model){
 		if(model.tags.schemes.length == 1){
 			model.reply={
 				type:"quickReply",
-	            text:"Would you like to go ahead with "+model.tags.schemes+"? You can also type if there is something else in your mind.",
+	            text:"Would you like to go ahead with "+model.tags.schemes+"? You can also type if there is something else on your mind.",
 	            next:{
 	                "data": [
 	                	{
