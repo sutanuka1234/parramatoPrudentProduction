@@ -88,7 +88,9 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
+		console.log(model.tags)
 		model=extractPan(model)
+		console.log(model.tags)
 		model=extractMobile(model)
 		model=extractDivOption(model)
 		model=extractSchemeName(model)
