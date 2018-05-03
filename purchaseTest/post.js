@@ -614,12 +614,8 @@ function divOps(model){
 					text : model.tags.joinAcc[i].JoinHolderName
 				})
 			}
-			if(model.tags.amount && parseInt(model.tags.amount) > 499){
-				model.stage = 'holding'
-			}
-			else{
-				delete model.stage
-			}
+			model.stage = 'holding'
+			
 			resolve(model)
 		}
 		else{
@@ -755,54 +751,8 @@ function folio(model){
 			else{
 				model.tags.folio = model.data
 			}
-			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
-			.then((data)=>{
-				try{
-					data.body = JSON.parse(data.body)
-				}
-				catch(e){console.log(e);
-					return reject(model);
-				}
-				console.log(data.body.Response)
-				if(data.body.Response[0].result=="FAIL"){
-					let reply={
-		                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
-		                type    : "text",
-		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{
-		                return reject(model);
-		            })
-		            .catch((e)=>{
-		                console.log(e);
-		                return reject(model)
-		            })
-				}
-				else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
-					model.tags.bankMandateList = []
-					for(let i in data.body.Response[1]){
-						model.tags.bankMandateList.push({
-							title: data.body.Response[1][i].BankAccount.split('-')[0],
-							text : data.body.Response[1][i].BankAccount.split('-')[2],
-							buttons : [{
-								text : 'Select',
-								data : data.body.Response[1][i].MandateID
-							}]
-						})
-					}
-					delete model.stage
-					resolve(model)
-				}
-				else{
-					reject(model)
-				}
-			})
-			.catch((e)=>{
-				console.log(e)
-				reject(model)
-			})
+			delete model.stage
+			resolve(model)
 		}
 		else{
 			reject(model)
