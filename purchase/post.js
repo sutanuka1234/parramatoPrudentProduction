@@ -707,14 +707,14 @@ function extractFolio(model){
 	return model;
 }
 function extractAmount(model){
-			let text = matchAll(model.data, /(\d+)/gi).toArray()
-			for(let i in text){
-				if(text[i].length < 8){
-					model.tags.amount = text[i]
-					model.data = model.data.replace(model.tags.amount, '')
-					break;
-				}
-			}
+			// let text = matchAll(model.data, /(\d+)/gi).toArray()
+			// for(let i in text){
+			// 	if(text[i].length < 8){
+			// 		model.tags.amount = text[i]
+			// 		model.data = model.data.replace(model.tags.amount, '')
+			// 		break;
+			// 	}
+			// }
 			return model;
 }
 
