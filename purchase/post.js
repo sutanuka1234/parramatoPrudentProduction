@@ -690,24 +690,26 @@ function amount(model){
 						}
 					}
 					if(model.tags.bankMandateList.length==0){
-							let reply={
-				                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-				                return reject(model);
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
+						let reply={
+			                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model);
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
 					}
-					console.log(model.tags.bankMandateList)
-					model.stage = 'bankMandate'
-					return resolve(model)
+					else{
+						console.log(model.tags.bankMandateList)
+						model.stage = 'bankMandate'
+						return resolve(model)
+					}
 				}
 				else{
 					return reject(model)
