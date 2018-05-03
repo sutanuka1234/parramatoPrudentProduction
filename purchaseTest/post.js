@@ -447,7 +447,8 @@ function otp(model){
 					}
 					
 				}
-				catch(e){console.log(e);
+				catch(e){
+					console.log(e);
 					return reject(model);
 				}
 			})
@@ -610,6 +611,19 @@ function holding(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.joinAccId.includes(model.data)){
 			model.tags.joinAccId = model.data
+			api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, model.tags.divOption, data[model.tags.scheme].subNatureCode)
+			.then((data)=>{
+				console.log(data)
+				try{
+					data.body = JSON.parse(data.body)
+				}
+				catch(e){
+					console.log(e)
+				}
+			})
+			.catch(e=>{
+				console.log(e)
+			})
 			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 			.then(response=>{
 				console.log(response.body)

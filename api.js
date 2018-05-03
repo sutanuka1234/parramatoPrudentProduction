@@ -42,18 +42,16 @@ function otp(session, otp){
 // 	console.log(response)
 // })
 
-// function getScheme(session, joinAccId, fundsType, amcId, schemeOption, subNature, callback){
-// 	var obj = {
-// 		method 	: 'POST',
-// 		headers : headers,
-// 		url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=Purchase&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature
-// 	}
-// 	request(obj, callback)
-// }
+function getScheme(session, joinAccId, fundsType, amcId, schemeOption, subNature){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=Purchase&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature
+	}
+	return runRequest(obj)
+}
 
-// getScheme('7C772321713D21713D21713D21713D21713D21713D21713D7C772321713D', '334', '1', '400040', '1', '5', (err, http, response)=>{
-// 	console.log(response)
-// })
+getScheme('7C772321713D21713D21713D21713D21713D21713D21713D5E6D3A7C7723', '334', '1', '400040', '1', '5').then(data=>{console.log(data.body)}).catch(err=>console.log(err))
 
 function getFolio(session, joinAccId, schemeCode, amcId){
 	var obj = {
