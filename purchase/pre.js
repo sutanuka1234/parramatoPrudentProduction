@@ -109,20 +109,6 @@ function panMobile(model){
 			}
 			resolve(model)
 		}
-		// else if(model.tags.mobile){
-		// 	model.reply={
-		// 		type : "text",
-		// 		text : "Also enter the PAN"
-		// 	}
-		// 	resolve(model)
-		// }
-		// else if(model.tags.pan){
-		// 	model.reply={
-		// 		type : "text",
-		// 		text : "Also enter the mobile number"
-		// 	}
-		// 	resolve(model)
-		// }
 		resolve(model)
 	})
 }
@@ -367,8 +353,6 @@ function extractSchemeName(model){
 			}
 			else if(matches.bestMatch.rating>0.3){
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
-				console.log('RATINGS')
-				console.log(matches.ratings)
 				model.tags.schemes = matches.ratings.splice(0,9);
 			}
 		}

@@ -324,7 +324,7 @@ function otp(model){
 						response.Response.forEach(function(element){
 							model.tags.joinAccId.push(element.JoinAccId.toString())
 						})
-						if(model.tags.schemes){
+						if(model.tags.schemes.length > 0){
 							model.tags.schemeList = []
 							for(let element of model.tags.schemes){
 								model.tags.schemeList.push({
