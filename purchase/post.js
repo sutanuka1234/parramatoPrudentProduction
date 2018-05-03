@@ -114,9 +114,9 @@ function panMobile(model){
 						catch(e){console.log(e);
 							return reject(model);
 						}
-						if(data.body.Response[0].result=="FAIL"){
+						if(response.Response[0].result=="FAIL"){
 							let reply={
-				                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
+				                text    : "API FAILED : "+response.Response[0]['reject_reason'],
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
@@ -178,9 +178,9 @@ function mobile(model){
 						catch(e){console.log(e);
 							return reject(model);
 						}
-						if(data.body.Response[0].result=="FAIL"){
+						if(response.Response[0].result=="FAIL"){
 							let reply={
-				                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
+				                text    : "API FAILED : "+response.Response[0]['reject_reason'],
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
@@ -233,9 +233,9 @@ function pan(model){
 						catch(e){console.log(e);
 							return reject(model);
 						}
-						if(data.body.Response[0].result=="FAIL"){
+						if(response.Response[0].result=="FAIL"){
 							let reply={
-				                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
+				                text    : "API FAILED : "+response.Response[0]['reject_reason'],
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
@@ -288,9 +288,9 @@ function otp(model){
 					catch(e){console.log(e);
 						return reject(model);
 					}
-					if(data.body.Response[0].result=="FAIL"){
+					if(response.Response[0].result=="FAIL"){
 						let reply={
-			                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
+			                text    : "API FAILED : "+response.Response[0]['reject_reason'],
 			                type    : "text",
 			                sender  : model.sender,
 			                language: "en"
