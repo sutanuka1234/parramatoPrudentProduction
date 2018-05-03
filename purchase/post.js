@@ -107,14 +107,15 @@ function panMobile(model){
 					return resolve(model)
 				}		
 			}
-			else if(model.tags.pan&&model.tags.mobile){
-				
-					model = extractPan(model);
-					model = extractMobile(model);
-					model = extractDivOption(model);
-					model = extractSchemeName(model);
-					model = extractAmount(model);
-					model = extractFolio(model);
+			else{ 
+				model = extractPan(model);
+				model = extractMobile(model);
+				model = extractDivOption(model);
+				model = extractSchemeName(model);
+				model = extractAmount(model);
+				model = extractFolio(model);
+
+				if(model.tags.pan&&model.tags.mobile){
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
 						console.log(data.body)
@@ -158,9 +159,14 @@ function panMobile(model){
 					})		
 			}
 			else{
+				
 				return reject(model);
-
 			}
+		}
+		else{
+			
+				return reject(model);
+		}
 
 
 	})
