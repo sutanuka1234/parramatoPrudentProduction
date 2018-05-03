@@ -107,7 +107,12 @@ function panMobile(model){
 	                ]
 	            }
 			}
-			resolve(model)
+		}
+		else if(model.tags.mobile){
+			model.stage = 'pan'
+		}
+		else if(model.tags.pan){
+			model.stage = 'mobile'
 		}
 		resolve(model)
 	})
