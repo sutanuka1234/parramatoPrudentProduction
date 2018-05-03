@@ -198,9 +198,11 @@ function mobile(model){
 				                return reject(model)
 				            })
 						}
-						model.tags.session = response.Response[0].SessionId
-						model.stage = 'otp' 
-						return resolve(model)
+						else{
+							model.tags.session = response.Response[0].SessionId
+							model.stage = 'otp' 
+							return resolve(model)
+						}
 					})
 					.catch(error=>{
 						console.log(error);
@@ -253,9 +255,11 @@ function pan(model){
 				                return reject(model)
 				            })
 						}
-						model.tags.session = response.Response[0].SessionId
-						model.stage = 'otp' 
-						return resolve(model)
+						else{
+							model.tags.session = response.Response[0].SessionId
+							model.stage = 'otp' 
+							return resolve(model)
+						}
 					})
 					.catch(error=>{
 						console.log(error);
@@ -305,31 +309,34 @@ function otp(model){
 			                return reject(model)
 			            })
 					}
-					model.tags.joinAcc = response.Response
-					model.tags.joinAccId = []
-					response.Response.forEach(function(element){
-						model.tags.joinAccId.push(element.JoinAccId.toString())
-					})
-					if(model.tags.schemes){
-						model.tags.schemeList = []
-						for(let element of model.tags.schemes){
-							model.tags.schemeList.push({
-								title 	: 'Schemes',
-								text 	: element.target,
-								buttons : [
-									{
-										text : 'Select',
-										data : element.target
-									}
-								]
-							})
-						}
-						model.stage = 'showSchemeName'
-					}
 					else{
-						delete model.stage
+						model.tags.joinAcc = response.Response
+						model.tags.joinAccId = []
+						response.Response.forEach(function(element){
+							model.tags.joinAccId.push(element.JoinAccId.toString())
+						})
+						if(model.tags.schemes){
+							model.tags.schemeList = []
+							for(let element of model.tags.schemes){
+								model.tags.schemeList.push({
+									title 	: 'Schemes',
+									text 	: element.target,
+									buttons : [
+										{
+											text : 'Select',
+											data : element.target
+										}
+									]
+								})
+							}
+							model.stage = 'showSchemeName'
+						}
+						else{
+							delete model.stage
+						}
+						return resolve(model)
 					}
-					return resolve(model)
+					
 				}
 				catch(e){console.log(e);
 					return reject(model);
