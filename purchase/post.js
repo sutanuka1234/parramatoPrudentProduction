@@ -828,7 +828,7 @@ function folio(model){
 							}
 						}
 						if(model.tags.bankMandateList.length==0){
-							model.stage = 'amount'
+							model.stage = 'bankMandate'
 							return resolve(model)
 						}
 						else{
