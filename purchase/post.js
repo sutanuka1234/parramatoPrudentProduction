@@ -163,10 +163,6 @@ function panMobile(model){
 				return reject(model);
 			}
 		}
-		else{
-
-				return reject(model);
-		}
 
 
 	})
