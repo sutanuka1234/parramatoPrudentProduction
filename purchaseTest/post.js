@@ -487,7 +487,7 @@ function askSchemeName(model){
 		model = extractAmount(model)
 		model = extractFolio(model)
 		if(matches.bestMatch.rating>0.9){
-			model.tags.schemes.push(bestMatch)
+			model.tags.schemes.push(matches.bestMatch.target)
 		}
 		else{
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
