@@ -727,11 +727,11 @@ function folio(model){
 						}
 						console.log(model.tags.bankMandateList)
 						if(model.tags.bankMandateList.length==0){
-							model.stage = 'amount'
+							delete model.stage
 							return resolve(model)
 						}
 						else{
-							delete model.stage
+							model.stage = 'bankMandate'
 							return resolve(model)
 						}
 					}
