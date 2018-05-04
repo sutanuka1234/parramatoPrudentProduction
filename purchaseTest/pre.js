@@ -361,9 +361,9 @@ function extractPan(model){
 			console.log(matchPan[0]+"PANN")
 			model.tags = {userSays:model.tags.userSays}
 		}
-		console.log(matchPan[0])
 		model.tags.pan = matchPan[0]
 		model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
+		console.log(model.tags.userSays+'!!!!!!!!!!!!')
 	}
 	return model;
 }
