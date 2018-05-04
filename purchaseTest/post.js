@@ -394,6 +394,16 @@ function otp(model){
 			if(!model.tags.otpCount){
 				model.tags.otpCount = 0
 			}
+			if(model.data == 'resend'){
+				api.resendOtp(model.tags.session)
+				.then((response)=>{
+					return resolve(model)
+				})
+				.catch(error=>{
+					console.log(error);
+					return reject(model)
+				})
+			}
 			api.otp(model.tags.session, model.tags.otp)
 			.then(data=>{
 				try{
