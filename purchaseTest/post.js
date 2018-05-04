@@ -1006,7 +1006,7 @@ function extractMobile(model){
 	let text = matchAll(model.data, /(\d+)/gi).toArray()
 	for(let i in text){
 		if(text[i].length == 10){
-			if(text[i]!=model.tags.mobile){
+			if(text[i]!=model.tags.mobile||model.tags.mobile===undefined){
 				console.log(text[i]+"mobile")
 				model.tags = {}
 			}
@@ -1022,7 +1022,7 @@ function extractPan(model){
 	let matchPan=model.data.match(regexPan)
 	if(matchPan&&matchPan.length>0&&matchPan[0]){
 
-		if(matchPan[0]!=model.tags.pan){
+		if(matchPan[0]!=model.tags.pan||model.tags.pan===undefined){
 			console.log(matchPan[0]+"PANN")
 			model.tags = {}
 		}
