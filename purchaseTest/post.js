@@ -417,6 +417,7 @@ function otp(model){
 						return reject(model);
 					}
 					if(response.Response[0].result=="FAIL"){
+						console.log('FAILED')
 						model.tags.otpCount += 1
 						if(model.tags.otpCount == 3){
 							model.tags.resend = true
@@ -431,7 +432,7 @@ function otp(model){
 				            }
 							external(reply)
 							.then((data)=>{
-								return resolve(model)
+								return reject(model)
 				            })
 				            .catch((e)=>{
 				                console.log(e);
