@@ -220,9 +220,8 @@ function panMobile(model){
 			                language: "en"
 			            }
 						external(reply)
-						.then((data)=>{ 
-			                model.tags.pan=undefined;
-			                model.tags.mobile=undefined;
+						.then((data)=>{  
+		                	model.tags={};
 							return resolve(model)
 			            })
 			            .catch((e)=>{
@@ -305,9 +304,8 @@ function mobile(model){
 				            }
 							external(reply)
 							.then((data)=>{
-				                model.stage = 'panMobile' 
-				                model.tags.pan=undefined;
-				                model.tags.mobile=undefined;
+				                model.stage = 'panMobile'  
+		                		model.tags={};
 								return resolve(model)
 				            })
 				            .catch((e)=>{
@@ -372,8 +370,7 @@ function pan(model){
 					external(reply)
 					.then((data)=>{
 		                model.stage = 'panMobile' 
-		                model.tags.pan=undefined;
-		                model.tags.mobile=undefined;
+		                model.tags={};
 						return resolve(model)
 		            })
 		            .catch((e)=>{
