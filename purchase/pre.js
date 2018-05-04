@@ -9,6 +9,7 @@ let words = require('../words.js')
 let stringSimilarity = require('string-similarity');
 let sortBy = require('sort-by')
 let matchAll = require('match-all')
+let StringMask = require('string-mask')
 
 let obj = {
 	panMobile : panMobile,
