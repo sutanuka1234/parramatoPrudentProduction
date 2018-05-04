@@ -393,6 +393,7 @@ function otp(model){
 		if(model.data == 'resend'){
 			api.resendOtp(model.tags.session)
 			.then((response)=>{
+				console.log(response)
 				try{
 					response = JSON.parse(response.body)
 				}
