@@ -292,6 +292,7 @@ function summary(model){
 				text : 'We have gone ahead with '+model.tags.paymentSummary.SchemeName+' with Folio '+model.tags.paymentSummary.FolioNo+' investing Rs '+model.tags.paymentSummary.Amount+' from '+model.tags.paymentSummary.BankName+'. Reference ID would be '+model.tags.paymentSummary.ReferenceID+'. Status of transaction is '+model.tags.paymentSummary.STATUS+'.'
 			}
 		}
+		model.tags.amount = undefined
 		resolve(model)
 	})
 }
