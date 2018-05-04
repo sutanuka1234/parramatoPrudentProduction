@@ -92,7 +92,6 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.tags)
 		model=dataClean(model);
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
 			console.log("1")
@@ -400,6 +399,7 @@ function pan(model){
 
 function otp(model){
 	return new Promise(function(resolve, reject){
+		console.log(model.tags)
 		model = dataClean(model);
 		model = extractOTP(model);
 		model = extractDivOption(model);
