@@ -316,7 +316,6 @@ function mobile(model){
 			}
 			else{
 				return reject(model);
-
 			}
 	
 	})
@@ -324,68 +323,65 @@ function mobile(model){
 
 function pan(model){
 	return new Promise(function(resolve, reject){
-			model = dataClean(model);
-			model = extractPan(model);
-			model = extractDivOption(model);
-			model=extractSchemeName(model);
-			model = extractAmount(model);
-			model = extractFolio(model);
-			if(model.tags.pan&&model.tags.mobile){
-					api.panMobile(model.tags.mobile, model.tags.pan)
-					.then(data=>{
-						console.log(data.body)
-						let response;
-						try{
-							response = JSON.parse(data.body)
-						}
-						catch(e){console.log(e);
-							return reject(model);
-						}
-						if(response.Response[0].result=="FAIL"){
-							if(response.Response[0]['reject_reason']=="Client does not exists."){
-								response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
-							}
-							let reply={
-				                text    : response.Response[0]['reject_reason'],
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-				                model.stage = 'panMobile' 
-				                model.tags.pan=undefined;
-				                model.tags.mobile=undefined;
-								return resolve(model)
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-						}
-						else{
-							model.tags.session = response.Response[0].SessionId
-							model.stage = 'otp' 
-							return resolve(model)
-						}
-					})
-					.catch(error=>{
-						console.log(error);
-						return reject(model)
-					})		
-			}
-			else{
-				return reject(model);
-
-			}
-
-
+		model = dataClean(model);
+		model = extractPan(model);
+		model = extractDivOption(model);
+		model=extractSchemeName(model);
+		model = extractAmount(model);
+		model = extractFolio(model);
+		if(model.tags.pan&&model.tags.mobile){
+			api.panMobile(model.tags.mobile, model.tags.pan)
+			.then(data=>{
+				console.log(data.body)
+				let response;
+				try{
+					response = JSON.parse(data.body)
+				}
+				catch(e){console.log(e);
+					return reject(model);
+				}
+				if(response.Response[0].result=="FAIL"){
+					if(response.Response[0]['reject_reason']=="Client does not exists."){
+						response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
+					}
+					let reply={
+		                text    : response.Response[0]['reject_reason'],
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+		                model.stage = 'panMobile' 
+		                model.tags.pan=undefined;
+		                model.tags.mobile=undefined;
+						return resolve(model)
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+				else{
+					model.tags.session = response.Response[0].SessionId
+					model.stage = 'otp' 
+					return resolve(model)
+				}
+			})
+			.catch(error=>{
+				console.log(error);
+				return reject(model)
+			})		
+		}
+		else{
+			return reject(model);
+		}
 	})
 }
 
 function otp(model){
 	return new Promise(function(resolve, reject){
-		model=dataClean(model);
+		model = dataClean(model);
 		model = extractOTP(model);
 		model = extractDivOption(model);
 		model = extractSchemeName(model);
@@ -468,7 +464,6 @@ function otp(model){
 						}
 						return resolve(model)
 					}
-					
 				}
 				catch(e){
 					console.log(e);
@@ -800,13 +795,6 @@ function amount(model){
 		model=dataClean(model)
 		model=extractAmount(model)
 		if(model.tags.amount){
-			console.log(model.tags.joinAccId)
-			console.log(data[model.tags.scheme].schemeCode)
-			console.log(data[model.tags.scheme].amcName)
-			console.log(data[model.tags.scheme].amcCode)
-			console.log(model.tags.divOption)
-			console.log(model.tags.amount)
-			console.log(model.tags.folio)
 			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 			.then((data)=>{
 				console.log(data.body)
@@ -878,7 +866,6 @@ function amount(model){
 			            })
 					}
 					else{
-						console.log(model.tags.bankMandateList)
 						model.stage = 'bankMandate'
 						return resolve(model)
 					}
@@ -919,7 +906,7 @@ function bankMandate(model){
 				}
 				if(data.body.Response[0].result=="FAIL"){
 					let reply={
-		                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
+		                text    : data.body.Response[0]['reject_reason'],
 		                type    : "text",
 		                sender  : model.sender,
 		                language: "en"
@@ -1006,10 +993,10 @@ function extractMobile(model){
 	let text = matchAll(model.data, /(\d+)/gi).toArray()
 	for(let i in text){
 		if(text[i].length == 10){
-			// if(text[i]!=model.tags.mobile||model.tags.mobile===undefined){
-			// 	console.log(text[i]+"mobile")
-			// 	model.tags = {}
-			// }
+			if(text[i]!=model.tags.mobile){
+				console.log(text[i]+"mobile")
+				model.tags = {}
+			}
 			model.tags.mobile = text[i]
 			model.data = model.data.replace(model.tags.mobile, '')
 			break;
@@ -1022,7 +1009,7 @@ function extractPan(model){
 	let matchPan=model.data.match(regexPan)
 	if(matchPan&&matchPan.length>0&&matchPan[0]){
 
-		if(matchPan[0]!=model.tags.pan||model.tags.pan===undefined){
+		if(matchPan[0]!=model.tags.pan){
 			console.log(matchPan[0]+"PANN")
 			model.tags = {}
 		}

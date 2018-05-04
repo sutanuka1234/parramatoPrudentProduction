@@ -3,15 +3,16 @@ module.exports={
 	main:main
 }
 
-var schemes = require('../schemes.js')
-var data = require('../data.js')
-var words = require('../words.js')
-var stringSimilarity = require('string-similarity');
-var sortBy = require('sort-by')
-var matchAll = require('match-all')
+let schemes = require('../schemes.js')
+let data = require('../data.js')
+let words = require('../words.js')
+let stringSimilarity = require('string-similarity');
+let sortBy = require('sort-by')
+let matchAll = require('match-all')
 
 let obj = {
 	panMobile : panMobile,
+	otp 	: otp,
 	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
 	divOps 	: divOps,
@@ -22,14 +23,14 @@ let obj = {
 	summary : summary
 }
 
-var regexPan   	= /[a-z]{3}p[a-z]\d{4}[a-z]/;
-var regexMobile = /((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/;
-var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/
-var schemeType 	= /dividend|growth/
-var divOption 	= /re(-|\s)?invest|pay(\s)?out/
-var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
-var schemeNames = Object.keys(data)
-var amc = [  
+let regexPan   	= /[a-z]{3}p[a-z]\d{4}[a-z]/;
+let regexMobile = /((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/;
+let regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/
+let schemeType 	= /dividend|growth/
+let divOption 	= /re(-|\s)?invest|pay(\s)?out/
+let regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
+let schemeNames = Object.keys(data)
+let amc = [  
 	'kotak',
 	'birla',
 	'sun life',
@@ -94,6 +95,8 @@ function panMobile(model){
 		model=extractSchemeName(model)
 		model=extractAmount(model)
 		model=extractFolio(model)
+		console.log(model.tags.pan+'~~~~~~~~~~~~~~~~~~~')
+		console.log(model.tags.mobile)
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
@@ -113,6 +116,32 @@ function panMobile(model){
 			}
 		}
 		return resolve(model)
+	})
+}
+
+function otp(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.resend){
+			model.reply={
+				type : "text",
+				text : "The new OTP has been sent to your mobile. Please enter it here"
+			}
+		}
+		else{
+			model.reply={
+				type : "quickReply",
+				text : "We have sent an OTP to your mobile number, please share it here. If you have not received it, click on resend.",
+				next : {
+					"data" : [
+						{
+							data : 're send',
+							text : 'Re send'
+						}
+					]
+				}
+			}
+		}
+		resolve(model)
 	})
 }
 
@@ -310,9 +339,14 @@ function extractAmount(model){
 }
 
 function extractMobile(model){
+
 	let text = matchAll(model.tags.userSays, /(\d+)/gi).toArray()
 	for(let i in text){
 		if(text[i].length == 10){
+			// if(text[i]!=model.tags.mobile||model.tags.mobile===undefined){
+			// 	console.log(text[i]+"mobile")
+			// 	model.tags = {userSays:model.tags.userSays}
+			// }
 			model.tags.mobile = text[i]
 			model.tags.userSays = model.tags.userSays.replace(model.tags.mobile, '')
 			break;
@@ -322,8 +356,13 @@ function extractMobile(model){
 }
 
 function extractPan(model){
-	var matchPan=model.tags.userSays.match(regexPan)
-	if(matchPan){
+	let matchPan=model.tags.userSays.match(regexPan)
+	if(matchPan&&matchPan.length>0&&matchPan[0]){
+		if(matchPan[0]!=model.tags.pan||model.tags.pan===undefined){
+			console.log(matchPan[0]+"PANN")
+			model.tags = {userSays:model.tags.userSays}
+
+		}
 		model.tags.pan = matchPan[0]
 		model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
 	}

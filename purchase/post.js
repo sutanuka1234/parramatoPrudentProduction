@@ -2,13 +2,13 @@ module.exports={
 	main:main
 }
 
-var api = require('../api.js')
-var external = require('../external.js')
-var words = require('../words.js')
-var data = require('../data.js')
-var stringSimilarity = require('string-similarity');
-var sortBy = require('sort-by')
-var matchAll = require('match-all')
+let api = require('../api.js')
+let external = require('../external.js')
+let words = require('../words.js')
+let data = require('../data.js')
+let stringSimilarity = require('string-similarity');
+let sortBy = require('sort-by')
+let matchAll = require('match-all')
 
 let obj = {
 	panMobile : panMobile,
@@ -25,16 +25,16 @@ let obj = {
 }
 
 
-var regexMobile	= /[789]\d{9}/gi
-var regexPan 	= /[a-z]{3}p[a-z]\d{4}[a-z]/
-var number		= /\d+/
-var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/gi
-var divOption 	= /re(-|\s)?invest|pay(\s)?out/
-var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
-var schemeType 	= /dividend|growth/
-var regexOtp    = /\d{6}/
-var schemeNames = Object.keys(data)
-var amc = [  
+let regexMobile	= /[789]\d{9}/gi
+let regexPan 	= /[a-z]{3}p[a-z]\d{4}[a-z]/
+let number		= /\d+/
+let regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/gi
+let divOption 	= /re(-|\s)?invest|pay(\s)?out/
+let regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
+let schemeType 	= /dividend|growth/
+let regexOtp    = /\d{6}/
+let schemeNames = Object.keys(data)
+let amc = [  
 	'kotak',
 	'birla',
 	'sun life',
@@ -92,74 +92,20 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
+		console.log(model.tags)
 		model=dataClean(model);
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
-				return reject(model);
+			return reject(model);
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
-
-			model = extractPan(model);
-			model = extractMobile(model);
-			model = extractDivOption(model);
-			model = extractSchemeName(model);
-			model = extractAmount(model);
-			model = extractFolio(model);
-			if(model.tags.pan&&model.tags.mobile){
-				api.panMobile(model.tags.mobile, model.tags.pan)
-				.then(data=>{
-					console.log(data.body)
-					let response;
-					try{
-						response = JSON.parse(data.body)
-					}
-					catch(e){console.log(e);
-						if(!model.tags.mobile){
-							model.stage = 'mobile' 
-							return resolve(model)
-						}
-						else if(!model.tags.pan){
-							model.stage = 'pan' 
-							return resolve(model)
-						}		
-						return reject(model);
-					}
-					if(response.Response[0].result=="FAIL"){
-						if(response.Response[0]['reject_reason']=="Client does not exists."){
-							response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
-						}
-						let reply={
-			                text    : response.Response[0]['reject_reason'],
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{ 
-			                model.tags.pan=undefined;
-			                model.tags.mobile=undefined;
-							return resolve(model)
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                if(!model.tags.mobile){
-								model.stage = 'mobile' 
-								return resolve(model)
-							}
-							else if(!model.tags.pan){
-								model.stage = 'pan' 
-								return resolve(model)
-							}		
-			                return reject(model)
-			            })
-					}
-					else{
-						model.tags.session = response.Response[0].SessionId
-						model.stage = 'otp' 
-						return resolve(model)
-					}
-				})
-				.catch(error=>{
-					console.log(error);
+			api.panMobile(model.tags.mobile, model.tags.pan)
+			.then(data=>{
+				console.log(data.body)
+				let response;
+				try{
+					response = JSON.parse(data.body)
+				}
+				catch(e){console.log(e);
 					if(!model.tags.mobile){
 						model.stage = 'mobile' 
 						return resolve(model)
@@ -168,10 +114,45 @@ function panMobile(model){
 						model.stage = 'pan' 
 						return resolve(model)
 					}		
-					return reject(model)
-				})		
-			}
-			else{
+					return reject(model);
+				}
+				if(response.Response[0].result=="FAIL"){
+					if(response.Response[0]['reject_reason']=="Client does not exists."){
+						response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
+					}
+					let reply={
+		                text    : response.Response[0]['reject_reason'],
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{ 
+		                model.tags.pan=undefined;
+		                model.tags.mobile=undefined;
+						return resolve(model)
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                if(!model.tags.mobile){
+							model.stage = 'mobile' 
+							return resolve(model)
+						}
+						else if(!model.tags.pan){
+							model.stage = 'pan' 
+							return resolve(model)
+						}		
+		                return reject(model)
+		            })
+				}
+				else{
+					model.tags.session = response.Response[0].SessionId
+					model.stage = 'otp' 
+					return resolve(model)
+				}
+			})
+			.catch(error=>{
+				console.log(error);
 				if(!model.tags.mobile){
 					model.stage = 'mobile' 
 					return resolve(model)
@@ -180,8 +161,8 @@ function panMobile(model){
 					model.stage = 'pan' 
 					return resolve(model)
 				}		
-				return reject(model);
-			}	
+				return reject(model)
+			})		
 		}
 		else if(model.data&&model.data.includes("proceed")&&(model.tags.mobile||model.tags.pan)){
 			if(!model.tags.mobile){
@@ -335,7 +316,6 @@ function mobile(model){
 			}
 			else{
 				return reject(model);
-
 			}
 	
 	})
@@ -343,72 +323,93 @@ function mobile(model){
 
 function pan(model){
 	return new Promise(function(resolve, reject){
-			model = dataClean(model);
-			model = extractPan(model);
-			model = extractDivOption(model);
-			model=extractSchemeName(model);
-			model = extractAmount(model);
-			model = extractFolio(model);
-			if(model.tags.pan&&model.tags.mobile){
-					api.panMobile(model.tags.mobile, model.tags.pan)
-					.then(data=>{
-						console.log(data.body)
-						let response;
-						try{
-							response = JSON.parse(data.body)
-						}
-						catch(e){console.log(e);
-							return reject(model);
-						}
-						if(response.Response[0].result=="FAIL"){
-							if(response.Response[0]['reject_reason']=="Client does not exists."){
-								response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
-							}
-							let reply={
-				                text    : response.Response[0]['reject_reason'],
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-				                model.stage = 'panMobile' 
-				                model.tags.pan=undefined;
-				                model.tags.mobile=undefined;
-								return resolve(model)
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-						}
-						else{
-							model.tags.session = response.Response[0].SessionId
-							model.stage = 'otp' 
-							return resolve(model)
-						}
-					})
-					.catch(error=>{
-						console.log(error);
-						return reject(model)
-					})		
-			}
-			else{
-				return reject(model);
-
-			}
-
-
+		model = dataClean(model);
+		model = extractPan(model);
+		model = extractDivOption(model);
+		model=extractSchemeName(model);
+		model = extractAmount(model);
+		model = extractFolio(model);
+		if(model.tags.pan&&model.tags.mobile){
+			api.panMobile(model.tags.mobile, model.tags.pan)
+			.then(data=>{
+				console.log(data.body)
+				let response;
+				try{
+					response = JSON.parse(data.body)
+				}
+				catch(e){console.log(e);
+					return reject(model);
+				}
+				if(response.Response[0].result=="FAIL"){
+					if(response.Response[0]['reject_reason']=="Client does not exists."){
+						response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
+					}
+					let reply={
+		                text    : response.Response[0]['reject_reason'],
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+		                model.stage = 'panMobile' 
+		                model.tags.pan=undefined;
+		                model.tags.mobile=undefined;
+						return resolve(model)
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+				else{
+					model.tags.session = response.Response[0].SessionId
+					model.stage = 'otp' 
+					return resolve(model)
+				}
+			})
+			.catch(error=>{
+				console.log(error);
+				return reject(model)
+			})		
+		}
+		else{
+			return reject(model);
+		}
 	})
 }
 
 function otp(model){
 	return new Promise(function(resolve, reject){
-		model=dataClean(model);
+		model = dataClean(model);
 		model = extractOTP(model);
 		model = extractDivOption(model);
 		model = extractSchemeName(model);
-		if(model.tags.otp){
+		if(model.data == 're send'){
+			api.resendOtp(model.tags.session)
+			.then((response)=>{
+				console.log(response.body)
+				try{
+					response = JSON.parse(response.body)
+				}
+				catch(e){
+					console.log(e)
+					reject(model)
+				}
+				if(response.Response){
+					model.tags.resend = true
+					resolve(model)
+				}
+				else{
+					reject(model)
+				}
+			})
+			.catch(e=>{
+				console.log(e)
+				reject(model)
+			})
+		}
+		else if(model.tags.otp){
 			api.otp(model.tags.session, model.tags.otp)
 			.then(data=>{
 				try{
@@ -429,7 +430,7 @@ function otp(model){
 			            }
 						external(reply)
 						.then((data)=>{
-							return reject(model)
+							return resolve(model)
 			            })
 			            .catch((e)=>{
 			                console.log(e);
@@ -463,9 +464,9 @@ function otp(model){
 						}
 						return resolve(model)
 					}
-					
 				}
-				catch(e){console.log(e);
+				catch(e){
+					console.log(e);
 					return reject(model);
 				}
 			})
@@ -628,37 +629,70 @@ function holding(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.joinAccId.includes(model.data)){
 			model.tags.joinAccId = model.data
-			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-			.then(response=>{
+			api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
+			.then((response)=>{
 				console.log(response.body)
 				try{
 					response = JSON.parse(response.body)
 				}
-				catch(e){console.log(e);
-					return reject(model);
+				catch(e){
+					console.log(e)
 				}
-				let arr = []
-				for(let i in response.Response){
-					arr.push(response.Response[i].FolioNo.toLowerCase())
-				}
-				// if(model.tags.folio && arr.includes(model.tags.folio)){
-				// 	model.stage="amount";
-				// }
-				if(response.Response.length > 0){
-					model.tags.folioList = []
-					for(let i in response.Response){
-						model.tags.folioList.push({
-							data : response.Response[i].FolioNo,
-							text : response.Response[i].FolioNo
-						})
-					}
-					delete model.stage
+				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
+					api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+					.then(response=>{
+						console.log(response.body)
+						try{
+							response = JSON.parse(response.body)
+						}
+						catch(e){console.log(e);
+							return reject(model);
+						}
+						let arr = []
+						for(let i in response.Response){
+							arr.push(response.Response[i].FolioNo.toLowerCase())
+						}
+						// if(model.tags.folio && arr.includes(model.tags.folio)){
+						// 	model.stage="amount";
+						// }
+						if(response.Response.length > 0){
+							model.tags.folioList = []
+							for(let i in response.Response){
+								model.tags.folioList.push({
+									data : response.Response[i].FolioNo,
+									text : response.Response[i].FolioNo
+								})
+							}
+							delete model.stage
+						}
+						else{
+							model.tags.folioNo = response.Response[0].FolioNo
+							delete model.stage
+						}
+						return resolve(model)
+					})
+					.catch(e=>{
+						console.log(e)
+						return reject(model)
+					})
 				}
 				else{
-					model.tags.folioNo = response.Response[0].FolioNo
-					delete model.stage
+					let reply={
+		                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+						model.stage = 'askSchemeName'
+						return resolve(model)
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
 				}
-				return resolve(model)
 			})
 			.catch(e=>{
 				console.log(e)
@@ -761,13 +795,6 @@ function amount(model){
 		model=dataClean(model)
 		model=extractAmount(model)
 		if(model.tags.amount){
-			console.log(model.tags.joinAccId)
-			console.log(data[model.tags.scheme].schemeCode)
-			console.log(data[model.tags.scheme].amcName)
-			console.log(data[model.tags.scheme].amcCode)
-			console.log(model.tags.divOption)
-			console.log(model.tags.amount)
-			console.log(model.tags.folio)
 			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 			.then((data)=>{
 				console.log(data.body)
@@ -839,7 +866,6 @@ function amount(model){
 			            })
 					}
 					else{
-						console.log(model.tags.bankMandateList)
 						model.stage = 'bankMandate'
 						return resolve(model)
 					}
@@ -880,7 +906,7 @@ function bankMandate(model){
 				}
 				if(data.body.Response[0].result=="FAIL"){
 					let reply={
-		                text    : "API FAILED : "+data.body.Response[0]['reject_reason'],
+		                text    : data.body.Response[0]['reject_reason'],
 		                type    : "text",
 		                sender  : model.sender,
 		                language: "en"
@@ -964,23 +990,29 @@ function extractAmount(model){
 }
 
 function extractMobile(model){
-	console.log(model.data)
 	let text = matchAll(model.data, /(\d+)/gi).toArray()
-	console.log(text)
 	for(let i in text){
 		if(text[i].length == 10){
+			if(text[i]!=model.tags.mobile){
+				console.log(text[i]+"mobile")
+				model.tags = {}
+			}
 			model.tags.mobile = text[i]
 			model.data = model.data.replace(model.tags.mobile, '')
 			break;
 		}
 	}
-	console.log(model.tags)
 	return model;
 }
 
 function extractPan(model){
-	var matchPan=model.data.match(regexPan)
-	if(matchPan){
+	let matchPan=model.data.match(regexPan)
+	if(matchPan&&matchPan.length>0&&matchPan[0]){
+
+		if(matchPan[0]!=model.tags.pan){
+			console.log(matchPan[0]+"PANN")
+			model.tags = {}
+		}
 		model.tags.pan = matchPan[0]
 		model.data=model.data.replace(model.tags.pan, '')
 	}
@@ -1035,6 +1067,5 @@ function extractSchemeName(model){
 
 function dataClean(model){
 	model.data = model.data.toLowerCase()
-
     return model;
 }

@@ -96,6 +96,7 @@ function panMobile(model){
 		model=extractAmount(model)
 		model=extractFolio(model)
 		console.log(model.tags.pan+'~~~~~~~~~~~~~~~~~~~')
+		console.log(model.tags.mobile)
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
@@ -360,7 +361,7 @@ function extractPan(model){
 		if(matchPan[0]!=model.tags.pan||model.tags.pan===undefined){
 			console.log(matchPan[0]+"PANN")
 			model.tags = {userSays:model.tags.userSays}
-			
+
 		}
 		model.tags.pan = matchPan[0]
 		model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
