@@ -92,12 +92,13 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.tags)
 		model=dataClean(model);
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
+			console.log("1")
 			return reject(model);
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
+			console.log("2")
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				console.log(data.body)
@@ -165,6 +166,11 @@ function panMobile(model){
 			})		
 		}
 		else if(model.data&&model.data.includes("proceed")&&(model.tags.mobile||model.tags.pan)){
+			console.log("3")
+
+			if(!model.tags.mobile&&!model.tags.pan){
+				return reject(model);
+			}
 			if(!model.tags.mobile){
 				model.stage = 'mobile' 
 				return resolve(model)
@@ -175,6 +181,7 @@ function panMobile(model){
 			}
 		}
 		else{ 
+			console.log("4")
 			model = extractPan(model);
 			model = extractMobile(model);
 			model = extractDivOption(model);
@@ -211,9 +218,8 @@ function panMobile(model){
 			                language: "en"
 			            }
 						external(reply)
-						.then((data)=>{ 
-			                model.tags.pan=undefined;
-			                model.tags.mobile=undefined;
+						.then((data)=>{  
+		                	model.tags={};
 							return resolve(model)
 			            })
 			            .catch((e)=>{
@@ -249,6 +255,9 @@ function panMobile(model){
 				})		
 			}
 			else{
+				if(!model.tags.mobile&&!model.tags.pan){
+					return reject(model);
+				}
 				if(!model.tags.mobile){
 					model.stage = 'mobile' 
 					return resolve(model)
@@ -293,9 +302,8 @@ function mobile(model){
 				            }
 							external(reply)
 							.then((data)=>{
-				                model.stage = 'panMobile' 
-				                model.tags.pan=undefined;
-				                model.tags.mobile=undefined;
+				                model.stage = 'panMobile'  
+		                		model.tags={};
 								return resolve(model)
 				            })
 				            .catch((e)=>{
@@ -314,6 +322,11 @@ function mobile(model){
 						return reject(model)
 					})		
 			}
+
+			else if(model.tags.mobile){
+				model.stage = 'pan' 
+				return resolve(model)
+			}
 			else{
 				return reject(model);
 			}
@@ -329,6 +342,8 @@ function pan(model){
 		model=extractSchemeName(model);
 		model = extractAmount(model);
 		model = extractFolio(model);
+			console.log("TAGG")
+			console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.pan&&model.tags.mobile){
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
@@ -353,8 +368,7 @@ function pan(model){
 					external(reply)
 					.then((data)=>{
 		                model.stage = 'panMobile' 
-		                model.tags.pan=undefined;
-		                model.tags.mobile=undefined;
+		                model.tags={};
 						return resolve(model)
 		            })
 		            .catch((e)=>{
@@ -372,6 +386,10 @@ function pan(model){
 				console.log(error);
 				return reject(model)
 			})		
+		}
+		else if(model.tags.pan){
+			model.stage = 'mobile' 
+			return resolve(model)
 		}
 		else{
 			return reject(model);
@@ -544,9 +562,10 @@ function showSchemeName(model){
 						model.tags.divOption = 0
 					}
 					model.stage = 'holding'
-					
 				}
-				model.tags.divOption = 0
+				else{
+					model.tags.divOption = 0
+				}
 				model.tags.joinAccList = []
 				for(let i in model.tags.joinAcc){
 					model.tags.joinAccList.push({
@@ -559,7 +578,6 @@ function showSchemeName(model){
 					})
 				}
 				model.stage = 'holding'
-				
 			}
 			else{
 				delete model.stage
@@ -598,7 +616,7 @@ function divOps(model){
 	return new Promise(function(resolve, reject){
 		model = extractAmount(model)
 		model = extractFolio(model)
-		if(model.data.toLowerCase().includes('reinvest') || model.data.toLowerCase().includes('payout')){
+		if(model.data.toLowerCase().includes('re invest') || model.data.toLowerCase().includes('payout')){
 			if(model.data.includes('re')){
 				model.tags.divOption = 2
 			}
@@ -611,12 +629,15 @@ function divOps(model){
 			model.tags.joinAccList = []
 			for(let i in model.tags.joinAcc){
 				model.tags.joinAccList.push({
-					data : model.tags.joinAcc[i].JoinAccId,
-					text : model.tags.joinAcc[i].JoinHolderName
+					title: 'Holding Patterns',
+					text : model.tags.joinAcc[i].JoinHolderName,
+					buttons : [{
+						data : model.tags.joinAcc[i].JoinAccId,
+						text : 'Select'
+					}]
 				})
 			}
 			model.stage = 'holding'
-			
 			resolve(model)
 		}
 		else{
@@ -964,41 +985,40 @@ function extractFolio(model){
 	return model;
 }
 function extractAmount(model){
-			if(model.data.includes(',')){
-				while(model.data.includes(','))
-		    		model.data = model.data.replace(',', '')
-			}
-			if(model.data.match(/\d+\s*k/)){
-				let a = model.data
-		   		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
-		   		model.data = model.data.replace(/\d+\s*k/, a)
-			}
-		    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
-		    	let a = model.data
-				a = a.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace(/\s+/, '').replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
-		    	model.data = model.data.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
-		    }
-			let text = matchAll(model.data, /(\d+)/gi).toArray()
-			for(let i in text){
-				if(text[i].length < 8){
-					model.tags.amount = text[i]
-					model.data = model.data.replace(model.tags.amount, '')
-					break;
-				}
-			}
-			return model;
+	if(model.data.includes(',')){
+		while(model.data.includes(','))
+    		model.data = model.data.replace(',', '')
+	}
+	if(model.data.match(/\d+\s*k/)){
+		let a = model.data
+   		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
+   		model.data = model.data.replace(/\d+\s*k/, a)
+	}
+    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
+    	let a = model.data
+		a = a.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace(/\s+/, '').replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+    	model.data = model.data.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
+    }
+	let text = matchAll(model.data, /(\d+)/gi).toArray()
+	for(let i in text){
+		if(text[i].length < 8){
+			model.tags.amount = text[i]
+			model.data = model.data.replace(model.tags.amount, '')
+			break;
+		}
+	}
+	return model;
 }
 
 function extractMobile(model){
 	let text = matchAll(model.data, /(\d+)/gi).toArray()
+
+	console.log(text)
 	for(let i in text){
 		if(text[i].length == 10){
-			if(text[i]!=model.tags.mobile){
-				console.log(text[i]+"mobile")
-				model.tags = {}
-			}
 			model.tags.mobile = text[i]
 			model.data = model.data.replace(model.tags.mobile, '')
+			console.log(model.tags.mobile+"mobile")
 			break;
 		}
 	}
@@ -1007,14 +1027,15 @@ function extractMobile(model){
 
 function extractPan(model){
 	let matchPan=model.data.match(regexPan)
+	console.log(matchPan)
 	if(matchPan&&matchPan.length>0&&matchPan[0]){
 
 		if(matchPan[0]!=model.tags.pan){
-			console.log(matchPan[0]+"PANN")
 			model.tags = {}
 		}
 		model.tags.pan = matchPan[0]
 		model.data=model.data.replace(model.tags.pan, '')
+		console.log(model.tags.pan+"pan")
 	}
 	return model;
 }
