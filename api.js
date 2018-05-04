@@ -48,7 +48,6 @@ function getScheme(session, joinAccId, fundsType, amcId, schemeOption, subNature
 		headers : headers,
 		url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=Purchase&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature
 	}
-	console.log(obj.url)
 	return runRequest(obj)
 }
 

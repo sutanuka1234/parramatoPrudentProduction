@@ -611,9 +611,6 @@ function holding(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.joinAccId.includes(model.data)){
 			model.tags.joinAccId = model.data
-			console.log(data[model.tags.scheme].amcCode)
-			console.log(model.tags.divOption)
-			console.log(data[model.tags.scheme].subNatureCode)
 			api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
 			.then((data)=>{
 				console.log(data.body)
@@ -623,8 +620,8 @@ function holding(model){
 				catch(e){
 					console.log(e)
 				}
-				console.log(data.body.Response[0][0].FUNDNAME)
 				if(data.body.Response[0][0].FUNDNAME){
+					console.log(data)
 					api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 					.then(response=>{
 						console.log(response.body)
