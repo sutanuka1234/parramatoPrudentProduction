@@ -88,17 +88,11 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.tags)
 		model=dataClean(model)
-		console.log(model.tags)
 		model=extractPan(model)
-		console.log(model.tags)
 		model=extractMobile(model)
-		console.log(model.tags)
 		model=extractDivOption(model)
-		console.log(model.tags)
 		model=extractSchemeName(model)
-		console.log(model.tags)
 		model=extractAmount(model)
 		model=extractFolio(model)
 		if(model.tags.mobile || model.tags.pan){
