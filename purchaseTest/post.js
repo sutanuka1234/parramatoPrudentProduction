@@ -623,10 +623,8 @@ function holding(model){
 				catch(e){
 					console.log(e)
 				}
-				console.log(data.body.Response)
-				console.log(data.body.Response[0])
-				console.log(data.body.Response[0].FUNDNAME)
-				if(data.body.Response[0].FUNDNAME){
+				console.log(data.body.Response[0][0].FUNDNAME)
+				if(data.body.Response[0][0].FUNDNAME){
 					api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 					.then(response=>{
 						console.log(response.body)
