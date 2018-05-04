@@ -611,6 +611,9 @@ function holding(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.joinAccId.includes(model.data)){
 			model.tags.joinAccId = model.data
+			console.log(data[model.tags.scheme].amcCode)
+			console.log(model.tags.divOption)
+			console.log(data[model.tags.scheme].subNatureCode)
 			api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, model.tags.divOption, data[model.tags.scheme].subNatureCode)
 			.then((data)=>{
 				console.log('SCHEME')
