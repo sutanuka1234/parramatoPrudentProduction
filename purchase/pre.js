@@ -356,7 +356,7 @@ function extractPan(model){
 	let matchPan=model.tags.userSays.match(regexPan)
 	if(matchPan&&matchPan.length>0&&matchPan[0]){
 		if(matchPan[0]!=model.tags.pan||model.tags.pan===undefined){
-			model.tags = {userSays:model.tags.userSays,sender:model.tags.sender}
+			model.tags = {userSays:model.tags.userSays}
 		}
 		model.tags.pan = matchPan[0]
 		model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
