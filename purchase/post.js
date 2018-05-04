@@ -167,7 +167,7 @@ function panMobile(model){
 		}
 		else if(model.data&&model.data.includes("proceed")&&(model.tags.mobile||model.tags.pan)){
 			console.log("3")
-			
+
 			if(!model.tags.mobile&&!model.tags.pan){
 				return reject(model);
 			}
@@ -326,6 +326,11 @@ function mobile(model){
 						return reject(model)
 					})		
 			}
+
+			else(model.tags.mobile){
+				model.stage = 'pan' 
+				return resolve(model)
+			}
 			else{
 				return reject(model);
 			}
@@ -386,6 +391,10 @@ function pan(model){
 				console.log(error);
 				return reject(model)
 			})		
+		}
+		else(model.tags.pan){
+			model.stage = 'mobile' 
+			return resolve(model)
 		}
 		else{
 			return reject(model);
