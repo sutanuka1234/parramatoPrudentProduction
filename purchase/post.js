@@ -341,6 +341,8 @@ function pan(model){
 		model=extractSchemeName(model);
 		model = extractAmount(model);
 		model = extractFolio(model);
+			console.log("TAGG")
+			console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.pan&&model.tags.mobile){
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
