@@ -391,6 +391,7 @@ function otp(model){
 		model = extractDivOption(model);
 		model = extractSchemeName(model);
 		if(model.tags.otp){
+			console.log(model.tags.otpCount)
 			if(!model.tags.otpCount){
 				model.tags.otpCount = 0
 			}
