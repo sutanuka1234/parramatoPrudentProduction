@@ -405,79 +405,81 @@ function otp(model){
 					return reject(model)
 				})
 			}
-			api.otp(model.tags.session, model.tags.otp)
-			.then(data=>{
-				try{
-					console.log(data.body)
-					let response;
+			else{
+				api.otp(model.tags.session, model.tags.otp)
+				.then(data=>{
 					try{
-						response = JSON.parse(data.body)
+						console.log(data.body)
+						let response;
+						try{
+							response = JSON.parse(data.body)
+						}
+						catch(e){
+							console.log(e);
+							return reject(model);
+						}
+						if(response.Response[0].result=="FAIL"){
+							model.tags.otpCount += 1
+							if(model.tags.otpCount == 3){
+								model.tags.resend = true
+								return resolve(model)
+							}
+							else{
+								let reply={
+					                text    : response.Response[0]['reject_reason'],
+					                type    : "text",
+					                sender  : model.sender,
+					                language: "en"
+					            }
+								external(reply)
+								.then((data)=>{
+									return reject(model)
+					            })
+					            .catch((e)=>{
+					                console.log(e);
+					                return reject(model)
+					            })
+					        }
+						}
+						else{
+							model.tags.joinAcc = response.Response
+							model.tags.joinAccId = []
+							response.Response.forEach(function(element){
+								model.tags.joinAccId.push(element.JoinAccId.toString())
+							})
+							if(model.tags.schemes && model.tags.schemes.length > 0){
+								model.tags.schemeList = []
+								for(let element of model.tags.schemes){
+									model.tags.schemeList.push({
+										title 	: 'Schemes',
+										text 	: element.target,
+										buttons : [
+											{
+												text : 'Select',
+												data : element.target
+											}
+										]
+									})
+								}
+								model.stage = 'showSchemeName'
+							}
+							else{
+								delete model.stage
+							}
+							return resolve(model)
+						}
+						
 					}
 					catch(e){
 						console.log(e);
 						return reject(model);
 					}
-					if(response.Response[0].result=="FAIL"){
-						model.tags.otpCount += 1
-						if(model.tags.otpCount == 3){
-							model.tags.resend = true
-							return resolve(model)
-						}
-						else{
-							let reply={
-				                text    : response.Response[0]['reject_reason'],
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-								return reject(model)
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-				        }
-					}
-					else{
-						model.tags.joinAcc = response.Response
-						model.tags.joinAccId = []
-						response.Response.forEach(function(element){
-							model.tags.joinAccId.push(element.JoinAccId.toString())
-						})
-						if(model.tags.schemes && model.tags.schemes.length > 0){
-							model.tags.schemeList = []
-							for(let element of model.tags.schemes){
-								model.tags.schemeList.push({
-									title 	: 'Schemes',
-									text 	: element.target,
-									buttons : [
-										{
-											text : 'Select',
-											data : element.target
-										}
-									]
-								})
-							}
-							model.stage = 'showSchemeName'
-						}
-						else{
-							delete model.stage
-						}
-						return resolve(model)
-					}
-					
-				}
-				catch(e){
-					console.log(e);
-					return reject(model);
-				}
-			})
-			.catch(error=>{
-				console.log(error);
-				return reject(model)
-			})
+				})
+				.catch(error=>{
+					console.log(error);
+					return reject(model)
+				})
+			}
 		}
 		else{
 			return reject(model)
