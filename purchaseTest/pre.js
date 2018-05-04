@@ -121,18 +121,29 @@ function otp(model){
 	return new Promise(function(resolve, reject){
 		console.log(model.tags.resend)
 		if(model.tags.resend){
-			model.tags.otpCount = 0
-			model.tags.resend = undefined
-			model.reply={
-				type : "quickReply",
-				text : "Resend OTP?",
-				next : {
-					"data" : [
-						{
-							data : 'resend',
-							text : 'Re send'
-						}
-					]
+			if(!model.tags.resendCount){
+				model.tags.resendCount = 0
+			}
+			else{
+				model.tags.resendCount += 1
+			}
+			if(model.tags.resendCount == 3){
+				reject(model)
+			}
+			else{
+				model.tags.otpCount = 0
+				model.tags.resend = undefined
+				model.reply={
+					type : "quickReply",
+					text : "Resend OTP?",
+					next : {
+						"data" : [
+							{
+								data : 'resend',
+								text : 'Re send'
+							}
+						]
+					}
 				}
 			}
 		}
