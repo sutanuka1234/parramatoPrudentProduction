@@ -390,7 +390,7 @@ function otp(model){
 		model = extractOTP(model);
 		model = extractDivOption(model);
 		model = extractSchemeName(model);
-		if(model.data == 'resend'){
+		if(model.data == 're send'){
 			api.resendOtp(model.tags.session)
 			.then((response)=>{
 				console.log(response)
@@ -402,6 +402,7 @@ function otp(model){
 					reject(model)
 				}
 				if(response.Response){
+					model.tags.resend = true
 					resolve(model)
 				}
 				else{

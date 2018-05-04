@@ -119,16 +119,24 @@ function panMobile(model){
 
 function otp(model){
 	return new Promise(function(resolve, reject){
-		model.reply={
-			type : "quickReply",
-			text : "We have sent an OTP to your mobile number, please share it here. If you have not received it, click on resend.",
-			next : {
-				"data" : [
-					{
-						data : 'resend',
-						text : 'Re send'
-					}
-				]
+		if(model.tags.resend){
+			model.reply={
+				type : "text",
+				text : "The new OTP has been sent to your mobile. Please enter it here"
+			}
+		}
+		else{
+			model.reply={
+				type : "quickReply",
+				text : "We have sent an OTP to your mobile number, please share it here. If you have not received it, click on resend.",
+				next : {
+					"data" : [
+						{
+							data : 're send',
+							text : 'Re send'
+						}
+					]
+				}
 			}
 		}
 		resolve(model)
