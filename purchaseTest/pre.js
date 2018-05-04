@@ -360,7 +360,8 @@ function extractMobile(model){
 
 function extractPan(model){
 	let matchPan=model.tags.userSays.match(regexPan)
-	if(matchPan&&matchPan[0]){
+	console.log(matchPan)
+	if(matchPan&&matchPan.length>0&&matchPan[0]){
 		if(matchPan[0].toLowerCase()!=model.tags.pan.toLowerCase()){
 			model.tags = {userSays:model.tags.userSays}
 		}
