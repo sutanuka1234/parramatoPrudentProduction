@@ -613,7 +613,7 @@ function holding(model){
 			model.tags.joinAccId = model.data
 			api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, model.tags.divOption, data[model.tags.scheme].subNatureCode)
 			.then((data)=>{
-				console.log(data)
+				console.log(data.body)
 				try{
 					data.body = JSON.parse(data.body)
 				}
