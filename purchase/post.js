@@ -564,7 +564,9 @@ function showSchemeName(model){
 					}
 					model.stage = 'holding'
 				}
-				model.tags.divOption = 0
+				else{
+					model.tags.divOption = 0
+				}
 				model.tags.joinAccList = []
 				for(let i in model.tags.joinAcc){
 					model.tags.joinAccList.push({
