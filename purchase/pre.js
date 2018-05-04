@@ -293,6 +293,8 @@ function summary(model){
 			}
 		}
 		model.tags.amount = undefined
+		model.tags.joinAccId = undefined
+		model.tags.divOption = undefined
 		resolve(model)
 	})
 }
