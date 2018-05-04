@@ -248,6 +248,9 @@ function panMobile(model){
 				})		
 			}
 			else{
+				if(!model.tags.mobile&&!model.tags.pan){
+					return reject(model);
+				}
 				if(!model.tags.mobile){
 					model.stage = 'mobile' 
 					return resolve(model)
