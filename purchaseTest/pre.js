@@ -357,7 +357,7 @@ function extractMobile(model){
 function extractPan(model){
 	let matchPan=model.tags.userSays.match(regexPan)
 	if(matchPan&&matchPan.length>0&&matchPan[0]){
-		if(matchPan[0]!=model.tags.pan||model.tags.pan===undefined){
+		if(matchPan[0]!=model.tags.pan){
 			console.log(matchPan[0]+"PANN")
 			model.tags = {userSays:model.tags.userSays}
 		}
