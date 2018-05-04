@@ -412,7 +412,8 @@ function otp(model){
 					try{
 						response = JSON.parse(data.body)
 					}
-					catch(e){console.log(e);
+					catch(e){
+						console.log(e);
 						return reject(model);
 					}
 					if(response.Response[0].result=="FAIL"){
