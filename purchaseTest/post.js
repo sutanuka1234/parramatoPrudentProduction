@@ -2,13 +2,13 @@ module.exports={
 	main:main
 }
 
-var api = require('../api.js')
-var external = require('../external.js')
-var words = require('../words.js')
-var data = require('../data.js')
-var stringSimilarity = require('string-similarity');
-var sortBy = require('sort-by')
-var matchAll = require('match-all')
+let api = require('../api.js')
+let external = require('../external.js')
+let words = require('../words.js')
+let data = require('../data.js')
+let stringSimilarity = require('string-similarity');
+let sortBy = require('sort-by')
+let matchAll = require('match-all')
 
 let obj = {
 	panMobile : panMobile,
@@ -25,16 +25,16 @@ let obj = {
 }
 
 
-var regexMobile	= /[789]\d{9}/gi
-var regexPan 	= /[a-z]{3}p[a-z]\d{4}[a-z]/
-var number		= /\d+/
-var regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/gi
-var divOption 	= /re(-|\s)?invest|pay(\s)?out/
-var regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
-var schemeType 	= /dividend|growth/
-var regexOtp    = /\d{6}/
-var schemeNames = Object.keys(data)
-var amc = [  
+let regexMobile	= /[789]\d{9}/gi
+let regexPan 	= /[a-z]{3}p[a-z]\d{4}[a-z]/
+let number		= /\d+/
+let regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/gi
+let divOption 	= /re(-|\s)?invest|pay(\s)?out/
+let regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
+let schemeType 	= /dividend|growth/
+let regexOtp    = /\d{6}/
+let schemeNames = Object.keys(data)
+let amc = [  
 	'kotak',
 	'birla',
 	'sun life',
@@ -1004,34 +1004,29 @@ function extractAmount(model){
 }
 
 function extractMobile(model){
-	if(model.tags.mobile){
-		model.tags = {}
-	}
-	else{
-		let text = matchAll(model.data, /(\d+)/gi).toArray()
-		console.log(text)
-		for(let i in text){
-			if(text[i].length == 10){
-				model.tags.mobile = text[i]
-				model.data = model.data.replace(model.tags.mobile, '')
-				break;
+	let text = matchAll(model.data, /(\d+)/gi).toArray()
+	for(let i in text){
+		if(text[i].length == 10){
+			if(text[i].toLowerCase()!=model.tags.mobile.toLowerCase()){
+				model.tags = {}
 			}
+			model.tags.mobile = text[i]
+			model.data = model.data.replace(model.tags.mobile, '')
+			break;
 		}
-		console.log(model.tags)
 	}
 	return model;
 }
 
 function extractPan(model){
-	if(model.tags.pan){
-		model.tags = {}
-	}
-	else{
-		var matchPan=model.data.match(regexPan)
-		if(matchPan){
-			model.tags.pan = matchPan[0]
-			model.data=model.data.replace(model.tags.pan, '')
+	let matchPan=model.data.match(regexPan)
+	if(matchPan){
+
+		if(matchPan[0].toLowerCase()!=model.tags.pan.toLowerCase()){
+			model.tags = {}
 		}
+		model.tags.pan = matchPan[0]
+		model.data=model.data.replace(model.tags.pan, '')
 	}
 	return model;
 }
