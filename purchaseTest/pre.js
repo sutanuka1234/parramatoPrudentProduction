@@ -88,11 +88,17 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
+		console.log(model.tags)
 		model=dataClean(model)
+		console.log(model.tags)
 		model=extractPan(model)
+		console.log(model.tags)
 		model=extractMobile(model)
+		console.log(model.tags)
 		model=extractDivOption(model)
+		console.log(model.tags)
 		model=extractSchemeName(model)
+		console.log(model.tags)
 		model=extractAmount(model)
 		model=extractFolio(model)
 		if(model.tags.mobile || model.tags.pan){
@@ -338,7 +344,7 @@ function extractAmount(model){
 
 function extractMobile(model){
 	if(model.tags.mobile){
-		model.tags = {}
+		model.tags = {userSays:model.tags.userSays}
 	}
 	else{
 		let text = matchAll(model.tags.userSays, /(\d+)/gi).toArray()
@@ -355,7 +361,7 @@ function extractMobile(model){
 
 function extractPan(model){
 	if(model.tags.pan){
-		model.tags = {}
+		model.tags = {userSays:model.tags.userSays}
 	}
 	else{
 		var matchPan=model.tags.userSays.match(regexPan)
