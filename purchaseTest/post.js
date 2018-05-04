@@ -420,6 +420,7 @@ function otp(model){
 						console.log('FAILED')
 						model.tags.otpCount += 1
 						if(model.tags.otpCount == 3){
+							console.log('3')
 							model.tags.resend = true
 							return resolve(model)
 						}
