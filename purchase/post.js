@@ -94,9 +94,11 @@ function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model);
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
+			console.log("1")
 			return reject(model);
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
+			console.log("2")
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				console.log(data.body)
@@ -164,6 +166,7 @@ function panMobile(model){
 			})		
 		}
 		else if(model.data&&model.data.includes("proceed")&&(model.tags.mobile||model.tags.pan)){
+			console.log("3")
 			if(!model.tags.mobile){
 				model.stage = 'mobile' 
 				return resolve(model)
@@ -174,6 +177,7 @@ function panMobile(model){
 			}
 		}
 		else{ 
+			console.log("4")
 			model = extractPan(model);
 			model = extractMobile(model);
 			model = extractDivOption(model);
