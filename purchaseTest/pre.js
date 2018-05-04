@@ -121,6 +121,7 @@ function otp(model){
 	return new Promise(function(resolve, reject){
 		console.log(model.tags.resend)
 		if(model.tags.resend){
+			console.log(model.tags.resendCount)
 			if(!model.tags.resendCount){
 				model.tags.resendCount = 0
 			}
