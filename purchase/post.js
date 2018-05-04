@@ -563,7 +563,6 @@ function showSchemeName(model){
 						model.tags.divOption = 0
 					}
 					model.stage = 'holding'
-					
 				}
 				model.tags.divOption = 0
 				model.tags.joinAccList = []
@@ -578,7 +577,6 @@ function showSchemeName(model){
 					})
 				}
 				model.stage = 'holding'
-				
 			}
 			else{
 				delete model.stage
@@ -630,8 +628,12 @@ function divOps(model){
 			model.tags.joinAccList = []
 			for(let i in model.tags.joinAcc){
 				model.tags.joinAccList.push({
-					data : model.tags.joinAcc[i].JoinAccId,
-					text : model.tags.joinAcc[i].JoinHolderName
+					title: 'Holding Patterns',
+					text : model.tags.joinAcc[i].JoinHolderName,
+					buttons : [{
+						data : model.tags.joinAcc[i].JoinAccId,
+						text : 'Select'
+					}]
 				})
 			}
 			model.stage = 'holding'
