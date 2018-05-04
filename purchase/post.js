@@ -1018,9 +1018,6 @@ function extractMobile(model){
 	console.log(text)
 	for(let i in text){
 		if(text[i].length == 10){
-			if(text[i]!=model.tags.mobile){
-				model.tags = {}
-			}
 			model.tags.mobile = text[i]
 			model.data = model.data.replace(model.tags.mobile, '')
 			console.log(model.tags.mobile+"mobile")
