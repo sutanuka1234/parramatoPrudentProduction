@@ -612,16 +612,15 @@ function holding(model){
 		if(model.tags.joinAccId.includes(model.data)){
 			model.tags.joinAccId = model.data
 			api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
-			.then((data)=>{
-				console.log(data.body)
+			.then((response)=>{
+				console.log(response.body)
 				try{
-					data.body = JSON.parse(data.body)
+					response = JSON.parse(response.body)
 				}
 				catch(e){
 					console.log(e)
 				}
-				if(data.body.Response && data.body.Response[0] && data.body.Response[0][0] && data.body.Response[0][0].FUNDNAME){
-					console.log(data)
+				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 					api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 					.then(response=>{
 						console.log(response.body)
