@@ -119,6 +119,7 @@ function panMobile(model){
 
 function otp(model){
 	return new Promise(function(resolve, reject){
+		console.log(model.tags.resend)
 		if(model.tags.resend){
 			model.tags.otpCount = 0
 			model.tags.resend = undefined
