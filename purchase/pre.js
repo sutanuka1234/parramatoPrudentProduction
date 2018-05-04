@@ -90,7 +90,7 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.tags)
+		model.tags = {}
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
