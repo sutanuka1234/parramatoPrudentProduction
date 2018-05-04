@@ -30,6 +30,7 @@ let schemeType 	= /dividend|growth/
 let divOption 	= /re(-|\s)?invest|pay(\s)?out/
 let regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
 let schemeNames = Object.keys(data)
+let formatter 	= new StringMask('XXXXXX7285');
 let amc = [  
 	'kotak',
 	'birla',
@@ -131,7 +132,7 @@ function otp(model){
 		else{
 			model.reply={
 				type : "quickReply",
-				text : "We have sent an OTP to your mobile number, please share it here. If you have not received it, click on resend.",
+				text : "We have sent an OTP to your mobile number ("+formatter.apply(model.tags.mobile)+"), please share it here. If you have not received it, click on resend.",
 				next : {
 					"data" : [
 						{
