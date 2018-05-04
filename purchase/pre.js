@@ -138,6 +138,10 @@ function otp(model){
 						{
 							data : 're send',
 							text : 'Re send'
+						},
+						{
+							data : "not my number",
+							text : "Not my number"
 						}
 					]
 				}

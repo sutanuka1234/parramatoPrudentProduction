@@ -399,7 +399,15 @@ function pan(model){
 
 function otp(model){
 	return new Promise(function(resolve, reject){
+
+
 		model = dataClean(model);
+		
+		if(model.data.includes("not")&&model.data.includes("my")&&model.data.includes("number")){
+			model.stage="panMobile";
+			return resolve(model);
+		}
+
 		model = extractOTP(model);
 		model = extractDivOption(model);
 		model = extractSchemeName(model);
