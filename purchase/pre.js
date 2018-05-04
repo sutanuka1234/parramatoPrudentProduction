@@ -75,6 +75,7 @@ let amc = [
 function main(req, res){
 	return new Promise(function(resolve, reject){
 		console.log(req.params.stage)
+		console.log('PRE')
 		obj[req.params.stage](req.body)
 		.then((data)=>{
 			res.send(data)
@@ -337,7 +338,6 @@ function extractAmount(model){
 }
 
 function extractMobile(model){
-
 	let text = matchAll(model.tags.userSays, /(\d+)/gi).toArray()
 	for(let i in text){
 		if(text[i].length == 10){
