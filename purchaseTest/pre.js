@@ -121,7 +121,6 @@ function otp(model){
 	return new Promise(function(resolve, reject){
 		console.log(model.tags.resend)
 		if(model.tags.resend){
-			console.log(model.tags.resendCount)
 			if(!model.tags.resendCount){
 				model.tags.resendCount = 0
 			}
@@ -129,7 +128,8 @@ function otp(model){
 				model.tags.resendCount += 1
 			}
 			if(model.tags.resendCount == 3){
-				reject(model)
+				model.tags.blocked = true
+				resolve(model)
 			}
 			else{
 				model.tags.otpCount = 0
