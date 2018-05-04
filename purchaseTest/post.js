@@ -614,9 +614,8 @@ function holding(model){
 			console.log(data[model.tags.scheme].amcCode)
 			console.log(model.tags.divOption)
 			console.log(data[model.tags.scheme].subNatureCode)
-			api.getScheme(model.tags.session, model.tags.joinAccId, '1', '400040', data[model.tags.scheme].optionCode, '5')
+			api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
 			.then((data)=>{
-				console.log('SCHEME')
 				console.log(data.body)
 				try{
 					data.body = JSON.parse(data.body)
@@ -624,41 +623,61 @@ function holding(model){
 				catch(e){
 					console.log(e)
 				}
-			// .catch(e=>{
-			// 	console.log(e)
-			// })
-				api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-				.then(response=>{
-					console.log(response.body)
-					try{
-						response = JSON.parse(response.body)
-					}
-					catch(e){console.log(e);
-						return reject(model);
-					}
-					let arr = []
-					for(let i in response.Response){
-						arr.push(response.Response[i].FolioNo.toLowerCase())
-					}
-					// if(model.tags.folio && arr.includes(model.tags.folio)){
-					// 	model.stage="amount";
-					// }
-					if(response.Response.length > 0){
-						model.tags.folioList = []
-						for(let i in response.Response){
-							model.tags.folioList.push({
-								data : response.Response[i].FolioNo,
-								text : response.Response[i].FolioNo
-							})
+				if(data.body.Response[0].FUNDNAME){
+					api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+					.then(response=>{
+						console.log(response.body)
+						try{
+							response = JSON.parse(response.body)
 						}
-						delete model.stage
-					}
-					else{
-						model.tags.folioNo = response.Response[0].FolioNo
-						delete model.stage
-					}
-					return resolve(model)
-				})
+						catch(e){console.log(e);
+							return reject(model);
+						}
+						let arr = []
+						for(let i in response.Response){
+							arr.push(response.Response[i].FolioNo.toLowerCase())
+						}
+						// if(model.tags.folio && arr.includes(model.tags.folio)){
+						// 	model.stage="amount";
+						// }
+						if(response.Response.length > 0){
+							model.tags.folioList = []
+							for(let i in response.Response){
+								model.tags.folioList.push({
+									data : response.Response[i].FolioNo,
+									text : response.Response[i].FolioNo
+								})
+							}
+							delete model.stage
+						}
+						else{
+							model.tags.folioNo = response.Response[0].FolioNo
+							delete model.stage
+						}
+						return resolve(model)
+					})
+					.catch(e=>{
+						console.log(e)
+						return reject(model)
+					})
+				}
+				else{
+					let reply={
+		                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+						model.stage = 'askSchemeName'
+						return resolve(model)
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
 			})
 			.catch(e=>{
 				console.log(e)
