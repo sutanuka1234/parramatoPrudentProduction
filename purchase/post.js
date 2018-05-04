@@ -513,12 +513,23 @@ function askSchemeName(model){
 		model = extractDivOption(model)
 		model = extractAmount(model)
 		model = extractFolio(model)
+		model = extractSchemeName(model)
+		// if(matches.bestMatch.rating>0.9){
+		// 	model.tags.schemes.push(matches.bestMatch.target)
+		// }
+		// else{
+		// 	matches.ratings=matches.ratings.sort(sortBy('-rating'));
+		// 	model.tags.schemes = matches.ratings.splice(0,9);
+		// }
 		if(matches.bestMatch.rating>0.9){
-			model.tags.schemes.push(matches.bestMatch.target)
+			model.tags.schemes.push(bestMatch)
 		}
-		else{
+		else if(matches.bestMatch.rating>0.2){
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
 			model.tags.schemes = matches.ratings.splice(0,9);
+		}
+		else{
+			return reject(model);
 		}
 		if(model.tags.schemes){
 			model.tags.schemeList = []
@@ -536,7 +547,7 @@ function askSchemeName(model){
 			})
 		}
 		delete model.stage
-		resolve(model)
+		return resolve(model)
 	})
 }
 
@@ -1086,7 +1097,7 @@ function extractSchemeName(model){
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(bestMatch)
 			}
-			else{
+			else if(matches.bestMatch.rating>0.4){
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
 				model.tags.schemes = matches.ratings.splice(0,9);
 			}
