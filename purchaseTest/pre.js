@@ -342,10 +342,10 @@ function extractMobile(model){
 	let text = matchAll(model.tags.userSays, /(\d+)/gi).toArray()
 	for(let i in text){
 		if(text[i].length == 10){
-			if(text[i]!=model.tags.mobile||model.tags.mobile===undefined){
-				console.log(text[i]+"mobile")
-				model.tags = {userSays:model.tags.userSays}
-			}
+			// if(text[i]!=model.tags.mobile||model.tags.mobile===undefined){
+			// 	console.log(text[i]+"mobile")
+			// 	model.tags = {userSays:model.tags.userSays}
+			// }
 			model.tags.mobile = text[i]
 			model.tags.userSays = model.tags.userSays.replace(model.tags.mobile, '')
 			break;
@@ -360,11 +360,10 @@ function extractPan(model){
 		if(matchPan[0]!=model.tags.pan||model.tags.pan===undefined){
 			console.log(matchPan[0]+"PANN")
 			model.tags = {userSays:model.tags.userSays}
+			
 		}
 		model.tags.pan = matchPan[0]
 		model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
-		console.log(model.tags.userSays+'!!!!!!!!!!!!')
-		console.log(model.tags.pan)
 	}
 	return model;
 }
