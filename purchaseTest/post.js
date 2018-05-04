@@ -1022,7 +1022,7 @@ function extractPan(model){
 	let matchPan=model.data.match(regexPan)
 	if(matchPan&&matchPan.length>0&&matchPan[0]){
 
-		if(matchPan[0].toLowerCase()!=model.tags.pan.toLowerCase()){
+		if(matchPan[0]!=model.tags.pan){
 			model.tags = {}
 		}
 		model.tags.pan = matchPan[0]
