@@ -390,7 +390,29 @@ function otp(model){
 		model = extractOTP(model);
 		model = extractDivOption(model);
 		model = extractSchemeName(model);
-		if(model.tags.otp){
+		if(model.data == 'resend'){
+			api.resendOtp(model.tags.session)
+			.then((response)=>{
+				try{
+					response = JSON.parse(response.body)
+				}
+				catch(e){
+					console.log(e)
+					reject(model)
+				}
+				if(response.Response){
+					resolve(model)
+				}
+				else{
+					reject(model)
+				}
+			})
+			.catch(e=>{
+				console.log(e)
+				reject(model)
+			})
+		}
+		else if(model.tags.otp){
 			api.otp(model.tags.session, model.tags.otp)
 			.then(data=>{
 				try{
