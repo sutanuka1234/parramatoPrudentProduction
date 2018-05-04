@@ -327,7 +327,7 @@ function mobile(model){
 					})		
 			}
 
-			else(model.tags.mobile){
+			else if(model.tags.mobile){
 				model.stage = 'pan' 
 				return resolve(model)
 			}
@@ -392,7 +392,7 @@ function pan(model){
 				return reject(model)
 			})		
 		}
-		else(model.tags.pan){
+		else if(model.tags.pan){
 			model.stage = 'mobile' 
 			return resolve(model)
 		}
