@@ -1017,7 +1017,7 @@ function extractPan(model){
 	if(matchPan&&matchPan.length>0&&matchPan[0]){
 
 		if(matchPan[0]!=model.tags.pan){
-			model.tags = {}
+			model.tags = {sender:model.tags.sender}
 		}
 		model.tags.pan = matchPan[0]
 		model.data=model.data.replace(model.tags.pan, '')
