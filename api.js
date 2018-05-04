@@ -109,6 +109,7 @@ function runRequest(obj){
 
 module.exports = {
 	panMobile 	: panMobile,
+	resendOtp 	: resendOtp,
 	otp 		: otp,
 	getScheme 	: getScheme,
 	getFolio 	: getFolio,
