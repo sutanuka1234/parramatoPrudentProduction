@@ -89,12 +89,15 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
-		model=extractPan(model)
-		model=extractMobile(model)
-		model=extractDivOption(model)
-		model=extractSchemeName(model)
-		model=extractAmount(model)
-		model=extractFolio(model)
+
+		if(model.tags.userSays){
+			model=extractPan(model)
+			model=extractMobile(model)
+			model=extractDivOption(model)
+			model=extractSchemeName(model)
+			model=extractAmount(model)
+			model=extractFolio(model)
+		}
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
