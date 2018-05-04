@@ -6,7 +6,7 @@ function sendExternalData(data){
     return new Promise(function(resolve,reject){
         try{
             request({
-                uri     :'https://bot.meetaina.com/JUBI2prC24_PrudentAPIs/external/send',
+                uri     :'https://fund-bazar-backend.herokuapp.com/JUBI2prC24_PrudentAPIs/external/send',
                 json    :data,
                 method  :'POST'   
             },(err,req,body)=>{
