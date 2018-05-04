@@ -1020,7 +1020,7 @@ function extractMobile(model){
 
 function extractPan(model){
 	let matchPan=model.data.match(regexPan)
-	if(matchPan){
+	if(matchPan&&matchPan[0]){
 
 		if(matchPan[0].toLowerCase()!=model.tags.pan.toLowerCase()){
 			model.tags = {}
