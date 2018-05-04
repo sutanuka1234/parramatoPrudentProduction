@@ -347,7 +347,7 @@ function extractMobile(model){
 	let text = matchAll(model.tags.userSays, /(\d+)/gi).toArray()
 	for(let i in text){
 		if(text[i].length == 10){
-			if(text[i].toLowerCase()!=model.tags.mobile.toLowerCase()){
+			if(text[i]!=model.tags.mobile){
 				model.tags = {userSays:model.tags.userSays}
 			}
 			model.tags.mobile = text[i]
