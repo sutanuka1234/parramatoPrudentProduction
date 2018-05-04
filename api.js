@@ -73,7 +73,7 @@ function insertBuyCart(session, joinAccId, schemeCode, amcName, amcId, dividendO
 	return runRequest(obj)
 }
 
-// insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D2F612A246C3C', '334', '931', 'Franklin Templeton Asset Management (India) Private Limited', '400012', '0', '5000', '0', 'E020391').then(data=>{console.log(data.body)}).catch(err=>console.log(err))
+insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D7C77233F6326', '334', '931', 'Franklin Templeton Asset Management (India) Private Limited', '400012', '0', '5000', '0', 'E020391').then(data=>{console.log(data.body)}).catch(err=>console.log(err))
 
 function bankMandate(session, joinAccId, schemeCode, mandateId, amount){
 	var obj = {
