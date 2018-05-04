@@ -390,23 +390,7 @@ function otp(model){
 		model = extractOTP(model);
 		model = extractDivOption(model);
 		model = extractSchemeName(model);
-		if(model.tags.blocked){
-			return reject(model)
-		}
-		if(model.data == 'resend'){
-			api.resendOtp(model.tags.session)
-			.then((response)=>{
-				return resolve(model)
-			})
-			.catch(error=>{
-				console.log(error);
-				return reject(model)
-			})
-		}
-		else if(model.tags.otp){
-			if(!model.tags.otpCount){
-				model.tags.otpCount = 0
-			}
+		if(model.tags.otp){
 			api.otp(model.tags.session, model.tags.otp)
 			.then(data=>{
 				try{
@@ -419,29 +403,20 @@ function otp(model){
 						return reject(model);
 					}
 					if(response.Response[0].result=="FAIL"){
-						console.log('FAILED')
-						model.tags.otpCount += 1
-						if(model.tags.otpCount == 3){
-							console.log('3')
-							model.tags.resend = true
-							return resolve(model)
-						}
-						else{
-							let reply={
-				                text    : response.Response[0]['reject_reason'],
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-								return resolve(model)
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-				        }
+						let reply={
+			                text    : response.Response[0]['reject_reason'],
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+							return reject(model)
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
 					}
 					else{
 						model.tags.joinAcc = response.Response
