@@ -359,12 +359,10 @@ function extractPan(model){
 	if(matchPan&&matchPan.length>0&&matchPan[0]){
 		if(matchPan[0]!=model.tags.pan||model.tags.pan===undefined){
 			console.log(matchPan[0]+"PANN")
-			model.tags.pan = matchPan[0]
 			model.tags = {userSays:model.tags.userSays}
 		}
-		else{
-			model.tags.pan = matchPan[0]
-		}
+		console.log(matchPan[0])
+		model.tags.pan = matchPan[0]
 		model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
 	}
 	return model;
