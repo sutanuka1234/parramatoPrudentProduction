@@ -92,7 +92,6 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.tags)
 		model=dataClean(model);
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
 			return reject(model);
@@ -991,6 +990,8 @@ function extractAmount(model){
 
 function extractMobile(model){
 	let text = matchAll(model.data, /(\d+)/gi).toArray()
+
+	console.log(text)
 	for(let i in text){
 		if(text[i].length == 10){
 			if(text[i]!=model.tags.mobile){
@@ -998,6 +999,7 @@ function extractMobile(model){
 			}
 			model.tags.mobile = text[i]
 			model.data = model.data.replace(model.tags.mobile, '')
+			console.log(model.tags.mobile+"mobile")
 			break;
 		}
 	}
@@ -1006,6 +1008,7 @@ function extractMobile(model){
 
 function extractPan(model){
 	let matchPan=model.data.match(regexPan)
+	console.log(matchPan)
 	if(matchPan&&matchPan.length>0&&matchPan[0]){
 
 		if(matchPan[0]!=model.tags.pan){
@@ -1013,6 +1016,7 @@ function extractPan(model){
 		}
 		model.tags.pan = matchPan[0]
 		model.data=model.data.replace(model.tags.pan, '')
+		console.log(model.tags.pan+"pan")
 	}
 	return model;
 }
