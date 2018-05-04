@@ -31,7 +31,7 @@ let schemeType 	= /dividend|growth/
 let divOption 	= /re(-|\s)?invest|pay(\s)?out/
 let regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
 let schemeNames = Object.keys(data)
-let formatter 	= new StringMask('XXXXXX0000');
+let formatter 	= new StringMask('#######0000');
 let amc = [  
 	'kotak',
 	'birla',
