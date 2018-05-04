@@ -614,7 +614,7 @@ function holding(model){
 			console.log(data[model.tags.scheme].amcCode)
 			console.log(model.tags.divOption)
 			console.log(data[model.tags.scheme].subNatureCode)
-			api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, model.tags.divOption, data[model.tags.scheme].subNatureCode)
+			api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
 			.then((data)=>{
 				console.log('SCHEME')
 				console.log(data.body)
