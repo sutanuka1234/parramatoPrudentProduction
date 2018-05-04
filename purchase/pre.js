@@ -198,7 +198,7 @@ function divOps(model){
 			type:"quickReply",
             text:"Let us know the dividend option.",
             next:{
-                "data": [
+                data: [
                 	{
                 		data : 're invest',
                 		text : 'Re Invest'

@@ -129,8 +129,7 @@ function panMobile(model){
 		            }
 					external(reply)
 					.then((data)=>{ 
-		                model.tags.pan=undefined;
-		                model.tags.mobile=undefined;
+		                model.tags={}
 						return resolve(model)
 		            })
 		            .catch((e)=>{
@@ -405,6 +404,7 @@ function otp(model){
 		
 		if(model.data.includes("not")&&model.data.includes("my")&&model.data.includes("number")){
 			model.stage="panMobile";
+			model.tags={}
 			return resolve(model);
 		}
 
