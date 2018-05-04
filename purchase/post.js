@@ -399,7 +399,6 @@ function pan(model){
 
 function otp(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.tags)
 		model = dataClean(model);
 		model = extractOTP(model);
 		model = extractDivOption(model);
