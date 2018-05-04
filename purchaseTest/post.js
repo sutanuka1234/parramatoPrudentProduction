@@ -94,7 +94,7 @@ function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model);
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
-				return reject(model);
+			return reject(model);
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
 			if(model.tags.pan&&model.tags.mobile){
@@ -391,6 +391,9 @@ function otp(model){
 		model = extractDivOption(model);
 		model = extractSchemeName(model);
 		if(model.tags.otp){
+			if(!model.tags.otpCount){
+				model.tags.otpCount = 0
+			}
 			api.otp(model.tags.session, model.tags.otp)
 			.then(data=>{
 				try{
@@ -403,20 +406,27 @@ function otp(model){
 						return reject(model);
 					}
 					if(response.Response[0].result=="FAIL"){
-						let reply={
-			                text    : response.Response[0]['reject_reason'],
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
-							return reject(model)
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
+						model.tags.otpCount += 1
+						if(model.tags.otpCount == 3){
+							model.tags.resend = true
+							return resolve(model)
+						}
+						else{
+							let reply={
+				                text    : response.Response[0]['reject_reason'],
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+								return reject(model)
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
+				        }
 					}
 					else{
 						model.tags.joinAcc = response.Response

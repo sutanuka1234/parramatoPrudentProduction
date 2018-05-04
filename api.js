@@ -8,15 +8,25 @@ var url = 'https://www.prudentcorporate.com/cbapi/'
 
 function panMobile(mobile, pan){
 	var obj = {
-			method  : 'POST',
-	        headers : headers,
-	        url     : url+'AuthenticatePANMobile?IPAddress=192.168.0.102&PanNo='+pan+'&MobileNo='+mobile
-		}
-	
+		method  : 'POST',
+        headers : headers,
+        url     : url+'AuthenticatePANMobile?IPAddress=192.168.0.102&PanNo='+pan+'&MobileNo='+mobile
+	}
 	return runRequest(obj)
 }
 
 // panMobile('9998367321', 'CPRPP3661J').then(data=>{console.log(data)}).catch(err=>console.log(err))
+
+function resendOtp(session){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'ReSend?IPAddress=192.168.0.102&SessionId='+session
+	}
+	return runRequest(obj)
+}
+
+// resendOtp('7C772321713D21713D21713D21713D21713D21713D21713D2F612A266B7C').then(data=>{console.log(data.body)}).catch(err=>console.log(err))
 
 function otp(session, otp){
 	var obj = {

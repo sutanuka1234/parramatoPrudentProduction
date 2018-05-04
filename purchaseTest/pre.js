@@ -12,6 +12,7 @@ var matchAll = require('match-all')
 
 let obj = {
 	panMobile : panMobile,
+	otp 	: otp,
 	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
 	divOps 	: divOps,
@@ -113,6 +114,28 @@ function panMobile(model){
 			}
 		}
 		return resolve(model)
+	})
+}
+
+function otp(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.resend){
+			model.tags.otpCount = 0
+			model.tags.resend = undefined
+			model.reply={
+				type : "quickReply",
+				text : "Resend OTP?",
+				next : {
+					"data" : [
+						{
+							data : 'resend',
+							text : 'Re send'
+						}
+					]
+				}
+			}
+		}
+		resolve(model)
 	})
 }
 
