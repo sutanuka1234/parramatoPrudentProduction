@@ -195,7 +195,7 @@ function divOps(model){
             next:{
                 "data": [
                 	{
-                		data : 'reinvest',
+                		data : 're invest',
                 		text : 'Re Invest'
                 	},
                 	{

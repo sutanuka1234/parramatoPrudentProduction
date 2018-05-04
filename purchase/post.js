@@ -617,7 +617,7 @@ function divOps(model){
 	return new Promise(function(resolve, reject){
 		model = extractAmount(model)
 		model = extractFolio(model)
-		if(model.data.toLowerCase().includes('reinvest') || model.data.toLowerCase().includes('payout')){
+		if(model.data.toLowerCase().includes('re invest') || model.data.toLowerCase().includes('payout')){
 			if(model.data.includes('re')){
 				model.tags.divOption = 2
 			}
@@ -635,7 +635,6 @@ function divOps(model){
 				})
 			}
 			model.stage = 'holding'
-			
 			resolve(model)
 		}
 		else{
