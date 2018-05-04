@@ -620,7 +620,6 @@ function holding(model){
 				catch(e){
 					console.log(e)
 				}
-			})
 			// .catch(e=>{
 			// 	console.log(e)
 			// })
@@ -656,6 +655,7 @@ function holding(model){
 					}
 					return resolve(model)
 				})
+			})
 			.catch(e=>{
 				console.log(e)
 				return reject(model)
