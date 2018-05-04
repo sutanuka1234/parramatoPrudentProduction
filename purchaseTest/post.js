@@ -391,6 +391,9 @@ function otp(model){
 		model = extractDivOption(model);
 		model = extractSchemeName(model);
 		if(model.tags.otp){
+			if(!model.tags.otpCount){
+				model.tags.otpCount = 0
+			}
 			api.otp(model.tags.session, model.tags.otp)
 			.then(data=>{
 				try{
@@ -417,7 +420,7 @@ function otp(model){
 				            }
 							external(reply)
 							.then((data)=>{
-								return reject(model)
+								return resolve(model)
 				            })
 				            .catch((e)=>{
 				                console.log(e);
