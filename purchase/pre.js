@@ -95,9 +95,15 @@ function panMobile(model){
 		model.tags.divOption = undefined
 		model.tags.otp=undefined
 		model=dataClean(model)
+		let panPresent;
+		if(model.tags.pan){
+			panPresent=true;
+		}
 		if(model.tags.userSays){
 			model=extractPan(model)
-			model=extractMobile(model)
+			if(!panPresent){
+				model=extractMobile(model)
+			}
 			model=extractDivOption(model)
 			model=extractSchemeName(model)
 			model=extractAmount(model)
@@ -360,7 +366,7 @@ function extractMobile(model){
 			// 	console.log(text[i]+"mobile")
 			// 	model.tags = {userSays:model.tags.userSays}
 			// }
-			model.tags.mobileEntered=true;
+			// model.tags.mobileEntered=true;
 			model.tags.mobile = text[i]
 			model.tags.userSays = model.tags.userSays.replace(model.tags.mobile, '')
 			break;
