@@ -573,9 +573,9 @@ function showSchemeName(model){
 			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption!==undefined){
 				if(model.tags.divOption){
 					if(model.tags.divOption.toString().includes('re') && data[model.tags.scheme].optionCode != 1){
-						model.tags.divOption = 2
+						model.tags.divOption = 1
 					}
-					else if(model.tags.divOption.includes('pay') && data[model.tags.scheme].optionCode != 1){
+					else if(model.tags.divOption.toString().includes('pay') && data[model.tags.scheme].optionCode != 1){
 						model.tags.divOption = 2
 					}
 					else{
