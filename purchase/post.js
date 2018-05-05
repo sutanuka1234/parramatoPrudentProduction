@@ -679,7 +679,8 @@ function holding(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.joinAccId.includes(model.data)){
 			for (let element of model.tags.joinAcc){
-				if(element.JoinAccId===model.tags.joinAccId){
+				console.log(element.JoinAccId+"::"+model.data)
+				if(element.JoinAccId==model.data){
 					sendExternalMessage(model,"Going ahead with "+element.JoinHolderName)
 					break;
 				}
