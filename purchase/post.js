@@ -680,7 +680,7 @@ function holding(model){
 		if(model.tags.joinAccId.includes(model.data)){
 			for (let element of model.tags.joinAcc){
 				if(element.JoinAccId===model.tags.joinAccId){
-					sendExternalMessage(model,"Going ahead with "+sendExternalMessage(model,"Going ahead with "+element.JoinHolderName))
+					sendExternalMessage(model,"Going ahead with "+element.JoinHolderName)
 					break;
 				}
 			}
