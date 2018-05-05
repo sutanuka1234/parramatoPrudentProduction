@@ -101,12 +101,14 @@ function panMobile(model){
 			console.log("2")
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
+				console.log("then")
 				console.log(data.body)
 				let response;
 				try{
 					response = JSON.parse(data.body)
 				}
-				catch(e){console.log(e);
+				catch(e){
+					console.log(e);
 					if(!model.tags.mobile){
 						model.stage = 'mobile' 
 						return resolve(model)
@@ -152,6 +154,7 @@ function panMobile(model){
 				}
 			})
 			.catch(error=>{
+				console.log("catch")
 				console.log(error);
 				if(!model.tags.mobile){
 					model.stage = 'mobile' 
