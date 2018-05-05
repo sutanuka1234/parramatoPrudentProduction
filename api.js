@@ -98,7 +98,11 @@ function bankMandate(session, joinAccId, schemeCode, mandateId, amount){
 
 function runRequest(obj){
 	return new Promise(function(resolve, reject){
+		console.log("reqested")
+		console.log(obj)
 		request(obj, (error,response,body)=>{
+			console.log("response")
+			console.log(error)
 			if(error){
 				return reject(error);
 			}
