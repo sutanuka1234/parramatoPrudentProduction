@@ -546,6 +546,7 @@ function askSchemeName(model){
 				})
 			})
 		}
+
 		delete model.stage
 		return resolve(model)
 	})
@@ -570,7 +571,7 @@ function showSchemeName(model){
 				model.tags.scheme = model.data
 			}
 			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption){
-				if(model.tags.divOption){
+				if(model.tags.divOption&&typeof model.tags.divOption ==="string"){
 					if(model.tags.divOption.includes('re') && data[model.tags.scheme].optionCode != 1){
 						model.tags.divOption = 2
 					}
@@ -635,8 +636,9 @@ function divOps(model){
 	return new Promise(function(resolve, reject){
 		model = extractAmount(model)
 		model = extractFolio(model)
-		if(model.data.toLowerCase().includes('re invest') || model.data.toLowerCase().includes('payout')){
-			if(model.data.includes('re')){
+		if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')|| model.data.toLowerCase().includes('payout')){
+			
+			if(model.data.includes('re')&&model.data.includes('invest')){
 				model.tags.divOption = 2
 			}
 			else if(model.data.includes('pay')){
@@ -977,6 +979,21 @@ function bankMandate(model){
 	})
 }
 
+
+
+sendExternalMessage(model,text){
+	let reply={
+            text    : text,
+            type    : "text",
+            sender  : model.sender,
+            language: "en"
+        }
+		external(reply)
+		.then((data)=>{ })
+        .catch((e)=>{
+            console.log(e);
+       })
+}
 
 function extractOTP(model){
 	if(model.data.match(regexOtp)){
