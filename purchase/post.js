@@ -570,9 +570,9 @@ function showSchemeName(model){
 			else{
 				model.tags.scheme = model.data
 			}
-			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption&&typeof model.tags.divOption ==="string"){
+			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption!==undefined){
 				if(model.tags.divOption){
-					if(model.tags.divOption.includes('re') && data[model.tags.scheme].optionCode != 1){
+					if(model.tags.divOption.toString().includes('re') && data[model.tags.scheme].optionCode != 1){
 						model.tags.divOption = 2
 					}
 					else if(model.tags.divOption.includes('pay') && data[model.tags.scheme].optionCode != 1){
@@ -602,6 +602,7 @@ function showSchemeName(model){
 			else{
 				delete model.stage
 			}
+			sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
 		}
 		else{
 			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
@@ -628,7 +629,7 @@ function showSchemeName(model){
 				})
 			}
 		}
-		resolve(model)
+		return resolve(model)
 	})
 }
 
@@ -639,10 +640,12 @@ function divOps(model){
 		if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')|| model.data.toLowerCase().includes('payout')){
 			
 			if(model.data.includes('re')&&model.data.includes('invest')){
-				model.tags.divOption = 2
+				model.tags.divOption = 1
+				model.tags.divOptionText="Resinvestment Option"
 			}
 			else if(model.data.includes('pay')){
 				model.tags.divOption = 2
+				model.tags.divOptionText="Payout Option"
 			}
 			else{
 				model.tags.divOption = 0
@@ -659,10 +662,12 @@ function divOps(model){
 				})
 			}
 			model.stage = 'holding'
-			resolve(model)
+			
+			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
+			return resolve(model)
 		}
 		else{
-			reject(model)
+			return reject(model)
 		}
 	})
 }
@@ -755,6 +760,7 @@ function folio(model){
 		}
 		model.tags.amcName = data[model.tags.scheme].amcName
 		if(arr.includes(model.data)){
+			sendExternalMessage(model,"Going ahead with "+model.data)
 			if(model.data.includes('new')){
 				model.tags.folio = '0'
 			}
@@ -965,16 +971,16 @@ function bankMandate(model){
 				else if(data.body){
 					model.tags.paymentSummary = data.body.Response[0]
 					delete model.stage
-					resolve(model)
+					return resolve(model)
 				}
 			})
 			.catch(e=>{
 				console.log(e) 
-				reject(model)
+				return reject(model)
 			})
 		}
 		else{
-			reject(model)
+			return reject(model)
 		}	
 	})
 }
