@@ -95,15 +95,9 @@ function panMobile(model){
 		model.tags.divOption = undefined
 		model.tags.otp=undefined
 		model=dataClean(model)
-		let panPresent;
-		if(model.tags.pan){
-			panPresent=true;
-		}
 		if(model.tags.userSays){
 			model=extractPan(model)
-			if(!panPresent){
-				model=extractMobile(model)
-			}
+			model=extractMobile(model)
 			model=extractDivOption(model)
 			model=extractSchemeName(model)
 			model=extractAmount(model)
