@@ -675,6 +675,12 @@ function divOps(model){
 function holding(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.joinAccId.includes(model.data)){
+			for (let element of model.tags.joinAcc){
+				if(element.JoinAccId===model.tags.joinAccId){
+					sendExternalMessage(model,"Going ahead with "+sendExternalMessage(model,"Going ahead with "+element.JoinHolderName))
+					break;
+				}
+			}
 			model.tags.joinAccId = model.data
 			api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
 			.then((response)=>{

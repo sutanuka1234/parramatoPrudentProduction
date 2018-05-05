@@ -90,6 +90,9 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
+		model.tags.amount = undefined
+		model.tags.joinAccId = undefined
+		model.tags.divOption = undefined
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
