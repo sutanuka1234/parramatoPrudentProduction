@@ -987,7 +987,7 @@ function bankMandate(model){
 
 
 
-sendExternalMessage(model,text){
+function sendExternalMessage(model,text){
 	let reply={
             text    : text,
             type    : "text",
