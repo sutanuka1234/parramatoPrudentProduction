@@ -570,8 +570,8 @@ function showSchemeName(model){
 			else{
 				model.tags.scheme = model.data
 			}
-			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption){
-				if(model.tags.divOption&&typeof model.tags.divOption ==="string"){
+			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption&&typeof model.tags.divOption ==="string"){
+				if(model.tags.divOption){
 					if(model.tags.divOption.includes('re') && data[model.tags.scheme].optionCode != 1){
 						model.tags.divOption = 2
 					}
