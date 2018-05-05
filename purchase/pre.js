@@ -360,6 +360,7 @@ function extractMobile(model){
 			// 	console.log(text[i]+"mobile")
 			// 	model.tags = {userSays:model.tags.userSays}
 			// }
+			model.tags.mobileEntered=true;
 			model.tags.mobile = text[i]
 			model.tags.userSays = model.tags.userSays.replace(model.tags.mobile, '')
 			break;

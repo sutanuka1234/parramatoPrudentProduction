@@ -399,7 +399,7 @@ function pan(model){
 function otp(model){
 	return new Promise(function(resolve, reject){
 
-
+		model.tags.mobileEntered=false;
 		model = dataClean(model);
 		
 		if(model.data.includes("not")&&model.data.includes("my")&&model.data.includes("number")){
@@ -1082,7 +1082,7 @@ function extractPan(model){
 	console.log(matchPan)
 	if(matchPan&&matchPan.length>0&&matchPan[0]){
 
-		if(matchPan[0]!=model.tags.pan){
+		if(matchPan[0]!=model.tags.pan&&!model.tags.mobileEntered){
 			model.tags = {}
 		}
 		model.tags.pan = matchPan[0]
