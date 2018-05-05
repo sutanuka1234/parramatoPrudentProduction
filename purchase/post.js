@@ -524,7 +524,7 @@ function askSchemeName(model){
 		if(matches.bestMatch.rating>0.9){
 			model.tags.schemes.push(bestMatch)
 		}
-		else if(matches.bestMatch.rating>0.30){
+		else if(matches.bestMatch.rating>0.40){
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
 			model.tags.schemes = matches.ratings.splice(0,9);
 		}
@@ -609,7 +609,7 @@ function showSchemeName(model){
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(matches.bestMatch.target)
 			}
-			else if(matches.bestMatch.rating>0.30){
+			else if(matches.bestMatch.rating>0.40){
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
 				model.tags.schemes = matches.ratings.splice(0,9);
 			}
