@@ -104,7 +104,7 @@ function panMobile(model){
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
-	            text:"Thank you for the details, we would proceed with the lumpsum investment.",
+	            text:"Sure, lets proceed with the lumpsum investment.",
 	            next:{
 	                "data": [
 	                	{
