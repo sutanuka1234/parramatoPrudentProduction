@@ -183,6 +183,10 @@ function panMobile(model){
 		else{ 
 			console.log("4")
 			model = extractPan(model);
+			if(model.tags.newPan){
+				model.tags.newPan=undefined;
+				model.tags = {}
+			}
 			model = extractMobile(model);
 			model = extractDivOption(model);
 			model = extractSchemeName(model);
@@ -510,14 +514,17 @@ function otp(model){
 
 function askSchemeName(model){
 	return new Promise(function(resolve, reject){
+		if(model.data.toLowerCase().includes("cancel")){
+			return reject(model)
+		}
 		model = extractDivOption(model)
-		model = extractAmount(model)
+		// model = extractAmount(model)
 		model = extractFolio(model)
 		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
 		if(matches.bestMatch.rating>0.9){
 			model.tags.schemes.push(matches.bestMatch.target)
 		}
-		else if(matches.bestMatch.rating>0.40){
+		else if(matches.bestMatch.rating>0.30){
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
 			model.tags.schemes = matches.ratings.splice(0,9);
 		}
@@ -547,6 +554,9 @@ function askSchemeName(model){
 
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
+		if(model.data.toLowerCase().includes("cancel")){
+			return reject(model)
+		}
 		model = extractDivOption(model)
 		// model = extractAmount(model)
 		model = extractFolio(model)
@@ -602,7 +612,7 @@ function showSchemeName(model){
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(matches.bestMatch.target)
 			}
-			else if(matches.bestMatch.rating>0.40){
+			else if(matches.bestMatch.rating>0.30){
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
 				model.tags.schemes = matches.ratings.splice(0,9);
 			}
@@ -1075,9 +1085,9 @@ function extractPan(model){
 	console.log(matchPan)
 	if(matchPan&&matchPan.length>0&&matchPan[0]){
 
-		// if(matchPan[0]!=model.tags.pan){
-		// 	model.tags = {}
-		// }
+		if(matchPan[0]!=model.tags.pan){
+			model.tags.newPan = true;
+		}
 		model.tags.pan = matchPan[0]
 		model.data=model.data.replace(model.tags.pan, '')
 		console.log(model.tags.pan+"pan")
