@@ -514,7 +514,7 @@ function otp(model){
 
 function askSchemeName(model){
 	return new Promise(function(resolve, reject){
-		if(model.data.toLowerCase().includes("cancel")){
+		if(model.data.toLowerCase().includes("cancel")||model.data.toLowerCase().includes("stop")||model.data.toLowerCase().trim()=="exit"){
 			return reject(model)
 		}
 		model = extractDivOption(model)
@@ -524,7 +524,7 @@ function askSchemeName(model){
 		if(matches.bestMatch.rating>0.9){
 			model.tags.schemes.push(matches.bestMatch.target)
 		}
-		else if(matches.bestMatch.rating>0.30){
+		else if(matches.bestMatch.rating>0.10){
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
 			model.tags.schemes = matches.ratings.splice(0,9);
 		}
@@ -554,7 +554,7 @@ function askSchemeName(model){
 
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
-		if(model.data.toLowerCase().includes("cancel")){
+		if(model.data.toLowerCase().includes("cancel")||model.data.toLowerCase().includes("stop")||model.data.toLowerCase().trim()=="exit"){
 			return reject(model)
 		}
 		model = extractDivOption(model)
@@ -612,7 +612,7 @@ function showSchemeName(model){
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(matches.bestMatch.target)
 			}
-			else if(matches.bestMatch.rating>0.30){
+			else if(matches.bestMatch.rating>0.10){
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
 				model.tags.schemes = matches.ratings.splice(0,9);
 			}
