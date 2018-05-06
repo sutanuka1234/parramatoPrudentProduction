@@ -510,14 +510,12 @@ function otp(model){
 
 function askSchemeName(model){
 	return new Promise(function(resolve, reject){
-		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
 		model = extractDivOption(model)
 		model = extractAmount(model)
 		model = extractFolio(model)
-		// model = extractSchemeName(model)
-		console.log(JSON.stringify(matches.bestMatch,null,3))
+		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
 		if(matches.bestMatch.rating>0.9){
-			model.tags.schemes.push(bestMatch)
+			model.tags.schemes.push(matches.bestMatch.target)
 		}
 		else if(matches.bestMatch.rating>0.40){
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
