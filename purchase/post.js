@@ -77,7 +77,6 @@ let amc = [
 ]
 
 function main(req, res){
-	return new Promise(function(resolve, reject){
 		console.log(req.params.stage)
 		obj[req.params.stage](req.body)
 		.then((data)=>{
@@ -87,7 +86,6 @@ function main(req, res){
 			console.log(e)
 			res.sendStatus(203)
 		})
-	})
 }
 
 function panMobile(model){
