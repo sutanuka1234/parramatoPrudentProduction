@@ -524,6 +524,7 @@ function askSchemeName(model){
 		// 	matches.ratings=matches.ratings.sort(sortBy('-rating'));
 		// 	model.tags.schemes = matches.ratings.splice(0,9);
 		// }
+		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
 		if(matches.bestMatch.rating>0.9){
 			model.tags.schemes.push(bestMatch)
 		}
