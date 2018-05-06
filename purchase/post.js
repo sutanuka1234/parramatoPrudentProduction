@@ -645,16 +645,13 @@ function divOps(model){
 		model = extractFolio(model)
 		if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')|| model.data.toLowerCase().includes('payout')){
 			
-			if(model.data.includes('re')&&model.data.includes('invest')){
+			if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')){
 				model.tags.divOption = 1
 				model.tags.divOptionText="Resinvestment Option"
 			}
-			else if(model.data.includes('pay')){
+			else{
 				model.tags.divOption = 2
 				model.tags.divOptionText="Payout Option"
-			}
-			else{
-				model.tags.divOption = 0
 			}
 			model.tags.joinAccList = []
 			for(let i in model.tags.joinAcc){
@@ -668,7 +665,6 @@ function divOps(model){
 				})
 			}
 			model.stage = 'holding'
-			
 			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
 			return resolve(model)
 		}
