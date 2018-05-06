@@ -514,15 +514,7 @@ function askSchemeName(model){
 		model = extractDivOption(model)
 		model = extractAmount(model)
 		model = extractFolio(model)
-		model = extractSchemeName(model)
-		// if(matches.bestMatch.rating>0.9){
-		// 	model.tags.schemes.push(matches.bestMatch.target)
-		// }
-		// else{
-		// 	matches.ratings=matches.ratings.sort(sortBy('-rating'));
-		// 	model.tags.schemes = matches.ratings.splice(0,9);
-		// }
-		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
+		// model = extractSchemeName(model)
 		if(matches.bestMatch.rating>0.9){
 			model.tags.schemes.push(bestMatch)
 		}
