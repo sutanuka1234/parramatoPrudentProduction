@@ -91,6 +91,11 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model);
+		model = extractPan(model);
+		if(model.tags.newPan){
+			model.tags.newPan=undefined;
+			model.tags = {pan:model.tags.pan}
+		}
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
 			console.log("1")
 			return reject(model);
@@ -182,11 +187,6 @@ function panMobile(model){
 		}
 		else{ 
 			console.log("4")
-			model = extractPan(model);
-			if(model.tags.newPan){
-				model.tags.newPan=undefined;
-				model.tags = {}
-			}
 			model = extractMobile(model);
 			model = extractDivOption(model);
 			model = extractSchemeName(model);
