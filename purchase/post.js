@@ -515,6 +515,7 @@ function askSchemeName(model){
 		model = extractAmount(model)
 		model = extractFolio(model)
 		// model = extractSchemeName(model)
+		console.log(JSON.stringify(matches,null,3))
 		if(matches.bestMatch.rating>0.9){
 			model.tags.schemes.push(bestMatch)
 		}
