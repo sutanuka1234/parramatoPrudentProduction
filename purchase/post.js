@@ -695,6 +695,11 @@ function holding(model){
 					console.log(e)
 				}
 				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
+					model.tags.schemeApiDetails=response.Response[0][0];
+					model.tags.euinApiDetails=response.Response[0][1];
+		            sendExternalMessage(model,"Sure, few details about "+model.tags.schemeApiDetails["FUNDNAME"]+". Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
+		            	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+" Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
+		            	". And 5 years return is "+model.tags.schemeApiDetails["5YearReturns"]+".")
 					api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 					.then(response=>{
 						console.log(response.body)
@@ -792,59 +797,19 @@ function folio(model){
 				model.tags.folio = model.data
 			}
 			if(model.tags.amount){
-				//---------------GET SCHEME API-----------------------
-				api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
-				.then((response)=>{
-					console.log(response.body)
-					try{
-						response = JSON.parse(response.body)
-					}
-					catch(e){
-						console.log(e)
-					}
-					if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
-						console.log("GET SCHEME API::SUCCESS::Perfect Scheme and amount")
-					}
-					else{
-						let reply={
-			                text    : 'GET SCHEME API::FAIL1::The scheme '+model.tags.scheme+' cannot be purchased with this',
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
-							model.stage = 'askSchemeName'
-							return resolve(model)
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-						return reject(model)
-					}
-
-				})
-				.catch(e=>{
-					console.log(e)
-					let reply={
-		                text    : 'GET SCHEME API::FAIL2::The scheme '+model.tags.scheme+' cannot be purchased with this',
-		                type    : "text",
-		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{
-						model.stage = 'askSchemeName'
-						return resolve(model)
-		            })
-		            .catch((e)=>{
-		                console.log(e);
-		                return reject(model)
-		            })
-					return reject(model)
-				})
-				//---------------GET SCHEME API-----------------------
+				let amount=parseFloat(model.tags.amount)
+				let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+				let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
+				if(amount<minAmount){
+					sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
+					model.tags.amount=undefined;
+				}
+				else if(amount>maxAmount){
+					sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
+					model.tags.amount=undefined;
+				}
+			}
+			if(model.tags.amount){
 				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 				.then((data)=>{
 					console.log(data.body)
@@ -919,6 +884,19 @@ function amount(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
 		model=extractAmount(model)
+		if(model.tags.amount){
+			let amount=parseFloat(model.tags.amount)
+			let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+			let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
+			if(amount<minAmount){
+				sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
+				model.tags.amount=undefined;
+			}
+			else if(amount>maxAmount){
+				sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
+				model.tags.amount=undefined;
+			}
+		}
 		if(model.tags.amount){
 			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 			.then((data)=>{
