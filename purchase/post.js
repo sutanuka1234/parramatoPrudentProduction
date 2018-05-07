@@ -796,7 +796,7 @@ function folio(model){
 			else{
 				model.tags.folio = model.data
 			}
-			if(model.tags.amount){
+			if(model.tags.amount&&model.tags.schemeApiDetails){
 				let amount=parseFloat(model.tags.amount)
 				let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 				let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
@@ -884,7 +884,7 @@ function amount(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
 		model=extractAmount(model)
-		if(model.tags.amount){
+		if(model.tags.amount&&model.tags.schemeApiDetails){
 			let amount=parseFloat(model.tags.amount)
 			let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 			let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])

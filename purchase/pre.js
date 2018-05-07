@@ -92,6 +92,7 @@ function panMobile(model){
 		model.tags.joinAccId = undefined
 		model.tags.divOption = undefined
 		model.tags.otp=undefined
+		model.tags.schemeApiDetails=undefined
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
@@ -303,6 +304,7 @@ function summary(model){
 		model.tags.joinAccId = undefined
 		model.tags.divOption = undefined
 		model.tags.otp=undefined
+		model.tags.schemeApiDetails=undefined
 		resolve(model)
 	})
 }
