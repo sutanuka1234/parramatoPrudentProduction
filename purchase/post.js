@@ -697,7 +697,7 @@ function holding(model){
 				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 					model.tags.schemeApiDetails=response.Response[0][0];
 					model.tags.euinApiDetails=response.Response[0][1];
-		            sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.schemeApiDetails["FUNDNAME"]+", few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
+		            sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
 		            	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+". Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
 		            	". And 5 years return is "+model.tags.schemeApiDetails["5YearReturns"]+".")
 					api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
