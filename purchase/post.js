@@ -698,7 +698,7 @@ function holding(model){
 					model.tags.schemeApiDetails=response.Response[0][0];
 					model.tags.euinApiDetails=response.Response[0][1];
 		            sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.schemeApiDetails["FUNDNAME"]+", few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
-		            	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+" Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
+		            	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+". Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
 		            	". And 5 years return is "+model.tags.schemeApiDetails["5YearReturns"]+".")
 					api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 					.then(response=>{
@@ -898,7 +898,7 @@ function amount(model){
 			}
 		}
 		if(model.tags.amount){
-			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
+			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euinApiDetails["Id"]||'E020391')
 			.then((data)=>{
 				console.log(data.body)
 				try{
