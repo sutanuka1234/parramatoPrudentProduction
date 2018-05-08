@@ -699,7 +699,7 @@ function holding(model){
 					model.tags.euinApiDetails=response.Response[0][1];
 		            sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
 		            	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
-		            	"%, and 5 years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
+		            	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
 					api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 					.then(response=>{
 						console.log(response.body)
