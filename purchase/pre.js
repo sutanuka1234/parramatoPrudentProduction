@@ -314,6 +314,7 @@ function extractDivOption(model){
 	if(model.tags.userSays.match(divOption)){
 		model.tags.divOption = model.tags.userSays.match(divOption)[0]
 		model.tags.userSays = model.tags.userSays.replace(model.tags.divOption, '')
+		model.tags.newDivOption=true;
 	}
 	return model;
 			
@@ -324,6 +325,7 @@ function extractFolio(model){
 
 		model.tags.folio = model.tags.userSays.match(regexFolio)[0].match(/\d+|new folio/)[0]
 		model.tags.userSays = model.tags.userSays.replace(model.tags.folio, '')
+		model.tags.newFolio=true;
 	}
 	return model;
 }
@@ -336,11 +338,13 @@ function extractAmount(model){
 		let a = model.tags.userSays
    		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
    		model.tags.userSays = model.tags.userSays.replace(/\d+\s*k/, a)
+   		model.tags.newAmount=true;
 	}
     if(model.tags.userSays.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
     	let a = model.tags.userSays
 		a = a.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace(/\s+/, '').replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
     	model.tags.userSays = model.tags.userSays.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
+    	model.tags.newAmount=true;
     }
 	let text = matchAll(model.tags.userSays, /(\d+)/gi).toArray()
 	for(let i in text){
@@ -419,10 +423,12 @@ function extractSchemeName(model){
 			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(matches.bestMatch.target)
+				model.tags.newScheme=true;
 			}
 			else if(matches.bestMatch.rating>0.4){
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
 				model.tags.schemes = matches.ratings.splice(0,9);
+				model.tags.newScheme=true;
 			}
 		}
 		return model;

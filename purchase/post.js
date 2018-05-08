@@ -80,8 +80,6 @@ function main(req, res){
 		console.log(req.params.stage)
 		obj[req.params.stage](req.body)
 		.then((data)=>{
-
-			console.log(model.tags.schemes)
 			res.send(data)
 		})
 		.catch((e)=>{
@@ -96,7 +94,31 @@ function panMobile(model){
 		model = extractPan(model);
 		if(model.tags.newPan){
 			model.tags.newPan=undefined;
-			model.tags = {pan:model.tags.pan}
+			let temp = {pan:model.tags.pan}
+			if(model.tags.newFolio){
+				model.tags.newFolio=undefined;
+				temp.folio=model.tags.folio;
+			}
+			if(model.tags.newScheme){
+				model.tags.newScheme=undefined;
+				temp.folio=model.tags.scheme;
+			}
+			if(model.tags.newAmount){
+				model.tags.newAmount=undefined;
+				temp.folio=model.tags.amount;
+			}
+			if(model.tags.newDivOption){
+				model.tags.newDivOption=undefined;
+				temp.folio=model.tags.divOption;
+			}
+			model.tags=temp;
+		}
+		else{
+				model.tags.newFolio=undefined;
+				model.tags.newScheme=undefined;
+				model.tags.newAmount=undefined;
+				model.tags.newDivOption=undefined;
+
 		}
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
 			console.log("1")
