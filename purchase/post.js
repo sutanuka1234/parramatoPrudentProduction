@@ -103,15 +103,15 @@ function panMobile(model){
 			}
 			if(model.tags.newScheme){
 				model.tags.newScheme=undefined;
-				temp.folio=model.tags.scheme;
+				temp.scheme=model.tags.scheme;
 			}
 			if(model.tags.newAmount){
 				model.tags.newAmount=undefined;
-				temp.folio=model.tags.amount;
+				temp.amount=model.tags.amount;
 			}
 			if(model.tags.newDivOption){
 				model.tags.newDivOption=undefined;
-				temp.folio=model.tags.divOption;
+				temp.divOption=model.tags.divOption;
 			}
 			model.tags=temp;
 		}
