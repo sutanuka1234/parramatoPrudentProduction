@@ -836,7 +836,7 @@ function folio(model){
 								console.log(e)
 							}
 							let expectedAmount=parseInt(model.tags.amount);
-							if(expectedAmount<=possibleAmount){
+							if(expectedAmount<=element.DailyLimit){
 								model.tags.bankMandateList.push({
 									title: "Mandate - "+element.BankAccount.split('-')[0],
 									text : "Limit of Rs. "+element.DailyLimit,
@@ -936,7 +936,7 @@ function amount(model){
 							console.log(e)
 						}
 						let expectedAmount=parseInt(model.tags.amount);
-						if(expectedAmount<=possibleAmount){
+						if(expectedAmount<=element.DailyLimit){
 								model.tags.bankMandateList.push({
 									title: "Mandate - "+element.BankAccount.split('-')[0],
 									text : "Limit of Rs. "+element.DailyLimit,
