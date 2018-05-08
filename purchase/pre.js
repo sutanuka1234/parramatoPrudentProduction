@@ -338,17 +338,16 @@ function extractAmount(model){
 		let a = model.tags.userSays
    		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
    		model.tags.userSays = model.tags.userSays.replace(/\d+\s*k/, a)
-   		model.tags.newAmount=true;
 	}
     if(model.tags.userSays.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
     	let a = model.tags.userSays
 		a = a.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace(/\s+/, '').replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
     	model.tags.userSays = model.tags.userSays.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
-    	model.tags.newAmount=true;
     }
 	let text = matchAll(model.tags.userSays, /(\d+)/gi).toArray()
 	for(let i in text){
 		if(text[i].length < 8){
+   			model.tags.newAmount=true;
 			model.tags.amount = text[i]
 			model.tags.userSays = model.tags.userSays.replace(model.tags.amount, '')
 			break;
