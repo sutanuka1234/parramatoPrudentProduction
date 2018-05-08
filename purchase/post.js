@@ -841,11 +841,22 @@ function folio(model){
 									title: "Mandate - "+element.BankName.split('-')[0],
 									text : "Limit of Rs "+element.DailyLimit.toString(),
 									buttons : [{
-										text : 'Select',
+										text : 'Pay',
 										data : element.MandateId
 									}]
 								})
 							}
+						}
+						for(let element of data.body.Response[2]){
+							model.tags.bankMandateList.push({
+								title: "Nach",
+								text : element.BankName,
+								buttons : [{
+									type : 'url',
+									text : 'Pay',
+									data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+data[model.tags.scheme].schemeCode+'&bankId='+element.BankId
+								}]
+							})
 						}
 						console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 						if(model.tags.bankMandateList.length==0){
@@ -953,7 +964,7 @@ function amount(model){
 							title: "Nach",
 							text : element.BankName,
 							buttons : [{
-								type : 'url'
+								type : 'url',
 								text : 'Pay',
 								data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+data[model.tags.scheme].schemeCode+'&bankId='+element.BankId
 							}]
