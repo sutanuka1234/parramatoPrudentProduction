@@ -122,6 +122,8 @@ function panMobile(model){
 				model.tags.newDivOption=undefined;
 
 		}
+		console.log(req.params.stage+"::::::::::::<><><><><><::::::::::::::::::::::::::::::")
+		console.log(data.tags.scheme)
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
 			console.log("1")
 			return reject(model);
