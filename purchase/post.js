@@ -945,14 +945,26 @@ function amount(model){
 						}
 						let expectedAmount=parseInt(model.tags.amount);
 						if(expectedAmount<=possibleAmount){
-							model.tags.bankMandateList.push({
-								title: element.BankAccount.split('-')[0],
-								text : element.BankAccount.split('-')[2],
-								buttons : [{
-									text : 'Select',
-									data : element.MandateID
-								}]
-							})
+							if(model.tags.MandateId){
+								model.tags.bankMandateList.push({
+									title: "Mandate - "+element.BankAccount.split('-')[0],
+									text : "Limit of Rs. "+element.DailyLimit,
+									buttons : [{
+										text : 'Select',
+										data : element.MandateID
+									}]
+								})
+							}
+							else{
+								model.tags.bankMandateList.push({
+									title: "Nach",
+									text : element.BankName,
+									buttons : [{
+										text : 'Select',
+										data : element.BankId+"-BankId"
+									}]
+								})
+							}
 						}
 					}
 					if(model.tags.bankMandateList.length==0){
