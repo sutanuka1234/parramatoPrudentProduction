@@ -820,6 +820,8 @@ function folio(model){
 						delete model.stage
 						return resolve(model)
 					}
+					console.log("INSERTBUYCART")
+					console.log(JSON.stringify(data.body,null,3))
 					if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 						model.tags.bankMandateList = []
 						let maxAmountPossible=0;
@@ -900,13 +902,14 @@ function amount(model){
 		if(model.tags.amount){
 			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 			.then((data)=>{
-				console.log(data.body)
 				try{
 					data.body = JSON.parse(data.body)
 				}
 				catch(e){console.log(e);
 					return reject(model);
 				}
+				console.log("INSERTBUYCART")
+				console.log(JSON.stringify(data.body,null,3))
 				if(data.body.Response[0].result=="FAIL"){
 					let reply={
 		                text    : data.body.Response[0]['reject_reason'].trim(),
