@@ -81,7 +81,7 @@ function main(req, res){
 		obj[req.params.stage](req.body)
 		.then((data)=>{
 			console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
-			console.log(model.tags.scheme)
+			console.log(data.tags.scheme)
 			res.send(data)
 		})
 		.catch((e)=>{
