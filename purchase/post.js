@@ -80,6 +80,7 @@ function main(req, res){
 		console.log(req.params.stage)
 		obj[req.params.stage](req.body)
 		.then((data)=>{
+			console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
 			console.log(model.tags.scheme)
 			res.send(data)
 		})
