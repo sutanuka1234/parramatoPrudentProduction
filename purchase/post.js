@@ -941,7 +941,7 @@ function amount(model){
 									title: "Mandate - "+element.BankName.split('-')[0],
 									text : "Limit of Rs. "+element.DailyLimit.toString(),
 									buttons : [{
-										text : 'Select',
+										text : 'Pay',
 										data : element.MandateId
 									}]
 								})
@@ -953,8 +953,9 @@ function amount(model){
 							title: "Nach",
 							text : element.BankName,
 							buttons : [{
-								text : 'Select',
-								data : element.BankId+"-nach"
+								type : 'url'
+								text : 'Pay',
+								data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+data[model.tags.scheme].schemeCode+'&bankId='+element.BankId
 							}]
 						})
 					}
@@ -1006,41 +1007,7 @@ function bankMandate(model){
 		if(arr.includes(model.data)){
 			if(model.data.includes("-nach")){
 				model.tags.bankNach = model.data.split("-")[0]
-				api.bankNach(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode,model.tags.bankNach)
-				.then((data)=>{
-					try{
-						data.body = JSON.parse(data.body)
-					}
-					catch(e){console.log(e);
-						return reject(model);
-					}
-					console.log(JSON.stringify(data.body,null,3))
-					if(data.body.Response[0].result=="FAIL"){
-						let reply={
-			                text    : data.body.Response[0]['reject_reason'],
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
-			                return reject(model);
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-					}
-					else if(data.body){
-						model.tags.paymentSummary = data.body.Response[0]
-						delete model.stage
-						return resolve(model)
-					}
-				})
-				.catch(e=>{
-					console.log(e) 
-					return reject(model)
-				})
+				
 			}
 			else{
 				model.tags.bankMandate = model.data

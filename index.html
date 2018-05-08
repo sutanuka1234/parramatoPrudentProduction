@@ -1,30 +1,17 @@
-<script type="text/javascript">
-
-    function openPopupPage(IPAddress, SessionId, BankId, InvestmentType, JoinAccId,SchemeCode, IsThirdPartyBankTerms, UserName, Password) {
-        var params = { 'IPAddress': IPAddress, 'SessionId': SessionId, 'BankId': BankId, 'InvestmentType': InvestmentType, 'JoinAccId': JoinAccId, 'SchemeCode': SchemeCode, 'IsThirdPartyBankTerms': IsThirdPartyBankTerms, 'UserName': UserName, 'Password': Password };
-        var form = document.createElement("form");
-        form.setAttribute("method", "post");
-        form.setAttribute("action", "http://prudentcorporate.com/CBAPI/MakePayment");
-        form.setAttribute("target", "NewFile");
-        for (var i in params) {
-            if (params.hasOwnProperty(i)) {
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = i;
-                input.value = params[i];
-                form.appendChild(input);
-            }
-        }
-        document.body.appendChild(form);
-        window.open("post.htm", "NewFile", "width=700, height=600, left=270, top=80, resizable=no, scrollbars=yes");
-        form.submit();
-    }
-   
-</script>
-<body>
-    <form id="form1" runat="server">
-        <div>
-            <asp:Button ID="Button1" runat="server" Text="Button Client" OnClientClick="openPopupPage('192.168.0.239','7C772321713D21713D21713D21713D21713D21713D21713D3F6326266B7C','316','PURCHASE','334','8408','1','Prudent','Prudent@123');" />
-        </div>
-    </form>
-</body>
+<form target='NewFile' name='s1_2' id='s1_2' action='https://www.prudentcorporate.com/cbapi/MakePayment' method='post'>
+            <input type='hidden' value='192.168.0.102' name='IPAddress'>
+            <input type='hidden' value='7C772321713D21713D21713D21713D21713D21713D21713D7C77235E6D3A' name='SessionId'>
+            <input type='hidden' value='316' name='BankId'>
+            <input type='hidden' value='PURCHASE' name='InvestmentType'>
+            <input type='hidden' value='334' name='JoinAccId'>
+            <input type='hidden' value='1131' name='SchemeCode'>
+            <input type='hidden' value='1' name='IsThirdPartyBankTerms'>
+            <input type='hidden' value='Prudent' name='UserName'>
+            <input type='hidden' value='Prudent@123' name='Password'>
+            <script type='text/javascript' language='javascript'>
+                    window.open('post.htm', 'NewFile', 'width=500, height=600, left=370, top=80, resizable=no, scrollbars=yes');
+                    document.getElementById('s1_2').submit();
+            </script>
+            <script language='javascript' >
+            </script>
+</form>
