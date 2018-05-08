@@ -1006,7 +1006,7 @@ function bankMandate(model){
 		if(arr.includes(model.data)){
 			if(model.data.includes("-nach")){
 				model.tags.bankNach = model.data.split("-")[0]
-				api.bankMandate(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode,model.tags.bankNach)
+				api.bankNach(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode,model.tags.bankNach)
 				.then((data)=>{
 					try{
 						data.body = JSON.parse(data.body)
