@@ -219,11 +219,13 @@ function panMobile(model){
 			console.log("4")
 			model = extractMobile(model);
 			model = extractDivOption(model);
+			console.log("************1***********")
+			console.log(model.tags)
 			model = extractSchemeName(model);
-			model = extractAmount(model);
-			model = extractFolio(model);
 			console.log("************2***********")
 			console.log(model.tags)
+			model = extractAmount(model);
+			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
 				.then(data=>{
