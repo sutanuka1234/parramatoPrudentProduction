@@ -824,7 +824,17 @@ function folio(model){
 					if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 						model.tags.bankMandateList = []
 						let maxAmountPossible=0;
-						console.log(JSON.stringify(data.body.Response[1],null,3))
+						for(let element of data.body.Response[2]){
+							model.tags.bankMandateList.push({
+								title: "Nach",
+								text : element.BankName,
+								buttons : [{
+									type : 'url',
+									text : 'Pay',
+									data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
+								}]
+							})
+						}
 						for(let element of data.body.Response[1]){
 							try{
 								if(element.DailyLimit){
@@ -839,8 +849,8 @@ function folio(model){
 							let expectedAmount=parseInt(model.tags.amount);
 							if(expectedAmount<=element.DailyLimit){
 								model.tags.bankMandateList.push({
-									title: "Mandate - "+element.BankName.split('-')[0],
-									text : "Limit of Rs "+element.DailyLimit.toString(),
+									title: "Mandate",
+									text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
 									buttons : [{
 										text : 'Pay',
 										data : element.MandateId
@@ -848,17 +858,7 @@ function folio(model){
 								})
 							}
 						}
-						for(let element of data.body.Response[2]){
-							model.tags.bankMandateList.push({
-								title: "Nach",
-								text : element.BankName,
-								buttons : [{
-									type : 'url',
-									text : 'Pay',
-									data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
-								}]
-							})
-						}
+						
 						console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 						if(model.tags.bankMandateList.length==0){
 							delete model.stage
@@ -937,6 +937,17 @@ function amount(model){
 					model.tags.bankMandateList = []
 					let maxAmountPossible=0;
 					console.log(JSON.stringify(data.body.Response[1],null,3))
+					for(let element of data.body.Response[2]){
+						model.tags.bankMandateList.push({
+							title: "Nach",
+							text : element.BankName,
+							buttons : [{
+								type : 'url',
+								text : 'Pay',
+								data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
+							}]
+						})
+					}
 					for(let element of data.body.Response[1]){
 						try{
 								if(element.DailyLimit){
@@ -951,8 +962,8 @@ function amount(model){
 						let expectedAmount=parseInt(model.tags.amount);
 						if(expectedAmount<=element.DailyLimit){
 								model.tags.bankMandateList.push({
-									title: "Mandate - "+element.BankName.split('-')[0],
-									text : "Limit of Rs. "+element.DailyLimit.toString(),
+									title: "Mandate",
+									text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
 									buttons : [{
 										text : 'Pay',
 										data : element.MandateId
@@ -960,17 +971,6 @@ function amount(model){
 								})
 							
 						}
-					}
-					for(let element of data.body.Response[2]){
-						model.tags.bankMandateList.push({
-							title: "Nach",
-							text : element.BankName,
-							buttons : [{
-								type : 'url',
-								text : 'Pay',
-								data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
-							}]
-						})
 					}
 					console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 					if(model.tags.bankMandateList.length==0){
