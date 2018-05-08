@@ -948,6 +948,16 @@ function amount(model){
 							
 						}
 					}
+					for(let element of data.body.Response[2]){
+						model.tags.bankMandateList.push({
+							title: "Nach",
+							text : element.BankName,
+							buttons : [{
+								text : 'Select',
+								data : element.BankId+"-nach"
+							}]
+						})
+					}
 					console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 					if(model.tags.bankMandateList.length==0){
 						let reply={
@@ -992,44 +1002,85 @@ function bankMandate(model){
 			arr.push(model.tags.bankMandateList[i].buttons[0].data)
 		}
 		console.log(arr)
-		console.log(model.data)
+
 		if(arr.includes(model.data)){
-			model.tags.bankMandate = model.data
-			api.bankMandate(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.data, model.tags.amount)
-			.then((data)=>{
-				console.log(data.body)
-				try{
-					data.body = JSON.parse(data.body)
-				}
-				catch(e){console.log(e);
-					return reject(model);
-				}
-				if(data.body.Response[0].result=="FAIL"){
-					let reply={
-		                text    : data.body.Response[0]['reject_reason'],
-		                type    : "text",
-		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{
-		                return reject(model);
-		            })
-		            .catch((e)=>{
-		                console.log(e);
-		                return reject(model)
-		            })
-				}
-				else if(data.body){
-					model.tags.paymentSummary = data.body.Response[0]
-					delete model.stage
-					return resolve(model)
-				}
-			})
-			.catch(e=>{
-				console.log(e) 
-				return reject(model)
-			})
+			if(model.data.includes("-nach")){
+				model.tags.bankNach = model.data.split("-")[0]
+				api.bankMandate(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode,model.tags.bankNach)
+				.then((data)=>{
+					try{
+						data.body = JSON.parse(data.body)
+					}
+					catch(e){console.log(e);
+						return reject(model);
+					}
+					console.log(JSON.stringify(data.body,null,3))
+					if(data.body.Response[0].result=="FAIL"){
+						let reply={
+			                text    : data.body.Response[0]['reject_reason'],
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model);
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+					}
+					else if(data.body){
+						model.tags.paymentSummary = data.body.Response[0]
+						delete model.stage
+						return resolve(model)
+					}
+				})
+				.catch(e=>{
+					console.log(e) 
+					return reject(model)
+				})
+			}
+			else{
+				model.tags.bankMandate = model.data
+				api.bankMandate(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.bankMandate, model.tags.amount)
+				.then((data)=>{
+					console.log(data.body)
+					try{
+						data.body = JSON.parse(data.body)
+					}
+					catch(e){console.log(e);
+						return reject(model);
+					}
+					if(data.body.Response[0].result=="FAIL"){
+						let reply={
+			                text    : data.body.Response[0]['reject_reason'],
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model);
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+					}
+					else if(data.body){
+						model.tags.paymentSummary = data.body.Response[0]
+						delete model.stage
+						return resolve(model)
+					}
+				})
+				.catch(e=>{
+					console.log(e) 
+					return reject(model)
+				})
+			}
+			
 		}
 		else{
 			return reject(model)

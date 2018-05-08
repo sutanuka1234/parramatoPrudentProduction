@@ -93,6 +93,14 @@ function bankMandate(session, joinAccId, schemeCode, mandateId, amount){
 	}
 	return runRequest(obj)
 }
+function bankNach(session,joinAccId,schemeCode,bankId){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'MakePayment?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&BankId='+bankId+'&InvestmentType=PURCHASE&IsThirdPartyBankTerms=1'
+	}
+	return runRequest(obj)
+}
 
 // bankMandate('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', '73-NFB0000073-100000', '10000').then(data=>{console.log(data.body)}).catch(e=>{console.log(e)})
 
@@ -118,5 +126,6 @@ module.exports = {
 	getScheme 	: getScheme,
 	getFolio 	: getFolio,
 	insertBuyCart : insertBuyCart,
-	bankMandate : bankMandate
+	bankMandate : bankMandate,
+	bankNach	: bankNach
 }
