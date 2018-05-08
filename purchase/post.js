@@ -847,7 +847,7 @@ function folio(model){
 								})
 							}
 						}
-						console.log(model.tags.bankMandateList)
+						console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 						if(model.tags.bankMandateList.length==0){
 							delete model.stage
 							return resolve(model)
@@ -948,6 +948,7 @@ function amount(model){
 							
 						}
 					}
+					console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 					if(model.tags.bankMandateList.length==0){
 						let reply={
 			                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
