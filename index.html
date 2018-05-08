@@ -1,0 +1,30 @@
+<script type="text/javascript">
+
+    function openPopupPage(IPAddress, SessionId, BankId, InvestmentType, JoinAccId,SchemeCode, IsThirdPartyBankTerms, UserName, Password) {
+        var params = { 'IPAddress': IPAddress, 'SessionId': SessionId, 'BankId': BankId, 'InvestmentType': InvestmentType, 'JoinAccId': JoinAccId, 'SchemeCode': SchemeCode, 'IsThirdPartyBankTerms': IsThirdPartyBankTerms, 'UserName': UserName, 'Password': Password };
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "http://prudentcorporate.com/CBAPI/MakePayment");
+        form.setAttribute("target", "NewFile");
+        for (var i in params) {
+            if (params.hasOwnProperty(i)) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = i;
+                input.value = params[i];
+                form.appendChild(input);
+            }
+        }
+        document.body.appendChild(form);
+        window.open("post.htm", "NewFile", "width=700, height=600, left=270, top=80, resizable=no, scrollbars=yes");
+        form.submit();
+    }
+   
+</script>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <asp:Button ID="Button1" runat="server" Text="Button Client" OnClientClick="openPopupPage('192.168.0.239','7C772321713D21713D21713D21713D21713D21713D21713D3F6326266B7C','316','PURCHASE','334','8408','1','Prudent','Prudent@123');" />
+        </div>
+    </form>
+</body>

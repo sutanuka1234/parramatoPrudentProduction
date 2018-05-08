@@ -97,11 +97,14 @@ function bankNach(session,joinAccId,schemeCode,bankId){
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
-		url 	: url+'MakePayment?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&BankId='+bankId+'&InvestmentType=PURCHASE&IsThirdPartyBankTerms=1'
+		url 	: url+'MakePayment?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&BankId='+bankId+'&InvestmentType=PURCHASE&IsThirdPartyBankTerms=1&UserName=Prudent&Password=Prudent@123'
 	}
+	console.log(url+'MakePayment?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&BankId='+bankId+'&InvestmentType=PURCHASE&IsThirdPartyBankTerms=1&UserName=Prudent&Password=Prudent@123')
 	return runRequest(obj)
 }
 
+// bankNach('7C772321713D21713D21713D21713D21713D21713D21713D7C77235E6D3A','334','1131','316').then(data=>{console.log(data.body)}).catch(e=>{console.log(e)})
+// https://www.prudentcorporate.com/cbapi/MakePayment?IPAddress=192.168.0.102&SessionId=&JoinAccId=334&SchemeCode=1131&BankId=316&InvestmentType=PURCHASE&IsThirdPartyBankTerms=1
 // bankMandate('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', '73-NFB0000073-100000', '10000').then(data=>{console.log(data.body)}).catch(e=>{console.log(e)})
 
 function runRequest(obj){
