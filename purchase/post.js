@@ -809,6 +809,7 @@ function folio(model){
 					model.tags.amount=undefined;
 				}
 			}
+			let schemeCode=data[model.tags.scheme].schemeCode
 			if(model.tags.amount){
 				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 				.then((data)=>{
@@ -854,7 +855,7 @@ function folio(model){
 								buttons : [{
 									type : 'url',
 									text : 'Pay',
-									data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+data[model.tags.scheme].schemeCode+'&bankId='+element.BankId
+									data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
 								}]
 							})
 						}
@@ -906,8 +907,9 @@ function amount(model){
 				model.tags.amount=undefined;
 			}
 		}
+		let schemeCode=data[model.tags.scheme].schemeCode
 		if(model.tags.amount){
-			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
+			api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
 			.then((data)=>{
 				try{
 					data.body = JSON.parse(data.body)
@@ -966,7 +968,7 @@ function amount(model){
 							buttons : [{
 								type : 'url',
 								text : 'Pay',
-								data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+data[model.tags.scheme].schemeCode+'&bankId='+element.BankId
+								data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
 							}]
 						})
 					}
