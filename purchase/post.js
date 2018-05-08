@@ -839,7 +839,7 @@ function folio(model){
 							if(expectedAmount<=element.DailyLimit){
 								model.tags.bankMandateList.push({
 									title: "Mandate - "+element.BankName.split('-')[0],
-									text : "Limit of Rs. "+element.DailyLimit,
+									text : "Limit of Rs "+element.DailyLimit.toString(),
 									buttons : [{
 										text : 'Select',
 										data : element.MandateID
@@ -939,7 +939,7 @@ function amount(model){
 						if(expectedAmount<=element.DailyLimit){
 								model.tags.bankMandateList.push({
 									title: "Mandate - "+element.BankName.split('-')[0],
-									text : "Limit of Rs. "+element.DailyLimit,
+									text : "Limit of Rs. "+element.DailyLimit.toString(),
 									buttons : [{
 										text : 'Select',
 										data : element.MandateID
