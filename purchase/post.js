@@ -126,9 +126,6 @@ function panMobile(model){
 				model.tags.newDivOption=undefined;
 
 		}
-
-			console.log("************1***********")
-			console.log(model.tags)
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
 			console.log("1")
 			return reject(model);
@@ -220,13 +217,13 @@ function panMobile(model){
 		}
 		else{ 
 			console.log("4")
-			console.log("************2***********")
-			console.log(model.tags)
 			model = extractMobile(model);
 			model = extractDivOption(model);
 			model = extractSchemeName(model);
 			model = extractAmount(model);
 			model = extractFolio(model);
+			console.log("************2***********")
+			console.log(model.tags)
 			if(model.tags.pan&&model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
 				.then(data=>{
