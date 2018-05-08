@@ -95,25 +95,27 @@ function panMobile(model){
 		model=dataClean(model);
 		model = extractPan(model);
 		if(model.tags.newPan){
-			model.tags.newPan=undefined;
 			let temp = {pan:model.tags.pan}
 			if(model.tags.newFolio){
-				model.tags.newFolio=undefined;
 				temp.folio=model.tags.folio;
 			}
 			if(model.tags.newScheme){
-				model.tags.newScheme=undefined;
 				temp.scheme=model.tags.scheme;
 			}
 			if(model.tags.newAmount){
-				model.tags.newAmount=undefined;
 				temp.amount=model.tags.amount;
 			}
 			if(model.tags.newDivOption){
-				model.tags.newDivOption=undefined;
 				temp.divOption=model.tags.divOption;
 			}
 			model.tags=temp;
+			console.log("***********************")
+			console.log(model.tags)
+			model.tags.newPan=undefined;
+			model.tags.newFolio=undefined;
+			model.tags.newScheme=undefined;
+			model.tags.newAmount=undefined;
+			model.tags.newDivOption=undefined;
 		}
 		else{
 				model.tags.newFolio=undefined;
@@ -123,7 +125,7 @@ function panMobile(model){
 
 		}
 		console.log("::::::::::::<><><><><><::::::::::::::::::::::::::::::")
-		console.log(model.tags)
+		console.log(model.tags.scheme)
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
 			console.log("1")
 			return reject(model);
