@@ -4,13 +4,14 @@ module.exports={
 
 function main(req, res){
 		console.log("pay")
+		console.log(req.param('session'))
 		res.send(`<form target='NewFile' name='s1_2' id='s1_2' action='https://www.prudentcorporate.com/cbapi/MakePayment' method='post'>
 						            <input type='hidden' value='192.168.0.102' name='IPAddress'>
-						            <input type='hidden' value='7C772321713D21713D21713D21713D21713D21713D21713D7C77235E6D3A' name='SessionId'>
-						            <input type='hidden' value='316' name='BankId'>
+						            <input type='hidden' value='`+req.param('session')+`' name='SessionId'>
+						            <input type='hidden' value='`+req.param('bankId')+`' name='BankId'>
 						            <input type='hidden' value='PURCHASE' name='InvestmentType'>
-						            <input type='hidden' value='334' name='JoinAccId'>
-						            <input type='hidden' value='1131' name='SchemeCode'>
+						            <input type='hidden' value='`+req.param('joinAccId')+`' name='JoinAccId'>
+						            <input type='hidden' value='`+req.param('schemeCode')+`' name='SchemeCode'>
 						            <input type='hidden' value='1' name='IsThirdPartyBankTerms'>
 						            <input type='hidden' value='Prudent' name='UserName'>
 						            <input type='hidden' value='Prudent@123' name='Password'>
