@@ -1017,7 +1017,7 @@ function bankMandate(model){
 
 		if(arr.includes(model.data)){
 			if(model.data.includes("-nach")){
-				model.tags.bankNach = model.data.split("-")[0]
+				console.log("nach")
 				
 			}
 			else{

@@ -1,3 +1,4 @@
+'use strict'
 var request = require('request')
 
 var headers = {
@@ -129,6 +130,5 @@ module.exports = {
 	getScheme 	: getScheme,
 	getFolio 	: getFolio,
 	insertBuyCart : insertBuyCart,
-	bankMandate : bankMandate,
-	bankNach	: bankNach
+	bankMandate : bankMandate
 }
