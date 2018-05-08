@@ -123,7 +123,7 @@ function panMobile(model){
 
 		}
 		console.log("::::::::::::<><><><><><::::::::::::::::::::::::::::::")
-		console.log(model.tags.scheme)
+		console.log(model.tags)
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
 			console.log("1")
 			return reject(model);
