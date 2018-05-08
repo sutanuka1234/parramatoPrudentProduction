@@ -97,18 +97,23 @@ function panMobile(model){
 		if(model.tags.newPan){
 			let temp = {pan:model.tags.pan}
 			if(model.tags.newFolio){
+				cosnole.log("FOLIO")
 				temp.folio=model.tags.folio;
 			}
 			if(model.tags.newScheme){
+				cosnole.log("SCHEME")
 				temp.scheme=model.tags.scheme;
 			}
 			if(model.tags.newAmount){
+				cosnole.log("AMOUNT")
 				temp.amount=model.tags.amount;
 			}
 			if(model.tags.newDivOption){
+				cosnole.log("DIVOPTION")
 				temp.divOption=model.tags.divOption;
 			}
 			model.tags=temp;
+			console.log(temp)
 			console.log("***********************")
 			console.log(model.tags)
 			model.tags.newPan=undefined;
