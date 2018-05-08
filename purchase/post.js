@@ -1233,12 +1233,13 @@ function extractSchemeName(model){
 			}
 			searchTerm=searchTerm.trim();
 			console.log(searchTerm)
-			model.tags.schemes = []
 			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
 			if(matches.bestMatch.rating>0.9){
+				model.tags.schemes = []
 				model.tags.schemes.push(matches.bestMatch.target)
 			}
 			else if(matches.bestMatch.rating>0.4){
+				model.tags.schemes = []
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
 				model.tags.schemes = matches.ratings.splice(0,9);
 			}
