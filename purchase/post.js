@@ -1020,6 +1020,7 @@ function bankMandate(model){
 		if(arr.includes(model.data)){
 			if(model.data.includes("-nach")){
 				console.log("nach")
+				return reject(model)
 				
 			}
 			else{
