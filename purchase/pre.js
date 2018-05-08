@@ -120,6 +120,7 @@ function panMobile(model){
 	            }
 			}
 		}
+		console.log(model.tags.schemes)
 		return resolve(model)
 	})
 }
