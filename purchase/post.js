@@ -126,9 +126,7 @@ function panMobile(model){
 				model.tags.newDivOption=undefined;
 
 		}
-		
-			console.log("***********************")
-			console.log(model.tags)
+
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
 			console.log("1")
 			return reject(model);
@@ -220,6 +218,9 @@ function panMobile(model){
 		}
 		else{ 
 			console.log("4")
+			
+			console.log("***********************")
+			console.log(model.tags)
 			model = extractMobile(model);
 			model = extractDivOption(model);
 			model = extractSchemeName(model);
