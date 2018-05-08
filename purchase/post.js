@@ -820,19 +820,15 @@ function folio(model){
 						delete model.stage
 						return resolve(model)
 					}
-					console.log("INSERTBUYCART")
-					console.log(JSON.stringify(data.body,null,3))
 					if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 						model.tags.bankMandateList = []
 						let maxAmountPossible=0;
+						console.log(JSON.stringify(data.body.Response[1],null,3))
 						for(let element of data.body.Response[1]){
-							let possibleAmount
 							try{
-								possibleAmount=element.BankAccount.split('-')[2].match(/\d+/)[0]
-								if(possibleAmount){
-									possibleAmount=parseInt(possibleAmount);
-									if(maxAmountPossible<possibleAmount){
-										maxAmountPossible=possibleAmount;
+								if(element.DailyLimit){
+									if(maxAmountPossible<element.DailyLimit){
+										maxAmountPossible=element.DailyLimit;
 									}
 								}
 							}
@@ -841,26 +837,14 @@ function folio(model){
 							}
 							let expectedAmount=parseInt(model.tags.amount);
 							if(expectedAmount<=possibleAmount){
-								if(model.tags.MandateId){
-									model.tags.bankMandateList.push({
-										title: "Mandate - "+element.BankAccount.split('-')[0],
-										text : "Limit of Rs. "+element.DailyLimit,
-										buttons : [{
-											text : 'Select',
-											data : element.MandateID
-										}]
-									})
-								}
-								else{
-									model.tags.bankMandateList.push({
-										title: "Nach",
-										text : element.BankName,
-										buttons : [{
-											text : 'Select',
-											data : element.BankId+"-BankId"
-										}]
-									})
-								}
+								model.tags.bankMandateList.push({
+									title: "Mandate - "+element.BankAccount.split('-')[0],
+									text : "Limit of Rs. "+element.DailyLimit,
+									buttons : [{
+										text : 'Select',
+										data : element.MandateID
+									}]
+								})
 							}
 						}
 						console.log(model.tags.bankMandateList)
@@ -920,8 +904,6 @@ function amount(model){
 				catch(e){console.log(e);
 					return reject(model);
 				}
-				console.log("INSERTBUYCART")
-				console.log(JSON.stringify(data.body,null,3))
 				if(data.body.Response[0].result=="FAIL"){
 					let reply={
 		                text    : data.body.Response[0]['reject_reason'].trim(),
@@ -941,25 +923,20 @@ function amount(model){
 				else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 					model.tags.bankMandateList = []
 					let maxAmountPossible=0;
+					console.log(JSON.stringify(data.body.Response[1],null,3))
 					for(let element of data.body.Response[1]){
-						let possibleAmount
 						try{
-							if(element.BankAccount&&element.BankAccount.split('-').length>2){
-								possibleAmount=element.BankAccount.split('-')[2].match(/\d+/)[0]
-								if(possibleAmount){
-									possibleAmount=parseInt(possibleAmount);
-									if(maxAmountPossible<possibleAmount){
-										maxAmountPossible=possibleAmount;
+								if(element.DailyLimit){
+									if(maxAmountPossible<element.DailyLimit){
+										maxAmountPossible=element.DailyLimit;
 									}
 								}
-							}
 						}
 						catch(e){
 							console.log(e)
 						}
 						let expectedAmount=parseInt(model.tags.amount);
 						if(expectedAmount<=possibleAmount){
-							if(model.tags.MandateId){
 								model.tags.bankMandateList.push({
 									title: "Mandate - "+element.BankAccount.split('-')[0],
 									text : "Limit of Rs. "+element.DailyLimit,
@@ -968,17 +945,7 @@ function amount(model){
 										data : element.MandateID
 									}]
 								})
-							}
-							else{
-								model.tags.bankMandateList.push({
-									title: "Nach",
-									text : element.BankName,
-									buttons : [{
-										text : 'Select',
-										data : element.BankId+"-BankId"
-									}]
-								})
-							}
+							
 						}
 					}
 					if(model.tags.bankMandateList.length==0){
