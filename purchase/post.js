@@ -81,7 +81,7 @@ function main(req, res){
 		obj[req.params.stage](req.body)
 		.then((data)=>{
 			console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
-			console.log(data.tags.scheme)
+			console.log(data.tags.schemes)
 			res.send(data)
 		})
 		.catch((e)=>{
@@ -102,7 +102,7 @@ function panMobile(model){
 			}
 			if(model.tags.newScheme){
 				console.log("SCHEME")
-				temp.scheme=model.tags.scheme;
+				temp.schemes=model.tags.schemes;
 			}
 			if(model.tags.newAmount){
 				console.log("AMOUNT")
@@ -113,7 +113,6 @@ function panMobile(model){
 				temp.divOption=model.tags.divOption;
 			}
 			model.tags=temp;
-			console.log(temp)
 			console.log("***********************")
 			console.log(model.tags)
 			model.tags.newPan=undefined;
