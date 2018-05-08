@@ -944,7 +944,7 @@ function amount(model){
 					for(let element of data.body.Response[1]){
 						let possibleAmount
 						try{
-							if(element.BankAccount.split('-').length>2){
+							if(element.BankAccount&&element.BankAccount.split('-').length>2){
 								possibleAmount=element.BankAccount.split('-')[2].match(/\d+/)[0]
 								if(possibleAmount){
 									possibleAmount=parseInt(possibleAmount);
