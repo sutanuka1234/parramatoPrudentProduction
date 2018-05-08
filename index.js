@@ -22,8 +22,8 @@ app.listen(process.env.PORT||80,()=>{
 
 
 
-app.get('/:folder/:type/:stage', (req,res)=>{
-    require('./'+req.params.folder+'/'+req.params.type).main(req, res)
+app.get('/external/pay', (req,res)=>{
+    require('./external/pay.js').main(req, res)
 })
 
 app.post('/:folder/:type/:stage', (req,res)=>{
