@@ -842,7 +842,7 @@ function folio(model){
 									text : "Limit of Rs "+element.DailyLimit.toString(),
 									buttons : [{
 										text : 'Select',
-										data : element.MandateID
+										data : element.MandateId
 									}]
 								})
 							}
@@ -942,7 +942,7 @@ function amount(model){
 									text : "Limit of Rs. "+element.DailyLimit.toString(),
 									buttons : [{
 										text : 'Select',
-										data : element.MandateID
+										data : element.MandateId
 									}]
 								})
 							
