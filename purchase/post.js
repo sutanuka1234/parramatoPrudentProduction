@@ -859,7 +859,7 @@ function folio(model){
 						let maxAmountPossible=0;
 						for(let element of data.body.Response[2]){
 							model.tags.bankMandateList.push({
-								title: "Nach",
+								title: "Netbanking",
 								text : element.BankName,
 								buttons : [{
 									type : 'url',
@@ -972,7 +972,7 @@ function amount(model){
 					console.log(JSON.stringify(data.body.Response[1],null,3))
 					for(let element of data.body.Response[2]){
 						model.tags.bankMandateList.push({
-							title: "Nach",
+							title: "Netbanking",
 							text : element.BankName,
 							buttons : [{
 								type : 'url',
