@@ -1229,24 +1229,26 @@ function extractSchemeName(model){
 			}
 		}
 		if(amcFlag){
-			startIndex=amcIndex
-		}
-		if(count>0){
-			let searchTerm=""
-			for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
-				searchTerm+=wordsInUserSays[i]+" "
-			}
-			searchTerm=searchTerm.trim();
-			console.log(searchTerm)
-			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
-			if(matches.bestMatch.rating>0.9){
-				model.tags.schemes = []
-				model.tags.schemes.push(matches.bestMatch.target)
-			}
-			else if(matches.bestMatch.rating>0.4){
-				model.tags.schemes = []
-				matches.ratings=matches.ratings.sort(sortBy('-rating'));
-				model.tags.schemes = matches.ratings.splice(0,9);
+			// 	startIndex=amcIndex
+			// }
+
+			if(count>0){
+				let searchTerm=""
+				for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
+					searchTerm+=wordsInUserSays[i]+" "
+				}
+				searchTerm=searchTerm.trim();
+				console.log(searchTerm)
+				let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+				if(matches.bestMatch.rating>0.9){
+					model.tags.schemes = []
+					model.tags.schemes.push(matches.bestMatch.target)
+				}
+				else if(matches.bestMatch.rating>0.4){
+					model.tags.schemes = []
+					matches.ratings=matches.ratings.sort(sortBy('-rating'));
+					model.tags.schemes = matches.ratings.splice(0,9);
+				}
 			}
 		}
 		return model;
