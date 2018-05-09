@@ -551,6 +551,9 @@ function askSchemeName(model){
 		// model = extractAmount(model)
 		model = extractFolio(model)
 		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
+		if(model.tags.schemes===undefined){
+			model.tags.schemes=[]
+		}
 		if(matches.bestMatch.rating>0.9){
 			console.log("nine")
 			model.tags.schemes.push(matches.bestMatch.target)
@@ -593,6 +596,9 @@ function showSchemeName(model){
 		model = extractDivOption(model)
 		// model = extractAmount(model)
 		model = extractFolio(model)
+		if(model.tags.schemes===undefined){
+			model.tags.schemes=[]
+		}
 		let arr = []
 		for(let i in model.tags.schemes){
 			arr.push(model.tags.schemes[i].target)
