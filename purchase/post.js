@@ -552,13 +552,16 @@ function askSchemeName(model){
 		model = extractFolio(model)
 		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
 		if(matches.bestMatch.rating>0.9){
+			console.log("nine")
 			model.tags.schemes.push(matches.bestMatch.target)
 		}
 		else if(matches.bestMatch.rating>0.10){
+			console.log("one")
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
 			model.tags.schemes = matches.ratings.splice(0,9);
 		}
 		else{
+			console.log("undefined")
 			return reject(model);
 		}
 		if(model.tags.schemes){
