@@ -93,6 +93,7 @@ function panMobile(model){
 		model.tags.divOption = undefined
 		model.tags.otp=undefined
 		model.tags.schemeApiDetails=undefined
+		model.tags.resend=undefined
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
