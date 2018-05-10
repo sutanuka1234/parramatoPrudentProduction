@@ -93,6 +93,11 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model);
+		if(model.data.toLowerCase().includes("not")&&model.data.toLowerCase().includes("me")){
+			model.stage="panMobile";
+			model.tags={}
+			return resolve(model);
+		}
 		model = extractPan(model);
 		if(model.tags.newPan){
 			let temp = {pan:model.tags.pan}
@@ -436,17 +441,10 @@ function otp(model){
 
 		// model.tags.mobileEntered=false;
 		model = dataClean(model);
-		
-		if(model.data.includes("not")&&model.data.includes("my")&&model.data.includes("number")){
-			model.stage="panMobile";
-			model.tags={}
-			return resolve(model);
-		}
-
 		model = extractOTP(model);
 		model = extractDivOption(model);
 		model = extractSchemeName(model);
-		if(model.data == 're send'){
+		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
 			api.resendOtp(model.tags.session)
 			.then((response)=>{
 				console.log(response.body)

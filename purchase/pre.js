@@ -113,6 +113,10 @@ function panMobile(model){
 	                		text : 'Proceed'
 	                	},
 	                	{
+	                		data : 'Not me',
+	                		text : 'Not me'
+	                	},
+	                	{
 	                		data : 'Cancel',
 	                		text : 'Cancel'
 	                	}
@@ -130,26 +134,13 @@ function otp(model){
 		if(model.tags.resend){
 			model.reply={
 				type : "text",
-				text : "The new OTP is sent to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please enter it here"
+				text : "The new OTP is sent to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please enter it here. If you did not receive any OTP, we would send you one if you say 're send'"
 			}
 		}
 		else{
 			model.reply={
 				type : "quickReply",
-				text : "We have sent an OTP to your mobile number ("+formatter.apply(model.tags.mobile)+"), please share it here. If you have not received it, click on resend."
-                ,
-				next : {
-					"data" : [
-						{
-							data : 're send',
-							text : 'Re send'
-						},
-						{
-							data : "not my number",
-							text : "Not my number"
-						}
-					]
-				}
+				text : "We have sent an OTP to your mobile number ("+formatter.apply(model.tags.mobile)+"), please share it here. If you did not receive any OTP, we would send you one if you say 're send'"
 			}
 		}
 		resolve(model)
