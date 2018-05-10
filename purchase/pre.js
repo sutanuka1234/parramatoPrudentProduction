@@ -130,7 +130,7 @@ function otp(model){
 		if(model.tags.resend){
 			model.reply={
 				type : "text",
-				text : "The new OTP has been sent to your mobile. Please enter it here"
+				text : "The new OTP is sent to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please enter it here"
 			}
 		}
 		else{
