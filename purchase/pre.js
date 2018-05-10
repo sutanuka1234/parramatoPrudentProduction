@@ -136,19 +136,20 @@ function otp(model){
 		else{
 			model.reply={
 				type : "quickReply",
-				text : "We have sent an OTP to your mobile number ("+formatter.apply(model.tags.mobile)+"), please share it here. If you have not received it, click on resend.",
-				next : {
-					"data" : [
-						{
-							data : 're send',
-							text : 'Re send'
-						},
-						{
-							data : "not my number",
-							text : "Not my number"
-						}
-					]
-				}
+				text : "We have sent an OTP to your mobile number ("+formatter.apply(model.tags.mobile)+"), please share it here. If you have not received it, type '\resend.'\"
+//                ,
+//				next : {
+//					"data" : [
+//						{
+//							data : 're send',
+//							text : 'Re send'
+//						},
+//						{
+//							data : "not my number",
+//							text : "Not my number"
+//						}
+//					]
+//				}
 			}
 		}
 		resolve(model)

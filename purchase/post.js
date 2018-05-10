@@ -491,7 +491,7 @@ function otp(model){
 			            }
 						external(reply)
 						.then((data)=>{
-							return resolve(model)
+							return resolve(model)//wrongResolve
 			            })
 			            .catch((e)=>{
 			                console.log(e);
