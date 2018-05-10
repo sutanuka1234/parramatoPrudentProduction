@@ -134,12 +134,12 @@ function otp(model){
 		if(model.tags.resend){
 			model.reply={
 				type : "text",
-				text : "The new OTP is sent to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please share it here, if you hsve not received any OTP, we would send you one if you say 're send'"
+				text : "The new OTP is sent to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please share it here, if you have not received any OTP, we would send you one if you say 're send'"
 			}
 		}
 		else{
 			model.reply={
-				type : "quickReply",
+				type : "text",
 				text : "We have sent an OTP to your mobile number ("+formatter.apply(model.tags.mobile)+"), please share it here, if you have not received any OTP, we would send you one if you say 're send'"
 			}
 		}

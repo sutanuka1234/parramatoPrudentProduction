@@ -535,7 +535,6 @@ function otp(model){
 			})
 		}
 		else{
-			sendExternalMessage(model,"Not a valid OTP")
 			return reject(model)
 		}
 	})
