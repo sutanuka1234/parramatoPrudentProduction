@@ -105,7 +105,7 @@ function panMobile(model){
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
-	            text:"Sure, we have your Pan and mobile ("+formatter.apply(model.tags.mobile)+"), saved. Lets proceed with the lumpsum investment.",
+	            text:"Sure, we have your credentials linked to "+formatter.apply(model.tags.mobile)+"  saved. Shall we proceed with the lumpsum investment?",
 	            next:{
 	                "data": [
 	                	{
