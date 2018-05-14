@@ -26,6 +26,12 @@ app.get('/external/pay', (req,res)=>{
     require('./external/pay.js').main(req, res)
 })
 
+
+app.post('/external/confirmation', (req,res)=>{
+    require('./external/confirmation').main(req, res)
+})
+
+
 app.post('/:folder/:type/:stage', (req,res)=>{
     require('./'+req.params.folder+'/'+req.params.type).main(req, res)
 })

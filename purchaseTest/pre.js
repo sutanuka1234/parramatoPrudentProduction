@@ -75,7 +75,6 @@ let amc = [
 ]
 
 function main(req, res){
-	return new Promise(function(resolve, reject){
 		console.log(req.params.stage)
 		obj[req.params.stage](req.body)
 		.then((data)=>{
@@ -85,11 +84,16 @@ function main(req, res){
 			console.log(e)
 			res.sendStatus(203)
 		})
-	})
 }
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
+		model.tags.amount = undefined
+		model.tags.joinAccId = undefined
+		model.tags.divOption = undefined
+		model.tags.otp=undefined
+		model.tags.schemeApiDetails=undefined
+		model.tags.resend=undefined
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
@@ -102,12 +106,16 @@ function panMobile(model){
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
-	            text:"Thank you for the details, we would proceed with the lumpsum investment.",
+	            text:"Sure, we have your credentials linked to mobile "+formatter.apply(model.tags.mobile)+" saved. Would you like to proceed with the lumpsum investment?",
 	            next:{
 	                "data": [
 	                	{
 	                		data : 'Proceed',
 	                		text : 'Proceed'
+	                	},
+	                	{
+	                		data : 'Not me',
+	                		text : 'Not me'
 	                	},
 	                	{
 	                		data : 'Cancel',
@@ -117,6 +125,7 @@ function panMobile(model){
 	            }
 			}
 		}
+		console.log(model.tags.schemes)
 		return resolve(model)
 	})
 }
@@ -124,26 +133,19 @@ function panMobile(model){
 function otp(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.resend){
+			model.tags.resend=undefined
 			model.reply={
 				type : "text",
-				text : "The new OTP has been sent to your mobile. Please enter it here"
+				text : "The new OTP is sent to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please share it here. In case if you have not received any OTP, we would send you one if you say 'resend'"
 			}
 		}
 		else{
 			model.reply={
-				type : "quickReply",
-				text : "We have sent an OTP to your mobile number ("+formatter.apply(model.tags.mobile)+"), please share it here. If you have not received it, click on resend.",
-				next : {
-					"data" : [
-						{
-							data : 're send',
-							text : 'Re send'
-						}
-					]
-				}
+				type : "text",
+				text : "We have sent an OTP to your mobile number ("+formatter.apply(model.tags.mobile)+"), please share it here. In case if you have not received any OTP, we would send you one if you say 'resend'"
 			}
 		}
-		resolve(model)
+		return resolve(model)
 	})
 }
 
@@ -194,7 +196,7 @@ function divOps(model){
 			type:"quickReply",
             text:"Let us know the dividend option.",
             next:{
-                "data": [
+                data: [
                 	{
                 		data : 're invest',
                 		text : 'Re Invest'
@@ -296,6 +298,8 @@ function summary(model){
 		model.tags.amount = undefined
 		model.tags.joinAccId = undefined
 		model.tags.divOption = undefined
+		model.tags.otp=undefined
+		model.tags.schemeApiDetails=undefined
 		resolve(model)
 	})
 }
@@ -304,6 +308,7 @@ function extractDivOption(model){
 	if(model.tags.userSays.match(divOption)){
 		model.tags.divOption = model.tags.userSays.match(divOption)[0]
 		model.tags.userSays = model.tags.userSays.replace(model.tags.divOption, '')
+		model.tags.newDivOption=true;
 	}
 	return model;
 			
@@ -314,6 +319,7 @@ function extractFolio(model){
 
 		model.tags.folio = model.tags.userSays.match(regexFolio)[0].match(/\d+|new folio/)[0]
 		model.tags.userSays = model.tags.userSays.replace(model.tags.folio, '')
+		model.tags.newFolio=true;
 	}
 	return model;
 }
@@ -335,6 +341,7 @@ function extractAmount(model){
 	let text = matchAll(model.tags.userSays, /(\d+)/gi).toArray()
 	for(let i in text){
 		if(text[i].length < 8){
+   			model.tags.newAmount=true;
 			model.tags.amount = text[i]
 			model.tags.userSays = model.tags.userSays.replace(model.tags.amount, '')
 			break;
@@ -351,6 +358,7 @@ function extractMobile(model){
 			// 	console.log(text[i]+"mobile")
 			// 	model.tags = {userSays:model.tags.userSays}
 			// }
+			// model.tags.mobileEntered=true;
 			model.tags.mobile = text[i]
 			model.tags.userSays = model.tags.userSays.replace(model.tags.mobile, '')
 			break;
@@ -404,14 +412,17 @@ function extractSchemeName(model){
 			}
 			searchTerm=searchTerm.trim();
 			console.log(searchTerm)
-			model.tags.schemes = []
 			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
 			if(matches.bestMatch.rating>0.9){
+				model.tags.schemes = []
 				model.tags.schemes.push(matches.bestMatch.target)
+				model.tags.newScheme=true;
 			}
-			else if(matches.bestMatch.rating>0.3){
+			else if(matches.bestMatch.rating>0.4){
+				model.tags.schemes = []
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
 				model.tags.schemes = matches.ratings.splice(0,9);
+				model.tags.newScheme=true;
 			}
 		}
 		return model;
