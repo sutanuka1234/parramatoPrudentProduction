@@ -38,6 +38,17 @@ function otp(session, otp){
 	return runRequest(obj)
 }
 
+
+
+function getExistingSchemes(session, joinAccId){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'GetAdditionalInvestScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId
+	}
+	return runRequest(obj)
+}
+
 // otp('7C772321713D21713D21713D21713D21713D21713D21713D7C77232F612A', '123456').then(data=>{console.log(data)}).catch(err=>console.log(err))
 
 // function getAMC(session, joinAccId, callback){
@@ -75,14 +86,24 @@ function getFolio(session, joinAccId, schemeCode, amcId){
 
 // getFolio('7C772321713D21713D21713D21713D21713D21713D21713D7C772321713D', '334', '8408', '400040').then(data=>{console.log(data)}).catch(err=>console.log(err))
 
-function insertBuyCart(session, joinAccId, schemeCode, amcName, amcId, dividendOption, amount, folioNo, euin){
-	var obj = {
-		method 	: 'POST',
-		headers : headers,
-		url 	: url+'InsertBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+amcName+'&AMCId='+amcId+'&DivOpt='+dividendOption+'&Amount='+amount+'&FolioNo='+folioNo+'&EUIN='+euin+'&IsAgreeTerms=1&IsEKYCTermCondition=1'
+function insertBuyCart(session, joinAccId, schemeCode, amcName, amcId, dividendOption, amount, folioNo, euin, additional,tranId){
+	if(additional){
+		var obj = {
+			method 	: 'POST',
+			headers : headers,
+			url 	: url+'InsertAdditionalInvestmentBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+amcName+'&DivOpt='+dividendOption+'&TranID='+tranId+'&Amount='+amount+'&FolioNo='+folioNo+'&EUIN='+euin+'&IsAgreeTerms=1&IsEKYCTermCondition=1'
+		}
+	}
+	else{
+		var obj = {
+			method 	: 'POST',
+			headers : headers,
+			url 	: url+'InsertBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+amcName+'&AMCId='+amcId+'&DivOpt='+dividendOption+'&Amount='+amount+'&FolioNo='+folioNo+'&EUIN='+euin+'&IsAgreeTerms=1&IsEKYCTermCondition=1'
+		}
 	}
 	return runRequest(obj)
 }
+
 
 // insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D7C77233F6326', '334', '931', 'Franklin Templeton Asset Management (India) Private Limited', '400012', '0', '5000', '0', 'E020391').then(data=>{console.log(data.body)}).catch(err=>console.log(err))
 
