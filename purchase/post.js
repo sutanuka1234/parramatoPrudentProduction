@@ -1110,6 +1110,7 @@ function additional(model){
 				else{
 					model.tags.folioNo = response.Response[0].FolioNo
 				}
+				console.log("resolve>>>>>>>>>>>>>>")
 				return resolve(model)
 			})
 			.catch(e=>{
