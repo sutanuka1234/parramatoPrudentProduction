@@ -1127,6 +1127,15 @@ function folio(model){
 			else{
 				model.tags.folio = model.data
 			}
+			if(model.tags.additional&&model.tags.existingSchemeDetailsSet.length>1){
+				for(let schemeVal of model.tags.existingSchemeDetailsSet){
+					if(schemeVal["FolioNo"]==model.tags.folio){
+						model.tags.tranId=schemeVal["Tranid"]
+						break;
+					}
+				}
+			}
+
 			if(model.tags.amount&&model.tags.schemeApiDetails){
 				let amount=parseFloat(model.tags.amount)
 				let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
