@@ -739,10 +739,11 @@ function holding(model){
 						}
 						catch(e){
 							return reject(model)
-							// console.log(e);
+							console.log(e);
 						}
 						model.tags.existingSchemeApiDetails=response.Response[0][0];
 						model.tags.existinguinApiDetails=response.Response[1][0];
+						console.log("checking schemes")
 						for (let existingScheme of model.tags.existingSchemeApiDetails){
 							if(existingScheme["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
 								model.tags.tranId=existingScheme["SCHEMECODE"]["Tranid"];
