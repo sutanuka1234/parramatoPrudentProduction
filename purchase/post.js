@@ -1094,6 +1094,7 @@ function additional(model){
 					response = JSON.parse(response.body)
 				}
 				catch(e){
+					console.log(e)
 					return reject(model);
 				}
 				let arr = []
@@ -1117,6 +1118,7 @@ function additional(model){
 				return resolve(model)
 			})
 			.catch(e=>{
+				console.log(e)
 				return reject(model)
 			}) 	
 		}
