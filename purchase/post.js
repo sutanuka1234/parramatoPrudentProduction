@@ -734,7 +734,17 @@ function holding(model){
 			if(model.tags.selectType.toLowerCase().includes("additional")){
 				api.getExistingSchemes(model.tags.session, model.tags.joinAccId)
 				.then((response)=>{
-					console.log(response.body)
+					try{
+						response = JSON.parse(response.body)
+					}
+					catch(e){
+						return reject(model)
+						// console.log(e);
+					}
+					model.tags.schemeApiDetails=response.Response[0][0];
+					model.tags.euinApiDetails=response.Response[0][1];
+					console.log(JSON.stringify(model.tags.schemeApiDetails,null,3))
+					console.log(JSON.stringify(model.tags.euinApiDetails,null,3))
 					return reject(model)
 				})
 				.catch(e=>{
@@ -749,6 +759,7 @@ function holding(model){
 							response = JSON.parse(response.body)
 						}
 						catch(e){
+							return reject(model)
 							// console.log(e)
 						}
 						if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
