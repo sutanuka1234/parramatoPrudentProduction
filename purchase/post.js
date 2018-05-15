@@ -20,6 +20,7 @@ let obj = {
 	divOps 	: divOps,
 	amount 	: amount,
 	holding : holding,
+	additional : additional,
 	folio 	: folio,
 	bankMandate : bankMandate
 }
