@@ -1248,9 +1248,11 @@ function amount(model){
 				try{
 					data.body = JSON.parse(data.body)
 				}
-				catch(e){// console.log(e);
+				catch(e){	
+					console.log(e);
 					return reject(model);
 				}
+
 				if(data.body.Response[0].result=="FAIL"){
 					let reply={
 		                text    : data.body.Response[0]['reject_reason'].trim(),
@@ -1263,7 +1265,7 @@ function amount(model){
 		                return reject(model);
 		            })
 		            .catch((e)=>{
-		                // console.log(e);
+		                console.log(e);
 		                return reject(model)
 		            })
 				}
@@ -1291,7 +1293,8 @@ function amount(model){
 								}
 						}
 						catch(e){
-							// console.log(e)
+							console.log(e)
+			                return reject(model)
 						}
 						let expectedAmount=parseInt(model.tags.amount);
 						if(expectedAmount<=element.DailyLimit){
@@ -1319,7 +1322,7 @@ function amount(model){
 			                return reject(model);
 			            })
 			            .catch((e)=>{
-			                // console.log(e);
+			                console.log(e);
 			                return reject(model)
 			            })
 					}
@@ -1333,7 +1336,7 @@ function amount(model){
 				}
 			})
 			.catch((e)=>{
-				// console.log(e)
+				console.log(e)
 				return reject(model)
 			})
 		}
