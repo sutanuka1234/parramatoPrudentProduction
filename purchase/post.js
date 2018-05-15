@@ -978,7 +978,20 @@ function additional(model){
 						}
 						catch(e){
 						     console.log(e);
-							return reject(model);
+						     let reply={
+				                text    : e.toString(),
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+				                return reject(model);
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
 						}
 						if(data.body.Response[0].result=="FAIL"){
 							let reply={
@@ -1161,6 +1174,21 @@ function folio(model){
 						data.body = JSON.parse(data.body)
 					}
 					catch(e){
+						console.log(e);
+						let reply={
+				                text    : e.toString(),
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+				                return reject(model);
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
 						delete model.stage
 						return resolve(model)
 					}
@@ -1259,6 +1287,20 @@ function amount(model){
 				}
 				catch(e){	
 					console.log(e);
+					let reply={
+		                text    : e.toString(),
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+		                return reject(model);
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
 					return reject(model);
 				}
 
