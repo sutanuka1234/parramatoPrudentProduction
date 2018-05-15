@@ -134,9 +134,9 @@ function runRequest(obj){
 		console.log("reqested")
 		console.log(obj)
 		request(obj, (error,response,body)=>{
-			console.log("response")
-			console.log(error)
 			if(error){
+				console.log("error")
+				console.log(error)
 				return reject(error);
 			}
 			return resolve({response:response,body:body})
