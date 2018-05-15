@@ -951,7 +951,7 @@ function holding(model){
 
 function additional(model){
 	return new Promise(function(resolve, reject){
-		if(model.data.toLowerCase().includes("yes")&&model.tags.existingSchemeDetailsSet.length<1){
+		if(model.data.toLowerCase().includes("yes")&&model.tags.existingSchemeDetailsSet.length>0){
 			model.tags.additional=true;
 			if(model.tags.existingSchemeDetailsSet.length===1){
 				console.log("1:::")
@@ -972,10 +972,12 @@ function additional(model){
 				if(model.tags.amount){
 					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"],model.tags.additional,model.tags.tranId)
 					.then((data)=>{
+						console.log(data.body)
 						try{
 							data.body = JSON.parse(data.body)
 						}
-						catch(e){// console.log(e);
+						catch(e){
+						     console.log(e);
 							return reject(model);
 						}
 						if(data.body.Response[0].result=="FAIL"){
@@ -990,7 +992,7 @@ function additional(model){
 				                return reject(model);
 				            })
 				            .catch((e)=>{
-				                // console.log(e);
+				                console.log(e);
 				                return reject(model)
 				            })
 						}
@@ -1018,7 +1020,7 @@ function additional(model){
 										}
 								}
 								catch(e){
-									// console.log(e)
+									console.log(e)
 								}
 								let expectedAmount=parseInt(model.tags.amount);
 								if(expectedAmount<=element.DailyLimit){
@@ -1033,7 +1035,7 @@ function additional(model){
 									
 								}
 							}
-							// console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+							console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 							if(model.tags.bankMandateList.length==0){
 								model.stage = 'amount'
 								return resolve(model)
