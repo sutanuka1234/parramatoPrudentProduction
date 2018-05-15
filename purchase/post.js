@@ -741,8 +741,8 @@ function holding(model){
 							return reject(model)
 							// console.log(e);
 						}
-						model.tags.schemeApiDetails=response.Response[0][0];
-						model.tags.euinApiDetails=response.Response[0][1];
+						model.tags.existingSchemeApiDetails=response.Response[0][0];
+						model.tags.existinguinApiDetails=response.Response[0][1];
 						
 						console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
 						console.log(JSON.stringify(model.tags.existinguinApiDetails,null,3))
