@@ -1088,7 +1088,7 @@ function additional(model){
 		}
 		if(model.data.toLowerCase().includes("no")){
 			model.tags.additional=false;
-			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+			api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 			.then(response=>{
 				try{
 					response = JSON.parse(response.body)
@@ -1097,6 +1097,7 @@ function additional(model){
 					console.log(e)
 					return reject(model);
 				}
+				console.log(JSON.stringify(response,null,3));
 				let arr = []
 				for(let i in response.Response){
 					arr.push(response.Response[i].FolioNo.toLowerCase())
