@@ -1110,7 +1110,7 @@ function additional(model){
 				else{
 					model.tags.folioNo = response.Response[0].FolioNo
 				}
-				console.log("resolve>>>>>>>>>>>>>>")
+				model.stage = 'folio'
 				return resolve(model)
 			})
 			.catch(e=>{
