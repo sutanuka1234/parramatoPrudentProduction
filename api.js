@@ -151,5 +151,6 @@ module.exports = {
 	getScheme 	: getScheme,
 	getFolio 	: getFolio,
 	insertBuyCart : insertBuyCart,
-	bankMandate : bankMandate
+	bankMandate : bankMandate,
+	getExistingSchemes:getExistingSchemes
 }

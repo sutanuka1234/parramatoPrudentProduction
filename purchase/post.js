@@ -548,6 +548,11 @@ function askSchemeName(model){
 		model = extractDivOption(model)
 		// model = extractAmount(model)
 		model = extractFolio(model)
+		if(model.tags.selectType.toLowerCase().includes("additional")){
+			model.stage = 'holding'
+			return resolve(model)
+		}
+
 		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
 		if(model.tags.schemes===undefined){
 			model.tags.schemes=[]
@@ -594,6 +599,10 @@ function showSchemeName(model){
 		model = extractDivOption(model)
 		// model = extractAmount(model)
 		model = extractFolio(model)
+		if(model.tags.selectType.toLowerCase().includes("additional")){
+			model.stage = 'holding'
+			return resolve(model)
+		}
 		if(model.tags.schemes===undefined){
 			model.tags.schemes=[]
 		}
