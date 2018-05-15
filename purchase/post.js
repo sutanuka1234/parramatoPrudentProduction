@@ -743,11 +743,15 @@ function holding(model){
 						}
 						model.tags.existingSchemeApiDetails=response.Response[0][0];
 						model.tags.existinguinApiDetails=response.Response[1][0];
-
-						console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
-						console.log(JSON.stringify(model.tags.existinguinApiDetails,null,3))
-						console.log(data[model.tags.scheme].schemeCode);
-					
+						for (let existingScheme of model.tags.existingSchemeApiDetails){
+							if(existingScheme["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
+								model.tags.tranId=existingScheme["SCHEMECODE"]["Tranid"];
+								model.tags.additionalPossible=true;
+								console.log("Existing Scheme:::::::::::::::::")
+								break;
+							}
+							model.tags.additionalPossible=false;
+						}
 						api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
 						.then((response)=>{
 							// console.log(response.body)
