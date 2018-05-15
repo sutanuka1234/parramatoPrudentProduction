@@ -979,7 +979,7 @@ function additional(model){
 						catch(e){
 						     console.log(e);
 						     let reply={
-				                text    : e.toString(),
+				                text    : "API Not Responding Properly",
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
@@ -1176,7 +1176,7 @@ function folio(model){
 					catch(e){
 						console.log(e);
 						let reply={
-				                text    : e.toString(),
+				                text    : "API Not Responding Properly",
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
@@ -1288,7 +1288,7 @@ function amount(model){
 				catch(e){	
 					console.log(e);
 					let reply={
-		                text    : e.toString(),
+		                text    : "API Not Responding Properly",
 		                type    : "text",
 		                sender  : model.sender,
 		                language: "en"
