@@ -559,10 +559,10 @@ function askSchemeName(model){
 		model = extractDivOption(model)
 		// model = extractAmount(model)
 		model = extractFolio(model)
-		if(model.tags.selectType.toLowerCase().includes("additional")){
-			model.stage = 'holding'
-			return resolve(model)
-		}
+		// if(model.tags.selectType.toLowerCase().includes("additional")){
+		// 	model.stage = 'holding'
+		// 	return resolve(model)
+		// }
 
 		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
 		if(model.tags.schemes===undefined){
@@ -610,10 +610,10 @@ function showSchemeName(model){
 		model = extractDivOption(model)
 		// model = extractAmount(model)
 		model = extractFolio(model)
-		if(model.tags.selectType.toLowerCase().includes("additional")){
-			model.stage = 'holding'
-			return resolve(model)
-		}
+		// if(model.tags.selectType.toLowerCase().includes("additional")){
+		// 	model.stage = 'holding'
+		// 	return resolve(model)
+		// }
 		if(model.tags.schemes===undefined){
 			model.tags.schemes=[]
 		}
@@ -731,27 +731,27 @@ function holding(model){
 				}
 			}
 			model.tags.joinAccId = model.data
-			if(model.tags.selectType.toLowerCase().includes("additional")){
-				api.getExistingSchemes(model.tags.session, model.tags.joinAccId)
-				.then((response)=>{
-					try{
-						response = JSON.parse(response.body)
-					}
-					catch(e){
-						return reject(model)
-						// console.log(e);
-					}
-					model.tags.schemeApiDetails=response.Response[0][0];
-					model.tags.euinApiDetails=response.Response[0][1];
-					console.log(JSON.stringify(model.tags.schemeApiDetails,null,3))
-					console.log(JSON.stringify(model.tags.euinApiDetails,null,3))
-					return reject(model)
-				})
-				.catch(e=>{
-					return reject(model)
-				})
-			}
-			else{
+			// if(model.tags.selectType.toLowerCase().includes("additional")){
+			// 	api.getExistingSchemes(model.tags.session, model.tags.joinAccId)
+			// 	.then((response)=>{
+			// 		try{
+			// 			response = JSON.parse(response.body)
+			// 		}
+			// 		catch(e){
+			// 			return reject(model)
+			// 			// console.log(e);
+			// 		}
+			// 		model.tags.schemeApiDetails=response.Response[0][0];
+			// 		model.tags.euinApiDetails=response.Response[0][1];
+			// 		console.log(JSON.stringify(model.tags.schemeApiDetails,null,3))
+			// 		console.log(JSON.stringify(model.tags.euinApiDetails,null,3))
+			// 		return reject(model)
+			// 	})
+			// 	.catch(e=>{
+			// 		return reject(model)
+			// 	})
+			// }
+			// else{
 					api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
 					.then((response)=>{
 						// console.log(response.body)
@@ -842,7 +842,7 @@ function holding(model){
 			            })
 						return reject(model)
 					})
-				}
+				// }
 		}
 		else{
 			return reject(model)
