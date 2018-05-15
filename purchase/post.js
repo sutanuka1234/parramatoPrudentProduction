@@ -747,7 +747,7 @@ function holding(model){
 				console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
 				for (let existingScheme of model.tags.existingSchemeApiDetails){
 					if(existingScheme["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
-						existingSchemeDetailsSet.push(existingScheme)
+						model.tags.existingSchemeDetailsSet.push(existingScheme)
 					}
 				}
 				model.tags.additionalPossible=false;
