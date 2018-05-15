@@ -970,7 +970,7 @@ function additional(model){
 				}
 				let schemeCode=data[model.tags.scheme].schemeCode
 				if(model.tags.amount){
-					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"],model.tags.additional,model.tags.tranId)
+					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
 					.then((data)=>{
 						console.log(data.body)
 						try{
@@ -1145,7 +1145,6 @@ function folio(model){
 				if(!model.tags.existingEuinApiDetails){
 					model.tags.existingEuinApiDetails={}
 				}
-
 				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
 				.then((data)=>{
 					// console.log(data.body)
@@ -1244,7 +1243,7 @@ function amount(model){
 		}
 		let schemeCode=data[model.tags.scheme].schemeCode
 		if(model.tags.amount){
-			api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, 'E020391')
+			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
 			.then((data)=>{
 				try{
 					data.body = JSON.parse(data.body)
