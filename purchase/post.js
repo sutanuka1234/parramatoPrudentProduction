@@ -80,8 +80,8 @@ function main(req, res){
 		// console.log(req.params.stage)
 		obj[req.params.stage](req.body)
 		.then((data)=>{
-			console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
-			console.log(JSON.stringify(data.tags,null,3))
+			// console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
+			// console.log(JSON.stringify(data.tags,null,3))
 			res.send(data)
 		})
 		.catch((e)=>{
@@ -743,6 +743,7 @@ function holding(model){
 						}
 						model.tags.schemeApiDetails=response.Response[0][0];
 						model.tags.euinApiDetails=response.Response[0][1];
+						
 						console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
 						console.log(JSON.stringify(model.tags.existinguinApiDetails,null,3))
 						console.log(data[model.tags.scheme].schemeCode);
