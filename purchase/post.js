@@ -734,7 +734,7 @@ function holding(model){
 			if(model.tags.selectType.toLowerCase().includes("additional")){
 				api.getExistingSchemes(model.tags.session, model.tags.joinAccId)
 				.then((response)=>{
-					console.log(JSON.stringify(response,null,3))
+					console.log(JSON.stringify(response))
 					return reject(model)
 				})
 				.catch(e=>{
