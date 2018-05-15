@@ -1086,7 +1086,7 @@ function additional(model){
 			}
 			return resolve(model);
 		}
-		if(model.data.toLowerCase().includes("no")){
+		else if(model.data.toLowerCase().includes("no")){
 			model.tags.additional=false;
 			api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 			.then(response=>{
@@ -1118,7 +1118,9 @@ function additional(model){
 				return reject(model)
 			}) 	
 		}
-		return reject(model);
+		else{
+			return reject(model);
+		}
 	});
 	
 }
