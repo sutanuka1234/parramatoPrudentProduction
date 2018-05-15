@@ -1098,10 +1098,6 @@ function additional(model){
 					return reject(model);
 				}
 				console.log(JSON.stringify(response,null,3));
-				let arr = []
-				for(let i in response.Response){
-					arr.push(response.Response[i].FolioNo.toLowerCase())
-				}
 				if(response.Response.length > 0){
 					model.tags.folioList = []
 					for(let i in response.Response){
@@ -1110,11 +1106,9 @@ function additional(model){
 							text : response.Response[i].FolioNo
 						})
 					}
-					delete model.stage
 				}
 				else{
 					model.tags.folioNo = response.Response[0].FolioNo
-					delete model.stage
 				}
 				return resolve(model)
 			})
