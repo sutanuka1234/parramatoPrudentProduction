@@ -502,6 +502,17 @@ function otp(model){
 						response.Response.forEach(function(element){
 							model.tags.joinAccId.push(element.JoinAccId.toString())
 						})
+						model.tags.joinAccList = []
+						for(let i in model.tags.joinAcc){
+							model.tags.joinAccList.push({
+								title: 'Holding Patterns',
+								text : model.tags.joinAcc[i].JoinHolderName,
+								buttons : [{
+									data : model.tags.joinAcc[i].JoinAccId,
+									text : 'Select'
+								}]
+							})
+						}
 						if(model.tags.schemes && model.tags.schemes.length > 0){
 							model.tags.schemeList = []
 							for(let element of model.tags.schemes){
@@ -634,17 +645,6 @@ function showSchemeName(model){
 				}
 				else{
 					model.tags.divOption = 0
-				}
-				model.tags.joinAccList = []
-				for(let i in model.tags.joinAcc){
-					model.tags.joinAccList.push({
-						title: 'Holding Patterns',
-						text : model.tags.joinAcc[i].JoinHolderName,
-						buttons : [{
-							data : model.tags.joinAcc[i].JoinAccId,
-							text : 'Select'
-						}]
-					})
 				}
 				model.stage = 'holding'
 			}
