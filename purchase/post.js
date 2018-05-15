@@ -1105,6 +1105,7 @@ function additional(model){
 			}) 	
 		}
 		return reject(model);
+	});
 	
 }
 
