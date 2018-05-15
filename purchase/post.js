@@ -743,7 +743,7 @@ function holding(model){
 						}
 						model.tags.existingSchemeApiDetails=response.Response[0][0];
 						model.tags.existinguinApiDetails=response.Response[1][0];
-						console.log("checking schemes"+model.tags.existingSchemeApiDetails)
+						console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
 						for (let existingScheme of model.tags.existingSchemeApiDetails){
 							if(existingScheme["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
 								model.tags.tranId=existingScheme["SCHEMECODE"]["Tranid"];
