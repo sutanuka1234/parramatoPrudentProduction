@@ -9,7 +9,7 @@ function main(req, res){
 						            <input type='hidden' value='192.168.0.102' name='IPAddress'>
 						            <input type='hidden' value='`+req.query.session+`' name='SessionId'>
 						            <input type='hidden' value='`+req.query.bankId+`' name='BankId'>
-						            <input type='hidden' value='PURCHASE' name='InvestmentType'>
+						            <input type='hidden' value='`+req.query.type+`' name='InvestmentType'>
 						            <input type='hidden' value='`+req.query.joinAccId+`' name='JoinAccId'>
 						            <input type='hidden' value='`+req.query.schemeCode+`' name='SchemeCode'>
 						            <input type='hidden' value='1' name='IsThirdPartyBankTerms'>

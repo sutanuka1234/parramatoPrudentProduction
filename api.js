@@ -107,11 +107,15 @@ function insertBuyCart(session, joinAccId, schemeCode, amcName, amcId, dividendO
 
 // insertBuyCart('7C772321713D21713D21713D21713D21713D21713D21713D7C77233F6326', '334', '931', 'Franklin Templeton Asset Management (India) Private Limited', '400012', '0', '5000', '0', 'E020391').then(data=>{console.log(data.body)}).catch(err=>console.log(err))
 
-function bankMandate(session, joinAccId, schemeCode, mandateId, amount){
+function bankMandate(session, joinAccId, schemeCode, mandateId, amount, additional){
+
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
 		url 	: url+'MakePaymentUsingMandate?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&MandateID='+mandateId+'&Amount='+amount+'&IsThirdPartyBankTerms=1'
+	}
+	if(additional){
+		obj.url=obj.url+"&InvestmentType=ADDITIONALPURCHASE"
 	}
 	return runRequest(obj)
 }

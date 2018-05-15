@@ -1013,6 +1013,10 @@ function additional(model){
 							model.tags.bankMandateList = []
 							let maxAmountPossible=0;
 							// console.log(JSON.stringify(data.body.Response[1],null,3))
+							let typeInv="PURCHASE"
+							if(model.tags.additional){
+								typeInv="ADDITIONALPURCHASE"
+							}
 							for(let element of data.body.Response[2]){
 								model.tags.bankMandateList.push({
 									title: "Netbanking",
@@ -1020,7 +1024,7 @@ function additional(model){
 									buttons : [{
 										type : 'url',
 										text : 'Pay',
-										data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
+										data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
 									}]
 								})
 							}
@@ -1324,6 +1328,10 @@ function amount(model){
 					model.tags.bankMandateList = []
 					let maxAmountPossible=0;
 					// console.log(JSON.stringify(data.body.Response[1],null,3))
+					let typeInv="PURCHASE"
+					if(model.tags.additional){
+						typeInv="ADDITIONALPURCHASE"
+					}
 					for(let element of data.body.Response[2]){
 						model.tags.bankMandateList.push({
 							title: "Netbanking",
@@ -1331,7 +1339,7 @@ function amount(model){
 							buttons : [{
 								type : 'url',
 								text : 'Pay',
-								data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
+								data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
 							}]
 						})
 					}
@@ -1413,7 +1421,7 @@ function bankMandate(model){
 			}
 			else{
 				model.tags.bankMandate = model.data
-				api.bankMandate(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.bankMandate, model.tags.amount)
+				api.bankMandate(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.bankMandate, model.tags.amount,model.tags.additional)
 				.then((data)=>{
 					// console.log(data.body)
 					try{
