@@ -571,19 +571,6 @@ function investmentType(model){
 	});
 }
 
-function sipDay(model){
-	return new Promise(function(resolve, reject){
-		return resolve(model)
-	});
-}
-
-
-
-function installments(model){
-	return new Promise(function(resolve, reject){
-		return resolve(model)
-	});
-}
 
 
 function askSchemeName(model){
@@ -719,6 +706,16 @@ function showSchemeName(model){
 		return resolve(model)
 	})
 }
+
+function sipDay(model){
+	return new Promise(function(resolve, reject){
+		return resolve(model)
+	});
+}
+
+
+
+
 
 function divOps(model){
 	return new Promise(function(resolve, reject){
@@ -1371,7 +1368,7 @@ function amount(model){
 				}
 			}
 		}
-		
+
 		if(!model.tags.existingEuinApiDetails){
 			model.tags.existingEuinApiDetails={}
 		}
