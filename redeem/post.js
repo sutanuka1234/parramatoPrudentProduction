@@ -14,15 +14,7 @@ let obj = {
 	panMobile : panMobile,
 	mobile	: mobile,
 	pan		: pan,
-	otp		: otp,
-	askSchemeName : askSchemeName,
-	showSchemeName : showSchemeName,
-	divOps 	: divOps,
-	amount 	: amount,
-	holding : holding,
-	additional : additional,
-	folio 	: folio,
-	bankMandate : bankMandate
+	otp		: otp
 }
 
 

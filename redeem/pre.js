@@ -13,15 +13,7 @@ let StringMask = require('string-mask')
 
 let obj = {
 	panMobile : panMobile,
-	otp 	: otp,
-	askSchemeName : askSchemeName,
-	showSchemeName : showSchemeName,
-	divOps 	: divOps,
-	amount 	: amount,
-	holding : holding,
-	folio 	: folio,
-	bankMandate : bankMandate,
-	summary : summary
+	otp 	: otp
 }
 
 let regexPan   	= /[a-z]{3}p[a-z]\d{4}[a-z]/;
