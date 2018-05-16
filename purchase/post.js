@@ -448,6 +448,21 @@ function otp(model){
 		model = extractOTP(model);
 		model = extractDivOption(model);
 		model = extractSchemeName(model);
+		if(model.tags.schemes && model.tags.schemes.length > 0&&!model.tags.schemeList){
+			model.tags.schemeList = []
+			for(let element of model.tags.schemes){
+				model.tags.schemeList.push({
+					title 	: 'Schemes',
+					text 	: element.target,
+					buttons : [
+						{
+							text : 'Select',
+							data : element.target
+						}
+					]
+				})
+			}
+		}
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
 			api.resendOtp(model.tags.session)
 			.then((response)=>{
@@ -516,21 +531,6 @@ function otp(model){
 									text : 'Select'
 								}]
 							})
-						}
-						if(model.tags.schemes && model.tags.schemes.length > 0){
-							model.tags.schemeList = []
-							for(let element of model.tags.schemes){
-								model.tags.schemeList.push({
-									title 	: 'Schemes',
-									text 	: element.target,
-									buttons : [
-										{
-											text : 'Select',
-											data : element.target
-										}
-									]
-								})
-							}
 						}
 						delete model.stage
 						return resolve(model)
