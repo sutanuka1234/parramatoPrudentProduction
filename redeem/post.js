@@ -14,7 +14,10 @@ let obj = {
 	panMobile : panMobile,
 	mobile	: mobile,
 	pan		: pan,
-	otp		: otp
+	otp		: otp,
+	holding : holding,
+	folio 	: folio,
+	amount 	:amount
 }
 
 
@@ -545,6 +548,97 @@ function otp(model){
 }
 
 //============================================================
+
+
+function holding(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.joinAccId.includes(model.data)){
+			for (let element of model.tags.joinAcc){
+				// console.log(element.JoinAccId+"::"+model.data)
+				if(element.JoinAccId==model.data){
+					sendExternalMessage(model,"Going ahead with "+element.JoinHolderName)
+					break;
+				}
+			}
+			model.tags.joinAccId = model.data
+			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+			.then(response=>{
+				// console.log(response.body)
+				try{
+					response = JSON.parse(response.body)
+				}
+				catch(e){// console.log(e);
+					return reject(model);
+				}
+				let arr = []
+				for(let i in response.Response){
+					arr.push(response.Response[i].FolioNo.toLowerCase())
+				}
+				// if(model.tags.folio && arr.includes(model.tags.folio)){
+				// 	model.stage="amount";
+				// }
+				if(response.Response.length > 0){
+					model.tags.folioList = []
+					for(let i in response.Response){
+						model.tags.folioList.push({
+							data : response.Response[i].FolioNo,
+							text : response.Response[i].FolioNo
+						})
+					}
+					delete model.stage
+				}
+				else{
+					model.tags.folioNo = response.Response[0].FolioNo
+					delete model.stage
+				}
+				return resolve(model)
+			})
+			.catch(e=>{
+				// console.log(e)
+				return reject(model)
+			}) 	
+				
+		}
+		else{
+			return reject(model)
+		}
+	})
+}
+
+function folio(model){
+	return new Promise(function(resolve, reject){
+		let arr = []
+		for(let i in model.tags.folioList){
+			arr.push(model.tags.folioList[i].data)
+		}
+		model.tags.amcName = data[model.tags.scheme].amcName
+		if(arr.includes(model.data)){
+			sendExternalMessage(model,"Going ahead with "+model.data)
+			model.tags.folio = model.data
+			delete model.stage
+			return resolve(model)
+		}
+		else{
+			return reject(model)
+		}
+	})
+}
+
+function amount(model){
+	return new Promise(function(resolve, reject){
+		model=dataClean(model)
+		model=extractAmount(model)
+		
+		if(model.tags.amount){
+			delete model.stage
+			return resolve(model)
+		}
+		else{
+			return reject(model)
+		}	
+	})
+}
+
 
 function sendExternalMessage(model,text){
 	let reply={

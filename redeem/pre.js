@@ -13,7 +13,9 @@ let StringMask = require('string-mask')
 
 let obj = {
 	panMobile : panMobile,
-	otp 	: otp
+	otp 	: otp,
+	holding : holding,
+	folio 	: folio
 }
 
 let regexPan   	= /[a-z]{3}p[a-z]\d{4}[a-z]/;
@@ -139,6 +141,50 @@ function otp(model){
 			}
 		}
 		return resolve(model)
+	})
+}
+
+function holding(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.joinAccList){
+			model.reply={
+				type:"generic",
+	            text:" Please select your holding pattern",
+	            next:{
+	                "data": model.tags.joinAccList
+	            }
+			}
+		}
+		resolve(model)
+	})
+}
+
+function folio(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.folioList){
+			model.reply={
+				type:"quickReply",
+	            text:"Let us know the folio you wish to invest in.",
+	            next:{
+	                "data": model.tags.folioList
+	            }
+			}
+		}
+		else if(model.tags.folioNo){
+			model.reply={
+				type:"quickReply",
+	            text:"Proceed with folio number?",
+	            next:{
+	                "data": [
+	                	{
+	                		data : model.tags.folioNo,
+	                		text : model.tags.folioNo
+	                	}
+	                ]
+	            }
+			}	
+		}
+		resolve(model)	
 	})
 }
 
