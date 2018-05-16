@@ -448,7 +448,7 @@ function otp(model){
 		model = extractOTP(model);
 		model = extractDivOption(model);
 		model = extractSchemeName(model);
-		if(model.tags.schemes && model.tags.schemes.length > 0&&!model.tags.schemeList){
+		if(model.tags.schemes && model.tags.schemes.length > 0){
 			model.tags.schemeList = []
 			for(let element of model.tags.schemes){
 				model.tags.schemeList.push({
