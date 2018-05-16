@@ -113,12 +113,12 @@ function getMandate(session,joinAccId){
 	return runRequest(obj)
 }
 
-function insertBuyCartSip(session, joinAccId, schemeCode, amcName, amcId, dividendOption, amount, folioNo, euin, day,installments, dividendOptionChar,refNo){
+function insertBuyCartSip(session, joinAccId, schemeCode, amcName, amcId, dividendOption, amount, folioNo, euin, day,installments, refNo){
 	
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
-		url 	: url+'InsertSIPBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+amcName+'&AMCId='+amcId+'&DivOpt='+dividendOption+'&Amount='+amount+'&FolioNo='+folioNo+'&EUIN='+euin+'&IsAgreeTerms=1&IsEKYCTermCondition=1&DividentOption='+dividendOptionChar+'&SIPDay='+day+'&NoofInstallment='+installments+'&ReferenceNO='+refNo
+		url 	: url+'InsertSIPBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+amcName+'&AMCId='+amcId+'&DivOpt='+dividendOption+'&Amount='+amount+'&FolioNo='+folioNo+'&EUIN='+euin+'&IsAgreeTerms=1&IsEKYCTermCondition=1&SIPDay='+day+'&NoofInstallment='+installments+'&ReferenceNO='+refNo
 	}
 	return runRequest(obj)
 }
