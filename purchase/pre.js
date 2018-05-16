@@ -90,7 +90,9 @@ function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model.tags.amount = undefined
 		model.tags.joinAccId = undefined
+		model.tags.divOption = undefined
 		model.tags.otp=undefined
+		model.tags.schemeApiDetails=undefined
 		model.tags.resend=undefined
 		model.tags.tranId=undefined
 		model=dataClean(model)
