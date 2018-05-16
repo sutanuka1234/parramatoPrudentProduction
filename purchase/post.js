@@ -1208,6 +1208,7 @@ function folio(model){
 					if(schemeVal["FolioNo"]==model.tags.folio){
 						model.tags.tranId=schemeVal["Tranid"]
 						model.tags.schemeApiDetails=schemeVal;
+						model.tags.euinApiDetails=model.tags.existingEuinApiDetails
 						break;
 					}
 				}
@@ -1231,7 +1232,7 @@ function folio(model){
 				if(!model.tags.existingEuinApiDetails){
 					model.tags.existingEuinApiDetails={}
 				}
-				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
+				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
 				.then((data)=>{
 					console.log(data.body)
 					try{
@@ -1344,9 +1345,21 @@ function amount(model){
 				model.tags.amount=undefined;
 			}
 		}
+
 		let schemeCode=data[model.tags.scheme].schemeCode
+		if(model.tags.additional&&model.tags.existingSchemeDetailsSet.length>1){
+			for(let schemeVal of model.tags.existingSchemeDetailsSet){
+				if(schemeVal["FolioNo"]==model.tags.folio){
+					model.tags.tranId=schemeVal["Tranid"]
+					model.tags.schemeApiDetails=schemeVal;
+					model.tags.euinApiDetails=model.tags.existingEuinApiDetails
+					break;
+				}
+			}
+		}
+
 		if(model.tags.amount){
-			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
+			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
 			.then((data)=>{
 				try{
 					data.body = JSON.parse(data.body)
