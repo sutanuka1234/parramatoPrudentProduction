@@ -127,7 +127,7 @@ function confirmSip(session,tranId){
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
-		url 	: url+'ConfirmSIPTransaction?IPAddress=192.168.0.102&SessionId='+session+'&TranReferenceID='+tranId;
+		url 	: url+'ConfirmSIPTransaction?IPAddress=192.168.0.102&SessionId='+session+'&TranReferenceID='+tranId
 	}
 	return runRequest(obj)
 }
