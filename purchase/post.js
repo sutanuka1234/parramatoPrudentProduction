@@ -1183,6 +1183,7 @@ function folio(model){
 				for(let schemeVal of model.tags.existingSchemeDetailsSet){
 					if(schemeVal["FolioNo"]==model.tags.folio){
 						model.tags.tranId=schemeVal["Tranid"]
+						model.tags.schemeApiDetails=schemeVal;
 						break;
 					}
 				}
