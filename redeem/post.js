@@ -76,7 +76,7 @@ function main(req, res){
 		// console.log(req.params.stage)
 		obj[req.params.stage](req.body)
 		.then((data)=>{
-			// console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
+			console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
 			console.log(JSON.stringify(data.tags,null,3))
 			res.send(data)
 		})
