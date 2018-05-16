@@ -1128,35 +1128,59 @@ function additional(model){
 		}
 		else if(model.data.toLowerCase().includes("no")){
 			model.tags.additional=false;
-			api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-			.then(response=>{
+			api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
+			.then((response)=>{
+				// console.log(response.body)
 				try{
 					response = JSON.parse(response.body)
 				}
 				catch(e){
-					console.log(e)
-					return reject(model);
+					return reject(model)
+					// console.log(e)
 				}
-				console.log(JSON.stringify(response,null,3));
-				if(response.Response.length > 0){
-					model.tags.folioList = []
-					for(let i in response.Response){
-						model.tags.folioList.push({
-							data : response.Response[i].FolioNo,
-							text : response.Response[i].FolioNo
-						})
-					}
+
+
+				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
+					model.tags.schemeApiDetails=response.Response[0][0];
+					model.tags.euinApiDetails=response.Response[0][1];
+					api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+					.then(response=>{
+						try{
+							response = JSON.parse(response.body)
+						}
+						catch(e){
+							console.log(e)
+							return reject(model);
+						}
+						console.log(JSON.stringify(response,null,3));
+						if(response.Response.length > 0){
+							model.tags.folioList = []
+							for(let i in response.Response){
+								model.tags.folioList.push({
+									data : response.Response[i].FolioNo,
+									text : response.Response[i].FolioNo
+								})
+							}
+						}
+						else{
+							model.tags.folioNo = response.Response[0].FolioNo
+						}
+						model.stage = 'folio'
+						return resolve(model)
+					})
+					.catch(e=>{
+						console.log(e)
+						return reject(model)
+					}) 	
 				}
 				else{
-					model.tags.folioNo = response.Response[0].FolioNo
+					return reject(model);
 				}
-				model.stage = 'folio'
-				return resolve(model)
 			})
 			.catch(e=>{
-				console.log(e)
-				return reject(model)
-			}) 	
+				console.log(e);
+				return reject(model);
+			})
 		}
 		else{
 			return reject(model);
