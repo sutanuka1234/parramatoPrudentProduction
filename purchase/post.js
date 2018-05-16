@@ -91,6 +91,8 @@ function main(req, res){
 		})
 }
 
+//============================================================
+
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model);
@@ -311,6 +313,7 @@ function panMobile(model){
 		}
 	})
 }
+
 function mobile(model){
 	return new Promise(function(resolve, reject){
 		    model=dataClean(model);
@@ -528,11 +531,8 @@ function otp(model){
 									]
 								})
 							}
-							model.stage = 'showSchemeName'
 						}
-						else{
-							delete model.stage
-						}
+						delete model.stage
 						return resolve(model)
 					}
 				}
@@ -551,6 +551,35 @@ function otp(model){
 		}
 	})
 }
+
+//============================================================
+
+function investmentType(model){
+	return new Promise(function(resolve, reject){
+		// if(model.tags.schemes && model.tags.schemes.length > 0){
+		// 	model.stage = 'showSchemeName'
+		// }
+		// else{
+		// 	delete model.stage
+		// }
+		return resolve(model)
+	});
+}
+
+function sipDay(model){
+	return new Promise(function(resolve, reject){
+		return resolve(model)
+	});
+}
+
+
+
+function installments(model){
+	return new Promise(function(resolve, reject){
+		return resolve(model)
+	});
+}
+
 
 function askSchemeName(model){
 	return new Promise(function(resolve, reject){
@@ -720,6 +749,8 @@ function divOps(model){
 		}
 	})
 }
+
+//============================================================
 
 function holding(model){
 	return new Promise(function(resolve, reject){
@@ -1125,8 +1156,7 @@ function additional(model){
 		else{
 			return reject(model);
 		}
-	});
-	
+	});	
 }
 
 function folio(model){
@@ -1264,6 +1294,8 @@ function folio(model){
 		}
 	})
 }
+
+//============================================================
 
 function amount(model){
 	return new Promise(function(resolve, reject){
@@ -1465,7 +1497,7 @@ function bankMandate(model){
 	})
 }
 
-
+//============================================================
 
 function sendExternalMessage(model,text){
 	let reply={
@@ -1494,8 +1526,7 @@ function extractDivOption(model){
 		model.tags.divOption = model.data.match(divOption)[0]
 		model.data = model.data.replace(model.tags.divOption, '')
 	}
-	return model;
-			
+	return model;			
 }
 
 function extractFolio(model){
@@ -1506,6 +1537,7 @@ function extractFolio(model){
 	}
 	return model;
 }
+
 function extractAmount(model){
 	if(model.data.includes(',')){
 		while(model.data.includes(','))

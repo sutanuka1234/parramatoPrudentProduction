@@ -64,27 +64,76 @@ function getExistingSchemes(session, joinAccId){
 // 	console.log(response)
 // })
 
-function getScheme(session, joinAccId, fundsType, amcId, schemeOption, subNature){
-	var obj = {
-		method 	: 'POST',
-		headers : headers,
-		url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=Purchase&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature
+function getScheme(session, joinAccId, fundsType, amcId, schemeOption, subNature,investmentType){
+	if(investmentType){
+		var obj = {
+			method 	: 'POST',
+			headers : headers,
+			url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=SIP&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature
+		}
+	}
+	else{
+		var obj = {
+			method 	: 'POST',
+			headers : headers,
+			url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=Purchase&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature
+		}
 	}
 	return runRequest(obj)
 }
 
 // getScheme('7C772321713D21713D21713D21713D21713D21713D21713D5E6D3A7C7723', '334', '1', '400040', '1', '5').then(data=>{console.log(data.body)}).catch(err=>console.log(err))
 
-function getFolio(session, joinAccId, schemeCode, amcId){
-	var obj = {
-		method 	: 'POST',
-		headers : headers,
-		url 	: url+'GetFolioNo?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId
+function getFolio(session, joinAccId, schemeCode, amcId,investmentType){
+	if(investmentType){
+		var obj = {
+			method 	: 'POST',
+			headers : headers,
+			url 	: url+'GetFolioNo?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId+'&InvestmentType=SIP'
+		}
+	}
+	else{
+		var obj = {
+			method 	: 'POST',
+			headers : headers,
+			url 	: url+'GetFolioNo?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId
+		}
 	}
 	return runRequest(obj)
 }
 
 // getFolio('7C772321713D21713D21713D21713D21713D21713D21713D7C772321713D', '334', '8408', '400040').then(data=>{console.log(data)}).catch(err=>console.log(err))
+
+function getMandate(session,joinAccId){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'GETMANDATE?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId
+	}
+	return runRequest(obj)
+}
+
+function insertBuyCartSip(session, joinAccId, schemeCode, amcName, amcId, dividendOption, amount, folioNo, euin, day,installments, dividendOptionChar,refNo){
+	
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'InsertSIPBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+amcName+'&AMCId='+amcId+'&DivOpt='+dividendOption+'&Amount='+amount+'&FolioNo='+folioNo+'&EUIN='+euin+'&IsAgreeTerms=1&IsEKYCTermCondition=1&DividentOption='+dividendOptionChar+'&SIPDay='+day+'&NoofInstallment='+installments+'&ReferenceNO='+refNo;
+	}
+	return runRequest(obj)
+}
+
+function confirmSip(session,tranId){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'ConfirmSIPTransaction?IPAddress=192.168.0.102&SessionId='+session+'&TranReferenceID='+tranId;
+	}
+	return runRequest(obj)
+}
+
+
+
 
 function insertBuyCart(session, joinAccId, schemeCode, amcName, amcId, dividendOption, amount, folioNo, euin, additional,tranId){
 	if(additional){
@@ -155,6 +204,9 @@ module.exports = {
 	getScheme 	: getScheme,
 	getFolio 	: getFolio,
 	insertBuyCart : insertBuyCart,
+	insertBuyCartSip:insertBuyCartSip,
+	confirmSip:confirmSip,
+	getMandate : getMandate,
 	bankMandate : bankMandate,
 	getExistingSchemes:getExistingSchemes
 }
