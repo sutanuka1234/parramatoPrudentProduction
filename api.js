@@ -69,7 +69,7 @@ function getScheme(session, joinAccId, fundsType, amcId, schemeOption, subNature
 		var obj = {
 			method 	: 'POST',
 			headers : headers,
-			url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=SIP&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature
+			url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=SIP&SIPType=N&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature
 		}
 	}
 	else{
