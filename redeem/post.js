@@ -616,8 +616,91 @@ function folio(model){
 		if(arr.includes(model.data)){
 			sendExternalMessage(model,"Going ahead with "+model.data)
 			model.tags.folio = model.data
-			delete model.stage
-			return resolve(model)
+			api.getRedemptionSchemes(model.tags.session, model.tags.joinAccId)
+			.then((data)=>{
+				let response;
+					try{
+						response = JSON.parse(data.body)
+					}
+					catch(e){
+						console.log(e);
+						     let reply={
+				                text    : "API Not Responding Properly",
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+				                return reject(model);
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
+					}
+					if(response.Response[0].result=="FAIL"){
+						let reply={
+			                text    : response.Response[0]['reject_reason'],
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+							return reject(model)//wrongResolve
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+					}
+					if(response.Response&&response.Response.length>0){
+						response.Response.forEach(function(element,index){
+							if(model.tags.folio==element["FOLIONO"]&&index<10){
+								model.tags.redeemSchemeList.push({
+									title 	: element["SCHEMECODE"],
+									text 	: "Investment of Rs. "+element["AMOUNT"]+". Can redeem Rs. "+element["MinRedemptionAmount"],
+									buttons : [
+										{
+											text : 'Select',
+											data : element["SCHEMECODE"]
+										}
+									]
+								})
+							}
+						})
+						delete model.stage
+						return resolve(model)
+					}
+					else{
+						return reject(model);
+					}
+	// 			{
+ // "Response": [
+ // {
+ // "FOLIONO": "3**********6",
+ // "ClientName": "D********** G********** P**********",
+ // "SCHEMENAME": "D********** B********** L**********",
+ // "SCHEMECODE": 7****,
+ // "TEXT": "D********** B********** L********** F**********",
+ // "AMOUNT": 2**.8*,
+ // "UNIT": 1*.1**,
+ // "DivOpt": *,
+ // "MinRedemptionAmount": 5**,
+ // "RedemptionMultipleAmount": 1**,
+ // "MinRedemptionUnits": *,
+ // "RedemptionMultiplesUnits": *,
+ // "AvailableAmt": 2**.8*,
+ // "AvailableUnits": 1*.1**,
+ // "InccurExitLoad": f****,
+ // "RedeemAmount": *
+ // }
+ // ]
+			})
+			.catch(e=>{
+				return reject(model);
+			});
 		}
 		else{
 			return reject(model)

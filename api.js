@@ -182,6 +182,38 @@ function bankMandate(session, joinAccId, schemeCode, mandateId, amount, addition
 // https://www.prudentcorporate.com/cbapi/MakePayment?IPAddress=192.168.0.102&SessionId=&JoinAccId=334&SchemeCode=1131&BankId=316&InvestmentType=PURCHASE&IsThirdPartyBankTerms=1
 // bankMandate('7C772321713D21713D21713D21713D21713D21713D21713D3F63263F6326', '334', '8408', '73-NFB0000073-100000', '10000').then(data=>{console.log(data.body)}).catch(e=>{console.log(e)})
 
+
+
+function getRedemptionSchemes(session, joinAccId){
+
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'GetRedemptionScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId
+	}
+	return runRequest(obj)
+}
+
+function insertBuyCartRedeem(session, joinAccId, schemeCode, amcName, dividendOption, amount, folioNo){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'InsertRedemptionBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+amcName+'&DivOpt='+dividendOption+'&Amount='+amount+'&FolioNo='+folioNo+'&RedemptionType=R'
+	}
+	return runRequest(obj)
+}
+
+
+function confirmRedemption(session,tranId){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'ConfirmRedemptionTransaction?IPAddress=192.168.0.102&SessionId='+session+'&TranReferenceID='+tranId
+	}
+	return runRequest(obj)
+}
+
+
 function runRequest(obj){
 	return new Promise(function(resolve, reject){
 		console.log("reqested")
@@ -208,5 +240,9 @@ module.exports = {
 	confirmSip:confirmSip,
 	getMandate : getMandate,
 	bankMandate : bankMandate,
-	getExistingSchemes:getExistingSchemes
+	getExistingSchemes:getExistingSchemes,
+	getRedemptionSchemes:getRedemptionSchemes,
+	insertBuyCartRedeem:insertBuyCartRedeem,
+	confirmRedemption:confirmRedemption
 }
+

@@ -190,11 +190,13 @@ function folio(model){
 
 function scheme(model){
 	return new Promise(function(resolve, reject){
-			model.reply={
-				type:"text",
-	            text:"Scheme details"s
+			model.reply = {
+				type:"generic",
+	            text:"Choose among the closest schemes, or type if you wish to invest in a different scheme.",
+	            next:{ 
+	            	data : model.tags.redeemSchemeList
+	            }
 			}
-			return resolve(model)
 	})
 }
 function summary(model){
