@@ -1628,10 +1628,21 @@ function amount(model){
 
 function sipDay(model){
 	return new Promise(function(resolve, reject){
-		console.log("SIP:::::::::::::::::::::::::::::::::::::::")
-		console.log(JSON.stringify(model.tags.schemeApiDetails,null,3))
-		console.log("SIP:::::::::::::::::::::::::::::::::::::::")
-		return reject(model);
+		console.log("SIP:::::::::::::::::::::::::::::::::::::::"+model.tags.schemeApiDetails["SIPDays"]);
+		let text=matchAll(model.data, /(\d+)/gi).toArray();
+		if(text&&text.length>0){
+			text=parseInt(text[0]);
+			if(model.tags.schemeApiDetails["SIPDays"]==="ALL"&&text<=28){
+				model.tags.sipDay=text.toString();
+				return resolve(model);
+			}
+			else{
+				return reject(model);
+			}
+		}
+		else{
+			return reject(model);
+		}
 	});
 }
 
