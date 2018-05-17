@@ -782,6 +782,8 @@ function holding(model){
 				}
 			}
 			model.tags.joinAccId = model.data
+			console.log("INVESTMENT TYPE::::::::::")
+			console.log(model.tags.investmentType)
 			if(model.tags.investmentType=="sip"){
 				api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,true)
 				.then((response)=>{
