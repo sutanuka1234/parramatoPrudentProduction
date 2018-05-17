@@ -1656,7 +1656,7 @@ function sipDay(model){
 			                return reject(model)
 			            })
 					}
-
+					console.log(data.body.Response)
 					if(data.body.Response[0].result=="FAIL"){
 						let reply={
 			                text    : data.body.Response[0]['reject_reason'].trim(),
