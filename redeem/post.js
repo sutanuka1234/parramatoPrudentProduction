@@ -618,10 +618,10 @@ function folio(model){
 			model.tags.folio = model.data
 			api.getRedemptionSchemes(model.tags.session, model.tags.joinAccId)
 			.then((data)=>{
-				console.log(data)
 				let response;
 					try{
 						response = JSON.parse(data.body)
+						console.log(JSON.stringify(response,null,3))
 					}
 					catch(e){
 						console.log(e);
@@ -640,6 +640,7 @@ function folio(model){
 				                return reject(model)
 				            })
 					}
+
 					if(response.Response[0].result=="FAIL"){
 						let reply={
 			                text    : response.Response[0]['reject_reason'],
