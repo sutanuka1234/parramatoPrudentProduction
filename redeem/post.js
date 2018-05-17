@@ -618,6 +618,7 @@ function folio(model){
 			model.tags.folio = model.data
 			api.getRedemptionSchemes(model.tags.session, model.tags.joinAccId)
 			.then((data)=>{
+				console.log(data)
 				let response;
 					try{
 						response = JSON.parse(data.body)
