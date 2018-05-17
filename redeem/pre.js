@@ -203,7 +203,7 @@ function summary(model){
 	return new Promise(function(resolve, reject){
 			model.reply={
 				type:"text",
-	            text:"Thanks"s
+	            text:"Thanks"
 			}
 			return resolve(model)
 	})
