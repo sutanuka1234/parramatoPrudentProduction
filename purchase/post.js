@@ -1656,7 +1656,6 @@ function sipDay(model){
 			                return reject(model)
 			            })
 					}
-					console.log(data.body.Response)
 					if(data.body.Response[0].result=="FAIL"){
 						let reply={
 			                text    : data.body.Response[0]['reject_reason'].trim(),
@@ -1763,9 +1762,98 @@ function bankMandate(model){
 				if(model.tags.investmentType==="sip"){
 						api.insertBuyCartSip(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.sipDay,model.tags.sipInstallments,model.tags.bankMandate)
 						.then((data)=>{
-							console.log(data)
-							model.stage='bankMandate'
-							return resolve(model)
+							try{
+								data.body = JSON.parse(data.body)
+							}
+							catch(e){	
+								console.log(e);
+								let reply={
+					                text    : "API Not Responding Properly",
+					                type    : "text",
+					                sender  : model.sender,
+					                language: "en"
+					            }
+								external(reply)
+								.then((data)=>{
+					                return reject(model);
+					            })
+					            .catch((e)=>{
+					                console.log(e);
+					                return reject(model)
+					            })
+							}
+							if(data.body.Response[0].result=="FAIL"){
+								let reply={
+					                text    : data.body.Response[0]['reject_reason'].trim(),
+					                type    : "text",
+					                sender  : model.sender,
+					                language: "en"
+					            }
+								external(reply)
+								.then((data)=>{
+					                return reject(model);
+					            })
+					            .catch((e)=>{
+					                console.log(e);
+					                return reject(model)
+					            })
+							}
+							else{
+
+								model.tags.sipRefId=data.body.Response[0]["TranReferenceID"];
+								model.tags.transactionRefId=data.body.Response[0]["TranReferenceID"];
+								api.confirmSip(model.tags.session,model.tags.sipRefId)
+								.then((data)=>{
+									try{
+										data.body = JSON.parse(data.body)
+									}
+									catch(e){	
+										console.log(e);
+										let reply={
+							                text    : "API Not Responding Properly",
+							                type    : "text",
+							                sender  : model.sender,
+							                language: "en"
+							            }
+										external(reply)
+										.then((data)=>{
+							                return reject(model);
+							            })
+							            .catch((e)=>{
+							                console.log(e);
+							                return reject(model)
+							            })
+									}
+									if(data.body.Response[0].result=="FAIL"){
+										let reply={
+							                text    : data.body.Response[0]['reject_reason'].trim(),
+							                type    : "text",
+							                sender  : model.sender,
+							                language: "en"
+							            }
+										external(reply)
+										.then((data)=>{
+							                return reject(model);
+							            })
+							            .catch((e)=>{
+							                console.log(e);
+							                return reject(model)
+							            })
+									}
+									else{
+										model.tags.status="Successful"
+										delete model.stage
+										return resolve(model)
+
+									}
+
+								})
+								.catch(e=>{
+					                console.log(e);
+					                return reject(model)
+								})
+							}
+
 						})
 						.catch(e=>{
 							console.log(e)
@@ -1801,6 +1889,8 @@ function bankMandate(model){
 						}
 						else if(data.body){
 							model.tags.paymentSummary = data.body.Response[0]
+							model.tags.transactionRefId=model.tags.paymentSummary.ReferenceID
+							model.tags.status=model.tags.paymentSummary.STATUS
 							delete model.stage
 							return resolve(model)
 						}

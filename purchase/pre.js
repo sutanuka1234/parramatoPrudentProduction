@@ -304,7 +304,7 @@ function summary(model){
 		if(model.tags.paymentSummary){
 			model.reply={
 				type : 'text',
-				text : 'We have gone ahead with '+model.tags.paymentSummary.SchemeName+' with Folio '+model.tags.paymentSummary.FolioNo+' investing Rs '+model.tags.paymentSummary.Amount+' from '+model.tags.paymentSummary.BankName+'. Reference ID would be '+model.tags.paymentSummary.ReferenceID+'. Status of transaction is '+model.tags.paymentSummary.STATUS+'.'
+				text : 'We have gone ahead with '+model.tags.paymentSummary.SchemeName+' with Folio '+model.tags.folio+' investing Rs '+model.tags.amount+'. Reference ID would be '+model.tags.transactionRefId+'. Status of transaction is '+model.tags.status+'.'
 			}
 		}
 		model.tags.amount = undefined
