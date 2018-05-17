@@ -1675,23 +1675,23 @@ function sipDay(model){
 			                return reject(model)
 			            })
 					}
-					else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
+					else if(data.body.Response&&data.body.Response.length>0){
 						model.tags.bankMandateList = []
 						let maxAmountPossible=0;
 						// console.log(JSON.stringify(data.body.Response[1],null,3))
 						let typeInv="SIP"
-						for(let element of data.body.Response[2]){
-							model.tags.bankMandateList.push({
-								title: "Netbanking",
-								text : element.BankName,
-								buttons : [{
-									type : 'url',
-									text : 'Pay',
-									data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
-								}]
-							})
-						}
-						for(let element of data.body.Response[1]){
+						// for(let element of data.body.Response[2]){
+						// 	model.tags.bankMandateList.push({
+						// 		title: "Netbanking",
+						// 		text : element.BankName,
+						// 		buttons : [{
+						// 			type : 'url',
+						// 			text : 'Pay',
+						// 			data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
+						// 		}]
+						// 	})
+						// }
+						for(let element of data.body.Response){
 							try{
 									if(element.DailyLimit){
 										if(maxAmountPossible<element.DailyLimit){
