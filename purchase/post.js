@@ -560,7 +560,7 @@ function otp(model){
 function investmentType(model){
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes("lumpsum")||model.data.toLowerCase().includes("one time")){
-			model.investmentType="lumpsum"
+			model.tags.investmentType="lumpsum"
 			if(model.tags.schemes && model.tags.schemes.length > 0){
 				model.stage = 'showSchemeName'
 				return resolve(model)
@@ -571,7 +571,7 @@ function investmentType(model){
 			}
 		}
 		else if(model.data.toLowerCase().includes("sip")||model.data.toLowerCase().includes("systematic")){
-			model.investmentType="sip"
+			model.tags.investmentType="sip"
 			if(model.tags.schemes && model.tags.schemes.length > 0){
 				model.stage = 'showSchemeName'
 				return resolve(model)
