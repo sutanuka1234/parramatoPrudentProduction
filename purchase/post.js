@@ -781,191 +781,63 @@ function holding(model){
 				}
 			}
 			model.tags.joinAccId = model.data
-			
-			api.getExistingSchemes(model.tags.session, model.tags.joinAccId)
-			.then((response)=>{
-				try{
-					response = JSON.parse(response.body)
-				}
-				catch(e){
-					return reject(model)
-					console.log(e);
-				}
-				model.tags.existingSchemeApiDetails=response.Response[0];
-				model.tags.existingEuinApiDetails=response.Response[1][0];
-				model.tags.existingSchemeDetailsSet=[]
-				console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
-				for (let existingScheme of model.tags.existingSchemeApiDetails){
-					if(existingScheme["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
-						model.tags.existingSchemeDetailsSet.push(existingScheme)
+			if(model.tags.investmentType=="sip"){
+				api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,true)
+				.then((response)=>{
+					console.log(response.body)
+					try{
+						response = JSON.parse(response.body)
 					}
-				}
-				model.tags.additionalPossible=false;
-				if(model.tags.existingSchemeDetailsSet.length===1){
-					model.tags.tranId=model.tags.existingSchemeDetailsSet[0]["Tranid"]
-					model.tags.folio=model.tags.existingSchemeDetailsSet[0]["FolioNo"]
-					model.tags.schemeApiDetails=model.tags.existingSchemeDetailsSet[0]
-					api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-					.then(response=>{
-						console.log(response.body)
-						try{
-							response = JSON.parse(response.body)
-						}
-						catch(e){console.log(e);
-							return reject(model);
-						}
-						let arr = []
-						for(let i in response.Response){
-							arr.push(response.Response[i].FolioNo.toLowerCase())
-						}
-						// if(model.tags.folio && arr.includes(model.tags.folio)){
-						// 	model.stage="amount";
-						// }
-						if(response.Response.length > 0){
-							model.tags.folioList = []
-							for(let i in response.Response){
-								model.tags.folioList.push({
-									data : response.Response[i].FolioNo,
-									text : response.Response[i].FolioNo
-								})
-							}
-							delete model.stage
-						}
-						else{
-							model.tags.folioNo = response.Response[0].FolioNo
-							delete model.stage
-						}
-						return resolve(model)
-					})
-					.catch(e=>{
-						console.log(e)
+					catch(e){
 						return reject(model)
-					}) 	
-				}
-				else if(model.tags.existingSchemeDetailsSet.length>1){
-					console.log(">1:::")
-					model.tags.additionalPossible=true;
-					model.tags.existingFolioList = []
-					for(let i in model.tags.existingSchemeDetailsSet){
-						model.tags.existingFolioList.push({
-							data : model.tags.existingSchemeDetailsSet[i].FolioNo,
-							text : model.tags.existingSchemeDetailsSet[i].FolioNo
+						console.log(e)
+					}
+
+
+					if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
+						model.tags.schemeApiDetails=response.Response[0][0];
+						model.tags.euinApiDetails=response.Response[0][1];
+			            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
+			            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
+			            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
+						api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,true)
+						.then(response=>{
+							console.log(response.body)
+							try{
+								response = JSON.parse(response.body)
+							}
+							catch(e){console.log(e);
+								return reject(model);
+							}
+							let arr = []
+							for(let i in response.Response){
+								arr.push(response.Response[i].FolioNo.toLowerCase())
+							}
+							// if(model.tags.folio && arr.includes(model.tags.folio)){
+							// 	model.stage="amount";
+							// }
+							if(response.Response.length > 0){
+								model.tags.folioList = []
+								for(let i in response.Response){
+									model.tags.folioList.push({
+										data : response.Response[i].FolioNo,
+										text : response.Response[i].FolioNo
+									})
+								}
+								model.stage="folio"
+							}
+							else{
+								model.tags.folioNo = response.Response[0].FolioNo
+								model.stage="folio"
+							}
+							return resolve(model)
+						})
+						.catch(e=>{
+							console.log(e)
+							return reject(model)
 						})
 					}
-					api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-					.then(response=>{
-						console.log(response.body)
-						try{
-							response = JSON.parse(response.body)
-						}
-						catch(e){console.log(e);
-							return reject(model);
-						}
-						let arr = []
-						for(let i in response.Response){
-							arr.push(response.Response[i].FolioNo.toLowerCase())
-						}
-						// if(model.tags.folio && arr.includes(model.tags.folio)){
-						// 	model.stage="amount";
-						// }
-						if(response.Response.length > 0){
-							model.tags.folioList = []
-							for(let i in response.Response){
-								model.tags.folioList.push({
-									data : response.Response[i].FolioNo,
-									text : response.Response[i].FolioNo
-								})
-							}
-							delete model.stage
-						}
-						else{
-							model.tags.folioNo = response.Response[0].FolioNo
-							delete model.stage
-						}
-						return resolve(model)
-					})
-					.catch(e=>{
-						console.log(e)
-						return reject(model)
-					}) 			
-				}
-				else{
-					console.log("<1:::")
-					api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
-					.then((response)=>{
-						console.log(response.body)
-						try{
-							response = JSON.parse(response.body)
-						}
-						catch(e){
-							return reject(model)
-							console.log(e)
-						}
-
-
-						if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
-							model.tags.schemeApiDetails=response.Response[0][0];
-							model.tags.euinApiDetails=response.Response[0][1];
-				            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
-				            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
-				            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
-							api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-							.then(response=>{
-								console.log(response.body)
-								try{
-									response = JSON.parse(response.body)
-								}
-								catch(e){console.log(e);
-									return reject(model);
-								}
-								let arr = []
-								for(let i in response.Response){
-									arr.push(response.Response[i].FolioNo.toLowerCase())
-								}
-								// if(model.tags.folio && arr.includes(model.tags.folio)){
-								// 	model.stage="amount";
-								// }
-								if(response.Response.length > 0){
-									model.tags.folioList = []
-									for(let i in response.Response){
-										model.tags.folioList.push({
-											data : response.Response[i].FolioNo,
-											text : response.Response[i].FolioNo
-										})
-									}
-									model.stage="folio"
-								}
-								else{
-									model.tags.folioNo = response.Response[0].FolioNo
-									model.stage="folio"
-								}
-								return resolve(model)
-							})
-							.catch(e=>{
-								console.log(e)
-								return reject(model)
-							})
-						}
-						else{
-							let reply={
-				                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-								model.stage = 'askSchemeName'
-								return resolve(model)
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-						}
-					})
-					.catch(e=>{
-						console.log(e)
+					else{
 						let reply={
 			                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
 			                type    : "text",
@@ -981,16 +853,239 @@ function holding(model){
 			                console.log(e);
 			                return reject(model)
 			            })
+					}
+				})
+				.catch(e=>{
+					console.log(e)
+					let reply={
+		                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+						model.stage = 'askSchemeName'
+						return resolve(model)
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+					return reject(model)
+				})
+			}
+			else{
+				api.getExistingSchemes(model.tags.session, model.tags.joinAccId)
+				.then((response)=>{
+					try{
+						response = JSON.parse(response.body)
+					}
+					catch(e){
 						return reject(model)
-					})
-				}
+						console.log(e);
+					}
+					model.tags.existingSchemeApiDetails=response.Response[0];
+					model.tags.existingEuinApiDetails=response.Response[1][0];
+					model.tags.existingSchemeDetailsSet=[]
+					console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
+					for (let existingScheme of model.tags.existingSchemeApiDetails){
+						if(existingScheme["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
+							model.tags.existingSchemeDetailsSet.push(existingScheme)
+						}
+					}
+					model.tags.additionalPossible=false;
+					if(model.tags.existingSchemeDetailsSet.length===1){
+						model.tags.tranId=model.tags.existingSchemeDetailsSet[0]["Tranid"]
+						model.tags.folio=model.tags.existingSchemeDetailsSet[0]["FolioNo"]
+						model.tags.schemeApiDetails=model.tags.existingSchemeDetailsSet[0]
+						api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+						.then(response=>{
+							console.log(response.body)
+							try{
+								response = JSON.parse(response.body)
+							}
+							catch(e){console.log(e);
+								return reject(model);
+							}
+							let arr = []
+							for(let i in response.Response){
+								arr.push(response.Response[i].FolioNo.toLowerCase())
+							}
+							// if(model.tags.folio && arr.includes(model.tags.folio)){
+							// 	model.stage="amount";
+							// }
+							if(response.Response.length > 0){
+								model.tags.folioList = []
+								for(let i in response.Response){
+									model.tags.folioList.push({
+										data : response.Response[i].FolioNo,
+										text : response.Response[i].FolioNo
+									})
+								}
+								delete model.stage
+							}
+							else{
+								model.tags.folioNo = response.Response[0].FolioNo
+								delete model.stage
+							}
+							return resolve(model)
+						})
+						.catch(e=>{
+							console.log(e)
+							return reject(model)
+						}) 	
+					}
+					else if(model.tags.existingSchemeDetailsSet.length>1){
+						console.log(">1:::")
+						model.tags.additionalPossible=true;
+						model.tags.existingFolioList = []
+						for(let i in model.tags.existingSchemeDetailsSet){
+							model.tags.existingFolioList.push({
+								data : model.tags.existingSchemeDetailsSet[i].FolioNo,
+								text : model.tags.existingSchemeDetailsSet[i].FolioNo
+							})
+						}
+						api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+						.then(response=>{
+							console.log(response.body)
+							try{
+								response = JSON.parse(response.body)
+							}
+							catch(e){console.log(e);
+								return reject(model);
+							}
+							let arr = []
+							for(let i in response.Response){
+								arr.push(response.Response[i].FolioNo.toLowerCase())
+							}
+							// if(model.tags.folio && arr.includes(model.tags.folio)){
+							// 	model.stage="amount";
+							// }
+							if(response.Response.length > 0){
+								model.tags.folioList = []
+								for(let i in response.Response){
+									model.tags.folioList.push({
+										data : response.Response[i].FolioNo,
+										text : response.Response[i].FolioNo
+									})
+								}
+								delete model.stage
+							}
+							else{
+								model.tags.folioNo = response.Response[0].FolioNo
+								delete model.stage
+							}
+							return resolve(model)
+						})
+						.catch(e=>{
+							console.log(e)
+							return reject(model)
+						}) 			
+					}
+					else{
+						console.log("<1:::")
+						api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
+						.then((response)=>{
+							console.log(response.body)
+							try{
+								response = JSON.parse(response.body)
+							}
+							catch(e){
+								return reject(model)
+								console.log(e)
+							}
 
-				
-			})
-			.catch(e=>{
-				console.log(e)
-				return reject(model)
-			})
+
+							if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
+								model.tags.schemeApiDetails=response.Response[0][0];
+								model.tags.euinApiDetails=response.Response[0][1];
+					            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
+					            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
+					            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
+								api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+								.then(response=>{
+									console.log(response.body)
+									try{
+										response = JSON.parse(response.body)
+									}
+									catch(e){console.log(e);
+										return reject(model);
+									}
+									let arr = []
+									for(let i in response.Response){
+										arr.push(response.Response[i].FolioNo.toLowerCase())
+									}
+									// if(model.tags.folio && arr.includes(model.tags.folio)){
+									// 	model.stage="amount";
+									// }
+									if(response.Response.length > 0){
+										model.tags.folioList = []
+										for(let i in response.Response){
+											model.tags.folioList.push({
+												data : response.Response[i].FolioNo,
+												text : response.Response[i].FolioNo
+											})
+										}
+										model.stage="folio"
+									}
+									else{
+										model.tags.folioNo = response.Response[0].FolioNo
+										model.stage="folio"
+									}
+									return resolve(model)
+								})
+								.catch(e=>{
+									console.log(e)
+									return reject(model)
+								})
+							}
+							else{
+								let reply={
+					                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+					                type    : "text",
+					                sender  : model.sender,
+					                language: "en"
+					            }
+								external(reply)
+								.then((data)=>{
+									model.stage = 'askSchemeName'
+									return resolve(model)
+					            })
+					            .catch((e)=>{
+					                console.log(e);
+					                return reject(model)
+					            })
+							}
+						})
+						.catch(e=>{
+							console.log(e)
+							let reply={
+				                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+								model.stage = 'askSchemeName'
+								return resolve(model)
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
+							return reject(model)
+						})
+					}
+
+					
+				})
+				.catch(e=>{
+					console.log(e)
+					return reject(model)
+				})
+			}
 		}
 		else{
 			return reject(model)
@@ -1259,88 +1354,96 @@ function folio(model){
 				if(!model.tags.existingEuinApiDetails){
 					model.tags.existingEuinApiDetails={}
 				}
-				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
-				.then((data)=>{
-					console.log(data.body)
-					try{
-						data.body = JSON.parse(data.body)
-					}
-					catch(e){
-						console.log(e);
-						let reply={
-				                text    : "API Not Responding Properly",
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-				                return reject(model);
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-						delete model.stage
-						return resolve(model)
-					}
-					if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
-						model.tags.bankMandateList = []
-						let maxAmountPossible=0;
-						for(let element of data.body.Response[2]){
-							model.tags.bankMandateList.push({
-								title: "Netbanking",
-								text : element.BankName,
-								buttons : [{
-									type : 'url',
-									text : 'Pay',
-									data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
-								}]
-							})
+				if(model.tags.investmentType=="sip"){
+					//TODO
+					delete model.stage
+					return resolve(model)
+				}
+				else{
+
+					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
+					.then((data)=>{
+						console.log(data.body)
+						try{
+							data.body = JSON.parse(data.body)
 						}
-						for(let element of data.body.Response[1]){
-							try{
-								if(element.DailyLimit){
-									if(maxAmountPossible<element.DailyLimit){
-										maxAmountPossible=element.DailyLimit;
-									}
-								}
-							}
-							catch(e){
-								console.log(e)
-							}
-							let expectedAmount=parseInt(model.tags.amount);
-							if(expectedAmount<=element.DailyLimit){
-								model.tags.bankMandateList.push({
-									title: "Mandate",
-									text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
-									buttons : [{
-										text : 'Pay',
-										data : element.MandateId
-									}]
-								})
-							}
-						}
-						
-						console.log(JSON.stringify(model.tags.bankMandateList,null,3))
-						if(model.tags.bankMandateList.length==0){
+						catch(e){
+							console.log(e);
+							let reply={
+					                text    : "API Not Responding Properly",
+					                type    : "text",
+					                sender  : model.sender,
+					                language: "en"
+					            }
+								external(reply)
+								.then((data)=>{
+					                return reject(model);
+					            })
+					            .catch((e)=>{
+					                console.log(e);
+					                return reject(model)
+					            })
 							delete model.stage
 							return resolve(model)
 						}
+						if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
+							model.tags.bankMandateList = []
+							let maxAmountPossible=0;
+							for(let element of data.body.Response[2]){
+								model.tags.bankMandateList.push({
+									title: "Netbanking",
+									text : element.BankName,
+									buttons : [{
+										type : 'url',
+										text : 'Pay',
+										data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
+									}]
+								})
+							}
+							for(let element of data.body.Response[1]){
+								try{
+									if(element.DailyLimit){
+										if(maxAmountPossible<element.DailyLimit){
+											maxAmountPossible=element.DailyLimit;
+										}
+									}
+								}
+								catch(e){
+									console.log(e)
+								}
+								let expectedAmount=parseInt(model.tags.amount);
+								if(expectedAmount<=element.DailyLimit){
+									model.tags.bankMandateList.push({
+										title: "Mandate",
+										text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
+										buttons : [{
+											text : 'Pay',
+											data : element.MandateId
+										}]
+									})
+								}
+							}
+							
+							console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+							if(model.tags.bankMandateList.length==0){
+								delete model.stage
+								return resolve(model)
+							}
+							else{
+								model.stage = 'bankMandate'
+								return resolve(model)
+							}
+						}
 						else{
-							model.stage = 'bankMandate'
+							delete model.stage
 							return resolve(model)
 						}
-					}
-					else{
+					})
+					.catch((e)=>{
 						delete model.stage
 						return resolve(model)
-					}
-				})
-				.catch((e)=>{
-					delete model.stage
-					return resolve(model)
-				})
+					})
+				}
 			}
 			else{
 				delete model.stage
@@ -1385,98 +1488,44 @@ function amount(model){
 			}
 		}
 
-		if(!model.tags.existingEuinApiDetails){
-			model.tags.existingEuinApiDetails={}
-		}
+		
 		if(model.tags.amount){
-			api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
-			.then((data)=>{
-				try{
-					data.body = JSON.parse(data.body)
-				}
-				catch(e){	
-					console.log(e);
-					let reply={
-		                text    : "API Not Responding Properly",
-		                type    : "text",
-		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{
-		                return reject(model);
-		            })
-		            .catch((e)=>{
-		                console.log(e);
-		                return reject(model)
-		            })
-					return reject(model);
-				}
-
-				if(data.body.Response[0].result=="FAIL"){
-					let reply={
-		                text    : data.body.Response[0]['reject_reason'].trim(),
-		                type    : "text",
-		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{
-		                return reject(model);
-		            })
-		            .catch((e)=>{
-		                console.log(e);
-		                return reject(model)
-		            })
-				}
-				else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
-					model.tags.bankMandateList = []
-					let maxAmountPossible=0;
-					console.log(JSON.stringify(data.body.Response[1],null,3))
-					let typeInv="PURCHASE"
-					if(model.tags.additional){
-						typeInv="ADDITIONALPURCHASE"
+			if(!model.tags.existingEuinApiDetails){
+				model.tags.existingEuinApiDetails={}
+			}
+			if(model.tags.investmentType=="sip"){
+					//TODO
+					delete model.stage
+					return resolve(model)
+			}
+			else{
+				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
+				.then((data)=>{
+					try{
+						data.body = JSON.parse(data.body)
 					}
-					for(let element of data.body.Response[2]){
-						model.tags.bankMandateList.push({
-							title: "Netbanking",
-							text : element.BankName,
-							buttons : [{
-								type : 'url',
-								text : 'Pay',
-								data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
-							}]
-						})
-					}
-					for(let element of data.body.Response[1]){
-						try{
-								if(element.DailyLimit){
-									if(maxAmountPossible<element.DailyLimit){
-										maxAmountPossible=element.DailyLimit;
-									}
-								}
-						}
-						catch(e){
-							console.log(e)
-			                return reject(model)
-						}
-						let expectedAmount=parseInt(model.tags.amount);
-						if(expectedAmount<=element.DailyLimit){
-								model.tags.bankMandateList.push({
-									title: "Mandate",
-									text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
-									buttons : [{
-										text : 'Pay',
-										data : element.MandateId
-									}]
-								})
-							
-						}
-					}
-					console.log(JSON.stringify(model.tags.bankMandateList,null,3))
-					if(model.tags.bankMandateList.length==0){
+					catch(e){	
+						console.log(e);
 						let reply={
-			                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
+			                text    : "API Not Responding Properly",
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model);
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+						return reject(model);
+					}
+
+					if(data.body.Response[0].result=="FAIL"){
+						let reply={
+			                text    : data.body.Response[0]['reject_reason'].trim(),
 			                type    : "text",
 			                sender  : model.sender,
 			                language: "en"
@@ -1490,19 +1539,81 @@ function amount(model){
 			                return reject(model)
 			            })
 					}
-					else{
-						model.stage = 'bankMandate'
-						return resolve(model)
+					else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
+						model.tags.bankMandateList = []
+						let maxAmountPossible=0;
+						console.log(JSON.stringify(data.body.Response[1],null,3))
+						let typeInv="PURCHASE"
+						if(model.tags.additional){
+							typeInv="ADDITIONALPURCHASE"
+						}
+						for(let element of data.body.Response[2]){
+							model.tags.bankMandateList.push({
+								title: "Netbanking",
+								text : element.BankName,
+								buttons : [{
+									type : 'url',
+									text : 'Pay',
+									data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
+								}]
+							})
+						}
+						for(let element of data.body.Response[1]){
+							try{
+									if(element.DailyLimit){
+										if(maxAmountPossible<element.DailyLimit){
+											maxAmountPossible=element.DailyLimit;
+										}
+									}
+							}
+							catch(e){
+								console.log(e)
+				                return reject(model)
+							}
+							let expectedAmount=parseInt(model.tags.amount);
+							if(expectedAmount<=element.DailyLimit){
+									model.tags.bankMandateList.push({
+										title: "Mandate",
+										text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
+										buttons : [{
+											text : 'Pay',
+											data : element.MandateId
+										}]
+									})
+								
+							}
+						}
+						console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+						if(model.tags.bankMandateList.length==0){
+							let reply={
+				                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+				                return reject(model);
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
+						}
+						else{
+							model.stage = 'bankMandate'
+							return resolve(model)
+						}
 					}
-				}
-				else{
+					else{
+						return reject(model)
+					}
+				})
+				.catch((e)=>{
+					console.log(e)
 					return reject(model)
-				}
-			})
-			.catch((e)=>{
-				console.log(e)
-				return reject(model)
-			})
+				})
+			}
 		}
 		else{
 			return reject(model)
