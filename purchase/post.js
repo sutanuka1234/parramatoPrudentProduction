@@ -1635,7 +1635,7 @@ function sipDay(model){
 			if(model.tags.schemeApiDetails["SIPDays"]==="ALL"&&text<=28){
 				model.tags.sipDay=text.toString();
 				api.getMandate(model.tags.session, model.tags.joinAccId)
-				.then((model)=>{
+				.then((data)=>{
 					try{
 						console.log(data)
 						data.body = JSON.parse(data.body)
