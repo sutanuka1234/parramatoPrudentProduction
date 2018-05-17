@@ -875,7 +875,7 @@ function holding(model){
 				}
 				else{
 					console.log("<1:::")
-					api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
+					api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
 					.then((response)=>{
 						console.log(response.body)
 						try{
@@ -1125,7 +1125,7 @@ function additional(model){
 		}
 		else if(model.data.toLowerCase().includes("no")){
 			model.tags.additional=false;
-			api.getScheme(model.tags.session, model.tags.joinAccId, '1', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
+			api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
 			.then((response)=>{
 				console.log(response.body)
 				try{
