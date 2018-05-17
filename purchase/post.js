@@ -1648,7 +1648,17 @@ function sipDay(model){
 		let text=matchAll(model.data, /(\d+)/gi).toArray();
 		if(text&&text.length>0){
 			text=parseInt(text[0]);
-			if(model.tags.schemeApiDetails["SIPDays"]==="ALL"&&text<=28){
+			let validDate=false;
+			if(model.tags.schemeApiDetails["SIPDays"].includes(",")){
+				let dates=model.tags.schemeApiDetails["SIPDays"].split(",");
+				for(let i in dates){
+					if(text==parseInt(dates[i].trim())){
+						validDate=true;
+						break;
+					}
+				}
+			}
+			if((model.tags.schemeApiDetails["SIPDays"]==="ALL"&&text<=28)||validDate){
 				model.tags.sipDay=text.toString();
 				api.getMandate(model.tags.session, model.tags.joinAccId)
 				.then((data)=>{
