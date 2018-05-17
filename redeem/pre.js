@@ -15,7 +15,9 @@ let obj = {
 	panMobile : panMobile,
 	otp 	: otp,
 	holding : holding,
-	folio 	: folio
+	folio 	: folio,
+	scheme 	: scheme,
+	summary	: summary
 }
 
 let regexPan   	= /[a-z]{3}p[a-z]\d{4}[a-z]/;
@@ -183,6 +185,25 @@ function folio(model){
 			}	
 		}
 		resolve(model)	
+	})
+}
+
+function scheme(model){
+	return new Promise(function(resolve, reject){
+			model.reply={
+				type:"text",
+	            text:"Scheme details"s
+			}
+			return resolve(model)
+	})
+}
+function summary(model){
+	return new Promise(function(resolve, reject){
+			model.reply={
+				type:"text",
+	            text:"Thanks"s
+			}
+			return resolve(model)
 	})
 }
 

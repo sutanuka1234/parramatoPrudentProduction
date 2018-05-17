@@ -17,6 +17,7 @@ let obj = {
 	otp		: otp,
 	holding : holding,
 	folio 	: folio,
+	scheme 	: scheme,
 	amount 	:amount
 }
 
@@ -621,6 +622,13 @@ function folio(model){
 		else{
 			return reject(model)
 		}
+	})
+}
+
+function scheme(model){
+	return new Promise(function(resolve, reject){
+			delete model.stage
+			return resolve(model)
 	})
 }
 
