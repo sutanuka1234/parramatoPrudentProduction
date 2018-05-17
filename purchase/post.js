@@ -1764,6 +1764,8 @@ function bankMandate(model){
 						api.insertBuyCartSip(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.sipDay,model.tags.sipInstallments,model.tags.bankMandate)
 						.then((data)=>{
 							console.log(data)
+							model.stage='bankMandate'
+							return resolve(model)
 						})
 						.catch(e=>{
 							console.log(e)
