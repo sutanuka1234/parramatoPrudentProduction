@@ -15,6 +15,7 @@ let obj = {
 	mobile	: mobile,
 	pan		: pan,
 	otp		: otp,
+	investmentType :investmentType,
 	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
 	divOps 	: divOps,
@@ -532,13 +533,9 @@ function otp(model){
 									]
 								})
 							}
-							model.stage="showSchemeName"
-							return resolve(model)
 						}
-						else{
-							delete model.stage
-							return resolve(model)
-						}
+						delete model.stage
+						return resolve(model)
 					}
 				}
 				catch(e){
@@ -561,13 +558,32 @@ function otp(model){
 
 function investmentType(model){
 	return new Promise(function(resolve, reject){
-		// if(model.tags.schemes && model.tags.schemes.length > 0){
-		// 	model.stage = 'showSchemeName'
-		// }
-		// else{
-		// 	delete model.stage
-		// }
-		return resolve(model)
+		if(model.toLowerCase().includes("lumpsum")||model.toLowerCase().includes("one time")){
+			model.investmentType="lumpsum"
+			if(model.tags.schemes && model.tags.schemes.length > 0){
+				model.stage = 'showSchemeName'
+				return resolve(model)
+			}
+			else{
+				delete model.stage
+				return resolve(model)
+			}
+		}
+		else if(model.toLowerCase().includes("sip")||model.toLowerCase().includes("systematic")){
+			model.investmentType="sip"
+			if(model.tags.schemes && model.tags.schemes.length > 0){
+				model.stage = 'showSchemeName'
+				return resolve(model)
+			}
+			else{
+				delete model.stage
+				return resolve(model)
+			}
+		}
+		else{
+			return reject(model);
+		}
+		
 	});
 }
 
