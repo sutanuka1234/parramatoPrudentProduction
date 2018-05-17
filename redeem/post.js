@@ -658,8 +658,8 @@ function folio(model){
 			            })
 					}
 					console.log(JSON.stringify(response,null,3))
-
 					if(response.Response&&response.Response.length>0){
+						model.tags.redeemSchemes=response.Response;
 						response.Response.forEach(function(element,index){
 							if(model.tags.folio==element["FOLIONO"]&&index<10){
 								model.tags.redeemSchemeList.push({
@@ -715,8 +715,16 @@ function folio(model){
 
 function scheme(model){
 	return new Promise(function(resolve, reject){
-			delete model.stage
-			return resolve(model)
+		if(model.tags.redeemSchemes){
+			for(let scheme of redeemSchemes){
+				if(scheme["SCHEMECODE"]==model.data){
+					model.redeemSchemeObj=scheme;
+					delete model.stage;
+					return resolve(model);
+				}
+			}
+		}
+		return reject(model)
 	})
 }
 
