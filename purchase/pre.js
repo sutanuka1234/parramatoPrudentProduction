@@ -109,7 +109,7 @@ function panMobile(model){
 		}
 		let invType=""
 		if(model.tags.investmentType){
-			invType=investmentType
+			invType=model.tags.investmentType
 		}
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
