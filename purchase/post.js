@@ -1388,8 +1388,8 @@ function folio(model){
 					                console.log(e);
 					                return reject(model)
 					            })
-							delete model.stage
-							return resolve(model)
+							// delete model.stage
+							// return resolve(model)
 						}
 						if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
 							model.tags.bankMandateList = []
@@ -1525,7 +1525,7 @@ function amount(model){
 			                console.log(e);
 			                return reject(model)
 			            })
-						return reject(model);
+						// return reject(model);
 					}
 
 					if(data.body.Response[0].result=="FAIL"){
