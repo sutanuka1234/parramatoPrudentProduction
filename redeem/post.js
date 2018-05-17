@@ -655,6 +655,8 @@ function folio(model){
 			                return reject(model)
 			            })
 					}
+					console.log(JSON.stringify(response,null,3))
+
 					if(response.Response&&response.Response.length>0){
 						response.Response.forEach(function(element,index){
 							if(model.tags.folio==element["FOLIONO"]&&index<10){
