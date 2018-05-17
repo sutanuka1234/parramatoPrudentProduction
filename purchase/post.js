@@ -230,6 +230,7 @@ function panMobile(model){
 			model = extractMobile(model);
 			model = extractDivOption(model);
 			model = extractSchemeName(model);
+			model = extractInvetmentType(model)
 			model = extractAmount(model);
 			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
@@ -322,6 +323,7 @@ function mobile(model){
 			model = extractMobile(model);
 			model = extractDivOption(model);
 			model=extractSchemeName(model);
+			model=extractInvetmentType(model)
 			model = extractAmount(model);
 			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
@@ -385,6 +387,7 @@ function pan(model){
 		model = extractPan(model);
 		model = extractDivOption(model);
 		model=extractSchemeName(model);
+		model=extractInvetmentType(model)
 		model = extractAmount(model);
 		model = extractFolio(model);
 			// console.log("TAGG")
@@ -450,7 +453,7 @@ function otp(model){
 		model = extractOTP(model);
 		model = extractDivOption(model);
 		model = extractSchemeName(model);
-		
+		model=extractInvetmentType(model)
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
 			api.resendOtp(model.tags.session)
 			.then((response)=>{
@@ -535,8 +538,21 @@ function otp(model){
 								})
 							}
 						}
-						delete model.stage
-						return resolve(model)
+						if(model.tags.investmentType){
+							if(model.tags.schemes && model.tags.schemes.length > 0){
+								model.stage = 'showSchemeName'
+								return resolve(model)
+							}
+							else{
+								model.stage = 'askSchemeName'
+								return resolve(model)
+							}
+						}
+						else{
+							delete model.stage
+							return resolve(model)
+						}
+
 					}
 				}
 				catch(e){
@@ -1361,7 +1377,7 @@ function folio(model){
 				}
 				if(model.tags.investmentType=="sip"){
 					//TODO
-					delete model.stage
+					model.stage = 'sipDay'
 					return resolve(model)
 				}
 				else{
@@ -2002,6 +2018,21 @@ function extractPan(model){
 		model.tags.pan = matchPan[0]
 		model.data=model.data.replace(model.tags.pan, '')
 		// console.log(model.tags.pan+"pan")
+	}
+	return model;
+}
+
+function extractInvetmentType(model){
+	if(model.data.toLowerCase().includes("lumpsum")||model.data.toLowerCase().includes("one time")){
+			model.data=model.data.replace("lumpsum","")
+			model.data = model.data.replace("one time","")
+			model.tags.investmentType="lumpsum"
+	}
+	else if(model.data.toLowerCase().includes("sip")||model.data.toLowerCase().includes("systematic")||model.data.toLowerCase().includes("monthly")){
+			model.data=model.data.replace("sip","")
+			model.data = model.data.replace("systematic","")
+			model.data = model.data.replace("monthly","")
+			model.tags.investmentType="sip"
 	}
 	return model;
 }

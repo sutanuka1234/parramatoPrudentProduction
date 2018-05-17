@@ -96,12 +96,14 @@ function panMobile(model){
 		model.tags.schemeApiDetails=undefined
 		model.tags.resend=undefined
 		model.tags.tranId=undefined
+		model.tags.investmentType=undefined
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
 			model=extractMobile(model)
 			model=extractDivOption(model)
 			model=extractSchemeName(model)
+			model=extractInvetmentType(model)
 			model=extractAmount(model)
 			model=extractFolio(model)
 		}
@@ -387,6 +389,22 @@ function extractPan(model){
 		}
 		model.tags.pan = matchPan[0]
 		model.tags.userSays=model.tags.userSays.replace(model.tags.pan, '')
+	}
+	return model;
+}
+
+
+function extractInvetmentType(model){
+	if(model.tags.userSays.toLowerCase().includes("lumpsum")||model.tags.userSays.toLowerCase().includes("one time")){
+			model.tags.userSays=model.tags.userSays.replace("lumpsum","")
+			model.tags.userSays = model.tags.userSays.replace("one time","")
+			model.tags.investmentType="lumpsum"
+	}
+	else if(model.tags.userSays.toLowerCase().includes("sip")||model.tags.userSays.toLowerCase().includes("systematic")||model.tags.userSays.toLowerCase().includes("monthly")){
+			model.tags.userSays=model.tags.userSays.replace("sip","")
+			model.tags.userSays = model.tags.userSays.replace("systematic","")
+			model.tags.userSays = model.tags.userSays.replace("monthly","")
+			model.tags.investmentType="sip"
 	}
 	return model;
 }
