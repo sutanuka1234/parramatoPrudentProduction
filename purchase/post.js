@@ -1676,19 +1676,7 @@ function sipDay(model){
 					else if(data.body.Response&&data.body.Response.length>0){
 						model.tags.bankMandateList = []
 						let maxAmountPossible=0;
-						// console.log(JSON.stringify(data.body.Response[1],null,3))
 						let typeInv="SIP"
-						// for(let element of data.body.Response[2]){
-						// 	model.tags.bankMandateList.push({
-						// 		title: "Netbanking",
-						// 		text : element.BankName,
-						// 		buttons : [{
-						// 			type : 'url',
-						// 			text : 'Pay',
-						// 			data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
-						// 		}]
-						// 	})
-						// }
 						for(let element of data.body.Response){
 							try{
 									if(element.DailyLimit){
@@ -1771,53 +1759,55 @@ function bankMandate(model){
 			}
 			else{
 				model.tags.bankMandate = model.data
-				api.bankMandate(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.bankMandate, model.tags.amount,model.tags.additional)
-				.then((data)=>{
-					console.log(data.body)
-					try{
-						data.body = JSON.parse(data.body)
-					}
-					catch(e){console.log(e);
-						return reject(model);
-					}
-					if(data.body.Response[0].result=="FAIL"){
-						let reply={
-			                text    : data.body.Response[0]['reject_reason'],
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
+
+				if(model.tags.investmentType==="sip"){
+						api.insertBuyCartSip(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.sipDay,model.tags.sipInstallments,model.tags.bankMandate)
 						.then((data)=>{
-			                return reject(model);
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-					}
-					else if(data.body){
-						if(model.tags.investmentType==="sip"){
-								api.insertBuyCartSip(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.sipDay,model.tags.sipInstallments,model.tags.bankMandate)
-								.then((data)=>{
-									console.log(data)
-								})
-								.catch(e=>{
-									console.log(e)
-									return reject(model)
-								})
+							console.log(data)
+						})
+						.catch(e=>{
+							console.log(e)
+							return reject(model)
+						})
+				}
+				else{
+
+					api.bankMandate(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.bankMandate, model.tags.amount,model.tags.additional)
+					.then((data)=>{
+						console.log(data.body)
+						try{
+							data.body = JSON.parse(data.body)
 						}
-						else{
+						catch(e){console.log(e);
+							return reject(model);
+						}
+						if(data.body.Response[0].result=="FAIL"){
+							let reply={
+				                text    : data.body.Response[0]['reject_reason'],
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+				                return reject(model);
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
+						}
+						else if(data.body){
 							model.tags.paymentSummary = data.body.Response[0]
 							delete model.stage
 							return resolve(model)
 						}
-					}
-				})
-				.catch(e=>{
-					console.log(e) 
-					return reject(model)
-				})
+					})
+					.catch(e=>{
+						console.log(e) 
+						return reject(model)
+					})
+				}
 			}
 			
 		}
