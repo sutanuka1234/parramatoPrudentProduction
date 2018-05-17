@@ -107,10 +107,14 @@ function panMobile(model){
 			model=extractAmount(model)
 			model=extractFolio(model)
 		}
+		let invType=""
+		if(model.tags.investmentType){
+			invType=investmentType
+		}
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
-	            text:"Sure, we have your credentials linked to mobile "+formatter.apply(model.tags.mobile)+" saved. Would you like to proceed with the lumpsum investment?",
+	            text:"Sure, we have your credentials linked to mobile "+formatter.apply(model.tags.mobile)+" saved. Would you like to proceed with the "+invType+" investment?",
 	            next:{
 	                "data": [
 	                	{
