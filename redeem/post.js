@@ -677,7 +677,8 @@ function folio(model){
 						return resolve(model)
 					}
 					else{
-						return reject(model);
+						model.stage="summary"
+						return resolve(model)
 					}
 	// 			{
  // "Response": [
