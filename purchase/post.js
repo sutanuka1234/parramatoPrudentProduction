@@ -1637,7 +1637,6 @@ function sipDay(model){
 				api.getMandate(model.tags.session, model.tags.joinAccId)
 				.then((data)=>{
 					try{
-						console.log(data)
 						data.body = JSON.parse(data.body)
 					}
 					catch(e){	
@@ -1656,7 +1655,6 @@ function sipDay(model){
 			                console.log(e);
 			                return reject(model)
 			            })
-						return reject(model);
 					}
 
 					if(data.body.Response[0].result=="FAIL"){
