@@ -1644,93 +1644,32 @@ function amount(model){
 
 function sipDay(model){
 	return new Promise(function(resolve, reject){
-		console.log("SIP:::::::::::::::::::::::::::::::::::::::"+model.tags.schemeApiDetails["SIPDays"]);
-		let text=matchAll(model.data, /(\d+)/gi).toArray();
-		if(text&&text.length>0){
-			text=parseInt(text[0]);
-			let validDate=false;
-			if(model.tags.schemeApiDetails["SIPDays"].includes(",")){
-				let dates=model.tags.schemeApiDetails["SIPDays"].split(",");
-				for(let i in dates){
-					if(text==parseInt(dates[i].trim())){
-						validDate=true;
-						break;
+		try{
+			console.log("SIP:::::::::::::::::::::::::::::::::::::::"+model.tags.schemeApiDetails["SIPDays"]);
+			let text=matchAll(model.data, /(\d+)/gi).toArray();
+			if(text&&text.length>0){
+				text=parseInt(text[0]);
+				let validDate=false;
+				if(model.tags.schemeApiDetails["SIPDays"].includes(",")){
+					let dates=model.tags.schemeApiDetails["SIPDays"].split(",");
+					for(let i in dates){
+						if(text==parseInt(dates[i].trim())){
+							validDate=true;
+							break;
+						}
 					}
 				}
-			}
-			if((model.tags.schemeApiDetails["SIPDays"]==="ALL"&&text<=28)||validDate){
-				model.tags.sipDay=text.toString();
-				api.getMandate(model.tags.session, model.tags.joinAccId)
-				.then((data)=>{
-					try{
-						data.body = JSON.parse(data.body)
-					}
-					catch(e){	
-						console.log(e);
-						let reply={
-			                text    : "API Not Responding Properly",
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
-			                return reject(model);
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-					}
-					if(data.body.Response[0].result=="FAIL"){
-						let reply={
-			                text    : data.body.Response[0]['reject_reason'].trim(),
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
-			                return reject(model);
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-					}
-					else if(data.body.Response&&data.body.Response.length>0){
-						model.tags.bankMandateList = []
-						let maxAmountPossible=0;
-						let typeInv="SIP"
-						for(let element of data.body.Response){
-							try{
-									if(element.DailyLimit){
-										if(maxAmountPossible<element.DailyLimit){
-											maxAmountPossible=element.DailyLimit;
-										}
-									}
-							}
-							catch(e){
-								console.log(e)
-				                return reject(model)
-							}
-							let expectedAmount=parseInt(model.tags.amount);
-							if(expectedAmount<=element.DailyLimit){
-									model.tags.bankMandateList.push({
-										title: "Mandate",
-										text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
-										buttons : [{
-											text : 'Pay',
-											data : element.MandateId
-										}]
-									})
-								
-							}
+				if((model.tags.schemeApiDetails["SIPDays"]==="ALL"&&text<=28)||validDate){
+					model.tags.sipDay=text.toString();
+					api.getMandate(model.tags.session, model.tags.joinAccId)
+					.then((data)=>{
+						try{
+							data.body = JSON.parse(data.body)
 						}
-						// console.log(JSON.stringify(model.tags.bankMandateList,null,3))
-						if(model.tags.bankMandateList.length==0){
+						catch(e){	
+							console.log(e);
 							let reply={
-				                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
+				                text    : "API Not Responding Properly",
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
@@ -1744,25 +1683,92 @@ function sipDay(model){
 				                return reject(model)
 				            })
 						}
-						else{
-							delete model.stage
-							return resolve(model)
+						if(data.body.Response[0].result=="FAIL"){
+							let reply={
+				                text    : data.body.Response[0]['reject_reason'].trim(),
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+				                return reject(model);
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
 						}
-					}
-					else{
-						return reject(model)
-					}
-				})
-				.catch(e=>{
-					console.log(e);
+						else if(data.body.Response&&data.body.Response.length>0){
+							model.tags.bankMandateList = []
+							let maxAmountPossible=0;
+							let typeInv="SIP"
+							for(let element of data.body.Response){
+								try{
+										if(element.DailyLimit){
+											if(maxAmountPossible<element.DailyLimit){
+												maxAmountPossible=element.DailyLimit;
+											}
+										}
+								}
+								catch(e){
+									console.log(e)
+					                return reject(model)
+								}
+								let expectedAmount=parseInt(model.tags.amount);
+								if(expectedAmount<=element.DailyLimit){
+										model.tags.bankMandateList.push({
+											title: "Mandate",
+											text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
+											buttons : [{
+												text : 'Pay',
+												data : element.MandateId
+											}]
+										})
+									
+								}
+							}
+							// console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+							if(model.tags.bankMandateList.length==0){
+								let reply={
+					                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
+					                type    : "text",
+					                sender  : model.sender,
+					                language: "en"
+					            }
+								external(reply)
+								.then((data)=>{
+					                return reject(model);
+					            })
+					            .catch((e)=>{
+					                console.log(e);
+					                return reject(model)
+					            })
+							}
+							else{
+								delete model.stage
+								return resolve(model)
+							}
+						}
+						else{
+							return reject(model)
+						}
+					})
+					.catch(e=>{
+						console.log(e);
+						return reject(model);
+					})
+				}
+				else{
 					return reject(model);
-				})
+				}
 			}
 			else{
 				return reject(model);
 			}
 		}
-		else{
+		catch(e){
+			console.log(e)
 			return reject(model);
 		}
 	});
