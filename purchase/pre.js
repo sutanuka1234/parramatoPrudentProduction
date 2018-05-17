@@ -20,6 +20,7 @@ let obj = {
 	amount 	: amount,
 	holding : holding,
 	folio 	: folio,
+	sipDay	: sipDay,
 	bankMandate : bankMandate,
 	summary : summary
 }
@@ -275,6 +276,16 @@ function folio(model){
 	})
 }
 
+function sipDay(model){
+	return new Promise(function(resolve, reject){
+		model.reply={
+			type:"text",
+            text:"Which day of the month would you like to invest?"
+           
+		}
+		resolve(model)
+	})
+}
 function bankMandate(model){
 	return new Promise(function(resolve, reject){
 		model.reply={

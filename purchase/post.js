@@ -23,6 +23,7 @@ let obj = {
 	holding : holding,
 	additional : additional,
 	folio 	: folio,
+	sipDay	: sipDay,
 	bankMandate : bankMandate
 }
 
@@ -1619,6 +1620,15 @@ function amount(model){
 			return reject(model)
 		}	
 	})
+}
+
+function sipDay(model){
+	return new Promise(function(resolve, reject){
+		console.log("SIP:::::::::::::::::::::::::::::::::::::::")
+		console.log(JSON.stringify(model.tags.schemeApiDetails,null,3))
+		console.log("SIP:::::::::::::::::::::::::::::::::::::::")
+		return reject(model);
+	});
 }
 
 function bankMandate(model){
