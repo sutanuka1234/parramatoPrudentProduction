@@ -285,6 +285,12 @@ function sipDay(model){
             text:"Which day of the month would you like to invest?"
            
 		}
+		if(model.tags.schemeApiDetails["SIPDays"]==="ALL"){
+			model.reply.text+=" Any day between 1-28 works.";
+		}
+		else{
+			model.reply.text+=" Days "+model.tags.schemeApiDetails["SIPDays"]+" would be fine.";
+		}
 		resolve(model)
 	})
 }
