@@ -562,9 +562,7 @@ function investmentType(model){
 		if(model.data.toLowerCase().includes("lumpsum")||model.data.toLowerCase().includes("one time")){
 			model.tags.investmentType="lumpsum"
 			if(model.tags.schemes && model.tags.schemes.length > 0){
-				model.stage = 'askSchemeName'
-				model.tags.schemes=undefined;
-				model.tags.scheme=undefined;
+				model.stage = 'showSchemeName'
 				return resolve(model)
 			}
 			else{
@@ -575,9 +573,7 @@ function investmentType(model){
 		else if(model.data.toLowerCase().includes("sip")||model.data.toLowerCase().includes("systematic")){
 			model.tags.investmentType="sip"
 			if(model.tags.schemes && model.tags.schemes.length > 0){
-				model.stage = 'askSchemeName'
-				model.tags.schemes=undefined;
-				model.tags.scheme=undefined;
+				model.stage = 'showSchemeName'
 				return resolve(model)
 			}
 			else{
