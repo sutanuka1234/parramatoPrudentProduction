@@ -1798,9 +1798,21 @@ function bankMandate(model){
 			            })
 					}
 					else if(data.body){
-						model.tags.paymentSummary = data.body.Response[0]
-						delete model.stage
-						return resolve(model)
+						if(model.tags.investmentType==="sip"){
+								api.insertBuyCartSip(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.sipDay,model.tags.sipInstallments,model.tags.bankMandate)
+								.then((data)=>{
+									console.log(data)
+								})
+								.catch(e=>{
+									console.log(e)
+									return reject(model)
+								})
+						}
+						else{
+							model.tags.paymentSummary = data.body.Response[0]
+							delete model.stage
+							return resolve(model)
+						}
 					}
 				})
 				.catch(e=>{
