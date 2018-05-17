@@ -724,14 +724,6 @@ function showSchemeName(model){
 	})
 }
 
-function sipDay(model){
-	return new Promise(function(resolve, reject){
-		return resolve(model)
-	});
-}
-
-
-
 
 
 function divOps(model){
