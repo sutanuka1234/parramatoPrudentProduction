@@ -1733,7 +1733,7 @@ function sipDay(model){
 				            })
 						}
 						else{
-							model.stage = 'bankMandate'
+							delete model.stage
 							return resolve(model)
 						}
 					}
