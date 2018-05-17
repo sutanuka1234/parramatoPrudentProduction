@@ -641,7 +641,7 @@ function folio(model){
 				            })
 					}
 
-					if(response.Response[0].result=="FAIL"){
+					if(response.Response&&response.Response.length>0&&response.Response[0].result=="FAIL"){
 						let reply={
 			                text    : response.Response[0]['reject_reason'],
 			                type    : "text",
