@@ -1634,7 +1634,117 @@ function sipDay(model){
 			text=parseInt(text[0]);
 			if(model.tags.schemeApiDetails["SIPDays"]==="ALL"&&text<=28){
 				model.tags.sipDay=text.toString();
-				return resolve(model);
+				api.getMandate(model.tags.session, model.tags.joinAccId)
+				.then((model)=>{
+					try{
+						data.body = JSON.parse(data.body)
+					}
+					catch(e){	
+						console.log(e);
+						let reply={
+			                text    : "API Not Responding Properly",
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model);
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+						return reject(model);
+					}
+
+					if(data.body.Response[0].result=="FAIL"){
+						let reply={
+			                text    : data.body.Response[0]['reject_reason'].trim(),
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model);
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+					}
+					else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
+						model.tags.bankMandateList = []
+						let maxAmountPossible=0;
+						// console.log(JSON.stringify(data.body.Response[1],null,3))
+						let typeInv="SIP"
+						for(let element of data.body.Response[2]){
+							model.tags.bankMandateList.push({
+								title: "Netbanking",
+								text : element.BankName,
+								buttons : [{
+									type : 'url',
+									text : 'Pay',
+									data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
+								}]
+							})
+						}
+						for(let element of data.body.Response[1]){
+							try{
+									if(element.DailyLimit){
+										if(maxAmountPossible<element.DailyLimit){
+											maxAmountPossible=element.DailyLimit;
+										}
+									}
+							}
+							catch(e){
+								console.log(e)
+				                return reject(model)
+							}
+							let expectedAmount=parseInt(model.tags.amount);
+							if(expectedAmount<=element.DailyLimit){
+									model.tags.bankMandateList.push({
+										title: "Mandate",
+										text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
+										buttons : [{
+											text : 'Pay',
+											data : element.MandateId
+										}]
+									})
+								
+							}
+						}
+						// console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+						if(model.tags.bankMandateList.length==0){
+							let reply={
+				                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+				                return reject(model);
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
+						}
+						else{
+							model.stage = 'bankMandate'
+							return resolve(model)
+						}
+					}
+					else{
+						return reject(model)
+					}
+				})
+				.catch(e=>{
+					console.log(e);
+					return reject(model);
+				})
 			}
 			else{
 				return reject(model);
