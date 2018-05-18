@@ -664,12 +664,12 @@ function folio(model){
 						response.Response.forEach(function(element,index){
 							if(model.tags.folio==element["FOLIONO"]&&index<10){
 								model.tags.redeemSchemeList.push({
-									title 	: element["SCHEMECODE"],
+									title 	: element["SCHEMENAME"],
 									text 	: "Investment of Rs. "+element["AMOUNT"]+". Can redeem Rs. "+element["MinRedemptionAmount"],
 									buttons : [
 										{
 											text : 'Select',
-											data : element["SCHEMECODE"]
+											data : element["SCHEMECODE"].toString()
 										}
 									]
 								})
