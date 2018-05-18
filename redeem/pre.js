@@ -206,7 +206,7 @@ function summary(model){
 		if(model.tags.redeemReferenceId){
 			model.reply={
 				type:"text",
-	            text:"Thanks, your reference id is "+model.tags.redeemRefId
+	            text:"Thanks, your reference id is "+model.tags.redeemReferenceId+"."
 			}
 		}
 		else{
@@ -215,8 +215,6 @@ function summary(model){
 	            text:"Could not proceed with the redemption"
 			}
 		}
-		
-		console.log(model.tags.redeemReferenceId+":::::::::::<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"+model.tags.status)	
 		return resolve(model)
 	})
 }

@@ -826,10 +826,8 @@ function amount(model){
 					            })
 							}
 							else{
-								model.tags.status="Successful"
 								model.tags.redeemReferenceId=refrenceId;
 								delete model.stage
-								console.log(model.tags.redeemReferenceId+":::::::::::>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 								return resolve(model)
 
 							}
