@@ -696,8 +696,8 @@ function scheme(model){
 				console.log(model.data+"::"+scheme["SCHEMECODE"])
 				if(scheme["SCHEMECODE"]==model.data){
 					model.tags.redeemSchemeObj=scheme;
-					model.tags.minAmount=parseFloat(scheme["AvailableAmt"])
-					model.tags.maxAmount=parseFloat(scheme["MinRedemptionAmount"])
+					model.tags.maxAmount=parseFloat(scheme["AvailableAmt"])
+					model.tags.minAmount=parseFloat(scheme["MinRedemptionAmount"])
 					delete model.stage;
 					return resolve(model);
 				}
