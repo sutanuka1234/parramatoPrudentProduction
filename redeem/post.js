@@ -220,7 +220,6 @@ function panMobile(model){
 		else{ 
 			// console.log("4")
 			model = extractMobile(model);
-			model = extractSchemeName(model);
 			model = extractAmount(model);
 			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
@@ -311,7 +310,6 @@ function mobile(model){
 	return new Promise(function(resolve, reject){
 		    model=dataClean(model);
 			model = extractMobile(model);
-			model=extractSchemeName(model);
 			model = extractAmount(model);
 			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
@@ -373,7 +371,6 @@ function pan(model){
 	return new Promise(function(resolve, reject){
 		model = dataClean(model);
 		model = extractPan(model);
-		model=extractSchemeName(model);
 		model = extractAmount(model);
 		model = extractFolio(model);
 			// console.log("TAGG")
@@ -437,7 +434,6 @@ function otp(model){
 		// model.tags.mobileEntered=false;
 		model = dataClean(model);
 		model = extractOTP(model);
-		model = extractSchemeName(model);
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
 			api.resendOtp(model.tags.session)
 			.then((response)=>{
@@ -727,12 +723,15 @@ function amount(model){
 				model.tags.amount=undefined;
 			}
 		}
-		else if(model.data.toLowerCase().includes("data")){
+		else if(model.data.toLowerCase().includes("all")){
 			model.tags.amount=model.tags.maxAmount.toString();
 		}
 		if(model.tags.amount){
+
+			console.log("amount valid")
 			api.insertBuyCartRedeem(model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["DivOpt"], model.tags.amount, model.tags.folio)
 			.then((data)=>{
+				console.log(data.body)
 				try{
 					data.body = JSON.parse(data.body)
 				}
@@ -775,6 +774,7 @@ function amount(model){
 					model.tags.transactionRefId=data.body.Response[0]["TranReferenceID"];
 					api.confirmRedemption(model.tags.session,model.tags.redeemRefId)
 					.then((data)=>{
+						console.log(data.body)
 						try{
 							data.body = JSON.parse(data.body)
 						}
@@ -927,54 +927,6 @@ function extractPan(model){
 	return model;
 }
 
-function extractSchemeName(model){
-		let wordsInUserSays=model.data.split(" ");
-		let count=0;
-		let startIndex;
-		let endIndex;
-		let amcIndex;
-		let amcFlag;
-		for(let wordIndex in wordsInUserSays){
-			if(words.includes(wordsInUserSays[wordIndex])){
-				count++;
-				if(count==1){
-					startIndex=wordIndex;
-					endIndex=wordIndex;
-				}
-				else{
-					endIndex=wordIndex;
-				}
-			}
-			if(amc.includes(wordsInUserSays[wordIndex])&&!amcFlag){
-				amcIndex=wordIndex;
-				amcFlag=true;
-			}
-		}
-		if(amcFlag){
-			// 	startIndex=amcIndex
-			// }
-
-			if(count>0){
-				let searchTerm=""
-				for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
-					searchTerm+=wordsInUserSays[i]+" "
-				}
-				searchTerm=searchTerm.trim();
-				// console.log(searchTerm)
-				let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
-				if(matches.bestMatch.rating>0.9){
-					model.tags.schemes = []
-					model.tags.schemes.push(matches.bestMatch.target)
-				}
-				else if(matches.bestMatch.rating>0.4){
-					model.tags.schemes = []
-					matches.ratings=matches.ratings.sort(sortBy('-rating'));
-					model.tags.schemes = matches.ratings.splice(0,9);
-				}
-			}
-		}
-		return model;
-}
 
 function dataClean(model){
 	model.data = model.data.toLowerCase()
