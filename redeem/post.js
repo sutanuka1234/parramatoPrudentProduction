@@ -667,8 +667,15 @@ function folio(model){
 								})
 							}
 						})
-						delete model.stage
-						return resolve(model)
+						if(model.tags.redeemSchemeList.length==0){
+							sendExternalMessage(model,"Oops. This folio has no schemes")
+							model.stage="folio"
+							return resolve(model)
+						}
+						else{
+							delete model.stage
+							return resolve(model)
+						}
 					}
 					else{
 						model.stage="summary"
