@@ -89,11 +89,11 @@ function panMobile(model){
 		model.tags.otp=undefined
 		model.tags.resend=undefined
 		model.tags.tranId=undefined
+		model.tags.redeemSchemeList=undefined
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
 			model=extractMobile(model)
-			model=extractDivOption(model)
 			model=extractSchemeName(model)
 			model=extractAmount(model)
 			model=extractFolio(model)
@@ -209,15 +209,7 @@ function summary(model){
 	})
 }
 
-function extractDivOption(model){
-	if(model.tags.userSays.match(divOption)){
-		model.tags.divOption = model.tags.userSays.match(divOption)[0]
-		model.tags.userSays = model.tags.userSays.replace(model.tags.divOption, '')
-		model.tags.newDivOption=true;
-	}
-	return model;
-			
-}
+
 
 function extractFolio(model){
 	if(model.tags.userSays.match(regexFolio)){

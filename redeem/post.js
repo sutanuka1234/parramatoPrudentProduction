@@ -121,13 +121,11 @@ function panMobile(model){
 			model.tags.newFolio=undefined;
 			model.tags.newScheme=undefined;
 			model.tags.newAmount=undefined;
-			model.tags.newDivOption=undefined;
 		}
 		else{
 				model.tags.newFolio=undefined;
 				model.tags.newScheme=undefined;
 				model.tags.newAmount=undefined;
-				model.tags.newDivOption=undefined;
 
 		}
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
@@ -222,7 +220,6 @@ function panMobile(model){
 		else{ 
 			// console.log("4")
 			model = extractMobile(model);
-			model = extractDivOption(model);
 			model = extractSchemeName(model);
 			model = extractAmount(model);
 			model = extractFolio(model);
@@ -314,7 +311,6 @@ function mobile(model){
 	return new Promise(function(resolve, reject){
 		    model=dataClean(model);
 			model = extractMobile(model);
-			model = extractDivOption(model);
 			model=extractSchemeName(model);
 			model = extractAmount(model);
 			model = extractFolio(model);
@@ -377,7 +373,6 @@ function pan(model){
 	return new Promise(function(resolve, reject){
 		model = dataClean(model);
 		model = extractPan(model);
-		model = extractDivOption(model);
 		model=extractSchemeName(model);
 		model = extractAmount(model);
 		model = extractFolio(model);
@@ -442,7 +437,6 @@ function otp(model){
 		// model.tags.mobileEntered=false;
 		model = dataClean(model);
 		model = extractOTP(model);
-		model = extractDivOption(model);
 		model = extractSchemeName(model);
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
 			api.resendOtp(model.tags.session)
@@ -660,7 +654,9 @@ function folio(model){
 					console.log(JSON.stringify(response,null,3))
 					if(response.Response&&response.Response.length>0){
 						model.tags.redeemSchemes=response.Response;
-						model.tags.redeemSchemeList=[]
+						if(!model.tags.redeemSchemeList){
+							model.tags.redeemSchemeList=[]
+						}
 						response.Response.forEach(function(element,index){
 							if(model.tags.folio==element["FOLIONO"]&&index<10){
 								model.tags.redeemSchemeList.push({
@@ -770,13 +766,6 @@ function extractOTP(model){
 	return model;
 }
 
-function extractDivOption(model){
-	if(model.data.match(divOption)){
-		model.tags.divOption = model.data.match(divOption)[0]
-		model.data = model.data.replace(model.tags.divOption, '')
-	}
-	return model;			
-}
 
 function extractFolio(model){
 	if(model.data.match(regexFolio)){
