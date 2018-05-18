@@ -90,7 +90,7 @@ function panMobile(model){
 		model.tags.resend=undefined
 		model.tags.tranId=undefined
 		model.tags.redeemSchemeList=undefined
-		model.tags.redeemRefId=undefined
+		model.tags.redeemReferenceId=undefined
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
@@ -203,7 +203,7 @@ function scheme(model){
 function summary(model){
 	return new Promise(function(resolve, reject){
 		console.log(JSON.stringify(model.tags,null,3))
-		if(model.tags.redeemRefId){
+		if(model.tags.redeemReferenceId){
 			model.reply={
 				type:"text",
 	            text:"Thanks, your reference id is "+model.tags.redeemRefId
@@ -216,7 +216,7 @@ function summary(model){
 			}
 		}
 		
-		console.log(model.tags.redeemRefId+":::::::::::<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"+model.tags.status)	
+		console.log(model.tags.redeemReferenceId+":::::::::::<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"+model.tags.status)	
 		return resolve(model)
 	})
 }

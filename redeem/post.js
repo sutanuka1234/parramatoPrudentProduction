@@ -785,7 +785,7 @@ function amount(model){
 			            })
 					}
 					else if(data.body.Response&&data.body.Response.length>0){
-						model.tags.redeemRefId=data.body.Response[0]["TranReferenceID"];
+						var refrenceId=data.body.Response[0]["TranReferenceID"];
 						api.confirmRedemption(model.tags.session,model.tags.redeemRefId)
 						.then((data)=>{
 							console.log(data.body)
@@ -827,8 +827,9 @@ function amount(model){
 							}
 							else{
 								model.tags.status="Successful"
+								model.tags.redeemReferenceId=refrenceId;
 								delete model.stage
-								console.log(model.tags.redeemRefId+":::::::::::>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+								console.log(model.tags.redeemReferenceId+":::::::::::>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 								return resolve(model)
 
 							}
