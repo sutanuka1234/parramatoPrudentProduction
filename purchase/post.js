@@ -1686,7 +1686,7 @@ function sipDay(model){
 				            })
 						}
 						try{
-							data.body.Response=[]
+							// data.body.Response=[]
 							if(data.body.Response&&data.body.Response.length>0&&data.body.Response[0].result=="FAIL"){
 								let reply={
 					                text    : data.body.Response[0]['reject_reason'].trim(),
