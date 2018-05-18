@@ -202,6 +202,7 @@ function scheme(model){
 }
 function summary(model){
 	return new Promise(function(resolve, reject){
+		console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.redeemRefId){
 			model.reply={
 				type:"text",
