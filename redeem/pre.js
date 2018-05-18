@@ -197,6 +197,7 @@ function scheme(model){
 	            	data : model.tags.redeemSchemeList
 	            }
 			}
+			return resolve(model)
 	})
 }
 function summary(model){
