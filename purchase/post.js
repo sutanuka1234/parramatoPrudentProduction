@@ -1664,7 +1664,9 @@ function sipDay(model){
 					api.getMandate(model.tags.session, model.tags.joinAccId)
 					.then((data)=>{
 						try{
+							console.log(data.body)
 							data.body = JSON.parse(data.body)
+							console.log(JSON.stringify(data.body,null,3))
 						}
 						catch(e){	
 							console.log(e);
@@ -1676,6 +1678,7 @@ function sipDay(model){
 				            }
 							external(reply)
 							.then((data)=>{
+								console.log("improper json")
 				                return reject(model);
 				            })
 				            .catch((e)=>{
@@ -1766,10 +1769,12 @@ function sipDay(model){
 					})
 				}
 				else{
+					console.log("not valid date")
 					return reject(model);
 				}
 			}
 			else{
+				console.log("No number")
 				return reject(model);
 			}
 		}
