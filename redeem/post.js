@@ -755,7 +755,7 @@ function amount(model){
 			                return reject(model)
 			            })
 					}
-					if(data.body.Response[0].result=="FAIL"){
+					if(data.body.Response&&data.body.Response.length>0&&data.body.Response[0].result=="FAIL"){
 						let reply={
 			                text    : data.body.Response[0]['reject_reason'].trim(),
 			                type    : "text",
@@ -771,7 +771,7 @@ function amount(model){
 			                return reject(model)
 			            })
 					}
-					else{
+					else if(data.body.Response&&data.body.Response.length>0){
 
 						model.tags.redeemRefId=data.body.Response[0]["TranReferenceID"];
 						model.tags.transactionRefId=data.body.Response[0]["TranReferenceID"];
@@ -826,6 +826,10 @@ function amount(model){
 			                console.log(e);
 			                return reject(model)
 						})
+					}
+					else{
+			                return reject(model)
+						
 					}
 
 				})
