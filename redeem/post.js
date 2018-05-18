@@ -704,10 +704,13 @@ function folio(model){
  // ]
 			})
 			.catch(e=>{
+				console.log(e);
 				return reject(model);
 			});
 		}
 		else{
+
+			console.log("no data");
 			return reject(model)
 		}
 	})
