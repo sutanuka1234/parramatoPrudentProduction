@@ -1122,11 +1122,11 @@ function additional(model){
 					let amount=parseFloat(model.tags.amount)
 					let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 					let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
-					if(amount<minAmount){
+					if(amount<=minAmount){
 						// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
 						model.tags.amount=undefined;
 					}
-					else if(amount>maxAmount){
+					else if(amount>=maxAmount){
 						// sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
 						model.tags.amount=undefined;
 					}
@@ -1361,11 +1361,11 @@ function folio(model){
 				let amount=parseFloat(model.tags.amount)
 				let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 				let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
-				if(amount<minAmount){
+				if(amount<=minAmount){
 					sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
 					model.tags.amount=undefined;
 				}
-				else if(amount>maxAmount){
+				else if(amount>=maxAmount){
 					sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
 					model.tags.amount=undefined;
 				}
@@ -1424,7 +1424,7 @@ function folio(model){
 							for(let element of data.body.Response[1]){
 								try{
 									if(element.DailyLimit){
-										if(maxAmountPossible<element.DailyLimit){
+										if(maxAmountPossible<=element.DailyLimit){
 											maxAmountPossible=element.DailyLimit;
 										}
 									}
@@ -1487,11 +1487,11 @@ function amount(model){
 			let amount=parseFloat(model.tags.amount)
 			let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 			let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
-			if(amount<minAmount){
+			if(amount<=minAmount){
 				sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
 				model.tags.amount=undefined;
 			}
-			else if(amount>maxAmount){
+			else if(amount>=maxAmount){
 				sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
 				model.tags.amount=undefined;
 			}
@@ -1582,7 +1582,7 @@ function amount(model){
 						for(let element of data.body.Response[1]){
 							try{
 									if(element.DailyLimit){
-										if(maxAmountPossible<element.DailyLimit){
+										if(maxAmountPossible<=element.DailyLimit){
 											maxAmountPossible=element.DailyLimit;
 										}
 									}
@@ -1710,7 +1710,7 @@ function sipDay(model){
 								for(let element of data.body.Response){
 									try{
 											if(element.DailyLimit){
-												if(maxAmountPossible<element.DailyLimit){
+												if(maxAmountPossible<=element.DailyLimit){
 													maxAmountPossible=element.DailyLimit;
 												}
 											}

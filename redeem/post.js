@@ -730,11 +730,11 @@ function amount(model){
 		try{
 			if(model.tags.amount){
 				let amount=parseFloat(model.tags.amount)
-				if(amount<model.tags.minAmount){
+				if(amount<=model.tags.minAmount){
 					sendExternalMessage(model,"Investment amount should be greater than Rs "+model.tags.minAmount+".")
 					model.tags.amount=undefined;
 				}
-				else if(amount>model.tags.maxAmount){
+				else if(amount>=model.tags.maxAmount){
 					sendExternalMessage(model,"Investment amount should be less than Rs "+model.tags.maxAmount+".")
 					model.tags.amount=undefined;
 				}
