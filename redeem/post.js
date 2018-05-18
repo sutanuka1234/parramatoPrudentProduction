@@ -709,6 +709,7 @@ function scheme(model){
 }
 
 function amount(model){
+	console.log("amount::::::::::::::::::")
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
 		model=extractAmount(model)
