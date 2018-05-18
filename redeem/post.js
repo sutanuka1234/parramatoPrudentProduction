@@ -713,6 +713,7 @@ function amount(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
 		model=extractAmount(model)
+		console.log("amount::::::::::::::::::"+model.tags.amount)
 		if(model.tags.amount){
 			let amount=parseFloat(model.tags.amount)
 			if(amount<model.tags.minAmount){
