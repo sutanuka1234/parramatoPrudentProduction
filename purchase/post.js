@@ -1686,6 +1686,7 @@ function sipDay(model){
 				            })
 						}
 						try{
+							data.body.Response=[]
 							if(data.body.Response&&data.body.Response.length>0&&data.body.Response[0].result=="FAIL"){
 								let reply={
 					                text    : data.body.Response[0]['reject_reason'].trim(),
@@ -1761,9 +1762,8 @@ function sipDay(model){
 						}
 						catch(e){
 							console.log(e);
-				            sendExternalMessage(model,"Sorry, we can not continue the SIP transaction as you have no bank mandate linked");
-							model.stage = 'summary'
-							return resolve(model)
+							return reject(model);
+				            
 						}
 					})
 					.catch(e=>{
