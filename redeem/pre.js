@@ -214,8 +214,9 @@ function summary(model){
 	            text:"Could not proceed with the redemption"
 			}
 		}
-			
-			return resolve(model)
+		
+		console.log(model.tags.redeemRefId+":::::::::::<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")	
+		return resolve(model)
 	})
 }
 
