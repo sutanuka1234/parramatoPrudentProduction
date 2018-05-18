@@ -90,6 +90,7 @@ function panMobile(model){
 		model.tags.resend=undefined
 		model.tags.tranId=undefined
 		model.tags.redeemSchemeList=undefined
+		model.tags.redeemRefId=undefined
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
@@ -100,7 +101,7 @@ function panMobile(model){
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
-	            text:"Sure, we have your credentials linked to mobile "+formatter.apply(model.tags.mobile)+" saved. Would you like to proceed with the lumpsum investment?",
+	            text:"Sure, we have your credentials linked to mobile "+formatter.apply(model.tags.mobile)+" saved. Would you like to proceed with the redemption process?",
 	            next:{
 	                "data": [
 	                	{
@@ -191,7 +192,7 @@ function scheme(model){
 	return new Promise(function(resolve, reject){
 			model.reply = {
 				type:"generic",
-	            text:"Choose among the closest schemes, or type if you wish to invest in a different scheme.",
+	            text:"Following are the schemes you are invested in. Please choose one",
 	            next:{ 
 	            	data : model.tags.redeemSchemeList
 	            }
@@ -201,10 +202,19 @@ function scheme(model){
 }
 function summary(model){
 	return new Promise(function(resolve, reject){
+		if(model.tags.redeemRefId){
 			model.reply={
 				type:"text",
-	            text:"Thanks"
+	            text:"Thanks, your reference id is "+model.tags.redeemRefId
 			}
+		}
+		else{
+			model.reply={
+				type:"text",
+	            text:"Sorry, you dont have any scheme in this folio,"
+			}
+		}
+			
 			return resolve(model)
 	})
 }
