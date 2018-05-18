@@ -588,14 +588,57 @@ function investmentType(model){
 		}
 		else if(model.data.toLowerCase().includes("sip")||model.data.toLowerCase().includes("systematic")){
 			model.tags.investmentType="sip"
-			if(model.tags.schemes && model.tags.schemes.length > 0){
-				model.stage = 'showSchemeName'
+			api.getMandate(model.tags.session, model.tags.joinAccId)
+			.then((data)=>{
+				try{
+					data.body = JSON.parse(data.body)
+				}
+				catch(e){	
+					console.log(e);
+					let reply={
+		                text    : "API Not Responding Properly",
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+						console.log("improper json")
+		                return reject(model);
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+				try{
+					if(data.body.Response&&data.body.Response.length>0){
+						if(model.tags.schemes && model.tags.schemes.length > 0){
+							model.stage = 'showSchemeName'
+							return resolve(model)
+						}
+						else{
+							delete model.stage
+							return resolve(model)
+						}
+					}
+					sendExternalMessage(model,"Sorry, we can not continue the SIP transaction as you have no bank mandate linked");
+					model.stage = 'summary'
+					return resolve(model)
+				}
+				catch(e){
+					console.log(e)
+					sendExternalMessage(model,"Sorry, we can not continue the SIP transaction as you have no bank mandate linked");
+					model.stage = 'summary'
+					return resolve(model)
+				}
+			})
+			.catch((e)=>{
+				console.log(e)
+				sendExternalMessage(model,"Sorry, we can not continue the SIP transaction as you have no bank mandate linked");
+				model.stage = 'summary'
 				return resolve(model)
-			}
-			else{
-				delete model.stage
-				return resolve(model)
-			}
+			})
 		}
 		else{
 			return reject(model);
@@ -1666,7 +1709,6 @@ function sipDay(model){
 						try{
 							console.log(data.body)
 							data.body = JSON.parse(data.body)
-							console.log(JSON.stringify(data.body,null,3))
 						}
 						catch(e){	
 							console.log(e);

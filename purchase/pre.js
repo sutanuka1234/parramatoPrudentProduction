@@ -313,10 +313,16 @@ function bankMandate(model){
 
 function summary(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.paymentSummary){
+		if(model.tags.transactionRefId){
 			model.reply={
 				type : 'text',
 				text : 'We have gone ahead with '+model.tags.investmentType+' of '+model.tags.paymentSummary.SchemeName+' with Folio '+model.tags.folio+' investing Rs '+model.tags.amount+'. Reference ID would be '+model.tags.transactionRefId+'. Status of transaction is '+model.tags.status+'.'
+			}
+		}
+		else{
+			model.reply={
+				type : 'text',
+				text : 'Sorry, the transaction failed.'
 			}
 		}
 		model.tags.amount = undefined
