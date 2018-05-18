@@ -805,7 +805,7 @@ function amount(model){
 					                return reject(model)
 					            })
 							}
-							if(data.body.Response[0].result=="FAIL"){
+							if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
 								let reply={
 					                text    : data.body.Response[0]['reject_reason'].trim(),
 					                type    : "text",
