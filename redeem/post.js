@@ -785,7 +785,6 @@ function amount(model){
 			            })
 					}
 					else if(data.body.Response&&data.body.Response.length>0){
-
 						model.tags.redeemRefId=data.body.Response[0]["TranReferenceID"];
 						api.confirmRedemption(model.tags.session,model.tags.redeemRefId)
 						.then((data)=>{

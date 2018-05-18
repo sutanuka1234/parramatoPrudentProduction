@@ -216,7 +216,7 @@ function summary(model){
 			}
 		}
 		
-		console.log(model.tags.redeemRefId+":::::::::::<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")	
+		console.log(model.tags.redeemRefId+":::::::::::<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"+model.tags.status)	
 		return resolve(model)
 	})
 }
