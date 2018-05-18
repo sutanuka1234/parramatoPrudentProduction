@@ -714,132 +714,138 @@ function amount(model){
 		model=dataClean(model)
 		model=extractAmount(model)
 		console.log("amount::::::::::::::::::"+model.tags.amount)
-		if(model.tags.amount){
-			let amount=parseFloat(model.tags.amount)
-			if(amount<model.tags.minAmount){
-				sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
-				model.tags.amount=undefined;
+		try{
+			if(model.tags.amount){
+				let amount=parseFloat(model.tags.amount)
+				if(amount<model.tags.minAmount){
+					sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
+					model.tags.amount=undefined;
+				}
+				else if(amount>model.tags.maxAmount){
+					sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
+					model.tags.amount=undefined;
+				}
 			}
-			else if(amount>model.tags.maxAmount){
-				sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
-				model.tags.amount=undefined;
+			else if(model.data.toLowerCase().includes("all")){
+				model.tags.amount=model.tags.maxAmount.toString();
 			}
+			if(model.tags.amount){
+
+				console.log("amount valid")
+				// api.insertBuyCartRedeem(model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["DivOpt"], model.tags.amount, model.tags.folio)
+				// .then((data)=>{
+				// 	console.log(data.body)
+				// 	try{
+				// 		data.body = JSON.parse(data.body)
+				// 	}
+				// 	catch(e){	
+				// 		console.log(e);
+				// 		let reply={
+			 //                text    : "API Not Responding Properly",
+			 //                type    : "text",
+			 //                sender  : model.sender,
+			 //                language: "en"
+			 //            }
+				// 		external(reply)
+				// 		.then((data)=>{
+			 //                return reject(model);
+			 //            })
+			 //            .catch((e)=>{
+			 //                console.log(e);
+			 //                return reject(model)
+			 //            })
+				// 	}
+				// 	if(data.body.Response[0].result=="FAIL"){
+				// 		let reply={
+			 //                text    : data.body.Response[0]['reject_reason'].trim(),
+			 //                type    : "text",
+			 //                sender  : model.sender,
+			 //                language: "en"
+			 //            }
+				// 		external(reply)
+				// 		.then((data)=>{
+			 //                return reject(model);
+			 //            })
+			 //            .catch((e)=>{
+			 //                console.log(e);
+			 //                return reject(model)
+			 //            })
+				// 	}
+				// 	else{
+
+				// 		model.tags.redeemRefId=data.body.Response[0]["TranReferenceID"];
+				// 		model.tags.transactionRefId=data.body.Response[0]["TranReferenceID"];
+				// 		api.confirmRedemption(model.tags.session,model.tags.redeemRefId)
+				// 		.then((data)=>{
+				// 			console.log(data.body)
+				// 			try{
+				// 				data.body = JSON.parse(data.body)
+				// 			}
+				// 			catch(e){	
+				// 				console.log(e);
+				// 				let reply={
+				// 	                text    : "API Not Responding Properly",
+				// 	                type    : "text",
+				// 	                sender  : model.sender,
+				// 	                language: "en"
+				// 	            }
+				// 				external(reply)
+				// 				.then((data)=>{
+				// 	                return reject(model);
+				// 	            })
+				// 	            .catch((e)=>{
+				// 	                console.log(e);
+				// 	                return reject(model)
+				// 	            })
+				// 			}
+				// 			if(data.body.Response[0].result=="FAIL"){
+				// 				let reply={
+				// 	                text    : data.body.Response[0]['reject_reason'].trim(),
+				// 	                type    : "text",
+				// 	                sender  : model.sender,
+				// 	                language: "en"
+				// 	            }
+				// 				external(reply)
+				// 				.then((data)=>{
+				// 	                return reject(model);
+				// 	            })
+				// 	            .catch((e)=>{
+				// 	                console.log(e);
+				// 	                return reject(model)
+				// 	            })
+				// 			}
+				// 			else{
+				// 				model.tags.status="Successful"
+				// 				delete model.stage
+				// 				return resolve(model)
+
+				// 			}
+
+				// 		})
+				// 		.catch(e=>{
+			 //                console.log(e);
+			 //                return reject(model)
+				// 		})
+				// 	}
+
+				// })
+				// .catch(e=>{
+				// 	console.log(e)
+				// 	return reject(model)
+				// })
+
+				delete model.stage
+				return resolve(model)
+			}
+			else{
+				console.log("no data")
+				return reject(model)
+			}	
 		}
-		else if(model.data.toLowerCase().includes("all")){
-			model.tags.amount=model.tags.maxAmount.toString();
-		}
-		if(model.tags.amount){
-
-			console.log("amount valid")
-			// api.insertBuyCartRedeem(model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["DivOpt"], model.tags.amount, model.tags.folio)
-			// .then((data)=>{
-			// 	console.log(data.body)
-			// 	try{
-			// 		data.body = JSON.parse(data.body)
-			// 	}
-			// 	catch(e){	
-			// 		console.log(e);
-			// 		let reply={
-		 //                text    : "API Not Responding Properly",
-		 //                type    : "text",
-		 //                sender  : model.sender,
-		 //                language: "en"
-		 //            }
-			// 		external(reply)
-			// 		.then((data)=>{
-		 //                return reject(model);
-		 //            })
-		 //            .catch((e)=>{
-		 //                console.log(e);
-		 //                return reject(model)
-		 //            })
-			// 	}
-			// 	if(data.body.Response[0].result=="FAIL"){
-			// 		let reply={
-		 //                text    : data.body.Response[0]['reject_reason'].trim(),
-		 //                type    : "text",
-		 //                sender  : model.sender,
-		 //                language: "en"
-		 //            }
-			// 		external(reply)
-			// 		.then((data)=>{
-		 //                return reject(model);
-		 //            })
-		 //            .catch((e)=>{
-		 //                console.log(e);
-		 //                return reject(model)
-		 //            })
-			// 	}
-			// 	else{
-
-			// 		model.tags.redeemRefId=data.body.Response[0]["TranReferenceID"];
-			// 		model.tags.transactionRefId=data.body.Response[0]["TranReferenceID"];
-			// 		api.confirmRedemption(model.tags.session,model.tags.redeemRefId)
-			// 		.then((data)=>{
-			// 			console.log(data.body)
-			// 			try{
-			// 				data.body = JSON.parse(data.body)
-			// 			}
-			// 			catch(e){	
-			// 				console.log(e);
-			// 				let reply={
-			// 	                text    : "API Not Responding Properly",
-			// 	                type    : "text",
-			// 	                sender  : model.sender,
-			// 	                language: "en"
-			// 	            }
-			// 				external(reply)
-			// 				.then((data)=>{
-			// 	                return reject(model);
-			// 	            })
-			// 	            .catch((e)=>{
-			// 	                console.log(e);
-			// 	                return reject(model)
-			// 	            })
-			// 			}
-			// 			if(data.body.Response[0].result=="FAIL"){
-			// 				let reply={
-			// 	                text    : data.body.Response[0]['reject_reason'].trim(),
-			// 	                type    : "text",
-			// 	                sender  : model.sender,
-			// 	                language: "en"
-			// 	            }
-			// 				external(reply)
-			// 				.then((data)=>{
-			// 	                return reject(model);
-			// 	            })
-			// 	            .catch((e)=>{
-			// 	                console.log(e);
-			// 	                return reject(model)
-			// 	            })
-			// 			}
-			// 			else{
-			// 				model.tags.status="Successful"
-			// 				delete model.stage
-			// 				return resolve(model)
-
-			// 			}
-
-			// 		})
-			// 		.catch(e=>{
-		 //                console.log(e);
-		 //                return reject(model)
-			// 		})
-			// 	}
-
-			// })
-			// .catch(e=>{
-			// 	console.log(e)
-			// 	return reject(model)
-			// })
-
-			delete model.stage
-			return resolve(model)
-		}
-		else{
-			console.log("no data")
+		catch(e){
+			console.log(e)
 			return reject(model)
-		}	
+		}
 	})
 }
 
