@@ -696,7 +696,7 @@ function folio(model){
 function scheme(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.redeemSchemes){
-			for(let scheme of redeemSchemes){
+			for(let scheme of model.tags.redeemSchemes){
 				console.log(model.data+"::"+scheme["SCHEMECODE"])
 				if(scheme["SCHEMECODE"]==model.data){
 					model.tags.redeemSchemeObj=scheme;
