@@ -785,8 +785,8 @@ function amount(model){
 			            })
 					}
 					else if(data.body.Response&&data.body.Response.length>0){
-						var refrenceId=data.body.Response[0]["TranReferenceID"];
-						api.confirmRedemption(model.tags.session,model.tags.redeemRefId)
+						let refrenceId=data.body.Response[0]["TranReferenceID"];
+						api.confirmRedemption(model.tags.session,refrenceId)
 						.then((data)=>{
 							console.log(data.body)
 							try{
@@ -851,8 +851,6 @@ function amount(model){
 					return reject(model)
 				})
 
-				delete model.stage
-				return resolve(model)
 			}
 			else{
 				console.log("no data")
