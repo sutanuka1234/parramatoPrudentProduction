@@ -832,6 +832,7 @@ function amount(model){
 			})
 		}
 		else{
+			console.log("no data")
 			return reject(model)
 		}	
 	})
