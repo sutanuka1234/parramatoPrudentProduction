@@ -630,56 +630,62 @@ function folio(model){
 				                return reject(model)
 				            })
 					}
-
-					if(response.Response&&response.Response.length>0&&response.Response[0].result=="FAIL"){
-						let reply={
-			                text    : response.Response[0]['reject_reason'],
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
-							return reject(model)//wrongResolve
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-					}
-					console.log(JSON.stringify(response,null,3))
-					if(response.Response&&response.Response.length>0){
-						model.tags.redeemSchemes=response.Response;
-						if(!model.tags.redeemSchemeList){
-							model.tags.redeemSchemeList=[]
+					try{
+						if(response.Response&&response.Response.length>0&&response.Response[0].result=="FAIL"){
+							let reply={
+				                text    : response.Response[0]['reject_reason'],
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+								return reject(model)//wrongResolve
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
 						}
-						response.Response.forEach(function(element,index){
-							if(model.tags.folio==element["FOLIONO"]&&index<10){
-								model.tags.redeemSchemeList.push({
-									title 	: element["SCHEMENAME"],
-									text 	: "Amount invested is Rs. "+element["AvailableAmt"]+". Minimum redemption Amount Rs. "+element["MinRedemptionAmount"],
-									buttons : [
-										{
-											text : 'Select',
-											data : element["SCHEMECODE"].toString()
-										}
-									]
-								})
+						console.log(JSON.stringify(response,null,3))
+						if(response.Response&&response.Response.length>0){
+							model.tags.redeemSchemes=response.Response;
+							if(!model.tags.redeemSchemeList){
+								model.tags.redeemSchemeList=[]
 							}
-						})
-						if(model.tags.redeemSchemeList.length==0){
-							sendExternalMessage(model,"Oops. This folio has no schemes")
-							model.stage="folio"
-							return resolve(model)
+							response.Response.forEach(function(element,index){
+								if(model.tags.folio==element["FOLIONO"]&&index<10){
+									model.tags.redeemSchemeList.push({
+										title 	: element["SCHEMENAME"],
+										text 	: "Amount invested is Rs. "+element["AvailableAmt"]+". Minimum redemption Amount Rs. "+element["MinRedemptionAmount"],
+										buttons : [
+											{
+												text : 'Select',
+												data : element["SCHEMECODE"].toString()
+											}
+										]
+									})
+								}
+							})
+							if(model.tags.redeemSchemeList.length==0){
+								sendExternalMessage(model,"Oops. This folio has no schemes")
+								model.stage="folio"
+								return resolve(model)
+							}
+							else{
+								delete model.stage
+								return resolve(model)
+							}
 						}
 						else{
-							delete model.stage
+							sendExternalMessage(model,"Sorry, you dont have any scheme in this folio.");
+							model.stage="summary"
 							return resolve(model)
 						}
 					}
-					else{
-						model.stage="summary"
-						return resolve(model)
+					catch(e){
+						console.log(e)
+						return reject(model)
 					}
 
 			})

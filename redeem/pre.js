@@ -211,7 +211,7 @@ function summary(model){
 		else{
 			model.reply={
 				type:"text",
-	            text:"Sorry, you dont have any scheme in this folio,"
+	            text:"Could not proceed with the redemption"
 			}
 		}
 			
