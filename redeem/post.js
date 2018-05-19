@@ -571,10 +571,12 @@ function holding(model){
 				if(response.Response.length > 0){
 					model.tags.folioList = []
 					for(let i in response.Response){
-						model.tags.folioList.push({
-							data : response.Response[i].FolioNo,
-							text : response.Response[i].FolioNo
-						})
+						if(!response.Response[i].FolioNo.includes("New")){
+							model.tags.folioList.push({
+								data : response.Response[i].FolioNo,
+								text : response.Response[i].FolioNo
+							})
+						}
 					}
 					delete model.stage
 				}
