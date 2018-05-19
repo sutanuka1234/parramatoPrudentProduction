@@ -143,7 +143,7 @@ function panMobile(model){
 					response = JSON.parse(data.body)
 				}
 				catch(e){
-					// console.log(e);
+					console.log(e);
 					if(!model.tags.mobile){
 						model.stage = 'mobile' 
 						return resolve(model)
@@ -190,7 +190,7 @@ function panMobile(model){
 			})
 			.catch(error=>{
 				// console.log("catch")
-				// console.log(error);
+				console.log(error);
 				if(!model.tags.mobile){
 					model.stage = 'mobile' 
 					return resolve(model)
@@ -276,7 +276,7 @@ function panMobile(model){
 					}
 				})
 				.catch(error=>{
-					// console.log(error);
+					console.log(error);
 					if(!model.tags.mobile){
 						model.stage = 'mobile' 
 						return resolve(model)
