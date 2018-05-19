@@ -164,7 +164,7 @@ function folio(model){
 		if(model.tags.folioList){
 			model.reply={
 				type:"quickReply",
-	            text:"Let us know the folio you wish to invest in.",
+	            text:"Let us know the folio you wish to redeem.",
 	            next:{
 	                "data": model.tags.folioList
 	            }
