@@ -592,7 +592,9 @@ function holding(model){
 
 					}
 					else{
-						model.tags.folioNo = response.Response[0].FolioNo
+						sendExternalMessage(model,"Sorry, no folio in this pattern.");
+						model.stage="summary"
+						return resolve(model)
 					}
 
 				}
