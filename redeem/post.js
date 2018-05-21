@@ -672,6 +672,7 @@ function scheme(model){
 		try{
 			if(model.tags.redeemSchemes){
 				for(let scheme of model.tags.redeemSchemes){
+					sendExternalMessage(model,"Going ahead with "+scheme["SCHEMENAME"])
 					console.log(model.data+"::"+scheme["SCHEMECODE"])
 					if(scheme["SCHEMECODE"]==model.data){
 						model.tags.redeemSchemeObj=scheme;
