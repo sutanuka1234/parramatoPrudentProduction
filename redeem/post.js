@@ -579,12 +579,22 @@ function holding(model){
 								})
 							}
 						}
-						delete model.stage
+						if(folioList.length==0){
+
+							sendExternalMessage(model,"Sorry, no folio in this pattern.");
+							model.stage="summary"
+							return resolve(model)
+						}
+						else{
+
+							delete model.stage
+						}
+
 					}
 					else{
 						model.tags.folioNo = response.Response[0].FolioNo
-						delete model.stage
 					}
+
 				}
 				catch(e){
 					cosnole.log(e)
