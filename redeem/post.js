@@ -601,19 +601,21 @@ function holding(model){
 								model.tags.redeemSchemeList=[]
 							}
 							response.Response.forEach(function(element,index){
-								model.tags.redeemSchemeList.push({
-									title 	: element["SCHEMENAME"],
-									text 	: "Amount invested is Rs. "+element["AvailableAmt"]+". Minimum redemption Amount Rs. "+element["MinRedemptionAmount"],
-									buttons : [
-										{
-											text : 'Select',
-											data : element["SCHEMECODE"].toString()
-										}
-									]
-								})
+								if(index<10){
+									model.tags.redeemSchemeList.push({
+										title 	: element["SCHEMENAME"],
+										text 	: "Folio "+element["FOLIONO"]+". Amount invested is Rs. "+element["AvailableAmt"]+". Minimum redemption Amount Rs. "+element["MinRedemptionAmount"],
+										buttons : [
+											{
+												text : 'Select',
+												data : element["SCHEMECODE"].toString()
+											}
+										]
+									})
+								}
 							})
 							if(model.tags.redeemSchemeList.length==0){
-								sendExternalMessage(model,"Oops. This folio has no schemes to redeem.")
+								sendExternalMessage(model,"Oops. This pattern has no schemes to redeem.")
 								model.stage="summary"
 								return resolve(model)
 							}
@@ -623,7 +625,7 @@ function holding(model){
 							}
 						}
 						else{
-							sendExternalMessage(model,"Sorry, you dont have any scheme in this folio.");
+							sendExternalMessage(model,"Sorry, you dont have any scheme in this pattern.");
 							model.stage="summary"
 							return resolve(model)
 						}
