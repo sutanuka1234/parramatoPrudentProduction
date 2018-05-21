@@ -618,8 +618,8 @@ function folio(model){
 			.then((data)=>{
 				let response;
 					try{
+						console.log(JSON.stringify(data.body,null,3))
 						response = JSON.parse(data.body)
-						console.log(JSON.stringify(response,null,3))
 					}
 					catch(e){
 						console.log(e);
