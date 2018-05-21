@@ -555,7 +555,7 @@ function holding(model){
 			console.log("here")
 			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 			.then(response=>{
-				console.log(response.body)
+				console.log(response)
 				try{
 					response = JSON.parse(response.body)
 					if(response.Response.length > 0){
