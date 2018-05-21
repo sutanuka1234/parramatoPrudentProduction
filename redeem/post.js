@@ -561,28 +561,34 @@ function holding(model){
 				catch(e){// console.log(e);
 					return reject(model);
 				}
-				let arr = []
-				for(let i in response.Response){
-					arr.push(response.Response[i].FolioNo.toLowerCase())
-				}
-				// if(model.tags.folio && arr.includes(model.tags.folio)){
-				// 	model.stage="amount";
-				// }
-				if(response.Response.length > 0){
-					model.tags.folioList = []
-					for(let i in response.Response){
-						if(!response.Response[i].FolioNo.includes("New Folio")){
-							model.tags.folioList.push({
-								data : response.Response[i].FolioNo,
-								text : response.Response[i].FolioNo
-							})
+				try{
+					// let arr = []
+					// for(let i in response.Response){
+					// 	arr.push(response.Response[i].FolioNo.toLowerCase())
+					// }
+					// if(model.tags.folio && arr.includes(model.tags.folio)){
+					// 	model.stage="amount";
+					// }
+					if(response.Response.length > 0){
+						model.tags.folioList = []
+						for(let i in response.Response){
+							if(!response.Response[i].FolioNo.includes("New Folio")){
+								model.tags.folioList.push({
+									data : response.Response[i].FolioNo,
+									text : response.Response[i].FolioNo
+								})
+							}
 						}
+						delete model.stage
 					}
-					delete model.stage
+					else{
+						model.tags.folioNo = response.Response[0].FolioNo
+						delete model.stage
+					}
 				}
-				else{
-					model.tags.folioNo = response.Response[0].FolioNo
-					delete model.stage
+				catch(e){
+					cosnole.log(e)
+					return reject(model);
 				}
 				return resolve(model)
 			})
@@ -706,17 +712,23 @@ function folio(model){
 
 function scheme(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.redeemSchemes){
-			for(let scheme of model.tags.redeemSchemes){
-				console.log(model.data+"::"+scheme["SCHEMECODE"])
-				if(scheme["SCHEMECODE"]==model.data){
-					model.tags.redeemSchemeObj=scheme;
-					model.tags.maxAmount=parseFloat(scheme["AvailableAmt"])
-					model.tags.minAmount=parseFloat(scheme["MinRedemptionAmount"])
-					delete model.stage;
-					return resolve(model);
+		try{
+			if(model.tags.redeemSchemes){
+				for(let scheme of model.tags.redeemSchemes){
+					console.log(model.data+"::"+scheme["SCHEMECODE"])
+					if(scheme["SCHEMECODE"]==model.data){
+						model.tags.redeemSchemeObj=scheme;
+						model.tags.maxAmount=parseFloat(scheme["AvailableAmt"])
+						model.tags.minAmount=parseFloat(scheme["MinRedemptionAmount"])
+						delete model.stage;
+						return resolve(model);
+					}
 				}
 			}
+		}
+		catch(e){
+			console.log(e)
+			return reject(model);			
 		}
 
 		return reject(model)
