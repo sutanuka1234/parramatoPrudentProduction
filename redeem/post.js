@@ -76,8 +76,8 @@ function main(req, res){
 		// console.log(req.params.stage)
 		obj[req.params.stage](req.body)
 		.then((data)=>{
-			console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
-			console.log(JSON.stringify(data,null,3))
+			// console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
+			// console.log(JSON.stringify(data,null,3))
 			res.send(data)
 		})
 		.catch((e)=>{
@@ -695,11 +695,11 @@ function scheme(model){
 }
 
 function amount(model){
-	console.log("amount::::::::::::::::::")
+	// console.log("amount::::::::::::::::::")
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
 		model=extractAmount(model)
-		console.log("amount::::::::::::::::::"+model.tags.amount)
+		// console.log("amount::::::::::::::::::"+model.tags.amount)
 		try{
 			if(model.tags.amount){
 				let amount=parseFloat(model.tags.amount)
@@ -717,7 +717,7 @@ function amount(model){
 			}
 			if(model.tags.amount){
 
-				console.log("amount valid")
+				// console.log("amount valid")
 				api.insertBuyCartRedeem(model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["DivOpt"], model.tags.amount, model.tags.folio)
 				.then((data)=>{
 					console.log(data.body)
