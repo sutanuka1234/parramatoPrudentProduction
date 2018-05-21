@@ -554,11 +554,12 @@ function holding(model){
 			model.tags.joinAccId = model.data
 			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 			.then(response=>{
-				// console.log(response.body)
+				console.log(response.body)
 				try{
 					response = JSON.parse(response.body)
 				}
-				catch(e){// console.log(e);
+				catch(e
+					console.log(e);
 					return reject(model);
 				}
 				try{
@@ -605,12 +606,13 @@ function holding(model){
 				return resolve(model)
 			})
 			.catch(e=>{
-				// console.log(e)
+				console.log(e)
 				return reject(model)
 			}) 	
 				
 		}
 		else{
+			console.log("no data")
 			return reject(model)
 		}
 	})
