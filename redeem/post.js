@@ -545,13 +545,14 @@ function holding(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.joinAccId.includes(model.data)){
 			for (let element of model.tags.joinAcc){
-				// console.log(element.JoinAccId+"::"+model.data)
+				console.log(element.JoinAccId+"::"+model.data)
 				if(element.JoinAccId==model.data){
 					sendExternalMessage(model,"Going ahead with "+element.JoinHolderName)
 					break;
 				}
 			}
 			model.tags.joinAccId = model.data
+			console.log("here")
 			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 			.then(response=>{
 				console.log(response.body)
