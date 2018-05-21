@@ -558,7 +558,7 @@ function holding(model){
 				try{
 					response = JSON.parse(response.body)
 				}
-				catch(e
+				catch(e){
 					console.log(e);
 					return reject(model);
 				}
@@ -580,7 +580,7 @@ function holding(model){
 								})
 							}
 						}
-						if(folioList.length==0){
+						if(model.tags.folioList.length==0){
 
 							sendExternalMessage(model,"Sorry, no folio in this pattern.");
 							model.stage="summary"
