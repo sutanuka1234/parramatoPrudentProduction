@@ -603,7 +603,7 @@ function holding(model){
 								if(index<10){
 									model.tags.redeemSchemeList.push({
 										title 	: element["SCHEMENAME"],
-										text 	: "Folio "+element["FOLIONO"]+". Amount invested is Rs. "+element["AvailableAmt"]+". Minimum redemption Amount Rs. "+element["MinRedemptionAmount"],
+										text 	: "Folio "+element["FOLIONO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinRedemptionAmount"],
 										buttons : [
 											{
 												text : 'Select',
