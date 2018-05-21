@@ -557,19 +557,6 @@ function holding(model){
 				console.log(response.body)
 				try{
 					response = JSON.parse(response.body)
-				}
-				catch(e){
-					console.log(e);
-					return reject(model);
-				}
-				try{
-					// let arr = []
-					// for(let i in response.Response){
-					// 	arr.push(response.Response[i].FolioNo.toLowerCase())
-					// }
-					// if(model.tags.folio && arr.includes(model.tags.folio)){
-					// 	model.stage="amount";
-					// }
 					if(response.Response.length > 0){
 						model.tags.folioList = []
 						for(let i in response.Response){
@@ -581,13 +568,10 @@ function holding(model){
 							}
 						}
 						if(model.tags.folioList.length==0){
-
 							sendExternalMessage(model,"Sorry, no folio in this pattern.");
 							model.stage="summary"
-							return resolve(model)
 						}
 						else{
-
 							delete model.stage
 						}
 
@@ -595,15 +579,14 @@ function holding(model){
 					else{
 						sendExternalMessage(model,"Sorry, no folio in this pattern.");
 						model.stage="summary"
-						return resolve(model)
 					}
+					return resolve(model)
 
 				}
 				catch(e){
-					cosnole.log(e)
+					console.log(e)
 					return reject(model);
 				}
-				return resolve(model)
 			})
 			.catch(e=>{
 				console.log(e)
