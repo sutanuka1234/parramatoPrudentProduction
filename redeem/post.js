@@ -554,7 +554,7 @@ function holding(model){
 			model.tags.joinAccId = model.data
 			console.log("here")
 			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-			.then(response=>{
+			.then((response)=>{
 				console.log("tttthere")
 				console.log(response)
 				try{
@@ -586,18 +586,20 @@ function holding(model){
 
 				}
 				catch(e){
+					console.log("1 reject")
 					console.log(e)
 					return reject(model);
 				}
 			})
 			.catch(e=>{
+				console.log("2 reject")
 				console.log(e)
 				return reject(model)
 			}) 	
 				
 		}
 		else{
-			console.log("no data")
+			console.log("3 reject no data")
 			return reject(model)
 		}
 	})
