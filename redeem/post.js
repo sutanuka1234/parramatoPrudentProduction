@@ -674,8 +674,8 @@ function folio(model){
 								}
 							})
 							if(model.tags.redeemSchemeList.length==0){
-								sendExternalMessage(model,"Oops. This folio has no schemes")
-								model.stage="folio"
+								sendExternalMessage(model,"Oops. This folio has no schemes to redeem.")
+								model.stage="summary"
 								return resolve(model)
 							}
 							else{
@@ -693,7 +693,6 @@ function folio(model){
 						console.log(e)
 						return reject(model)
 					}
-
 			})
 			.catch(e=>{
 				console.log(e);
