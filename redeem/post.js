@@ -553,68 +553,6 @@ function holding(model){
 			}
 			model.tags.joinAccId = model.data
 			console.log("here")
-			api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-			.then((response)=>{
-				console.log("tttthere")
-				console.log(response)
-				try{
-					response = JSON.parse(response.body)
-					if(response.Response.length > 0){
-						model.tags.folioList = []
-						for(let i in response.Response){
-							if(!response.Response[i].FolioNo.includes("New Folio")){
-								model.tags.folioList.push({
-									data : response.Response[i].FolioNo,
-									text : response.Response[i].FolioNo
-								})
-							}
-						}
-						if(model.tags.folioList.length==0){
-							sendExternalMessage(model,"Sorry, no folio in this pattern.");
-							model.stage="summary"
-						}
-						else{
-							delete model.stage
-						}
-
-					}
-					else{
-						sendExternalMessage(model,"Sorry, no folio in this pattern.");
-						model.stage="summary"
-					}
-					return resolve(model)
-
-				}
-				catch(e){
-					console.log("1 reject")
-					console.log(e)
-					return reject(model);
-				}
-			})
-			.catch(e=>{
-				console.log("2 reject")
-				console.log(e)
-				return reject(model)
-			}) 	
-				
-		}
-		else{
-			console.log("3 reject no data")
-			return reject(model)
-		}
-	})
-}
-
-function folio(model){
-	return new Promise(function(resolve, reject){
-		let arr = []
-		for(let i in model.tags.folioList){
-			arr.push(model.tags.folioList[i].data)
-		}
-		model.tags.amcName = data[model.tags.scheme].amcName
-		if(arr.includes(model.data)){
-			sendExternalMessage(model,"Going ahead with "+model.data)
-			model.tags.folio = model.data
 			api.getRedemptionSchemes(model.tags.session, model.tags.joinAccId)
 			.then((data)=>{
 				let response;
@@ -663,18 +601,16 @@ function folio(model){
 								model.tags.redeemSchemeList=[]
 							}
 							response.Response.forEach(function(element,index){
-								if(model.tags.folio==element["FOLIONO"]&&index<10){
-									model.tags.redeemSchemeList.push({
-										title 	: element["SCHEMENAME"],
-										text 	: "Amount invested is Rs. "+element["AvailableAmt"]+". Minimum redemption Amount Rs. "+element["MinRedemptionAmount"],
-										buttons : [
-											{
-												text : 'Select',
-												data : element["SCHEMECODE"].toString()
-											}
-										]
-									})
-								}
+								model.tags.redeemSchemeList.push({
+									title 	: element["SCHEMENAME"],
+									text 	: "Amount invested is Rs. "+element["AvailableAmt"]+". Minimum redemption Amount Rs. "+element["MinRedemptionAmount"],
+									buttons : [
+										{
+											text : 'Select',
+											data : element["SCHEMECODE"].toString()
+										}
+									]
+								})
 							})
 							if(model.tags.redeemSchemeList.length==0){
 								sendExternalMessage(model,"Oops. This folio has no schemes to redeem.")
@@ -701,14 +637,34 @@ function folio(model){
 				console.log(e);
 				return reject(model);
 			});
+				
 		}
 		else{
-
-			console.log("no data");
+			console.log("3 reject no data")
 			return reject(model)
 		}
 	})
 }
+
+// function folio(model){
+// 	return new Promise(function(resolve, reject){
+// 		let arr = []
+// 		for(let i in model.tags.folioList){
+// 			arr.push(model.tags.folioList[i].data)
+// 		}
+// 		model.tags.amcName = data[model.tags.scheme].amcName
+// 		if(arr.includes(model.data)){
+// 			sendExternalMessage(model,"Going ahead with "+model.data)
+// 			model.tags.folio = model.data
+			
+// 		}
+// 		else{
+
+// 			console.log("no data");
+// 			return reject(model)
+// 		}
+// 	})
+// }
 
 function scheme(model){
 	return new Promise(function(resolve, reject){
@@ -718,6 +674,7 @@ function scheme(model){
 					console.log(model.data+"::"+scheme["SCHEMECODE"])
 					if(scheme["SCHEMECODE"]==model.data){
 						model.tags.redeemSchemeObj=scheme;
+						model.tags.folio=scheme["FOLIONO"]
 						model.tags.maxAmount=parseFloat(scheme["AvailableAmt"])
 						model.tags.minAmount=parseFloat(scheme["MinRedemptionAmount"])
 						delete model.stage;
