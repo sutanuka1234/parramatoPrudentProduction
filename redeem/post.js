@@ -16,7 +16,6 @@ let obj = {
 	pan		: pan,
 	otp		: otp,
 	holding : holding,
-	folio 	: folio,
 	scheme 	: scheme,
 	amount 	:amount
 }
