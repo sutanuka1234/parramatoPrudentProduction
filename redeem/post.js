@@ -676,8 +676,6 @@ function scheme(model){
 					if(scheme["SCHEMECODE"]==model.data){
 						model.tags.redeemSchemeObj=scheme;
 						model.tags.folio=scheme["FOLIONO"]
-						model.tags.maxAmount=parseFloat(scheme["AvailableAmt"])
-						model.tags.minAmount=parseFloat(scheme["MinRedemptionAmount"])
 						sendExternalMessage(model,"Going ahead with "+scheme["SCHEMENAME"])
 						delete model.stage;
 						return resolve(model);
@@ -701,14 +699,16 @@ function amount(model){
 		model=extractAmount(model)
 		// console.log("amount::::::::::::::::::"+model.tags.amount)
 		try{
-			if(model.tags.amount){
+			if(model.tags.amount&&model.tags.redeemSchemeObj){
 				let amount=parseFloat(model.tags.amount)
-				if(amount<=model.tags.minAmount){
-					sendExternalMessage(model,"Investment amount should be greater than Rs "+model.tags.minAmount+".")
+				let maxAmount=parseFloat(model.tags.redeemSchemeObj["AvailableAmt"])
+				let minAmount=parseFloat(model.tags.redeemSchemeObj["MinRedemptionAmount"])
+				if(amount>=minAmount){
+					// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
 					model.tags.amount=undefined;
 				}
-				else if(amount>=model.tags.maxAmount){
-					sendExternalMessage(model,"Investment amount should be less than Rs "+model.tags.maxAmount+".")
+				else if(amount<=maxAmount){
+					// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
 					model.tags.amount=undefined;
 				}
 			}

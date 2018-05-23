@@ -223,17 +223,10 @@ function divOps(model){
 
 function amount(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.amount){
-			model.reply={
-				type:"text",
-	            text:"Amount Invalid. Enter an amount"
-			}
-		}
-		else{
-			model.reply={
-				type:"text",
-	            text:"Enter an amount"
-	        }
+
+		model.reply={
+			type:"text",
+            text:"Tell me the amount you want to redeem, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]
 		}
 		resolve(model)
 	})

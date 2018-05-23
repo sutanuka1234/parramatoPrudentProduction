@@ -15,7 +15,7 @@ let obj = {
 	panMobile : panMobile,
 	otp 	: otp,
 	holding : holding,
-	folio 	: folio,
+	amount 	: amount,
 	scheme 	: scheme,
 	summary	: summary
 }
@@ -200,6 +200,18 @@ function scheme(model){
 			return resolve(model)
 	})
 }
+
+function amount(model){
+	return new Promise(function(resolve, reject){
+
+		model.reply={
+			type:"text",
+            text:"Tell me the amount you want to redeem, it should be greater or equal to Rs "+model.tags.redeemSchemeObj["MinRedemptionAmount"]+" and less than or equal to Rs "+model.tags.redeemSchemeObj["AvailableAmt"]
+		}
+		resolve(model)
+	})
+}
+
 function summary(model){
 	return new Promise(function(resolve, reject){
 		console.log(JSON.stringify(model.tags,null,3))
@@ -221,15 +233,8 @@ function summary(model){
 
 
 
-function extractFolio(model){
-	if(model.tags.userSays.match(regexFolio)){
 
-		model.tags.folio = model.tags.userSays.match(regexFolio)[0].match(/\d+|new folio/)[0]
-		model.tags.userSays = model.tags.userSays.replace(model.tags.folio, '')
-		model.tags.newFolio=true;
-	}
-	return model;
-}
+
 function extractAmount(model){
 	if(model.tags.userSays.includes(',')){
 		while(model.tags.userSays.includes(','))
