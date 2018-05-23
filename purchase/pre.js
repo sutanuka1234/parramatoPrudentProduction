@@ -226,7 +226,7 @@ function amount(model){
 
 		model.reply={
 			type:"text",
-            text:"Tell me the amount you want to invest, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]
+            text:"Tell me the amount you want to invest, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaximumInvestment"]
 		}
 		resolve(model)
 	})

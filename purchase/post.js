@@ -1492,7 +1492,7 @@ function amount(model){
 				model.tags.amount=undefined;
 			}
 			else if(amount>=maxAmount){
-				sendExternalMessage(model,"Investment amount should be less than or equal to Rs "+maxAmount+".")
+				// sendExternalMessage(model,"Investment amount should be less than or equal to Rs "+maxAmount+".")
 				model.tags.amount=undefined;
 			}
 		}
