@@ -1490,11 +1490,11 @@ function amount(model){
 			console.log(minAmount)
 			console.log(maxAmount)
 			console.log(amount)
-			if(amount>minAmount){
+			if(amount<minAmount){
 				// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
 				model.tags.amount=undefined;
 			}
-			else if(amount<maxAmount){
+			else if(amount>maxAmount){
 				// sendExternalMessage(model,"Investment amount should be less than or equal to Rs "+maxAmount+".")
 				model.tags.amount=undefined;
 			}
