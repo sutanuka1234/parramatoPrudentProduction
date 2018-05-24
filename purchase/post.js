@@ -1628,6 +1628,7 @@ function amount(model){
 						}
 					}
 					else{
+						console.log(JSON.stringify(data.body.Response,null,3)+"--------------------")
 						return reject(model)
 					}
 				})
@@ -1638,6 +1639,7 @@ function amount(model){
 			}
 		}
 		else{
+			console.log("no amount")
 			return reject(model)
 		}	
 	})
