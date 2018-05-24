@@ -816,8 +816,10 @@ function unitOrAmount(model) {
 			delete model.stage
 			return resolve(model);
 		}
-		model.tags.unitOrAmount=undefined;
-		return reject(model);
+		else{
+			model.tags.unitOrAmount=undefined;
+			return reject(model);
+		}
 	});
 }
 
