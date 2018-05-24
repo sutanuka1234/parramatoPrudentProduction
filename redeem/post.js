@@ -829,11 +829,14 @@ function amount(model){
 		try{
 			if(model.tags.amount&&model.tags.redeemSchemeObj){
 				if(model.tags.unitOrAmount=="PU"){
-					console.log("PUUUUUUUU")
 					let amount=parseFloat(model.tags.amount)
 					let maxAmount=parseFloat(model.tags.redeemSchemeObj["AvailableUnits"])
 					let minAmount=parseFloat(model.tags.redeemSchemeObj["MinRedemptionUnits"])
 					let multiple=parseFloat(model.tags.redeemSchemeObj["RedemptionMultiplesUnits"])
+					console.log(minAmount)
+					console.log(maxAmount)
+					console.log(multiple)
+					console.log(amount)
 					// if(amount%multiple!=0){
 					// 	model.tags.amount=undefined;
 					// }
@@ -847,11 +850,14 @@ function amount(model){
 					}
 				}
 				else{
-					console.log("RRRRRRRRRRRR")
 					let amount=parseFloat(model.tags.amount)
 					let maxAmount=parseFloat(model.tags.redeemSchemeObj["AvailableAmt"])
 					let minAmount=parseFloat(model.tags.redeemSchemeObj["MinRedemptionAmount"])
 					let multiple=parseFloat(model.tags.redeemSchemeObj["RedemptionMultipleAmount"])
+					console.log(minAmount)
+					console.log(maxAmount)
+					console.log(multiple)
+					console.log(amount)
 					// if(amount%multiple!=0){
 					// 	model.tags.amount=undefined;
 					// }
