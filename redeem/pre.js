@@ -203,7 +203,6 @@ function scheme(model){
 
 function amount(model){
 	return new Promise(function(resolve, reject){
-
 		model.reply={
 			type:"text",
             text:"Tell me the amount you want to redeem, it should be greater or equal to Rs "+model.tags.redeemSchemeObj["MinRedemptionAmount"]+" and less than or equal to Rs "+model.tags.redeemSchemeObj["AvailableAmt"]

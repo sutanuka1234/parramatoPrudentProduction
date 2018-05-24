@@ -17,6 +17,7 @@ let obj = {
 	otp		: otp,
 	holding : holding,
 	scheme 	: scheme,
+	unitOrAmount:unitOrAmount,
 	amount 	:amount
 }
 
@@ -692,6 +693,24 @@ function scheme(model){
 	})
 }
 
+function unitOrAmount(model) {
+	model=dataClean(model)
+	if(model.data.includes("all")){
+		model.tags.unitOrAmount="AU";
+		return resolve(model);
+	}
+	else if(model.data.includes("amount")){
+		model.tags.unitOrAmount="R";
+		return resolve(model);
+	}
+	else if(model.data.includes("partial")){
+		model.tags.unitOrAmount="PU";
+		return resolve(model);
+	}
+	model.tags.unitOrAmount=undefined;
+	return reject(model);
+}
+
 function amount(model){
 	// console.log("amount::::::::::::::::::")
 	return new Promise(function(resolve, reject){
@@ -834,6 +853,7 @@ function amount(model){
 		}
 	})
 }
+
 
 
 function sendExternalMessage(model,text){
