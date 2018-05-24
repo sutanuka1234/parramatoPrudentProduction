@@ -232,7 +232,15 @@ function summary(model){
 }
 
 
+function extractFolio(model){
+	if(model.tags.userSays.match(regexFolio)){
 
+		model.tags.folio = model.tags.userSays.match(regexFolio)[0].match(/\d+|new folio/)[0]
+		model.tags.userSays = model.tags.userSays.replace(model.tags.folio, '')
+		model.tags.newFolio=true;
+	}
+	return model;
+}
 
 
 function extractAmount(model){
