@@ -701,7 +701,7 @@ function unitOrAmount(model) {
 		if(model.data.includes("all")){
 			model.tags.unitOrAmount="AU";
 			// console.log("amount valid")
-			api.insertBuyCartRedeem(model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["DivOpt"], model.tags.amount, model.tags.folio,model.tags.unitOrAmount)
+			api.insertBuyCartRedeem(model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["DivOpt"], undefined, model.tags.folio,model.tags.unitOrAmount)
 			.then((data)=>{
 				console.log(data.body)
 				try{
@@ -863,7 +863,7 @@ function amount(model){
 					}
 				}
 			}
-			
+
 			if(model.tags.amount){
 
 				// console.log("amount valid")
