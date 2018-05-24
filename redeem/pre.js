@@ -146,14 +146,12 @@ function otp(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.joinAccList){
-			model.reply={
-				type:"generic",
-	            text:" Please select your holding pattern",
-	            next:{
-	                "data": model.tags.joinAccList
-	            }
-			}
+		model.reply={
+			type:"generic",
+            text:" Please select your holding pattern",
+            next:{
+                "data": model.tags.joinAccList
+            }
 		}
 		resolve(model)
 	})
