@@ -37,7 +37,7 @@ function fallback(model){
             next:{
                 data: [{
 									title 	: 'what is mutual fund?',
-									text 	: "Mutul funds are mutual funds",
+									text 	: "Mutual funds are mutual funds",
 									buttons : [
 										{
 											text : 'Select',
