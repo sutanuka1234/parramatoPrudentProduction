@@ -40,7 +40,7 @@ function fallback(model){
 									text 	: "Mutual funds are mutual funds",
 									buttons : [
 										{
-											text : 'Select',
+											text : 'Know more',
 											data : "what is mutual fund?"
 										}
 									]
