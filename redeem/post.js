@@ -782,6 +782,7 @@ function unitOrAmount(model) {
 				            })
 						}
 						else{
+							console.log("summaryyyyy")
 							model.tags.redeemReferenceId=refrenceId;
 							model.stage="summary"
 							return resolve(model)
