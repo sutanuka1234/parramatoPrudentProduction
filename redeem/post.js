@@ -861,6 +861,7 @@ function amount(model){
 					console.log(maxAmount)
 					console.log(multiple)
 					console.log(amount)
+					console.log(amount%multiple)
 					if(amount%multiple!=0){
 						model.tags.amount=undefined;
 					}
