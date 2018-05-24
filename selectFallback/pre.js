@@ -30,7 +30,7 @@ function main(req, res){
 
 
 function fallback(model){
-	new Promise((resolve,reject)=>{
+	return new Promise((resolve,reject)=>{
 		model.reply={
 			type:"generic",
             text:" Please select your holding pattern",
@@ -47,6 +47,6 @@ function fallback(model){
 								}]
             }
 		}
-		resolve(model)
+		return resolve(model)
 	});
 }
