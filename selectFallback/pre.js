@@ -33,15 +33,15 @@ function fallback(model){
 	return new Promise((resolve,reject)=>{
 		model.reply={
 			type:"generic",
-            text:" Please select your holding pattern",
+            text:"We have got few similar answers for you.",
             next:{
                 data: [{
-									title 	: 'Fallback',
-									text 	: "text",
+									title 	: 'what is mutual fund?',
+									text 	: "Mutul funds are mutual funds",
 									buttons : [
 										{
 											text : 'Select',
-											data : "Select"
+											data : "what is mutual fund?"
 										}
 									]
 								}]
