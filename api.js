@@ -194,12 +194,12 @@ function getRedemptionSchemes(session, joinAccId){
 	return runRequest(obj)
 }
 
-function insertBuyCartRedeem(session, joinAccId, schemeCode, amcName, dividendOption, amount, folioNo,unitOrAmount){
+function insertBuyCartRedeem(session, joinAccId, schemeCode, amcName, amount, folioNo,unitOrAmount){
 
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
-		url 	: url+'InsertRedemptionBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+amcName+'&DivOpt='+dividendOption+'&Amount='+amount+'&FolioNo='+folioNo+'&RedemptionType='+unitOrAmount
+		url 	: url+'InsertRedemptionBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&SchemeName='+amcName+'&Amount='+amount+'&FolioNo='+folioNo+'&RedemptionType='+unitOrAmount
 	}
 	return runRequest(obj)
 }
