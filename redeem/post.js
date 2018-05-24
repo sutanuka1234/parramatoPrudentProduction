@@ -697,6 +697,7 @@ function unitOrAmount(model) {
 
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
+		console.log(model.data)
 		if(model.data.includes("all")){
 			model.tags.unitOrAmount="AU";
 			// console.log("amount valid")
