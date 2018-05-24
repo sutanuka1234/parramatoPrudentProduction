@@ -695,6 +695,7 @@ function scheme(model){
 
 function unitOrAmount(model) {
 	model=dataClean(model)
+	console.log("UNITTTTTORAMOUNTTT>>>>>>>>>>>>>>>>>>>>>>")
 	if(model.data.includes("all")){
 		model.tags.unitOrAmount="AU";
 		return resolve(model);
