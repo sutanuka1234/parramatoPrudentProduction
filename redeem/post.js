@@ -833,9 +833,9 @@ function amount(model){
 					let maxAmount=parseFloat(model.tags.redeemSchemeObj["AvailableUnits"])
 					let minAmount=parseFloat(model.tags.redeemSchemeObj["MinRedemptionUnits"])
 					let multiple=parseFloat(model.tags.redeemSchemeObj["RedemptionMultiplesUnits"])
-					if(amount%multiple!=0){
-						model.tags.amount=undefined;
-					}
+					// if(amount%multiple!=0){
+					// 	model.tags.amount=undefined;
+					// }
 					if(amount>=minAmount){
 						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
 						model.tags.amount=undefined;
@@ -850,9 +850,9 @@ function amount(model){
 					let maxAmount=parseFloat(model.tags.redeemSchemeObj["AvailableAmt"])
 					let minAmount=parseFloat(model.tags.redeemSchemeObj["MinRedemptionAmount"])
 					let multiple=parseFloat(model.tags.redeemSchemeObj["RedemptionMultipleAmount"])
-					if(amount%multiple!=0){
-						model.tags.amount=undefined;
-					}
+					// if(amount%multiple!=0){
+					// 	model.tags.amount=undefined;
+					// }
 					if(amount>=minAmount){
 						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
 						model.tags.amount=undefined;
@@ -863,9 +863,7 @@ function amount(model){
 					}
 				}
 			}
-			else if(model.data.toLowerCase().includes("all")){
-				model.tags.amount=model.tags.maxAmount.toString();
-			}
+			
 			if(model.tags.amount){
 
 				// console.log("amount valid")
