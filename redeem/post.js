@@ -837,9 +837,9 @@ function amount(model){
 					console.log(maxAmount)
 					console.log(multiple)
 					console.log(amount)
-					// if(amount%multiple!=0){
-					// 	model.tags.amount=undefined;
-					// }
+					if(amount%multiple!=0){
+						model.tags.amount=undefined;
+					}
 					if(amount<minAmount){
 						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
 						model.tags.amount=undefined;
@@ -858,9 +858,9 @@ function amount(model){
 					console.log(maxAmount)
 					console.log(multiple)
 					console.log(amount)
-					// if(amount%multiple!=0){
-					// 	model.tags.amount=undefined;
-					// }
+					if(amount%multiple!=0){
+						model.tags.amount=undefined;
+					}
 					if(amount>=minAmount){
 						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
 						model.tags.amount=undefined;
