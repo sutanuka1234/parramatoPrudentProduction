@@ -1523,6 +1523,7 @@ function amount(model){
 				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
 				.then((data)=>{
 					try{
+						console.log(data.body+":>>>>>>>>>>")
 						data.body = JSON.parse(data.body)
 					}
 					catch(e){	
