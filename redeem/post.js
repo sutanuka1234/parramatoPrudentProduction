@@ -807,10 +807,12 @@ function unitOrAmount(model) {
 		}
 		else if(model.data.includes("amount")){
 			model.tags.unitOrAmount="R";
+			delete model.stage
 			return resolve(model);
 		}
 		else if(model.data.includes("partial")){
 			model.tags.unitOrAmount="PU";
+			delete model.stage
 			return resolve(model);
 		}
 		model.tags.unitOrAmount=undefined;
