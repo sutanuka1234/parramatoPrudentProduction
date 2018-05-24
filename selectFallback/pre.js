@@ -32,21 +32,24 @@ function main(req, res){
 function fallback(model){
 	return new Promise((resolve,reject)=>{
 		console.log(model.bestIntents+":::::::::::::::::>>>>>>>>>>>>>>>>>")
-
+		let data=[]
+		for(let element of model.bestIntents){
+			data.push({
+					title 	: 'Intent',
+					text 	: element,
+					buttons : [
+						{
+							text : 'Know more',
+							data : element
+						}
+					]
+				})
+		}
 		model.reply={
 			type:"generic",
             text:"We have got few similar answers for you.",
             next:{
-                data: [{
-									title 	: 'what is mutual fund?',
-									text 	: "Mutual funds are mutual funds",
-									buttons : [
-										{
-											text : 'Know more',
-											data : "what is mutual fund?"
-										}
-									]
-								}]
+                data: data
             }
 		}
 		return resolve(model)
