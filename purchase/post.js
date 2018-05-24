@@ -1487,11 +1487,11 @@ function amount(model){
 			let amount=parseFloat(model.tags.amount)
 			let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 			let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
-			if(amount<=minAmount){
+			if(amount>minAmount){
 				// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
 				model.tags.amount=undefined;
 			}
-			else if(amount>=maxAmount){
+			else if(amount<maxAmount){
 				// sendExternalMessage(model,"Investment amount should be less than or equal to Rs "+maxAmount+".")
 				model.tags.amount=undefined;
 			}
