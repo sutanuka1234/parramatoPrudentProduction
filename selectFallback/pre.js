@@ -31,6 +31,8 @@ function main(req, res){
 
 function fallback(model){
 	return new Promise((resolve,reject)=>{
+		console.log(model.bestIntents+":::::::::::::::::>>>>>>>>>>>>>>>>>")
+
 		model.reply={
 			type:"generic",
             text:"We have got few similar answers for you.",
