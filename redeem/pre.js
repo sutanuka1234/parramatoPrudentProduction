@@ -203,13 +203,33 @@ function scheme(model){
 
 function amount(model){
 	return new Promise(function(resolve, reject){
-		model.reply={
-			type:"text",
-            text:"Tell me the amount you want to redeem, it should be greater or equal to Rs "+model.tags.redeemSchemeObj["MinRedemptionAmount"]+" and less than or equal to Rs "+model.tags.redeemSchemeObj["AvailableAmt"]
+		if(model.tags.unitOrAmount=="PU"){
+			model.reply={
+				type:"text",
+	            text:"Tell me the number of units you want to redeem, it should be greater or equal to "+model.tags.redeemSchemeObj["MinRedemptionUnits"]+" and less than or equal to "+model.tags.redeemSchemeObj["AvailableUnits"]+" and in the multiples of "+model.tags.redeemSchemeObj["RedemptionMultiplesUnits"]
+			}
+		}
+		else{
+			model.reply={
+				type:"text",
+	            text:"Tell me the amount you want to redeem, it should be greater or equal to Rs "+model.tags.redeemSchemeObj["MinRedemptionAmount"]+" and less than or equal to Rs "+model.tags.redeemSchemeObj["AvailableAmt"]+" and in the multiples of Rs "+model.tags.redeemSchemeObj["RedemptionMultipleAmount"]
+			}
+
 		}
 		resolve(model)
 	})
 }
+
+
+// "MinRedemptionAmount": 5**,
+//  "RedemptionMultipleAmount": 1**,
+//  "MinRedemptionUnits": *,
+//  "RedemptionMultiplesUnits": *,
+//  "AvailableAmt": 2**.8*,
+// 55
+//  "AvailableUnits": 1*.1**,
+//  "InccurExitLoad": f****,
+//  "RedeemAmount": *
 
 function summary(model){
 	return new Promise(function(resolve, reject){

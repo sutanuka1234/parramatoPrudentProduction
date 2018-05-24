@@ -694,22 +694,127 @@ function scheme(model){
 }
 
 function unitOrAmount(model) {
-	model=dataClean(model)
-	console.log("UNITTTTTORAMOUNTTT>>>>>>>>>>>>>>>>>>>>>>")
-	if(model.data.includes("all")){
-		model.tags.unitOrAmount="AU";
-		return resolve(model);
-	}
-	else if(model.data.includes("amount")){
-		model.tags.unitOrAmount="R";
-		return resolve(model);
-	}
-	else if(model.data.includes("partial")){
-		model.tags.unitOrAmount="PU";
-		return resolve(model);
-	}
-	model.tags.unitOrAmount=undefined;
-	return reject(model);
+
+	return new Promise(function(resolve, reject){
+		model=dataClean(model)
+		if(model.data.includes("all")){
+			model.tags.unitOrAmount="AU";
+			// console.log("amount valid")
+			api.insertBuyCartRedeem(model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["DivOpt"], model.tags.amount, model.tags.folio,model.tags.unitOrAmount)
+			.then((data)=>{
+				console.log(data.body)
+				try{
+					data.body = JSON.parse(data.body)
+				}
+				catch(e){	
+					console.log(e);
+					let reply={
+		                text    : "API Not Responding Properly",
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+		                return reject(model);
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+				if(data.body.Response&&data.body.Response.length>0&&data.body.Response[0].result=="FAIL"){
+					let reply={
+		                text    : data.body.Response[0]['reject_reason'].trim(),
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+		                return reject(model);
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+				else if(data.body.Response&&data.body.Response.length>0){
+					let refrenceId=data.body.Response[0]["TranReferenceID"];
+					api.confirmRedemption(model.tags.session,refrenceId)
+					.then((data)=>{
+						console.log(data.body)
+						try{
+							data.body = JSON.parse(data.body)
+						}
+						catch(e){	
+							console.log(e);
+							let reply={
+				                text    : "API Not Responding Properly",
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+				                return reject(model);
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
+						}
+						if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
+							let reply={
+				                text    : data.body.Response[0]['reject_reason'].trim(),
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+				                return reject(model);
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
+						}
+						else{
+							model.tags.redeemReferenceId=refrenceId;
+							model.stage="summary"
+							return resolve(model)
+
+						}
+
+					})
+					.catch(e=>{
+		                console.log(e);
+		                return reject(model)
+					})
+				}
+				else{
+		                return reject(model)
+					
+				}
+
+			})
+			.catch(e=>{
+				console.log(e)
+				return reject(model)
+			})
+		}
+		else if(model.data.includes("amount")){
+			model.tags.unitOrAmount="R";
+			return resolve(model);
+		}
+		else if(model.data.includes("partial")){
+			model.tags.unitOrAmount="PU";
+			return resolve(model);
+		}
+		model.tags.unitOrAmount=undefined;
+		return reject(model);
+	});
 }
 
 function amount(model){
@@ -720,16 +825,39 @@ function amount(model){
 		// console.log("amount::::::::::::::::::"+model.tags.amount)
 		try{
 			if(model.tags.amount&&model.tags.redeemSchemeObj){
-				let amount=parseFloat(model.tags.amount)
-				let maxAmount=parseFloat(model.tags.redeemSchemeObj["AvailableAmt"])
-				let minAmount=parseFloat(model.tags.redeemSchemeObj["MinRedemptionAmount"])
-				if(amount>=minAmount){
-					// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
-					model.tags.amount=undefined;
+				if(model.tags.unitOrAmount=="PU"){
+					let amount=parseFloat(model.tags.amount)
+					let maxAmount=parseFloat(model.tags.redeemSchemeObj["AvailableUnits"])
+					let minAmount=parseFloat(model.tags.redeemSchemeObj["MinRedemptionUnits"])
+					let multiple=parseFloat(model.tags.redeemSchemeObj["RedemptionMultiplesUnits"])
+					if(amount%multiple!=0){
+						model.tags.amount=undefined;
+					}
+					if(amount>=minAmount){
+						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
+						model.tags.amount=undefined;
+					}
+					else if(amount<=maxAmount){
+						// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
+						model.tags.amount=undefined;
+					}
 				}
-				else if(amount<=maxAmount){
-					// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
-					model.tags.amount=undefined;
+				else{
+					let amount=parseFloat(model.tags.amount)
+					let maxAmount=parseFloat(model.tags.redeemSchemeObj["AvailableAmt"])
+					let minAmount=parseFloat(model.tags.redeemSchemeObj["MinRedemptionAmount"])
+					let multiple=parseFloat(model.tags.redeemSchemeObj["RedemptionMultipleAmount"])
+					if(amount%multiple!=0){
+						model.tags.amount=undefined;
+					}
+					if(amount>=minAmount){
+						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
+						model.tags.amount=undefined;
+					}
+					else if(amount<=maxAmount){
+						// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
+						model.tags.amount=undefined;
+					}
 				}
 			}
 			else if(model.data.toLowerCase().includes("all")){
@@ -738,7 +866,7 @@ function amount(model){
 			if(model.tags.amount){
 
 				// console.log("amount valid")
-				api.insertBuyCartRedeem(model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["DivOpt"], model.tags.amount, model.tags.folio)
+				api.insertBuyCartRedeem(model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["DivOpt"], model.tags.amount, model.tags.folio,model.tags.unitOrAmount)
 				.then((data)=>{
 					console.log(data.body)
 					try{
