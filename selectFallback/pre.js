@@ -35,12 +35,12 @@ function fallback(model){
 		let data=[]
 		for(let element of model.bestIntents){
 			data.push({
-					title 	: 'Intent',
-					text 	: element,
+					title 	: element.query,
+					text 	: element.reply,
 					buttons : [
 						{
 							text : 'Know more',
-							data : element
+							data : element.query
 						}
 					]
 				})
