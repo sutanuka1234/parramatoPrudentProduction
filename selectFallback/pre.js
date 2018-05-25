@@ -58,7 +58,7 @@ function fallback(model){
 		}
 		if(data.length>0){
 			data[data.length-1].buttons.push({
-				text : 'None of these are relevant',
+				text : 'None of these seems relevant',
 				data : "<nomatch> "+model.prevQuery+"|"+model.bestIntents[0].id.split("-")[0]+" </nomatch>"
 			})
 			model.reply={
