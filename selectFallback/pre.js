@@ -50,7 +50,7 @@ function fallback(model){
 					text 	: element.query,
 					buttons : [
 						{
-							text : 'Its similar',
+							text : 'Its similar to mine',
 							data : "<similar> "+element.query+"|"+model.prevQuery+"|"+element.id+" </similar>"
 						}
 					]
@@ -58,7 +58,7 @@ function fallback(model){
 		}
 		if(data.length>0){
 			data[data.length-1].buttons.push({
-				text : 'No match on my query',
+				text : 'None of these are relevant',
 				data : "<nomatch> "+model.prevQuery+"|"+model.bestIntents[0].id.split("-")[0]+" </nomatch>"
 			})
 			model.reply={
