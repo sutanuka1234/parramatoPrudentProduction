@@ -45,9 +45,10 @@ function fallback(model){
 		}
 		let data=[]
 		for(let element of model.bestIntents){
+			let query=replaceAll(element.query,"@","");
 			data.push({
 					title 	: "Query",
-					text 	: element.query,
+					text 	: query,
 					buttons : [
 						{
 							text : 'Its similar to mine',
@@ -77,4 +78,9 @@ function fallback(model){
 		}
 		return resolve(model)
 	});
+}
+
+
+function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
 }
