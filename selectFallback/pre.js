@@ -40,12 +40,12 @@ function fallback(model){
 		let data=[]
 		for(let element of model.bestIntents){
 			data.push({
-					title 	: "",
+					title 	: "Query",
 					text 	: element.query,
 					buttons : [
 						{
 							text : 'Its similar',
-							data : element.query
+							data : "<similar> "+element.intentName+"|"+element.query+"|"+model.prevQuery+" </similar>"
 						}
 					]
 				})
