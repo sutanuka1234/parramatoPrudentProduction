@@ -52,9 +52,13 @@ function fallback(model){
 				})
 		}
 		if(data.length>0){
+			data[data.length-1].buttons.push({
+				text : 'No match on my query',
+				data : "<nomatch> "+model.prevQuery+" </nomatch>"
+			})
 			model.reply={
 				type:"generic",
-	            text:"We have got few similar answers asked by people like you.",
+	            text:"We have got few similar answers asked by people like you. Slide through the cards to find one.",
 	            next:{
 	                data: data
 	            }
