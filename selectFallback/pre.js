@@ -37,6 +37,7 @@ function fallback(model){
 				model.bestIntents.splice(index, 1)
 			}
 		}
+		
 		let data=[]
 		for(let element of model.bestIntents){
 			data.push({
