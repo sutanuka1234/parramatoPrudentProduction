@@ -52,7 +52,7 @@ function fallback(model){
 					buttons : [
 						{
 							text : 'Its similar to mine',
-							data : "<similar> "+element.query+"|"+model.prevQuery+"|"+element.id+" </similar>"
+							data : "<similar> "+query+"|"+model.prevQuery+"|"+element.id+" </similar>"
 						}
 					]
 				})
