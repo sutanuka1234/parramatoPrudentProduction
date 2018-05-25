@@ -33,11 +33,11 @@ function fallback(model){
 	return new Promise((resolve,reject)=>{
 		console.log(JSON.stringify(model.bestIntents,null,3)+":::::::::::::::::>>>>>>>>>>>>>>>>>")
 		for(let index in model.bestIntents){
-			if(model.bestIntents[index].startsWith("st_")){
+			if(model.bestIntents[index].intentName.startsWith("st_")){
 				model.bestIntents.splice(index, 1)
 			}
 		}
-		
+
 		let data=[]
 		for(let element of model.bestIntents){
 			data.push({
