@@ -46,7 +46,7 @@ function fallback(model){
 					buttons : [
 						{
 							text : 'Its similar',
-							data : "<similar> "+element.intentName+"|"+element.query+"|"+model.prevQuery+" </similar>"
+							data : "<similar> "+element.query+"|"+model.prevQuery+"|"+element.id+" </similar>"
 						}
 					]
 				})
@@ -54,7 +54,7 @@ function fallback(model){
 		if(data.length>0){
 			data[data.length-1].buttons.push({
 				text : 'No match on my query',
-				data : "<nomatch> "+model.prevQuery+" </nomatch>"
+				data : "<nomatch> "+model.prevQuery+"|"+data[0].id.split("-")[0]+" </nomatch>"
 			})
 			model.reply={
 				type:"generic",
