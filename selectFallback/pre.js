@@ -32,25 +32,38 @@ function main(req, res){
 function fallback(model){
 	return new Promise((resolve,reject)=>{
 		console.log(model.bestIntents+":::::::::::::::::>>>>>>>>>>>>>>>>>")
+		for(let index in model.bestIntents){
+			if(model.bestIntents.startsWith("st_")){
+				model.bestIntents.splice(index, 1)
+			}
+		}
 		let data=[]
 		for(let element of model.bestIntents){
 			data.push({
-					title 	: element.query,
-					text 	: element.reply,
+					title 	: "",
+					text 	: element.query,
 					buttons : [
 						{
-							text : 'Know more',
+							text : 'Its similar',
 							data : element.query
 						}
 					]
 				})
 		}
-		model.reply={
-			type:"generic",
-            text:"We have got few similar answers for you.",
-            next:{
-                data: data
-            }
+		if(data.length>0){
+			model.reply={
+				type:"generic",
+	            text:"We have got few similar answers asked by people like you.",
+	            next:{
+	                data: data
+	            }
+			}
+		}
+		else{
+			model.reply={
+				type:"generic",
+	            text:"I am not sure how to answer this, trying my best to learn. Could you please rephrase your query?"
+			}
 		}
 		return resolve(model)
 	});
