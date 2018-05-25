@@ -31,7 +31,7 @@ function main(req, res){
 
 function fallback(model){
 	return new Promise((resolve,reject)=>{
-		console.log(model.bestIntents+":::::::::::::::::>>>>>>>>>>>>>>>>>")
+		console.log(JSON.stringify(model.bestIntents,null,3)+":::::::::::::::::>>>>>>>>>>>>>>>>>")
 		for(let index in model.bestIntents){
 			if(model.bestIntents[index].startsWith("st_")){
 				model.bestIntents.splice(index, 1)
