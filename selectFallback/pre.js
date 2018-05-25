@@ -31,7 +31,7 @@ function main(req, res){
 
 function fallback(model){
 	return new Promise((resolve,reject)=>{
-		console.log(JAON.stringify(model.bestIntents)+":::::::::::::::::>>>>>>>>>>>>>>>>>")
+		console.log(JSON.stringify(model.bestIntents)+":::::::::::::::::>>>>>>>>>>>>>>>>>")
 		for(let index in model.bestIntents){
 			if(model.bestIntents[index].intentName.startsWith("st_")){
 				model.bestIntents.splice(index, 1)
