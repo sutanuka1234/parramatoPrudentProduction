@@ -54,7 +54,7 @@ function fallback(model){
 		if(data.length>0){
 			data[data.length-1].buttons.push({
 				text : 'No match on my query',
-				data : "<nomatch> "+model.prevQuery+"|"+data[0].id.split("-")[0]+" </nomatch>"
+				data : "<nomatch> "+model.prevQuery+"|"+model.bestIntents[0].id.split("-")[0]+" </nomatch>"
 			})
 			model.reply={
 				type:"generic",
