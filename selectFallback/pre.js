@@ -37,7 +37,12 @@ function fallback(model){
 				model.bestIntents.splice(index, 1)
 			}
 		}
-
+		if(model.prevQuery.startsWith("<similar> ")){
+			model.prevQuery=model.prevQuery.replace("<similar>").replace("</similar>").trim().split("|")[0];
+		}
+		if(model.prevQuery.startsWith("<nomatch> ")){
+			model.prevQuery=model.prevQuery.replace("<similar>").replace("</similar>").trim().split("|")[0];
+		}
 		let data=[]
 		for(let element of model.bestIntents){
 			data.push({
@@ -58,7 +63,7 @@ function fallback(model){
 			})
 			model.reply={
 				type:"generic",
-	            text:"We have got few similar answers asked by people like you. Slide through the cards to find one.",
+	            text:"We have got few similar questions asked by people like you. Slide through the cards to find one.",
 	            next:{
 	                data: data
 	            }
