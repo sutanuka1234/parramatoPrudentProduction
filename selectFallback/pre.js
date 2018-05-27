@@ -47,8 +47,10 @@ function fallback(model){
 		for(let element of model.bestIntents){
 			let query=replaceAll(element.query,"@","");
 			data.push({
-					title 	: "Query",
-					text 	: query,
+					// title 	: "Query",
+					// text 	: query,
+					title 		: query,
+					text		: element.reply,
 					buttons : [
 						{
 							text : 'Its similar to mine',
