@@ -652,17 +652,20 @@ function holding(model){
 
 function scheme(model){
 	return new Promise(function(resolve, reject){
-		resolve(model)
+			delete model.stage
+			return resolve(model)
 	})
 }
 function askSchemeName(model){
 	return new Promise(function(resolve, reject){
-		resolve(model)
+			delete model.stage
+			return resolve(model)
 	})
 }
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
-		resolve(model)
+			delete model.stage
+			return resolve(model)
 	})
 }
 
@@ -670,7 +673,8 @@ function showSchemeName(model){
 
 function folio(model){
 	return new Promise(function(resolve, reject){
-		resolve(model)
+			delete model.stage
+			return resolve(model)
 	})
 }
 
