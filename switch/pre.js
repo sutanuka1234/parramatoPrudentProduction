@@ -14,7 +14,11 @@ let StringMask = require('string-mask')
 let obj = {
 	panMobile : panMobile,
 	otp 	: otp,
-	holding : holding
+	holding : holding,
+	scheme 	: scheme,
+	showSchemeName:showSchemeName,
+	folio :folio,
+	summary:summary
 }
 
 let regexPan   	= /[a-z]{3}p[a-z]\d{4}[a-z]/;
@@ -154,6 +158,32 @@ function holding(model){
 	})
 }
 
+
+function scheme(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	})
+}
+
+
+function showSchemeName(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	})
+}
+
+
+
+function folio(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	})
+}
+function summary(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	})
+}
 
 
 

@@ -15,7 +15,11 @@ let obj = {
 	mobile	: mobile,
 	pan		: pan,
 	otp		: otp,
-	holding : holding
+	holding : holding,
+	scheme 	: scheme,
+	askSchemeName:askSchemeName,
+	showSchemeName:showSchemeName,
+	folio :folio
 }
 
 
@@ -645,6 +649,30 @@ function holding(model){
 	})
 }
 
+
+function scheme(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	})
+}
+function askSchemeName(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	})
+}
+function showSchemeName(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	})
+}
+
+
+
+function folio(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	})
+}
 
 
 function sendExternalMessage(model,text){
