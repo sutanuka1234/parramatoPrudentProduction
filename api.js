@@ -49,8 +49,8 @@ function getExistingSchemes(session, joinAccId){
 
 
 
-function getScheme(session, joinAccId, fundsType, amcId, schemeOption, subNature,investmentType,folioNo,schemeCode,switch){
-	if(switch){
+function getScheme(session, joinAccId, fundsType, amcId, schemeOption, subNature,investmentType,folioNo,schemeCode,switchBool){
+	if(switchBool){
 		var obj = {
 				method 	: 'POST',
 				headers : headers,
@@ -76,8 +76,8 @@ function getScheme(session, joinAccId, fundsType, amcId, schemeOption, subNature
 	return runRequest(obj)
 }
 
-function getFolio(session, joinAccId, schemeCode, amcId,investmentType,switch){
-	if(switch){
+function getFolio(session, joinAccId, schemeCode, amcId,investmentType,switchBool){
+	if(switchBool){
 		var obj = {
 			method 	: 'POST',
 			headers : headers,
