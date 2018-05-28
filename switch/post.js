@@ -554,92 +554,8 @@ function holding(model){
 			}
 			model.tags.joinAccId = model.data
 			console.log("here")
-			api.getRedemptionSchemes(model.tags.session, model.tags.joinAccId)
-			.then((data)=>{
-				let response;
-					try{
-						console.log(data)
-						response = JSON.parse(data.body)
-					}
-					catch(e){
-						console.log(e);
-						     let reply={
-				                text    : "API Not Responding Properly",
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-				                return reject(model);
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-					}
-					try{
-						if(response.Response&&response.Response.length>0&&response.Response[0].result=="FAIL"){
-							let reply={
-				                text    : response.Response[0]['reject_reason'],
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-								return reject(model)//wrongResolve
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-						}
-						console.log(JSON.stringify(response,null,3))
-						if(response.Response&&response.Response.length>0&&response.Response[0].length>0){
-							model.tags.redeemSchemes=response.Response[0];
-							if(!model.tags.redeemSchemeList){
-								model.tags.redeemSchemeList=[]
-							}
-							response.Response[0].forEach(function(element,index){
-								if(index<10){
-									model.tags.redeemSchemeList.push({
-										title 	: element["SCHEMENAME"],
-										text 	: "Folio "+element["FOLIONO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinRedemptionAmount"],
-										buttons : [
-											{
-												text : 'Select',
-												data : element["SCHEMECODE"].toString()
-											}
-										]
-									})
-								}
-							})
-							if(model.tags.redeemSchemeList.length==0){
-								sendExternalMessage(model,"Oops. This pattern has no schemes to redeem.")
-								model.stage="summary"
-								return resolve(model)
-							}
-							else{
-								delete model.stage
-								return resolve(model)
-							}
-						}
-						else{
-							sendExternalMessage(model,"Sorry, you dont have any scheme in this pattern.");
-							model.stage="summary"
-							return resolve(model)
-						}
-					}
-					catch(e){
-						console.log(e)
-						return reject(model)
-					}
-			})
-			.catch(e=>{
-				console.log(e);
-				return reject(model);
-			});
+			delete model.stage
+			return resolve(model)
 				
 		}
 		else{
@@ -649,6 +565,12 @@ function holding(model){
 	})
 }
 
+function folio(model){
+	return new Promise(function(resolve, reject){
+			delete model.stage
+			return resolve(model)
+	})
+}
 
 function scheme(model){
 	return new Promise(function(resolve, reject){
@@ -669,14 +591,6 @@ function showSchemeName(model){
 	})
 }
 
-
-
-function folio(model){
-	return new Promise(function(resolve, reject){
-			delete model.stage
-			return resolve(model)
-	})
-}
 
 
 function sendExternalMessage(model,text){
