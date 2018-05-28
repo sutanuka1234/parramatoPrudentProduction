@@ -195,7 +195,7 @@ function insertBuyCartSwitch(session, joinAccId, schemeCodeFrom,schemeCodeTo, sw
 	return runRequest(obj)
 }
 
-function confirmSwitch(session,tranId){
+function confirmRedemption(session,tranId){
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
