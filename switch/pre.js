@@ -168,7 +168,7 @@ function scheme(model){
 	            	data : model.tags.switchSchemeList
 	            }
 			}
-			console.log(JSON.stringify(model.reply,null,3))
+			console.log(model.tags.switchSchemeList.length)
 			return resolve(model)
 	})
 }
