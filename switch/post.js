@@ -604,6 +604,7 @@ function holding(model){
 						return resolve(model)
 					}
 					else{
+						console.log(JSON.stringify(model.tags.switchSchemeList,null,3))
 						delete model.stage
 						return resolve(model)
 					}

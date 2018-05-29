@@ -151,7 +151,7 @@ function holding(model){
 			type:"generic",
             text:" Please select your holding pattern",
             next:{
-                "data": model.tags.joinAccList
+                data: model.tags.joinAccList
             }
 		}
 		resolve(model)
@@ -167,7 +167,7 @@ function scheme(model){
 	            	data : model.tags.switchSchemeList
 	            }
 			}
-			console.log(JSON.stringify(model.reply,null,3))
+			console.log(JSON.stringify(model.tags.switchSchemeList,null,3))
 			return resolve(model)
 	})
 }
