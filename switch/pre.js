@@ -16,6 +16,7 @@ let obj = {
 	otp 	: otp,
 	holding : holding,
 	scheme 	: scheme,
+	askSchemeName:askSchemeName,
 	showSchemeName:showSchemeName,
 	folio :folio,
 	summary:summary
@@ -214,12 +215,46 @@ function amount(model){
 }
 
 
-function showSchemeName(model){
+function askSchemeName(model){
 	return new Promise(function(resolve, reject){
+		if(!model.tags.schemes){
+			model.reply={
+				type:"text",
+	            text:"Type in a scheme name",
+			}
+		}
 		resolve(model)
 	})
 }
 
+function showSchemeName(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.schemes.length == 1){
+			model.reply={
+				type:"quickReply",
+	            text:"Would you like to go ahead with "+model.tags.schemes+"? You can also type if there is something else on your mind.",
+	            next:{
+	                "data": [
+	                	{
+	                		data : "Yes",
+	                		text : "Yes"
+	                	}
+	                ]
+	            }
+			}
+		}
+		else{
+			model.reply = {
+				type:"generic",
+	            text:"Choose among the closest schemes, or type if you wish to invest in a different scheme.",
+	            next:{ 
+	            	data : model.tags.schemeList
+	            }
+			}
+		}
+		resolve(model)
+	})
+}
 
 
 function summary(model){
