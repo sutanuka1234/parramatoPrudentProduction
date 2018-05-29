@@ -285,24 +285,20 @@ function amount(model){
 
 function summary(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.transactionRefId){
+		console.log(JSON.stringify(model.tags,null,3))
+		if(model.tags.redeemReferenceId){
 			model.reply={
-				type : 'text',
-				text : 'We have gone ahead with '+model.tags.investmentType+' of '+model.tags.scheme+' with Folio '+model.tags.folio+' investing Rs '+model.tags.amount+'. Reference ID would be '+model.tags.transactionRefId+'. Status of transaction is '+model.tags.status+'.'
+				type:"text",
+	            text:"Thanks, your reference id is "+model.tags.switchReferenceId+"."
 			}
 		}
 		else{
 			model.reply={
-				type : 'text',
-				text : 'Sorry, the transaction failed.'
+				type:"text",
+	            text:"Could not proceed with the redemption"
 			}
 		}
-		model.tags.amount = undefined
-		model.tags.joinAccId = undefined
-		model.tags.divOption = undefined
-		model.tags.otp=undefined
-		model.tags.schemeApiDetails=undefined
-		resolve(model)
+		return resolve(model)
 	})
 }
 
