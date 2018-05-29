@@ -798,7 +798,40 @@ function showSchemeName(model){
 				})
 			}
 		}
-		return resolve(model)
+		api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,undefined,true)
+		.then(response=>{
+			// console.log(response.body)
+			try{
+				response = JSON.parse(response.body)
+			}
+			catch(e){console.log(e);
+				return reject(model);
+			}
+			let arr = []
+			for(let i in response.Response){
+				arr.push(response.Response[i].FolioNo.toLowerCase())
+			}
+			// if(model.tags.folio && arr.includes(model.tags.folio)){
+			// 	model.stage="amount";
+			// }
+			if(response.Response.length > 0){
+				model.tags.folioList = []
+				for(let i in response.Response){
+					model.tags.folioList.push({
+						data : response.Response[i].FolioNo,
+						text : response.Response[i].FolioNo
+					})
+				}
+			}
+			else{
+				model.tags.folioNo = response.Response[0].FolioNo
+			}
+			return resolve(model)
+		})
+		.catch(e=>{
+			console.log(e)
+			return reject(model)
+		})
 	})
 }
 
@@ -839,8 +872,15 @@ function divOps(model){
 
 function folio(model){
 	return new Promise(function(resolve, reject){
-			delete model.stage
-			return resolve(model)
+			model.reply={
+				type:"quickReply",
+	            text:"Let us know the folio you wish to invest in.",
+	            next:{
+	                "data": model.tags.folioList
+	            }
+			}
+		
+		resolve(model)	
 	})
 }
 

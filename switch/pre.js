@@ -257,13 +257,29 @@ function showSchemeName(model){
 }
 
 
+
 function summary(model){
 	return new Promise(function(resolve, reject){
+		if(model.tags.transactionRefId){
+			model.reply={
+				type : 'text',
+				text : 'We have gone ahead with '+model.tags.investmentType+' of '+model.tags.scheme+' with Folio '+model.tags.folio+' investing Rs '+model.tags.amount+'. Reference ID would be '+model.tags.transactionRefId+'. Status of transaction is '+model.tags.status+'.'
+			}
+		}
+		else{
+			model.reply={
+				type : 'text',
+				text : 'Sorry, the transaction failed.'
+			}
+		}
+		model.tags.amount = undefined
+		model.tags.joinAccId = undefined
+		model.tags.divOption = undefined
+		model.tags.otp=undefined
+		model.tags.schemeApiDetails=undefined
 		resolve(model)
 	})
 }
-
-
 
 
 
