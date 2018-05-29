@@ -18,6 +18,7 @@ let obj = {
 	scheme 	: scheme,
 	askSchemeName:askSchemeName,
 	showSchemeName:showSchemeName,
+	divOps:divOps,
 	folio :folio,
 	summary:summary
 }
