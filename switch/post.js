@@ -587,8 +587,8 @@ function holding(model){
 					response.Response.forEach(function(element,index){
 						if(index<10){
 							model.tags.switchSchemeList.push({
-								title 	: element["SCHEMENAME"],
-								text 	: "Folio "+element["FOLIONO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinRedemptionAmount"],
+								title 	: element["SchemeName"],
+								text 	: "Folio "+element["FOLIO_NO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinSwitchOutAmount"],
 								buttons : [
 									{
 										text : 'Select',
@@ -641,8 +641,8 @@ function scheme(model){
 					console.log(model.data+"::"+scheme["SCHEMECODE"])
 					if(scheme["SCHEMECODE"]==model.data){
 						model.tags.switchSchemeObj=scheme;
-						model.tags.folio=scheme["FOLIONO"]
-						sendExternalMessage(model,"Going ahead with "+scheme["SCHEMENAME"])
+						model.tags.folio=scheme["FOLIO_NO"]
+						sendExternalMessage(model,"Going ahead with "+scheme["SchemeName"])
 						if(scheme["InccurExitLoad"]=="true"){
 							sendExternalMessage(model,`This holding have units / amount that are held for less than a
 														year and hence may attract short-term capital gains tax at 15% as
