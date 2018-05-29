@@ -104,7 +104,7 @@ function panMobile(model){
 			model=extractMobile(model)
 			model=extractDivOption(model)
 			model=extractSchemeName(model)
-			model=extractInvetmentType(model)
+			model=extractInvestmentType(model)
 			model=extractAmount(model)
 			model=extractFolio(model)
 		}
@@ -404,7 +404,7 @@ function extractPan(model){
 }
 
 
-function extractInvetmentType(model){
+function extractInvestmentType(model){
 	if(model.tags.userSays.toLowerCase().includes("lumpsum")||model.tags.userSays.toLowerCase().includes("one time")){
 			model.tags.userSays=model.tags.userSays.replace("lumpsum","")
 			model.tags.userSays = model.tags.userSays.replace("one time","")

@@ -96,6 +96,8 @@ function panMobile(model){
 		if(model.tags.userSays){
 			model=extractPan(model)
 			model=extractMobile(model)
+			// model=extractDivOption(model)
+			// model=extractSchemeName(model)
 			model=extractAmount(model)
 			model=extractFolio(model)
 		}
@@ -121,7 +123,6 @@ function panMobile(model){
 	            }
 			}
 		}
-		console.log(model.tags.schemes)
 		return resolve(model)
 	})
 }
@@ -167,7 +168,7 @@ function scheme(model){
 	            	data : model.tags.switchSchemeList
 	            }
 			}
-			console.log(JSON.stringify(model.tags.switchSchemeList,null,3))
+			console.log(JSON.stringify(model.reply,null,3))
 			return resolve(model)
 	})
 }
@@ -179,6 +180,38 @@ function folio(model){
 	})
 }
 
+function divOps(model){
+	return new Promise(function(resolve, reject){
+		model.reply={
+			type:"quickReply",
+            text:"Let us know the dividend option.",
+            next:{
+                data: [
+                	{
+                		data : 're invest',
+                		text : 'Re Invest'
+                	},
+                	{
+                		data : 'payout',
+                		text : 'Payout'
+                	}
+                ]
+            }
+		}
+		resolve(model)
+	})
+}
+
+function amount(model){
+	return new Promise(function(resolve, reject){
+
+		model.reply={
+			type:"text",
+            text:"Tell me the amount you want to invest, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaximumInvestment"]
+		}
+		resolve(model)
+	})
+}
 
 
 function showSchemeName(model){
@@ -265,8 +298,63 @@ function extractPan(model){
 	}
 	return model;
 }
-
-
+function extractDivOption(model){
+	if(model.tags.userSays.match(divOption)){
+		model.tags.divOption = model.tags.userSays.match(divOption)[0]
+		model.tags.userSays = model.tags.userSays.replace(model.tags.divOption, '')
+		model.tags.newDivOption=true;
+	}
+	return model;
+			
+}
+function extractSchemeName(model){
+		let wordsInUserSays=model.tags.userSays.split(" ");
+		let count=0;
+		let startIndex;
+		let endIndex;
+		let amcIndex;
+		let amcFlag;
+		for(let wordIndex in wordsInUserSays){
+			if(words.includes(wordsInUserSays[wordIndex])){
+				count++;
+				if(count==1){
+					startIndex=wordIndex;
+					endIndex=wordIndex;
+				}
+				else{
+					endIndex=wordIndex;
+				}
+			}
+			if(amc.includes(wordsInUserSays[wordIndex])&&!amcFlag){
+				amcIndex=wordIndex;
+				amcFlag=true;
+			}
+		}
+		if(amcFlag){
+			startIndex=amcIndex
+		}
+		if(count>0){
+			let searchTerm=""
+			for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
+				searchTerm+=wordsInUserSays[i]+" "
+			}
+			searchTerm=searchTerm.trim();
+			console.log(searchTerm)
+			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+			if(matches.bestMatch.rating>0.9){
+				model.tags.schemes = []
+				model.tags.schemes.push(matches.bestMatch.target)
+				model.tags.newScheme=true;
+			}
+			else if(matches.bestMatch.rating>0.4){
+				model.tags.schemes = []
+				matches.ratings=matches.ratings.sort(sortBy('-rating'));
+				model.tags.schemes = matches.ratings.splice(0,9);
+				model.tags.newScheme=true;
+			}
+		}
+		return model;
+}
 function dataClean(model){
 	console.log(model.tags.userSays)
 	if(model.tags.userSays){

@@ -93,6 +93,8 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model);
+		// model=extractDivOption(model)
+		// model=extractSchemeName(model)
 		if(model.data.toLowerCase().includes("not")&&model.data.toLowerCase().includes("me")){
 			model.stage="panMobile";
 			model.tags={}
@@ -311,8 +313,8 @@ function mobile(model){
 	return new Promise(function(resolve, reject){
 		    model=dataClean(model);
 			model = extractMobile(model);
-			model = extractAmount(model);
-			model = extractFolio(model);
+			// model=extractDivOption(model)
+			// model=extractSchemeName(model)
 			if(model.tags.pan&&model.tags.mobile){
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
@@ -372,8 +374,8 @@ function pan(model){
 	return new Promise(function(resolve, reject){
 		model = dataClean(model);
 		model = extractPan(model);
-		model = extractAmount(model);
-		model = extractFolio(model);
+		// model=extractDivOption(model)
+		// model=extractSchemeName(model)
 			// console.log("TAGG")
 			// console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.pan&&model.tags.mobile){
@@ -664,29 +666,184 @@ function scheme(model){
 }
 
 
+
+
+
+function askSchemeName(model){
+	return new Promise(function(resolve, reject){
+		if(model.data.toLowerCase().includes("cancel")||model.data.toLowerCase().includes("stop")||model.data.toLowerCase().trim()=="exit"){
+			return reject(model)
+		}
+		model = extractDivOption(model)
+		// model = extractAmount(model)
+		model = extractFolio(model)
+		// if(model.tags.selectType.toLowerCase().includes("additional")){
+		// 	model.stage = 'holding'
+		// 	return resolve(model)
+		// }
+
+		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
+		if(model.tags.schemes===undefined){
+			model.tags.schemes=[]
+		}
+		if(matches.bestMatch.rating>0.9){
+			// console.log("nine")
+			model.tags.schemes.push(matches.bestMatch.target)
+		}
+		else if(matches.bestMatch.rating>0.10){
+			// console.log("one")
+			matches.ratings=matches.ratings.sort(sortBy('-rating'));
+			model.tags.schemes = matches.ratings.splice(0,9);
+		}
+		else{
+			// console.log("undefined")
+			return reject(model);
+		}
+		if(model.tags.schemes){
+			model.tags.schemeList = []
+			model.tags.schemes.forEach(function(element){
+				model.tags.schemeList.push({
+					title 	: 'Schemes',
+					text 	: element.target,
+					buttons : [
+						{
+							text : 'Select',
+							data : element.target
+						}
+					]
+				})
+			})
+		}
+
+		delete model.stage
+		return resolve(model)
+	})
+}
+
+function showSchemeName(model){
+	return new Promise(function(resolve, reject){
+		if(model.data.toLowerCase().includes("cancel")||model.data.toLowerCase().includes("stop")||model.data.toLowerCase().trim()=="exit"){
+			return reject(model)
+		}
+		model = extractDivOption(model)
+		// model = extractAmount(model)
+		model = extractFolio(model)
+		// if(model.tags.selectType.toLowerCase().includes("additional")){
+		// 	model.stage = 'holding'
+		// 	return resolve(model)
+		// }
+		if(model.tags.schemes===undefined){
+			model.tags.schemes=[]
+		}
+		let arr = []
+		for(let i in model.tags.schemes){
+			arr.push(model.tags.schemes[i].target)
+		}
+		// console.log(model.data)
+		// console.log(JSON.stringify(model.tags.schemes))
+		if(arr.includes(model.data) || (model.data.toLowerCase().includes("yes")&&model.tags.schemes.length==1)){
+			if(model.tags.schemes.length==1){
+				model.tags.scheme=model.tags.schemes[0]
+			}
+			else{
+				model.tags.scheme = model.data
+			}
+			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption!==undefined){
+				if(model.tags.divOption){
+					if(model.tags.divOption.toString().includes('re') && data[model.tags.scheme].optionCode != 1){
+						model.tags.divOption = 1
+					}
+					else if(model.tags.divOption.toString().includes('pay') && data[model.tags.scheme].optionCode != 1){
+						model.tags.divOption = 2
+					}
+					else{
+						model.tags.divOption = 0
+					}
+					model.stage = 'folio'
+				}
+				else{
+					model.tags.divOption = 0
+				}
+				model.stage = 'folio'
+			}
+			else{
+				delete model.stage
+			}
+			sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
+		}
+		else{
+			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
+			if(matches.bestMatch.rating>0.9){
+				model.tags.schemes.push(matches.bestMatch.target)
+			}
+			else if(matches.bestMatch.rating>0.10){
+				matches.ratings=matches.ratings.sort(sortBy('-rating'));
+				model.tags.schemes = matches.ratings.splice(0,9);
+			}
+			else{
+				return reject(model);
+			}
+			if(model.tags.schemes){
+				model.tags.schemeList = []
+				model.tags.schemes.forEach(function(element){
+					model.tags.schemeList.push({
+						title 	: 'Schemes',
+						text 	: element.target,
+						buttons : [
+							{
+								text : 'Select',
+								data : element.target
+							}
+						]
+					})
+				})
+			}
+		}
+		return resolve(model)
+	})
+}
+
+function divOps(model){
+	return new Promise(function(resolve, reject){
+		model = extractAmount(model)
+		model = extractFolio(model)
+		if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')|| model.data.toLowerCase().includes('payout')){
+			
+			if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')){
+				model.tags.divOption = 1
+				model.tags.divOptionText="Resinvestment Option"
+			}
+			else{
+				model.tags.divOption = 2
+				model.tags.divOptionText="Payout Option"
+			}
+			model.tags.joinAccList = []
+			for(let i in model.tags.joinAcc){
+				model.tags.joinAccList.push({
+					title: 'Holding Patterns',
+					text : model.tags.joinAcc[i].JoinHolderName,
+					buttons : [{
+						data : model.tags.joinAcc[i].JoinAccId,
+						text : 'Select'
+					}]
+				})
+			}
+			model.stage = 'holding'
+			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
+			return resolve(model)
+		}
+		else{
+			return reject(model)
+		}
+	})
+}
+
 function folio(model){
 	return new Promise(function(resolve, reject){
 			delete model.stage
 			return resolve(model)
 	})
 }
-
-
-function askSchemeName(model){
-	return new Promise(function(resolve, reject){
-			delete model.stage
-			return resolve(model)
-	})
-}
-function showSchemeName(model){
-	return new Promise(function(resolve, reject){
-			delete model.stage
-			return resolve(model)
-	})
-}
-
-
-
 
 
 function sendExternalMessage(model,text){
@@ -777,6 +934,62 @@ function extractPan(model){
 	return model;
 }
 
+function extractDivOption(model){
+	if(model.data.match(divOption)){
+		model.tags.divOption = model.data.match(divOption)[0]
+		model.data = model.data.replace(model.tags.divOption, '')
+	}
+	return model;			
+}
+
+function extractSchemeName(model){
+		let wordsInUserSays=model.data.split(" ");
+		let count=0;
+		let startIndex;
+		let endIndex;
+		let amcIndex;
+		let amcFlag;
+		for(let wordIndex in wordsInUserSays){
+			if(words.includes(wordsInUserSays[wordIndex])){
+				count++;
+				if(count==1){
+					startIndex=wordIndex;
+					endIndex=wordIndex;
+				}
+				else{
+					endIndex=wordIndex;
+				}
+			}
+			if(amc.includes(wordsInUserSays[wordIndex])&&!amcFlag){
+				amcIndex=wordIndex;
+				amcFlag=true;
+			}
+		}
+		if(amcFlag){
+			// 	startIndex=amcIndex
+			// }
+
+			if(count>0){
+				let searchTerm=""
+				for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
+					searchTerm+=wordsInUserSays[i]+" "
+				}
+				searchTerm=searchTerm.trim();
+				// console.log(searchTerm)
+				let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+				if(matches.bestMatch.rating>0.9){
+					model.tags.schemes = []
+					model.tags.schemes.push(matches.bestMatch.target)
+				}
+				else if(matches.bestMatch.rating>0.4){
+					model.tags.schemes = []
+					matches.ratings=matches.ratings.sort(sortBy('-rating'));
+					model.tags.schemes = matches.ratings.splice(0,9);
+				}
+			}
+		}
+		return model;
+}
 
 function dataClean(model){
 	model.data = model.data.toLowerCase()
