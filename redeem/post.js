@@ -597,9 +597,7 @@ function holding(model){
 						console.log(JSON.stringify(response,null,3))
 						if(response.Response&&response.Response.length>0&&response.Response[0].length>0){
 							model.tags.redeemSchemes=response.Response[0];
-							if(!model.tags.redeemSchemeList){
-								model.tags.redeemSchemeList=[]
-							}
+							model.tags.redeemSchemeList=[]
 							response.Response[0].forEach(function(element,index){
 								if(index<10){
 									model.tags.redeemSchemeList.push({

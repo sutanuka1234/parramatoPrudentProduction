@@ -583,9 +583,7 @@ function holding(model){
 
 				if(response.Response&&response.Response.length>0){
 					model.tags.switchSchemes=response.Response;
-					if(!model.tags.switchSchemeList){
-						model.tags.switchSchemeList=[]
-					}
+					model.tags.switchSchemeList=[]
 					response.Response.forEach(function(element,index){
 						console.log(index+"::::::::::::::::::::::::::::::")
 						if(index<10){
