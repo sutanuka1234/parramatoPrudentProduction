@@ -584,32 +584,53 @@ function holding(model){
 				}
 
 				if(response.Response&&response.Response.length>0){
-					model.tags.switchSchemes=response.Response;
-					model.tags.switchSchemeList=[]
-					response.Response.forEach(function(element,index){
-						console.log(index+"::::::::::::::::::::::::::::::")
-						if(index<10){
-							model.tags.switchSchemeList.push({
-								title 	: element["SchemeName"],
-								text 	: "Folio "+element["FOLIO_NO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinSwitchOutAmount"],
-								buttons : [
-									{
-										text : 'Select',
-										data : element["SCHEMECODE"].toString()
-									}
-								]
-							})
+					if(response.Response[0]["reject_reason"]){
+							
+
+						let reply={
+			                text    : response.Response[0]["reject_reason"],
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model)
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+			        }
+			        else{
+						model.tags.switchSchemes=response.Response;
+						model.tags.switchSchemeList=[]
+						response.Response.forEach(function(element,index){
+							console.log(index+"::::::::::::::::::::::::::::::")
+							if(index<10){
+								model.tags.switchSchemeList.push({
+									title 	: element["SchemeName"],
+									text 	: "Folio "+element["FOLIO_NO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinSwitchOutAmount"],
+									buttons : [
+										{
+											text : 'Select',
+											data : element["SCHEMECODE"].toString()
+										}
+									]
+								})
+							}
+						})
+
+						if(model.tags.switchSchemeList.length==0){
+							sendExternalMessage(model,"Oops. This pattern has no schemes to switch.")
+							model.stage="summary"
+							return resolve(model)
 						}
-					})
-					if(model.tags.switchSchemeList.length==0){
-						sendExternalMessage(model,"Oops. This pattern has no schemes to switch.")
-						model.stage="summary"
-						return resolve(model)
-					}
-					else{
-						console.log(JSON.stringify(model.tags.switchSchemeList,null,3))
-						delete model.stage
-						return resolve(model)
+						else{
+							console.log(JSON.stringify(model.tags.switchSchemeList,null,3))
+							delete model.stage
+							return resolve(model)
+						}
 					}
 				}
 				else{
