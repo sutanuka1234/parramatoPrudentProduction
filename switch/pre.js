@@ -167,7 +167,14 @@ function folio(model){
 
 function scheme(model){
 	return new Promise(function(resolve, reject){
-		resolve(model)
+			model.reply = {
+				type:"generic",
+	            text:"Following are the schemes you are invested in. Please choose one",
+	            next:{ 
+	            	data : model.tags.switchSchemeList
+	            }
+			}
+			return resolve(model)
 	})
 }
 

@@ -554,7 +554,71 @@ function holding(model){
 			}
 			model.tags.joinAccId = model.data
 			console.log("here")
-			// api.getSwitchScheme(session,model.tags.joinAccId)
+			api.getSwitchScheme(session,model.tags.joinAccId)
+			.then((data)=>{
+				let response;
+				try{
+					console.log(data)
+					response = JSON.parse(data.body)
+				}
+				catch(e){
+					console.log(e);
+					     let reply={
+			                text    : "API Not Responding Properly",
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model);
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+				}
+
+				if(response.Response&&response.Response.length>0&&response.Response[0].length>0){
+					model.tags.redeemSchemes=response.Response[0];
+					if(!model.tags.switchSchemeList){
+						model.tags.switchSchemeList=[]
+					}
+					response.Response[0].forEach(function(element,index){
+						if(index<10){
+							model.tags.redeemSchemeList.push({
+								title 	: element["SCHEMENAME"],
+								text 	: "Folio "+element["FOLIONO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinRedemptionAmount"],
+								buttons : [
+									{
+										text : 'Select',
+										data : element["SCHEMECODE"].toString()
+									}
+								]
+							})
+						}
+					})
+					if(model.tags.redeemSchemeList.length==0){
+						sendExternalMessage(model,"Oops. This pattern has no schemes to redeem.")
+						model.stage="summary"
+						return resolve(model)
+					}
+					else{
+						delete model.stage
+						return resolve(model)
+					}
+				}
+				else{
+					sendExternalMessage(model,"Sorry, you dont have any scheme in this pattern.");
+					model.stage="summary"
+					return resolve(model)
+				}				 
+				 
+			})
+			.catch((e)=>{
+				console.log(e)
+				return reject(model);
+			})
 			delete model.stage
 			return resolve(model)
 				
@@ -567,6 +631,40 @@ function holding(model){
 }
 
 
+
+function scheme(model){
+	return new Promise(function(resolve, reject){
+		try{
+			if(model.tags.redeemSchemes){
+				for(let scheme of model.tags.switchSchemes){
+					console.log(model.data+"::"+scheme["SCHEMECODE"])
+					if(scheme["SCHEMECODE"]==model.data){
+						model.tags.switchSchemeObj=scheme;
+						model.tags.folio=scheme["FOLIONO"]
+						sendExternalMessage(model,"Going ahead with "+scheme["SCHEMENAME"])
+						if(scheme["InccurExitLoad"]=="true"){
+							sendExternalMessage(model,`This holding have units / amount that are held for less than a
+														year and hence may attract short-term capital gains tax at 15% as
+														well as exit load, if any You may want to modify your request to
+														avoid these losses. It is advisable to hold equity funds for longer
+														time frames to benefit from them.`)
+						}
+						delete model.stage;
+						return resolve(model);
+					}
+				}
+			}
+		}
+		catch(e){
+			console.log(e)
+			return reject(model);			
+		}
+
+		return reject(model)
+	})
+}
+
+
 function folio(model){
 	return new Promise(function(resolve, reject){
 			delete model.stage
@@ -574,12 +672,7 @@ function folio(model){
 	})
 }
 
-function scheme(model){
-	return new Promise(function(resolve, reject){
-			delete model.stage
-			return resolve(model)
-	})
-}
+
 function askSchemeName(model){
 	return new Promise(function(resolve, reject){
 			delete model.stage
@@ -592,6 +685,8 @@ function showSchemeName(model){
 			return resolve(model)
 	})
 }
+
+
 
 
 
