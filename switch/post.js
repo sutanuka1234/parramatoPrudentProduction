@@ -20,7 +20,8 @@ let obj = {
 	askSchemeName:askSchemeName,
 	showSchemeName:showSchemeName,
 	divOps:divOps,
-	folio :folio
+	folio :folio,
+	amount : amount
 }
 
 
@@ -870,12 +871,82 @@ function divOps(model){
 }
 
 function folio(model){
+
 	return new Promise(function(resolve, reject){
-			delete model.stage
-			return resolve(model)
-	})
+		let arr = []
+		for(let i in model.tags.folioList){
+			arr.push(model.tags.folioList[i].data)
+		}
+		model.tags.amcName = data[model.tags.scheme].amcName
+		if(arr.includes(model.data)){
+			sendExternalMessage(model,"Going ahead with "+model.data)
+			if(model.data.includes('new')){
+				model.tags.folio = '0'
+			}
+			else{
+				model.tags.folio = model.data
+			}
+			
+			api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,true)
+			.then((response)=>{
+				// console.log(response.body)
+				try{
+					response = JSON.parse(response.body)
+				}
+				catch(e){
+					return reject(model)
+					console.log(e)
+				}
+
+
+				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
+					model.tags.schemeApiDetails=response.Response[0][0];
+					model.tags.euinApiDetails=response.Response[0][1];
+					delete model.stage 
+					return resolve(model)
+						
+				}
+				else{
+					let reply={
+		                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+						model.stage = 'askSchemeName'
+						model.tags.schemes=undefined;
+						model.tags.scheme=undefined;
+						return resolve(model)
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+			})
+			.catch(e=>{
+				console.log(e);
+				return reject(model);
+			})
+		}
+		else{
+			return reject(model);
+		}
+	});
+
+
 }
 
+
+function amount(model){
+	return new Promise(function(resolve, reject){
+
+		delete model.stage;
+		return resolve(model)
+	})
+}
 
 function sendExternalMessage(model,text){
 	let reply={
