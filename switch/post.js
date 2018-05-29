@@ -850,19 +850,8 @@ function divOps(model){
 				model.tags.divOption = 2
 				model.tags.divOptionText="Payout Option"
 			}
-			model.tags.joinAccList = []
-			for(let i in model.tags.joinAcc){
-				model.tags.joinAccList.push({
-					title: 'Holding Patterns',
-					text : model.tags.joinAcc[i].JoinHolderName,
-					buttons : [{
-						data : model.tags.joinAcc[i].JoinAccId,
-						text : 'Select'
-					}]
-				})
-			}
-			model.stage = 'holding'
 			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
+			delete model.stage;
 			return resolve(model)
 		}
 		else{
