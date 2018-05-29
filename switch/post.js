@@ -907,8 +907,14 @@ function folio(model){
 						
 				}
 				else{
+					let reason=""
+					if(response.Response && response.Response[0]){
+						reason+=response.Response[0]["reject_reason"]
+
+					}
+
 					let reply={
-		                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+		                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account. '+reason,
 		                type    : "text",
 		                sender  : model.sender,
 		                language: "en"
