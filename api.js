@@ -185,7 +185,7 @@ function insertBuyCartRedeem(session, joinAccId, schemeCode, amcName, amount, fo
 	return runRequest(obj)
 }
 
-function insertBuyCartSwitch(session, joinAccId, schemeCodeFrom,schemeCodeTo, switchType, amount, folioNo,dividendOption){
+function insertBuyCartSwitch(session, joinAccId, schemeCodeFrom,schemeCodeTo, switchType, amount, folioNo,dividendOption,euin){
 
 	var obj = {
 		method 	: 'POST',
