@@ -158,13 +158,6 @@ function holding(model){
 	})
 }
 
-
-function folio(model){
-	return new Promise(function(resolve, reject){
-		resolve(model)
-	})
-}
-
 function scheme(model){
 	return new Promise(function(resolve, reject){
 			model.reply = {
@@ -177,6 +170,14 @@ function scheme(model){
 			return resolve(model)
 	})
 }
+
+
+function folio(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	})
+}
+
 
 
 function showSchemeName(model){
