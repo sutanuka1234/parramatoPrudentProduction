@@ -887,49 +887,55 @@ function folio(model){
 				model.tags.folio = model.data
 			}
 			
-			api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,true)
+			api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,true)
 			.then((response)=>{
 				// console.log(response.body)
 				try{
 					response = JSON.parse(response.body)
+				
+
+
+					if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
+						model.tags.schemeApiDetails=response.Response[0][0];
+						model.tags.euinApiDetails=response.Response[0][1];
+						model.tags.switchMinAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+						if(parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])>model.tags.switchMinAmount){
+							model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
+						}
+						model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
+						delete model.stage 
+						return resolve(model)
+							
+					}
+					else{
+						let reason=""
+						if(response.Response && response.Response[0]){
+							reason+=response.Response[0]["reject_reason"]
+
+						}
+
+						let reply={
+			                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account. '+reason,
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+							model.stage = 'askSchemeName'
+							model.tags.schemes=undefined;
+							model.tags.scheme=undefined;
+							return resolve(model)
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+					}
 				}
 				catch(e){
 					return reject(model)
 					console.log(e)
-				}
-
-
-				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
-					model.tags.schemeApiDetails=response.Response[0][0];
-					model.tags.euinApiDetails=response.Response[0][1];
-					delete model.stage 
-					return resolve(model)
-						
-				}
-				else{
-					let reason=""
-					if(response.Response && response.Response[0]){
-						reason+=response.Response[0]["reject_reason"]
-
-					}
-
-					let reply={
-		                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account. '+reason,
-		                type    : "text",
-		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{
-						model.stage = 'askSchemeName'
-						model.tags.schemes=undefined;
-						model.tags.scheme=undefined;
-						return resolve(model)
-		            })
-		            .catch((e)=>{
-		                console.log(e);
-		                return reject(model)
-		            })
 				}
 			})
 			.catch(e=>{
