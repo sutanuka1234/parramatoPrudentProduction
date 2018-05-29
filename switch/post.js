@@ -1001,7 +1001,7 @@ function amount(model){
 			if(model.tags.amount){
 
 				// console.log("amount valid")
-				api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,'R', model.tags.amount, model.tags.folio)
+				api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,'R', model.tags.amount, model.tags.folio,model.tags.divOption)
 				.then((data)=>{
 					console.log(data.body)
 					try{
