@@ -93,8 +93,8 @@ function panMobile(model){
 		model.tags.otp=undefined
 		model.tags.resend=undefined
 		model.tags.tranId=undefined
-		model.tags.redeemSchemeList=undefined
-		model.tags.redeemReferenceId=undefined
+		model.tags.switchSchemeList=undefined
+		model.tags.switchReferenceId=undefined
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
@@ -286,7 +286,7 @@ function amount(model){
 function summary(model){
 	return new Promise(function(resolve, reject){
 		console.log(JSON.stringify(model.tags,null,3))
-		if(model.tags.redeemReferenceId){
+		if(model.tags.switchReferenceId){
 			model.reply={
 				type:"text",
 	            text:"Thanks, your reference id is "+model.tags.switchReferenceId+"."
@@ -295,7 +295,7 @@ function summary(model){
 		else{
 			model.reply={
 				type:"text",
-	            text:"Could not proceed with the redemption"
+	            text:"Could not proceed with the switch"
 			}
 		}
 		return resolve(model)
