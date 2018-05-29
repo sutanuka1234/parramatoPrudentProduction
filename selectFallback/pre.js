@@ -47,26 +47,28 @@ function fallback(model){
 				}
 			}
 			let data=[]
-			for(let element of model.bestIntents){
-				let query=replaceAll(element.query,"@","");
-				if(query.length>80){
-					query=query.substring(0, 80)+"...";
+			if(model.bestIntents){
+				for(let element of model.bestIntents){
+					let query=replaceAll(element.query,"@","");
+					if(query.length>80){
+						query=query.substring(0, 80)+"...";
+					}
+					if(element.reply.length>80){
+						element.reply=element.reply.substring(0, 80)+"...";
+					}
+					data.push({
+							// title 	: "Query",
+							// text 	: query,
+							title 		: query,
+							text		: element.reply,
+							buttons : [
+								{
+									text : 'Read more',
+									data : "<similar> "+query+"|"+model.prevQuery+"|"+element.id+" </similar>"
+								}
+							]
+						})
 				}
-				if(element.reply.length>80){
-					element.reply=element.reply.substring(0, 80)+"...";
-				}
-				data.push({
-						// title 	: "Query",
-						// text 	: query,
-						title 		: query,
-						text		: element.reply,
-						buttons : [
-							{
-								text : 'Read more',
-								data : "<similar> "+query+"|"+model.prevQuery+"|"+element.id+" </similar>"
-							}
-						]
-					})
 			}
 			if(data.length>0){
 				data[data.length-1].buttons.push({
