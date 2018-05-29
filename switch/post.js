@@ -620,8 +620,6 @@ function holding(model){
 				console.log(e)
 				return reject(model);
 			})
-			delete model.stage
-			return resolve(model)
 				
 		}
 		else{
