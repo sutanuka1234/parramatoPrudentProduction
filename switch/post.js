@@ -554,7 +554,7 @@ function holding(model){
 			}
 			model.tags.joinAccId = model.data
 			console.log("here")
-			api.getSwitchScheme(session,model.tags.joinAccId)
+			api.getSwitchScheme(model.tags.session,model.tags.joinAccId)
 			.then((data)=>{
 				let response;
 				try{
