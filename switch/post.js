@@ -804,30 +804,39 @@ function showSchemeName(model){
 			console.log(response.body)
 			try{
 				response = JSON.parse(response.body)
-			}
-			catch(e){console.log(e);
-				return reject(model);
-			}
-			let arr = []
-			for(let i in response.Response){
-				arr.push(response.Response[i].FolioNo.toLowerCase())
-			}
-			// if(model.tags.folio && arr.includes(model.tags.folio)){
-			// 	model.stage="amount";
-			// }
-			if(response.Response.length > 0){
-				model.tags.folioList = []
-				for(let i in response.Response){
-					model.tags.folioList.push({
-						data : response.Response[i].FolioNo,
-						text : response.Response[i].FolioNo
-					})
+			
+				let arr = []
+				if(response.Response.length>0){
+					for(let i in response.Response[0]){
+						arr.push(response.Response[0][i].FolioNo.toLowerCase())
+					}
+					// if(model.tags.folio && arr.includes(model.tags.folio)){
+					// 	model.stage="amount";
+					// }
+					if(response.Response[0].length > 0){
+						model.tags.folioList = []
+						for(let i in response.Response){
+							model.tags.folioList.push({
+								data : response.Response[0][i].FolioNo,
+								text : response.Response[0][i].FolioNo
+							})
+						}
+					}
+					else{
+						model.tags.folioNo = response.Response[0][0].FolioNo
+					}
+					return resolve(model)
+				}
+				else{
+					console.log("No valid response")
+					return reject(model);
+
 				}
 			}
-			else{
-				model.tags.folioNo = response.Response[0].FolioNo
+			catch(e){
+				console.log(e);
+				return reject(model);
 			}
-			return resolve(model)
 		})
 		.catch(e=>{
 			console.log(e)

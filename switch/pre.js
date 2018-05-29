@@ -244,6 +244,7 @@ function showSchemeName(model){
 
 function folio(model){
 	return new Promise(function(resolve, reject){
+		if(model.tags.folioList){
 			model.reply={
 				type:"quickReply",
 	            text:"Let us know the folio you wish to invest in.",
@@ -251,7 +252,21 @@ function folio(model){
 	                "data": model.tags.folioList
 	            }
 			}
-		
+		}
+		else if(model.tags.folioNo){
+			model.reply={
+				type:"quickReply",
+	            text:"Proceed with folio number?",
+	            next:{
+	                "data": [
+	                	{
+	                		data : model.tags.folioNo,
+	                		text : model.tags.folioNo
+	                	}
+	                ]
+	            }
+			}	
+		}
 		resolve(model)	
 	})
 }
