@@ -190,7 +190,7 @@ function insertBuyCartSwitch(session, joinAccId, schemeCodeFrom,schemeCodeTo, sw
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
-		url 	: url+'InsertSwitchBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&DivOpt='+dividendOption+'&FolioNo='+folioNo+'&EUIN='+euin+'&IsAgreeTerms=1&IsEKYCTermCondition=1&Investment='+amount+'&SwitchType='+switchType+'&SwitchFromScheme'+schemeCodeFrom+'&SwitchToScheme'+schemeCodeTo
+		url 	: url+'InsertSwitchBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&DivOpt='+dividendOption+'&FolioNo='+folioNo+'&EUIN='+euin+'&IsAgreeTerms=1&IsEKYCTermCondition=1&Investment='+amount+'&SwitchType='+switchType+'&SwitchFromScheme='+schemeCodeFrom+'&SwitchToScheme='+schemeCodeTo
 	}
 	return runRequest(obj)
 }
