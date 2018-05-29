@@ -175,11 +175,6 @@ function scheme(model){
 }
 
 
-function folio(model){
-	return new Promise(function(resolve, reject){
-		resolve(model)
-	})
-}
 
 function divOps(model){
 	return new Promise(function(resolve, reject){
@@ -203,16 +198,6 @@ function divOps(model){
 	})
 }
 
-function amount(model){
-	return new Promise(function(resolve, reject){
-
-		model.reply={
-			type:"text",
-            text:"Tell me the amount you want to invest, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaximumInvestment"]
-		}
-		resolve(model)
-	})
-}
 
 
 function askSchemeName(model){
@@ -256,7 +241,30 @@ function showSchemeName(model){
 	})
 }
 
+function folio(model){
+	return new Promise(function(resolve, reject){
+			model.reply={
+				type:"quickReply",
+	            text:"Let us know the folio you wish to invest in.",
+	            next:{
+	                "data": model.tags.folioList
+	            }
+			}
+		
+		resolve(model)	
+	})
+}
 
+function amount(model){
+	return new Promise(function(resolve, reject){
+
+		model.reply={
+			type:"text",
+            text:"Tell me the amount you want to invest, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaximumInvestment"]
+		}
+		resolve(model)
+	})
+}
 
 function summary(model){
 	return new Promise(function(resolve, reject){

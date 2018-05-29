@@ -872,15 +872,8 @@ function divOps(model){
 
 function folio(model){
 	return new Promise(function(resolve, reject){
-			model.reply={
-				type:"quickReply",
-	            text:"Let us know the folio you wish to invest in.",
-	            next:{
-	                "data": model.tags.folioList
-	            }
-			}
-		
-		resolve(model)	
+			delete model.stage
+			return resolve(model)
 	})
 }
 
