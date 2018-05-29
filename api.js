@@ -213,11 +213,12 @@ function confirmSwitch(session,tranId){
 	return runRequest(obj)
 }
 
-function getSwitchScheme(session,tranId){
+
+function getSwitchScheme(session,joinAccId){
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
-		url 	: url+'GetSwitchScheme?IPAddress=192.168.0.102&SessionId='+session+'&TranReferenceID='+tranId
+		url 	: url+'GetSwitchScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId
 	}
 	return runRequest(obj)
 }

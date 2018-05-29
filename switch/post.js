@@ -554,6 +554,7 @@ function holding(model){
 			}
 			model.tags.joinAccId = model.data
 			console.log("here")
+			// api.getSwitchScheme(session,model.tags.joinAccId)
 			delete model.stage
 			return resolve(model)
 				
@@ -564,6 +565,7 @@ function holding(model){
 		}
 	})
 }
+
 
 function folio(model){
 	return new Promise(function(resolve, reject){

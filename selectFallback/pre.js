@@ -37,11 +37,13 @@ function fallback(model){
 				model.bestIntents.splice(index, 1)
 			}
 		}
-		if(model.prevQuery.startsWith("<similar> ")){
-			model.prevQuery=model.prevQuery.replace("<similar>").replace("</similar>").trim().split("|")[0];
-		}
-		if(model.prevQuery.startsWith("<nomatch> ")){
-			model.prevQuery=model.prevQuery.replace("<similar>").replace("</similar>").trim().split("|")[0];
+		if(model.prevQuery){
+			if(model.prevQuery.startsWith("<similar> ")){
+				model.prevQuery=model.prevQuery.replace("<similar>").replace("</similar>").trim().split("|")[0];
+			}
+			if(model.prevQuery.startsWith("<nomatch> ")){
+				model.prevQuery=model.prevQuery.replace("<similar>").replace("</similar>").trim().split("|")[0];
+			}
 		}
 		let data=[]
 		for(let element of model.bestIntents){
