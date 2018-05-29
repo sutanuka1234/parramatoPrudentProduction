@@ -20,6 +20,7 @@ let obj = {
 	showSchemeName:showSchemeName,
 	divOps:divOps,
 	folio :folio,
+	amount:amount,
 	summary:summary
 }
 
