@@ -580,7 +580,7 @@ function holding(model){
 				}
 
 				if(response.Response&&response.Response.length>0){
-					model.tags.switchSchemes=response.Response[0];
+					model.tags.switchSchemes=response.Response;
 					if(!model.tags.switchSchemeList){
 						model.tags.switchSchemeList=[]
 					}
