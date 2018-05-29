@@ -899,12 +899,34 @@ function folio(model){
 						model.tags.schemeApiDetails=response.Response[0][0];
 						model.tags.euinApiDetails=response.Response[0][1];
 						model.tags.switchMinAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
-						if(parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])>model.tags.switchMinAmount){
-							model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
+
+						if(parseFloat(model.tags.switchSchemeObj["AvailableAmt"])<model.tags.switchMinAmount){
+							let reply={
+				                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account as the minimum investment amount for this scheme is lesser than the amount available in current investment',
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+								model.stage = 'askSchemeName'
+								model.tags.schemes=undefined;
+								model.tags.scheme=undefined;
+								return resolve(model)
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
 						}
-						model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
-						delete model.stage 
-						return resolve(model)
+						else{
+							if(parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])>model.tags.switchMinAmount){
+								model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
+							}
+							model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
+							delete model.stage 
+							return resolve(model)
+						}
 							
 					}
 					else{
