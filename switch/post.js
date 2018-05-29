@@ -587,6 +587,7 @@ function holding(model){
 						model.tags.switchSchemeList=[]
 					}
 					response.Response.forEach(function(element,index){
+						console.log(index+"::::::::::::::::::::::::::::::")
 						if(index<10){
 							model.tags.switchSchemeList.push({
 								title 	: element["SchemeName"],
