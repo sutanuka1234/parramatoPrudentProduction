@@ -579,14 +579,14 @@ function holding(model){
 			            })
 				}
 
-				if(response.Response&&response.Response.length>0&&response.Response[0].length>0){
-					model.tags.redeemSchemes=response.Response[0];
+				if(response.Response&&response.Response.length>0&&response.Response.length>0){
+					model.tags.switchSchemes=response.Response[0];
 					if(!model.tags.switchSchemeList){
 						model.tags.switchSchemeList=[]
 					}
-					response.Response[0].forEach(function(element,index){
+					response.Response.forEach(function(element,index){
 						if(index<10){
-							model.tags.redeemSchemeList.push({
+							model.tags.switchSchemeList.push({
 								title 	: element["SCHEMENAME"],
 								text 	: "Folio "+element["FOLIONO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinRedemptionAmount"],
 								buttons : [
@@ -598,8 +598,8 @@ function holding(model){
 							})
 						}
 					})
-					if(model.tags.redeemSchemeList.length==0){
-						sendExternalMessage(model,"Oops. This pattern has no schemes to redeem.")
+					if(model.tags.switchSchemeList.length==0){
+						sendExternalMessage(model,"Oops. This pattern has no schemes to switch.")
 						model.stage="summary"
 						return resolve(model)
 					}
@@ -635,7 +635,7 @@ function holding(model){
 function scheme(model){
 	return new Promise(function(resolve, reject){
 		try{
-			if(model.tags.redeemSchemes){
+			if(model.tags.switchSchemes){
 				for(let scheme of model.tags.switchSchemes){
 					console.log(model.data+"::"+scheme["SCHEMECODE"])
 					if(scheme["SCHEMECODE"]==model.data){
