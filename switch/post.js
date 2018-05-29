@@ -799,7 +799,7 @@ function showSchemeName(model){
 				})
 			}
 		}
-		api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,undefined,true)
+		api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,undefined,true)
 		.then(response=>{
 			console.log(response.body)
 			try{
