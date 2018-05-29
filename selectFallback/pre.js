@@ -85,7 +85,7 @@ function fallback(model){
 			}
 			else{
 				model.reply={
-					type:"generic",
+					type:"text",
 		            text:"I am not sure how to answer this, trying my best to learn. Could you please rephrase your query?"
 				}
 			}
