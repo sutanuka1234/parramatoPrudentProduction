@@ -21,6 +21,7 @@ let obj = {
 	showSchemeName:showSchemeName,
 	divOps:divOps,
 	folio :folio,
+	unitOrAmount:unitOrAmount,
 	amount : amount
 }
 
@@ -994,7 +995,134 @@ function folio(model){
 
 }
 
+function unitOrAmount(model) {
 
+	return new Promise(function(resolve, reject){
+		model=dataClean(model)
+		console.log(model.data)
+		if(model.data.includes("all")){
+			model.tags.unitOrAmount="AU";
+			// console.log("amount valid")
+			api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.amount, model.tags.folio,model.tags.divOption,'E020391')
+				.then((data)=>{
+					console.log(data.body)
+					try{
+						data.body = JSON.parse(data.body)
+					}
+					catch(e){	
+						console.log(e);
+						let reply={
+			                text    : "API Not Responding Properly",
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model);
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+					}
+					if(data.body.Response&&data.body.Response.length>0&&data.body.Response[0].result=="FAIL"){
+						let reply={
+			                text    : data.body.Response[0]['reject_reason'].trim(),
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model);
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+					}
+					else if(data.body.Response&&data.body.Response.length>0){
+						let refrenceId=data.body.Response[0]["TranReferenceID"];
+						api.confirmSwitch(model.tags.session,refrenceId)
+						.then((data)=>{
+							console.log(data.body)
+							try{
+								data.body = JSON.parse(data.body)
+							}
+							catch(e){	
+								console.log(e);
+								let reply={
+					                text    : "API Not Responding Properly",
+					                type    : "text",
+					                sender  : model.sender,
+					                language: "en"
+					            }
+								external(reply)
+								.then((data)=>{
+					                return reject(model);
+					            })
+					            .catch((e)=>{
+					                console.log(e);
+					                return reject(model)
+					            })
+							}
+							if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
+								let reply={
+					                text    : data.body.Response[0]['reject_reason'].trim(),
+					                type    : "text",
+					                sender  : model.sender,
+					                language: "en"
+					            }
+								external(reply)
+								.then((data)=>{
+					                return reject(model);
+					            })
+					            .catch((e)=>{
+					                console.log(e);
+					                return reject(model)
+					            })
+							}
+							else{
+								model.tags.switchReferenceId=refrenceId;
+								model.stage="summary"
+								return resolve(model)
+
+							}
+
+						})
+						.catch(e=>{
+			                console.log(e);
+			                return reject(model)
+						})
+					}
+					else{
+			                return reject(model)
+						
+					}
+
+				})
+				.catch(e=>{
+					console.log(e)
+					return reject(model)
+				})
+		}
+		else if(model.data.includes("amount")){
+			model.tags.unitOrAmount="R";
+			delete model.stage
+			return resolve(model);
+		}
+		else if(model.data.includes("partial")){
+			model.tags.unitOrAmount="PU";
+			delete model.stage
+			return resolve(model);
+		}
+		else{
+			model.tags.unitOrAmount=undefined;
+			return reject(model);
+		}
+	});
+}
 function amount(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
@@ -1003,26 +1131,76 @@ function amount(model){
 		try{
 			if(model.tags.amount&&model.tags.switchSchemeObj){
 				
-				let amount=parseFloat(model.tags.amount)
-				let maxAmount=parseFloat(model.tags.switchSchemeObj["AvailableAmt"])
-				let minAmount=parseFloat(model.tags.switchMinAmount)
-				console.log(minAmount)
-				console.log(maxAmount)
-				console.log(amount)
-				if(amount<minAmount){
-					// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
-					model.tags.amount=undefined;
+				// let amount=parseFloat(model.tags.amount)
+				// let maxAmount=parseFloat(model.tags.switchSchemeObj["AvailableAmt"])
+				// let minAmount=parseFloat(model.tags.switchMinAmount)
+				// console.log(minAmount)
+				// console.log(maxAmount)
+				// console.log(amount)
+				// if(amount<minAmount){
+				// 	// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
+				// 	model.tags.amount=undefined;
+				// }
+				// else if(amount>maxAmount){
+				// 	// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
+				// 	model.tags.amount=undefined;
+				// }
+
+
+
+				
+				if(model.tags.unitOrAmount=="PU"){
+					let amount=parseFloat(model.tags.amount)
+					let maxAmount=parseFloat(model.tags.switchSchemeObj["AvailableUnits"])
+					let minAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutUnits"])
+					let multiple=parseFloat(model.tags.switchSchemeObj["SwitchOutMultiplesUnits"])
+					console.log(minAmount)
+					console.log(maxAmount)
+					console.log(multiple)
+					console.log(amount)
+					if(amount%multiple!=0){
+						model.tags.amount=undefined;
+					}
+					if(amount<minAmount){
+						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
+						model.tags.amount=undefined;
+					}
+					else if(amount>maxAmount){
+						// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
+						model.tags.amount=undefined;
+					}
 				}
-				else if(amount>maxAmount){
-					// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
-					model.tags.amount=undefined;
+				else{
+					let amount=parseFloat(model.tags.amount)
+					let maxAmount=parseFloat(model.tags.switchSchemeObj["AvailableAmt"])
+					let minAmount=parseFloat(model.tags.switchMinAmount)
+					let multiple=parseFloat(model.tags.switchSchemeObj["SwitchOutMultipleAmount"])
+					console.log(minAmount)
+					console.log(maxAmount)
+					console.log(multiple)
+					console.log(amount)
+					console.log(amount%multiple)
+					if(amount%multiple!=0){
+						model.tags.amount=undefined;
+					}
+					if(amount<minAmount){
+						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
+						model.tags.amount=undefined;
+					}
+					else if(amount>maxAmount){
+						// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
+						model.tags.amount=undefined;
+					}
 				}
+			
+
+
 			}
 
 			if(model.tags.amount){
 
 				// console.log("amount valid")
-				api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,'R', model.tags.amount, model.tags.folio,model.tags.divOption,'E020391')
+				api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount,  model.tags.amount, model.tags.folio,model.tags.divOption,'E020391')
 				.then((data)=>{
 					console.log(data.body)
 					try{

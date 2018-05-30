@@ -107,7 +107,7 @@ function panMobile(model){
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
-	            text:"Sure, we have your credentials linked to mobile "+formatter.apply(model.tags.mobile)+" saved. Would you like to proceed with the redemption process?",
+	            text:"Sure, we have your credentials linked to mobile "+formatter.apply(model.tags.mobile)+" saved. Would you like to proceed with the switch process?",
 	            next:{
 	                "data": [
 	                	{
@@ -272,16 +272,28 @@ function folio(model){
 	})
 }
 
+
+
 function amount(model){
 	return new Promise(function(resolve, reject){
+		if(model.tags.unitOrAmount=="PU"){
+			model.reply={
+				type:"text",
+	            text:"Tell me the number of units you want to switch, it should be greater or equal to "+model.tags.switchSchemeObj["MinSwitchOutUnits"]+" and less than or equal to "+model.tags.switchSchemeObj["AvailableUnits"]+" and in the multiples of "+model.tags.switchSchemeObj["SwitchOutMultiplesUnits"]
+			}
+		}
+		else{
+			model.reply={
+				type:"text",
+	            text:"Tell me the amount you want to switch, it should be greater or equal to Rs "+model.tags.switchMinAmount+" and less than or equal to Rs "+model.tags.switchSchemeObj["AvailableAmt"]+" and in the multiples of Rs "+model.tags.switchSchemeObj["SwitchOutMultipleAmount"]
+			}
 
-		model.reply={
-			type:"text",
-            text:"Tell me the amount you want to invest, it should be greater or equal to Rs "+model.tags.switchMinAmount+" and less than or equal to Rs "+model.tags.switchSchemeObj["AvailableAmt"]
 		}
 		resolve(model)
 	})
 }
+
+
 
 function summary(model){
 	return new Promise(function(resolve, reject){
