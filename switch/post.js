@@ -1124,6 +1124,7 @@ function unitOrAmount(model) {
 	});
 }
 function amount(model){
+	console.log(model.tags.schemeApiDetails["MinimumInvestment"]+":::::::::::::::::::::::::::::::::::::::::::::::")
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
 		model=extractAmount(model)
