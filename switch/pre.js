@@ -285,7 +285,7 @@ function amount(model){
 		else{
 			model.reply={
 				type:"text",
-	            text:"Tell me the amount you want to switch, it should be greater or equal to Rs "+model.tags.switchSchemeObj["MinSwitchOutAmount"]+" and less than or equal to Rs "+model.tags.switchSchemeObj["AvailableAmt"]+" and in the multiples of Rs "+model.tags.switchSchemeObj["SwitchOutMultipleAmount"]
+	            text:"Tell me the amount you want to switch, it should be greater or equal to Rs "+model.tags.switchMinAmount+" and less than or equal to Rs "+model.tags.switchSchemeObj["AvailableAmt"]+" and in the multiples of Rs "+model.tags.switchSchemeObj["SwitchOutMultipleAmount"]
 			}
 
 		}
