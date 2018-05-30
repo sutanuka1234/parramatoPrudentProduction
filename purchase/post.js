@@ -1362,11 +1362,11 @@ function folio(model){
 				let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 				let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
 				if(amount<minAmount){
-					sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
+					// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
 					model.tags.amount=undefined;
 				}
 				else if(amount>maxAmount){
-					sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
+					// sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
 					model.tags.amount=undefined;
 				}
 			}
