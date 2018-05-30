@@ -1173,7 +1173,7 @@ function amount(model){
 				else{
 					let amount=parseFloat(model.tags.amount)
 					let maxAmount=parseFloat(model.tags.switchSchemeObj["AvailableAmt"])
-					let minAmount=parseFloat(model.tags.switchMinAmount)
+					let minAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
 					let multiple=parseFloat(model.tags.switchSchemeObj["SwitchOutMultipleAmount"])
 					console.log(minAmount)
 					console.log(maxAmount)
