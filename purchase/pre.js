@@ -316,7 +316,7 @@ function summary(model){
 		else{
 			model.reply={
 				type : 'text',
-				text : 'Could not proceed with switch'
+				text : 'Sorry we cannot go ahead with the investment'
 			}
 		}
 		model.tags.amount = undefined
