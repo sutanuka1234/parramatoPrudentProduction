@@ -559,6 +559,7 @@ function holding(model){
 					try{
 						console.log(data)
 						response = JSON.parse(data.body)
+						console.log(JSON.stringify(response, null, 3))
 					}
 					catch(e){
 						console.log(e);
