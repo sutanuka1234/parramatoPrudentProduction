@@ -785,12 +785,12 @@ function showSchemeName(model){
 					else{
 						model.tags.divOption = 0
 					}
-					model.stage = 'folio'
+					model.stage = 'unitOrAmount'
 				}
 				else{
 					model.tags.divOption = 0
 				}
-				model.stage = 'folio'
+				model.stage = 'unitOrAmount'
 			}
 			else{
 				delete model.stage
