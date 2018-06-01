@@ -310,7 +310,7 @@ function summary(model){
 		if(model.tags.transactionRefId){
 			model.reply={
 				type : 'text',
-				text : 'We have gone ahead with '+model.tags.investmentType+' of '+model.tags.scheme+' with Folio '+model.tags.folio+' investing Rs '+model.tags.amount+'. Reference ID would be '+model.tags.transactionRefId+'. Status of transaction is '+model.tags.status+'.'
+				text : 'We have gone ahead with '+model.tags.investmentType+' of '+model.tags.scheme+' with '+model.tags.folio+' investing Rs '+model.tags.amount+'. Reference ID would be '+model.tags.transactionRefId+'. Status of transaction is '+model.tags.status+'.'
 			}
 		}
 		else{
