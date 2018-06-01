@@ -824,7 +824,6 @@ function showSchemeName(model){
 					})
 				})
 			}
-			model.stage="showSchemeName"
 		}
 
 
