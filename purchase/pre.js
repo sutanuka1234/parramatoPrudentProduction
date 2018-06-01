@@ -226,7 +226,7 @@ function amount(model){
 
 		model.reply={
 			type:"text",
-            text:"Tell me the amount you want to invest, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaximumInvestment"]
+            text:"Tell me the amount you want to invest, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaximumInvestment"] +" and in the multiples of "+model.tags.schemeApiDetails["Multiples"] 
 		}
 		resolve(model)
 	})
@@ -339,6 +339,10 @@ function summary(model){
 				text : 'We cannot go ahead with the investment with given details. However you can try again or go ahead with the following.',
 	            next:{
 	                data: [
+	                	{
+	                		data : "Talk to agent",
+	                		text : "Talk to agent"
+	                	},
 	                	{
 	                		data : "Invest now",
 	                		text : "Invest now"

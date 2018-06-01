@@ -1122,12 +1122,16 @@ function additional(model){
 					let amount=parseFloat(model.tags.amount)
 					let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 					let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
-					if(amount>minAmount){
-						// sendExternalMessage(model,"Investment amount should be greater than or equal to Rs "+minAmount+".")
+					let multiple =parseFloat(model.tags.schemeApiDetails["Multiples"]) 
+					if(amount%multiple!=0){
 						model.tags.amount=undefined;
 					}
-					else if(amount<maxAmount){
-						// sendExternalMessage(model,"Investment amount should be less than or equal to Rs "+maxAmount+".")
+					if(amount<minAmount){
+						// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
+						model.tags.amount=undefined;
+					}
+					else if(amount>maxAmount){
+						// sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
 						model.tags.amount=undefined;
 					}
 				}
@@ -1361,6 +1365,10 @@ function folio(model){
 				let amount=parseFloat(model.tags.amount)
 				let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 				let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
+				let multiple =parseFloat(model.tags.schemeApiDetails["Multiples"]) 
+				if(amount%multiple!=0){
+					model.tags.amount=undefined;
+				}
 				if(amount<minAmount){
 					// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
 					model.tags.amount=undefined;
@@ -1487,9 +1495,14 @@ function amount(model){
 			let amount=parseFloat(model.tags.amount)
 			let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 			let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
+			let multiple =parseFloat(model.tags.schemeApiDetails["Multiples"]) 
+			if(amount%multiple!=0){
+				model.tags.amount=undefined;
+			}
 			console.log(minAmount)
 			console.log(maxAmount)
 			console.log(amount)
+
 			if(amount<minAmount){
 				// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
 				model.tags.amount=undefined;

@@ -90,6 +90,10 @@ function fallback(model){
 		            next:{
 		                data: [
 		                	{
+		                		data : "Talk to agent",
+		                		text : "Talk to agent"
+		                	},
+		                	{
 		                		data : "Invest now",
 		                		text : "Invest now"
 		                	},
