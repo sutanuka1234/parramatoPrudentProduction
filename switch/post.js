@@ -20,7 +20,6 @@ let obj = {
 	askSchemeName:askSchemeName,
 	showSchemeName:showSchemeName,
 	divOps:divOps,
-	folio :folio,
 	unitOrAmount:unitOrAmount,
 	amount : amount
 }
@@ -227,7 +226,6 @@ function panMobile(model){
 			// console.log("4")
 			model = extractMobile(model);
 			model = extractAmount(model);
-			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
 				.then(data=>{
@@ -699,13 +697,19 @@ function askSchemeName(model){
 		}
 		model = extractDivOption(model)
 		// model = extractAmount(model)
-		model = extractFolio(model)
 		// if(model.tags.selectType.toLowerCase().includes("additional")){
 		// 	model.stage = 'holding'
 		// 	return resolve(model)
 		// }
+		console.log(JSON.stringify(model.tags.switchSchemeObj,null,3))
+		let filteredData={}
+		for(let key in data){
+			if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]){
+				filteredData[key]=data[key]
+			}
+		}
 
-		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
+		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(filteredData))
 		if(model.tags.schemes===undefined){
 			model.tags.schemes=[]
 		}
@@ -750,7 +754,6 @@ function showSchemeName(model){
 		}
 		model = extractDivOption(model)
 		// model = extractAmount(model)
-		model = extractFolio(model)
 		// if(model.tags.selectType.toLowerCase().includes("additional")){
 		// 	model.stage = 'holding'
 		// 	return resolve(model)
@@ -821,95 +824,12 @@ function showSchemeName(model){
 					})
 				})
 			}
+			model.stage="showSchemeName"
 		}
-		api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,undefined,true)
-		.then(response=>{
-			console.log(response.body)
-			try{
-				response = JSON.parse(response.body)
-			
-				let arr = []
-				if(response.Response.length>0){
-					for(let i in response.Response[0]){
-						arr.push(response.Response[0][i].FolioNo.toLowerCase())
-					}
-					// if(model.tags.folio && arr.includes(model.tags.folio)){
-					// 	model.stage="amount";
-					// }
-					if(response.Response[0].length > 0){
-						model.tags.folioList = []
-						for(let i in response.Response){
-							model.tags.folioList.push({
-								data : response.Response[0][i].FolioNo,
-								text : response.Response[0][i].FolioNo
-							})
-						}
-					}
-					else{
-						model.tags.folioNo = response.Response[0][0].FolioNo
-					}
-					return resolve(model)
-				}
-				else{
-					console.log("No valid response")
-					return reject(model);
 
-				}
-			}
-			catch(e){
-				console.log(e);
-				return reject(model);
-			}
-		})
-		.catch(e=>{
-			console.log(e)
-			return reject(model)
-		})
-	})
-}
 
-function divOps(model){
-	return new Promise(function(resolve, reject){
-		model = extractAmount(model)
-		model = extractFolio(model)
-		if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')|| model.data.toLowerCase().includes('payout')){
-			
-			if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')){
-				model.tags.divOption = 1
-				model.tags.divOptionText="Resinvestment Option"
-			}
-			else{
-				model.tags.divOption = 2
-				model.tags.divOptionText="Payout Option"
-			}
-			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
-			delete model.stage;
-			return resolve(model)
-		}
-		else{
-			return reject(model)
-		}
-	})
-}
 
-function folio(model){
-
-	return new Promise(function(resolve, reject){
-		let arr = []
-		for(let i in model.tags.folioList){
-			arr.push(model.tags.folioList[i].data)
-		}
-		model.tags.amcName = data[model.tags.scheme].amcName
-		if(arr.includes(model.data)){
-			sendExternalMessage(model,"Going ahead with "+model.data)
-			if(model.data.includes('new')){
-				model.tags.folio = '0'
-			}
-			else{
-				model.tags.folio = model.data
-			}
-			
-			api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,true)
+		api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,true)
 			.then((response)=>{
 				// console.log(response.body)
 				try{
@@ -946,7 +866,6 @@ function folio(model){
 								model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
 							}
 							model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
-							delete model.stage 
 							return resolve(model)
 						}
 							
@@ -986,14 +905,38 @@ function folio(model){
 				console.log(e);
 				return reject(model);
 			})
+
+
+
+
+
+	})
+}
+
+function divOps(model){
+	return new Promise(function(resolve, reject){
+		model = extractAmount(model)
+		if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')|| model.data.toLowerCase().includes('payout')){
+			
+			if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')){
+				model.tags.divOption = 1
+				model.tags.divOptionText="Resinvestment Option"
+			}
+			else{
+				model.tags.divOption = 2
+				model.tags.divOptionText="Payout Option"
+			}
+			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
+			delete model.stage;
+			return resolve(model)
 		}
 		else{
-			return reject(model);
+			return reject(model)
 		}
-	});
-
-
+	})
 }
+
+
 
 function unitOrAmount(model) {
 
@@ -1341,15 +1284,6 @@ function extractOTP(model){
 }
 
 
-function extractFolio(model){
-	if(model.data.match(regexFolio)){
-
-		model.tags.folio = model.data.match(regexFolio)[0].match(/\d+|new folio/)[0]
-		model.data = model.data.replace(model.tags.folio, '')
-	}
-	return model;
-}
-
 function extractAmount(model){
 	if(model.data.includes(',')){
 		while(model.data.includes(','))
@@ -1414,54 +1348,6 @@ function extractDivOption(model){
 	return model;			
 }
 
-function extractSchemeName(model){
-		let wordsInUserSays=model.data.split(" ");
-		let count=0;
-		let startIndex;
-		let endIndex;
-		let amcIndex;
-		let amcFlag;
-		for(let wordIndex in wordsInUserSays){
-			if(words.includes(wordsInUserSays[wordIndex])){
-				count++;
-				if(count==1){
-					startIndex=wordIndex;
-					endIndex=wordIndex;
-				}
-				else{
-					endIndex=wordIndex;
-				}
-			}
-			if(amc.includes(wordsInUserSays[wordIndex])&&!amcFlag){
-				amcIndex=wordIndex;
-				amcFlag=true;
-			}
-		}
-		if(amcFlag){
-			// 	startIndex=amcIndex
-			// }
-
-			if(count>0){
-				let searchTerm=""
-				for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
-					searchTerm+=wordsInUserSays[i]+" "
-				}
-				searchTerm=searchTerm.trim();
-				// console.log(searchTerm)
-				let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
-				if(matches.bestMatch.rating>0.9){
-					model.tags.schemes = []
-					model.tags.schemes.push(matches.bestMatch.target)
-				}
-				else if(matches.bestMatch.rating>0.4){
-					model.tags.schemes = []
-					matches.ratings=matches.ratings.sort(sortBy('-rating'));
-					model.tags.schemes = matches.ratings.splice(0,9);
-				}
-			}
-		}
-		return model;
-}
 
 function dataClean(model){
 	model.data = model.data.toLowerCase()

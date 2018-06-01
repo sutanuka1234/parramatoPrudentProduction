@@ -19,7 +19,6 @@ let obj = {
 	askSchemeName:askSchemeName,
 	showSchemeName:showSchemeName,
 	divOps:divOps,
-	folio :folio,
 	amount:amount,
 	summary:summary
 }
@@ -99,10 +98,7 @@ function panMobile(model){
 		if(model.tags.userSays){
 			model=extractPan(model)
 			model=extractMobile(model)
-			// model=extractDivOption(model)
-			// model=extractSchemeName(model)
 			model=extractAmount(model)
-			model=extractFolio(model)
 		}
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
@@ -316,15 +312,6 @@ function summary(model){
 
 
 
-function extractFolio(model){
-	if(model.tags.userSays.match(regexFolio)){
-
-		model.tags.folio = model.tags.userSays.match(regexFolio)[0].match(/\d+|new folio/)[0]
-		model.tags.userSays = model.tags.userSays.replace(model.tags.folio, '')
-		model.tags.newFolio=true;
-	}
-	return model;
-}
 
 
 function extractAmount(model){
@@ -391,54 +378,7 @@ function extractDivOption(model){
 	return model;
 			
 }
-function extractSchemeName(model){
-		let wordsInUserSays=model.tags.userSays.split(" ");
-		let count=0;
-		let startIndex;
-		let endIndex;
-		let amcIndex;
-		let amcFlag;
-		for(let wordIndex in wordsInUserSays){
-			if(words.includes(wordsInUserSays[wordIndex])){
-				count++;
-				if(count==1){
-					startIndex=wordIndex;
-					endIndex=wordIndex;
-				}
-				else{
-					endIndex=wordIndex;
-				}
-			}
-			if(amc.includes(wordsInUserSays[wordIndex])&&!amcFlag){
-				amcIndex=wordIndex;
-				amcFlag=true;
-			}
-		}
-		if(amcFlag){
-			startIndex=amcIndex
-		}
-		if(count>0){
-			let searchTerm=""
-			for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
-				searchTerm+=wordsInUserSays[i]+" "
-			}
-			searchTerm=searchTerm.trim();
-			console.log(searchTerm)
-			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
-			if(matches.bestMatch.rating>0.9){
-				model.tags.schemes = []
-				model.tags.schemes.push(matches.bestMatch.target)
-				model.tags.newScheme=true;
-			}
-			else if(matches.bestMatch.rating>0.4){
-				model.tags.schemes = []
-				matches.ratings=matches.ratings.sort(sortBy('-rating'));
-				model.tags.schemes = matches.ratings.splice(0,9);
-				model.tags.newScheme=true;
-			}
-		}
-		return model;
-}
+
 function dataClean(model){
 	console.log(model.tags.userSays)
 	if(model.tags.userSays){

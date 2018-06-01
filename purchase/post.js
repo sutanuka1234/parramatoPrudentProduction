@@ -735,6 +735,7 @@ function showSchemeName(model){
 					})
 				})
 			}
+			model.stage="showSchemeName"
 		}
 		return resolve(model)
 	})
