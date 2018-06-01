@@ -296,14 +296,54 @@ function summary(model){
 		console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.switchReferenceId){
 			model.reply={
-				type:"text",
-	            text:"Thanks, your reference id is "+model.tags.switchReferenceId+"."
+				type:"quickReply",
+	            text:"Thanks, your reference id is "+model.tags.switchReferenceId+". What would you like to do next?",
+	            next:{
+	                data: [
+	                	{
+	                		data : "Invest now",
+	                		text : "Invest now"
+	                	},
+	                	{
+	                		data : "Redeem now",
+	                		text : "Redeem now"
+	                	},
+	                	{
+	                		data : "Switch now",
+	                		text : "Switch now"
+	                	},
+	                	{
+	                		data : "FAQs",
+	                		text : "FAQs"
+	                	}
+	                ]
+	            }
 			}
 		}
 		else{
 			model.reply={
-				type:"text",
-	            text:"Could not proceed with the switch"
+				type:"quickReply",
+	            text:"Could not proceed with the switch with given details. However you can try again or go ahead with the following,",
+	            next:{
+	                data: [
+	                	{
+	                		data : "Invest now",
+	                		text : "Invest now"
+	                	},
+	                	{
+	                		data : "Redeem now",
+	                		text : "Redeem now"
+	                	},
+	                	{
+	                		data : "Switch now",
+	                		text : "Switch now"
+	                	},
+	                	{
+	                		data : "FAQs",
+	                		text : "FAQs"
+	                	}
+	                ]
+	            }
 			}
 		}
 		return resolve(model)

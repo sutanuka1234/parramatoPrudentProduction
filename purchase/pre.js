@@ -309,14 +309,54 @@ function summary(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.transactionRefId){
 			model.reply={
-				type : 'text',
-				text : 'We have gone ahead with '+model.tags.investmentType+' of '+model.tags.scheme+' with '+model.tags.folio+', investing Rs '+model.tags.amount+'. Reference ID would be '+model.tags.transactionRefId+'. Status of transaction is '+model.tags.status+'.'
+				type : 'quickReply',
+				text : 'We have gone ahead with '+model.tags.investmentType+' of '+model.tags.scheme+' with '+model.tags.folio+', investing Rs '+model.tags.amount+'. Reference ID would be '+model.tags.transactionRefId+'. Status of transaction is '+model.tags.status+". What would you like to do next?",
+	            next:{
+	                data: [
+	                	{
+	                		data : "Invest now",
+	                		text : "Invest now"
+	                	},
+	                	{
+	                		data : "Redeem now",
+	                		text : "Redeem now"
+	                	},
+	                	{
+	                		data : "Switch now",
+	                		text : "Switch now"
+	                	},
+	                	{
+	                		data : "FAQs",
+	                		text : "FAQs"
+	                	}
+	                ]
+	            }
 			}
 		}
 		else{
 			model.reply={
-				type : 'text',
-				text : 'Sorry we cannot go ahead with the investment'
+				type : 'quickReply',
+				text : 'We cannot go ahead with the investment with given details. However you can try again or go ahead with the following.',
+	            next:{
+	                data: [
+	                	{
+	                		data : "Invest now",
+	                		text : "Invest now"
+	                	},
+	                	{
+	                		data : "Redeem now",
+	                		text : "Redeem now"
+	                	},
+	                	{
+	                		data : "Switch now",
+	                		text : "Switch now"
+	                	},
+	                	{
+	                		data : "FAQs",
+	                		text : "FAQs"
+	                	}
+	                ]
+	            }
 			}
 		}
 		model.tags.amount = undefined

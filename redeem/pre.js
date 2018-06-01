@@ -234,14 +234,54 @@ function summary(model){
 		console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.redeemReferenceId){
 			model.reply={
-				type:"text",
-	            text:"Thanks, your reference id is "+model.tags.redeemReferenceId+"."
+				type:"quickReply",
+	            text:"Thanks, your reference id is "+model.tags.redeemReferenceId+". What would you like to do next?",
+	            next:{
+	                data: [
+	                	{
+	                		data : "Invest now",
+	                		text : "Invest now"
+	                	},
+	                	{
+	                		data : "Redeem now",
+	                		text : "Redeem now"
+	                	},
+	                	{
+	                		data : "Switch now",
+	                		text : "Switch now"
+	                	},
+	                	{
+	                		data : "FAQs",
+	                		text : "FAQs"
+	                	}
+	                ]
+	            }
 			}
 		}
 		else{
 			model.reply={
-				type:"text",
-	            text:"Could not proceed with the redemption"
+				type:"quickReply",
+	            text:"Could not proceed with the redemption with given details. However you can try again or go ahead with the following.",
+	            next:{
+	                data: [
+	                	{
+	                		data : "Invest now",
+	                		text : "Invest now"
+	                	},
+	                	{
+	                		data : "Redeem now",
+	                		text : "Redeem now"
+	                	},
+	                	{
+	                		data : "Switch now",
+	                		text : "Switch now"
+	                	},
+	                	{
+	                		data : "FAQs",
+	                		text : "FAQs"
+	                	}
+	                ]
+	            }
 			}
 		}
 		return resolve(model)

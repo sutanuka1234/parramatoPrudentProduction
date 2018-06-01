@@ -85,8 +85,28 @@ function fallback(model){
 			}
 			else{
 				model.reply={
-					type:"text",
-		            text:"I am not sure how to answer this, trying my best to learn. Could you please rephrase your query?"
+					type:"quickReply",
+		            text:"I am not sure how to answer this, trying my best to learn. However, right now, you could try the following.",
+		            next:{
+		                data: [
+		                	{
+		                		data : "Invest now",
+		                		text : "Invest now"
+		                	},
+		                	{
+		                		data : "Redeem now",
+		                		text : "Redeem now"
+		                	},
+		                	{
+		                		data : "Switch now",
+		                		text : "Switch now"
+		                	},
+		                	{
+		                		data : "FAQs",
+		                		text : "FAQs"
+		                	}
+		                ]
+		            }
 				}
 			}
 		}
