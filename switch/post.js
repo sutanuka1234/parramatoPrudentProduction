@@ -136,12 +136,12 @@ function panMobile(model){
 		model = extractMobile(model);
 		model = extractAmount(model);
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
-			// console.log("1")
+			console.log("1")
 			model.stage = 'panMobile'
 			return resolve(model);
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
-			// console.log("2")
+			console.log("2")
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				// console.log("then")
@@ -211,7 +211,7 @@ function panMobile(model){
 			})		
 		}
 		else if(model.data&&model.data.includes("proceed")&&(model.tags.mobile||model.tags.pan)){
-			// console.log("3")
+			console.log("3")
 
 			if(!model.tags.mobile&&!model.tags.pan){
 				return reject(model);
