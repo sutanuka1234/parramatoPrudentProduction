@@ -104,7 +104,7 @@ function panMobile(model){
 			model.tags={}
 			return resolve(model);
 		}
-		
+
 		console.log("::::::::::::::::::")
 		model = extractPan(model);
 		if(model.tags.newPan){
@@ -298,14 +298,19 @@ function panMobile(model){
 				})		
 			}
 			else{
+
+				
 				if(!model.tags.mobile&&!model.tags.pan){
+					console.log("no pan mobile")
 					return reject(model);
 				}
 				if(!model.tags.mobile){
+					onsole.log("no mobile")
 					model.stage = 'mobile' 
 					return resolve(model)
 				}
 				else if(!model.tags.pan){
+					onsole.log("no pan")
 					model.stage = 'pan' 
 					return resolve(model)
 				}		
