@@ -133,12 +133,10 @@ function panMobile(model){
 				model.tags.newAmount=undefined;
 
 		}
-		model = extractMobile(model);
-		model = extractAmount(model);
+		console.log("::::::::::::::::::")
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
 			console.log("1")
-			model.stage = 'panMobile'
-			return resolve(model);
+			return reject(model);
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
 			console.log("2")
@@ -227,6 +225,8 @@ function panMobile(model){
 		}
 		else{ 
 			console.log("4")
+			model = extractMobile(model);
+			model = extractAmount(model);
 			if(model.tags.pan&&model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
 				.then(data=>{
@@ -243,11 +243,8 @@ function panMobile(model){
 						else if(!model.tags.pan){
 							model.stage = 'pan' 
 							return resolve(model)
-						}	
-						else{
-							return reject(model);
-						}	
-						
+						}		
+						return reject(model);
 					}
 					if(response.Response[0].result=="FAIL"){
 						if(response.Response[0]['reject_reason']=="Client does not exists."){
@@ -273,11 +270,8 @@ function panMobile(model){
 							else if(!model.tags.pan){
 								model.stage = 'pan' 
 								return resolve(model)
-							}
-							else{
-			                	return reject(model)
-
 							}		
+			                return reject(model)
 			            })
 					}
 					else{
@@ -295,10 +289,8 @@ function panMobile(model){
 					else if(!model.tags.pan){
 						model.stage = 'pan' 
 						return resolve(model)
-					}	
-					else{
-						return reject(model)
-					}	
+					}		
+					return reject(model)
 				})		
 			}
 			else{
@@ -306,7 +298,6 @@ function panMobile(model){
 					return reject(model);
 				}
 				if(!model.tags.mobile){
-					console.log("get to monile")
 					model.stage = 'mobile' 
 					return resolve(model)
 				}
@@ -314,9 +305,7 @@ function panMobile(model){
 					model.stage = 'pan' 
 					return resolve(model)
 				}		
-				else{
-					return reject(model);
-				}
+				return reject(model);
 			}
 		}
 	})
@@ -1326,7 +1315,7 @@ function extractMobile(model){
 
 	// console.log(text)
 	for(let i in text){
-		if(text[i].length = 10){
+		if(text[i].length > 10){
 			model.tags.mobile = text[i].subString(text[i].length-10,text[i].length)
 			model.data = model.data.replace(model.tags.mobile, '')
 			// console.log(model.tags.mobile+"mobile")
