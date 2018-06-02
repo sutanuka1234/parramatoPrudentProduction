@@ -133,6 +133,8 @@ function panMobile(model){
 				model.tags.newAmount=undefined;
 
 		}
+		model = extractMobile(model);
+		model = extractAmount(model);
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
 			// console.log("1")
 			model.stage = 'panMobile'
@@ -225,8 +227,6 @@ function panMobile(model){
 		}
 		else{ 
 			// console.log("4")
-			model = extractMobile(model);
-			model = extractAmount(model);
 			if(model.tags.pan&&model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
 				.then(data=>{
