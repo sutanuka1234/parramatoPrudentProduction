@@ -306,6 +306,7 @@ function panMobile(model){
 					return reject(model);
 				}
 				if(!model.tags.mobile){
+					console.log("get to monile")
 					model.stage = 'mobile' 
 					return resolve(model)
 				}
