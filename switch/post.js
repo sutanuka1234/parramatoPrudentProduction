@@ -97,11 +97,15 @@ function panMobile(model){
 		model=dataClean(model);
 		// model=extractDivOption(model)
 		// model=extractSchemeName(model)
+
+		console.log("::::::::::::::::::")
 		if(model.data.toLowerCase().includes("not")&&model.data.toLowerCase().includes("me")){
 			model.stage="panMobile";
 			model.tags={}
 			return resolve(model);
 		}
+		
+		console.log("::::::::::::::::::")
 		model = extractPan(model);
 		if(model.tags.newPan){
 			let temp = {pan:model.tags.pan}
