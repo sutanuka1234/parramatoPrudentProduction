@@ -305,12 +305,12 @@ function panMobile(model){
 					return reject(model);
 				}
 				if(!model.tags.mobile){
-					onsole.log("no mobile")
+					console.log("no mobile")
 					model.stage = 'mobile' 
 					return resolve(model)
 				}
 				else if(!model.tags.pan){
-					onsole.log("no pan")
+					console.log("no pan")
 					model.stage = 'pan' 
 					return resolve(model)
 				}		
