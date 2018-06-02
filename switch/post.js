@@ -243,8 +243,11 @@ function panMobile(model){
 						else if(!model.tags.pan){
 							model.stage = 'pan' 
 							return resolve(model)
-						}		
-						return reject(model);
+						}	
+						else{
+							return reject(model);
+						}	
+						
 					}
 					if(response.Response[0].result=="FAIL"){
 						if(response.Response[0]['reject_reason']=="Client does not exists."){
@@ -270,8 +273,11 @@ function panMobile(model){
 							else if(!model.tags.pan){
 								model.stage = 'pan' 
 								return resolve(model)
+							}
+							else{
+			                	return reject(model)
+
 							}		
-			                return reject(model)
 			            })
 					}
 					else{
@@ -289,8 +295,10 @@ function panMobile(model){
 					else if(!model.tags.pan){
 						model.stage = 'pan' 
 						return resolve(model)
-					}		
-					return reject(model)
+					}	
+					else{
+						return reject(model)
+					}	
 				})		
 			}
 			else{
@@ -305,7 +313,9 @@ function panMobile(model){
 					model.stage = 'pan' 
 					return resolve(model)
 				}		
-				return reject(model);
+				else{
+					return reject(model);
+				}
 			}
 		}
 	})
@@ -1315,7 +1325,7 @@ function extractMobile(model){
 
 	// console.log(text)
 	for(let i in text){
-		if(text[i].length > 10){
+		if(text[i].length = 10){
 			model.tags.mobile = text[i].subString(text[i].length-10,text[i].length)
 			model.data = model.data.replace(model.tags.mobile, '')
 			// console.log(model.tags.mobile+"mobile")
