@@ -226,7 +226,7 @@ function panMobile(model){
 			}
 		}
 		else{ 
-			// console.log("4")
+			console.log("4")
 			if(model.tags.pan&&model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
 				.then(data=>{
