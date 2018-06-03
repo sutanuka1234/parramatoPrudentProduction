@@ -39,11 +39,11 @@ function fallback(model){
 				}
 			}
 			if(model.prevQuery){
-				if(model.prevQuery.startsWith("<similar> ")){
-					model.prevQuery=model.prevQuery.replace("<similar>").replace("</similar>").trim().split("|")[0];
+				if(model.prevQuery.startsWith("[similar] ")){
+					model.prevQuery=model.prevQuery.replace("[similar]").replace("[/similar]").trim().split("|")[0];
 				}
-				if(model.prevQuery.startsWith("<nomatch> ")){
-					model.prevQuery=model.prevQuery.replace("<similar>").replace("</similar>").trim().split("|")[0];
+				if(model.prevQuery.startsWith("[nomatch] ")){
+					model.prevQuery=model.prevQuery.replace("[similar]").replace("[/similar]").trim().split("|")[0];
 				}
 			}
 			let data=[]
@@ -64,7 +64,7 @@ function fallback(model){
 							buttons : [
 								{
 									text : 'Read more',
-									data : "<similar> "+query+"|"+model.prevQuery+"|"+element.id+" </similar>"
+									data : "[similar] "+query+"|"+model.prevQuery+"|"+element.id+" [/similar]"
 								}
 							]
 						})
@@ -73,7 +73,7 @@ function fallback(model){
 			if(data.length>0){
 				data[data.length-1].buttons.push({
 					text : 'None relevant',
-					data : "<nomatch> "+model.prevQuery+"|"+model.bestIntents[0].id.split("-")[0]+" </nomatch>"
+					data : "[nomatch] "+model.prevQuery+"|"+model.bestIntents[0].id.split("-")[0]+" [/nomatch]"
 				})
 				model.reply={
 					type:"generic",
