@@ -907,6 +907,8 @@ function showSchemeName(model){
 											break;
 										case "B": model.tags.divOption = 0
 											break;
+										default: model.tags.divOption = undefined
+												break;
 									}
 								}
 								if(data[model.tags.scheme].optionCode == 1){
