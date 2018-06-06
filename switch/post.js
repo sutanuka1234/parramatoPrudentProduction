@@ -890,28 +890,51 @@ function showSchemeName(model){
 			else{
 				model.tags.scheme = model.data
 			}
-			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption!==undefined){
-				if(model.tags.divOption){
-					if(model.tags.divOption.toString().includes('re') && data[model.tags.scheme].optionCode != 1){
-						model.tags.divOption = 1
-					}
-					else if(model.tags.divOption.toString().includes('pay') && data[model.tags.scheme].optionCode != 1){
-						model.tags.divOption = 2
-					}
-					else{
-						model.tags.divOption = 0
-					}
-					model.stage = 'unitOrAmount'
+			api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,true)
+			.then(response=>{
+				// console.log(response.body)
+				try{
+					response = JSON.parse(response.body)
 				}
-				else{
-					model.tags.divOption = 0
+				catch(e){console.log(e);
+					return reject(model);
 				}
-				model.stage = 'unitOrAmount'
-			}
-			else{
-				delete model.stage
-			}
-			sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
+				if(response.Response.length > 0){
+					for(let i in response.Response){
+						if(response.Response[i].FolioNo==model.tags.folio){
+							console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(response.Response[i],null,3))
+							if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption!==undefined){
+								if(model.tags.divOption){
+									if(model.tags.divOption.toString().includes('re') && data[model.tags.scheme].optionCode != 1){
+										model.tags.divOption = 1
+									}
+									else if(model.tags.divOption.toString().includes('pay') && data[model.tags.scheme].optionCode != 1){
+										model.tags.divOption = 2
+									}
+									else{
+										model.tags.divOption = 0
+									}
+									model.stage = 'unitOrAmount'
+								}
+								else{
+									model.tags.divOption = 0
+								}
+								model.stage = 'unitOrAmount'
+							}
+							else{
+								delete model.stage
+							}
+							sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
+						}
+					}
+				}
+				return reject(model);
+			})
+			.catch(e=>{
+				console.log(e)
+				return reject(model)
+			})
+			
 		}
 		else{
 			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
