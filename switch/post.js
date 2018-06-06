@@ -903,6 +903,9 @@ function showSchemeName(model){
 					for(let i in response.Response){
 						if(response.Response[i].FolioNo==model.tags.folio){
 							console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(response.Response[i],null,3))
+							if(response.Response[i]["DivOpt"]){
+								model.tags.divOption =parseInt(response.Response[i]["DivOpt"])
+							}
 							if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption!==undefined){
 								if(model.tags.divOption){
 									if(model.tags.divOption.toString().includes('re') && data[model.tags.scheme].optionCode != 1){

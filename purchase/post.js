@@ -829,6 +829,7 @@ function holding(model){
 							// }
 							if(response.Response.length > 0){
 								model.tags.folioList = []
+								model.tags.folioObjList=response.Response;
 								for(let i in response.Response){
 									model.tags.folioList.push({
 										data : response.Response[i].FolioNo,
@@ -953,6 +954,7 @@ function holding(model){
 									// }
 									if(response.Response.length > 0){
 										model.tags.folioList = []
+										model.tags.folioObjList=response.Response;
 										for(let i in response.Response){
 											model.tags.folioList.push({
 												data : response.Response[i].FolioNo,
@@ -1209,6 +1211,7 @@ function additional(model){
 						// console.log(JSON.stringify(response,null,3));
 						if(response.Response.length > 0){
 							model.tags.folioList = []
+							model.tags.folioObjList=response.Response;
 							for(let i in response.Response){
 								model.tags.folioList.push({
 									data : response.Response[i].FolioNo,
@@ -1272,6 +1275,13 @@ function folio(model){
 			}
 			else{
 				model.tags.folio = model.data
+				for(let i in folioObjList){
+					if(model.tags.folio==folioObjList["FOLIO_NO"]){
+						if(model.tags.folioObj["DivOpt"]){
+							model.tags.divOption =parseInt(model.tags.folioObj["DivOpt"])
+						}
+					}
+				}
 			}
 			if(model.tags.additional&&model.tags.existingSchemeDetailsSet.length>1){
 				for(let schemeVal of model.tags.existingSchemeDetailsSet){
