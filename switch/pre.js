@@ -98,7 +98,7 @@ function panMobile(model){
 		if(model.tags.userSays){
 			model=extractPan(model)
 			model=extractMobile(model)
-			model=extractAmount(model)
+			// model=extractAmount(model)
 		}
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
