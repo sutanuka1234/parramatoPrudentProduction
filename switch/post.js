@@ -935,9 +935,9 @@ function showSchemeName(model){
 							}
 						}
 					}
-					return reject(model);
 				}
-				catch(e){console.log(e);
+				catch(e){
+					console.log(e);
 					return reject(model);
 				}
 			})
