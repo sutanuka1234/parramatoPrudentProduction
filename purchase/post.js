@@ -910,93 +910,10 @@ function holding(model){
 						}
 					}
 					model.tags.additionalPossible=false;
-					if(model.tags.existingSchemeDetailsSet.length===1){
-						model.tags.tranId=model.tags.existingSchemeDetailsSet[0]["Tranid"]
-						model.tags.folio=model.tags.existingSchemeDetailsSet[0]["FolioNo"]
-						model.tags.schemeApiDetails=model.tags.existingSchemeDetailsSet[0]
-						api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-						.then(response=>{
-							// console.log(response.body)
-							try{
-								response = JSON.parse(response.body)
-							}
-							catch(e){console.log(e);
-								return reject(model);
-							}
-							let arr = []
-							for(let i in response.Response){
-								arr.push(response.Response[i].FolioNo.toLowerCase())
-							}
-							// if(model.tags.folio && arr.includes(model.tags.folio)){
-							// 	model.stage="amount";
-							// }
-							if(response.Response.length > 0){
-								model.tags.folioList = []
-								for(let i in response.Response){
-									model.tags.folioList.push({
-										data : response.Response[i].FolioNo,
-										text : response.Response[i].FolioNo
-									})
-								}
-								delete model.stage
-							}
-							else{
-								model.tags.folioNo = response.Response[0].FolioNo
-								delete model.stage
-							}
-							return resolve(model)
-						})
-						.catch(e=>{
-							console.log(e)
-							return reject(model)
-						}) 	
-					}
-					else if(model.tags.existingSchemeDetailsSet.length>1){
-						// console.log(">1:::")
+					if(model.tags.existingSchemeDetailsSet.length>0){
 						model.tags.additionalPossible=true;
-						model.tags.existingFolioList = []
-						for(let i in model.tags.existingSchemeDetailsSet){
-							model.tags.existingFolioList.push({
-								data : model.tags.existingSchemeDetailsSet[i].FolioNo,
-								text : model.tags.existingSchemeDetailsSet[i].FolioNo
-							})
-						}
-						api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-						.then(response=>{
-							// console.log(response.body)
-							try{
-								response = JSON.parse(response.body)
-							}
-							catch(e){console.log(e);
-								return reject(model);
-							}
-							let arr = []
-							for(let i in response.Response){
-								arr.push(response.Response[i].FolioNo.toLowerCase())
-							}
-							// if(model.tags.folio && arr.includes(model.tags.folio)){
-							// 	model.stage="amount";
-							// }
-							if(response.Response.length > 0){
-								model.tags.folioList = []
-								for(let i in response.Response){
-									model.tags.folioList.push({
-										data : response.Response[i].FolioNo,
-										text : response.Response[i].FolioNo
-									})
-								}
-								delete model.stage
-							}
-							else{
-								model.tags.folioNo = response.Response[0].FolioNo
-								delete model.stage
-							}
-							return resolve(model)
-						})
-						.catch(e=>{
-							console.log(e)
-							return reject(model)
-						}) 			
+						delete model.stage
+						return resolve(model)		
 					}
 					else{
 						// console.log("<1:::")
@@ -1118,6 +1035,9 @@ function additional(model){
 			model.tags.additional=true;
 			if(model.tags.existingSchemeDetailsSet.length===1){
 				// console.log("1:::")
+				model.tags.tranId=model.tags.existingSchemeDetailsSet[0]["Tranid"]
+				model.tags.folio=model.tags.existingSchemeDetailsSet[0]["FolioNo"]
+				model.tags.schemeApiDetails=model.tags.existingSchemeDetailsSet[0]
 				if(model.tags.amount&&model.tags.schemeApiDetails){
 					let amount=parseFloat(model.tags.amount)
 					let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
@@ -1245,6 +1165,7 @@ function additional(model){
 			}
 			else if(model.tags.existingSchemeDetailsSet.length>1){
 				// console.log(">1:::")
+
 				model.tags.additionalPossible=true;
 				model.tags.folioList = []
 				for(let i in model.tags.existingSchemeDetailsSet){
@@ -1253,8 +1174,10 @@ function additional(model){
 						text : model.tags.existingSchemeDetailsSet[i].FolioNo
 					})
 				}
+
 				delete model.stage
 			}
+
 			return resolve(model);
 		}
 		else if(model.data.toLowerCase().includes("no")){
