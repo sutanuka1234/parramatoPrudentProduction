@@ -1237,9 +1237,9 @@ function folio(model){
 			}
 			else{
 				model.tags.folio = model.data
-				for(let i in folioObjList){
-					if(folioObjList[i]["DivOpt"]){
-						switch(folioObjList[i]["DivOpt"]){
+				for(let i in model.tags.folioObjList){
+					if(model.tags.folioObjList[i]["DivOpt"]){
+						switch(model.tags.folioObjList[i]["DivOpt"]){
 							case "Y": model.tags.divOption = 1
 									  divFlag=false;
 								break;
