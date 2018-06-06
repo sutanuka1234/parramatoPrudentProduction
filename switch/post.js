@@ -895,24 +895,25 @@ function showSchemeName(model){
 				// console.log(response.body)
 				try{
 					response = JSON.parse(response.body)
-				}
-				catch(e){console.log(e);
-					return reject(model);
-				}
-				if(response.Response.length > 0){
-					for(let i in response.Response){
-						if(response.Response[i].FolioNo==model.tags.folio){
-							console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(response.Response[i],null,3))
-							if(response.Response[i]["DivOpt"]){
-								model.tags.divOption =parseInt(response.Response[i]["DivOpt"])
-							}
-							if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption!==undefined){
-								if(model.tags.divOption){
-									if(model.tags.divOption.toString().includes('re') && data[model.tags.scheme].optionCode != 1){
-										model.tags.divOption = 1
-									}
-									else if(model.tags.divOption.toString().includes('pay') && data[model.tags.scheme].optionCode != 1){
-										model.tags.divOption = 2
+					if(response.Response.length > 0){
+						for(let i in response.Response){
+							if(response.Response[i].FolioNo==model.tags.folio){
+								console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(response.Response[i],null,3))
+								if(response.Response[i]["DivOpt"]){
+									model.tags.divOption =response.Response[i]["DivOpt"]
+								}
+								if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption!==undefined){
+									if(model.tags.divOption){
+										if(model.tags.divOption.toString().includes('re') && data[model.tags.scheme].optionCode != 1){
+											model.tags.divOption = 1
+										}
+										else if(model.tags.divOption.toString().includes('pay') && data[model.tags.scheme].optionCode != 1){
+											model.tags.divOption = 2
+										}
+										else{
+											model.tags.divOption = 0
+										}
+										model.stage = 'unitOrAmount'
 									}
 									else{
 										model.tags.divOption = 0
@@ -920,18 +921,17 @@ function showSchemeName(model){
 									model.stage = 'unitOrAmount'
 								}
 								else{
-									model.tags.divOption = 0
+									delete model.stage
 								}
-								model.stage = 'unitOrAmount'
+								sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
 							}
-							else{
-								delete model.stage
-							}
-							sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
 						}
 					}
+					return reject(model);
 				}
-				return reject(model);
+				catch(e){console.log(e);
+					return reject(model);
+				}
 			})
 			.catch(e=>{
 				console.log(e)
