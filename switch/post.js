@@ -905,7 +905,7 @@ function showSchemeName(model){
 											break;
 										case "N": model.tags.divOption = 2
 											break;
-										case "Z": model.tags.divOption = 0
+										case "B": model.tags.divOption = 0
 											break;
 									}
 								}
