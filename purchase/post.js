@@ -785,7 +785,7 @@ function holding(model){
 			for (let element of model.tags.joinAcc){
 				// console.log(element.JoinAccId+"::"+model.data)
 				if(element.JoinAccId==model.data){
-					sendExternalMessage(model,"Going ahead with "+element.JoinHolderName)
+					sendExternalMessage(model,"Hi"+element.JoinHolderName.split("/")[0]+", hope you are doing great today. Going ahead with "+element.JoinHolderName)
 					break;
 				}
 			}

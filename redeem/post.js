@@ -220,7 +220,7 @@ function panMobile(model){
 		else{ 
 			// console.log("4")
 			model = extractMobile(model);
-			model = extractAmount(model);
+			// model = extractAmount(model);
 			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
@@ -310,8 +310,8 @@ function mobile(model){
 	return new Promise(function(resolve, reject){
 		    model=dataClean(model);
 			model = extractMobile(model);
-			model = extractAmount(model);
-			model = extractFolio(model);
+			// model = extractAmount(model);
+			// model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
@@ -371,8 +371,8 @@ function pan(model){
 	return new Promise(function(resolve, reject){
 		model = dataClean(model);
 		model = extractPan(model);
-		model = extractAmount(model);
-		model = extractFolio(model);
+		// model = extractAmount(model);
+		// model = extractFolio(model);
 			// console.log("TAGG")
 			// console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.pan&&model.tags.mobile){
@@ -547,7 +547,7 @@ function holding(model){
 			for (let element of model.tags.joinAcc){
 				console.log(element.JoinAccId+"::"+model.data)
 				if(element.JoinAccId==model.data){
-					sendExternalMessage(model,"Going ahead with "+element.JoinHolderName)
+					sendExternalMessage(model,"Hi"+element.JoinHolderName.split("/")[0]+", hope you are doing great today. Going ahead with "+element.JoinHolderName)
 					break;
 				}
 			}
@@ -685,8 +685,120 @@ function scheme(model){
 														avoid these losses. It is advisable to hold equity funds for longer
 														time frames to benefit from them.`)
 						}
-						delete model.stage;
-						return resolve(model);
+
+						if(parseFloat(model.tags.redeemSchemeObj["AvailableUnits"])<=1){
+							model.tags.unitOrAmount="AU";
+							// console.log("amount valid")
+							api.insertBuyCartRedeem(model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["AvailableUnits"], model.tags.folio,model.tags.unitOrAmount)
+							.then((data)=>{
+								console.log(data.body)
+								try{
+									data.body = JSON.parse(data.body)
+								}
+								catch(e){	
+									console.log(e);
+									let reply={
+						                text    : "API Not Responding Properly",
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+						                return reject(model);
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+								}
+								if(data.body.Response&&data.body.Response.length>0&&data.body.Response[0].result=="FAIL"){
+									let reply={
+						                text    : data.body.Response[0]['reject_reason'].trim(),
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+						                return reject(model);
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+								}
+								else if(data.body.Response&&data.body.Response.length>0){
+									let refrenceId=data.body.Response[0]["TranReferenceID"];
+									api.confirmRedemption(model.tags.session,refrenceId)
+									.then((data)=>{
+										console.log(data.body)
+										try{
+											data.body = JSON.parse(data.body)
+										}
+										catch(e){	
+											console.log(e);
+											let reply={
+								                text    : "API Not Responding Properly",
+								                type    : "text",
+								                sender  : model.sender,
+								                language: "en"
+								            }
+											external(reply)
+											.then((data)=>{
+								                return reject(model);
+								            })
+								            .catch((e)=>{
+								                console.log(e);
+								                return reject(model)
+								            })
+										}
+										if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
+											let reply={
+								                text    : data.body.Response[0]['reject_reason'].trim(),
+								                type    : "text",
+								                sender  : model.sender,
+								                language: "en"
+								            }
+											external(reply)
+											.then((data)=>{
+								                return reject(model);
+								            })
+								            .catch((e)=>{
+								                console.log(e);
+								                return reject(model)
+								            })
+										}
+										else{
+											console.log("summaryyyyy")
+											model.tags.redeemReferenceId=refrenceId;
+											model.stage="summary"
+											return resolve(model)
+
+										}
+
+									})
+									.catch(e=>{
+						                console.log(e);
+						                return reject(model)
+									})
+								}
+								else{
+						                return reject(model)
+									
+								}
+
+							})
+							.catch(e=>{
+								console.log(e)
+								return reject(model)
+							})
+						}
+						else{
+							delete model.stage;
+							return resolve(model);
+
+						}
 					}
 				}
 			}
@@ -834,7 +946,13 @@ function amount(model){
 	// console.log("amount::::::::::::::::::")
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
-		model=extractAmount(model)
+		if(model.tags.unitOrAmount=="PU"){
+			model=extractAmountUptoThree(model)
+		}
+		else{
+			model=extractAmount(model)
+		}
+		// model=extractAmount(model)
 		// console.log("amount::::::::::::::::::"+model.tags.amount)
 		try{
 			if(model.tags.amount&&model.tags.redeemSchemeObj){
@@ -1036,6 +1154,25 @@ function extractFolio(model){
 	}
 	return model;
 }
+
+function extractAmountUptoThree(model){
+	
+ 	if(model.data.match(/\d+\./)){
+ 		let text = matchAll(model.data, /(\d+[\.\d{1-3}]?)/gi).toArray()
+		for(let i in text){
+			if(text[i].length < 12){
+				model.tags.amount = text[i]
+				model.data = model.data.replace(model.tags.amount, '')
+				break;
+			}
+		}
+
+		return model;
+ 	}
+ 	return extractAmount(model)
+	
+}
+
 
 function extractAmount(model){
 	if(model.data.includes(',')){
