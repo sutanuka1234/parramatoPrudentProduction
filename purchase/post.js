@@ -1061,7 +1061,7 @@ function additional(model){
 					.then((data)=>{
 						// console.log(data.body)
 						try{
-							data.body = JSON.parse(data.body)
+							data = JSON.parse(data.body)
 						}
 						catch(e){
 						     console.log(e);
@@ -1080,9 +1080,9 @@ function additional(model){
 				                return reject(model)
 				            })
 						}
-						if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
+						if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
 							let reply={
-				                text    : data.body.Response[0]['reject_reason'].trim(),
+				                text    : data.Response[0]['reject_reason'].trim(),
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
@@ -1096,15 +1096,15 @@ function additional(model){
 				                return reject(model)
 				            })
 						}
-						else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
+						else if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
 							model.tags.bankMandateList = []
 							let maxAmountPossible=0;
-							// console.log(JSON.stringify(data.body.Response[1],null,3))
+							// console.log(JSON.stringify(data.Response[1],null,3))
 							let typeInv="PURCHASE"
 							if(model.tags.additional){
 								typeInv="ADDITIONALPURCHASE"
 							}
-							for(let element of data.body.Response[2]){
+							for(let element of data.Response[2]){
 								model.tags.bankMandateList.push({
 									title: "Netbanking",
 									text : element.BankName,
@@ -1115,7 +1115,7 @@ function additional(model){
 									}]
 								})
 							}
-							for(let element of data.body.Response[1]){
+							for(let element of data.Response[1]){
 								try{
 										if(element.DailyLimit){
 											if(maxAmountPossible<element.DailyLimit){
@@ -1317,7 +1317,7 @@ function folio(model){
 					.then((data)=>{
 						// console.log(data.body)
 						try{
-							data.body = JSON.parse(data.body)
+							data = JSON.parse(data.body)
 						}
 						catch(e){
 							console.log(e);
@@ -1338,10 +1338,10 @@ function folio(model){
 							// delete model.stage
 							// return resolve(model)
 						}
-						if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
+						if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
 							model.tags.bankMandateList = []
 							let maxAmountPossible=0;
-							for(let element of data.body.Response[2]){
+							for(let element of data.Response[2]){
 								model.tags.bankMandateList.push({
 									title: "Netbanking",
 									text : element.BankName,
@@ -1352,7 +1352,7 @@ function folio(model){
 									}]
 								})
 							}
-							for(let element of data.body.Response[1]){
+							for(let element of data.Response[1]){
 								try{
 									if(element.DailyLimit){
 										if(maxAmountPossible<=element.DailyLimit){
@@ -1463,7 +1463,7 @@ function amount(model){
 				.then((data)=>{
 					try{
 						console.log(data.body+":>>>>>>>>>>")
-						data.body = JSON.parse(data.body)
+						data= JSON.parse(data.body)
 					}
 					catch(e){	
 						console.log(e);
@@ -1484,9 +1484,9 @@ function amount(model){
 						// return reject(model);
 					}
 
-					if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
+					if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
 						let reply={
-			                text    : data.body.Response[0]['reject_reason'].trim(),
+			                text    : data.Response[0]['reject_reason'].trim(),
 			                type    : "text",
 			                sender  : model.sender,
 			                language: "en"
@@ -1500,7 +1500,7 @@ function amount(model){
 			                return reject(model)
 			            })
 					}
-					else if(data.body.Response[0][0].SchemeCode && data.body.Response[0][0].SchemeName){
+					else if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
 						model.tags.bankMandateList = []
 						let maxAmountPossible=0;
 						// console.log(JSON.stringify(data.body.Response[1],null,3))
@@ -1508,7 +1508,7 @@ function amount(model){
 						if(model.tags.additional){
 							typeInv="ADDITIONALPURCHASE"
 						}
-						for(let element of data.body.Response[2]){
+						for(let element of data.Response[2]){
 							model.tags.bankMandateList.push({
 								title: "Netbanking",
 								text : element.BankName,
@@ -1519,7 +1519,7 @@ function amount(model){
 								}]
 							})
 						}
-						for(let element of data.body.Response[1]){
+						for(let element of data.Response[1]){
 							try{
 									if(element.DailyLimit){
 										if(maxAmountPossible<=element.DailyLimit){
@@ -1567,7 +1567,7 @@ function amount(model){
 						}
 					}
 					else{
-						console.log(JSON.stringify(data.body.Response,null,3)+"--------------------")
+						console.log(JSON.stringify(data.Response,null,3)+"--------------------")
 						return reject(model)
 					}
 				})
@@ -1607,7 +1607,7 @@ function sipDay(model){
 					.then((data)=>{
 						try{
 							console.log(data.body)
-							data.body = JSON.parse(data.body)
+							data = JSON.parse(data.body)
 						}
 						catch(e){	
 							console.log(e);
@@ -1629,9 +1629,9 @@ function sipDay(model){
 						}
 						try{
 							// data.body.Response=[]
-							if(data.body.Response&&data.body.Response.length>0&&data.body.Response[0].result=="FAIL"){
+							if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
 								let reply={
-					                text    : data.body.Response[0]['reject_reason'].trim(),
+					                text    : data.Response[0]['reject_reason'].trim(),
 					                type    : "text",
 					                sender  : model.sender,
 					                language: "en"
@@ -1645,11 +1645,11 @@ function sipDay(model){
 					                return reject(model)
 					            })
 							}
-							else if(data.body.Response&&data.body.Response.length>0){
+							else if(data.Response&&data.Response.length>0){
 								model.tags.bankMandateList = []
 								let maxAmountPossible=0;
 								let typeInv="SIP"
-								for(let element of data.body.Response){
+								for(let element of data.Response){
 									try{
 											if(element.DailyLimit){
 												if(maxAmountPossible<=element.DailyLimit){
@@ -1751,7 +1751,7 @@ function bankMandate(model){
 						api.insertBuyCartSip(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.sipDay,model.tags.sipInstallments,model.tags.bankMandate)
 						.then((data)=>{
 							try{
-								data.body = JSON.parse(data.body)
+								data = JSON.parse(data.body)
 							}
 							catch(e){	
 								console.log(e);
@@ -1770,9 +1770,9 @@ function bankMandate(model){
 					                return reject(model)
 					            })
 							}
-							if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
+							if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
 								let reply={
-					                text    : data.body.Response[0]['reject_reason'].trim(),
+					                text    : data.Response[0]['reject_reason'].trim(),
 					                type    : "text",
 					                sender  : model.sender,
 					                language: "en"
@@ -1787,11 +1787,11 @@ function bankMandate(model){
 					            })
 							}
 							else{
-								model.tags.sipRefId=data.body.Response[0]["TranReferenceID"];
+								model.tags.sipRefId=data.Response[0]["TranReferenceID"];
 								api.confirmSip(model.tags.session,model.tags.sipRefId)
 								.then((data)=>{
 									try{
-										data.body = JSON.parse(data.body)
+										data = JSON.parse(data.body)
 									}
 									catch(e){	
 										console.log(e);
@@ -1810,7 +1810,7 @@ function bankMandate(model){
 							                return reject(model)
 							            })
 									}
-									if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
+									if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
 										let reply={
 							                text    : data.Response[0]['reject_reason'].trim(),
 							                type    : "text",
@@ -1854,14 +1854,14 @@ function bankMandate(model){
 					.then((data)=>{
 						console.log(data.body)
 						try{
-							data.body = JSON.parse(data.body)
+							data = JSON.parse(data.body)
 						}
 						catch(e){console.log(e);
 							return reject(model);
 						}
-						if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
+						if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
 							let reply={
-				                text    : data.body.Response[0]['reject_reason'],
+				                text    : data.Response[0]['reject_reason'],
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
@@ -1875,8 +1875,8 @@ function bankMandate(model){
 				                return reject(model)
 				            })
 						}
-						else if(data.body){
-							model.tags.paymentSummary = data.body.Response[0]
+						else if(data){
+							model.tags.paymentSummary = data.Response[0]
 							model.tags.transactionRefId=model.tags.paymentSummary.ReferenceID
 							model.tags.status=model.tags.paymentSummary.STATUS
 							delete model.stage

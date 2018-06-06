@@ -688,7 +688,7 @@ function scheme(model){
 									.then((data)=>{
 										console.log(data.body)
 										try{
-											data.body = JSON.parse(data.body)
+											data = JSON.parse(data.body)
 										}
 										catch(e){	
 											console.log(e);
@@ -707,9 +707,9 @@ function scheme(model){
 								                return reject(model)
 								            })
 										}
-										if(data.body.Response&&data.body.Response.length>0&&data.body.Response[0].result=="FAIL"){
+										if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
 											let reply={
-								                text    : data.body.Response[0]['reject_reason'].trim(),
+								                text    : data.Response[0]['reject_reason'].trim(),
 								                type    : "text",
 								                sender  : model.sender,
 								                language: "en"
@@ -723,13 +723,13 @@ function scheme(model){
 								                return reject(model)
 								            })
 										}
-										else if(data.body.Response&&data.body.Response.length>0){
-											let refrenceId=data.body.Response[0]["TranReferenceID"];
+										else if(data.Response&&data.Response.length>0){
+											let refrenceId=data.Response[0]["TranReferenceID"];
 											api.confirmSwitch(model.tags.session,refrenceId)
 											.then((data)=>{
 												console.log(data.body)
 												try{
-													data.body = JSON.parse(data.body)
+													data = JSON.parse(data.body)
 												}
 												catch(e){	
 													console.log(e);
@@ -748,7 +748,7 @@ function scheme(model){
 										                return reject(model)
 										            })
 												}
-												if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
+												if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
 													let reply={
 										                text    : data.Response[0]['reject_reason'].trim(),
 										                type    : "text",
@@ -1068,7 +1068,7 @@ function unitOrAmount(model) {
 			.then((data)=>{
 				console.log(data.body)
 				try{
-					data.body = JSON.parse(data.body)
+					data = JSON.parse(data.body)
 				}
 				catch(e){	
 					console.log(e);
@@ -1087,9 +1087,9 @@ function unitOrAmount(model) {
 		                return reject(model)
 		            })
 				}
-				if(data.body.Response&&data.body.Response.length>0&&data.body.Response[0].result=="FAIL"){
+				if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
 					let reply={
-		                text    : data.body.Response[0]['reject_reason'].trim(),
+		                text    : data.Response[0]['reject_reason'].trim(),
 		                type    : "text",
 		                sender  : model.sender,
 		                language: "en"
@@ -1103,13 +1103,13 @@ function unitOrAmount(model) {
 		                return reject(model)
 		            })
 				}
-				else if(data.body.Response&&data.body.Response.length>0){
-					let refrenceId=data.body.Response[0]["TranReferenceID"];
+				else if(data.Response&&data.Response.length>0){
+					let refrenceId=data.Response[0]["TranReferenceID"];
 					api.confirmSwitch(model.tags.session,refrenceId)
 					.then((data)=>{
 						console.log(data.body)
 						try{
-							data.body = JSON.parse(data.body)
+							data = JSON.parse(data.body)
 						}
 						catch(e){	
 							console.log(e);
@@ -1128,9 +1128,9 @@ function unitOrAmount(model) {
 				                return reject(model)
 				            })
 						}
-						if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
+						if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
 							let reply={
-				                text    : data.body.Response[0]['reject_reason'].trim(),
+				                text    : data.Response[0]['reject_reason'].trim(),
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
@@ -1270,7 +1270,7 @@ function amount(model){
 				.then((data)=>{
 					console.log(data.body)
 					try{
-						data.body = JSON.parse(data.body)
+						data = JSON.parse(data.body)
 					}
 					catch(e){	
 						console.log(e);
@@ -1289,9 +1289,9 @@ function amount(model){
 			                return reject(model)
 			            })
 					}
-					if(data.body.Response&&data.body.Response.length>0&&data.body.Response[0].result=="FAIL"){
+					if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
 						let reply={
-			                text    : data.body.Response[0]['reject_reason'].trim(),
+			                text    : data.Response[0]['reject_reason'].trim(),
 			                type    : "text",
 			                sender  : model.sender,
 			                language: "en"
@@ -1305,13 +1305,13 @@ function amount(model){
 			                return reject(model)
 			            })
 					}
-					else if(data.body.Response&&data.body.Response.length>0){
-						let refrenceId=data.body.Response[0]["TranReferenceID"];
+					else if(data.Response&&data.Response.length>0){
+						let refrenceId=data.Response[0]["TranReferenceID"];
 						api.confirmSwitch(model.tags.session,refrenceId)
 						.then((data)=>{
 							console.log(data.body)
 							try{
-								data.body = JSON.parse(data.body)
+								data = JSON.parse(data.body)
 							}
 							catch(e){	
 								console.log(e);
@@ -1330,7 +1330,7 @@ function amount(model){
 					                return reject(model)
 					            })
 							}
-							if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
+							if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
 								let reply={
 					                text    : data.Response[0]['reject_reason'].trim(),
 					                type    : "text",
