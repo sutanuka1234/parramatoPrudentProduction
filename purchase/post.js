@@ -1260,6 +1260,7 @@ function folio(model){
 					}
 				}
 				if(divFlag){
+					console.log("1")
 					delete model.stage;
 					return resolve(model);
 				}
@@ -1299,6 +1300,7 @@ function folio(model){
 						}
 						if(model.tags.investmentType=="sip"){
 							//TODO
+							console.log("2")
 							model.stage = 'sipDay'
 							return resolve(model)
 						}
@@ -1320,6 +1322,7 @@ function folio(model){
 							            }
 										external(reply)
 										.then((data)=>{
+											console.log("api error")
 							                return reject(model);
 							            })
 							            .catch((e)=>{
@@ -1353,6 +1356,8 @@ function folio(model){
 										}
 										catch(e){
 											console.log(e)
+											delete model.stage;
+											return resolve(model);
 										}
 										let expectedAmount=parseInt(model.tags.amount);
 										if(expectedAmount<=element.DailyLimit){
@@ -1369,26 +1374,32 @@ function folio(model){
 									
 									// console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 									if(model.tags.bankMandateList.length==0){
+										console.log("3")
 										delete model.stage
 										return resolve(model)
 									}
 									else{
+										console.log("4")
 										model.stage = 'bankMandate'
 										return resolve(model)
 									}
 								}
 								else{
+									console.log("5")
 									delete model.stage
 									return resolve(model)
 								}
 							})
 							.catch((e)=>{
+
+								console.log(e)
 								delete model.stage
 								return resolve(model)
 							})
 						}
 					}
 					else{
+						console.log("6")
 						delete model.stage
 						return resolve(model)
 					}
