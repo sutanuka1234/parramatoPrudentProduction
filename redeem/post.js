@@ -677,11 +677,11 @@ function scheme(model){
 					if(scheme["SCHEMECODE"]==model.data){
 						model.tags.redeemSchemeObj=scheme;
 						model.tags.folio=scheme["FOLIONO"]
-						sendExternalMessage(model,"Going ahead with "+scheme["SCHEMENAME"])
+						let message="Going ahead with "+scheme["SCHEMENAME"]+".";
 						if(scheme["InccurExitLoad"]&&scheme["InccurExitLoad"].toString().trim().toLowerCase().includes("true")){
-							sendExternalMessage(model,"This holding have units / amount that are held for less than a year and hence may attract short-term capital gains tax at 15% as well as exit load, if any You may want to modify your request to avoid these losses. It is advisable to hold equity funds for longer time frames to benefit from them.")
+							message+=" This holding have units / amount that are held for less than a year and hence may attract short-term capital gains tax at 15% as well as exit load, if any You may want to modify your request to avoid these losses. It is advisable to hold equity funds for longer time frames to benefit from them."						
 						}
-
+						sendExternalMessage(model,message)
 						if(parseFloat(model.tags.redeemSchemeObj["AvailableUnits"])<=1){
 							model.tags.unitOrAmount="AU";
 							// console.log("amount valid")
