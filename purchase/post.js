@@ -1787,9 +1787,7 @@ function bankMandate(model){
 					            })
 							}
 							else{
-
 								model.tags.sipRefId=data.body.Response[0]["TranReferenceID"];
-								model.tags.transactionRefId=data.body.Response[0]["TranReferenceID"];
 								api.confirmSip(model.tags.session,model.tags.sipRefId)
 								.then((data)=>{
 									try{
@@ -1814,7 +1812,7 @@ function bankMandate(model){
 									}
 									if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
 										let reply={
-							                text    : data.body.Response[0]['reject_reason'].trim(),
+							                text    : data.Response[0]['reject_reason'].trim(),
 							                type    : "text",
 							                sender  : model.sender,
 							                language: "en"
@@ -1829,6 +1827,8 @@ function bankMandate(model){
 							            })
 									}
 									else{
+										model.tags.transactionRefId=data["ConfirmSIPTransaction"]["TranReferenceID"]
+										model.tags.sipRefId=model.tags.transactionRefId
 										model.tags.status="Successful"
 										delete model.stage
 										return resolve(model)

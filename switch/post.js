@@ -750,7 +750,7 @@ function scheme(model){
 												}
 												if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
 													let reply={
-										                text    : data.body.Response[0]['reject_reason'].trim(),
+										                text    : data.Response[0]['reject_reason'].trim(),
 										                type    : "text",
 										                sender  : model.sender,
 										                language: "en"
@@ -765,8 +765,8 @@ function scheme(model){
 										            })
 												}
 												else{
-													model.tags.switchReferenceId=refrenceId;
-													model.stage="summary"
+													model.tags.switchReferenceId=data["ConfirmSwitchTransaction"]["TranReferenceID"];
+													delete model.stage
 													return resolve(model)
 
 												}
@@ -1332,7 +1332,7 @@ function amount(model){
 							}
 							if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
 								let reply={
-					                text    : data.body.Response[0]['reject_reason'].trim(),
+					                text    : data.Response[0]['reject_reason'].trim(),
 					                type    : "text",
 					                sender  : model.sender,
 					                language: "en"
@@ -1347,7 +1347,7 @@ function amount(model){
 					            })
 							}
 							else{
-								model.tags.switchReferenceId=refrenceId;
+								model.tags.switchReferenceId=data["ConfirmSwitchTransaction"]["TranReferenceID"];
 								delete model.stage
 								return resolve(model)
 

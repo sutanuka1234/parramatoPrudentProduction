@@ -734,7 +734,7 @@ function scheme(model){
 									.then((data)=>{
 										console.log(data.body)
 										try{
-											data.body = JSON.parse(data.body)
+											data = JSON.parse(data.body)
 										}
 										catch(e){	
 											console.log(e);
@@ -755,7 +755,7 @@ function scheme(model){
 										}
 										if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
 											let reply={
-								                text    : data.body.Response[0]['reject_reason'].trim(),
+								                text    : data.Response[0]['reject_reason'].trim(),
 								                type    : "text",
 								                sender  : model.sender,
 								                language: "en"
@@ -771,7 +771,7 @@ function scheme(model){
 										}
 										else{
 											console.log("summaryyyyy")
-											model.tags.redeemReferenceId=refrenceId;
+											model.tags.redeemReferenceId=data["ConfirmRedemptionTransaction"]["TranReferenceID"];
 											model.stage="summary"
 											return resolve(model)
 
@@ -865,7 +865,7 @@ function unitOrAmount(model) {
 					.then((data)=>{
 						console.log(data.body)
 						try{
-							data.body = JSON.parse(data.body)
+							data = JSON.parse(data.body)
 						}
 						catch(e){	
 							console.log(e);
@@ -886,7 +886,7 @@ function unitOrAmount(model) {
 						}
 						if(data.Response&&data.Response.length>0&&data.body.Response[0].result=="FAIL"){
 							let reply={
-				                text    : data.body.Response[0]['reject_reason'].trim(),
+				                text    : data.Response[0]['reject_reason'].trim(),
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
@@ -902,7 +902,7 @@ function unitOrAmount(model) {
 						}
 						else{
 							console.log("summaryyyyy")
-							model.tags.redeemReferenceId=refrenceId;
+							model.tags.redeemReferenceId=data["ConfirmRedemptionTransaction"]["TranReferenceID"];
 							model.stage="summary"
 							return resolve(model)
 
