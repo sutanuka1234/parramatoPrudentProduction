@@ -1252,6 +1252,7 @@ function folio(model){
 							default: model.tags.divOption = undefined
 									break;
 						}
+						break;
 					}
 					if(data[model.tags.scheme].optionCode == 1){
 							model.tags.divOption = 0
@@ -1396,6 +1397,7 @@ function folio(model){
 			
 		}
 		else{
+			console.log("last reject")
 			return reject(model)
 		}
 	})
