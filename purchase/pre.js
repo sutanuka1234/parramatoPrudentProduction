@@ -509,6 +509,8 @@ function extractSchemeName(model){
 				model.tags.schemes = matches.ratings.splice(0,9);
 				model.tags.newScheme=true;
 			}
+			console.log("MATCHHH")
+			console.log(matches)
 		}
 		return model;
 }

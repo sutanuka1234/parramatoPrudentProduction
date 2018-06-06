@@ -674,7 +674,7 @@ function scheme(model){
 						model.tags.switchSchemeObj=scheme;
 						model.tags.folio=scheme["FOLIO_NO"]
 						sendExternalMessage(model,"Going ahead with "+scheme["SchemeName"])
-						if(scheme["InccurExitLoad"]=="true"){
+						if(scheme["InccurExitLoad"]&&scheme["InccurExitLoad"].toString().trim().toLowerCase().includes("true")){
 							sendExternalMessage(model,`This holding have units / amount that are held for less than a
 														year and hence may attract short-term capital gains tax at 15% as
 														well as exit load, if any You may want to modify your request to
