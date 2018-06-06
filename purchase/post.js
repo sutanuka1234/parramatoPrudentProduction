@@ -686,20 +686,16 @@ function showSchemeName(model){
 				model.tags.scheme = model.data
 			}
 			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption!==undefined){
-				if(model.tags.divOption){
-					if(model.tags.divOption.toString().includes('re') && data[model.tags.scheme].optionCode != 1){
-						model.tags.divOption = 1
-					}
-					else if(model.tags.divOption.toString().includes('pay') && data[model.tags.scheme].optionCode != 1){
-						model.tags.divOption = 2
-					}
-					else{
-						model.tags.divOption = 0
-					}
-					model.stage = 'holding'
-				}
-				else{
-					model.tags.divOption = 0
+				model.tags.joinAccList = []
+				for(let i in model.tags.joinAcc){
+					model.tags.joinAccList.push({
+						title: 'Holding Patterns',
+						text : model.tags.joinAcc[i].JoinHolderName,
+						buttons : [{
+							data : model.tags.joinAcc[i].JoinAccId,
+							text : 'Select'
+						}]
+					})
 				}
 				model.stage = 'holding'
 			}
@@ -741,41 +737,6 @@ function showSchemeName(model){
 }
 
 
-
-function divOps(model){
-	return new Promise(function(resolve, reject){
-		model = extractAmount(model)
-		model = extractFolio(model)
-		if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')|| model.data.toLowerCase().includes('payout')){
-			
-			if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')){
-				model.tags.divOption = 1
-				model.tags.divOptionText="Resinvestment Option"
-			}
-			else{
-				model.tags.divOption = 2
-				model.tags.divOptionText="Payout Option"
-			}
-			model.tags.joinAccList = []
-			for(let i in model.tags.joinAcc){
-				model.tags.joinAccList.push({
-					title: 'Holding Patterns',
-					text : model.tags.joinAcc[i].JoinHolderName,
-					buttons : [{
-						data : model.tags.joinAcc[i].JoinAccId,
-						text : 'Select'
-					}]
-				})
-			}
-			model.stage = 'holding'
-			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
-			return resolve(model)
-		}
-		else{
-			return reject(model)
-		}
-	})
-}
 
 //============================================================
 
@@ -1268,6 +1229,7 @@ function folio(model){
 			arr.push(model.tags.folioList[i].data)
 		}
 		model.tags.amcName = data[model.tags.scheme].amcName
+		let divFlag=true;
 		if(arr.includes(model.data)){
 			sendExternalMessage(model,"Going ahead with "+model.data)
 			if(model.data.includes('new')){
@@ -1276,31 +1238,187 @@ function folio(model){
 			else{
 				model.tags.folio = model.data
 				for(let i in folioObjList){
-					if(model.tags.folio==folioObjList["FOLIO_NO"]){
-						if(model.tags.folioObj["DivOpt"]){
-							switch(response.Response[i]["DivOpt"]){
-								case "Y": model.tags.divOption = 1
+					if(folioObjList[i]["DivOpt"]){
+						switch(folioObjList[i]["DivOpt"]){
+							case "Y": model.tags.divOption = 1
+									  divFlag=false;
+								break;
+							case "N": model.tags.divOption = 2
+									  divFlag=false;
+								break;
+							case "B": model.tags.divOption = 0
+									  divFlag=false;
+								break;
+							default: model.tags.divOption = undefined
 									break;
-								case "N": model.tags.divOption = 2
-									break;
-								case "Z": model.tags.divOption = 0
-									break;
+						}
+					}
+					if(data[model.tags.scheme].optionCode == 1){
+							model.tags.divOption = 0
+							divFlag=false;
+					}
+				}
+				if(divFlag){
+					delete model.stage;
+					return resolve(model);
+				}
+				else{
+					if(model.tags.additional&&model.tags.existingSchemeDetailsSet.length>1){
+						for(let schemeVal of model.tags.existingSchemeDetailsSet){
+							if(schemeVal["FolioNo"]==model.tags.folio){
+								model.tags.tranId=schemeVal["Tranid"]
+								model.tags.schemeApiDetails=schemeVal;
+								model.tags.euinApiDetails=model.tags.existingEuinApiDetails
+								break;
 							}
 						}
 					}
-				}
-			}
-			if(model.tags.additional&&model.tags.existingSchemeDetailsSet.length>1){
-				for(let schemeVal of model.tags.existingSchemeDetailsSet){
-					if(schemeVal["FolioNo"]==model.tags.folio){
-						model.tags.tranId=schemeVal["Tranid"]
-						model.tags.schemeApiDetails=schemeVal;
-						model.tags.euinApiDetails=model.tags.existingEuinApiDetails
-						break;
+
+					if(model.tags.amount&&model.tags.schemeApiDetails){
+						let amount=parseFloat(model.tags.amount)
+						let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+						let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
+						let multiple =parseFloat(model.tags.schemeApiDetails["Multiples"]) 
+						if(amount%multiple!=0){
+							model.tags.amount=undefined;
+						}
+						if(amount<minAmount){
+							// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
+							model.tags.amount=undefined;
+						}
+						else if(amount>maxAmount){
+							// sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
+							model.tags.amount=undefined;
+						}
+					}
+					let schemeCode=data[model.tags.scheme].schemeCode
+					if(model.tags.amount){
+						if(!model.tags.existingEuinApiDetails){
+							model.tags.existingEuinApiDetails={}
+						}
+						if(model.tags.investmentType=="sip"){
+							//TODO
+							model.stage = 'sipDay'
+							return resolve(model)
+						}
+						else{
+
+							api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
+							.then((data)=>{
+								// console.log(data.body)
+								try{
+									data = JSON.parse(data.body)
+								}
+								catch(e){
+									console.log(e);
+									let reply={
+							                text    : "API Not Responding Properly",
+							                type    : "text",
+							                sender  : model.sender,
+							                language: "en"
+							            }
+										external(reply)
+										.then((data)=>{
+							                return reject(model);
+							            })
+							            .catch((e)=>{
+							                console.log(e);
+							                return reject(model)
+							            })
+									// delete model.stage
+									// return resolve(model)
+								}
+								if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
+									model.tags.bankMandateList = []
+									let maxAmountPossible=0;
+									for(let element of data.Response[2]){
+										model.tags.bankMandateList.push({
+											title: "Netbanking",
+											text : element.BankName,
+											buttons : [{
+												type : 'url',
+												text : 'Pay',
+												data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
+											}]
+										})
+									}
+									for(let element of data.Response[1]){
+										try{
+											if(element.DailyLimit){
+												if(maxAmountPossible<=element.DailyLimit){
+													maxAmountPossible=element.DailyLimit;
+												}
+											}
+										}
+										catch(e){
+											console.log(e)
+										}
+										let expectedAmount=parseInt(model.tags.amount);
+										if(expectedAmount<=element.DailyLimit){
+											model.tags.bankMandateList.push({
+												title: "Mandate",
+												text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
+												buttons : [{
+													text : 'Pay',
+													data : element.MandateId
+												}]
+											})
+										}
+									}
+									
+									// console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+									if(model.tags.bankMandateList.length==0){
+										delete model.stage
+										return resolve(model)
+									}
+									else{
+										model.stage = 'bankMandate'
+										return resolve(model)
+									}
+								}
+								else{
+									delete model.stage
+									return resolve(model)
+								}
+							})
+							.catch((e)=>{
+								delete model.stage
+								return resolve(model)
+							})
+						}
+					}
+					else{
+						delete model.stage
+						return resolve(model)
 					}
 				}
 			}
+			
+		}
+		else{
+			return reject(model)
+		}
+	})
+}
 
+
+
+
+function divOps(model){
+	return new Promise(function(resolve, reject){
+		model = extractAmount(model)
+		model = extractFolio(model)
+		if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')|| model.data.toLowerCase().includes('payout')){
+			
+			if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')){
+				model.tags.divOption = 1
+				model.tags.divOptionText="Resinvestment Option"
+			}
+			else{
+				model.tags.divOption = 2
+				model.tags.divOptionText="Payout Option"
+			}
+			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
 			if(model.tags.amount&&model.tags.schemeApiDetails){
 				let amount=parseFloat(model.tags.amount)
 				let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
@@ -1424,6 +1542,7 @@ function folio(model){
 		}
 	})
 }
+
 
 //============================================================
 
