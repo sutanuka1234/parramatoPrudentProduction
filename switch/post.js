@@ -900,7 +900,14 @@ function showSchemeName(model){
 							if(response.Response[i].FolioNo==model.tags.folio){
 								console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(response.Response[i],null,3))
 								if(response.Response[i]["DivOpt"]){
-									model.tags.divOption =response.Response[i]["DivOpt"]
+									switch(response.Response[i]["DivOpt"]){
+										case "Y": model.tags.divOption = 1
+											break;
+										case "N": model.tags.divOption = 2
+											break;
+										case "Z": model.tags.divOption = 0
+											break;
+									}
 								}
 								if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption!==undefined){
 									if(model.tags.divOption){
@@ -924,6 +931,7 @@ function showSchemeName(model){
 									delete model.stage
 								}
 								sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
+								return resolve(model);
 							}
 						}
 					}

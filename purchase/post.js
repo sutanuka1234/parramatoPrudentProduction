@@ -1278,7 +1278,14 @@ function folio(model){
 				for(let i in folioObjList){
 					if(model.tags.folio==folioObjList["FOLIO_NO"]){
 						if(model.tags.folioObj["DivOpt"]){
-							model.tags.divOption =parseInt(model.tags.folioObj["DivOpt"])
+							switch(response.Response[i]["DivOpt"]){
+								case "Y": model.tags.divOption = 1
+									break;
+								case "N": model.tags.divOption = 2
+									break;
+								case "Z": model.tags.divOption = 0
+									break;
+							}
 						}
 					}
 				}
