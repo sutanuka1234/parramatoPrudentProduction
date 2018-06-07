@@ -769,7 +769,7 @@ function holding(model){
 
 					if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 						model.tags.schemeApiDetails=response.Response[0][0];
-						model.tags.euinApiDetails=response.Response[0][1];
+						model.tags.euinApiDetails=response.Response[1][0];
 			            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
 			            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
 			            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
@@ -895,7 +895,7 @@ function holding(model){
 
 							if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 								model.tags.schemeApiDetails=response.Response[0][0];
-								model.tags.euinApiDetails=response.Response[0][1];
+								model.tags.euinApiDetails=response.Response[1][0];
 					            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
 					            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
 					            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
@@ -1162,7 +1162,7 @@ function additional(model){
 
 				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 					model.tags.schemeApiDetails=response.Response[0][0];
-					model.tags.euinApiDetails=response.Response[0][1];
+					model.tags.euinApiDetails=response.Response[1][0];
 					api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 					.then(response=>{
 						try{
