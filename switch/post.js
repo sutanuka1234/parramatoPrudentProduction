@@ -1016,7 +1016,14 @@ function showSchemeName(model){
 			
 		}
 		else{
-			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
+			let filteredData={}
+			for(let key in data){
+				if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]){
+					filteredData[key]=data[key]
+				}
+			}
+
+			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(filteredData))
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(matches.bestMatch.target)
 			}
