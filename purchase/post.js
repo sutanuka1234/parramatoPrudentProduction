@@ -770,8 +770,17 @@ function holding(model){
 
 					if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 						model.tags.schemeApiDetails=response.Response[0][0];
-						model.tags.euinApiDetailsList=response.Response[1];
 						model.tags.euinApiDetails=response.Response[1][0];
+						model.tags.euinApiDetailsList=[];
+						if(response.Response.length>1){
+							for(let i in response.Response[1]){
+								model.tags.euinApiDetailsList.push({
+									data : response.Response[1][i]["ID"],
+									text : response.Response[1][i]["ID"]
+								})
+							}
+						}
+
 						api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,true)
 						.then(response=>{
 							// console.log(response.body)
@@ -864,7 +873,15 @@ function holding(model){
 					}
 					model.tags.existingSchemeApiDetails=response.Response[0];
 					model.tags.existingEuinApiDetails=response.Response[1][0];
-					model.tags.existingEuinApiDetailsList=response.Response[1];
+					model.tags.euinApiDetailsList=[];
+					if(response.Response.length>1){
+						for(let i in response.Response[1]){
+							model.tags.euinApiDetailsList.push({
+								data : response.Response[1][i]["ID"],
+								text : response.Response[1][i]["ID"]
+							})
+						}
+					}
 					model.tags.existingSchemeDetailsSet=[]
 					// console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
 					for (let existingScheme of model.tags.existingSchemeApiDetails){
@@ -895,8 +912,16 @@ function holding(model){
 
 							if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 								model.tags.schemeApiDetails=response.Response[0][0];
-								model.tags.euinApiDetailsList=response.Response[1];
 								model.tags.euinApiDetails=response.Response[1][0];
+								model.tags.euinApiDetailsList=[];
+								if(response.Response.length>1){
+									for(let i in response.Response[1]){
+										model.tags.euinApiDetailsList.push({
+											data : response.Response[1][i]["ID"],
+											text : response.Response[1][i]["ID"]
+										})
+									}
+								}
 					            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
 					            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
 					            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
@@ -1022,8 +1047,130 @@ function additional(model){
 					}
 				}
 				let schemeCode=data[model.tags.scheme].schemeCode
+				delete model.stage;	
+			}
+			else if(model.tags.existingSchemeDetailsSet.length>1){
+				// console.log(">1:::")
+
+				model.tags.additionalPossible=true;
+				model.tags.folioList = []
+				for(let i in model.tags.existingSchemeDetailsSet){
+					model.tags.folioList.push({
+						data : model.tags.existingSchemeDetailsSet[i].FolioNo,
+						text : model.tags.existingSchemeDetailsSet[i].FolioNo
+					})
+				}
+
+				delete model.stage
+			}
+
+			return resolve(model);
+		}
+		else if(model.data.toLowerCase().includes("no")){
+			model.tags.additional=false;
+			api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
+			.then((response)=>{
+				// console.log(response.body)
+				try{
+					response = JSON.parse(response.body)
+					console.log(JSON.stringify(response,null,3))
+				}
+				catch(e){
+					return reject(model)
+					console.log(e)
+				}
+
+
+				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
+					model.tags.schemeApiDetails=response.Response[0][0];
+					model.tags.euinApiDetails=response.Response[1][0];
+					model.tags.euinApiDetailsList=[];
+					if(response.Response.length>1){
+						for(let i in response.Response[1]){
+							model.tags.euinApiDetailsList.push({
+								data : response.Response[1][i]["ID"],
+								text : response.Response[1][i]["ID"]
+							})
+						}
+					}
+					api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+					.then(response=>{
+						try{
+							response = JSON.parse(response.body)
+						}
+						catch(e){
+							console.log(e)
+							return reject(model);
+						}
+						// console.log(JSON.stringify(response,null,3));
+						if(response.Response.length > 0){
+							model.tags.folioList = []
+							model.tags.folioObjList=response.Response;
+							for(let i in response.Response){
+								model.tags.folioList.push({
+									data : response.Response[i].FolioNo,
+									text : response.Response[i].FolioNo
+								})
+							}
+						}
+						else{
+							model.tags.folioNo = response.Response[0].FolioNo
+						}
+						model.stage = 'euin'
+						return resolve(model)
+					})
+					.catch(e=>{
+						console.log(e)
+						return reject(model)
+					}) 	
+				}
+				else{
+					let reply={
+		                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+						model.stage = 'askSchemeName'
+						model.tags.schemes=undefined;
+						model.tags.scheme=undefined;
+						return resolve(model)
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+			})
+			.catch(e=>{
+				console.log(e);
+				return reject(model);
+			})
+		}
+		else{
+			return reject(model);
+		}
+	});	
+}
+
+
+function euin(model){
+	return new Promise(function(resolve, reject){
+		let euinFlag=false;
+		for(let data of euinApiDetailsList){
+			if(data["data"]==model.data){
+				euinFlag=true;
+				model.tags.euin=model.data
+				model.tags.existingEuinApiDetails=model.data
+				break;
+			}
+		}
+		if(euinFlag){
+			if(model.tags.additional){
 				if(model.tags.amount){
-					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
+					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId)
 					.then((data)=>{
 						// console.log(data.body)
 						try{
@@ -1127,110 +1274,16 @@ function additional(model){
 				else{
 					model.stage = 'amount'
 					return resolve(model)
-				}	
-			}
-			else if(model.tags.existingSchemeDetailsSet.length>1){
-				// console.log(">1:::")
-
-				model.tags.additionalPossible=true;
-				model.tags.folioList = []
-				for(let i in model.tags.existingSchemeDetailsSet){
-					model.tags.folioList.push({
-						data : model.tags.existingSchemeDetailsSet[i].FolioNo,
-						text : model.tags.existingSchemeDetailsSet[i].FolioNo
-					})
 				}
-
+			}
+			else{
 				delete model.stage
+				return resolve(model)
 			}
-
-			return resolve(model);
-		}
-		else if(model.data.toLowerCase().includes("no")){
-			model.tags.additional=false;
-			api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
-			.then((response)=>{
-				// console.log(response.body)
-				try{
-					response = JSON.parse(response.body)
-					console.log(JSON.stringify(response,null,3))
-				}
-				catch(e){
-					return reject(model)
-					console.log(e)
-				}
-
-
-				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
-					model.tags.schemeApiDetails=response.Response[0][0];
-					model.tags.euinApiDetailsList=response.Response[1];
-					model.tags.euinApiDetails=response.Response[1][0];
-					api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-					.then(response=>{
-						try{
-							response = JSON.parse(response.body)
-						}
-						catch(e){
-							console.log(e)
-							return reject(model);
-						}
-						// console.log(JSON.stringify(response,null,3));
-						if(response.Response.length > 0){
-							model.tags.folioList = []
-							model.tags.folioObjList=response.Response;
-							for(let i in response.Response){
-								model.tags.folioList.push({
-									data : response.Response[i].FolioNo,
-									text : response.Response[i].FolioNo
-								})
-							}
-						}
-						else{
-							model.tags.folioNo = response.Response[0].FolioNo
-						}
-						model.stage = 'euin'
-						return resolve(model)
-					})
-					.catch(e=>{
-						console.log(e)
-						return reject(model)
-					}) 	
-				}
-				else{
-					let reply={
-		                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-		                type    : "text",
-		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{
-						model.stage = 'askSchemeName'
-						model.tags.schemes=undefined;
-						model.tags.scheme=undefined;
-						return resolve(model)
-		            })
-		            .catch((e)=>{
-		                console.log(e);
-		                return reject(model)
-		            })
-				}
-			})
-			.catch(e=>{
-				console.log(e);
-				return reject(model);
-			})
 		}
 		else{
 			return reject(model);
 		}
-	});	
-}
-
-
-function euin(model){
-	return new Promise(function(resolve, reject){
-		resolve(model)
 	});
 
 }
@@ -1322,7 +1375,7 @@ function folio(model){
 						}
 						else{
 
-							api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
+							api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId)
 							.then((data)=>{
 								// console.log(data.body)
 								try{
@@ -1477,7 +1530,7 @@ function divOps(model){
 				}
 				else{
 
-					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
+					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId)
 					.then((data)=>{
 						// console.log(data.body)
 						try{
@@ -1626,7 +1679,7 @@ function amount(model){
 					return resolve(model)
 			}
 			else{
-				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.additional,model.tags.tranId)
+				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId)
 				.then((data)=>{
 					try{
 						console.log(data.body+":>>>>>>>>>>")
@@ -1915,7 +1968,7 @@ function bankMandate(model){
 				model.tags.bankMandate = model.data
 
 				if(model.tags.investmentType==="sip"){
-						api.insertBuyCartSip(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.existingEuinApiDetails["ID"]||'E020391',model.tags.sipDay,model.tags.sipInstallments,model.tags.bankMandate)
+						api.insertBuyCartSip(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.sipDay,model.tags.sipInstallments,model.tags.bankMandate)
 						.then((data)=>{
 							try{
 								data = JSON.parse(data.body)

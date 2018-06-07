@@ -242,7 +242,7 @@ function holding(model){
 				type:"generic",
 	            text:" Please select your holding pattern",
 	            next:{
-	                "data": model.tags.joinAccList
+	                data: model.tags.joinAccList
 	            }
 			}
 		}
@@ -252,6 +252,15 @@ function holding(model){
 
 function euin(model){
 	return new Promise(function(resolve, reject){
+		if(model.tags.euinApiDetailsList){
+			model.reply={
+				type:"quickReply",
+	            text:" Please select your holding pattern",
+	            next:{
+	                data: model.tags.euinApiDetailsList
+	            }
+			}
+		}
 		resolve(model)
 	});
 
@@ -263,7 +272,7 @@ function folio(model){
 				type:"quickReply",
 	            text:"Let us know the folio you wish to invest in.",
 	            next:{
-	                "data": model.tags.folioList
+	                data: model.tags.folioList
 	            }
 			}
 		}
