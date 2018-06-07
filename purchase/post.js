@@ -686,23 +686,18 @@ function showSchemeName(model){
 			else{
 				model.tags.scheme = model.data
 			}
-			if(data[model.tags.scheme].optionCode == 1 || model.tags.divOption!==undefined){
-				model.tags.joinAccList = []
-				for(let i in model.tags.joinAcc){
-					model.tags.joinAccList.push({
-						title: 'Holding Patterns',
-						text : model.tags.joinAcc[i].JoinHolderName,
-						buttons : [{
-							data : model.tags.joinAcc[i].JoinAccId,
-							text : 'Select'
-						}]
-					})
-				}
-				model.stage = 'holding'
+			model.tags.joinAccList = []
+			for(let i in model.tags.joinAcc){
+				model.tags.joinAccList.push({
+					title: 'Holding Patterns',
+					text : model.tags.joinAcc[i].JoinHolderName,
+					buttons : [{
+						data : model.tags.joinAcc[i].JoinAccId,
+						text : 'Select'
+					}]
+				})
 			}
-			else{
-				delete model.stage
-			}
+			delete model.stage
 			sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
 		}
 		else{
@@ -1028,25 +1023,8 @@ function additional(model){
 				// console.log("1:::")
 				model.tags.tranId=model.tags.existingSchemeDetailsSet[0]["Tranid"]
 				model.tags.folio=model.tags.existingSchemeDetailsSet[0]["FolioNo"]
+				model.tags.divOption=model.tags.existingSchemeDetailsSet[0]["DivOpt"]
 				model.tags.schemeApiDetails=model.tags.existingSchemeDetailsSet[0]
-				if(model.tags.amount&&model.tags.schemeApiDetails){
-					let amount=parseFloat(model.tags.amount)
-					let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
-					let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
-					let multiple =parseFloat(model.tags.schemeApiDetails["Multiples"]) 
-					if(amount%multiple!=0){
-						model.tags.amount=undefined;
-					}
-					if(amount<minAmount){
-						// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
-						model.tags.amount=undefined;
-					}
-					else if(amount>maxAmount){
-						// sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
-						model.tags.amount=undefined;
-					}
-				}
-				let schemeCode=data[model.tags.scheme].schemeCode
 				delete model.stage;	
 			}
 			else if(model.tags.existingSchemeDetailsSet.length>1){
@@ -1167,8 +1145,28 @@ function euin(model){
 				break;
 			}
 		}
+					
+
 		if(euinFlag){
-			if(model.tags.additional){
+			if(model.tags.additional&&(model.tags.divOption==0||model.tags.divOption==1||model.tags.divOption==2&&model.tags.folio)){
+				if(model.tags.amount&&model.tags.schemeApiDetails){
+					let amount=parseFloat(model.tags.amount)
+					let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+					let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
+					let multiple =parseFloat(model.tags.schemeApiDetails["Multiples"]) 
+					if(amount%multiple!=0){
+						model.tags.amount=undefined;
+					}
+					if(amount<minAmount){
+						// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
+						model.tags.amount=undefined;
+					}
+					else if(amount>maxAmount){
+						// sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
+						model.tags.amount=undefined;
+					}
+				}
+				let schemeCode=data[model.tags.scheme].schemeCode
 				if(model.tags.amount){
 					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId)
 					.then((data)=>{
@@ -1425,7 +1423,7 @@ function folio(model){
 										}
 										catch(e){
 											console.log(e)
-											delete model.stage;
+											model.stage="amount"
 											return resolve(model);
 										}
 										let expectedAmount=parseInt(model.tags.amount);
@@ -1444,7 +1442,7 @@ function folio(model){
 									// console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 									if(model.tags.bankMandateList.length==0){
 										// console.log("3")
-										delete model.stage
+										model.stage="amount"
 										return resolve(model)
 									}
 									else{
@@ -1455,21 +1453,21 @@ function folio(model){
 								}
 								else{
 									// console.log("5")
-									delete model.stage
+									model.stage="amount"
 									return resolve(model)
 								}
 							})
 							.catch((e)=>{
 
 								console.log(e)
-								delete model.stage
+								model.stage="amount"
 								return resolve(model)
 							})
 						}
 					}
 					else{
 						// console.log("6")
-						delete model.stage
+						model.stage="amount"
 						return resolve(model)
 					}
 				}
