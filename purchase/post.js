@@ -22,6 +22,7 @@ let obj = {
 	amount 	: amount,
 	holding : holding,
 	additional : additional,
+	euin: euin , 
 	folio 	: folio,
 	sipDay	: sipDay,
 	bankMandate : bankMandate
@@ -769,10 +770,8 @@ function holding(model){
 
 					if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 						model.tags.schemeApiDetails=response.Response[0][0];
+						model.tags.euinApiDetailsList=response.Response[1];
 						model.tags.euinApiDetails=response.Response[1][0];
-			            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
-			            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
-			            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
 						api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,true)
 						.then(response=>{
 							// console.log(response.body)
@@ -798,11 +797,11 @@ function holding(model){
 										text : response.Response[i].FolioNo
 									})
 								}
-								model.stage="folio"
+								model.stage='euin'
 							}
 							else{
 								model.tags.folioNo = response.Response[0].FolioNo
-								model.stage="folio"
+								model.stage='euin'
 							}
 							return resolve(model)
 						})
@@ -865,6 +864,7 @@ function holding(model){
 					}
 					model.tags.existingSchemeApiDetails=response.Response[0];
 					model.tags.existingEuinApiDetails=response.Response[1][0];
+					model.tags.existingEuinApiDetailsList=response.Response[1];
 					model.tags.existingSchemeDetailsSet=[]
 					// console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
 					for (let existingScheme of model.tags.existingSchemeApiDetails){
@@ -895,6 +895,7 @@ function holding(model){
 
 							if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 								model.tags.schemeApiDetails=response.Response[0][0];
+								model.tags.euinApiDetailsList=response.Response[1];
 								model.tags.euinApiDetails=response.Response[1][0];
 					            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
 					            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
@@ -924,11 +925,11 @@ function holding(model){
 												text : response.Response[i].FolioNo
 											})
 										}
-										model.stage="folio"
+										model.stage='euin'
 									}
 									else{
 										model.tags.folioNo = response.Response[0].FolioNo
-										model.stage="folio"
+										model.stage='euin'
 									}
 									return resolve(model)
 								})
@@ -1162,6 +1163,7 @@ function additional(model){
 
 				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 					model.tags.schemeApiDetails=response.Response[0][0];
+					model.tags.euinApiDetailsList=response.Response[1];
 					model.tags.euinApiDetails=response.Response[1][0];
 					api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 					.then(response=>{
@@ -1186,7 +1188,7 @@ function additional(model){
 						else{
 							model.tags.folioNo = response.Response[0].FolioNo
 						}
-						model.stage = 'folio'
+						model.stage = 'euin'
 						return resolve(model)
 					})
 					.catch(e=>{
@@ -1224,6 +1226,15 @@ function additional(model){
 		}
 	});	
 }
+
+
+function euin(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	});
+
+}
+
 
 function folio(model){
 	return new Promise(function(resolve, reject){

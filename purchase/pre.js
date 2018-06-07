@@ -19,6 +19,7 @@ let obj = {
 	divOps 	: divOps,
 	amount 	: amount,
 	holding : holding,
+	euin	: euin,
 	folio 	: folio,
 	sipDay	: sipDay,
 	bankMandate : bankMandate,
@@ -249,6 +250,12 @@ function holding(model){
 	})
 }
 
+function euin(model){
+	return new Promise(function(resolve, reject){
+		resolve(model)
+	});
+
+}
 function folio(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.folioList){
