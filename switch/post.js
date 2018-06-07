@@ -1041,8 +1041,10 @@ function showSchemeName(model){
 						]
 					})
 				})
+				
 			}
 		}
+		return resolve(model)
 
 
 
