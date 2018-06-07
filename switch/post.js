@@ -958,7 +958,12 @@ function showSchemeName(model){
 													model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
 												}
 												model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
-												delete model.stage
+												if(model.tags.divOption){
+													model.stage = 'unitOrAmount'
+												}
+												else{
+													delete model.stage
+												}
 												return resolve(model)
 											}
 												
