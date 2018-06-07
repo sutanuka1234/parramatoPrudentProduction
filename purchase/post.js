@@ -1224,6 +1224,8 @@ function additional(model){
 
 function folio(model){
 	return new Promise(function(resolve, reject){
+		console.log("::::::::::::::::::::::::EUIN::::::::::::::::::::::::")
+		console.log(JSON.stringify(model.tags.euinApiDetails,null,3))
 		let arr = []
 		for(let i in model.tags.folioList){
 			arr.push(model.tags.folioList[i].data)
@@ -1260,7 +1262,7 @@ function folio(model){
 					}
 				}
 				if(divFlag){
-					console.log("1")
+					// console.log("1")
 					delete model.stage;
 					return resolve(model);
 				}
@@ -1300,7 +1302,7 @@ function folio(model){
 						}
 						if(model.tags.investmentType=="sip"){
 							//TODO
-							console.log("2")
+							// console.log("2")
 							model.stage = 'sipDay'
 							return resolve(model)
 						}
@@ -1374,18 +1376,18 @@ function folio(model){
 									
 									// console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 									if(model.tags.bankMandateList.length==0){
-										console.log("3")
+										// console.log("3")
 										delete model.stage
 										return resolve(model)
 									}
 									else{
-										console.log("4")
+										// console.log("4")
 										model.stage = 'bankMandate'
 										return resolve(model)
 									}
 								}
 								else{
-									console.log("5")
+									// console.log("5")
 									delete model.stage
 									return resolve(model)
 								}
@@ -1399,7 +1401,7 @@ function folio(model){
 						}
 					}
 					else{
-						console.log("6")
+						// console.log("6")
 						delete model.stage
 						return resolve(model)
 					}
@@ -1408,7 +1410,7 @@ function folio(model){
 			
 		}
 		else{
-			console.log("last reject")
+			// console.log("last reject")
 			return reject(model)
 		}
 	})
