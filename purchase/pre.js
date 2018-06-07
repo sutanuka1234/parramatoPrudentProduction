@@ -255,7 +255,7 @@ function euin(model){
 		if(model.tags.euinApiDetailsList){
 			model.reply={
 				type:"quickReply",
-	            text:" Please select your holding pattern",
+	            text:"Can you please let us know they payment mode. You can choose direct or through your advisor (advisor codes available below)",
 	            next:{
 	                data: model.tags.euinApiDetailsList
 	            }
