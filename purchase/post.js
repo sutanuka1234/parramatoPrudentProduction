@@ -759,6 +759,7 @@ function holding(model){
 					// console.log(response.body)
 					try{
 						response = JSON.parse(response.body)
+						console.log(JSON.stringify(response,null,3))
 					}
 					catch(e){
 						return reject(model)
@@ -884,6 +885,7 @@ function holding(model){
 							// console.log(response.body)
 							try{
 								response = JSON.parse(response.body)
+								console.log(JSON.stringify(response,null,3))
 							}
 							catch(e){
 								return reject(model)
@@ -1150,6 +1152,7 @@ function additional(model){
 				// console.log(response.body)
 				try{
 					response = JSON.parse(response.body)
+					console.log(JSON.stringify(response,null,3))
 				}
 				catch(e){
 					return reject(model)
@@ -1557,6 +1560,8 @@ function divOps(model){
 		}
 	})
 }
+
+
 
 
 //============================================================
