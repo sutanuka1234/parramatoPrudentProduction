@@ -518,13 +518,13 @@ function extractSchemeName(model){
 				model.tags.newScheme=true;
 			}
 			console.log("MATCHHH")
-			console.log(matches)
+			// console.log(matches)
 		}
 		return model;
 }
 
 function dataClean(model){
-	console.log(model.tags.userSays)
+	// console.log(model.tags.userSays)
 	if(model.tags.userSays){
 		model.tags.userSays = model.tags.userSays.toLowerCase()
 	}
