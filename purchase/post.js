@@ -1159,7 +1159,7 @@ function additional(model){
 function euin(model){
 	return new Promise(function(resolve, reject){
 		let euinFlag=false;
-		for(let data of euinApiDetailsList){
+		for(let data of model.tags.euinApiDetailsList){
 			if(data["data"]==model.data){
 				euinFlag=true;
 				model.tags.euin=model.data
