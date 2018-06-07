@@ -958,6 +958,7 @@ function showSchemeName(model){
 													model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
 												}
 												model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
+												delete model.stage
 												return resolve(model)
 											}
 												
@@ -1048,10 +1049,11 @@ function showSchemeName(model){
 						]
 					})
 				})
-				
+
 			}
+			return resolve(model)
 		}
-		return resolve(model)
+		
 
 
 
