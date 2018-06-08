@@ -896,23 +896,6 @@ function showSchemeName(model){
 				try{
 
 
-
-
-					// {
-					// 	"Response":[	
-					// 					[
-					// 						{"ID":"0","FolioNo":"New Folio","SCHEMECODE":1032,"DIVIDENDOPTION":"Z"},
-					// 						{"ID":"1694776/24","FolioNo":"1694776/24","SCHEMECODE":1032,"DIVIDENDOPTION":"Z"},
-					// 						{"ID":"1794035/37","FolioNo":"1794035/37","SCHEMECODE":1032,"DIVIDENDOPTION":"Z"}
-					// 					],
-					// 					[
-					// 						{"Value":"AU","SwitchType":"All Unit"},
-					// 						{"Value":"PU","SwitchType":"Partial Unit(s)"},
-					// 						{"Value":"R","SwitchType":"Rs"}
-					// 					]
-					// 				]
-					// }
-
 					response = JSON.parse(response.body)
 
 
@@ -1107,6 +1090,7 @@ function showSchemeName(model){
 				})
 
 			}
+			model.stage = 'showSchemeName'
 			return resolve(model)
 		}
 		
