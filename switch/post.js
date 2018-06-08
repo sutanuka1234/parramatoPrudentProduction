@@ -1376,7 +1376,7 @@ function confirm(model){
 		            })
 				}
 				else{
-					model.tags.switchReferenceId=refrenceId;
+					model.tags.switchReferenceId=data.Response[0]["ReferenceNo"];
 					model.stage="summary"
 					return resolve(model)
 

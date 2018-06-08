@@ -1014,7 +1014,7 @@ function confirm(model){
 				}
 				else{
 					console.log("summaryyyyy")
-					model.tags.redeemReferenceId=data["ConfirmRedemptionTransaction"]["TranReferenceID"];
+					model.tags.redeemReferenceId=data.Response[0]["ReferenceNo"];
 					model.stage="summary"
 					return resolve(model)
 
@@ -1031,6 +1031,8 @@ function confirm(model){
 		}
 	});
 }
+
+
 
 function sendExternalMessage(model,text){
 	let reply={
