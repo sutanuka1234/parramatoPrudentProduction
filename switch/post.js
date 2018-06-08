@@ -909,7 +909,7 @@ function showSchemeName(model){
 								folioObj=folioData[i]
 							}
 						}
-						for(let element in unitOrAmountData){
+						for(let element of unitOrAmountData){
 							console.log(element)
 							if(element["Value"]=="AU"){
 								model.tags.unitOrAmountList.push({
