@@ -894,13 +894,63 @@ function showSchemeName(model){
 			.then(response=>{
 				console.log(response.body)
 				try{
+
+
+
+
+					{
+						"Response":[	
+										[
+											{"ID":"0","FolioNo":"New Folio","SCHEMECODE":1032,"DIVIDENDOPTION":"Z"},
+											{"ID":"1694776/24","FolioNo":"1694776/24","SCHEMECODE":1032,"DIVIDENDOPTION":"Z"},
+											{"ID":"1794035/37","FolioNo":"1794035/37","SCHEMECODE":1032,"DIVIDENDOPTION":"Z"}
+										],
+										[
+											{"Value":"AU","SwitchType":"All Unit"},
+											{"Value":"PU","SwitchType":"Partial Unit(s)"},
+											{"Value":"R","SwitchType":"Rs"}
+										]
+									]
+					}
+
 					response = JSON.parse(response.body)
+
+
 					if(response.Response.length > 0){
-						for(let i in response.Response){
-							if(response.Response[i].FolioNo==model.tags.folio){
-								console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(response.Response[i],null,3)+":::::"+data[model.tags.scheme].optionCode)
-								if(response.Response[i]["DivOpt"]){
-									switch(response.Response[i]["DivOpt"]){
+						let folioData=response.Response[0]
+						let unitOrAmountData=response.Response[1]
+						let folioObj;
+						for(let i in folioData){
+							if(folioData[i].FolioNo==model.tags.folio){
+								folioObj=folioData[i]
+							}
+						}
+						for(let element in unitOrAmountData){
+							if(element["Value"]=="AU"){
+								model.tags.unitOrAmountList.push({
+									data : "All Units",
+									text : "All Units"
+								})
+							}
+							else if(element["Value"]=="PU"){
+								model.tags.unitOrAmountList.push({
+									data : "Partial Units",
+									text : "Partial Units"
+								})
+							}
+							else if(element["Value"]=="R"){
+								model.tags.unitOrAmountList.push({
+									data : "Amount",
+									text : "Amount"
+								})
+							}
+						}
+
+
+						if(folioObj){
+							console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(folioObj,null,3)+":::::"+data[model.tags.scheme].optionCode)
+								if(folioObj["DivOpt"]){
+									switch(folioObj["DivOpt"]){
 										case "Y": model.tags.divOption = 1
 											break;
 										case "N": model.tags.divOption = 2
@@ -915,6 +965,7 @@ function showSchemeName(model){
 										model.tags.divOption = 0
 								}
 								if(model.tags.divOption){
+
 									model.stage = 'unitOrAmount'
 								}
 								else{
@@ -1003,11 +1054,11 @@ function showSchemeName(model){
 									console.log(e);
 									return reject(model);
 								})
-
-
-
-							}
 						}
+						else{
+							return reject(model);
+						}
+
 					}
 				}
 				catch(e){

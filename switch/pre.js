@@ -19,6 +19,7 @@ let obj = {
 	askSchemeName:askSchemeName,
 	showSchemeName:showSchemeName,
 	divOps:divOps,
+	unitOrAmount:unitOrAmount,
 	amount:amount,
 	summary:summary
 }
@@ -268,7 +269,20 @@ function folio(model){
 	})
 }
 
-
+function unitOrAmount(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.unitOrAmountList){
+			model.reply={
+				type:"quickReply",
+	            text:"How would you like to switch?",
+	            next:{
+	            	data:model.tags.unitOrAmountList
+	            }
+			}
+		}
+		resolve(model)
+	})
+}
 
 function amount(model){
 	return new Promise(function(resolve, reject){
