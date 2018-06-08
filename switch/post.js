@@ -1432,7 +1432,8 @@ function amount(model){
 					            })
 							}
 							else{
-								model.tags.switchReferenceId=data["ConfirmSwitchTransaction"]["TranReferenceID"];
+
+								model.tags.switchReferenceId=data.Response[0]["ReferenceNo"];
 								delete model.stage
 								return resolve(model)
 
