@@ -910,6 +910,7 @@ function showSchemeName(model){
 							}
 						}
 						for(let element in unitOrAmountData){
+							console.log(element)
 							if(element["Value"]=="AU"){
 								model.tags.unitOrAmountList.push({
 									data : "All Units",
