@@ -999,6 +999,7 @@ function showSchemeName(model){
 												else{
 													delete model.stage
 												}
+												console.log("1::::"+model.tags.divOption)
 												return resolve(model)
 											}
 												
