@@ -681,68 +681,42 @@ function scheme(model){
 							message+=" This holding have units / amount that are held for less than a year and hence may attract short-term capital gains tax at 15% as well as exit load, if any You may want to modify your request to avoid these losses. It is advisable to hold equity funds for longer time frames to benefit from them."						
 						}
 						sendExternalMessage(model,message)
-						if(parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
-									model.tags.unitOrAmount="AU";
-									// console.log("amount valid")
-									api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,'E020391')
-									.then((data)=>{
-										console.log(data.body)
-										try{
-											data = JSON.parse(data.body)
-										}
-										catch(e){	
-											console.log(e);
-											let reply={
-								                text    : "API Not Responding Properly",
-								                type    : "text",
-								                sender  : model.sender,
-								                language: "en"
-								            }
-											external(reply)
-											.then((data)=>{
-								                return reject(model);
-								            })
-								            .catch((e)=>{
-								                console.log(e);
-								                return reject(model)
-								            })
-										}
-										if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-											let reply={
-								                text    : data.Response[0]['reject_reason'].trim(),
-								                type    : "text",
-								                sender  : model.sender,
-								                language: "en"
-								            }
-											external(reply)
-											.then((data)=>{
-								                return reject(model);
-								            })
-								            .catch((e)=>{
-								                console.log(e);
-								                return reject(model)
-								            })
-										}
-										else if(data.Response&&data.Response.length>0){
-											model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
-											model.stage="confirm"
-											return resolve(model);
-										}
-										else{
-								                return reject(model)
-											
-										}
-									})
-									.catch(e=>{
-										console.log(e)
-										return reject(model)
-									})
+						let filteredData={}
+						for(let key in data){
+							if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]){
+								filteredData[key]=data[key]
+							}
+						}
+
+						let matches = stringSimilarity.findBestMatch("", Object.keys(filteredData))
+						if(matches.bestMatch.rating>0.9){
+							model.tags.schemes.push(matches.bestMatch.target)
+						}
+						else if(matches.bestMatch.rating>0.10){
+							matches.ratings=matches.ratings.sort(sortBy('-rating'));
+							model.tags.schemes = matches.ratings.splice(0,9);
 						}
 						else{
-							delete model.stage;
-							return resolve(model);
+							return reject(model);
+						}
+						if(model.tags.schemes){
+							model.tags.schemeList = []
+							model.tags.schemes.forEach(function(element){
+								model.tags.schemeList.push({
+									title 	: 'Schemes',
+									text 	: element.target,
+									buttons : [
+										{
+											text : 'Select',
+											data : element.target
+										}
+									]
+								})
+							})
 
 						}
+						model.stage="showSchemeName";
+						return resolve(model);
 					}
 				}
 			}
@@ -1079,6 +1053,63 @@ function euin(model){
 				model.tags.existingEuinApiDetails=model.data
 				if(model.tags.divOption!=undefined){
 					model.stage = 'unitOrAmount'
+				}
+				else if(parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
+							model.tags.unitOrAmount="AU";
+							// console.log("amount valid")
+							api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
+							.then((data)=>{
+								console.log(data.body)
+								try{
+									data = JSON.parse(data.body)
+								}
+								catch(e){	
+									console.log(e);
+									let reply={
+						                text    : "API Not Responding Properly",
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+						                return reject(model);
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+								}
+								if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+									let reply={
+						                text    : data.Response[0]['reject_reason'].trim(),
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+						                return reject(model);
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+								}
+								else if(data.Response&&data.Response.length>0){
+									model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+									model.stage="confirm"
+									return resolve(model);
+								}
+								else{
+						                return reject(model)
+									
+								}
+							})
+							.catch(e=>{
+								console.log(e)
+								return reject(model)
+							})
 				}
 				else{
 					delete model.stage
