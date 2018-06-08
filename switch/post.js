@@ -899,7 +899,7 @@ function showSchemeName(model){
 
 
 					response = JSON.parse(response.body)
-
+					model.tags.unitOrAmountList=undefined
 
 					if(response.Response.length > 0){
 						let folioData=response.Response[0]
