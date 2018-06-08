@@ -933,6 +933,7 @@ function showSchemeName(model){
 
 						if(folioObj){
 							console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(folioObj,null,3)+":::::"+data[model.tags.scheme].optionCode)
+							model.tags.divOption=undefined
 								if(folioObj["DivOpt"]){
 									switch(folioObj["DivOpt"]){
 										case "Y": model.tags.divOption = 1
@@ -948,7 +949,7 @@ function showSchemeName(model){
 								if(data[model.tags.scheme].optionCode == 1){
 										model.tags.divOption = 0
 								}
-								if(model.tags.divOption){
+								if(model.tags.divOption!=undefined){
 
 									model.stage = 'unitOrAmount'
 								}
@@ -993,7 +994,7 @@ function showSchemeName(model){
 													model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
 												}
 												model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
-												if(model.tags.divOption){
+												if(model.tags.divOption!=undefined){
 													model.stage = 'unitOrAmount'
 												}
 												else{
