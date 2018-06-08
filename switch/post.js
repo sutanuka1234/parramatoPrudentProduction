@@ -912,18 +912,27 @@ function showSchemeName(model){
 						for(let element of unitOrAmountData){
 							console.log(element)
 							if(element["Value"]=="AU"){
+								if(!model.tags.unitOrAmountList){
+									model.tags.unitOrAmountList=[]
+								}
 								model.tags.unitOrAmountList.push({
 									data : "All Units",
 									text : "All Units"
 								})
 							}
 							else if(element["Value"]=="PU"){
+								if(!model.tags.unitOrAmountList){
+									model.tags.unitOrAmountList=[]
+								}
 								model.tags.unitOrAmountList.push({
 									data : "Partial Units",
 									text : "Partial Units"
 								})
 							}
 							else if(element["Value"]=="R"){
+								if(!model.tags.unitOrAmountList){
+									model.tags.unitOrAmountList=[]
+								}
 								model.tags.unitOrAmountList.push({
 									data : "Amount",
 									text : "Amount"
