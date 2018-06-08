@@ -22,7 +22,8 @@ let obj = {
 	euin	: euin,
 	divOps:divOps,
 	unitOrAmount:unitOrAmount,
-	amount : amount
+	amount : amount,
+	confirm : confirm
 }
 
 
@@ -723,58 +724,9 @@ function scheme(model){
 								            })
 										}
 										else if(data.Response&&data.Response.length>0){
-											let refrenceId=data.Response[0]["TranReferenceID"];
-											api.confirmSwitch(model.tags.session,refrenceId)
-											.then((data)=>{
-												console.log(data.body)
-												try{
-													data = JSON.parse(data.body)
-												}
-												catch(e){	
-													console.log(e);
-													let reply={
-										                text    : "API Not Responding Properly",
-										                type    : "text",
-										                sender  : model.sender,
-										                language: "en"
-										            }
-													external(reply)
-													.then((data)=>{
-										                return reject(model);
-										            })
-										            .catch((e)=>{
-										                console.log(e);
-										                return reject(model)
-										            })
-												}
-												if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-													let reply={
-										                text    : data.Response[0]['reject_reason'].trim(),
-										                type    : "text",
-										                sender  : model.sender,
-										                language: "en"
-										            }
-													external(reply)
-													.then((data)=>{
-										                return reject(model);
-										            })
-										            .catch((e)=>{
-										                console.log(e);
-										                return reject(model)
-										            })
-												}
-												else{
-													model.tags.switchReferenceId=data["ConfirmSwitchTransaction"]["TranReferenceID"];
-													delete model.stage
-													return resolve(model)
-
-												}
-
-											})
-											.catch(e=>{
-								                console.log(e);
-								                return reject(model)
-											})
+											model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+											model.stage="confirm"
+											return resolve(model);
 										}
 										else{
 								                return reject(model)
@@ -1214,58 +1166,9 @@ function unitOrAmount(model) {
 		            })
 				}
 				else if(data.Response&&data.Response.length>0){
-					let refrenceId=data.Response[0]["TranReferenceID"];
-					api.confirmSwitch(model.tags.session,refrenceId)
-					.then((data)=>{
-						console.log(data.body)
-						try{
-							data = JSON.parse(data.body)
-						}
-						catch(e){	
-							console.log(e);
-							let reply={
-				                text    : "API Not Responding Properly",
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-				                return reject(model);
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-						}
-						if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-							let reply={
-				                text    : data.Response[0]['reject_reason'].trim(),
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-				                return reject(model);
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-						}
-						else{
-							model.tags.switchReferenceId=refrenceId;
-							model.stage="summary"
-							return resolve(model)
-
-						}
-
-					})
-					.catch(e=>{
-		                console.log(e);
-		                return reject(model)
-					})
+					model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+					model.stage="confirm"
+					return resolve(model);
 				}
 				else{
 		                return reject(model)
@@ -1400,59 +1303,9 @@ function amount(model){
 			            })
 					}
 					else if(data.Response&&data.Response.length>0){
-						let refrenceId=data.Response[0]["TranReferenceID"];
-						api.confirmSwitch(model.tags.session,refrenceId)
-						.then((data)=>{
-							console.log(data.body)
-							try{
-								data = JSON.parse(data.body)
-							}
-							catch(e){	
-								console.log(e);
-								let reply={
-					                text    : "API Not Responding Properly",
-					                type    : "text",
-					                sender  : model.sender,
-					                language: "en"
-					            }
-								external(reply)
-								.then((data)=>{
-					                return reject(model);
-					            })
-					            .catch((e)=>{
-					                console.log(e);
-					                return reject(model)
-					            })
-							}
-							if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-								let reply={
-					                text    : data.Response[0]['reject_reason'].trim(),
-					                type    : "text",
-					                sender  : model.sender,
-					                language: "en"
-					            }
-								external(reply)
-								.then((data)=>{
-					                return reject(model);
-					            })
-					            .catch((e)=>{
-					                console.log(e);
-					                return reject(model)
-					            })
-							}
-							else{
-
-								model.tags.switchReferenceId=data.Response[0]["ReferenceNo"];
-								delete model.stage
-								return resolve(model)
-
-							}
-
-						})
-						.catch(e=>{
-			                console.log(e);
-			                return reject(model)
-						})
+						model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+						model.stage="confirm"
+						return resolve(model);
 					}
 					else{
 			                return reject(model)
@@ -1477,6 +1330,70 @@ function amount(model){
 		}
 	})
 }
+
+
+function confirm(model){
+
+	return new Promise(function(resolve, reject){
+		if(model.data.toLowerCase().includes("yes")){
+			api.confirmSwitch(model.tags.session,model.tags.refrenceIdSwitchTxn)
+			.then((data)=>{
+				console.log(data.body)
+				try{
+					data = JSON.parse(data.body)
+				}
+				catch(e){	
+					console.log(e);
+					let reply={
+		                text    : "API Not Responding Properly",
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+		                return reject(model);
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+				if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+					let reply={
+		                text    : data.Response[0]['reject_reason'].trim(),
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+		                return reject(model);
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+				else{
+					model.tags.switchReferenceId=refrenceId;
+					model.stage="summary"
+					return resolve(model)
+
+				}
+
+			})
+			.catch(e=>{
+	            console.log(e);
+	            return reject(model)
+			})
+		}
+		else{
+			return reject(model)
+		}
+	});
+}
+
 
 function sendExternalMessage(model,text){
 	let reply={

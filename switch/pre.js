@@ -96,6 +96,7 @@ function panMobile(model){
 		model.tags.tranId=undefined
 		model.tags.switchSchemeList=undefined
 		model.tags.switchReferenceId=undefined
+		model.tags.refrenceIdSwitchTxn=undefined
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)

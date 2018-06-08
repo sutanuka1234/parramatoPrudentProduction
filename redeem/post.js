@@ -18,7 +18,8 @@ let obj = {
 	holding : holding,
 	scheme 	: scheme,
 	unitOrAmount:unitOrAmount,
-	amount 	:amount
+	amount 	:amount,
+	confirm : confirm
 }
 
 
@@ -725,59 +726,9 @@ function scheme(model){
 						            })
 								}
 								else if(data.Response&&data.Response.length>0){
-									let refrenceId=data.Response[0]["TranReferenceID"];
-									api.confirmRedemption(model.tags.session,refrenceId)
-									.then((data)=>{
-										console.log(data.body)
-										try{
-											data = JSON.parse(data.body)
-										}
-										catch(e){	
-											console.log(e);
-											let reply={
-								                text    : "API Not Responding Properly",
-								                type    : "text",
-								                sender  : model.sender,
-								                language: "en"
-								            }
-											external(reply)
-											.then((data)=>{
-								                return reject(model);
-								            })
-								            .catch((e)=>{
-								                console.log(e);
-								                return reject(model)
-								            })
-										}
-										if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-											let reply={
-								                text    : data.Response[0]['reject_reason'].trim(),
-								                type    : "text",
-								                sender  : model.sender,
-								                language: "en"
-								            }
-											external(reply)
-											.then((data)=>{
-								                return reject(model);
-								            })
-								            .catch((e)=>{
-								                console.log(e);
-								                return reject(model)
-								            })
-										}
-										else{
-											console.log("summaryyyyy")
-											model.tags.redeemReferenceId=data["ConfirmRedemptionTransaction"]["TranReferenceID"];
-											model.stage="summary"
-											return resolve(model)
-
-										}
-
-									})
-									.catch(e=>{
-						                console.log(e);
-						                return reject(model)
-									})
+									model.tags.refrenceIdRedeemTxn=data.Response[0]["TranReferenceID"];
+									model.stage="confirm";
+									return resolve(model);
 								}
 								else{
 						                return reject(model)
@@ -856,59 +807,9 @@ function unitOrAmount(model) {
 		            })
 				}
 				else if(data.Response&&data.Response.length>0){
-					let refrenceId=data.Response[0]["TranReferenceID"];
-					api.confirmRedemption(model.tags.session,refrenceId)
-					.then((data)=>{
-						console.log(data.body)
-						try{
-							data = JSON.parse(data.body)
-						}
-						catch(e){	
-							console.log(e);
-							let reply={
-				                text    : "API Not Responding Properly",
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-				                return reject(model);
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-						}
-						if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-							let reply={
-				                text    : data.Response[0]['reject_reason'].trim(),
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-				                return reject(model);
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-						}
-						else{
-							console.log("summaryyyyy")
-							model.tags.redeemReferenceId=data["ConfirmRedemptionTransaction"]["TranReferenceID"];
-							model.stage="summary"
-							return resolve(model)
-
-						}
-
-					})
-					.catch(e=>{
-		                console.log(e);
-		                return reject(model)
-					})
+					model.tags.refrenceIdRedeemTxn=data.Response[0]["TranReferenceID"];
+					model.stage="confirm";
+					return resolve(model)
 				}
 				else{
 		                return reject(model)
@@ -1040,58 +941,9 @@ function amount(model){
 			            })
 					}
 					else if(data.Response&&data.Response.length>0){
-						let refrenceId=data.Response[0]["TranReferenceID"];
-						api.confirmRedemption(model.tags.session,refrenceId)
-						.then((data)=>{
-							console.log(data.body)
-							try{
-								data = JSON.parse(data.body)
-							}
-							catch(e){	
-								console.log(e);
-								let reply={
-					                text    : "API Not Responding Properly",
-					                type    : "text",
-					                sender  : model.sender,
-					                language: "en"
-					            }
-								external(reply)
-								.then((data)=>{
-					                return reject(model);
-					            })
-					            .catch((e)=>{
-					                console.log(e);
-					                return reject(model)
-					            })
-							}
-							if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-								let reply={
-					                text    : data.Response[0]['reject_reason'].trim(),
-					                type    : "text",
-					                sender  : model.sender,
-					                language: "en"
-					            }
-								external(reply)
-								.then((data)=>{
-					                return reject(model);
-					            })
-					            .catch((e)=>{
-					                console.log(e);
-					                return reject(model)
-					            })
-							}
-							else{
-								model.tags.redeemReferenceId=refrenceId;
-								delete model.stage
-								return resolve(model)
-
-							}
-
-						})
-						.catch(e=>{
-			                console.log(e);
-			                return reject(model)
-						})
+						model.tags.refrenceIdRedeemTxn=data.Response[0]["TranReferenceID"];
+						model.stage="confirm";
+						return resolve(model)
 					}
 					else{
 			                return reject(model)
@@ -1117,7 +969,68 @@ function amount(model){
 	})
 }
 
+function confirm(model){
 
+	return new Promise(function(resolve, reject){
+		if(model.data.toLowerCase().includes("yes")){
+			api.confirmRedemption(model.tags.session,model.tags.refrenceIdRedeemTxn)
+			.then((data)=>{
+				console.log(data.body)
+				try{
+					data = JSON.parse(data.body)
+				}
+				catch(e){	
+					console.log(e);
+					let reply={
+		                text    : "API Not Responding Properly",
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+		                return reject(model);
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+				if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+					let reply={
+		                text    : data.Response[0]['reject_reason'].trim(),
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+		                return reject(model);
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+				else{
+					console.log("summaryyyyy")
+					model.tags.redeemReferenceId=data["ConfirmRedemptionTransaction"]["TranReferenceID"];
+					model.stage="summary"
+					return resolve(model)
+
+				}
+
+			})
+			.catch(e=>{
+	            console.log(e);
+	            return reject(model)
+			})
+		}
+		else{
+			return reject(model)
+		}
+	});
+}
 
 function sendExternalMessage(model,text){
 	let reply={
