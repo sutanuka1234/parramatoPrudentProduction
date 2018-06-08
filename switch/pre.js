@@ -271,6 +271,7 @@ function folio(model){
 
 function unitOrAmount(model){
 	return new Promise(function(resolve, reject){
+		console.log(model.tags.unitOrAmountList)
 		if(model.tags.unitOrAmountList){
 			model.reply={
 				type:"quickReply",
