@@ -82,6 +82,7 @@ function main(req, res){
 		.then((data)=>{
 			// console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
 			// console.log(JSON.stringify(data,null,3))
+			console.log(data.stage+":::stageee")
 			res.send(data)
 		})
 		.catch((e)=>{
