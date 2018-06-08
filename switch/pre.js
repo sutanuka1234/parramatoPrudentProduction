@@ -18,6 +18,7 @@ let obj = {
 	scheme 	: scheme,
 	askSchemeName:askSchemeName,
 	showSchemeName:showSchemeName,
+	euin	: euin,
 	divOps:divOps,
 	unitOrAmount:unitOrAmount,
 	amount:amount,
@@ -238,6 +239,22 @@ function showSchemeName(model){
 		}
 		resolve(model)
 	})
+}
+
+function euin(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.euinApiDetailsList){
+			model.reply={
+				type:"quickReply",
+	            text:"Can you please let us know they payment mode. You can choose direct or through your advisor (advisor codes available below)",
+	            next:{
+	                data: model.tags.euinApiDetailsList
+	            }
+			}
+		}
+		resolve(model)
+	});
+
 }
 
 function folio(model){

@@ -19,6 +19,7 @@ let obj = {
 	scheme 	: scheme,
 	askSchemeName:askSchemeName,
 	showSchemeName:showSchemeName,
+	euin	: euin,
 	divOps:divOps,
 	unitOrAmount:unitOrAmount,
 	amount : amount
@@ -959,13 +960,13 @@ function showSchemeName(model){
 								if(data[model.tags.scheme].optionCode == 1){
 										model.tags.divOption = 0
 								}
-								if(model.tags.divOption!=undefined){
+								// if(model.tags.divOption!=undefined){
 
-									model.stage = 'unitOrAmount'
-								}
-								else{
-									delete model.stage
-								}
+								// 	model.stage = 'unitOrAmount'
+								// }
+								// else{
+								// 	delete model.stage
+								// }
 								sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
 								api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,true)
 								.then((response)=>{
@@ -977,7 +978,16 @@ function showSchemeName(model){
 
 										if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 											model.tags.schemeApiDetails=response.Response[0][0];
-											model.tags.euinApiDetails=response.Response[0][1];
+											model.tags.euinApiDetails=response.Response[1][0];
+											model.tags.euinApiDetailsList=[];
+											if(response.Response.length>1){
+												for(let i in response.Response[1]){
+													model.tags.euinApiDetailsList.push({
+														data : response.Response[1][i]["ID"],
+														text : response.Response[1][i]["ID"]
+													})
+												}
+											}
 											model.tags.switchMinAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 
 											if(parseFloat(model.tags.switchSchemeObj["AvailableAmt"])<model.tags.switchMinAmount){
@@ -1004,13 +1014,7 @@ function showSchemeName(model){
 													model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
 												}
 												model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
-												if(model.tags.divOption!=undefined){
-													model.stage = 'unitOrAmount'
-												}
-												else{
-													delete model.stage
-												}
-												console.log("1::::"+model.tags.divOption)
+												delete model.stage
 												return resolve(model)
 											}
 												
@@ -1106,15 +1110,36 @@ function showSchemeName(model){
 			model.stage = 'showSchemeName'
 			return resolve(model)
 		}
-		
-
-
-
-		
 
 
 	})
 }
+
+
+
+function euin(model){
+	return new Promise(function(resolve, reject){
+		let euinFlag=false;
+		for(let data of model.tags.euinApiDetailsList){
+			if(data["data"]==model.data){
+				euinFlag=true;
+				model.tags.euin=model.data
+				model.tags.existingEuinApiDetails=model.data
+				if(model.tags.divOption!=undefined){
+					model.stage = 'unitOrAmount'
+				}
+				else{
+					delete model.stage
+				}
+				return resolve(model);
+			}
+		}
+		
+		return reject(model);
+	});
+
+}
+
 
 function divOps(model){
 	return new Promise(function(resolve, reject){
@@ -1282,22 +1307,6 @@ function amount(model){
 		try{
 			if(model.tags.amount&&model.tags.switchSchemeObj){
 				
-				// let amount=parseFloat(model.tags.amount)
-				// let maxAmount=parseFloat(model.tags.switchSchemeObj["AvailableAmt"])
-				// let minAmount=parseFloat(model.tags.switchMinAmount)
-				// console.log(minAmount)
-				// console.log(maxAmount)
-				// console.log(amount)
-				// if(amount<minAmount){
-				// 	// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
-				// 	model.tags.amount=undefined;
-				// }
-				// else if(amount>maxAmount){
-				// 	// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
-				// 	model.tags.amount=undefined;
-				// }
-
-
 
 				
 				if(model.tags.unitOrAmount=="PU"){
