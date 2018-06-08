@@ -898,7 +898,7 @@ function showSchemeName(model){
 					if(response.Response.length > 0){
 						for(let i in response.Response){
 							if(response.Response[i].FolioNo==model.tags.folio){
-								console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(response.Response[i],null,3))
+								console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(response.Response[i],null,3)+":::::"+data[model.tags.scheme].optionCode)
 								if(response.Response[i]["DivOpt"]){
 									switch(response.Response[i]["DivOpt"]){
 										case "Y": model.tags.divOption = 1
