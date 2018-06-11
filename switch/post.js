@@ -689,16 +689,8 @@ function scheme(model){
 						}
 
 						let matches = stringSimilarity.findBestMatch("", Object.keys(filteredData))
-						if(matches.bestMatch.rating>0.9){
-							model.tags.schemes.push(matches.bestMatch.target)
-						}
-						else if(matches.bestMatch.rating>0.10){
-							matches.ratings=matches.ratings.sort(sortBy('-rating'));
-							model.tags.schemes = matches.ratings.splice(0,9);
-						}
-						else{
-							return reject(model);
-						}
+						matches.ratings=matches.ratings.sort(sortBy('-rating'));
+						model.tags.schemes = matches.ratings.splice(0,9);
 						if(model.tags.schemes){
 							model.tags.schemeList = []
 							model.tags.schemes.forEach(function(element){
