@@ -844,7 +844,7 @@ function amount(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
 		if(model.tags.unitOrAmount=="PU"){
-			model=extractAmountUptoThree(model)
+			model=extractAmount(model)
 		}
 		else{
 			model=extractAmount(model)
