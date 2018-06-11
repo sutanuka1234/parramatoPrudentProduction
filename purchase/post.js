@@ -529,7 +529,7 @@ function otp(model){
 								title: 'Holding Patterns',
 								text : model.tags.joinAcc[i].JoinHolderName,
 								buttons : [{
-									data : model.tags.joinAcc[i].JoinAccId,
+									data : "holding|||"+model.tags.joinAcc[i].JoinAccId,
 									text : 'Select'
 								}]
 							})
@@ -704,7 +704,7 @@ function showSchemeName(model){
 					title: 'Holding Patterns',
 					text : model.tags.joinAcc[i].JoinHolderName,
 					buttons : [{
-						data : model.tags.joinAcc[i].JoinAccId,
+						data : "holding|||"+model.tags.joinAcc[i].JoinAccId,
 						text : 'Select'
 					}]
 				})
