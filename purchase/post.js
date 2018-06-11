@@ -82,6 +82,16 @@ let amc = [
 
 function main(req, res){
 		console.log(req.params.stage)
+		var buttonStageArr=req.body.data.split("|||")
+		if(buttonStageArr.length==2){
+			if(buttonStageArr==req.params.stage){
+				req.body.data=buttonStageArr[1]
+			}
+			else{
+				req.body.stage=buttonStageArr[0]
+				res.send(req.body)
+			}
+		}
 		obj[req.params.stage](req.body)
 		.then((data)=>{
 			// console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
@@ -533,7 +543,7 @@ function otp(model){
 									buttons : [
 										{
 											text : 'Select',
-											data : element.target
+											data : "showSchemeName|||"+element.target
 										}
 									]
 								})
@@ -648,7 +658,7 @@ function askSchemeName(model){
 					buttons : [
 						{
 							text : 'Select',
-							data : element.target
+							data : "showSchemeName|||"+element.target
 						}
 					]
 				})
@@ -723,7 +733,7 @@ function showSchemeName(model){
 						buttons : [
 							{
 								text : 'Select',
-								data : element.target
+								data : "showSchemeName|||"+element.target
 							}
 						]
 					})
