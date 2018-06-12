@@ -88,8 +88,7 @@ function main(req, res){
 				req.body.data=buttonStageArr[1]
 				obj[req.params.stage](req.body)
 				.then((data)=>{
-					// console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
-					// console.log(JSON.stringify(data.tags.schemes,null,3))
+					console.log("1")
 					res.send(data)
 				})
 				.catch((e)=>{
@@ -98,6 +97,7 @@ function main(req, res){
 				})
 			}
 			else{
+				console.log("2")
 				req.body.stage=buttonStageArr[0]
 				res.send(req.body)
 			}
@@ -105,8 +105,7 @@ function main(req, res){
 		else{
 			obj[req.params.stage](req.body)
 				.then((data)=>{
-					// console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
-					// console.log(JSON.stringify(data.tags.schemes,null,3))
+					console.log("3")
 					res.send(data)
 				})
 				.catch((e)=>{
