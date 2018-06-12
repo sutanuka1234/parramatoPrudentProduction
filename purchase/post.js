@@ -603,6 +603,7 @@ function otp(model){
 function agreement(model){
 	return new Promise(function(resolve,reject){
 		if(model.data.toLowerCase().trim().includes("i accept and agree")){
+			console.log(model.tags.investmentType)
 			if(model.tags.investmentType){
 				if(model.tags.schemes && model.tags.schemes.length > 0){
 					model.stage = 'showSchemeName'
