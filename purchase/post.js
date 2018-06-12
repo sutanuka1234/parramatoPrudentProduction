@@ -541,7 +541,7 @@ function otp(model){
 								title: 'Holding Patterns',
 								text : model.tags.joinAcc[i].JoinHolderName,
 								buttons : [{
-									data : "holding|||"+model.tags.joinAcc[i].JoinAccId,
+									data : model.tags.joinAcc[i].JoinAccId,
 									text : 'Select'
 								}]
 							})
@@ -555,7 +555,7 @@ function otp(model){
 									buttons : [
 										{
 											text : 'Select',
-											data : "showSchemeName|||"+element.target
+											data : element.target
 										}
 									]
 								})
@@ -670,7 +670,7 @@ function askSchemeName(model){
 					buttons : [
 						{
 							text : 'Select',
-							data : "showSchemeName|||"+element.target
+							data : element.target
 						}
 					]
 				})
@@ -716,7 +716,7 @@ function showSchemeName(model){
 					title: 'Holding Patterns',
 					text : model.tags.joinAcc[i].JoinHolderName,
 					buttons : [{
-						data : "holding|||"+model.tags.joinAcc[i].JoinAccId,
+						data : model.tags.joinAcc[i].JoinAccId,
 						text : 'Select'
 					}]
 				})
@@ -745,7 +745,7 @@ function showSchemeName(model){
 						buttons : [
 							{
 								text : 'Select',
-								data : "showSchemeName|||"+element.target
+								data :element.target
 							}
 						]
 					})
