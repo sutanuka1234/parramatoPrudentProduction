@@ -572,7 +572,7 @@ function otp(model){
 							}
 						}
 						else{
-
+							console.log("sent message")
 							sendExternalMessage(model,"Hi "+model.tags.joinAcc[0].JoinHolderName.split("/")[0]+", hope you are doing great today.");
 							delete model.stage
 							return resolve(model)
