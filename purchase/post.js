@@ -257,6 +257,7 @@ function panMobile(model){
 			model = extractInvetmentType(model)
 			model = extractAmount(model);
 			model = extractFolio(model);
+			console.log(model.tags.investmentType)
 			if(model.tags.pan&&model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
 				.then(data=>{
@@ -350,6 +351,7 @@ function mobile(model){
 			model=extractInvetmentType(model)
 			model = extractAmount(model);
 			model = extractFolio(model);
+			console.log(model.tags.investmentType)
 			if(model.tags.pan&&model.tags.mobile){
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
@@ -414,6 +416,7 @@ function pan(model){
 		model=extractInvetmentType(model)
 		model = extractAmount(model);
 		model = extractFolio(model);
+		console.log(model.tags.investmentType)
 			// console.log("TAGG")
 			// console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.pan&&model.tags.mobile){
@@ -477,7 +480,8 @@ function otp(model){
 		model = extractOTP(model);
 		model = extractDivOption(model);
 		model = extractSchemeName(model);
-		model=extractInvetmentType(model)
+		model=extractInvetmentType(model);
+		console.log(model.tags.investmentType)
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
 			api.resendOtp(model.tags.session)
 			.then((response)=>{
