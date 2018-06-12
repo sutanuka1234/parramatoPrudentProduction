@@ -102,6 +102,18 @@ function main(req, res){
 				res.send(req.body)
 			}
 		}
+		else{
+			obj[req.params.stage](req.body)
+				.then((data)=>{
+					// console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
+					// console.log(JSON.stringify(data.tags.schemes,null,3))
+					res.send(data)
+				})
+				.catch((e)=>{
+					console.log(e)
+					res.sendStatus(203)
+				})
+		}
 		
 }
 
