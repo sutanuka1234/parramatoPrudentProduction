@@ -15,6 +15,7 @@ let obj = {
 	mobile	: mobile,
 	pan		: pan,
 	otp		: otp,
+	agreement	: agreement,
 	investmentType :investmentType,
 	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
@@ -598,6 +599,32 @@ function otp(model){
 
 //============================================================
 
+
+function agreement(model){
+	new Promise(function(resolve,reject){
+		if(model.data.toLowerCase().trim().includes("i accept and agree")){
+			if(model.tags.investmentType){
+				if(model.tags.schemes && model.tags.schemes.length > 0){
+					model.stage = 'showSchemeName'
+					return resolve(model);
+				}
+				else{
+					model.stage = 'askSchemeName'
+					return resolve(model);
+				}
+			}
+			else{
+				delete model.stage
+				return resolve(model);
+			}
+		}
+		else{
+			return reject(model);
+		}
+	})
+}
+
+
 function investmentType(model){
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes("lumpsum")||model.data.toLowerCase().includes("one time")){
@@ -799,6 +826,10 @@ function holding(model){
 								})
 							}
 						}
+						model.tags.euinApiDetailsList.push({
+							data : "Direct",
+							text : "Direct"
+						})
 
 						api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,true)
 						.then(response=>{
@@ -901,6 +932,10 @@ function holding(model){
 							})
 						}
 					}
+					model.tags.euinApiDetailsList.push({
+						data : "Direct",
+						text : "Direct"
+					})
 					model.tags.existingSchemeDetailsSet=[]
 					// console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
 					for (let existingScheme of model.tags.existingSchemeApiDetails){
@@ -941,6 +976,11 @@ function holding(model){
 										})
 									}
 								}
+
+								model.tags.euinApiDetailsList.push({
+									data : "Direct",
+									text : "Direct"
+								})
 					            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
 					            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
 					            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
@@ -1095,6 +1135,10 @@ function additional(model){
 							})
 						}
 					}
+					model.tags.euinApiDetailsList.push({
+						data : "Direct",
+						text : "Direct"
+					})
 					api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 					.then(response=>{
 						try{
@@ -1164,8 +1208,14 @@ function euin(model){
 		for(let data of model.tags.euinApiDetailsList){
 			if(data["data"]==model.data){
 				euinFlag=true;
-				model.tags.euin=model.data
-				model.tags.existingEuinApiDetails=model.data
+				if(model.data.toLowerCase().includes("direct")){
+					model.tags.euin=""
+					model.tags.existingEuinApiDetails=""
+				}
+				else{
+					model.tags.euin=model.data
+					model.tags.existingEuinApiDetails=model.data
+				}
 				break;
 			}
 		}
@@ -1361,7 +1411,6 @@ function folio(model){
 							if(schemeVal["FolioNo"]==model.tags.folio){
 								model.tags.tranId=schemeVal["Tranid"]
 								model.tags.schemeApiDetails=schemeVal;
-								model.tags.euinApiDetails=model.tags.existingEuinApiDetails
 								break;
 							}
 						}
@@ -1386,9 +1435,6 @@ function folio(model){
 					}
 					let schemeCode=data[model.tags.scheme].schemeCode
 					if(model.tags.amount){
-						if(!model.tags.existingEuinApiDetails){
-							model.tags.existingEuinApiDetails={}
-						}
 						if(model.tags.investmentType=="sip"){
 							//TODO
 							// console.log("2")
@@ -1542,9 +1588,6 @@ function divOps(model){
 			}
 			let schemeCode=data[model.tags.scheme].schemeCode
 			if(model.tags.amount){
-				if(!model.tags.existingEuinApiDetails){
-					model.tags.existingEuinApiDetails={}
-				}
 				if(model.tags.investmentType=="sip"){
 					//TODO
 					model.stage = 'sipDay'
@@ -1684,7 +1727,6 @@ function amount(model){
 				if(schemeVal["FolioNo"]==model.tags.folio){
 					model.tags.tranId=schemeVal["Tranid"]
 					model.tags.schemeApiDetails=schemeVal;
-					model.tags.euinApiDetails=model.tags.existingEuinApiDetails
 					break;
 				}
 			}
@@ -1692,9 +1734,6 @@ function amount(model){
 
 		
 		if(model.tags.amount){
-			if(!model.tags.existingEuinApiDetails){
-				model.tags.existingEuinApiDetails={}
-			}
 			if(model.tags.investmentType=="sip"){
 					//TODO
 					delete model.stage
