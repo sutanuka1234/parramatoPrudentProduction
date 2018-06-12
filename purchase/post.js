@@ -531,6 +531,8 @@ function otp(model){
 					}
 					else{
 						model.tags.joinAcc = response.Response
+						console.log("sent message")
+						sendExternalMessage(model,"Hi "+model.tags.joinAcc[0].JoinHolderName.split("/")[0]+", hope you are doing great today.");
 						model.tags.joinAccId = []
 						response.Response.forEach(function(element){
 							model.tags.joinAccId.push(element.JoinAccId.toString())
@@ -572,8 +574,6 @@ function otp(model){
 							}
 						}
 						else{
-							console.log("sent message")
-							sendExternalMessage(model,"Hi "+model.tags.joinAcc[0].JoinHolderName.split("/")[0]+", hope you are doing great today.");
 							delete model.stage
 							return resolve(model)
 						}
