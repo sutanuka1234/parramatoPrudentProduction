@@ -86,22 +86,23 @@ function main(req, res){
 		if(buttonStageArr.length==2){
 			if(buttonStageArr==req.params.stage){
 				req.body.data=buttonStageArr[1]
+				obj[req.params.stage](req.body)
+				.then((data)=>{
+					// console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
+					// console.log(JSON.stringify(data.tags.schemes,null,3))
+					res.send(data)
+				})
+				.catch((e)=>{
+					console.log(e)
+					res.sendStatus(203)
+				})
 			}
 			else{
 				req.body.stage=buttonStageArr[0]
 				res.send(req.body)
 			}
 		}
-		obj[req.params.stage](req.body)
-		.then((data)=>{
-			// console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
-			// console.log(JSON.stringify(data.tags.schemes,null,3))
-			res.send(data)
-		})
-		.catch((e)=>{
-			console.log(e)
-			res.sendStatus(203)
-		})
+		
 }
 
 //============================================================
