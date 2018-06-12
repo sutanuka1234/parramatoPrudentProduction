@@ -564,20 +564,20 @@ function otp(model){
 								})
 							}
 						}
-						if(model.tags.investmentType){
-							if(model.tags.schemes && model.tags.schemes.length > 0){
-								model.stage = 'showSchemeName'
-								return resolve(model)
-							}
-							else{
-								model.stage = 'askSchemeName'
-								return resolve(model)
-							}
-						}
-						else{
+						// if(model.tags.investmentType){
+						// 	if(model.tags.schemes && model.tags.schemes.length > 0){
+						// 		model.stage = 'showSchemeName'
+						// 		return resolve(model)
+						// 	}
+						// 	else{
+						// 		model.stage = 'askSchemeName'
+						// 		return resolve(model)
+						// 	}
+						// }
+						// else{
 							delete model.stage
 							return resolve(model)
-						}
+						// }
 
 					}
 				}
