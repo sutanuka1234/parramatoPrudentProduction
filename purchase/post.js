@@ -89,7 +89,7 @@ function main(req, res){
 			console.log(req.params.stage+":::"+buttonStageArr[0])
 			if(req.params.stage!=buttonStageArr[0]){
 					req.params.stage=buttonStageArr[0];
-					req.body.stage=buttonStageArr[0];
+					delete req.body.stage
 			}
 		}
 		
@@ -579,7 +579,7 @@ function otp(model){
 						// 	}
 						// }
 						// else{
-							delete model.stage
+							model.stage="holding"
 							return resolve(model)
 						// }
 
