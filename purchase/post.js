@@ -89,15 +89,21 @@ function main(req, res){
 				req.params.stage=obj[buttonStageArr[0]]
 			}
 		}
-		obj[req.params.stage](req.body)
-		.then((data)=>{
-			console.log("3")
-			res.send(data)
-		})
-		.catch((e)=>{
-			console.log(e)
-			res.sendStatus(203)
-		})
+		if(obj[req.params.stage]){
+			obj[req.params.stage](req.body)
+			.then((data)=>{
+				console.log("3")
+				res.send(data)
+			})
+			.catch((e)=>{
+				console.log(e)
+				res.sendStatus(203)
+			})
+		}
+		else{
+				console.log("No such function available")
+				res.sendStatus(203)
+		}
 		
 }
 
