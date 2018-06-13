@@ -105,10 +105,10 @@ function panMobile(model){
 			model=extractPan(model)
 			model=extractMobile(model)
 			model=extractInvestmentType(model)
-			model=extractDivOption(model)
+			// model=extractDivOption(model)
 			model=extractSchemeName(model)
 			model=extractAmount(model)
-			model=extractFolio(model)
+			// model=extractFolio(model)
 			console.log(model.tags.investmentType+":Type of investment")
 		}
 		let invType=""

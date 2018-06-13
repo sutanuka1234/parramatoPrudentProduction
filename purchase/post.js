@@ -252,11 +252,11 @@ function panMobile(model){
 		else{ 
 			// console.log("4")
 			model = extractMobile(model);
-			model = extractDivOption(model);
+			// model = extractDivOption(model);
 			model = extractSchemeName(model);
 			model = extractInvetmentType(model)
 			model = extractAmount(model);
-			model = extractFolio(model);
+			// model = extractFolio(model);
 			console.log(model.tags.investmentType)
 			if(model.tags.pan&&model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
@@ -346,11 +346,11 @@ function mobile(model){
 	return new Promise(function(resolve, reject){
 		    model=dataClean(model);
 			model = extractMobile(model);
-			model = extractDivOption(model);
+			// model = extractDivOption(model);
 			model=extractSchemeName(model);
 			model=extractInvetmentType(model)
 			model = extractAmount(model);
-			model = extractFolio(model);
+			// model = extractFolio(model);
 			console.log(model.tags.investmentType)
 			if(model.tags.pan&&model.tags.mobile){
 					api.panMobile(model.tags.mobile, model.tags.pan)
@@ -411,11 +411,11 @@ function pan(model){
 	return new Promise(function(resolve, reject){
 		model = dataClean(model);
 		model = extractPan(model);
-		model = extractDivOption(model);
+		// model = extractDivOption(model);
 		model=extractSchemeName(model);
 		model=extractInvetmentType(model)
 		model = extractAmount(model);
-		model = extractFolio(model);
+		// model = extractFolio(model);
 		console.log(model.tags.investmentType)
 			// console.log("TAGG")
 			// console.log(JSON.stringify(model.tags,null,3))
@@ -478,7 +478,7 @@ function otp(model){
 		// model.tags.mobileEntered=false;
 		model = dataClean(model);
 		model = extractOTP(model);
-		model = extractDivOption(model);
+		// model = extractDivOption(model);
 		model = extractSchemeName(model);
 		model=extractInvetmentType(model);
 		console.log(model.tags.investmentType)
@@ -668,9 +668,9 @@ function askSchemeName(model){
 		if(model.data.toLowerCase().includes("cancel")||model.data.toLowerCase().includes("stop")||model.data.toLowerCase().trim()=="exit"){
 			return reject(model)
 		}
-		model = extractDivOption(model)
+		// model = extractDivOption(model)
 		// model = extractAmount(model)
-		model = extractFolio(model)
+		// model = extractFolio(model)
 		// if(model.tags.selectType.toLowerCase().includes("additional")){
 		// 	model.stage = 'holding'
 		// 	return resolve(model)
@@ -719,9 +719,9 @@ function showSchemeName(model){
 		if(model.data.toLowerCase().includes("cancel")||model.data.toLowerCase().includes("stop")||model.data.toLowerCase().trim()=="exit"){
 			return reject(model)
 		}
-		model = extractDivOption(model)
+		// model = extractDivOption(model)
 		// model = extractAmount(model)
-		model = extractFolio(model)
+		// model = extractFolio(model)
 		// if(model.tags.selectType.toLowerCase().includes("additional")){
 		// 	model.stage = 'holding'
 		// 	return resolve(model)
@@ -731,6 +731,7 @@ function showSchemeName(model){
 		model.tags.tranId=undefined
 		model.tags.transactionRefId=undefined
 		model.tags.additional=false;
+		model.tags.folio=undefined;
 		if(model.tags.schemes===undefined){
 			model.tags.schemes=[]
 		}
@@ -1567,7 +1568,7 @@ function folio(model){
 function divOps(model){
 	return new Promise(function(resolve, reject){
 		model = extractAmount(model)
-		model = extractFolio(model)
+		// model = extractFolio(model)
 		if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')|| model.data.toLowerCase().includes('payout')){
 			
 			if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')){
