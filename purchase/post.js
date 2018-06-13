@@ -146,18 +146,24 @@ function panMobile(model){
 				// console.log("DIVOPTION")
 				temp.divOption=model.tags.divOption;
 			}
+			if(model.tags.investmentType){
+				// console.log("INVTYPE")
+				temp.investmentType=model.tags.investmentType
+			}
 			model.tags=temp;
 			model.tags.newPan=undefined;
 			model.tags.newFolio=undefined;
 			model.tags.newScheme=undefined;
 			model.tags.newAmount=undefined;
 			model.tags.newDivOption=undefined;
+			model.tags.newInvestmentType=undefined;
 		}
 		else{
 				model.tags.newFolio=undefined;
 				model.tags.newScheme=undefined;
 				model.tags.newAmount=undefined;
 				model.tags.newDivOption=undefined;
+				model.tags.newInvestmentType=undefined;
 
 		}
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	

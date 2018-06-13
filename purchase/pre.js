@@ -471,12 +471,14 @@ function extractInvestmentType(model){
 			model.tags.userSays=model.tags.userSays.replace("lumpsum","")
 			model.tags.userSays = model.tags.userSays.replace("one time","")
 			model.tags.investmentType="lumpsum"
+			model.tags.newInvestmentType=true;
 	}
 	else if(model.tags.userSays.toLowerCase().includes("sip")||model.tags.userSays.toLowerCase().includes("systematic")||model.tags.userSays.toLowerCase().includes("monthly")){
 			model.tags.userSays=model.tags.userSays.replace("sip","")
 			model.tags.userSays = model.tags.userSays.replace("systematic","")
 			model.tags.userSays = model.tags.userSays.replace("monthly","")
 			model.tags.investmentType="sip"
+			model.tags.newInvestmentType=true;
 	}
 	return model;
 }
