@@ -78,19 +78,35 @@ let amc = [
 	'principal pnb'
 ]
 
+
 function main(req, res){
-		// console.log(req.params.stage)
-		obj[req.params.stage](req.body)
-		.then((data)=>{
-			// console.log(req.params.stage+"::::::::::::::::::::::::::::::::::::::::::")
-			// console.log(JSON.stringify(data,null,3))
-			console.log(data.stage+":::stageee")
-			res.send(data)
-		})
-		.catch((e)=>{
-			// console.log(e)
-			res.sendStatus(203)
-		})
+		console.log(req.params.stage)
+		var buttonStageArr=req.body.data.split("|||")
+		if(buttonStageArr.length==2){
+			req.body.data=buttonStageArr[1]
+			console.log(req.params.stage+":::"+buttonStageArr[0])
+			if(req.params.stage!=buttonStageArr[0]){
+					req.params.stage=buttonStageArr[0];
+					delete req.body.stage
+			}
+		}
+		
+		if(obj[req.params.stage]){
+			obj[req.params.stage](req.body)
+			.then((data)=>{
+				console.log("3")
+				res.send(data)
+			})
+			.catch((e)=>{
+				console.log(e)
+				res.sendStatus(203)
+			})
+		}
+		else{
+				console.log("No such function available")
+				res.sendStatus(203)
+		}
+		
 }
 
 //============================================================
