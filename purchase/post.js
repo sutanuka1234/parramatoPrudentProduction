@@ -84,7 +84,7 @@ let amc = [
 function main(req, res){
 		console.log(req.params.stage)
 		var buttonStageArr=req.body.data.split("|||")
-		if(buttonStageArr.length==2){
+		if(buttonStageArr.length==2&&req.params.stage!=buttonStageArr[0]){
 			if(obj[buttonStageArr[0]]){
 				req.params.stage=buttonStageArr[0];
 			}
