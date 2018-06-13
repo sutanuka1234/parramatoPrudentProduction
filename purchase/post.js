@@ -800,6 +800,12 @@ function showSchemeName(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
+		model.tags.divOption = undefined
+		model.tags.schemeApiDetails=undefined
+		model.tags.tranId=undefined
+		model.tags.transactionRefId=undefined
+		model.tags.additional=false;
+		model.tags.folio=undefined;
 		if(model.tags.joinAccIdList.includes(model.data)){
 			for (let element of model.tags.joinAcc){
 				console.log(element.JoinAccId+"::"+model.data)
