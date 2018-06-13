@@ -86,7 +86,8 @@ function main(req, res){
 		var buttonStageArr=req.body.data.split("|||")
 		if(buttonStageArr.length==2){
 			req.body.data=buttonStageArr[1]
-			if(req.params.stage!=buttonStageArr[0]&&obj[buttonStageArr[0]]){
+			console.log(req.params.stage+":::"+buttonStageArr[0])
+			if(req.params.stage!=buttonStageArr[0]){
 					req.params.stage=buttonStageArr[0];
 			}
 		}
