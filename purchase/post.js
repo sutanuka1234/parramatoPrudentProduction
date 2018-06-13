@@ -84,13 +84,13 @@ let amc = [
 function main(req, res){
 		console.log(req.params.stage)
 		var buttonStageArr=req.body.data.split("|||")
-		if(buttonStageArr.length==2&&req.params.stage!=buttonStageArr[0]){
-			if(obj[buttonStageArr[0]]){
-				req.params.stage=buttonStageArr[0];
-				req.body.data=buttonStageArr[1]
-				console.log("1")
+		if(buttonStageArr.length==2){
+			req.body.data=buttonStageArr[1]
+			if(req.params.stage!=buttonStageArr[0]&&obj[buttonStageArr[0]]){
+					req.params.stage=buttonStageArr[0];
 			}
 		}
+		
 		if(obj[req.params.stage]){
 			obj[req.params.stage](req.body)
 			.then((data)=>{
