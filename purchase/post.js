@@ -726,6 +726,11 @@ function showSchemeName(model){
 		// 	model.stage = 'holding'
 		// 	return resolve(model)
 		// }
+		model.tags.divOption = undefined
+		model.tags.schemeApiDetails=undefined
+		model.tags.tranId=undefined
+		model.tags.transactionRefId=undefined
+		model.tags.additional=false;
 		if(model.tags.schemes===undefined){
 			model.tags.schemes=[]
 		}
