@@ -619,7 +619,7 @@ function agreement(model){
 				}
 			}
 			else{
-				delete model.stage
+				model.stage="investmentType"
 				return resolve(model);
 			}
 		}
@@ -639,8 +639,8 @@ function investmentType(model){
 				return resolve(model)
 			}
 			else{
-				delete model.stage
-				return resolve(model)
+				model.stage = 'askSchemeName'
+				return resolve(model);
 			}
 		}
 		else if(model.data.toLowerCase().includes("sip")||model.data.toLowerCase().includes("systematic")){
@@ -650,8 +650,8 @@ function investmentType(model){
 				return resolve(model)
 			}
 			else{
-				delete model.stage
-				return resolve(model)
+				model.stage = 'askSchemeName'
+				return resolve(model);
 			}
 		}
 		else{
