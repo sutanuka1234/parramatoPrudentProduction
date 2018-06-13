@@ -579,7 +579,7 @@ function otp(model){
 						// 	}
 						// }
 						// else{
-							model.stage="holding"
+							delete model.stage;
 							return resolve(model)
 						// }
 
@@ -753,7 +753,7 @@ function showSchemeName(model){
 					}]
 				})
 			}
-			delete model.stage
+			model.stage="holding"
 			sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
 		}
 		else{
