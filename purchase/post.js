@@ -538,9 +538,9 @@ function otp(model){
 						model.tags.joinAcc = response.Response
 						console.log("sent message")
 						sendExternalMessage(model,"Hi "+model.tags.joinAcc[0].JoinHolderName.split("/")[0]+", hope you are doing great today.");
-						model.tags.joinAccId = []
+						model.tags.joinAccIdList = []
 						response.Response.forEach(function(element){
-							model.tags.joinAccId.push(element.JoinAccId.toString())
+							model.tags.joinAccIdList.push(element.JoinAccId.toString())
 						})
 						model.tags.joinAccList = []
 						for(let i in model.tags.joinAcc){
@@ -794,7 +794,7 @@ function showSchemeName(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.joinAccId.includes(model.data)){
+		if(model.tags.joinAccIdList.includes(model.data)){
 			for (let element of model.tags.joinAcc){
 				console.log(element.JoinAccId+"::"+model.data)
 				if(element.JoinAccId==model.data){
