@@ -85,35 +85,19 @@ function main(req, res){
 		console.log(req.params.stage)
 		var buttonStageArr=req.body.data.split("|||")
 		if(buttonStageArr.length==2){
-			if(buttonStageArr[0]==req.params.stage){
-				req.body.data=buttonStageArr[1]
-				obj[req.params.stage](req.body)
-				.then((data)=>{
-					console.log("1")
-					res.send(data)
-				})
-				.catch((e)=>{
-					console.log(e)
-					res.sendStatus(203)
-				})
-			}
-			else{
-				console.log("2")
-				req.body.stage=buttonStageArr[0]
-				res.send(req.body)
+			if(obj[buttonStageArr[0]]){
+				req.params.stage=obj[buttonStageArr[0]]
 			}
 		}
-		else{
-			obj[req.params.stage](req.body)
-				.then((data)=>{
-					console.log("3")
-					res.send(data)
-				})
-				.catch((e)=>{
-					console.log(e)
-					res.sendStatus(203)
-				})
-		}
+		obj[req.params.stage](req.body)
+		.then((data)=>{
+			console.log("3")
+			res.send(data)
+		})
+		.catch((e)=>{
+			console.log(e)
+			res.sendStatus(203)
+		})
 		
 }
 
