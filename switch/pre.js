@@ -308,7 +308,7 @@ function amount(model){
 		if(model.tags.unitOrAmount=="PU"){
 			model.reply={
 				type:"text",
-	            text:"Tell me the number of units you want to switch, it should be greater or equal to "+model.tags.switchSchemeObj["MinSwitchOutUnits"]+" and less than or equal to "+model.tags.switchSchemeObj["AvailableUnits"]+" and in the multiples of "+model.tags.switchSchemeObj["SwitchOutMultiplesUnits"]
+	            text:"Tell me the number of units you want to switch, it should be greater or equal to "+model.tags.switchSchemeObj["MinSwitchOutUnits"]+" and less than or equal to "+model.tags.switchSchemeObj["AvailableUnits"]
 			}
 		}
 		else{

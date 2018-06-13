@@ -205,7 +205,7 @@ function amount(model){
 		if(model.tags.unitOrAmount=="PU"){
 			model.reply={
 				type:"text",
-	            text:"Tell me the number of units you want to redeem, it should be greater or equal to "+model.tags.redeemSchemeObj["MinRedemptionUnits"]+" and less than or equal to "+model.tags.redeemSchemeObj["AvailableUnits"]+" and in the multiples of "+model.tags.redeemSchemeObj["RedemptionMultiplesUnits"]
+	            text:"Tell me the number of units you want to redeem, it should be greater or equal to "+model.tags.redeemSchemeObj["MinRedemptionUnits"]+" and less than or equal to "+model.tags.redeemSchemeObj["AvailableUnits"]
 			}
 		}
 		else{
