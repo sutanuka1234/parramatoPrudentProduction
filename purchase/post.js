@@ -87,6 +87,7 @@ function main(req, res){
 		if(buttonStageArr.length==2&&req.params.stage!=buttonStageArr[0]){
 			if(obj[buttonStageArr[0]]){
 				req.params.stage=buttonStageArr[0];
+				req.body.data=buttonStageArr[1]
 			}
 		}
 		if(obj[req.params.stage]){
