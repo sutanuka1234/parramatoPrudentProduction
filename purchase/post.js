@@ -568,7 +568,7 @@ function otp(model){
 									buttons : [
 										{
 											text : 'Select',
-											data : "|||"+element.target
+											data : "showSchemeName|||"+element.target
 										}
 									]
 								})
@@ -708,7 +708,7 @@ function askSchemeName(model){
 					buttons : [
 						{
 							text : 'Select',
-							data : "|||"+element.target
+							data : "showSchemeName|||"+element.target
 						}
 					]
 				})
@@ -783,7 +783,7 @@ function showSchemeName(model){
 						buttons : [
 							{
 								text : 'Select',
-								data :"|||"+element.target
+								data :"showSchemeName|||"+element.target
 							}
 						]
 					})
