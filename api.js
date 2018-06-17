@@ -49,54 +49,74 @@ function getExistingSchemes(session, joinAccId){
 
 
 
-function getScheme(session, joinAccId, fundsType, amcId, schemeOption, subNature,investmentType,folioNo,schemeCode,switchBool){
-	if(switchBool){
+function getScheme(session, joinAccId, fundsType, amcId, schemeOption, subNature,investmentType,folioNo,schemeCode,switchBool,STPBool){
+	if(STPBool){
 		var obj = {
 				method 	: 'POST',
 				headers : headers,
-				url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=Switch&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature+'&SchemeCode='+schemeCode+'&FolioNo='+folioNo
+				url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=STP&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature+'&SchemeCode='+schemeCode+'&FolioNo='+folioNo
 			}
 	}
-	else {
-		if(investmentType){
+	else{
+		if(switchBool){
+			var obj = {
+					method 	: 'POST',
+					headers : headers,
+					url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=Switch&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature+'&SchemeCode='+schemeCode+'&FolioNo='+folioNo
+				}
+		}
+		else {
+			if(investmentType){
+				var obj = {
+					method 	: 'POST',
+					headers : headers,
+					url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=SIP&SIPType=N&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature
+				}
+			}
+			else{
+				var obj = {
+					method 	: 'POST',
+					headers : headers,
+					url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=Purchase&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature
+				}
+			}
+		}		
+	}
+
+	return runRequest(obj)
+}
+
+
+function getFolio(session, joinAccId, schemeCode, amcId,investmentType,switchBool,STPBool){
+	if(STPBool){
+		var obj = {
+			method 	: 'POST',
+			headers : headers,
+			url 	: url+'GetFolioNo?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId+'&InvestmentType=STP'
+		}
+	}
+	else{
+		if(switchBool){
 			var obj = {
 				method 	: 'POST',
 				headers : headers,
-				url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=SIP&SIPType=N&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature
+				url 	: url+'GetFolioNo?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId+'&InvestmentType=Switch'
+			}
+		}
+		else if(investmentType){
+			var obj = {
+				method 	: 'POST',
+				headers : headers,
+				url 	: url+'GetFolioNo?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId+'&InvestmentType=SIP'
 			}
 		}
 		else{
 			var obj = {
 				method 	: 'POST',
 				headers : headers,
-				url 	: url+'GetScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&FundsType='+fundsType+'&InvestmentType=Purchase&AMCId='+amcId+'&SchemeOption='+schemeOption+'&SubNature='+subNature
+				url 	: url+'GetFolioNo?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId
 			}
-		}
-	}
-	return runRequest(obj)
-}
-
-function getFolio(session, joinAccId, schemeCode, amcId,investmentType,switchBool){
-	if(switchBool){
-		var obj = {
-			method 	: 'POST',
-			headers : headers,
-			url 	: url+'GetFolioNo?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId+'&InvestmentType=Switch'
-		}
-	}
-	else if(investmentType){
-		var obj = {
-			method 	: 'POST',
-			headers : headers,
-			url 	: url+'GetFolioNo?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId+'&InvestmentType=SIP'
-		}
-	}
-	else{
-		var obj = {
-			method 	: 'POST',
-			headers : headers,
-			url 	: url+'GetFolioNo?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId
-		}
+		}		
 	}
 	return runRequest(obj)
 }
@@ -108,6 +128,35 @@ function getMandate(session,joinAccId){
 		method 	: 'POST',
 		headers : headers,
 		url 	: url+'GETMANDATE?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId
+	}
+	return runRequest(obj)
+}
+
+
+
+
+
+
+ function insertBuyCartStp(session, joinAccId, dividendOption, folioNo, euin, schemeCodeFrom,schemeCodeTo,STPFrequency,STPWeek,STPMonth,installments,amount,initAmount,lastInstallmentFlag){
+	
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+
+		'InsertSTPBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+
+		'&DivOpt='+dividendOption+
+		'&FolioNo='+folioNo+
+		'&EUIN='+euin+
+		'&SchemeCodeFrom='+schemeCodeFrom+
+		'&SchemeCodeTo='+schemeCodeTo+
+		'&STPFrequency='+STPFrequency+
+		'&STPWeek='+STPWeek+
+		'&STPMonth='+STPMonth+
+		'&Installment='+installments+
+		'&STPInvestmentAmt='+amount+
+		'&InitialInvestmentAmt='+initAmount+
+		'&LastInstallmentFlag='+lastInstallmentFlag+
+		'&IsAgreeTerms=1&IsEKYCTermCondition=1'
 	}
 	return runRequest(obj)
 }
@@ -213,6 +262,15 @@ function confirmSwitch(session,tranId){
 	return runRequest(obj)
 }
 
+function confirmSTP(session,tranId){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'ConfirmSTPTransaction?IPAddress=192.168.0.102&SessionId='+session+'&TranReferenceID='+tranId
+	}
+	return runRequest(obj)
+}
+
 
 function getSwitchScheme(session,joinAccId){
 	var obj = {
@@ -222,6 +280,19 @@ function getSwitchScheme(session,joinAccId){
 	}
 	return runRequest(obj)
 }
+
+function getSTPScheme(session,joinAccId){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'GetSTPScheme?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId
+	}
+	return runRequest(obj)
+}
+
+
+
+
 
 function runRequest(obj){
 	return new Promise(function(resolve, reject){
@@ -254,7 +325,10 @@ module.exports = {
 	insertBuyCartRedeem				: insertBuyCartRedeem,
 	confirmRedemption 				: confirmRedemption,
 	getSwitchScheme 				: getSwitchScheme,
+	getSTPScheme 					: getSTPScheme,
 	insertBuyCartSwitch 			: insertBuyCartSwitch,
-	confirmSwitch 					: confirmSwitch
+	insertBuyCartStp				: insertBuyCartStp,
+	confirmSwitch 					: confirmSwitch,
+	confirmSTP 						: confirmSTP
 }
 

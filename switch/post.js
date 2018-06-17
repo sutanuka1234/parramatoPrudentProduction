@@ -522,9 +522,9 @@ function otp(model){
 					else{
 						model.tags.joinAcc = response.Response
 						sendExternalMessage(model,"Hi "+model.tags.joinAcc[0].JoinHolderName.split("/")[0]+", hope you are doing great today.");
-						model.tags.joinAccId = []
+						model.tags.joinAccIdList = []
 						response.Response.forEach(function(element){
-							model.tags.joinAccId.push(element.JoinAccId.toString())
+							model.tags.joinAccIdList.push(element.JoinAccId.toString())
 						})
 						model.tags.joinAccList = []
 						for(let i in model.tags.joinAcc){
@@ -532,7 +532,7 @@ function otp(model){
 								title: 'Holding Patterns',
 								text : model.tags.joinAcc[i].JoinHolderName,
 								buttons : [{
-									data : model.tags.joinAcc[i].JoinAccId,
+									data : "holding|||"+model.tags.joinAcc[i].JoinAccId,
 									text : 'Select'
 								}]
 							})
@@ -546,7 +546,7 @@ function otp(model){
 									buttons : [
 										{
 											text : 'Select',
-											data : element.target
+											data : "showSchemeName|||"+element.target
 										}
 									]
 								})
@@ -577,7 +577,13 @@ function otp(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.joinAccId.includes(model.data)){
+		model.tags.amount = undefined
+		model.tags.joinAccId = undefined
+		model.tags.tranId=undefined
+		model.tags.switchSchemeList=undefined
+		model.tags.switchReferenceId=undefined
+		model.tags.refrenceIdSwitchTxn=undefined
+		if(model.tags.joinAccIdList.includes(model.data)){
 			for (let element of model.tags.joinAcc){
 				console.log(element.JoinAccId+"::"+model.data)
 				if(element.JoinAccId==model.data){
@@ -643,7 +649,7 @@ function holding(model){
 									buttons : [
 										{
 											text : 'Select',
-											data : element["SCHEMECODE"].toString()
+											data : "scheme|||"+element["SCHEMECODE"].toString()
 										}
 									]
 								})
@@ -686,6 +692,12 @@ function holding(model){
 
 function scheme(model){
 	return new Promise(function(resolve, reject){
+		
+		model.tags.amount = undefined
+		model.tags.tranId=undefined
+		model.tags.switchSchemeList=undefined
+		model.tags.switchReferenceId=undefined
+		model.tags.refrenceIdSwitchTxn=undefined
 		try{
 			if(model.tags.switchSchemes){
 				for(let scheme of model.tags.switchSchemes){
@@ -717,7 +729,7 @@ function scheme(model){
 									buttons : [
 										{
 											text : 'Select',
-											data : element.target
+											data : "showSchemeName|||"+element.target
 										}
 									]
 								})
@@ -787,7 +799,7 @@ function askSchemeName(model){
 					buttons : [
 						{
 							text : 'Select',
-							data : element.target
+							data : "showSchemeName|||"+element.target
 						}
 					]
 				})
@@ -801,6 +813,10 @@ function askSchemeName(model){
 
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
+		model.tags.amount = undefined
+		model.tags.tranId=undefined
+		model.tags.switchReferenceId=undefined
+		model.tags.refrenceIdSwitchTxn=undefined
 		if(model.data.toLowerCase().includes("cancel")||model.data.toLowerCase().includes("stop")||model.data.toLowerCase().trim()=="exit"){
 			return reject(model)
 		}
@@ -1034,7 +1050,7 @@ function showSchemeName(model){
 						buttons : [
 							{
 								text : 'Select',
-								data : element.target
+								data : "showSchemeName|||"+element.target
 							}
 						]
 					})
@@ -1057,8 +1073,15 @@ function euin(model){
 		for(let data of model.tags.euinApiDetailsList){
 			if(data["data"]==model.data){
 				euinFlag=true;
-				model.tags.euin=model.data
-				model.tags.existingEuinApiDetails=model.data
+				if(model.data.toLowerCase().includes("direct")){
+					model.tags.euin=""
+					model.tags.existingEuinApiDetails=""
+					sendExternalMessage(model,"Hey, as you have selected direct investment, you hereby confirm that this a transaction done purely at your sole discretion");
+				}
+				else{
+					model.tags.euin=model.data
+					model.tags.existingEuinApiDetails=model.data
+				}
 				if(model.tags.divOption!=undefined){
 					model.stage = 'unitOrAmount'
 				}
@@ -1130,7 +1153,6 @@ function euin(model){
 	});
 
 }
-
 
 function divOps(model){
 	return new Promise(function(resolve, reject){
