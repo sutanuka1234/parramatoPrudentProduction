@@ -895,8 +895,8 @@ function showSchemeName(model){
 						if(folioObj){
 							console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(folioObj,null,3)+":::::"+data[model.tags.scheme].optionCode)
 							model.tags.divOption=undefined
-								if(folioObj["DivOpt"]){
-									switch(folioObj["DivOpt"]){
+								if(folioObj["DIVIDENDOPTION"]){
+									switch(folioObj["DIVIDENDOPTION"]){
 										case "Y": model.tags.divOption = 1
 											break;
 										case "N": model.tags.divOption = 2
