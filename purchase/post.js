@@ -2389,7 +2389,7 @@ var amcsEntities={
 	"UTI":["uti"]
 }
 function getAmcNamesEntityReplaced(text){
-	for(let amcElement of amcsEntities){
+	for(let amcElement in amcsEntities){
 		for(let alias of amcsEntities[amcElement]){
 			if(text.includes(alias)){
 				text=text.replace(alias,amcElement);		
