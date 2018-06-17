@@ -484,12 +484,14 @@ function extractInvestmentType(model){
 }
 
 function extractSchemeName(model){
-		let wordsInUserSays=model.tags.userSays.split(" ");
+		model.tags.userSays=getAmcNamesEntityReplaced(model.tags.userSays)
+		let wordsInUserSays=model.tags.userSays.toLowerCase().split(" ");
 		let count=0;
 		let startIndex;
 		let endIndex;
 		let amcIndex;
 		let amcFlag;
+
 		for(let wordIndex in wordsInUserSays){
 			if(words.includes(wordsInUserSays[wordIndex])){
 				count++;
@@ -506,6 +508,9 @@ function extractSchemeName(model){
 				amcFlag=true;
 			}
 		}
+
+
+
 		if(amcFlag){
 			startIndex=amcIndex
 		}
@@ -532,6 +537,73 @@ function extractSchemeName(model){
 			// console.log(matches)
 		}
 		return model;
+}
+
+
+// axis;
+// baroda pioneer;baroda;
+// birla sun life;birla;sun life;bnp;
+// bnp paribas;bnp;paribas;
+// boi axa investment managers;boi;axa;
+// canara robeco;canara;
+// dsp blackrock; dsp;
+// franklin templeton;franklin;ft;
+// hdfc;
+// icici prudential;icici;
+// idbi;
+// idfc;
+// kotak mahindra;kotak;mahindra;
+// l and t;lnt;l and t;l&t;
+// lic nomura;lic;
+// mirae asset global investments;mirae;
+// motilal oswal asset management services;motilal;
+// dhfl pramerica;dhfl;
+// principal pnb asset management company;pnb;principal;principal pnb;
+// reliance;
+// religare invesco;religare;invesco;
+// sbi;
+// sundaram;
+// tata;
+// uti;
+// religare;
+
+
+var amcsEntities={
+	"Axis":["axis"],
+	"Baroda Pioneer":["baroda pioneer","baroda"],
+	"Aditya Birla Sun Life":["birla sun life","birla","sun life","bnp"],
+	"BNP Paribas":["bnp paribas","bnp","paribas"],
+	"BOI AXA":["boi axa investment managers","boi","axa"],
+	"Canara Robeco":["canara robeco","canara"],
+	"DSP BlackRock":["dsp blackrock", "dsp"],
+	"Franklin":["franklin templeton","franklin","ft"],
+	"HDFC":["hdfc"],
+	"ICICI Prudential":["icici prudential","icici"],
+	"IDBI":["idbi"],
+	"IDFC":["idfc"],
+	"Kotak":["kotak mahindra","kotak","mahindra"],
+	"L&T":["l and t","lnt","l and t","l&t"],
+	"LIC MF":["lic nomura","lic"],
+	"Mirae Asset":["mirae asset global investments","mirae"],
+	"Motilal Oswal":["motilal oswal asset management services","motilal"],
+	"DHFL Pramerica":["dhfl pramerica","dhfl"],
+	"Principal":["principal pnb asset management company","pnb","principal","principal pnb"],
+	"Reliance":["reliance"],
+	"Invesco":["religare invesco","religare","invesco"],
+	"SBI":["sbi"],
+	"Sundaram":["sundaram"],
+	"Tata":["tata"],
+	"UTI":["uti"]
+}
+function getAmcNamesEntityReplaced(text){
+	for(let amcElement of amcsEntities){
+		for(let alias of amcsEntities[amcElement]){
+			if(text.includes(alias)){
+				text=text.replace(alias,amcElement);		
+			}
+		}
+	}
+	return text;
 }
 
 function dataClean(model){

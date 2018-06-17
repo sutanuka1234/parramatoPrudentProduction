@@ -675,7 +675,7 @@ function askSchemeName(model){
 		// 	model.stage = 'holding'
 		// 	return resolve(model)
 		// }
-
+		model.data=getAmcNamesEntityReplaced(model.data);
 		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
 		if(model.tags.schemes===undefined){
 			model.tags.schemes=[]
@@ -741,6 +741,7 @@ function showSchemeName(model){
 		}
 		// console.log(model.data)
 		// console.log(JSON.stringify(model.tags.schemes))
+
 		if(arr.includes(model.data) || (model.data.toLowerCase().includes("yes")&&model.tags.schemes.length==1)){
 			if(model.tags.schemes.length==1){
 				model.tags.scheme=model.tags.schemes[0]
@@ -763,6 +764,7 @@ function showSchemeName(model){
 			sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
 		}
 		else{
+			model.data=getAmcNamesEntityReplaced(model.data);
 			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(matches.bestMatch.target)
@@ -2309,7 +2311,8 @@ function extractInvetmentType(model){
 }
 
 function extractSchemeName(model){
-		let wordsInUserSays=model.data.split(" ");
+		model.data=getAmcNamesEntityReplaced(model.data)
+		let wordsInUserSays=model.data.toLowerCase().split(" ");
 		let count=0;
 		let startIndex;
 		let endIndex;
@@ -2355,6 +2358,45 @@ function extractSchemeName(model){
 			}
 		}
 		return model;
+}
+
+
+var amcsEntities={
+	"Axis":["axis"],
+	"Baroda Pioneer":["baroda pioneer","baroda"],
+	"Aditya Birla Sun Life":["birla sun life","birla","sun life","bnp"],
+	"BNP Paribas":["bnp paribas","bnp","paribas"],
+	"BOI AXA":["boi axa investment managers","boi","axa"],
+	"Canara Robeco":["canara robeco","canara"],
+	"DSP BlackRock":["dsp blackrock", "dsp"],
+	"Franklin":["franklin templeton","franklin","ft"],
+	"HDFC":["hdfc"],
+	"ICICI Prudential":["icici prudential","icici"],
+	"IDBI":["idbi"],
+	"IDFC":["idfc"],
+	"Kotak":["kotak mahindra","kotak","mahindra"],
+	"L&T":["l and t","lnt","l and t","l&t"],
+	"LIC MF":["lic nomura","lic"],
+	"Mirae Asset":["mirae asset global investments","mirae"],
+	"Motilal Oswal":["motilal oswal asset management services","motilal"],
+	"DHFL Pramerica":["dhfl pramerica","dhfl"],
+	"Principal":["principal pnb asset management company","pnb","principal","principal pnb"],
+	"Reliance":["reliance"],
+	"Invesco":["religare invesco","religare","invesco"],
+	"SBI":["sbi"],
+	"Sundaram":["sundaram"],
+	"Tata":["tata"],
+	"UTI":["uti"]
+}
+function getAmcNamesEntityReplaced(text){
+	for(let amcElement of amcsEntities){
+		for(let alias of amcsEntities[amcElement]){
+			if(text.includes(alias)){
+				text=text.replace(alias,amcElement);		
+			}
+		}
+	}
+	return text;
 }
 
 function dataClean(model){

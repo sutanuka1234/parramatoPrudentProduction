@@ -1567,6 +1567,43 @@ function extractDivOption(model){
 	return model;			
 }
 
+var amcsEntities={
+	"Axis":["axis"],
+	"Baroda Pioneer":["baroda pioneer","baroda"],
+	"Aditya Birla Sun Life":["birla sun life","birla","sun life","bnp"],
+	"BNP Paribas":["bnp paribas","bnp","paribas"],
+	"BOI AXA":["boi axa investment managers","boi","axa"],
+	"Canara Robeco":["canara robeco","canara"],
+	"DSP BlackRock":["dsp blackrock", "dsp"],
+	"Franklin":["franklin templeton","franklin","ft"],
+	"HDFC":["hdfc"],
+	"ICICI Prudential":["icici prudential","icici"],
+	"IDBI":["idbi"],
+	"IDFC":["idfc"],
+	"Kotak":["kotak mahindra","kotak","mahindra"],
+	"L&T":["l and t","lnt","l and t","l&t"],
+	"LIC MF":["lic nomura","lic"],
+	"Mirae Asset":["mirae asset global investments","mirae"],
+	"Motilal Oswal":["motilal oswal asset management services","motilal"],
+	"DHFL Pramerica":["dhfl pramerica","dhfl"],
+	"Principal":["principal pnb asset management company","pnb","principal","principal pnb"],
+	"Reliance":["reliance"],
+	"Invesco":["religare invesco","religare","invesco"],
+	"SBI":["sbi"],
+	"Sundaram":["sundaram"],
+	"Tata":["tata"],
+	"UTI":["uti"]
+}
+function getAmcNamesEntityReplaced(text){
+	for(let amcElement of amcsEntities){
+		for(let alias of amcsEntities[amcElement]){
+			if(text.includes(alias)){
+				text=text.replace(alias,amcElement);		
+			}
+		}
+	}
+	return text;
+}
 
 function dataClean(model){
 	model.data = model.data.toLowerCase()
