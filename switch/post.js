@@ -663,7 +663,7 @@ function holding(model){
 						}
 						else{
 							console.log(JSON.stringify(model.tags.switchSchemeList,null,3))
-							delete model.stage
+							model.stage="scheme"
 							return resolve(model)
 						}
 					}
@@ -806,7 +806,7 @@ function askSchemeName(model){
 			})
 		}
 
-		delete model.stage
+		model.stage="showSchemeName"
 		return resolve(model)
 	})
 }
@@ -968,7 +968,7 @@ function showSchemeName(model){
 													model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
 												}
 												model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
-												delete model.stage
+												model.stage="euin"
 												return resolve(model)
 											}
 												
