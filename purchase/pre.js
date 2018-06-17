@@ -484,7 +484,8 @@ function extractInvestmentType(model){
 }
 
 function extractSchemeName(model){
-		model.tags.userSays=getAmcNamesEntityReplaced(model.tags.userSays)
+		let dataAmc=getAmcNamesEntityReplaced(model.tags.userSays);
+		model.tags.userSays=dataAmc.text
 		let wordsInUserSays=model.tags.userSays.toLowerCase().split(" ");
 		let count=0;
 		let startIndex;
@@ -527,7 +528,7 @@ function extractSchemeName(model){
 				model.tags.schemes.push(matches.bestMatch.target)
 				model.tags.newScheme=true;
 			}
-			else if(matches.bestMatch.rating>0.4){
+			else if(matches.bestMatch.rating>0.4||dataAmc.flag){
 				model.tags.schemes = []
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
 				model.tags.schemes = matches.ratings.splice(0,9);
@@ -596,14 +597,16 @@ var amcsEntities={
 	"UTI":["uti"]
 }
 function getAmcNamesEntityReplaced(text){
+	let flag;
 	for(let amcElement in amcsEntities){
 		for(let alias of amcsEntities[amcElement]){
 			if(text.includes(alias)){
-				text=text.replace(alias,amcElement);		
+				text=text.replace(alias,amcElement);
+				flag=true;		
 			}
 		}
 	}
-	return text;
+	return {text:text,flag:flag};
 }
 
 function dataClean(model){

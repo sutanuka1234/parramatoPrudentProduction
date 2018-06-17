@@ -675,7 +675,8 @@ function askSchemeName(model){
 		// 	model.stage = 'holding'
 		// 	return resolve(model)
 		// }
-		model.data=getAmcNamesEntityReplaced(model.data);
+		let dataAmc=getAmcNamesEntityReplaced(model.data);
+		model.data=dataAmc.text
 		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
 		if(model.tags.schemes===undefined){
 			model.tags.schemes=[]
@@ -684,7 +685,7 @@ function askSchemeName(model){
 			// console.log("nine")
 			model.tags.schemes.push(matches.bestMatch.target)
 		}
-		else if(matches.bestMatch.rating>0.10){
+		else if(matches.bestMatch.rating>0.10||dataAmc.flag){
 			// console.log("one")
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
 			model.tags.schemes = matches.ratings.splice(0,9);
@@ -764,12 +765,13 @@ function showSchemeName(model){
 			sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
 		}
 		else{
-			model.data=getAmcNamesEntityReplaced(model.data);
+			let dataAmc=getAmcNamesEntityReplaced(model.data);
+			model.data=dataAmc.text
 			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(matches.bestMatch.target)
 			}
-			else if(matches.bestMatch.rating>0.10){
+			else if(matches.bestMatch.rating>0.10||dataAmc.flag){
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
 				model.tags.schemes = matches.ratings.splice(0,9);
 			}
@@ -2311,7 +2313,8 @@ function extractInvetmentType(model){
 }
 
 function extractSchemeName(model){
-		model.data=getAmcNamesEntityReplaced(model.data)
+		let dataAmc=getAmcNamesEntityReplaced(model.data);
+		model.data=dataAmc.text
 		let wordsInUserSays=model.data.toLowerCase().split(" ");
 		let count=0;
 		let startIndex;
@@ -2350,7 +2353,7 @@ function extractSchemeName(model){
 					model.tags.schemes = []
 					model.tags.schemes.push(matches.bestMatch.target)
 				}
-				else if(matches.bestMatch.rating>0.4){
+				else if(matches.bestMatch.rating>0.4||dataAmc.flag){
 					model.tags.schemes = []
 					matches.ratings=matches.ratings.sort(sortBy('-rating'));
 					model.tags.schemes = matches.ratings.splice(0,9);

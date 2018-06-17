@@ -772,7 +772,8 @@ function askSchemeName(model){
 				filteredData[key]=data[key]
 			}
 		}
-
+		let dataAmc=getAmcNamesEntityReplaced(model.data);
+		model.data=dataAmc.text
 		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(filteredData))
 		if(model.tags.schemes===undefined){
 			model.tags.schemes=[]
@@ -781,7 +782,7 @@ function askSchemeName(model){
 			// console.log("nine")
 			model.tags.schemes.push(matches.bestMatch.target)
 		}
-		else if(matches.bestMatch.rating>0.10){
+		else if(matches.bestMatch.rating>0.10||dataAmc.flag){
 			// console.log("one")
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
 			model.tags.schemes = matches.ratings.splice(0,9);
@@ -1033,12 +1034,14 @@ function showSchemeName(model){
 					filteredData[key]=data[key]
 				}
 			}
-
+					}
+			let dataAmc=getAmcNamesEntityReplaced(model.data);
+			model.data=dataAmc.text
 			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(filteredData))
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(matches.bestMatch.target)
 			}
-			else if(matches.bestMatch.rating>0.10){
+			else if(matches.bestMatch.rating>0.10||dataAmc.flag){
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
 				model.tags.schemes = matches.ratings.splice(0,9);
 			}
