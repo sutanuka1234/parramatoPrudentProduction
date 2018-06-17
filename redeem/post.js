@@ -644,7 +644,7 @@ function holding(model){
 								return resolve(model)
 							}
 							else{
-								delete model.stage
+								model.stage="scheme"
 								return resolve(model)
 							}
 						}
@@ -770,7 +770,7 @@ function scheme(model){
 							})
 						}
 						else{
-							delete model.stage;
+							model.stage="unitOrAmount";
 							return resolve(model);
 
 						}
