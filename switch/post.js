@@ -1441,6 +1441,7 @@ function confirm(model){
 		            })
 				}
 				else{
+					console.log(model.tags.switchReferenceId+":::::::::::::")
 					model.tags.switchReferenceId=data.Response[0]["ReferenceNo"];
 					model.stage="summary"
 					return resolve(model)
