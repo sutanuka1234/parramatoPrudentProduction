@@ -938,6 +938,10 @@ function showSchemeName(model){
 													})
 												}
 											}
+											model.tags.euinApiDetailsList.push({
+												data : "Direct",
+												text : "Direct"
+											})
 											model.tags.switchMinAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 
 											if(parseFloat(model.tags.switchSchemeObj["AvailableAmt"])<model.tags.switchMinAmount){
