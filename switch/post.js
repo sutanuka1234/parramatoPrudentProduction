@@ -901,7 +901,7 @@ function showSchemeName(model){
 											break;
 										case "N": model.tags.divOption = 2
 											break;
-										case "B": model.tags.divOption = 0
+										case "Z": model.tags.divOption = 0
 											break;
 										default: model.tags.divOption = undefined
 												break;

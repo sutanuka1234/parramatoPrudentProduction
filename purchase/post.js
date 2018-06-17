@@ -1405,7 +1405,7 @@ function folio(model){
 							case "N": model.tags.divOption = 2
 									  divFlag=false;
 								break;
-							case "B": model.tags.divOption = 0
+							case "Z": model.tags.divOption = 0
 									  divFlag=false;
 								break;
 							default: model.tags.divOption = undefined
