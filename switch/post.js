@@ -1598,14 +1598,16 @@ var amcsEntities={
 	"UTI":["uti"]
 }
 function getAmcNamesEntityReplaced(text){
+	let flag;
 	for(let amcElement in amcsEntities){
 		for(let alias of amcsEntities[amcElement]){
 			if(text.includes(alias)){
-				text=text.replace(alias,amcElement);		
+				text=text.replace(alias,amcElement);
+				flag=true;		
 			}
 		}
 	}
-	return text;
+	return {text:text,flag:flag};
 }
 
 function dataClean(model){
