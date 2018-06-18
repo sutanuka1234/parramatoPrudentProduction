@@ -725,6 +725,7 @@ function scheme(model){
 				for(let scheme of model.tags.stpSchemes){
 					console.log(model.data+"::"+scheme["SCH_CODE"])
 					if(scheme["SCH_CODE"]==model.data){
+						model.data=""
 						model.tags.stpSchemeObj=scheme;
 						model.tags.folio=scheme["FOLIO_NO"]
 						let message="Going ahead with "+scheme["SCHEME_NAME"]+",";
