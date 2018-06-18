@@ -873,8 +873,27 @@ function showSchemeName(model){
 
 					response = JSON.parse(response.body)
 					model.tags.unitOrAmountList=undefined
+					if(response.Response[0]["reject_reason"]){
+							
 
-					if(response.Response.length > 0){
+						let reply={
+			                text    : response.Response[0]["reject_reason"],
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model)
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+			        }
+					
+
+					else if(response.Response.length > 0){
 						let folioData=response.Response[0]
 						let unitOrAmountData=response.Response[1]
 						let folioObj;
