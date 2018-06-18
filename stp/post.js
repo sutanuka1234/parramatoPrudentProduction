@@ -611,6 +611,10 @@ function holding(model){
 //  ]
 // }
 
+// {"Response":[{"SCHEME_NAME":"IDFC Balanced Fund - Regular Plan - Growth","FOLIO_NO":"1794035/37","ID":"374,34066,1794035/37","Scheme_Folio":"IDFC Balanced Fund - Regular Plan - Growth #  Folio No : 1794035/37","SCH_CODE":34066,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400028,"InccurExitLoad":false,"CurAmount":"5780.45","CurUnit":"500"},{"SCHEME_NAME":"Motilal Oswal MOSt Focused Dynamic Equity Fund - Regular Plan - Growth","FOLIO_NO":"9104430742","ID":"374,35831,9104430742","Scheme_Folio":"Motilal Oswal MOSt Focused Dynamic Equity Fund - Regular Plan - Growth #  Folio No : 9104430742","SCH_CODE":35831,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400042,"InccurExitLoad":false,"CurAmount":"12114.7","CurUnit":"1000"},{"SCHEME_NAME":"Reliance Liquid Fund - Treasury Plan - Growth","FOLIO_NO":"499153817726","ID":"374,2637,499153817726","Scheme_Folio":"Reliance Liquid Fund - Treasury Plan - Growth #  Folio No : 499153817726","SCH_CODE":2637,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400025,"InccurExitLoad":false,"CurAmount":"220105","CurUnit":"51.3547"},{"SCHEME_NAME":"Reliance Small Cap Fund - Growth","FOLIO_NO":"499153817726","ID":"374,12758,499153817726","Scheme_Folio":"Reliance Small Cap Fund - Growth #  Folio No : 499153817726","SCH_CODE":12758,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400025,"InccurExitLoad":true,"CurAmount":"8670.92","CurUnit":"199.902"}]}' },
+// 2018-06-18T13:12:30.797870+00:00 app[web.1]: body: '{"Response":[{"SCHEME_NAME":"IDFC Balanced Fund - Regular Plan - Growth","FOLIO_NO":"1794035/37","ID":"374,34066,1794035/37","Scheme_Folio":"IDFC Balanced Fund - Regular Plan - Growth #  Folio No : 1794035/37","SCH_CODE":34066,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400028,"InccurExitLoad":false,"CurAmount":"5780.45","CurUnit":"500"},{"SCHEME_NAME":"Motilal Oswal MOSt Focused Dynamic Equity Fund - Regular Plan - Growth","FOLIO_NO":"9104430742","ID":"374,35831,9104430742","Scheme_Folio":"Motilal Oswal MOSt Focused Dynamic Equity Fund - Regular Plan - Growth #  Folio No : 9104430742","SCH_CODE":35831,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400042,"InccurExitLoad":false,"CurAmount":"12114.7","CurUnit":"1000"},{"SCHEME_NAME":"Reliance Liquid Fund - Treasury Plan - Growth","FOLIO_NO":"499153817726","ID":"374,2637,499153817726","Scheme_Folio":"Reliance Liquid Fund - Treasury Plan - Growth #  Folio No : 499153817726","SCH_CODE":2637,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400025,"InccurExitLoad":false,"CurAmount":"220105","CurUnit":"51.3547"},{"SCHEME_NAME":"Reliance Small Cap Fund - Growth","FOLIO_NO":"499153817726","ID":"374,12758,499153817726","Scheme_Folio":"Reliance Small Cap Fund - Growth #  Folio No : 499153817726","SCH_CODE":12758,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400025,"InccurExitLoad":true,"CurAmount":"8670.92","CurUnit":"199.902"}]}' }
+
+
 			api.getSTPScheme(model.tags.session,model.tags.joinAccId)
 			.then((data)=>{
 				let response;
@@ -662,7 +666,7 @@ function holding(model){
 							console.log(index+"::::::::::::::::::::::::::::::")
 							if(index<10){
 								model.tags.stpSchemeList.push({
-									title 	: element["SchemeName"],
+									title 	: element["SCHEME_NAME"],
 									text 	: "Folio "+element["FOLIO_NO"]+". Invested Rs. "+element["CurAmount"]+". Minimum Rs. "+element["MinRedemptionAmount"],
 									buttons : [
 										{
@@ -723,7 +727,7 @@ function scheme(model){
 					if(scheme["SCH_CODE"]==model.data){
 						model.tags.stpSchemeObj=scheme;
 						model.tags.folio=scheme["FOLIO_NO"]
-						let message="Going ahead with "+scheme["SchemeName"]+",";
+						let message="Going ahead with "+scheme["SCHEME_NAME"]+",";
 						if(scheme["InccurExitLoad"]&&scheme["InccurExitLoad"].toString().trim().toLowerCase().includes("true")){
 							message+=" This holding have units / amount that are held for less than a year and hence may attract short-term capital gains tax at 15% as well as exit load, if any You may want to modify your request to avoid these losses. It is advisable to hold equity funds for longer time frames to benefit from them."						
 						}
