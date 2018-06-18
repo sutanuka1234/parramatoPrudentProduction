@@ -29,24 +29,7 @@ let obj = {
 	bankMandate : bankMandate
 }
 
-let sortedJourney=["panMobile",
-"mobile",
-"pan",
-"otp",
-"agreement",
-"investmentType",
-"askSchemeName",
-"showSchemeName",
-"holding",
-"additional",
-"euin",
-"folio",
-"divOps",
-"amount",
-"sipDay",
-"sipInstallments",
-"bankMandate",
-"summary"]
+
 
 
 let regexMobile	= /[789]\d{9}/gi
