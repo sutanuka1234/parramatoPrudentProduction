@@ -1,3 +1,4 @@
+"use strict"
 module.exports={
 	main:main
 }
@@ -591,6 +592,25 @@ function holding(model){
 			}
 			model.tags.joinAccId = model.data
 			console.log("here")
+
+// {
+//  "Response": [
+//  {
+//  "SCHEME_NAME": "I**** B********* F***********",
+//  "FOLIO_NO": "1*************7",
+//  "ID": "3**,3****,1*******7",
+//  "Scheme_Folio": "I*** B****** F******** # Folio No : 1**********7",
+//  "SCH_CODE": 3*****6,
+//  "MinRedemptionAmount": 1***,
+//  "RedemptionMultipleAmount": 1**,
+//  "AMC_CODE": 4*****8,
+//  "InccurExitLoad": f****,
+//  "CurAmount": "4***.8*",
+//  "CurUnit": "4**.3**"
+//  }
+//  ]
+// }
+
 			api.getSTPScheme(model.tags.session,model.tags.joinAccId)
 			.then((data)=>{
 				let response;
@@ -643,11 +663,11 @@ function holding(model){
 							if(index<10){
 								model.tags.stpSchemeList.push({
 									title 	: element["SchemeName"],
-									text 	: "Folio "+element["FOLIO_NO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinstpOutAmount"],
+									text 	: "Folio "+element["FOLIO_NO"]+". Invested Rs. "+element["CurAmount"]+". Minimum Rs. "+element["MinRedemptionAmount"],
 									buttons : [
 										{
 											text : 'Select',
-											data : "scheme|||"+element["SCHEMECODE"].toString()
+											data : "scheme|||"+element["SCH_CODE"].toString()
 										}
 									]
 								})
@@ -699,8 +719,8 @@ function scheme(model){
 		try{
 			if(model.tags.stpSchemes){
 				for(let scheme of model.tags.stpSchemes){
-					console.log(model.data+"::"+scheme["SCHEMECODE"])
-					if(scheme["SCHEMECODE"]==model.data){
+					console.log(model.data+"::"+scheme["SCH_CODE"])
+					if(scheme["SCH_CODE"]==model.data){
 						model.tags.stpSchemeObj=scheme;
 						model.tags.folio=scheme["FOLIO_NO"]
 						let message="Going ahead with "+scheme["SchemeName"]+",";
@@ -916,6 +936,41 @@ function showSchemeName(model){
 								// 	delete model.stage
 								// }
 								sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
+// "Response": [
+//  [
+//  {
+//  "ID": *,
+//  "FUNDNAME": "I****** M********* C********",
+//  "SCHEMECODE": 7***,
+//  "ACLASSCODE": *,
+//  "OPT_CODE": *,
+//  "SchemeName": "I***** A****** R********",
+//  "Category": "E***",
+//  "CurrentNAV": 1*.2***,
+//  "MinimumInvestment": 1***,
+//  "1YearReturns": 2*.1***,
+//  "3YearReturns": 1*.2***,
+//  "5YearReturns": 2*.1***,
+//  "MinSwitchAmount": 5**,
+//  "MININVT": 1***,
+//  "MULTIPLES": 5**,
+//  "INC_INVEST": 1***,
+//  "ADNMULTIPLES": 5**,
+//  "MinRedemptionAmount": 1***,
+//  "RedemptionMultipleAmount": 1**,
+//  "AMC_CODE": 4****8,
+//  "RECOMD": *,
+//  "MaxInvestment": 9*******,
+//  "eKYC": *
+//  }
+//  ],
+//  [
+//  {
+//  "ID": "E020391",
+//  "EUIN": "STAFF / E020391"
+//  }
+//  ]
+//  ]
 								api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,undefined,true)
 								.then((response)=>{
 									// console.log(response.body)
@@ -938,7 +993,7 @@ function showSchemeName(model){
 											}
 											model.tags.stpMinAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 
-											if(parseFloat(model.tags.stpSchemeObj["AvailableAmt"])<model.tags.stpMinAmount){
+											if(parseFloat(model.tags.stpSchemeObj["CurAmount"])<model.tags.stpMinAmount){
 												let reply={
 									                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account as the minimum investment amount for this scheme is lesser than the amount available in current investment',
 									                type    : "text",
@@ -958,8 +1013,8 @@ function showSchemeName(model){
 									            })
 											}
 											else{
-												if(parseFloat(model.tags.stpSchemeObj["MinstpOutAmount"])>model.tags.stpMinAmount){
-													model.tags.stpMinAmount=parseFloat(model.tags.stpSchemeObj["MinstpOutAmount"])
+												if(parseFloat(model.tags.stpSchemeObj["MinSwitchAmount"])>model.tags.stpMinAmount){
+													model.tags.stpMinAmount=parseFloat(model.tags.stpSchemeObj["MinSwitchAmount"])
 												}
 												model.tags.stpMinAmount=model.tags.stpMinAmount.toString()
 												delete model.stage

@@ -19,6 +19,7 @@ let obj = {
 	askSchemeName:askSchemeName,
 	showSchemeName:showSchemeName,
 	euin	: euin,
+	folio 	: folio,
 	divOps:divOps,
 	summary:summary
 }
