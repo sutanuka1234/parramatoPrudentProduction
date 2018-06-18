@@ -137,8 +137,7 @@ function getMandate(session,joinAccId){
 
 
 
- function insertBuyCartStp(session, joinAccId, dividendOption, folioNo, euin, schemeCodeFrom,schemeCodeTo,STPFrequency,STPWeek,STPMonth,installments,amount,initAmount,lastInstallmentFlag){
-	
+ function insertBuyCartStp(session, joinAccId, dividendOption, folioNo, euin, schemeCodeFrom,schemeCodeTo,STPFrequency,STPWeek,STPMonth,installments,amount){	
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
@@ -154,9 +153,8 @@ function getMandate(session,joinAccId){
 		'&STPMonth='+STPMonth+
 		'&Installment='+installments+
 		'&STPInvestmentAmt='+amount+
-		'&InitialInvestmentAmt='+initAmount+
-		'&LastInstallmentFlag='+lastInstallmentFlag+
-		'&IsAgreeTerms=1&IsEKYCTermCondition=1'
+		'&InitialInvestmentAmt='+amount+
+		'&LastInstallmentFlag=Y&IsAgreeTerms=1&IsEKYCTermCondition=1'
 	}
 	return runRequest(obj)
 }
