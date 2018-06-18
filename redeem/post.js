@@ -74,13 +74,26 @@ let amc = [
 	'principal pnb'
 ]
 
+let sortedJourney=["panMobile",
+"mobile",
+"pan",
+"otp",
+"agreement",
+"holding",
+"scheme",
+"unitOrAmount",
+"amount",
+"confirm",
+"summary"]
+
+
 function main(req, res){
 		console.log(req.params.stage)
 		var buttonStageArr=req.body.data.split("|||")
-		if(buttonStageArr.length==2){
+		if(buttonStageArr.length==2&&obj[buttonStageArr[0]]){
 			req.body.data=buttonStageArr[1]
 			console.log(req.params.stage+":::"+buttonStageArr[0])
-			if(req.params.stage!=buttonStageArr[0]){
+			if(req.params.stage!=buttonStageArr[0]&&sortedJourney.indexOf(req.params.stage)>sortedJourney.indexOf(buttonStageArr[0])){
 					req.params.stage=buttonStageArr[0];
 					delete req.body.stage
 			}
@@ -93,7 +106,7 @@ function main(req, res){
 				res.send(data)
 			})
 			.catch((e)=>{
-				console.log(e)
+				// console.log(e)
 				res.sendStatus(203)
 			})
 		}
