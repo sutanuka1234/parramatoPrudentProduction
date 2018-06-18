@@ -2153,7 +2153,7 @@ function bankMandate(model){
 							            })
 									}
 									else{
-										model.tags.transactionRefId=data["ConfirmSIPTransaction"]["TranReferenceID"]
+										model.tags.transactionRefId=data.Response[0]["REFERENCENO"]
 										model.tags.sipRefId=model.tags.transactionRefId
 										model.tags.status="Successful"
 										delete model.stage
