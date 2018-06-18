@@ -141,8 +141,7 @@ function getMandate(session,joinAccId){
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
-		url 	: url+
-		'InsertSTPBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+
+		url 	: url+'InsertSTPBuyCart?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+
 		'&DivOpt='+dividendOption+
 		'&FolioNo='+folioNo+
 		'&EUIN='+euin+
