@@ -1034,7 +1034,7 @@ function showSchemeName(model){
 					filteredData[key]=data[key]
 				}
 			}
-					}
+					
 			let dataAmc=getAmcNamesEntityReplaced(model.data);
 			model.data=dataAmc.text
 			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(filteredData))
