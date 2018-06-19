@@ -87,12 +87,12 @@ function getScheme(session, joinAccId, fundsType, amcId, schemeOption, subNature
 }
 
 
-function getFolio(session, joinAccId, schemeCode, amcId,investmentType,switchBool,STPBool){
+function getFolio(session, joinAccId, schemeCode, amcId,investmentType,switchBool,folio,STPBool){
 	if(STPBool){
 		var obj = {
 			method 	: 'POST',
 			headers : headers,
-			url 	: url+'GetFolioNo?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId+'&InvestmentType=STP'
+			url 	: url+'GetFolioNo?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId+'&InvestmentType=STP&FolioNo='+folio
 		}
 	}
 	else{

@@ -865,7 +865,7 @@ function showSchemeName(model){
 			else{
 				model.tags.scheme = model.data
 			}
-			api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,undefined,undefined,true)
+			api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,undefined,undefined,model.tags.stpSchemeObj["FOLIO_NO"],true)
 			.then(response=>{
 				console.log(response.body)
 				try{
