@@ -943,7 +943,7 @@ function showSchemeName(model){
 											break;
 										case "N": model.tags.divOption = 2
 											break;
-										case "B": model.tags.divOption = 0
+										case "Z": model.tags.divOption = 0
 											break;
 										default: model.tags.divOption = undefined
 												break;
@@ -1152,7 +1152,14 @@ function euin(model){
 				euinFlag=true;
 				model.tags.euin=model.data
 				model.tags.existingEuinApiDetails=model.data
-				return resolve(model);
+				if(model.tags.divOption===undefined){
+					model.stage="divOps"
+					return resolve(model);
+				}
+				else{
+					model.stage="confirm"
+					return resolve(model);
+				}
 			}
 		}
 		
