@@ -882,7 +882,7 @@ function unitOrAmount(model) {
 }
 
 function amount(model){
-	// console.log("amount::::::::::::::::::")
+	console.log("amount::::::::::::::::::")
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
 		if(model.tags.unitOrAmount=="PU"){
@@ -984,6 +984,7 @@ function amount(model){
 						return resolve(model)
 					}
 					else{
+						console.log("no ref id")
 			                return reject(model)
 						
 					}
