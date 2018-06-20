@@ -1285,6 +1285,7 @@ function amount(model){
 	// console.log(model.tags.schemeApiDetails["MinimumInvestment"]+":::::::::::::::::::::::::::::::::::::::::::::::")
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
+		console.log(model.tags.unitOrAmount)
 		if(model.tags.unitOrAmount=="PU"){
 			model=extractAmountUptoThree(model)
 		}
