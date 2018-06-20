@@ -107,7 +107,7 @@ function main(req, res){
 				res.send(data)
 			})
 			.catch((e)=>{
-				// console.log(e)
+				console.log(e)
 				res.sendStatus(203)
 			})
 		}
