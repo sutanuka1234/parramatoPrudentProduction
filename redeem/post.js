@@ -1108,7 +1108,8 @@ function extractFolio(model){
 function extractAmountUptoThree(model){
 	
  	if(model.data.match(/\d+\./)){
- 		let text = matchAll(model.data, /(\d+[\.\d{1-3}]?)/gi).toArray()
+
+ 		let text = matchAll(model.data, /(\d+\.\d+)/gi).toArray()
 		for(let i in text){
 			if(text[i].length < 12){
 				model.tags.amount = parseFloat(text[i].toFixed(3))
