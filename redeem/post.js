@@ -1114,12 +1114,11 @@ function extractAmountUptoThree(model){
  		let text = matchAll(model.data, /(\d+[\.\d{1-3}]?)/gi).toArray()
 		for(let i in text){
 			if(text[i].length < 12){
-				model.tags.amount = text[i]
+				model.tags.amount = parseFloat(text[i].toFixed(3))
 				model.data = model.data.replace(model.tags.amount, '')
 				break;
 			}
 		}
-
 		return model;
  	}
  	return extractAmount(model)
