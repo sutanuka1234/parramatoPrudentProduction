@@ -940,6 +940,7 @@ function showSchemeName(model){
 
 									try{
 										response = JSON.parse(response.body)
+										console.log(JSON.stringify(response.Response[0],null,3)+">>>>>>>>>>>>>>>>>>>>>>>")
 										if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].SCHEMECODE){
 											model.tags.euinFolioDetails=response.Response[0];
 											model.tags.schemeApiDetails=response.Response[0][0];
