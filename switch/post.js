@@ -1282,7 +1282,7 @@ function unitOrAmount(model) {
 	});
 }
 function amount(model){
-	console.log(model.tags.schemeApiDetails["MinimumInvestment"]+":::::::::::::::::::::::::::::::::::::::::::::::")
+	// console.log(model.tags.schemeApiDetails["MinimumInvestment"]+":::::::::::::::::::::::::::::::::::::::::::::::")
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
 		if(model.tags.unitOrAmount=="PU"){
@@ -1291,7 +1291,7 @@ function amount(model){
 		else{
 			model=extractAmount(model)
 		}
-		// console.log("amount::::::::::::::::::"+model.tags.amount)
+		console.log("amount::::::::::::::::::"+model.tags.amount)
 		try{
 			if(model.tags.amount&&model.tags.switchSchemeObj){
 				
