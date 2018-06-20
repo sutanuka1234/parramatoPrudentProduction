@@ -646,7 +646,7 @@ function holding(model){
 										buttons : [
 											{
 												text : 'Select',
-												data : element["SCHEMECODE"].toString()
+												data : "scheme|||"+element["SCHEMECODE"].toString()
 											}
 										]
 									})
@@ -892,7 +892,7 @@ function amount(model){
 			model=extractAmount(model)
 		}
 		// model=extractAmount(model)
-		// console.log("amount::::::::::::::::::"+model.tags.amount)
+		console.log("amount::::::::::::::::::"+model.tags.amount)
 		try{
 			if(model.tags.amount&&model.tags.redeemSchemeObj){
 				if(model.tags.unitOrAmount=="PU"){
@@ -902,11 +902,7 @@ function amount(model){
 					let multiple=parseFloat(model.tags.redeemSchemeObj["RedemptionMultiplesUnits"])
 					console.log(minAmount)
 					console.log(maxAmount)
-					console.log(multiple)
 					console.log(amount)
-					if(amount%multiple!=0){
-						model.tags.amount=undefined;
-					}
 					if(amount<minAmount){
 						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
 						model.tags.amount=undefined;
