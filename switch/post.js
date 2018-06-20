@@ -1533,7 +1533,7 @@ function extractAmount(model){
 
 
 function extractAmountUptoThree(model){
-	
+	console.log("3decimal digits")
  	if(model.data.match(/\d+\./)){
  		let text = matchAll(model.data, /(\d+[\.\d{1-3}]?)/gi).toArray()
 		for(let i in text){
@@ -1543,7 +1543,7 @@ function extractAmountUptoThree(model){
 				break;
 			}
 		}
-
+		console.log(model.tags.amount)
 		return model;
  	}
  	return extractAmount(model)
