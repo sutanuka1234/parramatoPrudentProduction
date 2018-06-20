@@ -1169,8 +1169,8 @@ function euin(model){
 				}
 				else{
 					delete model.stage
+					return resolve(model);
 				}
-				return resolve(model);
 			}
 		}
 		
