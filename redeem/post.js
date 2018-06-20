@@ -725,8 +725,8 @@ function scheme(model){
 							message+=" This holding have units / amount that are held for less than a year and hence may attract short-term capital gains tax at 15% as well as exit load, if any You may want to modify your request to avoid these losses. It is advisable to hold equity funds for longer time frames to benefit from them."						
 						}
 						sendExternalMessage(model,message)
-						// if(parseFloat(model.tags.redeemSchemeObj["AvailableUnits"])<=1){
-						if(true){
+						if(parseFloat(model.tags.redeemSchemeObj["AvailableUnits"])<=1){
+						// if(true){
 							model.tags.unitOrAmount="AU";
 							// console.log("amount valid")
 							api.insertBuyCartRedeem(model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["AvailableUnits"], model.tags.folio,model.tags.unitOrAmount)
