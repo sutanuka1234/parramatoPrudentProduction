@@ -942,7 +942,7 @@ function showSchemeName(model){
 									
 
 
-										if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
+										if(response.Response && response.Response[0] && response.Response[0][0].length>0){
 											model.tags.schemeApiDetails=response.Response[0][0];
 											model.tags.euinApiDetails=response.Response[1][0];
 											model.tags.euinApiDetailsList=[];
@@ -991,9 +991,8 @@ function showSchemeName(model){
 										}
 										else{
 											let reason=""
-											if(response.Response && response.Response[0]){
+											if(response.Response && response.Response[0]&&response.Response[0]["reject_reason"]){
 												reason+=response.Response[0]["reject_reason"]
-
 											}
 
 											let reply={
