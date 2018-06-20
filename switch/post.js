@@ -967,11 +967,9 @@ function showSchemeName(model){
 									                sender  : model.sender,
 									                language: "en"
 									            }
-									            model.stage="confirm"
-												return resolve(model)
 												external(reply)
 												.then((data)=>{
-													model.stage = 'askSchemeName'
+													model.stage = 'showSchemeName'
 													model.tags.schemes=undefined;
 													model.tags.scheme=undefined;
 													return resolve(model)
@@ -1006,7 +1004,7 @@ function showSchemeName(model){
 								            }
 											external(reply)
 											.then((data)=>{
-												model.stage = 'askSchemeName'
+												model.stage = 'showSchemeName'
 												model.tags.schemes=undefined;
 												model.tags.scheme=undefined;
 												return resolve(model)
