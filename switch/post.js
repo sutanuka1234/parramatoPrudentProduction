@@ -1115,7 +1115,7 @@ function euin(model){
 							// console.log("amount valid")
 							api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
 							.then((data)=>{
-								console.log(data.body)
+								console.log(data)
 								try{
 									data = JSON.parse(data.body)
 								}
