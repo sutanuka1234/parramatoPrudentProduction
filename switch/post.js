@@ -1536,6 +1536,7 @@ function extractAmountUptoThree(model){
 	console.log("3decimal digits")
  	if(model.data.match(/\d+\./)){
  		let text = matchAll(model.data, /\d+\.\d+/gi).toArray()
+ 		console.log(text)
 		for(let i in text){
 			if(text[i].length < 12){
 				console.log(text[i])
