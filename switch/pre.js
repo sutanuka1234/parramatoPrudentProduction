@@ -171,7 +171,6 @@ function scheme(model){
 	            	data : model.tags.switchSchemeList
 	            }
 			}
-			console.log(model.tags.switchSchemeList.length)
 			return resolve(model)
 	})
 }
