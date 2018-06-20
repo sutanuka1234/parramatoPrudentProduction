@@ -105,11 +105,11 @@ let sortedJourney=["panMobile",
 
 
 function main(req, res){
-		console.log(req.params.stage)
+		// console.log(req.params.stage)
 		var buttonStageArr=req.body.data.split("|||")
 		if(buttonStageArr.length==2&&obj[buttonStageArr[0]]){
 			req.body.data=buttonStageArr[1]
-			console.log(req.params.stage+":::"+buttonStageArr[0])
+			// console.log(req.params.stage+":::"+buttonStageArr[0])
 			if(req.params.stage!=buttonStageArr[0]&&sortedJourney.indexOf(req.params.stage)>sortedJourney.indexOf(buttonStageArr[0])){
 					req.params.stage=buttonStageArr[0];
 					delete req.body.stage
@@ -119,16 +119,16 @@ function main(req, res){
 		if(obj[req.params.stage]){
 			obj[req.params.stage](req.body)
 			.then((data)=>{
-				console.log("3")
+				// console.log("3")
 				res.send(data)
 			})
 			.catch((e)=>{
-				// console.log(e)
+				// // console.log(e)
 				res.sendStatus(203)
 			})
 		}
 		else{
-				console.log("No such function available")
+				// console.log("No such function available")
 				res.sendStatus(203)
 		}
 		
@@ -148,23 +148,23 @@ function panMobile(model){
 		if(model.tags.newPan){
 			let temp = {pan:model.tags.pan}
 			if(model.tags.newFolio){
-				// console.log("FOLIO")
+				// // console.log("FOLIO")
 				temp.folio=model.tags.folio;
 			}
 			if(model.tags.newScheme){
-				// console.log("SCHEME")
+				// // console.log("SCHEME")
 				temp.schemes=model.tags.schemes;
 			}
 			if(model.tags.newAmount){
-				// console.log("AMOUNT")
+				// // console.log("AMOUNT")
 				temp.amount=model.tags.amount;
 			}
 			if(model.tags.newDivOption){
-				// console.log("DIVOPTION")
+				// // console.log("DIVOPTION")
 				temp.divOption=model.tags.divOption;
 			}
 			if(model.tags.investmentType){
-				// console.log("INVTYPE")
+				// // console.log("INVTYPE")
 				temp.investmentType=model.tags.investmentType
 			}
 			model.tags=temp;
@@ -184,21 +184,21 @@ function panMobile(model){
 
 		}
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
-			// console.log("1")
+			// // console.log("1")
 			return reject(model);
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
-			// console.log("2")
+			// // console.log("2")
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
-				// console.log("then")
-				// console.log(data.body)
+				// // console.log("then")
+				// // console.log(data.body)
 				let response;
 				try{
 					response = JSON.parse(data.body)
 				}
 				catch(e){
-					console.log(e);
+					// console.log(e);
 					if(!model.tags.mobile){
 						model.stage = 'mobile' 
 						return resolve(model)
@@ -225,7 +225,7 @@ function panMobile(model){
 						return resolve(model)
 		            })
 		            .catch((e)=>{
-		                console.log(e);
+		                // console.log(e);
 		                if(!model.tags.mobile){
 							model.stage = 'mobile' 
 							return resolve(model)
@@ -244,8 +244,8 @@ function panMobile(model){
 				}
 			})
 			.catch(error=>{
-				// console.log("catch")
-				console.log(error);
+				// // console.log("catch")
+				// console.log(error);
 				if(!model.tags.mobile){
 					model.stage = 'mobile' 
 					return resolve(model)
@@ -258,7 +258,7 @@ function panMobile(model){
 			})		
 		}
 		else if(model.data&&model.data.includes("proceed")&&(model.tags.mobile||model.tags.pan)){
-			// console.log("3")
+			// // console.log("3")
 
 			if(!model.tags.mobile&&!model.tags.pan){
 				return reject(model);
@@ -273,23 +273,23 @@ function panMobile(model){
 			}
 		}
 		else{ 
-			// console.log("4")
+			// // console.log("4")
 			model = extractMobile(model);
 			// model = extractDivOption(model);
 			model = extractSchemeName(model);
 			model = extractInvetmentType(model)
 			model = extractAmount(model);
 			// model = extractFolio(model);
-			console.log(model.tags.investmentType)
+			// console.log(model.tags.investmentType)
 			if(model.tags.pan&&model.tags.mobile){
 				api.panMobile(model.tags.mobile, model.tags.pan)
 				.then(data=>{
-					// console.log(data.body)
+					// // console.log(data.body)
 					let response;
 					try{
 						response = JSON.parse(data.body)
 					}
-					catch(e){console.log(e);
+					catch(e){// console.log(e);
 						if(!model.tags.mobile){
 							model.stage = 'mobile' 
 							return resolve(model)
@@ -316,7 +316,7 @@ function panMobile(model){
 							return resolve(model)
 			            })
 			            .catch((e)=>{
-			                console.log(e);
+			                // console.log(e);
 			                if(!model.tags.mobile){
 								model.stage = 'mobile' 
 								return resolve(model)
@@ -335,7 +335,7 @@ function panMobile(model){
 					}
 				})
 				.catch(error=>{
-					console.log(error);
+					// console.log(error);
 					if(!model.tags.mobile){
 						model.stage = 'mobile' 
 						return resolve(model)
@@ -374,16 +374,16 @@ function mobile(model){
 			model=extractInvetmentType(model)
 			model = extractAmount(model);
 			// model = extractFolio(model);
-			console.log(model.tags.investmentType)
+			// console.log(model.tags.investmentType)
 			if(model.tags.pan&&model.tags.mobile){
 					api.panMobile(model.tags.mobile, model.tags.pan)
 					.then(data=>{
-						// console.log(data.body)
+						// // console.log(data.body)
 						let response;
 						try{
 							response = JSON.parse(data.body)
 						}
-						catch(e){console.log(e);
+						catch(e){// console.log(e);
 							return reject(model);
 						}
 						if(response.Response[0].result=="FAIL"){
@@ -403,7 +403,7 @@ function mobile(model){
 								return resolve(model)
 				            })
 				            .catch((e)=>{
-				                console.log(e);
+				                // console.log(e);
 				                return reject(model)
 				            })
 						}
@@ -414,7 +414,7 @@ function mobile(model){
 						}
 					})
 					.catch(error=>{
-						console.log(error);
+						// console.log(error);
 						return reject(model)
 					})		
 			}
@@ -439,18 +439,18 @@ function pan(model){
 		model=extractInvetmentType(model)
 		model = extractAmount(model);
 		// model = extractFolio(model);
-		console.log(model.tags.investmentType)
-			// console.log("TAGG")
-			// console.log(JSON.stringify(model.tags,null,3))
+		// console.log(model.tags.investmentType)
+			// // console.log("TAGG")
+			// // console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.pan&&model.tags.mobile){
 			api.panMobile(model.tags.mobile, model.tags.pan)
 			.then(data=>{
-				// console.log(data.body)
+				// // console.log(data.body)
 				let response;
 				try{
 					response = JSON.parse(data.body)
 				}
-				catch(e){console.log(e);
+				catch(e){// console.log(e);
 					return reject(model);
 				}
 				if(response.Response[0].result=="FAIL"){
@@ -470,7 +470,7 @@ function pan(model){
 						return resolve(model)
 		            })
 		            .catch((e)=>{
-		                console.log(e);
+		                // console.log(e);
 		                return reject(model)
 		            })
 				}
@@ -481,7 +481,7 @@ function pan(model){
 				}
 			})
 			.catch(error=>{
-				console.log(error);
+				// console.log(error);
 				return reject(model)
 			})		
 		}
@@ -504,16 +504,16 @@ function otp(model){
 		// model = extractDivOption(model);
 		model = extractSchemeName(model);
 		model=extractInvetmentType(model);
-		console.log(model.tags.investmentType)
+		// console.log(model.tags.investmentType)
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
 			api.resendOtp(model.tags.session)
 			.then((response)=>{
-				// console.log(response.body)
+				// // console.log(response.body)
 				try{
 					response = JSON.parse(response.body)
 				}
 				catch(e){
-					console.log(e)
+					// console.log(e)
 					reject(model)
 				}
 				if(response.Response){
@@ -525,7 +525,7 @@ function otp(model){
 				}
 			})
 			.catch(e=>{
-				console.log(e)
+				// console.log(e)
 				reject(model)
 			})
 		}
@@ -533,12 +533,12 @@ function otp(model){
 			api.otp(model.tags.session, model.tags.otp)
 			.then(data=>{
 				try{
-					// console.log(data.body)
+					// // console.log(data.body)
 					let response;
 					try{
 						response = JSON.parse(data.body)
 					}
-					catch(e){console.log(e);
+					catch(e){// console.log(e);
 						return reject(model);
 					}
 					if(response.Response[0].result=="FAIL"){
@@ -553,13 +553,13 @@ function otp(model){
 							return reject(model)//wrongResolve
 			            })
 			            .catch((e)=>{
-			                console.log(e);
+			                // console.log(e);
 			                return reject(model)
 			            })
 					}
 					else{
 						model.tags.joinAcc = response.Response
-						console.log("sent message")
+						// console.log("sent message")
 						sendExternalMessage(model,"Hi "+model.tags.joinAcc[0].JoinHolderName.split("/")[0]+", hope you are doing great today.");
 						model.tags.joinAccIdList = []
 						response.Response.forEach(function(element){
@@ -609,12 +609,12 @@ function otp(model){
 					}
 				}
 				catch(e){
-					console.log(e);
+					// console.log(e);
 					return reject(model);
 				}
 			})
 			.catch(error=>{
-				console.log(error);
+				// console.log(error);
 				return reject(model)
 			})
 		}
@@ -630,7 +630,7 @@ function otp(model){
 function agreement(model){
 	return new Promise(function(resolve,reject){
 		if(model.data.toLowerCase().trim().includes("i accept and agree")){
-			console.log(model.tags.investmentType)
+			// console.log(model.tags.investmentType)
 			if(model.tags.investmentType){
 				if(model.tags.schemes && model.tags.schemes.length > 0){
 					model.stage = 'showSchemeName'
@@ -705,16 +705,16 @@ function askSchemeName(model){
 			model.tags.schemes=[]
 		}
 		if(matches.bestMatch.rating>0.9){
-			// console.log("nine")
+			// // console.log("nine")
 			model.tags.schemes.push(matches.bestMatch.target)
 		}
 		else if(matches.bestMatch.rating>0.10||dataAmc.flag){
-			// console.log("one")
+			// // console.log("one")
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
 			model.tags.schemes = matches.ratings.splice(0,9);
 		}
 		else{
-			// console.log("undefined")
+			// // console.log("undefined")
 			return reject(model);
 		}
 		if(model.tags.schemes){
@@ -763,8 +763,8 @@ function showSchemeName(model){
 		for(let i in model.tags.schemes){
 			arr.push(model.tags.schemes[i].target)
 		}
-		// console.log(model.data)
-		// console.log(JSON.stringify(model.tags.schemes))
+		// // console.log(model.data)
+		// // console.log(JSON.stringify(model.tags.schemes))
 
 		if(arr.includes(model.data) || (model.data.toLowerCase().includes("yes")&&model.tags.schemes.length==1)){
 			if(model.tags.schemes.length==1){
@@ -835,26 +835,26 @@ function holding(model){
 		model.tags.folio=undefined;
 		if(model.tags.joinAccIdList.includes(model.data)){
 			for (let element of model.tags.joinAcc){
-				console.log(element.JoinAccId+"::"+model.data)
+				// console.log(element.JoinAccId+"::"+model.data)
 				if(element.JoinAccId==model.data){
 					sendExternalMessage(model,"Going ahead with "+element.JoinHolderName)
 					break;
 				}
 			}
 			model.tags.joinAccId = model.data
-			// console.log("INVESTMENT TYPE::::::::::")
-			// console.log(model.tags.investmentType)
+			// // console.log("INVESTMENT TYPE::::::::::")
+			// // console.log(model.tags.investmentType)
 			if(model.tags.investmentType=="sip"){
 				api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,true)
 				.then((response)=>{
-					// console.log(response.body)
+					// // console.log(response.body)
 					try{
 						response = JSON.parse(response.body)
-						console.log(JSON.stringify(response,null,3))
+						// console.log(JSON.stringify(response,null,3))
 					}
 					catch(e){
 						return reject(model)
-						console.log(e)
+						// console.log(e)
 					}
 
 
@@ -877,11 +877,11 @@ function holding(model){
 
 						api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,true)
 						.then(response=>{
-							// console.log(response.body)
+							// // console.log(response.body)
 							try{
 								response = JSON.parse(response.body)
 							}
-							catch(e){console.log(e);
+							catch(e){// console.log(e);
 								return reject(model);
 							}
 							let arr = []
@@ -909,7 +909,7 @@ function holding(model){
 							return resolve(model)
 						})
 						.catch(e=>{
-							console.log(e)
+							// console.log(e)
 							return reject(model)
 						})
 					}
@@ -928,13 +928,13 @@ function holding(model){
 							return resolve(model)
 			            })
 			            .catch((e)=>{
-			                console.log(e);
+			                // console.log(e);
 			                return reject(model)
 			            })
 					}
 				})
 				.catch(e=>{
-					console.log(e)
+					// console.log(e)
 					let reply={
 		                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
 		                type    : "text",
@@ -949,7 +949,7 @@ function holding(model){
 						return resolve(model)
 		            })
 		            .catch((e)=>{
-		                console.log(e);
+		                // console.log(e);
 		                return reject(model)
 		            })
 					return reject(model)
@@ -963,7 +963,7 @@ function holding(model){
 					}
 					catch(e){
 						return reject(model)
-						console.log(e);
+						// console.log(e);
 					}
 					model.tags.existingSchemeApiDetails=response.Response[0];
 					model.tags.existingEuinApiDetails=response.Response[1][0];
@@ -981,7 +981,7 @@ function holding(model){
 						text : "Direct"
 					})
 					model.tags.existingSchemeDetailsSet=[]
-					// console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
+					// // console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
 					for (let existingScheme of model.tags.existingSchemeApiDetails){
 						if(existingScheme["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
 							model.tags.existingSchemeDetailsSet.push(existingScheme)
@@ -994,17 +994,17 @@ function holding(model){
 						return resolve(model)		
 					}
 					else{
-						// console.log("<1:::")
+						// // console.log("<1:::")
 						api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
 						.then((response)=>{
-							// console.log(response.body)
+							// // console.log(response.body)
 							try{
 								response = JSON.parse(response.body)
-								console.log(JSON.stringify(response,null,3))
+								// console.log(JSON.stringify(response,null,3))
 							}
 							catch(e){
 								return reject(model)
-								console.log(e)
+								// console.log(e)
 							}
 
 
@@ -1030,11 +1030,11 @@ function holding(model){
 					            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
 								api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 								.then(response=>{
-									// console.log(response.body)
+									// // console.log(response.body)
 									try{
 										response = JSON.parse(response.body)
 									}
-									catch(e){console.log(e);
+									catch(e){// console.log(e);
 										return reject(model);
 									}
 									let arr = []
@@ -1062,7 +1062,7 @@ function holding(model){
 									return resolve(model)
 								})
 								.catch(e=>{
-									console.log(e)
+									// console.log(e)
 									return reject(model)
 								})
 							}
@@ -1081,13 +1081,13 @@ function holding(model){
 									return resolve(model)
 					            })
 					            .catch((e)=>{
-					                console.log(e);
+					                // console.log(e);
 					                return reject(model)
 					            })
 							}
 						})
 						.catch(e=>{
-							console.log(e)
+							// console.log(e)
 							let reply={
 				                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
 				                type    : "text",
@@ -1102,7 +1102,7 @@ function holding(model){
 								return resolve(model)
 				            })
 				            .catch((e)=>{
-				                console.log(e);
+				                // console.log(e);
 				                return reject(model)
 				            })
 							return reject(model)
@@ -1112,7 +1112,7 @@ function holding(model){
 					
 				})
 				.catch(e=>{
-					console.log(e)
+					// console.log(e)
 					return reject(model)
 				})
 			}
@@ -1128,7 +1128,7 @@ function additional(model){
 		if(model.data.toLowerCase().includes("yes")&&model.tags.existingSchemeDetailsSet.length>0){
 			model.tags.additional=true;
 			if(model.tags.existingSchemeDetailsSet.length===1){
-				// console.log("1:::")
+				// // console.log("1:::")
 				model.tags.tranId=model.tags.existingSchemeDetailsSet[0]["Tranid"]
 				model.tags.folio=model.tags.existingSchemeDetailsSet[0]["FolioNo"]
 				model.tags.divOption=model.tags.existingSchemeDetailsSet[0]["DivOpt"]
@@ -1136,7 +1136,7 @@ function additional(model){
 				delete model.stage;	
 			}
 			else if(model.tags.existingSchemeDetailsSet.length>1){
-				// console.log(">1:::")
+				// // console.log(">1:::")
 
 				model.tags.additionalPossible=true;
 				model.tags.folioList = []
@@ -1156,14 +1156,14 @@ function additional(model){
 			model.tags.additional=false;
 			api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
 			.then((response)=>{
-				// console.log(response.body)
+				// // console.log(response.body)
 				try{
 					response = JSON.parse(response.body)
-					console.log(JSON.stringify(response,null,3))
+					// console.log(JSON.stringify(response,null,3))
 				}
 				catch(e){
 					return reject(model)
-					console.log(e)
+					// console.log(e)
 				}
 
 
@@ -1189,10 +1189,10 @@ function additional(model){
 							response = JSON.parse(response.body)
 						}
 						catch(e){
-							console.log(e)
+							// console.log(e)
 							return reject(model);
 						}
-						// console.log(JSON.stringify(response,null,3));
+						// // console.log(JSON.stringify(response,null,3));
 						if(response.Response.length > 0){
 							model.tags.folioList = []
 							model.tags.folioObjList=response.Response;
@@ -1210,7 +1210,7 @@ function additional(model){
 						return resolve(model)
 					})
 					.catch(e=>{
-						console.log(e)
+						// console.log(e)
 						return reject(model)
 					}) 	
 				}
@@ -1229,13 +1229,13 @@ function additional(model){
 						return resolve(model)
 		            })
 		            .catch((e)=>{
-		                console.log(e);
+		                // console.log(e);
 		                return reject(model)
 		            })
 				}
 			})
 			.catch(e=>{
-				console.log(e);
+				// console.log(e);
 				return reject(model);
 			})
 		}
@@ -1289,12 +1289,12 @@ function euin(model){
 				if(model.tags.amount){
 					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId)
 					.then((data)=>{
-						// console.log(data.body)
+						// // console.log(data.body)
 						try{
 							data = JSON.parse(data.body)
 						}
 						catch(e){
-						     console.log(e);
+						     // console.log(e);
 						     let reply={
 				                text    : "API Not Responding Properly",
 				                type    : "text",
@@ -1306,7 +1306,7 @@ function euin(model){
 				                return reject(model);
 				            })
 				            .catch((e)=>{
-				                console.log(e);
+				                // console.log(e);
 				                return reject(model)
 				            })
 						}
@@ -1322,14 +1322,14 @@ function euin(model){
 				                return reject(model);
 				            })
 				            .catch((e)=>{
-				                console.log(e);
+				                // console.log(e);
 				                return reject(model)
 				            })
 						}
 						else if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
 							model.tags.bankMandateList = []
 							let maxAmountPossible=0;
-							// console.log(JSON.stringify(data.Response[1],null,3))
+							// // console.log(JSON.stringify(data.Response[1],null,3))
 							let typeInv="PURCHASE"
 							if(model.tags.additional){
 								typeInv="ADDITIONALPURCHASE"
@@ -1354,7 +1354,7 @@ function euin(model){
 										}
 								}
 								catch(e){
-									console.log(e)
+									// console.log(e)
 								}
 								let expectedAmount=parseInt(model.tags.amount);
 								if(expectedAmount<=element.DailyLimit){
@@ -1369,7 +1369,7 @@ function euin(model){
 									
 								}
 							}
-							// console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+							// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 							if(model.tags.bankMandateList.length==0){
 								model.stage = 'amount'
 								return resolve(model)
@@ -1384,7 +1384,7 @@ function euin(model){
 						}
 					})
 					.catch((e)=>{
-						console.log(e)
+						// console.log(e)
 						return reject(model)
 					})
 				}
@@ -1408,8 +1408,8 @@ function euin(model){
 
 function folio(model){
 	return new Promise(function(resolve, reject){
-		console.log("::::::::::::::::::::::::EUIN::::::::::::::::::::::::")
-		console.log(JSON.stringify(model.tags.euinApiDetails,null,3))
+		// console.log("::::::::::::::::::::::::EUIN::::::::::::::::::::::::")
+		// console.log(JSON.stringify(model.tags.euinApiDetails,null,3))
 		let arr = []
 		for(let i in model.tags.folioList){
 			arr.push(model.tags.folioList[i].data)
@@ -1424,8 +1424,8 @@ function folio(model){
 			else{
 				model.tags.folio = model.data
 				for(let i in model.tags.folioObjList){
-					if(model.tags.folioObjList[i]["DivOpt"]){
-						switch(model.tags.folioObjList[i]["DivOpt"]){
+					if(model.tags.folioObjList[i]["DIVIDENDOPTION"]){
+						switch(model.tags.folioObjList[i]["DIVIDENDOPTION"]){
 							case "Y": model.tags.divOption = 1
 									  divFlag=false;
 								break;
@@ -1446,7 +1446,7 @@ function folio(model){
 					}
 				}
 				if(divFlag){
-					// console.log("1")
+					// // console.log("1")
 					delete model.stage;
 					return resolve(model);
 				}
@@ -1482,7 +1482,7 @@ function folio(model){
 					if(model.tags.amount){
 						if(model.tags.investmentType=="sip"){
 							//TODO
-							// console.log("2")
+							// // console.log("2")
 							model.stage = 'sipDay'
 							return resolve(model)
 						}
@@ -1490,12 +1490,12 @@ function folio(model){
 
 							api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId)
 							.then((data)=>{
-								// console.log(data.body)
+								// // console.log(data.body)
 								try{
 									data = JSON.parse(data.body)
 								}
 								catch(e){
-									console.log(e);
+									// console.log(e);
 									let reply={
 							                text    : "API Not Responding Properly",
 							                type    : "text",
@@ -1504,11 +1504,11 @@ function folio(model){
 							            }
 										external(reply)
 										.then((data)=>{
-											console.log("api error")
+											// console.log("api error")
 							                return reject(model);
 							            })
 							            .catch((e)=>{
-							                console.log(e);
+							                // console.log(e);
 							                return reject(model)
 							            })
 									// delete model.stage
@@ -1537,7 +1537,7 @@ function folio(model){
 											}
 										}
 										catch(e){
-											console.log(e)
+											// console.log(e)
 											model.stage="amount"
 											return resolve(model);
 										}
@@ -1554,34 +1554,34 @@ function folio(model){
 										}
 									}
 									
-									// console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+									// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 									if(model.tags.bankMandateList.length==0){
-										// console.log("3")
+										// // console.log("3")
 										model.stage="amount"
 										return resolve(model)
 									}
 									else{
-										// console.log("4")
+										// // console.log("4")
 										model.stage = 'bankMandate'
 										return resolve(model)
 									}
 								}
 								else{
-									// console.log("5")
+									// // console.log("5")
 									model.stage="amount"
 									return resolve(model)
 								}
 							})
 							.catch((e)=>{
 
-								console.log(e)
+								// console.log(e)
 								model.stage="amount"
 								return resolve(model)
 							})
 						}
 					}
 					else{
-						// console.log("6")
+						// // console.log("6")
 						model.stage="amount"
 						return resolve(model)
 					}
@@ -1590,7 +1590,7 @@ function folio(model){
 			
 		}
 		else{
-			// console.log("last reject")
+			// // console.log("last reject")
 			return reject(model)
 		}
 	})
@@ -1642,12 +1642,12 @@ function divOps(model){
 
 					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId)
 					.then((data)=>{
-						// console.log(data.body)
+						// // console.log(data.body)
 						try{
 							data = JSON.parse(data.body)
 						}
 						catch(e){
-							console.log(e);
+							// console.log(e);
 							let reply={
 					                text    : "API Not Responding Properly",
 					                type    : "text",
@@ -1659,7 +1659,7 @@ function divOps(model){
 					                return reject(model);
 					            })
 					            .catch((e)=>{
-					                console.log(e);
+					                // console.log(e);
 					                return reject(model)
 					            })
 							// delete model.stage
@@ -1688,7 +1688,7 @@ function divOps(model){
 									}
 								}
 								catch(e){
-									console.log(e)
+									// console.log(e)
 								}
 								let expectedAmount=parseInt(model.tags.amount);
 								if(expectedAmount<=element.DailyLimit){
@@ -1703,7 +1703,7 @@ function divOps(model){
 								}
 							}
 							
-							// console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+							// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 							if(model.tags.bankMandateList.length==0){
 								delete model.stage
 								return resolve(model)
@@ -1752,9 +1752,9 @@ function amount(model){
 			if(amount%multiple!=0){
 				model.tags.amount=undefined;
 			}
-			console.log(minAmount)
-			console.log(maxAmount)
-			console.log(amount)
+			// console.log(minAmount)
+			// console.log(maxAmount)
+			// console.log(amount)
 
 			if(amount<minAmount){
 				// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
@@ -1788,11 +1788,11 @@ function amount(model){
 				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId)
 				.then((data)=>{
 					try{
-						console.log(data.body+":>>>>>>>>>>")
+						// console.log(data.body+":>>>>>>>>>>")
 						data= JSON.parse(data.body)
 					}
 					catch(e){	
-						console.log(e);
+						// console.log(e);
 						let reply={
 			                text    : "API Not Responding Properly",
 			                type    : "text",
@@ -1804,7 +1804,7 @@ function amount(model){
 			                return reject(model);
 			            })
 			            .catch((e)=>{
-			                console.log(e);
+			                // console.log(e);
 			                return reject(model)
 			            })
 						// return reject(model);
@@ -1822,14 +1822,14 @@ function amount(model){
 			                return reject(model);
 			            })
 			            .catch((e)=>{
-			                console.log(e);
+			                // console.log(e);
 			                return reject(model)
 			            })
 					}
 					else if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
 						model.tags.bankMandateList = []
 						let maxAmountPossible=0;
-						// console.log(JSON.stringify(data.body.Response[1],null,3))
+						// // console.log(JSON.stringify(data.body.Response[1],null,3))
 						let typeInv="PURCHASE"
 						if(model.tags.additional){
 							typeInv="ADDITIONALPURCHASE"
@@ -1854,7 +1854,7 @@ function amount(model){
 									}
 							}
 							catch(e){
-								console.log(e)
+								// console.log(e)
 				                return reject(model)
 							}
 							let expectedAmount=parseInt(model.tags.amount);
@@ -1870,7 +1870,7 @@ function amount(model){
 								
 							}
 						}
-						// console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+						// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 						if(model.tags.bankMandateList.length==0){
 							let reply={
 				                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
@@ -1883,7 +1883,7 @@ function amount(model){
 				                return reject(model);
 				            })
 				            .catch((e)=>{
-				                console.log(e);
+				                // console.log(e);
 				                return reject(model)
 				            })
 						}
@@ -1893,18 +1893,18 @@ function amount(model){
 						}
 					}
 					else{
-						console.log(JSON.stringify(data.Response,null,3)+"--------------------")
+						// console.log(JSON.stringify(data.Response,null,3)+"--------------------")
 						return reject(model)
 					}
 				})
 				.catch((e)=>{
-					console.log(e)
+					// console.log(e)
 					return reject(model)
 				})
 			}
 		}
 		else{
-			console.log("no amount")
+			// console.log("no amount")
 			return reject(model)
 		}	
 	})
@@ -1913,7 +1913,7 @@ function amount(model){
 function sipDay(model){
 	return new Promise(function(resolve, reject){
 		try{
-			console.log("SIP:::::::::::::::::::::::::::::::::::::::"+model.tags.schemeApiDetails["SIPDays"]);
+			// console.log("SIP:::::::::::::::::::::::::::::::::::::::"+model.tags.schemeApiDetails["SIPDays"]);
 			let text=matchAll(model.data, /(\d+)/gi).toArray();
 			if(text&&text.length>0){
 				text=parseInt(text[0]);
@@ -1932,11 +1932,11 @@ function sipDay(model){
 					api.getMandate(model.tags.session, model.tags.joinAccId)
 					.then((data)=>{
 						try{
-							console.log(data.body)
+							// console.log(data.body)
 							data = JSON.parse(data.body)
 						}
 						catch(e){	
-							console.log(e);
+							// console.log(e);
 							let reply={
 				                text    : "API Not Responding Properly",
 				                type    : "text",
@@ -1945,11 +1945,11 @@ function sipDay(model){
 				            }
 							external(reply)
 							.then((data)=>{
-								console.log("improper json")
+								// console.log("improper json")
 				                return reject(model);
 				            })
 				            .catch((e)=>{
-				                console.log(e);
+				                // console.log(e);
 				                return reject(model)
 				            })
 						}
@@ -1967,7 +1967,7 @@ function sipDay(model){
 					                return reject(model);
 					            })
 					            .catch((e)=>{
-					                console.log(e);
+					                // console.log(e);
 					                return reject(model)
 					            })
 							}
@@ -1984,7 +1984,7 @@ function sipDay(model){
 											}
 									}
 									catch(e){
-										console.log(e)
+										// console.log(e)
 						                return reject(model)
 									}
 									let expectedAmount=parseInt(model.tags.amount);
@@ -2000,7 +2000,7 @@ function sipDay(model){
 										
 									}
 								}
-								// console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+								// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 								if(model.tags.bankMandateList.length==0){
 									let reply={
 						                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
@@ -2013,7 +2013,7 @@ function sipDay(model){
 						                return reject(model);
 						            })
 						            .catch((e)=>{
-						                console.log(e);
+						                // console.log(e);
 						                return reject(model)
 						            })
 								}
@@ -2029,28 +2029,28 @@ function sipDay(model){
 							}
 						}
 						catch(e){
-							console.log(e);
+							// console.log(e);
 							return reject(model);
 				            
 						}
 					})
 					.catch(e=>{
-						console.log(e);
+						// console.log(e);
 						return reject(model);
 					})
 				}
 				else{
-					console.log("not valid date")
+					// console.log("not valid date")
 					return reject(model);
 				}
 			}
 			else{
-				console.log("No number")
+				// console.log("No number")
 				return reject(model);
 			}
 		}
 		catch(e){
-			console.log(e)
+			// console.log(e)
 			return reject(model);
 		}
 	});
@@ -2062,11 +2062,11 @@ function bankMandate(model){
 		for(let i in model.tags.bankMandateList){
 			arr.push(model.tags.bankMandateList[i].buttons[0].data)
 		}
-		// console.log(arr)
+		// // console.log(arr)
 
 		if(arr.includes(model.data)){
 			if(model.data.includes("-nach")){
-				// console.log("nach")
+				// // console.log("nach")
 				return reject(model)
 				
 			}
@@ -2080,7 +2080,7 @@ function bankMandate(model){
 								data = JSON.parse(data.body)
 							}
 							catch(e){	
-								console.log(e);
+								// console.log(e);
 								let reply={
 					                text    : "API Not Responding Properly",
 					                type    : "text",
@@ -2092,7 +2092,7 @@ function bankMandate(model){
 					                return reject(model);
 					            })
 					            .catch((e)=>{
-					                console.log(e);
+					                // console.log(e);
 					                return reject(model)
 					            })
 							}
@@ -2108,7 +2108,7 @@ function bankMandate(model){
 					                return reject(model);
 					            })
 					            .catch((e)=>{
-					                console.log(e);
+					                // console.log(e);
 					                return reject(model)
 					            })
 							}
@@ -2120,7 +2120,7 @@ function bankMandate(model){
 										data = JSON.parse(data.body)
 									}
 									catch(e){	
-										console.log(e);
+										// console.log(e);
 										let reply={
 							                text    : "API Not Responding Properly",
 							                type    : "text",
@@ -2132,7 +2132,7 @@ function bankMandate(model){
 							                return reject(model);
 							            })
 							            .catch((e)=>{
-							                console.log(e);
+							                // console.log(e);
 							                return reject(model)
 							            })
 									}
@@ -2148,7 +2148,7 @@ function bankMandate(model){
 							                return reject(model);
 							            })
 							            .catch((e)=>{
-							                console.log(e);
+							                // console.log(e);
 							                return reject(model)
 							            })
 									}
@@ -2163,14 +2163,14 @@ function bankMandate(model){
 
 								})
 								.catch(e=>{
-					                console.log(e);
+					                // console.log(e);
 					                return reject(model)
 								})
 							}
 
 						})
 						.catch(e=>{
-							console.log(e)
+							// console.log(e)
 							return reject(model)
 						})
 				}
@@ -2178,11 +2178,11 @@ function bankMandate(model){
 
 					api.bankMandate(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.bankMandate, model.tags.amount,model.tags.additional)
 					.then((data)=>{
-						console.log(data.body)
+						// console.log(data.body)
 						try{
 							data = JSON.parse(data.body)
 						}
-						catch(e){console.log(e);
+						catch(e){// console.log(e);
 							return reject(model);
 						}
 						if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
@@ -2197,7 +2197,7 @@ function bankMandate(model){
 				                return reject(model);
 				            })
 				            .catch((e)=>{
-				                console.log(e);
+				                // console.log(e);
 				                return reject(model)
 				            })
 						}
@@ -2210,7 +2210,7 @@ function bankMandate(model){
 						}
 					})
 					.catch(e=>{
-						console.log(e) 
+						// console.log(e) 
 						return reject(model)
 					})
 				}
@@ -2235,7 +2235,7 @@ function sendExternalMessage(model,text){
 		external(reply)
 		.then((data)=>{ })
         .catch((e)=>{
-            console.log(e);
+            // console.log(e);
        })
 }
 
@@ -2293,12 +2293,12 @@ function extractAmount(model){
 function extractMobile(model){
 	let text = matchAll(model.data, /(\d+)/gi).toArray()
 
-	// console.log(text)
+	// // console.log(text)
 	for(let i in text){
 		if(text[i].length == 10){
 			model.tags.mobile = text[i]
 			model.data = model.data.replace(model.tags.mobile, '')
-			// console.log(model.tags.mobile+"mobile")
+			// // console.log(model.tags.mobile+"mobile")
 			break;
 		}
 	}
@@ -2307,7 +2307,7 @@ function extractMobile(model){
 
 function extractPan(model){
 	let matchPan=model.data.match(regexPan)
-	// console.log(matchPan)
+	// // console.log(matchPan)
 	if(matchPan&&matchPan.length>0&&matchPan[0]){
 
 		if(matchPan[0]!=model.tags.pan){
@@ -2315,7 +2315,7 @@ function extractPan(model){
 		}
 		model.tags.pan = matchPan[0]
 		model.data=model.data.replace(model.tags.pan, '')
-		// console.log(model.tags.pan+"pan")
+		// // console.log(model.tags.pan+"pan")
 	}
 	return model;
 }
@@ -2370,7 +2370,7 @@ function extractSchemeName(model){
 					searchTerm+=wordsInUserSays[i]+" "
 				}
 				searchTerm=searchTerm.trim();
-				// console.log(searchTerm)
+				// // console.log(searchTerm)
 				let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
 				if(matches.bestMatch.rating>0.9){
 					model.tags.schemes = []
