@@ -337,7 +337,7 @@ function confirm(model){
 		}
 			model.reply={
 			type:"quickReply",
-            text:"You are about to switch "+amount+" from "+model.tags.switchSchemeObj["SCHEMENAME"]+" to "+model.tags.scheme+". Do you confirm this transaction?",
+            text:"You are about to switch "+amount+" from "+model.tags.switchSchemeObj["SchemeName"]+" to "+model.tags.scheme+". Do you confirm this transaction?",
             next:{
                 data: [
                 	{
