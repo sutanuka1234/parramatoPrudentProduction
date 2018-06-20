@@ -224,23 +224,32 @@ function amount(model){
 
 function confirm(model){
 	return new Promise(function(resolve, reject){
-		
+		let amount=""
+		if(model.tags.unitOrAmount=="PU"){
+			amount+=model.tags.amount+" units"
+		}
+		else if(model.tags.unitOrAmount=="AU"){
+			amount+=model.tags.amount+" units (All units)"
+		}
+		else{
+			amount+="Rs "+model.tags.amount
+		}
 			model.reply={
-				type:"quickReply",
-	            text:"Do you confirm this transaction?",
-	            next:{
-	                data: [
-	                	{
-	                		data : "Yes",
-	                		text : "Yes"
-	                	},
-	                	{
-	                		data : "Cancel",
-	                		text : "Cancel"
-	                	}
-	                ]
-	            }
-			}
+			type:"quickReply",
+            text:"You are about to redeem "+amount+" from "+model.tags.redeemSchemeObj["SCHEMENAME"]+". Do you confirm this transaction?",
+            next:{
+                data: [
+                	{
+                		data : "Yes",
+                		text : "Yes"
+                	},
+                	{
+                		data : "Cancel",
+                		text : "Cancel"
+                	}
+                ]
+            }
+		}
 		resolve(model)
 	})
 }
