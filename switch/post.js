@@ -936,24 +936,22 @@ function showSchemeName(model){
 								sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
 								api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,model.tags.folio,data[model.tags.scheme].schemeCode,true)
 								.then((response)=>{
-									// console.log(response.body)
-
+									console.log(response.body)
 									try{
 										response = JSON.parse(response.body)
-										console.log(JSON.stringify(response.Response[0],null,3)+">>>>>>>>>>>>>>>>>>>>>>>")
-										if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].SCHEMECODE){
-											model.tags.euinFolioDetails=response.Response[0];
+									
+
+
+										if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 											model.tags.schemeApiDetails=response.Response[0][0];
 											model.tags.euinApiDetails=response.Response[1][0];
 											model.tags.euinApiDetailsList=[];
 											if(response.Response.length>1){
 												for(let i in response.Response[1]){
-													if(response.Response[1][i]["ID"]!="0"){
-														model.tags.euinApiDetailsList.push({
-															data : response.Response[1][i]["ID"],
-															text : response.Response[1][i]["ID"]
-														})
-													}
+													model.tags.euinApiDetailsList.push({
+														data : response.Response[1][i]["ID"],
+														text : response.Response[1][i]["ID"]
+													})
 												}
 											}
 											model.tags.euinApiDetailsList.push({
@@ -1096,33 +1094,17 @@ function showSchemeName(model){
 function euin(model){
 	return new Promise(function(resolve, reject){
 		let euinFlag=false;
-
 		for(let data of model.tags.euinApiDetailsList){
 			if(data["data"]==model.data){
 				euinFlag=true;
 				if(model.data.toLowerCase().includes("direct")){
 					model.tags.euin=""
-					model.tags.folio="0"
 					model.tags.existingEuinApiDetails=""
 					sendExternalMessage(model,"Hey, as you have selected direct investment, you hereby confirm that this a transaction done purely at your sole discretion");
 				}
 				else{
 					model.tags.euin=model.data
 					model.tags.existingEuinApiDetails=model.data
-					model.tags.folio=model.tags.euinFolioDetails["FolioNo"]
-
-				}
-				if(model.tags.euinFolioDetails["DIVIDENDOPTION"]){
-					switch(model.tags.euinFolioDetails["DIVIDENDOPTION"]){
-						case "Y": model.tags.divOption = 1
-							break;
-						case "N": model.tags.divOption = 2
-							break;
-						case "Z": model.tags.divOption = 0
-							break;
-						default: model.tags.divOption = undefined
-								break;
-					}
 				}
 				if(model.tags.divOption!=undefined){
 					model.stage = 'unitOrAmount'
