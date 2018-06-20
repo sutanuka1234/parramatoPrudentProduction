@@ -175,7 +175,7 @@ function askSchemeName(model){
 
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.schemes.length == 1){
+		if(model.tags.schemes&&model.tags.schemes.length == 1){
 			model.reply={
 				type:"quickReply",
 	            text:"Would you like to go ahead with "+model.tags.schemes+"? You can also type if there is something else on your mind.",
