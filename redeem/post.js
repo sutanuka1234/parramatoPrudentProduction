@@ -1112,6 +1112,8 @@ function extractAmountUptoThree(model){
  		let text = matchAll(model.data, /(\d+\.\d+)/gi).toArray()
  		console.log(text)
  		if(text.length>0){
+ 			console.log(text[0].toFixed(3))
+ 			console.log(typeof text[0].toFixed(3))
 			model.tags.amount = parseFloat(text[0].toFixed(3))
 			console.log(model.tags.amount+":::::::::::::::::;amount")
 			model.data = model.data.replace(text[0], '')
