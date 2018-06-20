@@ -1117,7 +1117,9 @@ function extractAmountUptoThree(model){
 				break;
 			}
 		}
-		return extractAmount(model);
+		if(model.tags.amount){
+			return model;
+		}
  	}
  	return extractAmount(model)
 	
