@@ -1310,11 +1310,11 @@ function amount(model){
 					// 	model.tags.amount=undefined;
 					// }
 					if(amount<minAmount){
-						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
+						sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
 						model.tags.amount=undefined;
 					}
 					else if(amount>maxAmount){
-						// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
+						sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
 						model.tags.amount=undefined;
 					}
 				}
