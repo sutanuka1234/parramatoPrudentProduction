@@ -774,6 +774,7 @@ function scheme(model){
 									return resolve(model);
 								}
 								else{
+									console.log("all failed")
 						                return reject(model)
 									
 								}
