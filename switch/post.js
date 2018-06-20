@@ -934,7 +934,7 @@ function showSchemeName(model){
 								// 	delete model.stage
 								// }
 								sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
-								api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,true)
+								api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,model.tags.folio,true)
 								.then((response)=>{
 									// console.log(response.body)
 									try{
@@ -1109,8 +1109,8 @@ function euin(model){
 				if(model.tags.divOption!=undefined){
 					model.stage = 'unitOrAmount'
 				}
-				// if(model.tags.divOption!=undefined&&parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
-				if(true&&model.tags.divOption!=undefined){
+				if(model.tags.divOption!=undefined&&parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
+				// if(true&&model.tags.divOption!=undefined){
 							model.tags.unitOrAmount="AU";
 							// console.log("amount valid")
 							api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
@@ -1192,8 +1192,8 @@ function divOps(model){
 				model.tags.divOptionText="Payout Option"
 			}
 			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
-			// if(parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
-			if(true){
+			if(parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
+			// if(true){
 							model.tags.unitOrAmount="AU";
 							// console.log("amount valid")
 							api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
