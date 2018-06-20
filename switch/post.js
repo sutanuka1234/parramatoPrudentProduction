@@ -967,6 +967,8 @@ function showSchemeName(model){
 									                sender  : model.sender,
 									                language: "en"
 									            }
+									            model.stage="confirm"
+												return resolve(model)
 												external(reply)
 												.then((data)=>{
 													model.stage = 'askSchemeName'
