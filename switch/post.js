@@ -785,43 +785,41 @@ function askSchemeName(model){
 		console.log(JSON.stringify(model.tags.switchSchemeObj,null,3))
 		let filteredData={}
 		for(let key in data){
-			if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]){
+			if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]&&model.tags.switchSchemeObj["SCHEMECODE"]!=data[key].schemeCode){
 				filteredData[key]=data[key]
 			}
 		}
+				
 		let dataAmc=getAmcNamesEntityReplaced(model.data);
 		model.data=dataAmc.text
 		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(filteredData))
-		if(model.tags.schemes===undefined){
-			model.tags.schemes=[]
-		}
 		if(matches.bestMatch.rating>0.9){
-			// console.log("nine")
 			model.tags.schemes.push(matches.bestMatch.target)
 		}
 		else if(matches.bestMatch.rating>0.10||dataAmc.flag){
-			// console.log("one")
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
 			model.tags.schemes = matches.ratings.splice(0,9);
 		}
 		else{
-			// console.log("undefined")
 			return reject(model);
 		}
 		if(model.tags.schemes){
 			model.tags.schemeList = []
 			model.tags.schemes.forEach(function(element){
-				model.tags.schemeList.push({
-					title 	: 'Schemes',
-					text 	: element.target,
-					buttons : [
-						{
-							text : 'Select',
-							data : "showSchemeName|||"+element.target
-						}
-					]
-				})
+				if(element.target){
+					model.tags.schemeList.push({
+						title 	: 'Schemes',
+						text 	: element.target,
+						buttons : [
+							{
+								text : 'Select',
+								data : "showSchemeName|||"+element.target
+							}
+						]
+					})
+				}
 			})
+
 		}
 
 		model.stage="showSchemeName"
@@ -1047,7 +1045,7 @@ function showSchemeName(model){
 		else{
 			let filteredData={}
 			for(let key in data){
-				if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]){
+				if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]&&model.tags.switchSchemeObj["SCHEMECODE"]!=data[key].schemeCode){
 					filteredData[key]=data[key]
 				}
 			}
@@ -1068,16 +1066,18 @@ function showSchemeName(model){
 			if(model.tags.schemes){
 				model.tags.schemeList = []
 				model.tags.schemes.forEach(function(element){
-					model.tags.schemeList.push({
-						title 	: 'Schemes',
-						text 	: element.target,
-						buttons : [
-							{
-								text : 'Select',
-								data : "showSchemeName|||"+element.target
-							}
-						]
-					})
+					if(element.target){
+						model.tags.schemeList.push({
+							title 	: 'Schemes',
+							text 	: element.target,
+							buttons : [
+								{
+									text : 'Select',
+									data : "showSchemeName|||"+element.target
+								}
+							]
+						})
+					}
 				})
 
 			}
