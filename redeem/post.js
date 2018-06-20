@@ -802,7 +802,7 @@ function scheme(model){
 			return reject(model);			
 		}
 
-		return reject(model)
+		// return reject(model)
 	})
 }
 
