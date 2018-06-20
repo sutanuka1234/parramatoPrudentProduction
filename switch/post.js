@@ -1109,8 +1109,8 @@ function euin(model){
 				if(model.tags.divOption!=undefined){
 					model.stage = 'unitOrAmount'
 				}
-				if(model.stage=="unitOrAmount"&&parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
-				// if(true){
+				// if(model.stage=="unitOrAmount"&&parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
+				if(true){
 							model.tags.unitOrAmount="AU";
 							// console.log("amount valid")
 							api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
@@ -1185,15 +1185,15 @@ function divOps(model){
 			
 			if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')){
 				model.tags.divOption = 1
-				model.tags.divOptionText="Resinvestment Option"
+				model.tags.divOptionText="Reinvestment Option"
 			}
 			else{
 				model.tags.divOption = 2
 				model.tags.divOptionText="Payout Option"
 			}
 			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
-			if(parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
-			// if(true){
+			// if(parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
+			if(true){
 							model.tags.unitOrAmount="AU";
 							// console.log("amount valid")
 							api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
