@@ -1174,7 +1174,6 @@ function euin(model){
 			}
 		}
 		
-		return reject(model);
 	});
 
 }
