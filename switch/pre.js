@@ -330,7 +330,7 @@ function confirm(model){
 			amount+=model.tags.amount+" units"
 		}
 		else if(model.tags.unitOrAmount=="AU"){
-			amount+=model.tags.amount+" units (All units)"
+			amount+=model.tags.switchSchemeObj["AvailableUnits"]+" units (All units)"
 		}
 		else{
 			amount+="Rs "+model.tags.amount
