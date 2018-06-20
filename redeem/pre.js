@@ -17,6 +17,7 @@ let obj = {
 	holding : holding,
 	amount 	: amount,
 	scheme 	: scheme,
+	confirm	: confirm,
 	summary	: summary
 }
 
@@ -215,6 +216,31 @@ function amount(model){
 			}
 
 		}
+		resolve(model)
+	})
+}
+
+
+
+function confirm(model){
+	return new Promise(function(resolve, reject){
+		
+			model.reply={
+				type:"quickReply",
+	            text:"Do you confirm this transaction?",
+	            next:{
+	                data: [
+	                	{
+	                		data : "Yes",
+	                		text : "Yes"
+	                	},
+	                	{
+	                		data : "Cancel",
+	                		text : "Cancel"
+	                	}
+	                ]
+	            }
+			}
 		resolve(model)
 	})
 }

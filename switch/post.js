@@ -1109,7 +1109,7 @@ function euin(model){
 				if(model.tags.divOption!=undefined){
 					model.stage = 'unitOrAmount'
 				}
-				else if(parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
+				if(model.stage=="unitOrAmount"&&parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
 							model.tags.unitOrAmount="AU";
 							// console.log("amount valid")
 							api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
@@ -1192,8 +1192,68 @@ function divOps(model){
 				model.tags.divOptionText="Payout Option"
 			}
 			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
-			delete model.stage;
-			return resolve(model)
+			if(parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
+							model.tags.unitOrAmount="AU";
+							// console.log("amount valid")
+							api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
+							.then((data)=>{
+								console.log(data.body)
+								try{
+									data = JSON.parse(data.body)
+								}
+								catch(e){	
+									console.log(e);
+									let reply={
+						                text    : "API Not Responding Properly",
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+						                return reject(model);
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+								}
+								if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+									let reply={
+						                text    : data.Response[0]['reject_reason'].trim(),
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+						                return reject(model);
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+								}
+								else if(data.Response&&data.Response.length>0){
+									model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+									model.stage="confirm"
+									return resolve(model);
+								}
+								else{
+						                return reject(model)
+									
+								}
+							})
+							.catch(e=>{
+								console.log(e)
+								return reject(model)
+							})
+				}
+				else{
+					delete model.stage;
+					return resolve(model)					
+				}
+
 		}
 		else{
 			return reject(model)
