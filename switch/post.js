@@ -1532,20 +1532,13 @@ function extractAmount(model){
 }
 
 
+
 function extractAmountUptoThree(model){
-	console.log("3decimal digits")
+	
  	if(model.data.match(/\d+\./)){
  		let text = matchAll(model.data, /(\d+\.\d+)/gi).toArray()
- 		console.log(text)
-		for(let i in text){
-			if(text[i].length < 12){
-				console.log(text[i])
-				console.log(text[i].toFixed(3))
-				model.tags.amount = parseFloat(text[i].toFixed(3))
-				model.data = model.data.replace(model.tags.amount, '')
-				break;
-			}
-		}
+		model.tags.amount = parseFloat(text[0].toFixed(3))
+		model.data = model.data.replace(model.tags.amount, '')
 		if(model.tags.amount){
 			return model;
 		}
@@ -1553,6 +1546,7 @@ function extractAmountUptoThree(model){
  	return extractAmount(model)
 	
 }
+
 
 function extractMobile(model){
 	let text = matchAll(model.data, /(\d+)/gi).toArray()
