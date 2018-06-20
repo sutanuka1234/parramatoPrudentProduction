@@ -745,6 +745,7 @@ function scheme(model){
 						            }
 									external(reply)
 									.then((data)=>{
+										console.log("data 1 failed")
 						                return reject(model);
 						            })
 						            .catch((e)=>{
@@ -761,6 +762,7 @@ function scheme(model){
 						            }
 									external(reply)
 									.then((data)=>{
+										console.log("data 2 failed")
 						                return reject(model);
 						            })
 						            .catch((e)=>{
@@ -771,6 +773,7 @@ function scheme(model){
 								else if(data.Response&&data.Response.length>0){
 									model.tags.refrenceIdRedeemTxn=data.Response[0]["TranReferenceID"];
 									model.stage="confirm";
+									console.log("resolved confirm")
 									return resolve(model);
 								}
 								else{
