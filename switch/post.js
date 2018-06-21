@@ -934,7 +934,7 @@ function showSchemeName(model){
 								// 	delete model.stage
 								// }
 								sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
-								api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,model.tags.folio,data[model.tags.scheme].schemeCode,true)
+								api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,model.tags.folio,model.tags.switchSchemeObj["SCHEMECODE"],true)
 								.then((response)=>{
 									console.log(response.body)
 									try{

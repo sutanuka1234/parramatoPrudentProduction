@@ -22,6 +22,8 @@ let obj = {
 	showSchemeName:showSchemeName,
 	euin	: euin,
 	divOps:divOps,
+	unitOrAmount:unitOrAmount,
+	amount : amount,
 	confirm : confirm
 }
 
@@ -77,14 +79,30 @@ let amc = [
 	'principal pnb'
 ]
 
+let sortedJourney=["panMobile",
+"mobile",
+"pan",
+"otp",
+"agreement",
+"holding",
+"scheme",
+"askSchemeName",
+"showSchemeName",
+"euin",
+"divOps",
+"unitOrAmount",
+"amount",
+"confirm",
+"summary"]
+
 
 function main(req, res){
 		console.log(req.params.stage)
 		var buttonStageArr=req.body.data.split("|||")
-		if(buttonStageArr.length==2){
+		if(buttonStageArr.length==2&&obj[buttonStageArr[0]]){
 			req.body.data=buttonStageArr[1]
 			console.log(req.params.stage+":::"+buttonStageArr[0])
-			if(req.params.stage!=buttonStageArr[0]){
+			if(req.params.stage!=buttonStageArr[0]&&sortedJourney.indexOf(req.params.stage)>sortedJourney.indexOf(buttonStageArr[0])){
 					req.params.stage=buttonStageArr[0];
 					delete req.body.stage
 			}
@@ -97,7 +115,7 @@ function main(req, res){
 				res.send(data)
 			})
 			.catch((e)=>{
-				console.log(e)
+				// console.log(e)
 				res.sendStatus(203)
 			})
 		}
@@ -579,9 +597,9 @@ function holding(model){
 		model.tags.amount = undefined
 		model.tags.joinAccId = undefined
 		model.tags.tranId=undefined
-		model.tags.stpSchemeList=undefined
-		model.tags.stpReferenceId=undefined
-		model.tags.refrenceIdstpTxn=undefined
+		model.tags.switchSchemeList=undefined
+		model.tags.switchReferenceId=undefined
+		model.tags.refrenceIdSwitchTxn=undefined
 		if(model.tags.joinAccIdList.includes(model.data)){
 			for (let element of model.tags.joinAcc){
 				console.log(element.JoinAccId+"::"+model.data)
@@ -592,30 +610,7 @@ function holding(model){
 			}
 			model.tags.joinAccId = model.data
 			console.log("here")
-
-// {
-//  "Response": [
-//  {
-//  "SCHEME_NAME": "I**** B********* F***********",
-//  "FOLIO_NO": "1*************7",
-//  "ID": "3**,3****,1*******7",
-//  "Scheme_Folio": "I*** B****** F******** # Folio No : 1**********7",
-//  "SCH_CODE": 3*****6,
-//  "MinRedemptionAmount": 1***,
-//  "RedemptionMultipleAmount": 1**,
-//  "AMC_CODE": 4*****8,
-//  "InccurExitLoad": f****,
-//  "CurAmount": "4***.8*",
-//  "CurUnit": "4**.3**"
-//  }
-//  ]
-// }
-
-// {"Response":[{"SCHEME_NAME":"IDFC Balanced Fund - Regular Plan - Growth","FOLIO_NO":"1794035/37","ID":"374,34066,1794035/37","Scheme_Folio":"IDFC Balanced Fund - Regular Plan - Growth #  Folio No : 1794035/37","SCH_CODE":34066,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400028,"InccurExitLoad":false,"CurAmount":"5780.45","CurUnit":"500"},{"SCHEME_NAME":"Motilal Oswal MOSt Focused Dynamic Equity Fund - Regular Plan - Growth","FOLIO_NO":"9104430742","ID":"374,35831,9104430742","Scheme_Folio":"Motilal Oswal MOSt Focused Dynamic Equity Fund - Regular Plan - Growth #  Folio No : 9104430742","SCH_CODE":35831,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400042,"InccurExitLoad":false,"CurAmount":"12114.7","CurUnit":"1000"},{"SCHEME_NAME":"Reliance Liquid Fund - Treasury Plan - Growth","FOLIO_NO":"499153817726","ID":"374,2637,499153817726","Scheme_Folio":"Reliance Liquid Fund - Treasury Plan - Growth #  Folio No : 499153817726","SCH_CODE":2637,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400025,"InccurExitLoad":false,"CurAmount":"220105","CurUnit":"51.3547"},{"SCHEME_NAME":"Reliance Small Cap Fund - Growth","FOLIO_NO":"499153817726","ID":"374,12758,499153817726","Scheme_Folio":"Reliance Small Cap Fund - Growth #  Folio No : 499153817726","SCH_CODE":12758,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400025,"InccurExitLoad":true,"CurAmount":"8670.92","CurUnit":"199.902"}]}' },
-// 2018-06-18T13:12:30.797870+00:00 app[web.1]: body: '{"Response":[{"SCHEME_NAME":"IDFC Balanced Fund - Regular Plan - Growth","FOLIO_NO":"1794035/37","ID":"374,34066,1794035/37","Scheme_Folio":"IDFC Balanced Fund - Regular Plan - Growth #  Folio No : 1794035/37","SCH_CODE":34066,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400028,"InccurExitLoad":false,"CurAmount":"5780.45","CurUnit":"500"},{"SCHEME_NAME":"Motilal Oswal MOSt Focused Dynamic Equity Fund - Regular Plan - Growth","FOLIO_NO":"9104430742","ID":"374,35831,9104430742","Scheme_Folio":"Motilal Oswal MOSt Focused Dynamic Equity Fund - Regular Plan - Growth #  Folio No : 9104430742","SCH_CODE":35831,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400042,"InccurExitLoad":false,"CurAmount":"12114.7","CurUnit":"1000"},{"SCHEME_NAME":"Reliance Liquid Fund - Treasury Plan - Growth","FOLIO_NO":"499153817726","ID":"374,2637,499153817726","Scheme_Folio":"Reliance Liquid Fund - Treasury Plan - Growth #  Folio No : 499153817726","SCH_CODE":2637,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400025,"InccurExitLoad":false,"CurAmount":"220105","CurUnit":"51.3547"},{"SCHEME_NAME":"Reliance Small Cap Fund - Growth","FOLIO_NO":"499153817726","ID":"374,12758,499153817726","Scheme_Folio":"Reliance Small Cap Fund - Growth #  Folio No : 499153817726","SCH_CODE":12758,"MinRedemptionAmount":1000,"RedemptionMultipleAmount":100,"AMC_CODE":400025,"InccurExitLoad":true,"CurAmount":"8670.92","CurUnit":"199.902"}]}' }
-
-
-			api.getSTPScheme(model.tags.session,model.tags.joinAccId)
+			api.getSwitchScheme(model.tags.session,model.tags.joinAccId)
 			.then((data)=>{
 				let response;
 				try{
@@ -660,32 +655,32 @@ function holding(model){
 			            })
 			        }
 			        else{
-						model.tags.stpSchemes=response.Response;
-						model.tags.stpSchemeList=[]
+						model.tags.switchSchemes=response.Response;
+						model.tags.switchSchemeList=[]
 						response.Response.forEach(function(element,index){
 							console.log(index+"::::::::::::::::::::::::::::::")
 							if(index<10){
-								model.tags.stpSchemeList.push({
-									title 	: element["SCHEME_NAME"],
-									text 	: "Folio "+element["FOLIO_NO"]+". Invested Rs. "+element["CurAmount"]+". Minimum Rs. "+element["MinRedemptionAmount"],
+								model.tags.switchSchemeList.push({
+									title 	: element["SchemeName"],
+									text 	: "Folio "+element["FOLIO_NO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinSwitchOutAmount"],
 									buttons : [
 										{
 											text : 'Select',
-											data : "scheme|||"+element["SCH_CODE"].toString()
+											data : "scheme|||"+element["SCHEMECODE"].toString()
 										}
 									]
 								})
 							}
 						})
 
-						if(model.tags.stpSchemeList.length==0){
-							sendExternalMessage(model,"Oops. This pattern has no schemes to stp.")
+						if(model.tags.switchSchemeList.length==0){
+							sendExternalMessage(model,"Oops. This pattern has no schemes to switch.")
 							model.stage="summary"
 							return resolve(model)
 						}
 						else{
-							console.log(JSON.stringify(model.tags.stpSchemeList,null,3))
-							delete model.stage
+							console.log(JSON.stringify(model.tags.switchSchemeList,null,3))
+							model.stage="scheme"
 							return resolve(model)
 						}
 					}
@@ -717,25 +712,24 @@ function scheme(model){
 		
 		model.tags.amount = undefined
 		model.tags.tranId=undefined
-		model.tags.stpSchemeList=undefined
-		model.tags.stpReferenceId=undefined
-		model.tags.refrenceIdstpTxn=undefined
+		model.tags.switchSchemeList=undefined
+		model.tags.switchReferenceId=undefined
+		model.tags.refrenceIdSwitchTxn=undefined
 		try{
-			if(model.tags.stpSchemes){
-				for(let scheme of model.tags.stpSchemes){
-					console.log(model.data+"::"+scheme["SCH_CODE"])
-					if(scheme["SCH_CODE"]==model.data){
-						model.data=""
-						model.tags.stpSchemeObj=scheme;
+			if(model.tags.switchSchemes){
+				for(let scheme of model.tags.switchSchemes){
+					console.log(model.data+"::"+scheme["SCHEMECODE"])
+					if(scheme["SCHEMECODE"]==model.data){
+						model.tags.switchSchemeObj=scheme;
 						model.tags.folio=scheme["FOLIO_NO"]
-						let message="Going ahead with "+scheme["SCHEME_NAME"]+",";
+						let message="Going ahead with "+scheme["SchemeName"]+",";
 						if(scheme["InccurExitLoad"]&&scheme["InccurExitLoad"].toString().trim().toLowerCase().includes("true")){
 							message+=" This holding have units / amount that are held for less than a year and hence may attract short-term capital gains tax at 15% as well as exit load, if any You may want to modify your request to avoid these losses. It is advisable to hold equity funds for longer time frames to benefit from them."						
 						}
 						sendExternalMessage(model,message)
 						let filteredData={}
 						for(let key in data){
-							if(data[key].amcCode==model.tags.stpSchemeObj["AMC_CODE"]){
+							if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]){
 								filteredData[key]=data[key]
 							}
 						}
@@ -788,48 +782,47 @@ function askSchemeName(model){
 		// 	model.stage = 'holding'
 		// 	return resolve(model)
 		// }
-		console.log(JSON.stringify(model.tags.stpSchemeObj,null,3))
+		console.log(JSON.stringify(model.tags.switchSchemeObj,null,3))
 		let filteredData={}
 		for(let key in data){
-			if(data[key].amcCode==model.tags.stpSchemeObj["AMC_CODE"]){
+			if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]&&model.tags.switchSchemeObj["SCHEMECODE"]!=data[key].schemeCode){
 				filteredData[key]=data[key]
 			}
 		}
-
+				
+		let dataAmc=getAmcNamesEntityReplaced(model.data);
+		model.data=dataAmc.text
 		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(filteredData))
-		if(model.tags.schemes===undefined){
-			model.tags.schemes=[]
-		}
 		if(matches.bestMatch.rating>0.9){
-			// console.log("nine")
 			model.tags.schemes.push(matches.bestMatch.target)
 		}
-		else if(matches.bestMatch.rating>0.10){
-			// console.log("one")
+		else if(matches.bestMatch.rating>0.10||dataAmc.flag){
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
 			model.tags.schemes = matches.ratings.splice(0,9);
 		}
 		else{
-			// console.log("undefined")
 			return reject(model);
 		}
 		if(model.tags.schemes){
 			model.tags.schemeList = []
 			model.tags.schemes.forEach(function(element){
-				model.tags.schemeList.push({
-					title 	: 'Schemes',
-					text 	: element.target,
-					buttons : [
-						{
-							text : 'Select',
-							data : "showSchemeName|||"+element.target
-						}
-					]
-				})
+				if(element.target){
+					model.tags.schemeList.push({
+						title 	: 'Schemes',
+						text 	: element.target,
+						buttons : [
+							{
+								text : 'Select',
+								data : "showSchemeName|||"+element.target
+							}
+						]
+					})
+				}
 			})
+
 		}
 
-		delete model.stage
+		model.stage="showSchemeName"
 		return resolve(model)
 	})
 }
@@ -838,8 +831,8 @@ function showSchemeName(model){
 	return new Promise(function(resolve, reject){
 		model.tags.amount = undefined
 		model.tags.tranId=undefined
-		model.tags.stpReferenceId=undefined
-		model.tags.refrenceIdstpTxn=undefined
+		model.tags.switchReferenceId=undefined
+		model.tags.refrenceIdSwitchTxn=undefined
 		if(model.data.toLowerCase().includes("cancel")||model.data.toLowerCase().includes("stop")||model.data.toLowerCase().trim()=="exit"){
 			return reject(model)
 		}
@@ -865,7 +858,7 @@ function showSchemeName(model){
 			else{
 				model.tags.scheme = model.data
 			}
-			api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,undefined,undefined,model.tags.stpSchemeObj["FOLIO_NO"],true)
+			api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,undefined,true)
 			.then(response=>{
 				console.log(response.body)
 				try{
@@ -873,27 +866,8 @@ function showSchemeName(model){
 
 					response = JSON.parse(response.body)
 					model.tags.unitOrAmountList=undefined
-					if(response.Response[0]["reject_reason"]){
-							
 
-						let reply={
-			                text    : response.Response[0]["reject_reason"],
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
-			                return reject(model)
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-			        }
-					
-
-					else if(response.Response.length > 0){
+					if(response.Response.length > 0){
 						let folioData=response.Response[0]
 						let unitOrAmountData=response.Response[1]
 						let folioObj;
@@ -937,8 +911,8 @@ function showSchemeName(model){
 						if(folioObj){
 							console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(folioObj,null,3)+":::::"+data[model.tags.scheme].optionCode)
 							model.tags.divOption=undefined
-								if(folioObj["DivOpt"]){
-									switch(folioObj["DivOpt"]){
+								if(folioObj["DIVIDENDOPTION"]){
+									switch(folioObj["DIVIDENDOPTION"]){
 										case "Y": model.tags.divOption = 1
 											break;
 										case "N": model.tags.divOption = 2
@@ -960,50 +934,15 @@ function showSchemeName(model){
 								// 	delete model.stage
 								// }
 								sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
-// "Response": [
-//  [
-//  {
-//  "ID": *,
-//  "FUNDNAME": "I****** M********* C********",
-//  "SCHEMECODE": 7***,
-//  "ACLASSCODE": *,
-//  "OPT_CODE": *,
-//  "SchemeName": "I***** A****** R********",
-//  "Category": "E***",
-//  "CurrentNAV": 1*.2***,
-//  "MinimumInvestment": 1***,
-//  "1YearReturns": 2*.1***,
-//  "3YearReturns": 1*.2***,
-//  "5YearReturns": 2*.1***,
-//  "MinSwitchAmount": 5**,
-//  "MININVT": 1***,
-//  "MULTIPLES": 5**,
-//  "INC_INVEST": 1***,
-//  "ADNMULTIPLES": 5**,
-//  "MinRedemptionAmount": 1***,
-//  "RedemptionMultipleAmount": 1**,
-//  "AMC_CODE": 4****8,
-//  "RECOMD": *,
-//  "MaxInvestment": 9*******,
-//  "eKYC": *
-//  }
-//  ],
-//  [
-//  {
-//  "ID": "E020391",
-//  "EUIN": "STAFF / E020391"
-//  }
-//  ]
-//  ]
-								api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,undefined,true)
+								api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,model.tags.folio,data[model.tags.scheme].schemeCode,true)
 								.then((response)=>{
-									// console.log(response.body)
+									console.log(response.body)
 									try{
 										response = JSON.parse(response.body)
 									
 
 
-										if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
+										if(response.Response && response.Response[0] && response.Response[0][0].length>0){
 											model.tags.schemeApiDetails=response.Response[0][0];
 											model.tags.euinApiDetails=response.Response[1][0];
 											model.tags.euinApiDetailsList=[];
@@ -1015,9 +954,13 @@ function showSchemeName(model){
 													})
 												}
 											}
-											model.tags.stpMinAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+											model.tags.euinApiDetailsList.push({
+												data : "Direct",
+												text : "Direct"
+											})
+											model.tags.switchMinAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 
-											if(parseFloat(model.tags.stpSchemeObj["CurAmount"])<model.tags.stpMinAmount){
+											if(parseFloat(model.tags.switchSchemeObj["AvailableAmt"])<model.tags.switchMinAmount){
 												let reply={
 									                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account as the minimum investment amount for this scheme is lesser than the amount available in current investment',
 									                type    : "text",
@@ -1026,7 +969,7 @@ function showSchemeName(model){
 									            }
 												external(reply)
 												.then((data)=>{
-													model.stage = 'askSchemeName'
+													model.stage = 'showSchemeName'
 													model.tags.schemes=undefined;
 													model.tags.scheme=undefined;
 													return resolve(model)
@@ -1037,20 +980,19 @@ function showSchemeName(model){
 									            })
 											}
 											else{
-												if(parseFloat(model.tags.stpSchemeObj["MinSwitchAmount"])>model.tags.stpMinAmount){
-													model.tags.stpMinAmount=parseFloat(model.tags.stpSchemeObj["MinSwitchAmount"])
+												if(parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])>model.tags.switchMinAmount){
+													model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
 												}
-												model.tags.stpMinAmount=model.tags.stpMinAmount.toString()
-												delete model.stage
+												model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
+												model.stage="euin"
 												return resolve(model)
 											}
 												
 										}
 										else{
 											let reason=""
-											if(response.Response && response.Response[0]){
+											if(response.Response && response.Response[0]&&response.Response[0]["reject_reason"]){
 												reason+=response.Response[0]["reject_reason"]
-
 											}
 
 											let reply={
@@ -1061,7 +1003,7 @@ function showSchemeName(model){
 								            }
 											external(reply)
 											.then((data)=>{
-												model.stage = 'askSchemeName'
+												model.stage = 'showSchemeName'
 												model.tags.schemes=undefined;
 												model.tags.scheme=undefined;
 												return resolve(model)
@@ -1102,16 +1044,18 @@ function showSchemeName(model){
 		else{
 			let filteredData={}
 			for(let key in data){
-				if(data[key].amcCode==model.tags.stpSchemeObj["AMC_CODE"]){
+				if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]&&model.tags.switchSchemeObj["SCHEMECODE"]!=data[key].schemeCode){
 					filteredData[key]=data[key]
 				}
 			}
-
+					
+			let dataAmc=getAmcNamesEntityReplaced(model.data);
+			model.data=dataAmc.text
 			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(filteredData))
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes.push(matches.bestMatch.target)
 			}
-			else if(matches.bestMatch.rating>0.10){
+			else if(matches.bestMatch.rating>0.10||dataAmc.flag){
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
 				model.tags.schemes = matches.ratings.splice(0,9);
 			}
@@ -1121,16 +1065,18 @@ function showSchemeName(model){
 			if(model.tags.schemes){
 				model.tags.schemeList = []
 				model.tags.schemes.forEach(function(element){
-					model.tags.schemeList.push({
-						title 	: 'Schemes',
-						text 	: element.target,
-						buttons : [
-							{
-								text : 'Select',
-								data : "showSchemeName|||"+element.target
-							}
-						]
-					})
+					if(element.target){
+						model.tags.schemeList.push({
+							title 	: 'Schemes',
+							text 	: element.target,
+							buttons : [
+								{
+									text : 'Select',
+									data : "showSchemeName|||"+element.target
+								}
+							]
+						})
+					}
 				})
 
 			}
@@ -1150,24 +1096,86 @@ function euin(model){
 		for(let data of model.tags.euinApiDetailsList){
 			if(data["data"]==model.data){
 				euinFlag=true;
-				model.tags.euin=model.data
-				model.tags.existingEuinApiDetails=model.data
-				if(model.tags.divOption===undefined){
-					model.stage="divOps"
-					return resolve(model);
+				if(model.data.toLowerCase().includes("direct")){
+					model.tags.euin=""
+					model.tags.existingEuinApiDetails=""
+					sendExternalMessage(model,"Hey, as you have selected direct investment, you hereby confirm that this a transaction done purely at your sole discretion");
 				}
 				else{
-					model.stage="confirm"
+					model.tags.euin=model.data
+					model.tags.existingEuinApiDetails=model.data
+				}
+				if(model.tags.divOption!=undefined){
+					model.stage = 'unitOrAmount'
+				}
+				if(model.tags.divOption!=undefined&&parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
+				// if(true&&model.tags.divOption!=undefined){
+							model.tags.unitOrAmount="AU";
+							// console.log("amount valid")
+							api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
+							.then((data)=>{
+								console.log(data)
+								try{
+									data = JSON.parse(data.body)
+								}
+								catch(e){	
+									console.log(e);
+									let reply={
+						                text    : "API Not Responding Properly",
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+						                return reject(model);
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+								}
+								if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+									let reply={
+						                text    : data.Response[0]['reject_reason'].trim(),
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+						                return reject(model);
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+								}
+								else if(data.Response&&data.Response.length>0){
+									model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+									model.stage="confirm"
+									return resolve(model);
+								}
+								else{
+						                return reject(model)
+									
+								}
+							})
+							.catch(e=>{
+								console.log(e)
+								return reject(model)
+							})
+				}
+				else{
+					delete model.stage
 					return resolve(model);
 				}
 			}
 		}
 		
-		return reject(model);
 	});
 
 }
-
 
 function divOps(model){
 	return new Promise(function(resolve, reject){
@@ -1176,15 +1184,76 @@ function divOps(model){
 			
 			if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')){
 				model.tags.divOption = 1
-				model.tags.divOptionText="Resinvestment Option"
+				model.tags.divOptionText="Reinvestment Option"
 			}
 			else{
 				model.tags.divOption = 2
 				model.tags.divOptionText="Payout Option"
 			}
 			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
-			delete model.stage;
-			return resolve(model)
+			if(parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
+			// if(true){
+							model.tags.unitOrAmount="AU";
+							// console.log("amount valid")
+							api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
+							.then((data)=>{
+								console.log(data.body)
+								try{
+									data = JSON.parse(data.body)
+								}
+								catch(e){	
+									console.log(e);
+									let reply={
+						                text    : "API Not Responding Properly",
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+						                return reject(model);
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+								}
+								if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+									let reply={
+						                text    : data.Response[0]['reject_reason'].trim(),
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+						                return reject(model);
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+								}
+								else if(data.Response&&data.Response.length>0){
+									model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+									model.stage="confirm"
+									return resolve(model);
+								}
+								else{
+						                return reject(model)
+									
+								}
+							})
+							.catch(e=>{
+								console.log(e)
+								return reject(model)
+							})
+				}
+				else{
+					delete model.stage;
+					return resolve(model)					
+				}
+
 		}
 		else{
 			return reject(model)
@@ -1194,12 +1263,226 @@ function divOps(model){
 
 
 
+function unitOrAmount(model) {
+
+	return new Promise(function(resolve, reject){
+		model=dataClean(model)
+		console.log(model.data)
+		if(model.data.includes("all")){
+			model.tags.unitOrAmount="AU";
+			// console.log("amount valid")
+			api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
+			.then((data)=>{
+				console.log(data.body)
+				try{
+					data = JSON.parse(data.body)
+				}
+				catch(e){	
+					console.log(e);
+					let reply={
+		                text    : "API Not Responding Properly",
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+		                return reject(model);
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+				if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+					let reply={
+		                text    : data.Response[0]['reject_reason'].trim(),
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+		                return reject(model);
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+				}
+				else if(data.Response&&data.Response.length>0){
+					model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+					model.stage="confirm"
+					return resolve(model);
+				}
+				else{
+		                return reject(model)
+					
+				}
+			})
+			.catch(e=>{
+				console.log(e)
+				return reject(model)
+			})
+		}
+		else if(model.data.includes("amount")){
+			model.tags.unitOrAmount="R";
+			delete model.stage
+			return resolve(model);
+		}
+		else if(model.data.includes("partial")){
+			model.tags.unitOrAmount="PU";
+			delete model.stage
+			return resolve(model);
+		}
+		else{
+			model.tags.unitOrAmount=undefined;
+			return reject(model);
+		}
+	});
+}
+function amount(model){
+	// console.log(model.tags.schemeApiDetails["MinimumInvestment"]+":::::::::::::::::::::::::::::::::::::::::::::::")
+	return new Promise(function(resolve, reject){
+		model=dataClean(model)
+		console.log(model.tags.unitOrAmount)
+		if(model.tags.unitOrAmount=="PU"){
+			model=extractAmountUptoThree(model)
+		}
+		else{
+			model=extractAmount(model)
+		}
+		console.log("amount::::::::::::::::::"+model.tags.amount)
+		try{
+			if(model.tags.amount&&model.tags.switchSchemeObj){
+				
+
+				
+				if(model.tags.unitOrAmount=="PU"){
+					let amount=parseFloat(model.tags.amount)
+					let maxAmount=parseFloat(model.tags.switchSchemeObj["AvailableUnits"])
+					let minAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutUnits"])
+					let multiple=parseFloat(model.tags.switchSchemeObj["SwitchOutMultiplesUnits"])
+					console.log(minAmount)
+					console.log(maxAmount)
+					console.log(multiple)
+					console.log(amount)
+					// if(amount%multiple!=0){
+					// 	model.tags.amount=undefined;
+					// }
+					if(amount<minAmount){
+						sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
+						model.tags.amount=undefined;
+					}
+					else if(amount>maxAmount){
+						sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
+						model.tags.amount=undefined;
+					}
+				}
+				else{
+					let amount=parseFloat(model.tags.amount)
+					let maxAmount=parseFloat(model.tags.switchSchemeObj["AvailableAmt"])
+					let minAmount=parseFloat(model.tags.switchMinAmount)
+					let multiple=parseFloat(model.tags.switchSchemeObj["SwitchOutMultipleAmount"])
+					console.log(minAmount)
+					console.log(maxAmount)
+					console.log(multiple)
+					console.log(amount)
+					console.log(amount%multiple)
+					if(amount%multiple!=0){
+						model.tags.amount=undefined;
+					}
+					if(amount<minAmount){
+						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
+						model.tags.amount=undefined;
+					}
+					else if(amount>maxAmount){
+						// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
+						model.tags.amount=undefined;
+					}
+				}
+			
+
+
+			}
+
+			if(model.tags.amount){
+
+				// console.log("amount valid")
+				api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount,  model.tags.amount, model.tags.folio,model.tags.divOption,model.tags.euin)
+				.then((data)=>{
+					console.log(data.body)
+					try{
+						data = JSON.parse(data.body)
+					}
+					catch(e){	
+						console.log(e);
+						let reply={
+			                text    : "API Not Responding Properly",
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model);
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+					}
+					if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+						let reply={
+			                text    : data.Response[0]['reject_reason'].trim(),
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model);
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+					}
+					else if(data.Response&&data.Response.length>0){
+						model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+						model.stage="confirm"
+						return resolve(model);
+					}
+					else{
+			                return reject(model)
+						
+					}
+
+				})
+				.catch(e=>{
+					console.log(e)
+					return reject(model)
+				})
+
+			}
+			else{
+				console.log("no data")
+				return reject(model)
+			}	
+		}
+		catch(e){
+			console.log(e)
+			return reject(model)
+		}
+	})
+}
+
 
 function confirm(model){
 
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes("yes")){
-			api.confirmSTP(model.tags.session,model.tags.refrenceIdstpTxn)
+			api.confirmSwitch(model.tags.session,model.tags.refrenceIdSwitchTxn)
 			.then((data)=>{
 				console.log(data.body)
 				try{
@@ -1239,7 +1522,8 @@ function confirm(model){
 		            })
 				}
 				else{
-					model.tags.stpReferenceId=data.Response[0]["ReferenceNo"];
+					console.log(model.tags.switchReferenceId+":::::::::::::")
+					model.tags.switchReferenceId=data.Response[0]["ReferenceNo"];
 					model.stage="summary"
 					return resolve(model)
 
@@ -1311,16 +1595,20 @@ function extractAmount(model){
 function extractAmountUptoThree(model){
 	
  	if(model.data.match(/\d+\./)){
- 		let text = matchAll(model.data, /(\d+[\.\d{1-3}]?)/gi).toArray()
-		for(let i in text){
-			if(text[i].length < 12){
-				model.tags.amount = parseFloat(text[i].toFixed(3))
-				model.data = model.data.replace(model.tags.amount, '')
-				break;
-			}
+ 		let text = matchAll(model.data, /(\d+\.\d+)/gi).toArray()
+ 		console.log(text)
+ 		console.log(text.length)
+ 		if(text.length>0){
+ 			console.log(text[0])
+ 			console.log(parseFloat(text[0]).toFixed(3))
+ 			console.log(typeof parseFloat(text[0]).toFixed(3))
+			model.tags.amount = parseFloat(parseFloat(text[0]).toFixed(3))
+			console.log(model.tags.amount+":::::::::::::::::;amount")
+			model.data = model.data.replace(text[0], '')
 		}
-
-		return model;
+		if(model.tags.amount){
+			return model;
+		}
  	}
  	return extractAmount(model)
 	
@@ -1364,6 +1652,45 @@ function extractDivOption(model){
 	return model;			
 }
 
+var amcsEntities={
+	"Axis":["axis"],
+	"Baroda Pioneer":["baroda pioneer","baroda"],
+	"Aditya Birla Sun Life":["birla sun life","birla","sun life","bnp"],
+	"BNP Paribas":["bnp paribas","bnp","paribas"],
+	"BOI AXA":["boi axa investment managers","boi","axa"],
+	"Canara Robeco":["canara robeco","canara"],
+	"DSP BlackRock":["dsp blackrock", "dsp"],
+	"Franklin":["franklin templeton","franklin","ft"],
+	"HDFC":["hdfc"],
+	"ICICI Prudential":["icici prudential","icici"],
+	"IDBI":["idbi"],
+	"IDFC":["idfc"],
+	"Kotak":["kotak mahindra","kotak","mahindra"],
+	"L&T":["l and t","lnt","l and t","l&t"],
+	"LIC MF":["lic nomura","lic"],
+	"Mirae Asset":["mirae asset global investments","mirae"],
+	"Motilal Oswal":["motilal oswal asset management services","motilal"],
+	"DHFL Pramerica":["dhfl pramerica","dhfl"],
+	"Principal":["principal pnb asset management company","pnb","principal","principal pnb"],
+	"Reliance":["reliance"],
+	"Invesco":["religare invesco","religare","invesco"],
+	"SBI":["sbi"],
+	"Sundaram":["sundaram"],
+	"Tata":["tata"],
+	"UTI":["uti"]
+}
+function getAmcNamesEntityReplaced(text){
+	let flag;
+	for(let amcElement in amcsEntities){
+		for(let alias of amcsEntities[amcElement]){
+			if(text.includes(alias)){
+				text=text.replace(alias,amcElement);
+				flag=true;		
+			}
+		}
+	}
+	return {text:text,flag:flag};
+}
 
 function dataClean(model){
 	model.data = model.data.toLowerCase()

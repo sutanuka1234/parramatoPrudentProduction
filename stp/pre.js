@@ -19,8 +19,10 @@ let obj = {
 	askSchemeName:askSchemeName,
 	showSchemeName:showSchemeName,
 	euin	: euin,
-	folio 	: folio,
 	divOps:divOps,
+	unitOrAmount:unitOrAmount,
+	amount:amount,
+	confirm	: confirm,
 	summary:summary
 }
 
@@ -93,9 +95,9 @@ function panMobile(model){
 		model.tags.otp=undefined
 		model.tags.resend=undefined
 		model.tags.tranId=undefined
-		model.tags.stpSchemeList=undefined
-		model.tags.stpReferenceId=undefined
-		model.tags.refrenceIdstpTxn=undefined
+		model.tags.switchSchemeList=undefined
+		model.tags.switchReferenceId=undefined
+		model.tags.refrenceIdSwitchTxn=undefined
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
@@ -105,7 +107,7 @@ function panMobile(model){
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
-	            text:"Sure, we have your credentials linked to mobile "+formatter.apply(model.tags.mobile)+" saved. Would you like to proceed with the stp process?",
+	            text:"Sure, we have your credentials linked to mobile "+formatter.apply(model.tags.mobile)+" saved. Would you like to proceed with the switch process?",
 	            next:{
 	                "data": [
 	                	{
@@ -166,10 +168,9 @@ function scheme(model){
 				type:"generic",
 	            text:"Following are the schemes you are invested in. Please choose one",
 	            next:{ 
-	            	data : model.tags.stpSchemeList
+	            	data : model.tags.switchSchemeList
 	            }
 			}
-			console.log(model.tags.stpSchemeList.length)
 			return resolve(model)
 	})
 }
@@ -214,7 +215,7 @@ function askSchemeName(model){
 
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.schemes.length == 1){
+		if(model.tags.schemes!=undefined&&model.tags.schemes.length == 1){
 			model.reply={
 				type:"quickReply",
 	            text:"Would you like to go ahead with "+model.tags.schemes+"? You can also type if there is something else on your mind.",
@@ -286,15 +287,80 @@ function folio(model){
 	})
 }
 
+function unitOrAmount(model){
+	return new Promise(function(resolve, reject){
+		console.log(model.tags.unitOrAmountList)
+		if(model.tags.unitOrAmountList){
+			model.reply={
+				type:"quickReply",
+	            text:"How would you like to switch?",
+	            next:{
+	            	data:model.tags.unitOrAmountList
+	            }
+			}
+		}
+		resolve(model)
+	})
+}
 
+function amount(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.unitOrAmount=="PU"){
+			model.reply={
+				type:"text",
+	            text:"Tell me the number of units you want to switch, it should be greater or equal to "+model.tags.switchSchemeObj["MinSwitchOutUnits"]+" and less than or equal to "+model.tags.switchSchemeObj["AvailableUnits"]
+			}
+		}
+		else{
+			model.reply={
+				type:"text",
+	            text:"Tell me the amount you want to switch, it should be greater or equal to Rs "+model.tags.switchMinAmount+" and less than or equal to Rs "+model.tags.switchSchemeObj["AvailableAmt"]+" and in the multiples of Rs "+model.tags.switchSchemeObj["SwitchOutMultipleAmount"]
+			}
+
+		}
+		resolve(model)
+	})
+}
+
+function confirm(model){
+	return new Promise(function(resolve, reject){
+		let amount=""
+		if(model.tags.unitOrAmount=="PU"){
+			amount+=model.tags.amount+" units"
+		}
+		else if(model.tags.unitOrAmount=="AU"){
+			amount+=model.tags.switchSchemeObj["AvailableUnits"]+" units (All units)"
+		}
+		else{
+			amount+="Rs "+model.tags.amount
+		}
+			model.reply={
+			type:"quickReply",
+            text:"You are about to switch "+amount+" from "+model.tags.switchSchemeObj["SchemeName"]+" to "+model.tags.scheme+". Do you confirm this transaction?",
+            next:{
+                data: [
+                	{
+                		data : "Yes",
+                		text : "Yes"
+                	},
+                	{
+                		data : "Cancel",
+                		text : "Cancel"
+                	}
+                ]
+            }
+		}
+		resolve(model)
+	})
+}
 
 function summary(model){
 	return new Promise(function(resolve, reject){
 		console.log(JSON.stringify(model.tags,null,3))
-		if(model.tags.stpReferenceId){
+		if(model.tags.switchReferenceId){
 			model.reply={
 				type:"quickReply",
-	            text:"Thanks, your reference id is "+model.tags.stpReferenceId+". What would you like to do next?",
+	            text:"Thanks, your reference id is "+model.tags.switchReferenceId+". What would you like to do next?",
 	            next:{
 	                data: [
 	                	{
@@ -310,10 +376,6 @@ function summary(model){
 	                		text : "Switch now"
 	                	},
 	                	{
-	                		data : "STP now",
-	                		text : "STP now"
-	                	},
-	                	{
 	                		data : "FAQs",
 	                		text : "FAQs"
 	                	}
@@ -324,7 +386,7 @@ function summary(model){
 		else{
 			model.reply={
 				type:"quickReply",
-	            text:"Could not proceed with the stp with given details. However you can try again or go ahead with the following,",
+	            text:"Could not proceed with the switch with given details. However you can try again or go ahead with the following,",
 	            next:{
 	                data: [
 	                	{
@@ -342,10 +404,6 @@ function summary(model){
 	                	{
 	                		data : "Switch now",
 	                		text : "Switch now"
-	                	},
-	                	{
-	                		data : "STP now",
-	                		text : "STP now"
 	                	},
 	                	{
 	                		data : "FAQs",
@@ -427,6 +485,7 @@ function extractDivOption(model){
 	return model;
 			
 }
+
 
 function dataClean(model){
 	console.log(model.tags.userSays)
