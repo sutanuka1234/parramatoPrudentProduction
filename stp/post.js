@@ -870,43 +870,43 @@ function showSchemeName(model){
 
 					if(response.Response.length > 0){
 						let folioData=response.Response[0]
-						let unitOrAmountData=response.Response[1]
+						// let unitOrAmountData=response.Response[1]
 						let folioObj;
 						for(let i in folioData){
 							if(folioData[i].FolioNo==model.tags.folio){
 								folioObj=folioData[i]
 							}
 						}
-						for(let element of unitOrAmountData){
-							console.log(element)
-							if(element["Value"]=="AU"){
-								if(!model.tags.unitOrAmountList){
-									model.tags.unitOrAmountList=[]
-								}
-								model.tags.unitOrAmountList.push({
-									data : "All Units",
-									text : "All Units"
-								})
-							}
-							else if(element["Value"]=="PU"){
-								if(!model.tags.unitOrAmountList){
-									model.tags.unitOrAmountList=[]
-								}
-								model.tags.unitOrAmountList.push({
-									data : "Partial Units",
-									text : "Partial Units"
-								})
-							}
-							else if(element["Value"]=="R"){
-								if(!model.tags.unitOrAmountList){
-									model.tags.unitOrAmountList=[]
-								}
-								model.tags.unitOrAmountList.push({
-									data : "Amount",
-									text : "Amount"
-								})
-							}
-						}
+						// for(let element of unitOrAmountData){
+						// 	console.log(element)
+						// 	if(element["Value"]=="AU"){
+						// 		if(!model.tags.unitOrAmountList){
+						// 			model.tags.unitOrAmountList=[]
+						// 		}
+						// 		model.tags.unitOrAmountList.push({
+						// 			data : "All Units",
+						// 			text : "All Units"
+						// 		})
+						// 	}
+						// 	else if(element["Value"]=="PU"){
+						// 		if(!model.tags.unitOrAmountList){
+						// 			model.tags.unitOrAmountList=[]
+						// 		}
+						// 		model.tags.unitOrAmountList.push({
+						// 			data : "Partial Units",
+						// 			text : "Partial Units"
+						// 		})
+						// 	}
+						// 	else if(element["Value"]=="R"){
+						// 		if(!model.tags.unitOrAmountList){
+						// 			model.tags.unitOrAmountList=[]
+						// 		}
+						// 		model.tags.unitOrAmountList.push({
+						// 			data : "Amount",
+						// 			text : "Amount"
+						// 		})
+						// 	}
+						// }
 
 
 						if(folioObj){
@@ -1358,42 +1358,12 @@ function amount(model){
 	// console.log(model.tags.schemeApiDetails["MinimumInvestment"]+":::::::::::::::::::::::::::::::::::::::::::::::")
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
-		console.log(model.tags.unitOrAmount)
-		if(model.tags.unitOrAmount=="PU"){
-			model=extractAmountUptoThree(model)
-		}
-		else{
-			model=extractAmount(model)
-		}
+		model=extractAmount(model)
 		console.log("amount::::::::::::::::::"+model.tags.amount)
 		try{
 			if(model.tags.amount&&model.tags.stpSchemeObj){
 				
 
-				
-				if(model.tags.unitOrAmount=="PU"){
-					let amount=parseFloat(model.tags.amount)
-					let maxAmount=parseFloat(model.tags.stpSchemeObj["CurUnit"])
-					// let minAmount=parseFloat(model.tags.stpSchemeObj["MinStpOutUnits"])
-					// let multiple=parseFloat(model.tags.stpSchemeObj["StpOutMultiplesUnits"])
-					console.log(minAmount)
-					console.log(maxAmount)
-					console.log(multiple)
-					console.log(amount)
-					// if(amount%multiple!=0){
-					// 	model.tags.amount=undefined;
-					// }
-					// if(amount<minAmount){
-					// 	sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
-					// 	model.tags.amount=undefined;
-					// }
-					// else 
-					if(amount>maxAmount){
-						sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
-						model.tags.amount=undefined;
-					}
-				}
-				else{
 					let amount=parseFloat(model.tags.amount)
 					let maxAmount=parseFloat(model.tags.stpSchemeObj["CurAmount"])
 					let minAmount=parseFloat(model.tags.stpMinAmount)
@@ -1414,7 +1384,6 @@ function amount(model){
 						// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
 						model.tags.amount=undefined;
 					}
-				}
 			
 
 
@@ -1422,61 +1391,9 @@ function amount(model){
 
 			if(model.tags.amount){
 
-				// console.log("amount valid")
-				api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount,  model.tags.amount, model.tags.folio,model.tags.divOption,model.tags.euin)
-				.then((data)=>{
-					console.log(data.body)
-					try{
-						data = JSON.parse(data.body)
-					}
-					catch(e){	
-						console.log(e);
-						let reply={
-			                text    : "API Not Responding Properly",
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
-			                return reject(model);
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-					}
-					if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-						let reply={
-			                text    : data.Response[0]['reject_reason'].trim(),
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
-			                return reject(model);
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-					}
-					else if(data.Response&&data.Response.length>0){
-						model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
-						model.stage="confirm"
-						return resolve(model);
-					}
-					else{
-			                return reject(model)
-						
-					}
-
-				})
-				.catch(e=>{
-					console.log(e)
-					return reject(model)
-				})
+				//STP Insert Cart
+				delete model.stage;
+				return resolve(model);
 
 			}
 			else{
