@@ -724,11 +724,11 @@ function scheme(model){
 		try{
 			if(model.tags.stpSchemes){
 				for(let scheme of model.tags.stpSchemes){
-					console.log(model.data+"::"+scheme["SCHEMECODE"])
-					if(scheme["SCHEMECODE"]==model.data){
+					console.log(model.data+"::"+scheme["SCH_CODE"])
+					if(scheme["SCH_CODE"]==model.data){
 						model.tags.stpSchemeObj=scheme;
 						model.tags.folio=scheme["FOLIO_NO"]
-						let message="Going ahead with "+scheme["SchemeName"]+",";
+						let message="Going ahead with "+scheme["SCHEME_NAME"]+",";
 						if(scheme["InccurExitLoad"]&&scheme["InccurExitLoad"].toString().trim().toLowerCase().includes("true")){
 							message+=" This holding have units / amount that are held for less than a year and hence may attract short-term capital gains tax at 15% as well as exit load, if any You may want to modify your request to avoid these losses. It is advisable to hold equity funds for longer time frames to benefit from them."						
 						}
