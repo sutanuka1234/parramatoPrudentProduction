@@ -668,7 +668,7 @@ function holding(model){
 								model.tags.stpSchemeList.push({
 									title 	: element["SchemeName"],
 									//todo
-									text 	: "Folio "+element["FOLIO_NO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinStpOutAmount"],
+									text 	: "Minimum Rs. "+element["MinSwitchAmount"],
 									buttons : [
 										{
 											text : 'Select',
