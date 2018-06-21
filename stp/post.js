@@ -79,7 +79,8 @@ let amc = [
 	'principal pnb'
 ]
 
-let sortedJourney=["panMobile",
+let sortedJourney=[
+"panMobile",
 "mobile",
 "pan",
 "otp",
@@ -90,10 +91,14 @@ let sortedJourney=["panMobile",
 "showSchemeName",
 "euin",
 "divOps",
-"unitOrAmount",
+"stpFrequency",
+"stpMonthDay",
+"stpWeekDay",
+"initAmount",
 "amount",
 "confirm",
-"summary"]
+"summary"
+]
 
 
 function main(req, res){
@@ -597,9 +602,9 @@ function holding(model){
 		model.tags.amount = undefined
 		model.tags.joinAccId = undefined
 		model.tags.tranId=undefined
-		model.tags.switchSchemeList=undefined
-		model.tags.switchReferenceId=undefined
-		model.tags.refrenceIdSwitchTxn=undefined
+		model.tags.stpSchemeList=undefined
+		model.tags.stpReferenceId=undefined
+		model.tags.refrenceIdStpTxn=undefined
 		if(model.tags.joinAccIdList.includes(model.data)){
 			for (let element of model.tags.joinAcc){
 				console.log(element.JoinAccId+"::"+model.data)
@@ -610,7 +615,7 @@ function holding(model){
 			}
 			model.tags.joinAccId = model.data
 			console.log("here")
-			api.getSwitchScheme(model.tags.session,model.tags.joinAccId)
+			api.getStpScheme(model.tags.session,model.tags.joinAccId)
 			.then((data)=>{
 				let response;
 				try{
@@ -655,14 +660,15 @@ function holding(model){
 			            })
 			        }
 			        else{
-						model.tags.switchSchemes=response.Response;
-						model.tags.switchSchemeList=[]
+						model.tags.stpSchemes=response.Response;
+						model.tags.stpSchemeList=[]
 						response.Response.forEach(function(element,index){
 							console.log(index+"::::::::::::::::::::::::::::::")
 							if(index<10){
-								model.tags.switchSchemeList.push({
+								model.tags.stpSchemeList.push({
 									title 	: element["SchemeName"],
-									text 	: "Folio "+element["FOLIO_NO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinSwitchOutAmount"],
+									//todo
+									text 	: "Folio "+element["FOLIO_NO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinStpOutAmount"],
 									buttons : [
 										{
 											text : 'Select',
@@ -673,13 +679,13 @@ function holding(model){
 							}
 						})
 
-						if(model.tags.switchSchemeList.length==0){
-							sendExternalMessage(model,"Oops. This pattern has no schemes to switch.")
+						if(model.tags.stpSchemeList.length==0){
+							sendExternalMessage(model,"Oops. This pattern has no schemes to stp.")
 							model.stage="summary"
 							return resolve(model)
 						}
 						else{
-							console.log(JSON.stringify(model.tags.switchSchemeList,null,3))
+							console.log(JSON.stringify(model.tags.stpSchemeList,null,3))
 							model.stage="scheme"
 							return resolve(model)
 						}
@@ -712,15 +718,15 @@ function scheme(model){
 		
 		model.tags.amount = undefined
 		model.tags.tranId=undefined
-		model.tags.switchSchemeList=undefined
-		model.tags.switchReferenceId=undefined
-		model.tags.refrenceIdSwitchTxn=undefined
+		model.tags.stpSchemeList=undefined
+		model.tags.stpReferenceId=undefined
+		model.tags.refrenceIdStpTxn=undefined
 		try{
-			if(model.tags.switchSchemes){
-				for(let scheme of model.tags.switchSchemes){
+			if(model.tags.stpSchemes){
+				for(let scheme of model.tags.stpSchemes){
 					console.log(model.data+"::"+scheme["SCHEMECODE"])
 					if(scheme["SCHEMECODE"]==model.data){
-						model.tags.switchSchemeObj=scheme;
+						model.tags.stpSchemeObj=scheme;
 						model.tags.folio=scheme["FOLIO_NO"]
 						let message="Going ahead with "+scheme["SchemeName"]+",";
 						if(scheme["InccurExitLoad"]&&scheme["InccurExitLoad"].toString().trim().toLowerCase().includes("true")){
@@ -729,7 +735,7 @@ function scheme(model){
 						sendExternalMessage(model,message)
 						let filteredData={}
 						for(let key in data){
-							if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]){
+							if(data[key].amcCode==model.tags.stpSchemeObj["AMC_CODE"]){
 								filteredData[key]=data[key]
 							}
 						}
@@ -782,10 +788,10 @@ function askSchemeName(model){
 		// 	model.stage = 'holding'
 		// 	return resolve(model)
 		// }
-		console.log(JSON.stringify(model.tags.switchSchemeObj,null,3))
+		console.log(JSON.stringify(model.tags.stpSchemeObj,null,3))
 		let filteredData={}
 		for(let key in data){
-			if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]&&model.tags.switchSchemeObj["SCHEMECODE"]!=data[key].schemeCode){
+			if(data[key].amcCode==model.tags.stpSchemeObj["AMC_CODE"]&&model.tags.stpSchemeObj["SCHEMECODE"]!=data[key].schemeCode){
 				filteredData[key]=data[key]
 			}
 		}
@@ -831,8 +837,8 @@ function showSchemeName(model){
 	return new Promise(function(resolve, reject){
 		model.tags.amount = undefined
 		model.tags.tranId=undefined
-		model.tags.switchReferenceId=undefined
-		model.tags.refrenceIdSwitchTxn=undefined
+		model.tags.stpReferenceId=undefined
+		model.tags.refrenceIdStpTxn=undefined
 		if(model.data.toLowerCase().includes("cancel")||model.data.toLowerCase().includes("stop")||model.data.toLowerCase().trim()=="exit"){
 			return reject(model)
 		}
@@ -958,35 +964,16 @@ function showSchemeName(model){
 												data : "Direct",
 												text : "Direct"
 											})
-											model.tags.switchMinAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+											model.tags.stpMinAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 
-											if(parseFloat(model.tags.switchSchemeObj["AvailableAmt"])<model.tags.switchMinAmount){
-												let reply={
-									                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account as the minimum investment amount for this scheme is lesser than the amount available in current investment',
-									                type    : "text",
-									                sender  : model.sender,
-									                language: "en"
-									            }
-												external(reply)
-												.then((data)=>{
-													model.stage = 'showSchemeName'
-													model.tags.schemes=undefined;
-													model.tags.scheme=undefined;
-													return resolve(model)
-									            })
-									            .catch((e)=>{
-									                console.log(e);
-									                return reject(model)
-									            })
-											}
-											else{
-												if(parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])>model.tags.switchMinAmount){
-													model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
+											
+												if(parseFloat(model.tags.stpSchemeObj["MinStpOutAmount"])>model.tags.stpMinAmount){
+													model.tags.stpMinAmount=parseFloat(model.tags.stpSchemeObj["MinStpOutAmount"])
 												}
-												model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
+												model.tags.stpMinAmount=model.tags.stpMinAmount.toString()
 												model.stage="euin"
 												return resolve(model)
-											}
+											
 												
 										}
 										else{
@@ -1044,7 +1031,7 @@ function showSchemeName(model){
 		else{
 			let filteredData={}
 			for(let key in data){
-				if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]&&model.tags.switchSchemeObj["SCHEMECODE"]!=data[key].schemeCode){
+				if(data[key].amcCode==model.tags.stpSchemeObj["AMC_CODE"]&&model.tags.stpSchemeObj["SCHEMECODE"]!=data[key].schemeCode){
 					filteredData[key]=data[key]
 				}
 			}
@@ -1108,11 +1095,11 @@ function euin(model){
 				if(model.tags.divOption!=undefined){
 					model.stage = 'unitOrAmount'
 				}
-				if(model.tags.divOption!=undefined&&parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
+				if(model.tags.divOption!=undefined&&parseFloat(model.tags.stpSchemeObj["AvailableUnits"])<=1){
 				// if(true&&model.tags.divOption!=undefined){
 							model.tags.unitOrAmount="AU";
 							// console.log("amount valid")
-							api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
+							api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
 							.then((data)=>{
 								console.log(data)
 								try{
@@ -1152,7 +1139,7 @@ function euin(model){
 						            })
 								}
 								else if(data.Response&&data.Response.length>0){
-									model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+									model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
 									model.stage="confirm"
 									return resolve(model);
 								}
@@ -1191,11 +1178,11 @@ function divOps(model){
 				model.tags.divOptionText="Payout Option"
 			}
 			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
-			if(parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
+			if(parseFloat(model.tags.stpSchemeObj["AvailableUnits"])<=1){
 			// if(true){
 							model.tags.unitOrAmount="AU";
 							// console.log("amount valid")
-							api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
+							api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
 							.then((data)=>{
 								console.log(data.body)
 								try{
@@ -1235,7 +1222,7 @@ function divOps(model){
 						            })
 								}
 								else if(data.Response&&data.Response.length>0){
-									model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+									model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
 									model.stage="confirm"
 									return resolve(model);
 								}
@@ -1271,7 +1258,7 @@ function unitOrAmount(model) {
 		if(model.data.includes("all")){
 			model.tags.unitOrAmount="AU";
 			// console.log("amount valid")
-			api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
+			api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
 			.then((data)=>{
 				console.log(data.body)
 				try{
@@ -1311,7 +1298,7 @@ function unitOrAmount(model) {
 		            })
 				}
 				else if(data.Response&&data.Response.length>0){
-					model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+					model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
 					model.stage="confirm"
 					return resolve(model);
 				}
@@ -1354,15 +1341,15 @@ function amount(model){
 		}
 		console.log("amount::::::::::::::::::"+model.tags.amount)
 		try{
-			if(model.tags.amount&&model.tags.switchSchemeObj){
+			if(model.tags.amount&&model.tags.stpSchemeObj){
 				
 
 				
 				if(model.tags.unitOrAmount=="PU"){
 					let amount=parseFloat(model.tags.amount)
-					let maxAmount=parseFloat(model.tags.switchSchemeObj["AvailableUnits"])
-					let minAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutUnits"])
-					let multiple=parseFloat(model.tags.switchSchemeObj["SwitchOutMultiplesUnits"])
+					let maxAmount=parseFloat(model.tags.stpSchemeObj["AvailableUnits"])
+					let minAmount=parseFloat(model.tags.stpSchemeObj["MinStpOutUnits"])
+					let multiple=parseFloat(model.tags.stpSchemeObj["StpOutMultiplesUnits"])
 					console.log(minAmount)
 					console.log(maxAmount)
 					console.log(multiple)
@@ -1381,9 +1368,9 @@ function amount(model){
 				}
 				else{
 					let amount=parseFloat(model.tags.amount)
-					let maxAmount=parseFloat(model.tags.switchSchemeObj["AvailableAmt"])
-					let minAmount=parseFloat(model.tags.switchMinAmount)
-					let multiple=parseFloat(model.tags.switchSchemeObj["SwitchOutMultipleAmount"])
+					let maxAmount=parseFloat(model.tags.stpSchemeObj["AvailableAmt"])
+					let minAmount=parseFloat(model.tags.stpMinAmount)
+					let multiple=parseFloat(model.tags.stpSchemeObj["StpOutMultipleAmount"])
 					console.log(minAmount)
 					console.log(maxAmount)
 					console.log(multiple)
@@ -1409,7 +1396,7 @@ function amount(model){
 			if(model.tags.amount){
 
 				// console.log("amount valid")
-				api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount,  model.tags.amount, model.tags.folio,model.tags.divOption,model.tags.euin)
+				api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount,  model.tags.amount, model.tags.folio,model.tags.divOption,model.tags.euin)
 				.then((data)=>{
 					console.log(data.body)
 					try{
@@ -1449,7 +1436,7 @@ function amount(model){
 			            })
 					}
 					else if(data.Response&&data.Response.length>0){
-						model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+						model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
 						model.stage="confirm"
 						return resolve(model);
 					}
@@ -1482,7 +1469,7 @@ function confirm(model){
 
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes("yes")){
-			api.confirmSwitch(model.tags.session,model.tags.refrenceIdSwitchTxn)
+			api.confirmStp(model.tags.session,model.tags.refrenceIdStpTxn)
 			.then((data)=>{
 				console.log(data.body)
 				try{
@@ -1522,8 +1509,8 @@ function confirm(model){
 		            })
 				}
 				else{
-					console.log(model.tags.switchReferenceId+":::::::::::::")
-					model.tags.switchReferenceId=data.Response[0]["ReferenceNo"];
+					console.log(model.tags.stpReferenceId+":::::::::::::")
+					model.tags.stpReferenceId=data.Response[0]["ReferenceNo"];
 					model.stage="summary"
 					return resolve(model)
 

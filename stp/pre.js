@@ -95,9 +95,9 @@ function panMobile(model){
 		model.tags.otp=undefined
 		model.tags.resend=undefined
 		model.tags.tranId=undefined
-		model.tags.switchSchemeList=undefined
-		model.tags.switchReferenceId=undefined
-		model.tags.refrenceIdSwitchTxn=undefined
+		model.tags.stpSchemeList=undefined
+		model.tags.stpReferenceId=undefined
+		model.tags.refrenceIdStpTxn=undefined
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
@@ -107,7 +107,7 @@ function panMobile(model){
 		if(model.tags.mobile || model.tags.pan){
 			model.reply={
 				type:"quickReply",
-	            text:"Sure, we have your credentials linked to mobile "+formatter.apply(model.tags.mobile)+" saved. Would you like to proceed with the switch process?",
+	            text:"Sure, we have your credentials linked to mobile "+formatter.apply(model.tags.mobile)+" saved. Would you like to proceed with the stp process?",
 	            next:{
 	                "data": [
 	                	{
@@ -168,7 +168,7 @@ function scheme(model){
 				type:"generic",
 	            text:"Following are the schemes you are invested in. Please choose one",
 	            next:{ 
-	            	data : model.tags.switchSchemeList
+	            	data : model.tags.stpSchemeList
 	            }
 			}
 			return resolve(model)
@@ -293,7 +293,7 @@ function unitOrAmount(model){
 		if(model.tags.unitOrAmountList){
 			model.reply={
 				type:"quickReply",
-	            text:"How would you like to switch?",
+	            text:"How would you like to stp?",
 	            next:{
 	            	data:model.tags.unitOrAmountList
 	            }
@@ -308,13 +308,13 @@ function amount(model){
 		if(model.tags.unitOrAmount=="PU"){
 			model.reply={
 				type:"text",
-	            text:"Tell me the number of units you want to switch, it should be greater or equal to "+model.tags.switchSchemeObj["MinSwitchOutUnits"]+" and less than or equal to "+model.tags.switchSchemeObj["AvailableUnits"]
+	            text:"Tell me the number of units you want to stp, it should be greater or equal to "+model.tags.stpSchemeObj["MinStpOutUnits"]+" and less than or equal to "+model.tags.stpSchemeObj["AvailableUnits"]
 			}
 		}
 		else{
 			model.reply={
 				type:"text",
-	            text:"Tell me the amount you want to switch, it should be greater or equal to Rs "+model.tags.switchMinAmount+" and less than or equal to Rs "+model.tags.switchSchemeObj["AvailableAmt"]+" and in the multiples of Rs "+model.tags.switchSchemeObj["SwitchOutMultipleAmount"]
+	            text:"Tell me the amount you want to stp, it should be greater or equal to Rs "+model.tags.stpMinAmount+" and less than or equal to Rs "+model.tags.stpSchemeObj["AvailableAmt"]+" and in the multiples of Rs "+model.tags.stpSchemeObj["StpOutMultipleAmount"]
 			}
 
 		}
@@ -329,14 +329,14 @@ function confirm(model){
 			amount+=model.tags.amount+" units"
 		}
 		else if(model.tags.unitOrAmount=="AU"){
-			amount+=model.tags.switchSchemeObj["AvailableUnits"]+" units (All units)"
+			amount+=model.tags.stpSchemeObj["AvailableUnits"]+" units (All units)"
 		}
 		else{
 			amount+="Rs "+model.tags.amount
 		}
 			model.reply={
 			type:"quickReply",
-            text:"You are about to switch "+amount+" from "+model.tags.switchSchemeObj["SchemeName"]+" to "+model.tags.scheme+". Do you confirm this transaction?",
+            text:"You are about to stp "+amount+" from "+model.tags.stpSchemeObj["SchemeName"]+" to "+model.tags.scheme+". Do you confirm this transaction?",
             next:{
                 data: [
                 	{
@@ -357,10 +357,10 @@ function confirm(model){
 function summary(model){
 	return new Promise(function(resolve, reject){
 		console.log(JSON.stringify(model.tags,null,3))
-		if(model.tags.switchReferenceId){
+		if(model.tags.stpReferenceId){
 			model.reply={
 				type:"quickReply",
-	            text:"Thanks, your reference id is "+model.tags.switchReferenceId+". What would you like to do next?",
+	            text:"Thanks, your reference id is "+model.tags.stpReferenceId+". What would you like to do next?",
 	            next:{
 	                data: [
 	                	{
@@ -372,8 +372,8 @@ function summary(model){
 	                		text : "Redeem now"
 	                	},
 	                	{
-	                		data : "Switch now",
-	                		text : "Switch now"
+	                		data : "Stp now",
+	                		text : "Stp now"
 	                	},
 	                	{
 	                		data : "FAQs",
@@ -386,7 +386,7 @@ function summary(model){
 		else{
 			model.reply={
 				type:"quickReply",
-	            text:"Could not proceed with the switch with given details. However you can try again or go ahead with the following,",
+	            text:"Could not proceed with the stp with given details. However you can try again or go ahead with the following,",
 	            next:{
 	                data: [
 	                	{
@@ -404,6 +404,10 @@ function summary(model){
 	                	{
 	                		data : "Switch now",
 	                		text : "Switch now"
+	                	},
+	                	{
+	                		data : "Stp now",
+	                		text : "Stp now"
 	                	},
 	                	{
 	                		data : "FAQs",
