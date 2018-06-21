@@ -936,7 +936,7 @@ function showSchemeName(model){
 								// 	delete model.stage
 								// }
 								sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
-								api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,model.tags.folio,data[model.tags.scheme].schemeCode,true)
+								api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,model.tags.folio,model.tags.stpSchemeObj["SCH_CODE"],undefined,true)
 								.then((response)=>{
 									console.log(response.body)
 									try{
@@ -1118,64 +1118,67 @@ function euin(model){
 				}
 				if(model.tags.divOption!=undefined){
 					model.stage = 'unitOrAmount'
+					return resolve(model);
 				}
-				if(model.tags.divOption!=undefined&&parseFloat(model.tags.stpSchemeObj["CurUnit"])<=1){
+				else if(model.tags.divOption!=undefined&&parseFloat(model.tags.stpSchemeObj["CurUnit"])<=1){
 				// if(true&&model.tags.divOption!=undefined){
 							model.tags.unitOrAmount="AU";
+							model.stage="stpFrequency"
+							return resolve(model);
 							// console.log("amount valid")
-							api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["CurUnit"], model.tags.folio,model.tags.divOption,model.tags.euin)
-							.then((data)=>{
-								console.log(data)
-								try{
-									data = JSON.parse(data.body)
-								}
-								catch(e){	
-									console.log(e);
-									let reply={
-						                text    : "API Not Responding Properly",
-						                type    : "text",
-						                sender  : model.sender,
-						                language: "en"
-						            }
-									external(reply)
-									.then((data)=>{
-						                return reject(model);
-						            })
-						            .catch((e)=>{
-						                console.log(e);
-						                return reject(model)
-						            })
-								}
-								if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-									let reply={
-						                text    : data.Response[0]['reject_reason'].trim(),
-						                type    : "text",
-						                sender  : model.sender,
-						                language: "en"
-						            }
-									external(reply)
-									.then((data)=>{
-						                return reject(model);
-						            })
-						            .catch((e)=>{
-						                console.log(e);
-						                return reject(model)
-						            })
-								}
-								else if(data.Response&&data.Response.length>0){
-									model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
-									model.stage="confirm"
-									return resolve(model);
-								}
-								else{
-						                return reject(model)
+							// api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["CurUnit"], model.tags.folio,model.tags.divOption,model.tags.euin)
+							// .then((data)=>{
+							// 	console.log(data)
+							// 	try{
+							// 		data = JSON.parse(data.body)
+							// 	}
+							// 	catch(e){	
+							// 		console.log(e);
+							// 		let reply={
+						 //                text    : "API Not Responding Properly",
+						 //                type    : "text",
+						 //                sender  : model.sender,
+						 //                language: "en"
+						 //            }
+							// 		external(reply)
+							// 		.then((data)=>{
+						 //                return reject(model);
+						 //            })
+						 //            .catch((e)=>{
+						 //                console.log(e);
+						 //                return reject(model)
+						 //            })
+							// 	}
+							// 	if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+							// 		let reply={
+						 //                text    : data.Response[0]['reject_reason'].trim(),
+						 //                type    : "text",
+						 //                sender  : model.sender,
+						 //                language: "en"
+						 //            }
+							// 		external(reply)
+							// 		.then((data)=>{
+						 //                return reject(model);
+						 //            })
+						 //            .catch((e)=>{
+						 //                console.log(e);
+						 //                return reject(model)
+						 //            })
+							// 	}
+							// 	else if(data.Response&&data.Response.length>0){
+							// 		model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
+							// 		model.stage="confirm"
+							// 		return resolve(model);
+							// 	}
+							// 	else{
+						 //                return reject(model)
 									
-								}
-							})
-							.catch(e=>{
-								console.log(e)
-								return reject(model)
-							})
+							// 	}
+							// })
+							// .catch(e=>{
+							// 	console.log(e)
+							// 	return reject(model)
+							// })
 				}
 				else{
 					delete model.stage
