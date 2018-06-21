@@ -971,7 +971,7 @@ function showSchemeName(model){
 // 		"EUIN":"STAFF / E020391"
 // 	}]
 // ]}									
-										console.log(response.Response[0][0]+"________________>")
+										console.log(JSON.stringify(response.Response[0][0],null,3)+"________________>")
 										if(response.Response && response.Response[0] && response.Response[0][0].length>0){
 											model.tags.schemeApiDetails=response.Response[0][0];
 											model.tags.euinApiDetails=response.Response[1][0];
