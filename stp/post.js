@@ -672,7 +672,7 @@ function holding(model){
 									buttons : [
 										{
 											text : 'Select',
-											data : "scheme|||"+element["SCHEMECODE"].toString()
+											data : "scheme|||"+element["SCHEMECODE"]
 										}
 									]
 								})
