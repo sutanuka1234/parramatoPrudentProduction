@@ -843,11 +843,7 @@ function showSchemeName(model){
 			return reject(model)
 		}
 		model = extractDivOption(model)
-		// model = extractAmount(model)
-		// if(model.tags.selectType.toLowerCase().includes("additional")){
-		// 	model.stage = 'holding'
-		// 	return resolve(model)
-		// }
+
 		if(model.tags.schemes===undefined){
 			model.tags.schemes=[]
 		}
@@ -945,9 +941,37 @@ function showSchemeName(model){
 									console.log(response.body)
 									try{
 										response = JSON.parse(response.body)
-									
-
-
+// {"Response":
+// [
+// 	[{
+// 	"FUNDNAME":"Reliance Nippon Life Asset Management Limited",
+// 	"SCHEMECODE":28500,
+// 	"ACLASSCODE":19,
+// 	"OPT_CODE":2,
+// 	"SchemeName":"Reliance Arbitrage Advantage Fund - Monthly Dividend",
+// 	"Category":"Arbitrage",
+// 	"CurrentNAV":10.5983,
+// 	"MinimumInvestment":5000.00,
+// 	"MaximumInvestment":999999999,
+// 	"SRNO":1,
+// 	"1YearReturns":6.31,
+// 	"3YearReturns":6.22,
+// 	"5YearReturns":null,
+// 	"MinSwitchAmount":5000,
+// 	"MaxInvestment":999999999,
+// 	"SwitchMultipleAmount":100,
+// 	"RECOMD":1,
+// 	"Multiples":100,
+// 	"MinSwitchUnits":1,
+// 	"SwitchMultiplesUnits":1,
+// 	"MinPurchaseAmt":0
+// 	}],
+// 	[{
+// 		"ID":"E020391",
+// 		"EUIN":"STAFF / E020391"
+// 	}]
+// ]}									
+										console.log(response.Response[0][0]+"________________>")
 										if(response.Response && response.Response[0] && response.Response[0][0].length>0){
 											model.tags.schemeApiDetails=response.Response[0][0];
 											model.tags.euinApiDetails=response.Response[1][0];
