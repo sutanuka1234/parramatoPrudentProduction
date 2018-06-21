@@ -22,7 +22,6 @@ let obj = {
 	showSchemeName:showSchemeName,
 	euin	: euin,
 	divOps:divOps,
-	unitOrAmount:unitOrAmount,
 	amount : amount,
 	confirm : confirm
 }
@@ -1117,69 +1116,69 @@ function euin(model){
 					model.tags.existingEuinApiDetails=model.data
 				}
 				if(model.tags.divOption!=undefined){
-					model.stage = 'unitOrAmount'
+					model.stage = 'stpFrequency'
 					return resolve(model);
 				}
-				else if(model.tags.divOption!=undefined&&parseFloat(model.tags.stpSchemeObj["CurUnit"])<=1){
-				// if(true&&model.tags.divOption!=undefined){
-							model.tags.unitOrAmount="AU";
-							model.stage="stpFrequency"
-							return resolve(model);
-							// console.log("amount valid")
-							// api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["CurUnit"], model.tags.folio,model.tags.divOption,model.tags.euin)
-							// .then((data)=>{
-							// 	console.log(data)
-							// 	try{
-							// 		data = JSON.parse(data.body)
-							// 	}
-							// 	catch(e){	
-							// 		console.log(e);
-							// 		let reply={
-						 //                text    : "API Not Responding Properly",
-						 //                type    : "text",
-						 //                sender  : model.sender,
-						 //                language: "en"
-						 //            }
-							// 		external(reply)
-							// 		.then((data)=>{
-						 //                return reject(model);
-						 //            })
-						 //            .catch((e)=>{
-						 //                console.log(e);
-						 //                return reject(model)
-						 //            })
-							// 	}
-							// 	if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-							// 		let reply={
-						 //                text    : data.Response[0]['reject_reason'].trim(),
-						 //                type    : "text",
-						 //                sender  : model.sender,
-						 //                language: "en"
-						 //            }
-							// 		external(reply)
-							// 		.then((data)=>{
-						 //                return reject(model);
-						 //            })
-						 //            .catch((e)=>{
-						 //                console.log(e);
-						 //                return reject(model)
-						 //            })
-							// 	}
-							// 	else if(data.Response&&data.Response.length>0){
-							// 		model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
-							// 		model.stage="confirm"
-							// 		return resolve(model);
-							// 	}
-							// 	else{
-						 //                return reject(model)
+				// else if(model.tags.divOption!=undefined&&parseFloat(model.tags.stpSchemeObj["CurUnit"])<=1){
+				// // if(true&&model.tags.divOption!=undefined){
+				// 			model.tags.unitOrAmount="AU";
+				// 			model.stage="stpFrequency"
+				// 			return resolve(model);
+				// 			// console.log("amount valid")
+				// 			// api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["CurUnit"], model.tags.folio,model.tags.divOption,model.tags.euin)
+				// 			// .then((data)=>{
+				// 			// 	console.log(data)
+				// 			// 	try{
+				// 			// 		data = JSON.parse(data.body)
+				// 			// 	}
+				// 			// 	catch(e){	
+				// 			// 		console.log(e);
+				// 			// 		let reply={
+				// 		 //                text    : "API Not Responding Properly",
+				// 		 //                type    : "text",
+				// 		 //                sender  : model.sender,
+				// 		 //                language: "en"
+				// 		 //            }
+				// 			// 		external(reply)
+				// 			// 		.then((data)=>{
+				// 		 //                return reject(model);
+				// 		 //            })
+				// 		 //            .catch((e)=>{
+				// 		 //                console.log(e);
+				// 		 //                return reject(model)
+				// 		 //            })
+				// 			// 	}
+				// 			// 	if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+				// 			// 		let reply={
+				// 		 //                text    : data.Response[0]['reject_reason'].trim(),
+				// 		 //                type    : "text",
+				// 		 //                sender  : model.sender,
+				// 		 //                language: "en"
+				// 		 //            }
+				// 			// 		external(reply)
+				// 			// 		.then((data)=>{
+				// 		 //                return reject(model);
+				// 		 //            })
+				// 		 //            .catch((e)=>{
+				// 		 //                console.log(e);
+				// 		 //                return reject(model)
+				// 		 //            })
+				// 			// 	}
+				// 			// 	else if(data.Response&&data.Response.length>0){
+				// 			// 		model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
+				// 			// 		model.stage="confirm"
+				// 			// 		return resolve(model);
+				// 			// 	}
+				// 			// 	else{
+				// 		 //                return reject(model)
 									
-							// 	}
-							// })
-							// .catch(e=>{
-							// 	console.log(e)
-							// 	return reject(model)
-							// })
-				}
+				// 			// 	}
+				// 			// })
+				// 			// .catch(e=>{
+				// 			// 	console.log(e)
+				// 			// 	return reject(model)
+				// 			// })
+				// }
 				else{
 					delete model.stage
 					return resolve(model);
@@ -1205,68 +1204,68 @@ function divOps(model){
 				model.tags.divOptionText="Payout Option"
 			}
 			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
-			if(parseFloat(model.tags.stpSchemeObj["CurUnit"])<=1){
-			// if(true){
-							model.tags.unitOrAmount="AU";
-							// console.log("amount valid")
-							api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["CurUnit"], model.tags.folio,model.tags.divOption,model.tags.euin)
-							.then((data)=>{
-								console.log(data.body)
-								try{
-									data = JSON.parse(data.body)
-								}
-								catch(e){	
-									console.log(e);
-									let reply={
-						                text    : "API Not Responding Properly",
-						                type    : "text",
-						                sender  : model.sender,
-						                language: "en"
-						            }
-									external(reply)
-									.then((data)=>{
-						                return reject(model);
-						            })
-						            .catch((e)=>{
-						                console.log(e);
-						                return reject(model)
-						            })
-								}
-								if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-									let reply={
-						                text    : data.Response[0]['reject_reason'].trim(),
-						                type    : "text",
-						                sender  : model.sender,
-						                language: "en"
-						            }
-									external(reply)
-									.then((data)=>{
-						                return reject(model);
-						            })
-						            .catch((e)=>{
-						                console.log(e);
-						                return reject(model)
-						            })
-								}
-								else if(data.Response&&data.Response.length>0){
-									model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
-									model.stage="confirm"
-									return resolve(model);
-								}
-								else{
-						                return reject(model)
+			// if(parseFloat(model.tags.stpSchemeObj["CurUnit"])<=1){
+			// // if(true){
+			// 				model.tags.unitOrAmount="AU";
+			// 				// console.log("amount valid")
+			// 				api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["CurUnit"], model.tags.folio,model.tags.divOption,model.tags.euin)
+			// 				.then((data)=>{
+			// 					console.log(data.body)
+			// 					try{
+			// 						data = JSON.parse(data.body)
+			// 					}
+			// 					catch(e){	
+			// 						console.log(e);
+			// 						let reply={
+			// 			                text    : "API Not Responding Properly",
+			// 			                type    : "text",
+			// 			                sender  : model.sender,
+			// 			                language: "en"
+			// 			            }
+			// 						external(reply)
+			// 						.then((data)=>{
+			// 			                return reject(model);
+			// 			            })
+			// 			            .catch((e)=>{
+			// 			                console.log(e);
+			// 			                return reject(model)
+			// 			            })
+			// 					}
+			// 					if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+			// 						let reply={
+			// 			                text    : data.Response[0]['reject_reason'].trim(),
+			// 			                type    : "text",
+			// 			                sender  : model.sender,
+			// 			                language: "en"
+			// 			            }
+			// 						external(reply)
+			// 						.then((data)=>{
+			// 			                return reject(model);
+			// 			            })
+			// 			            .catch((e)=>{
+			// 			                console.log(e);
+			// 			                return reject(model)
+			// 			            })
+			// 					}
+			// 					else if(data.Response&&data.Response.length>0){
+			// 						model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
+			// 						model.stage="confirm"
+			// 						return resolve(model);
+			// 					}
+			// 					else{
+			// 			                return reject(model)
 									
-								}
-							})
-							.catch(e=>{
-								console.log(e)
-								return reject(model)
-							})
-				}
-				else{
+			// 					}
+			// 				})
+			// 				.catch(e=>{
+			// 					console.log(e)
+			// 					return reject(model)
+			// 				})
+			// 	}
+			// 	else{
 					delete model.stage;
 					return resolve(model)					
-				}
+				// }
 
 		}
 		else{
@@ -1277,84 +1276,84 @@ function divOps(model){
 
 
 
-function unitOrAmount(model) {
+// function unitOrAmount(model) {
 
-	return new Promise(function(resolve, reject){
-		model=dataClean(model)
-		console.log(model.data)
-		if(model.data.includes("all")){
-			model.tags.unitOrAmount="AU";
-			// console.log("amount valid")
-			api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["CurUnit"], model.tags.folio,model.tags.divOption,model.tags.euin)
-			.then((data)=>{
-				console.log(data.body)
-				try{
-					data = JSON.parse(data.body)
-				}
-				catch(e){	
-					console.log(e);
-					let reply={
-		                text    : "API Not Responding Properly",
-		                type    : "text",
-		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{
-		                return reject(model);
-		            })
-		            .catch((e)=>{
-		                console.log(e);
-		                return reject(model)
-		            })
-				}
-				if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-					let reply={
-		                text    : data.Response[0]['reject_reason'].trim(),
-		                type    : "text",
-		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{
-		                return reject(model);
-		            })
-		            .catch((e)=>{
-		                console.log(e);
-		                return reject(model)
-		            })
-				}
-				else if(data.Response&&data.Response.length>0){
-					model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
-					model.stage="confirm"
-					return resolve(model);
-				}
-				else{
-		                return reject(model)
+// 	return new Promise(function(resolve, reject){
+// 		model=dataClean(model)
+// 		console.log(model.data)
+// 		if(model.data.includes("all")){
+// 			model.tags.unitOrAmount="AU";
+// 			// console.log("amount valid")
+// 			api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["CurUnit"], model.tags.folio,model.tags.divOption,model.tags.euin)
+// 			.then((data)=>{
+// 				console.log(data.body)
+// 				try{
+// 					data = JSON.parse(data.body)
+// 				}
+// 				catch(e){	
+// 					console.log(e);
+// 					let reply={
+// 		                text    : "API Not Responding Properly",
+// 		                type    : "text",
+// 		                sender  : model.sender,
+// 		                language: "en"
+// 		            }
+// 					external(reply)
+// 					.then((data)=>{
+// 		                return reject(model);
+// 		            })
+// 		            .catch((e)=>{
+// 		                console.log(e);
+// 		                return reject(model)
+// 		            })
+// 				}
+// 				if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+// 					let reply={
+// 		                text    : data.Response[0]['reject_reason'].trim(),
+// 		                type    : "text",
+// 		                sender  : model.sender,
+// 		                language: "en"
+// 		            }
+// 					external(reply)
+// 					.then((data)=>{
+// 		                return reject(model);
+// 		            })
+// 		            .catch((e)=>{
+// 		                console.log(e);
+// 		                return reject(model)
+// 		            })
+// 				}
+// 				else if(data.Response&&data.Response.length>0){
+// 					model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
+// 					model.stage="confirm"
+// 					return resolve(model);
+// 				}
+// 				else{
+// 		                return reject(model)
 					
-				}
-			})
-			.catch(e=>{
-				console.log(e)
-				return reject(model)
-			})
-		}
-		else if(model.data.includes("amount")){
-			model.tags.unitOrAmount="R";
-			delete model.stage
-			return resolve(model);
-		}
-		else if(model.data.includes("partial")){
-			model.tags.unitOrAmount="PU";
-			delete model.stage
-			return resolve(model);
-		}
-		else{
-			model.tags.unitOrAmount=undefined;
-			return reject(model);
-		}
-	});
-}
+// 				}
+// 			})
+// 			.catch(e=>{
+// 				console.log(e)
+// 				return reject(model)
+// 			})
+// 		}
+// 		else if(model.data.includes("amount")){
+// 			model.tags.unitOrAmount="R";
+// 			delete model.stage
+// 			return resolve(model);
+// 		}
+// 		else if(model.data.includes("partial")){
+// 			model.tags.unitOrAmount="PU";
+// 			delete model.stage
+// 			return resolve(model);
+// 		}
+// 		else{
+// 			model.tags.unitOrAmount=undefined;
+// 			return reject(model);
+// 		}
+// 	});
+// }
 function amount(model){
 	// console.log(model.tags.schemeApiDetails["MinimumInvestment"]+":::::::::::::::::::::::::::::::::::::::::::::::")
 	return new Promise(function(resolve, reject){
