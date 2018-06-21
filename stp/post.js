@@ -791,7 +791,7 @@ function askSchemeName(model){
 		console.log(JSON.stringify(model.tags.stpSchemeObj,null,3))
 		let filteredData={}
 		for(let key in data){
-			if(data[key].amcCode==model.tags.stpSchemeObj["AMC_CODE"]&&model.tags.stpSchemeObj["SCHEMECODE"]!=data[key].schemeCode){
+			if(data[key].amcCode==model.tags.stpSchemeObj["AMC_CODE"]&&model.tags.stpSchemeObj["SCH_CODE"]!=data[key].schemeCode){
 				filteredData[key]=data[key]
 			}
 		}
@@ -967,8 +967,8 @@ function showSchemeName(model){
 											model.tags.stpMinAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 
 											
-												if(parseFloat(model.tags.stpSchemeObj["MinStpOutAmount"])>model.tags.stpMinAmount){
-													model.tags.stpMinAmount=parseFloat(model.tags.stpSchemeObj["MinStpOutAmount"])
+												if(parseFloat(model.tags.stpSchemeObj["MinRedemptionAmount"])>model.tags.stpMinAmount){
+													model.tags.stpMinAmount=parseFloat(model.tags.stpSchemeObj["MinRedemptionAmount"])
 												}
 												model.tags.stpMinAmount=model.tags.stpMinAmount.toString()
 												model.stage="euin"
@@ -1031,7 +1031,7 @@ function showSchemeName(model){
 		else{
 			let filteredData={}
 			for(let key in data){
-				if(data[key].amcCode==model.tags.stpSchemeObj["AMC_CODE"]&&model.tags.stpSchemeObj["SCHEMECODE"]!=data[key].schemeCode){
+				if(data[key].amcCode==model.tags.stpSchemeObj["AMC_CODE"]&&model.tags.stpSchemeObj["SCH_CODE"]!=data[key].schemeCode){
 					filteredData[key]=data[key]
 				}
 			}
@@ -1095,11 +1095,11 @@ function euin(model){
 				if(model.tags.divOption!=undefined){
 					model.stage = 'unitOrAmount'
 				}
-				if(model.tags.divOption!=undefined&&parseFloat(model.tags.stpSchemeObj["AvailableUnits"])<=1){
+				if(model.tags.divOption!=undefined&&parseFloat(model.tags.stpSchemeObj["CurUnit"])<=1){
 				// if(true&&model.tags.divOption!=undefined){
 							model.tags.unitOrAmount="AU";
 							// console.log("amount valid")
-							api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
+							api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["CurUnit"], model.tags.folio,model.tags.divOption,model.tags.euin)
 							.then((data)=>{
 								console.log(data)
 								try{
@@ -1178,11 +1178,11 @@ function divOps(model){
 				model.tags.divOptionText="Payout Option"
 			}
 			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
-			if(parseFloat(model.tags.stpSchemeObj["AvailableUnits"])<=1){
+			if(parseFloat(model.tags.stpSchemeObj["CurUnit"])<=1){
 			// if(true){
 							model.tags.unitOrAmount="AU";
 							// console.log("amount valid")
-							api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
+							api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["CurUnit"], model.tags.folio,model.tags.divOption,model.tags.euin)
 							.then((data)=>{
 								console.log(data.body)
 								try{
@@ -1258,7 +1258,7 @@ function unitOrAmount(model) {
 		if(model.data.includes("all")){
 			model.tags.unitOrAmount="AU";
 			// console.log("amount valid")
-			api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin)
+			api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["CurUnit"], model.tags.folio,model.tags.divOption,model.tags.euin)
 			.then((data)=>{
 				console.log(data.body)
 				try{
@@ -1347,9 +1347,9 @@ function amount(model){
 				
 				if(model.tags.unitOrAmount=="PU"){
 					let amount=parseFloat(model.tags.amount)
-					let maxAmount=parseFloat(model.tags.stpSchemeObj["AvailableUnits"])
-					let minAmount=parseFloat(model.tags.stpSchemeObj["MinStpOutUnits"])
-					let multiple=parseFloat(model.tags.stpSchemeObj["StpOutMultiplesUnits"])
+					let maxAmount=parseFloat(model.tags.stpSchemeObj["CurUnit"])
+					// let minAmount=parseFloat(model.tags.stpSchemeObj["MinStpOutUnits"])
+					// let multiple=parseFloat(model.tags.stpSchemeObj["StpOutMultiplesUnits"])
 					console.log(minAmount)
 					console.log(maxAmount)
 					console.log(multiple)
@@ -1357,20 +1357,21 @@ function amount(model){
 					// if(amount%multiple!=0){
 					// 	model.tags.amount=undefined;
 					// }
-					if(amount<minAmount){
-						sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
-						model.tags.amount=undefined;
-					}
-					else if(amount>maxAmount){
+					// if(amount<minAmount){
+					// 	sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
+					// 	model.tags.amount=undefined;
+					// }
+					// else 
+					if(amount>maxAmount){
 						sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
 						model.tags.amount=undefined;
 					}
 				}
 				else{
 					let amount=parseFloat(model.tags.amount)
-					let maxAmount=parseFloat(model.tags.stpSchemeObj["AvailableAmt"])
+					let maxAmount=parseFloat(model.tags.stpSchemeObj["CurAmount"])
 					let minAmount=parseFloat(model.tags.stpMinAmount)
-					let multiple=parseFloat(model.tags.stpSchemeObj["StpOutMultipleAmount"])
+					let multiple=parseFloat(model.tags.stpSchemeObj["RedemptionMultipleAmount"])
 					console.log(minAmount)
 					console.log(maxAmount)
 					console.log(multiple)
@@ -1396,7 +1397,7 @@ function amount(model){
 			if(model.tags.amount){
 
 				// console.log("amount valid")
-				api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount,  model.tags.amount, model.tags.folio,model.tags.divOption,model.tags.euin)
+				api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount,  model.tags.amount, model.tags.folio,model.tags.divOption,model.tags.euin)
 				.then((data)=>{
 					console.log(data.body)
 					try{

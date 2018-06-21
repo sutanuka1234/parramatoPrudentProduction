@@ -308,13 +308,13 @@ function amount(model){
 		if(model.tags.unitOrAmount=="PU"){
 			model.reply={
 				type:"text",
-	            text:"Tell me the number of units you want to stp, it should be greater or equal to "+model.tags.stpSchemeObj["MinStpOutUnits"]+" and less than or equal to "+model.tags.stpSchemeObj["AvailableUnits"]
+	            text:"Tell me the number of units you want to stp, it should be less than or equal to "+model.tags.stpSchemeObj["CurUnit"]
 			}
 		}
 		else{
 			model.reply={
 				type:"text",
-	            text:"Tell me the amount you want to stp, it should be greater or equal to Rs "+model.tags.stpMinAmount+" and less than or equal to Rs "+model.tags.stpSchemeObj["AvailableAmt"]+" and in the multiples of Rs "+model.tags.stpSchemeObj["StpOutMultipleAmount"]
+	            text:"Tell me the amount you want to stp, it should be greater or equal to Rs "+model.tags.stpMinAmount+" and less than or equal to Rs "+model.tags.stpSchemeObj["CurAmount"]+" and in the multiples of Rs "+model.tags.stpSchemeObj["RedemptionMultipleAmount"]
 			}
 
 		}
@@ -329,14 +329,14 @@ function confirm(model){
 			amount+=model.tags.amount+" units"
 		}
 		else if(model.tags.unitOrAmount=="AU"){
-			amount+=model.tags.stpSchemeObj["AvailableUnits"]+" units (All units)"
+			amount+=model.tags.stpSchemeObj["CurUnit"]+" units (All units)"
 		}
 		else{
 			amount+="Rs "+model.tags.amount
 		}
 			model.reply={
 			type:"quickReply",
-            text:"You are about to stp "+amount+" from "+model.tags.stpSchemeObj["SchemeName"]+" to "+model.tags.scheme+". Do you confirm this transaction?",
+            text:"You are about to stp "+amount+" from "+model.tags.stpSchemeObj["SCHEME_NAME"]+" to "+model.tags.scheme+". Do you confirm this transaction?",
             next:{
                 data: [
                 	{
