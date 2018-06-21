@@ -615,7 +615,7 @@ function holding(model){
 			}
 			model.tags.joinAccId = model.data
 			console.log("here")
-			api.getStpScheme(model.tags.session,model.tags.joinAccId)
+			api.getSTPScheme(model.tags.session,model.tags.joinAccId)
 			.then((data)=>{
 				let response;
 				try{
