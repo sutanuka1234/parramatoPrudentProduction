@@ -619,7 +619,7 @@ function holding(model){
 			.then((data)=>{
 				let response;
 				try{
-					console.log(data)
+					console.log(data.body+":::::::>>>>")
 					response = JSON.parse(data.body)
 				}
 				catch(e){
