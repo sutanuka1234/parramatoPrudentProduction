@@ -939,10 +939,12 @@ function showSchemeName(model){
 									console.log(response.body)
 									try{
 										response = JSON.parse(response.body)
-									
+										if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 
-
-										if(response.Response && response.Response[0] && response.Response[0][0].length>0){
+											console.log("1")
+											for(let schemeElement of response.Response[0]){
+												if()
+											}
 											model.tags.schemeApiDetails=response.Response[0][0];
 											model.tags.euinApiDetails=response.Response[1][0];
 											model.tags.euinApiDetailsList=[];
@@ -960,33 +962,34 @@ function showSchemeName(model){
 											})
 											model.tags.switchMinAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 
-											if(parseFloat(model.tags.switchSchemeObj["AvailableAmt"])<model.tags.switchMinAmount){
-												let reply={
-									                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account as the minimum investment amount for this scheme is lesser than the amount available in current investment',
-									                type    : "text",
-									                sender  : model.sender,
-									                language: "en"
-									            }
-												external(reply)
-												.then((data)=>{
-													model.stage = 'showSchemeName'
-													model.tags.schemes=undefined;
-													model.tags.scheme=undefined;
-													return resolve(model)
-									            })
-									            .catch((e)=>{
-									                console.log(e);
-									                return reject(model)
-									            })
+											// if(parseFloat(model.tags.switchSchemeObj["AvailableAmt"])<model.tags.switchMinAmount){
+											// 	console.log("2")
+											// 	let reply={
+									  //               text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account as the minimum investment amount for this scheme is lesser than the amount available in current investment',
+									  //               type    : "text",
+									  //               sender  : model.sender,
+									  //               language: "en"
+									  //           }
+											// 	external(reply)
+											// 	.then((data)=>{
+											// 		model.stage = 'showSchemeName'
+											// 		model.tags.schemes=undefined;
+											// 		model.tags.scheme=undefined;
+											// 		return resolve(model)
+									  //           })
+									  //           .catch((e)=>{
+									  //               console.log(e);
+									  //               return reject(model)
+									  //           })
+											// }
+											// else{
+											if(parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])>model.tags.switchMinAmount){
+												model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
 											}
-											else{
-												if(parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])>model.tags.switchMinAmount){
-													model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
-												}
-												model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
-												model.stage="euin"
-												return resolve(model)
-											}
+											model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
+											model.stage="euin"
+											return resolve(model)
+											// }
 												
 										}
 										else{
