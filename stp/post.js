@@ -619,7 +619,7 @@ function holding(model){
 			.then((data)=>{
 				let response;
 				try{
-					console.log(data.body+":::::::>>>>")
+					console.log(data)
 					response = JSON.parse(data.body)
 				}
 				catch(e){
@@ -659,20 +659,20 @@ function holding(model){
 			                return reject(model)
 			            })
 			        }
-			        else{
+					else{
 						model.tags.stpSchemes=response.Response;
 						model.tags.stpSchemeList=[]
 						response.Response.forEach(function(element,index){
 							console.log(index+"::::::::::::::::::::::::::::::")
 							if(index<10){
 								model.tags.stpSchemeList.push({
-									title 	: element["SchemeName"],
+									title 	: element["SCHEME_NAME"],
 									//todo
-									text 	: "Minimum Rs. "+element["MinSwitchAmount"],
+									text 	: "Folio "+element["FOLIO_NO"]+". Invested Rs. "+element["CurAmount"]+". Minimum Rs. "+element["MinRedemptionAmount"],
 									buttons : [
 										{
 											text : 'Select',
-											data : "scheme|||"+element["SCHEMECODE"]
+											data : "scheme|||"+element["SCH_CODE"].toString()
 										}
 									]
 								})
