@@ -943,9 +943,11 @@ function showSchemeName(model){
 
 											console.log("1")
 											for(let schemeElement of response.Response[0]){
-												if()
+												if(schemeElement["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
+													model.tags.schemeApiDetails=schemeElement;
+												}
 											}
-											model.tags.schemeApiDetails=response.Response[0][0];
+											// model.tags.schemeApiDetails=response.Response[0][0];
 											model.tags.euinApiDetails=response.Response[1][0];
 											model.tags.euinApiDetailsList=[];
 											if(response.Response.length>1){
