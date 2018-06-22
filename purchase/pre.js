@@ -17,6 +17,7 @@ let obj = {
 	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
 	divOps 	: divOps,
+	initAmount:initAmount,
 	amount 	: amount,
 	holding : holding,
 	euin	: euin,
@@ -219,6 +220,17 @@ function divOps(model){
                 	}
                 ]
             }
+		}
+		resolve(model)
+	})
+}
+
+function initAmount(model){
+	return new Promise(function(resolve, reject){
+
+		model.reply={
+			type:"text",
+            text:"Tell me the amount you want to start with, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaximumInvestment"] +" and in the multiples of "+model.tags.schemeApiDetails["Multiples"] 
 		}
 		resolve(model)
 	})
