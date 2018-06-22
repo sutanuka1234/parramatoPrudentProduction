@@ -1281,8 +1281,12 @@ function divOps(model){
 function stpMonthDay(model) {
 
 	return new Promise(function(resolve, reject){
-		delete model.stage;
-		return resolve(model);
+		let text = matchAll(model.data, /(\d+)/gi).toArray()
+		if(1<=parseInt(text[0])&&parseInt(text[0])<=28){
+			model.stage="amount";
+			return resolve(model);
+		}
+		return reject(model);
 	});
 }
 
