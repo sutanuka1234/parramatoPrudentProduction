@@ -28,7 +28,6 @@ let obj = {
 	confirm : confirm
 }
 
-
 let regexMobile	= /[789]\d{9}/gi
 let regexPan 	= /[a-z]{3}p[a-z]\d{4}[a-z]/
 let number		= /\d+/
