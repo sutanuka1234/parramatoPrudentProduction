@@ -1292,11 +1292,57 @@ function stpMonthDay(model) {
 
 
 function initAmount(model) {
-
+// console.log(model.tags.schemeApiDetails["MinimumInvestment"]+":::::::::::::::::::::::::::::::::::::::::::::::")
 	return new Promise(function(resolve, reject){
-		delete model.stage;
-		return resolve(model);
-	});
+		model=dataClean(model)
+		model=extractInitAmount(model)
+		console.log("amount::::::::::::::::::"+model.tags.initAmount)
+		try{
+			if(model.tags.initAmount&&model.tags.stpSchemeObj){
+				
+
+					let initAmount=parseFloat(model.tags.initAmount)
+					let maxAmount=parseFloat(model.tags.stpSchemeObj["CurAmount"])
+					let minAmount=parseFloat(model.tags.stpMinAmount)
+					let multiple=parseFloat(model.tags.stpSchemeObj["RedemptionMultipleAmount"])
+					console.log(minAmount)
+					console.log(maxAmount)
+					console.log(multiple)
+					console.log(initAmount)
+					console.log(initAmount%multiple)
+					if(initAmount%multiple!=0){
+						model.tags.initAmount=undefined;
+					}
+					if(initAmount<minAmount){
+						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
+						model.tags.initAmount=undefined;
+					}
+					else if(initAmount>maxAmount){
+						// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
+						model.tags.initAmount=undefined;
+					}
+			
+
+
+			}
+
+			if(model.tags.initAmount){
+
+				//STP Insert Cart
+				delete model.stage;
+				return resolve(model);
+
+			}
+			else{
+				console.log("no data")
+				return reject(model)
+			}	
+		}
+		catch(e){
+			console.log(e)
+			return reject(model)
+		}
+	})
 }
 function amount(model){
 	// console.log(model.tags.schemeApiDetails["MinimumInvestment"]+":::::::::::::::::::::::::::::::::::::::::::::::")
@@ -1357,7 +1403,7 @@ function confirm(model){
 
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes("yes")){
-			api.confirmStp(model.tags.session,model.tags.refrenceIdStpTxn)
+			api.confirmSTP(model.tags.session,model.tags.refrenceIdStpTxn)
 			.then((data)=>{
 				console.log(data.body)
 				try{
@@ -1439,6 +1485,31 @@ function extractOTP(model){
 	return model;
 }
 
+function extractInitAmount(model){
+	if(model.data.includes(',')){
+		while(model.data.includes(','))
+    		model.data = model.data.replace(',', '')
+	}
+	if(model.data.match(/\d+\s*k/)){
+		let a = model.data
+   		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
+   		model.data = model.data.replace(/\d+\s*k/, a)
+	}
+    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
+    	let a = model.data
+		a = a.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace(/\s+/, '').replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
+    	model.data = model.data.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
+    }
+	let text = matchAll(model.data, /(\d+)/gi).toArray()
+	for(let i in text){
+		if(text[i].length < 8){
+			model.tags.initAmount = text[i]
+			model.data = model.data.replace(model.tags.initAmount, '')
+			break;
+		}
+	}
+	return model;
+}
 
 function extractAmount(model){
 	if(model.data.includes(',')){
