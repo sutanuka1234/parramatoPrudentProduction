@@ -20,7 +20,7 @@ let obj = {
 	showSchemeName:showSchemeName,
 	euin	: euin,
 	divOps:divOps,
-	unitOrAmount:unitOrAmount,
+	// unitOrAmount:unitOrAmount,
 	amount:amount,
 	initAmount:initAmount,
 	confirm	: confirm,
