@@ -1378,7 +1378,7 @@ function confirm(model){
 				}
 				else{
 					console.log(model.tags.stpReferenceId+":::::::::::::")
-					model.tags.stpReferenceId=data.Response[0]["ReferenceNo"];
+					model.tags.stpReferenceId=data.Response[0]["STPTransactionId"];
 					model.stage="summary"
 					return resolve(model)
 
