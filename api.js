@@ -151,8 +151,8 @@ function getMandate(session,joinAccId){
 		'&STPWeek='+STPWeek+
 		'&STPMonth='+STPMonth+
 		'&Installment='+installments+
-		'&STPInvestmentAmt='+initAmount+
-		'&InitialInvestmentAmt='+amount+
+		'&STPInvestmentAmt='+amount+
+		'&InitialInvestmentAmt='+initAmount+
 		'&LastInstallmentFlag=Y&IsAgreeTerms=1&IsEKYCTermCondition=1'
 	}
 	return runRequest(obj)
