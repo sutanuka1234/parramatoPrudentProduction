@@ -1209,9 +1209,52 @@ function initAmount(model) {
 				api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.divOption, model.tags.folio, model.tags.euin, model.tags.switchSchemeObj["SCH_CODE"],data[model.tags.scheme].schemeCode,model.tags.stpFrequency,model.tags.stpWeekDay,model.tags.stpMonthDay,model.tags.stpInstallments,model.tags.initAmount,model.tags.amount)
 				.then((data)=>{
 						console.log(data.body+":::::")
-								//STP Insert Cart
-						delete model.stage;
-						return resolve(model);
+						console.log(data)
+								try{
+									data = JSON.parse(data.body)
+								}
+								catch(e){	
+									console.log(e);
+									let reply={
+						                text    : "API Not Responding Properly",
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+						                return reject(model);
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+								}
+								if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+									let reply={
+						                text    : data.Response[0]['reject_reason'].trim(),
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+						                return reject(model);
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+								}
+								else if(data.Response&&data.Response.length>0){
+									model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+									model.stage="confirm"
+									return resolve(model);
+								}
+								else{
+						                return reject(model)
+									
+								}
 				})
 				.catch(e=>{
 		            console.log(e);
