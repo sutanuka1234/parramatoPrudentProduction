@@ -871,45 +871,12 @@ function showSchemeName(model){
 
 					if(response.Response.length > 0){
 						let folioData=response.Response[0]
-						// let unitOrAmountData=response.Response[1]
 						let folioObj;
 						for(let i in folioData){
 							if(folioData[i].FolioNo==model.tags.folio){
 								folioObj=folioData[i]
 							}
 						}
-						// for(let element of unitOrAmountData){
-						// 	console.log(element)
-						// 	if(element["Value"]=="AU"){
-						// 		if(!model.tags.unitOrAmountList){
-						// 			model.tags.unitOrAmountList=[]
-						// 		}
-						// 		model.tags.unitOrAmountList.push({
-						// 			data : "All Units",
-						// 			text : "All Units"
-						// 		})
-						// 	}
-						// 	else if(element["Value"]=="PU"){
-						// 		if(!model.tags.unitOrAmountList){
-						// 			model.tags.unitOrAmountList=[]
-						// 		}
-						// 		model.tags.unitOrAmountList.push({
-						// 			data : "Partial Units",
-						// 			text : "Partial Units"
-						// 		})
-						// 	}
-						// 	else if(element["Value"]=="R"){
-						// 		if(!model.tags.unitOrAmountList){
-						// 			model.tags.unitOrAmountList=[]
-						// 		}
-						// 		model.tags.unitOrAmountList.push({
-						// 			data : "Amount",
-						// 			text : "Amount"
-						// 		})
-						// 	}
-						// }
-
-
 						if(folioObj){
 							console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(folioObj,null,3)+":::::"+data[model.tags.scheme].optionCode)
 							model.tags.divOption=undefined
@@ -1120,66 +1087,6 @@ function euin(model){
 					model.stage = 'stpFrequency'
 					return resolve(model);
 				}
-				// else if(model.tags.divOption!=undefined&&parseFloat(model.tags.stpSchemeObj["CurUnit"])<=1){
-				// // if(true&&model.tags.divOption!=undefined){
-				// 			model.tags.unitOrAmount="AU";
-				// 			model.stage="stpFrequency"
-				// 			return resolve(model);
-				// 			// console.log("amount valid")
-				// 			// api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["CurUnit"], model.tags.folio,model.tags.divOption,model.tags.euin)
-				// 			// .then((data)=>{
-				// 			// 	console.log(data)
-				// 			// 	try{
-				// 			// 		data = JSON.parse(data.body)
-				// 			// 	}
-				// 			// 	catch(e){	
-				// 			// 		console.log(e);
-				// 			// 		let reply={
-				// 		 //                text    : "API Not Responding Properly",
-				// 		 //                type    : "text",
-				// 		 //                sender  : model.sender,
-				// 		 //                language: "en"
-				// 		 //            }
-				// 			// 		external(reply)
-				// 			// 		.then((data)=>{
-				// 		 //                return reject(model);
-				// 		 //            })
-				// 		 //            .catch((e)=>{
-				// 		 //                console.log(e);
-				// 		 //                return reject(model)
-				// 		 //            })
-				// 			// 	}
-				// 			// 	if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-				// 			// 		let reply={
-				// 		 //                text    : data.Response[0]['reject_reason'].trim(),
-				// 		 //                type    : "text",
-				// 		 //                sender  : model.sender,
-				// 		 //                language: "en"
-				// 		 //            }
-				// 			// 		external(reply)
-				// 			// 		.then((data)=>{
-				// 		 //                return reject(model);
-				// 		 //            })
-				// 		 //            .catch((e)=>{
-				// 		 //                console.log(e);
-				// 		 //                return reject(model)
-				// 		 //            })
-				// 			// 	}
-				// 			// 	else if(data.Response&&data.Response.length>0){
-				// 			// 		model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
-				// 			// 		model.stage="confirm"
-				// 			// 		return resolve(model);
-				// 			// 	}
-				// 			// 	else{
-				// 		 //                return reject(model)
-									
-				// 			// 	}
-				// 			// })
-				// 			// .catch(e=>{
-				// 			// 	console.log(e)
-				// 			// 	return reject(model)
-				// 			// })
-				// }
 				else{
 					delete model.stage
 					return resolve(model);
@@ -1205,68 +1112,9 @@ function divOps(model){
 				model.tags.divOptionText="Payout Option"
 			}
 			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
-			// if(parseFloat(model.tags.stpSchemeObj["CurUnit"])<=1){
-			// // if(true){
-			// 				model.tags.unitOrAmount="AU";
-			// 				// console.log("amount valid")
-			// 				api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.stpSchemeObj["SCH_CODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.stpSchemeObj["CurUnit"], model.tags.folio,model.tags.divOption,model.tags.euin)
-			// 				.then((data)=>{
-			// 					console.log(data.body)
-			// 					try{
-			// 						data = JSON.parse(data.body)
-			// 					}
-			// 					catch(e){	
-			// 						console.log(e);
-			// 						let reply={
-			// 			                text    : "API Not Responding Properly",
-			// 			                type    : "text",
-			// 			                sender  : model.sender,
-			// 			                language: "en"
-			// 			            }
-			// 						external(reply)
-			// 						.then((data)=>{
-			// 			                return reject(model);
-			// 			            })
-			// 			            .catch((e)=>{
-			// 			                console.log(e);
-			// 			                return reject(model)
-			// 			            })
-			// 					}
-			// 					if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-			// 						let reply={
-			// 			                text    : data.Response[0]['reject_reason'].trim(),
-			// 			                type    : "text",
-			// 			                sender  : model.sender,
-			// 			                language: "en"
-			// 			            }
-			// 						external(reply)
-			// 						.then((data)=>{
-			// 			                return reject(model);
-			// 			            })
-			// 			            .catch((e)=>{
-			// 			                console.log(e);
-			// 			                return reject(model)
-			// 			            })
-			// 					}
-			// 					else if(data.Response&&data.Response.length>0){
-			// 						model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
-			// 						model.stage="confirm"
-			// 						return resolve(model);
-			// 					}
-			// 					else{
-			// 			                return reject(model)
-									
-			// 					}
-			// 				})
-			// 				.catch(e=>{
-			// 					console.log(e)
-			// 					return reject(model)
-			// 				})
-			// 	}
-			// 	else{
-					delete model.stage;
-					return resolve(model)					
-				// }
+			delete model.stage;
+			return resolve(model)					
+				
 
 		}
 		else{
@@ -1282,6 +1130,7 @@ function stpMonthDay(model) {
 	return new Promise(function(resolve, reject){
 		let text = matchAll(model.data, /(\d+)/gi).toArray()
 		if(1<=parseInt(text[0])&&parseInt(text[0])<=28){
+			model.tags.stpMonthDay=parseInt(text[0])
 			model.stage="amount";
 			return resolve(model);
 		}
@@ -1302,8 +1151,8 @@ function initAmount(model) {
 
 					let initAmount=parseFloat(model.tags.initAmount)
 					let maxAmount=parseFloat(model.tags.stpSchemeObj["CurAmount"])
-					let minAmount=parseFloat(model.tags.stpMinAmount)
-					let multiple=parseFloat(model.tags.stpSchemeObj["RedemptionMultipleAmount"])
+					let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+					let multiple=parseFloat(model.tags.schemeApiDetails["Multiples"])
 					console.log(minAmount)
 					console.log(maxAmount)
 					console.log(multiple)
@@ -1354,9 +1203,9 @@ function amount(model){
 				
 
 					let amount=parseFloat(model.tags.amount)
-					let maxAmount=parseFloat(model.tags.stpSchemeObj["CurAmount"])
-					let minAmount=parseFloat(model.tags.stpMinAmount)
-					let multiple=parseFloat(model.tags.stpSchemeObj["RedemptionMultipleAmount"])
+					let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
+					let minAmount=parseFloat(model.tags.schemeApiDetails["MinSwitchAmount"])
+					let multiple=parseFloat(model.tags.schemeApiDetails["Multiples"])
 					console.log(minAmount)
 					console.log(maxAmount)
 					console.log(multiple)
@@ -1379,10 +1228,45 @@ function amount(model){
 			}
 
 			if(model.tags.amount){
+				if(model.tags.stpFrequency&&(model.tags.stpFrequency.toLowerCase().includes("daily")||model.tags.stpFrequency.toLowerCase().includes("everyday"))){
+					model.tags.stpFrequency=3
+				}
+				else if(model.tags.stpFrequency&&model.tags.stpFrequency.toLowerCase().includes("week")){
+					model.tags.stpFrequency=2
+				}
+				else if(model.tags.stpFrequency&&model.tags.stpFrequency.toLowerCase().includes("month")){
+					model.tags.stpFrequency=1
+				}
+				else{
+					model.tags.stpFrequency=""
+				}
+				if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("mon")){
+					model.tags.stpWeekDay=2
+				}
+				else if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("tue")){
+					model.tags.stpWeekDay=3
+				}
+				else if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("wed")){
+					model.tags.stpWeekDay=4
+				}
+				else if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("thu")){
+					model.tags.stpWeekDay=5
+				}
+				else if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("fri")){
+					model.tags.stpWeekDay=6
+				}
+				else{
+					model.tags.stpWeekDay=""
+				}
 
-				//STP Insert Cart
-				delete model.stage;
-				return resolve(model);
+				api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.divOption, model.tags.folio, model.tags.euin, model.tags.switchSchemeObj["SCH_CODE"],data[model.tags.scheme].schemeCode,model.tags.stpFrequency,model.tags.stpWeekDay,model.tags.stpMonthDay,model.tags.stpInstallments,model.tags.initAmount,model.tags.amount)
+				.then((data)=>{
+						console.log(data.body+":::::")
+				})
+				.catch(e=>{
+		            console.log(e);
+		            return reject(model)
+				})
 
 			}
 			else{
