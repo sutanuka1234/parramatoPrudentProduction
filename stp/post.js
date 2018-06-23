@@ -1247,7 +1247,7 @@ function initAmount(model) {
 						            })
 								}
 								else if(data.Response&&data.Response.length>0){
-									model.tags.refrenceIdSwitchTxn=data.Response[0]["TranReferenceID"];
+									model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
 									model.stage="confirm"
 									return resolve(model);
 								}
