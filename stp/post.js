@@ -1246,7 +1246,7 @@ function amount(model){
 					let amount=parseFloat(model.tags.amount)
 					let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
 					let minAmount=parseFloat(model.tags.schemeApiDetails["MinSwitchAmount"])
-					let multiple=parseFloat(model.tags.schemeApiDetails["SwitchMultipleAmount"])
+					let multiple=parseFloat(model.tags.schemeApiDetails["MULTIPLES"])
 					console.log(minAmount)
 					console.log(maxAmount)
 					console.log(multiple)
