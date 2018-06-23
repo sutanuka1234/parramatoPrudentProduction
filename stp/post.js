@@ -120,7 +120,7 @@ function main(req, res){
 				res.send(data)
 			})
 			.catch((e)=>{
-				console.log(e)
+				// console.log(e)
 				res.sendStatus(203)
 			})
 		}
@@ -1240,12 +1240,13 @@ function amount(model){
 		console.log("amount::::::::::::::::::"+model.tags.amount)
 		try{
 			if(model.tags.amount&&model.tags.stpSchemeObj){
-				
+					console.log(JSON.stringify(model.tags.schemeApiDetails,null,3))
+					console.log(JSON.stringify(model.tags.stpSchemeObj,null,3))
 
 					let amount=parseFloat(model.tags.amount)
 					let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
 					let minAmount=parseFloat(model.tags.schemeApiDetails["MinSwitchAmount"])
-					let multiple=parseFloat(model.tags.schemeApiDetails["Multiples"])
+					let multiple=parseFloat(model.tags.schemeApiDetails["SwitchMultipleAmount"])
 					console.log(minAmount)
 					console.log(maxAmount)
 					console.log(multiple)
