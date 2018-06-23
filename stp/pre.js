@@ -22,6 +22,7 @@ let obj = {
 	divOps:divOps,
 	unitOrAmount:unitOrAmount,
 	amount:amount,
+	initAmount:initAmount,
 	confirm	: confirm,
 	summary:summary
 }
@@ -287,37 +288,26 @@ function folio(model){
 	})
 }
 
-function unitOrAmount(model){
+
+function initAmount(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.tags.unitOrAmountList)
-		if(model.tags.unitOrAmountList){
+		
 			model.reply={
-				type:"quickReply",
-	            text:"How would you like to stp?",
-	            next:{
-	            	data:model.tags.unitOrAmountList
-	            }
+				type:"text",
+	            text:"Tell me the amount you want to start stp with, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.stpSchemeObj["CurAmount"]+" and in the multiples of Rs "+model.tags.schemeApiDetails["RedemptionMultipleAmount"]
 			}
-		}
 		resolve(model)
 	})
 }
 
+
 function amount(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.unitOrAmount=="PU"){
+		
 			model.reply={
 				type:"text",
-	            text:"Tell me the number of units you want to stp, it should be less than or equal to "+model.tags.stpSchemeObj["CurUnit"]
+	            text:"Tell me the amount you want to invest in stp regularly, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinSwitchAmount"]+" and less than or equal to Rs "+model.tags.stpSchemeObj["CurAmount"]+" and in the multiples of Rs "+model.tags.schemeApiDetails["MULTIPLES"]
 			}
-		}
-		else{
-			model.reply={
-				type:"text",
-	            text:"Tell me the amount you want to stp, it should be greater or equal to Rs "+model.tags.stpMinAmount+" and less than or equal to Rs "+model.tags.stpSchemeObj["CurAmount"]+" and in the multiples of Rs "+model.tags.stpSchemeObj["RedemptionMultipleAmount"]
-			}
-
-		}
 		resolve(model)
 	})
 }

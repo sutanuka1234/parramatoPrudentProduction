@@ -1152,7 +1152,7 @@ function initAmount(model) {
 					let initAmount=parseFloat(model.tags.initAmount)
 					let maxAmount=parseFloat(model.tags.stpSchemeObj["CurAmount"])
 					let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
-					let multiple=parseFloat(model.tags.schemeApiDetails["Multiples"])
+					let multiple=parseFloat(model.tags.schemeApiDetails["RedemptionMultipleAmount"])
 					console.log(minAmount)
 					console.log(maxAmount)
 					console.log(multiple)
@@ -1244,7 +1244,7 @@ function amount(model){
 					console.log(JSON.stringify(model.tags.stpSchemeObj,null,3))
 
 					let amount=parseFloat(model.tags.amount)
-					let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
+					let maxAmount=parseFloat(model.tags.stpSchemeObj["CurAmount"])
 					let minAmount=parseFloat(model.tags.schemeApiDetails["MinSwitchAmount"])
 					let multiple=parseFloat(model.tags.schemeApiDetails["MULTIPLES"])
 					console.log(minAmount)
