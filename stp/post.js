@@ -1112,6 +1112,9 @@ function divOps(model){
 				model.tags.divOptionText="Payout Option"
 			}
 			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
+			model.tags.stpFrequency=""
+			model.tags.stpMonthDay=""
+			model.tags.stpWeekDay=""
 			delete model.stage;
 			return resolve(model)					
 				
@@ -1175,6 +1178,7 @@ function initAmount(model) {
 			}
 
 			if(model.tags.initAmount){
+
 				if(model.tags.stpFrequency&&(model.tags.stpFrequency.toLowerCase().includes("daily")||model.tags.stpFrequency.toLowerCase().includes("everyday"))){
 					model.tags.stpFrequency=3
 				}
