@@ -106,6 +106,10 @@ function fallback(model){
 		                		text : "Switch now"
 		                	},
 		                	{
+		                		data: "STP now",
+		                		text: "STP now"
+		                	},
+		                	{
 		                		data : "FAQs",
 		                		text : "FAQs"
 		                	}

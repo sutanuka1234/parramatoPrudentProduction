@@ -376,6 +376,10 @@ function summary(model){
 	                		text : "Switch now"
 	                	},
 	                	{
+	                		data: "STP now",
+	                		text: "STP now"
+	                	},
+	                	{
 	                		data : "FAQs",
 	                		text : "FAQs"
 	                	}
@@ -404,6 +408,10 @@ function summary(model){
 	                	{
 	                		data : "Switch now",
 	                		text : "Switch now"
+	                	},
+	                	{
+	                		data: "STP now",
+	                		text: "STP now"
 	                	},
 	                	{
 	                		data : "FAQs",

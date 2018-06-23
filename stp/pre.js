@@ -362,6 +362,10 @@ function summary(model){
 	                		text : "Redeem now"
 	                	},
 	                	{
+	                		data : "Switch now",
+	                		text : "Switch now"
+	                	},
+	                	{
 	                		data : "Stp now",
 	                		text : "Stp now"
 	                	},
