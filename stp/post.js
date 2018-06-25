@@ -1179,43 +1179,46 @@ function initAmount(model) {
 
 			if(model.tags.initAmount){
 
-				
-				if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("mon")){
-					model.tags.stpWeekDay=2
-				}
-				else if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("tue")){
-					model.tags.stpWeekDay=3
-				}
-				else if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("wed")){
-					model.tags.stpWeekDay=4
-				}
-				else if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("thu")){
-					model.tags.stpWeekDay=5
-				}
-				else if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("fri")){
-					model.tags.stpWeekDay=6
-				}
-				else{
-					model.tags.stpWeekDay=""
+				if(typeof model.tags.stpFrequency=="string"){
+					if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("mon")){
+						model.tags.stpWeekDay=2
+					}
+					else if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("tue")){
+						model.tags.stpWeekDay=3
+					}
+					else if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("wed")){
+						model.tags.stpWeekDay=4
+					}
+					else if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("thu")){
+						model.tags.stpWeekDay=5
+					}
+					else if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("fri")){
+						model.tags.stpWeekDay=6
+					}
+					else{
+						model.tags.stpWeekDay=""
+					}
 				}
 				if(!model.tags.stpMonthDay){
 					model.tags.stpMonthDay=""
 				}
-				if(model.tags.stpFrequency&&(model.tags.stpFrequency.toLowerCase().includes("daily")||model.tags.stpFrequency.toLowerCase().includes("everyday"))){
-					model.tags.stpFrequency=3
-					model.tags.stpWeekDay=""
-					model.tags.stpMonthDay=""
-				}
-				else if(model.tags.stpFrequency&&model.tags.stpFrequency.toLowerCase().includes("week")){
-					model.tags.stpFrequency=2
-					model.tags.stpMonthDay=""
-				}
-				else if(model.tags.stpFrequency&&model.tags.stpFrequency.toLowerCase().includes("month")){
-					model.tags.stpFrequency=1
-					model.tags.stpWeekDay=""
-				}
-				else{
-					model.tags.stpFrequency=""
+				if(typeof model.tags.stpFrequency=="string"){
+					if(model.tags.stpFrequency&&model.tags.stpFrequency&&(model.tags.stpFrequency.toLowerCase().includes("daily")||model.tags.stpFrequency.toLowerCase().includes("everyday"))){
+						model.tags.stpFrequency=3
+						model.tags.stpWeekDay=""
+						model.tags.stpMonthDay=""
+					}
+					else if(model.tags.stpFrequency&&model.tags.stpFrequency.toLowerCase().includes("week")){
+						model.tags.stpFrequency=2
+						model.tags.stpMonthDay=""
+					}
+					else if(model.tags.stpFrequency&&model.tags.stpFrequency.toLowerCase().includes("month")){
+						model.tags.stpFrequency=1
+						model.tags.stpWeekDay=""
+					}
+					else{
+						model.tags.stpFrequency=""
+					}
 				}
 				
 
