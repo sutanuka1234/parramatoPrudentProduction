@@ -1209,6 +1209,9 @@ function initAmount(model) {
 				else{
 					model.tags.stpWeekDay=""
 				}
+				if(!model.tags.stpMonthDay){
+					model.tags.stpMonthDay=""
+				}
 
 				api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.divOption, model.tags.folio, model.tags.euin, model.tags.stpSchemeObj["SCH_CODE"],data[model.tags.scheme].schemeCode,model.tags.stpFrequency,model.tags.stpWeekDay,model.tags.stpMonthDay,model.tags.stpInstallments,model.tags.initAmount,model.tags.amount)
 				.then((data)=>{
