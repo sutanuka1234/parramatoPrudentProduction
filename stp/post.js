@@ -1084,7 +1084,7 @@ function euin(model){
 					model.tags.existingEuinApiDetails=model.data
 				}
 				if(model.tags.divOption!=undefined){
-					model.stage = 'stpFrequency'
+					model.stage = 'stpInstallments'
 					return resolve(model);
 				}
 				else{
