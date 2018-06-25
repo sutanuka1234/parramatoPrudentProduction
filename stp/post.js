@@ -1179,18 +1179,7 @@ function initAmount(model) {
 
 			if(model.tags.initAmount){
 
-				if(model.tags.stpFrequency&&(model.tags.stpFrequency.toLowerCase().includes("daily")||model.tags.stpFrequency.toLowerCase().includes("everyday"))){
-					model.tags.stpFrequency=3
-				}
-				else if(model.tags.stpFrequency&&model.tags.stpFrequency.toLowerCase().includes("week")){
-					model.tags.stpFrequency=2
-				}
-				else if(model.tags.stpFrequency&&model.tags.stpFrequency.toLowerCase().includes("month")){
-					model.tags.stpFrequency=1
-				}
-				else{
-					model.tags.stpFrequency=""
-				}
+				
 				if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("mon")){
 					model.tags.stpWeekDay=2
 				}
@@ -1212,6 +1201,23 @@ function initAmount(model) {
 				if(!model.tags.stpMonthDay){
 					model.tags.stpMonthDay=""
 				}
+				if(model.tags.stpFrequency&&(model.tags.stpFrequency.toLowerCase().includes("daily")||model.tags.stpFrequency.toLowerCase().includes("everyday"))){
+					model.tags.stpFrequency=3
+					model.tags.stpWeekDay=""
+					model.tags.stpMonthDay=""
+				}
+				else if(model.tags.stpFrequency&&model.tags.stpFrequency.toLowerCase().includes("week")){
+					model.tags.stpFrequency=2
+					model.tags.stpMonthDay=""
+				}
+				else if(model.tags.stpFrequency&&model.tags.stpFrequency.toLowerCase().includes("month")){
+					model.tags.stpFrequency=1
+					model.tags.stpWeekDay=""
+				}
+				else{
+					model.tags.stpFrequency=""
+				}
+				
 
 				api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.divOption, model.tags.folio, model.tags.euin, model.tags.stpSchemeObj["SCH_CODE"],data[model.tags.scheme].schemeCode,model.tags.stpFrequency,model.tags.stpWeekDay,model.tags.stpMonthDay,model.tags.stpInstallments,model.tags.initAmount,model.tags.amount)
 				.then((data)=>{
