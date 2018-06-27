@@ -662,7 +662,7 @@ function holding(model){
 							if(index<10){
 								model.tags.switchSchemeList.push({
 									title 	: element["SchemeName"],
-									text 	: "Folio "+element["FOLIO_NO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinSwitchOutAmount"],
+									text 	: "Folio "+element["FOLIO_NO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
 									buttons : [
 										{
 											text : 'Select',

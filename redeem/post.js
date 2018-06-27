@@ -642,7 +642,7 @@ function holding(model){
 								if(index<10){
 									model.tags.redeemSchemeList.push({
 										title 	: element["SCHEMENAME"],
-										text 	: "Folio "+element["FOLIONO"]+". Invested Rs. "+element["AvailableAmt"]+". Minimum Rs. "+element["MinRedemptionAmount"],
+										text 	: "Folio "+element["FOLIONO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
 										buttons : [
 											{
 												text : 'Select',
