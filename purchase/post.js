@@ -1373,6 +1373,9 @@ function euin(model){
 									model.tags.skipMandate=true
 								}
 							}
+							if(model.tags.skipMandate){
+									sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+								}
 							// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 							if(model.tags.bankMandateList.length==0){
 								model.stage = 'amount'
@@ -1561,7 +1564,9 @@ function folio(model){
 											model.tags.skipMandate=true
 										}
 									}
-									
+									if(model.tags.skipMandate){
+										sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+									}
 									// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 									if(model.tags.bankMandateList.length==0){
 										// // console.log("3")
@@ -1715,7 +1720,9 @@ function divOps(model){
 									model.tags.skipMandate=true
 								}
 							}
-							
+							if(model.tags.skipMandate){
+									sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+								}
 							// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 							if(model.tags.bankMandateList.length==0){
 								delete model.stage
@@ -1887,6 +1894,9 @@ function amount(model){
 								model.tags.skipMandate=true
 							}
 						}
+						if(model.tags.skipMandate){
+									sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+								}
 						// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 						if(model.tags.bankMandateList.length==0){
 							let reply={
@@ -2019,7 +2029,11 @@ function sipDay(model){
 									}
 									else{
 										model.tags.skipMandate=true
+
 									}
+								}
+								if(model.tags.skipMandate){
+									sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
 								}
 								// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 								if(model.tags.bankMandateList.length==0){
@@ -2084,9 +2098,6 @@ function bankMandate(model){
 			arr.push(model.tags.bankMandateList[i].buttons[0].data)
 		}
 		// // console.log(arr)
-		if(model.tags.skipMandate){
-			sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
-		}
 		if(arr.includes(model.data)){
 			if(model.data.includes("-nach")){
 				// // console.log("nach")
