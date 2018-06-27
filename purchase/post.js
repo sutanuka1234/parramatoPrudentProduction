@@ -1287,7 +1287,7 @@ function euin(model){
 				}
 				let schemeCode=data[model.tags.scheme].schemeCode
 				if(model.tags.amount){
-					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId)
+					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
 					.then((data)=>{
 						// // console.log(data.body)
 						try{
@@ -1495,7 +1495,7 @@ function folio(model){
 						}
 						else{
 
-							api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId)
+							api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
 							.then((data)=>{
 								// // console.log(data.body)
 								try{
@@ -1653,7 +1653,7 @@ function divOps(model){
 				}
 				else{
 
-					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId)
+					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
 					.then((data)=>{
 						// // console.log(data.body)
 						try{
@@ -1805,7 +1805,7 @@ function amount(model){
 					return resolve(model)
 			}
 			else{
-				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId)
+				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
 				.then((data)=>{
 					try{
 						// console.log(data.body+":>>>>>>>>>>")
@@ -2108,7 +2108,7 @@ function bankMandate(model){
 				model.tags.bankMandate = model.data
 
 				if(model.tags.investmentType==="sip"){
-						api.insertBuyCartSip(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.sipDay,model.tags.sipInstallments,model.tags.bankMandate)
+						api.insertBuyCartSip(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcName, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.sipDay,model.tags.sipInstallments,model.tags.bankMandate,model.tags.schemeApiDetails["eKYC"])
 						.then((data)=>{
 							try{
 								data = JSON.parse(data.body)
