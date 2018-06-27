@@ -2282,11 +2282,14 @@ function extractAmount(model){
 	let text = matchAll(model.data, /(\d+)/gi).toArray()
 	for(let i in text){
 		if(text[i].length < 8){
-			model.tags.amount = text[i]
-			model.data = model.data.replace(model.tags.amount, '')
+			if(!model.data.includes("-"+text[i])){
+				model.tags.amount = text[i]
+			}
+			model.data = model.data.replace(text[i], '')
 			break;
 		}
 	}
+
 	return model;
 }
 

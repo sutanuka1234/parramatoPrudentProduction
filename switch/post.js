@@ -1591,11 +1591,14 @@ function extractAmount(model){
 	let text = matchAll(model.data, /(\d+)/gi).toArray()
 	for(let i in text){
 		if(text[i].length < 8){
-			model.tags.amount = text[i]
-			model.data = model.data.replace(model.tags.amount, '')
+			if(!model.data.includes("-"+text[i])){
+				model.tags.amount = text[i]
+			}
+			model.data = model.data.replace(text[i], '')
 			break;
 		}
 	}
+
 	return model;
 }
 
@@ -1607,11 +1610,13 @@ function extractAmountUptoThree(model){
  		console.log(text)
  		console.log(text.length)
  		if(text.length>0){
- 			console.log(text[0])
- 			console.log(parseFloat(text[0]).toFixed(3))
- 			console.log(typeof parseFloat(text[0]).toFixed(3))
-			model.tags.amount = parseFloat(parseFloat(text[0]).toFixed(3))
-			console.log(model.tags.amount+":::::::::::::::::;amount")
+ 			if(!model.data.includes("-"+text[0])){
+	 			console.log(text[0])
+	 			console.log(parseFloat(text[0]).toFixed(3))
+	 			console.log(typeof parseFloat(text[0]).toFixed(3))
+				model.tags.amount = parseFloat(parseFloat(text[0]).toFixed(3))
+				console.log(model.tags.amount+":::::::::::::::::;amount")
+			}
 			model.data = model.data.replace(text[0], '')
 		}
 		if(model.tags.amount){
@@ -1621,6 +1626,7 @@ function extractAmountUptoThree(model){
  	return extractAmount(model)
 	
 }
+
 
 function extractMobile(model){
 	let text = matchAll(model.data, /(\d+)/gi).toArray()
