@@ -1354,7 +1354,7 @@ function euin(model){
 										}
 								}
 								catch(e){
-									// console.log(e)
+									console.log(e)
 								}
 								let expectedAmount=parseInt(model.tags.amount);
 								if(expectedAmount<=element.DailyLimit){
@@ -1679,6 +1679,7 @@ function divOps(model){
 									}]
 								})
 							}
+							model.tags.skipMandate=false
 							for(let element of data.Response[1]){
 								try{
 									if(element.DailyLimit){
@@ -1691,6 +1692,7 @@ function divOps(model){
 									// console.log(e)
 								}
 								let expectedAmount=parseInt(model.tags.amount);
+
 								if(expectedAmount<=element.DailyLimit){
 									model.tags.bankMandateList.push({
 										title: "Mandate",
@@ -1700,6 +1702,9 @@ function divOps(model){
 											data : element.MandateId
 										}]
 									})
+								}
+								else{
+									model.tags.skipMandate=true
 								}
 							}
 							
