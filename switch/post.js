@@ -1110,9 +1110,7 @@ function euin(model){
 					model.tags.euin=model.data
 					model.tags.existingEuinApiDetails=model.data
 				}
-				if(model.tags.divOption!=undefined){
-					model.stage = 'unitOrAmount'
-				}
+				
 				if(model.tags.divOption!=undefined&&parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
 				// if(true&&model.tags.divOption!=undefined){
 							model.tags.unitOrAmount="AU";
@@ -1172,7 +1170,12 @@ function euin(model){
 							})
 				}
 				else{
-					delete model.stage
+					if(model.tags.divOption!=undefined){
+						model.stage = 'unitOrAmount'
+					}
+					else{
+						delete model.stage
+					}
 					return resolve(model);
 				}
 			}
