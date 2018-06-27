@@ -448,9 +448,10 @@ function extractAmount(model){
 	let text = matchAll(model.tags.userSays, /(\d+)/gi).toArray()
 	for(let i in text){
 		if(text[i].length < 8){
-   			model.tags.newAmount=true;
-			model.tags.amount = text[i]
-			model.tags.userSays = model.tags.userSays.replace(model.tags.amount, '')
+			if(!model.tags.userSays.includes("-"+text[i])){
+				model.tags.amount = text[i]
+			}
+			model.tags.userSays = model.tags.userSays.replace(text[i], '')
 			break;
 		}
 	}
