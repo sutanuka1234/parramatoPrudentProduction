@@ -1357,6 +1357,7 @@ function euin(model){
 									console.log(e)
 								}
 								let expectedAmount=parseInt(model.tags.amount);
+								model.tags.skipMandate=false
 								if(expectedAmount<=element.DailyLimit){
 										model.tags.bankMandateList.push({
 											title: "Mandate",
@@ -1367,6 +1368,9 @@ function euin(model){
 											}]
 										})
 									
+								}
+								else{
+									model.tags.skipMandate=true
 								}
 							}
 							// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
@@ -1542,6 +1546,7 @@ function folio(model){
 											return resolve(model);
 										}
 										let expectedAmount=parseInt(model.tags.amount);
+										model.tags.skipMandate=false;
 										if(expectedAmount<=element.DailyLimit){
 											model.tags.bankMandateList.push({
 												title: "Mandate",
@@ -1551,6 +1556,9 @@ function folio(model){
 													data : element.MandateId
 												}]
 											})
+										}
+										else{
+											model.tags.skipMandate=true
 										}
 									}
 									
@@ -1850,6 +1858,7 @@ function amount(model){
 								}]
 							})
 						}
+						model.tags.skipMandate=false;
 						for(let element of data.Response[1]){
 							try{
 									if(element.DailyLimit){
@@ -1873,6 +1882,9 @@ function amount(model){
 										}]
 									})
 								
+							}
+							else{
+								model.tags.skipMandate=true
 							}
 						}
 						// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
@@ -1993,6 +2005,7 @@ function sipDay(model){
 						                return reject(model)
 									}
 									let expectedAmount=parseInt(model.tags.amount);
+									model.tags.skipMandate=false;
 									if(expectedAmount<=element.DailyLimit){
 											model.tags.bankMandateList.push({
 												title: "Mandate",
@@ -2003,6 +2016,9 @@ function sipDay(model){
 												}]
 											})
 										
+									}
+									else{
+										model.tags.skipMandate=true
 									}
 								}
 								// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
@@ -2068,7 +2084,9 @@ function bankMandate(model){
 			arr.push(model.tags.bankMandateList[i].buttons[0].data)
 		}
 		// // console.log(arr)
-
+		if(model.tags.skipMandate){
+			sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+		}
 		if(arr.includes(model.data)){
 			if(model.data.includes("-nach")){
 				// // console.log("nach")
