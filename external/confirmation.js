@@ -1,31 +1,51 @@
 
 'use strict'
 
-let external = require('../external.js')
+
 module.exports={
 	main:main
 }
 
 function main(req, res){
 		console.log("confirmation")
-		"ClientName:PATEL ARATIBEN RAJENDRAKUMAR,PAN:CPRPP3661J,SessionId:7C772321713D21713D21713D21713D21713D21713D21713D2F612A3F6326,
-		ReferenceId:1001195225,SchemeName:IDFC Government Securities Fund - Investment Plan - Regular Plan - Periodic Dividend,FolioNo:1694776/24,Amount:5000.00,BankName:Central Bank of India,Status:Transaction Success,Timest:28 Jun 2018 15:27:17:000": ""
+		
 		console.log(JSON.stringify(req.body,null,3))
-
+		let model={
+			tags:{
+					session:req.body["SessionId"]
+			},
+			response:req.body["SessionId"]+"-"+"payment",
+			data:{
+				transactionRefId:req.body["ReferenceId"]
+			}
+		}
+		sendExternalData(model)
+		.then(()={});
 		res.sendStatus(200);
 }
 
 
-function sendExternalMessage(sender,text){
-	let reply={
-            text    : text,
-            type    : "text",
-            sender  : sender,
-            language: "en"
+function sendExternalData(data){
+    return new Promise(function(resolve,reject){
+        try{
+            request({
+                uri     :'https://fund-bazar-backend.herokuapp.com/JUBI2prC24_PrudentAPIs/external/webViewCallback',
+                json    :data,
+                method  :'POST'   
+            },(err,req,body)=>{
+                if(err){   
+                    // console.log(err)
+                    return reject("Something went wrong.");
+                }
+                else{
+                    // console.log(body);
+                    return resolve(body);
+                }
+            })      
         }
-		external(reply)
-		.then((data)=>{ })
-        .catch((e)=>{
-            // console.log(e);
-       })
+        catch(e){
+            // console.log(e)
+            return reject("Something went wrong.")
+        }
+    });
 }

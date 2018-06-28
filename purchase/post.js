@@ -2098,6 +2098,13 @@ function sipDay(model){
 
 function bankMandate(model){
 	return new Promise(function(resolve, reject){
+
+		if(model.data==model.tags.session+"-payment"&&model.tags.transactionRefId){
+			model.tags.status="Successful"
+			delete model.stage
+			return resolve(model);
+		}
+
 		let arr = []
 		for(let i in model.tags.bankMandateList){
 			arr.push(model.tags.bankMandateList[i].buttons[0].data)
