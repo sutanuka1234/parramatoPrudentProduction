@@ -9,8 +9,6 @@ module.exports={
 function main(req, res){
 		console.log("confirmation")
 		let confirmationBody=req.body
-		"ClientName:PATEL ARATIBEN RAJENDRAKUMAR,PAN:CPRPP3661J,SessionId:7C772321713D21713D21713D21713D21713D21713D21713D3F63262A7425,ReferenceId:1001195233,SchemeName:Axis Focused 25 Fund - Growth,FolioNo:91031723562,Amount:9000.00,BankName:Central Bank of India,Status:Transaction Success,Timest:28 Jun 2018 17:55:04:000"
-		
 		let arr=Object.keys(confirmationBody)
 		let session=""
 		let refId=""
