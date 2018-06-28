@@ -8,15 +8,15 @@ module.exports={
 
 function main(req, res){
 		console.log("confirmation")
-		
-		console.log(JSON.stringify(req.body,null,3))
+		let confirmationBody=JSON.parse(req.body)
+		console.log(JSON.stringify(confirmationBody,null,3))
 		let model={
 			tags:{
-					session:req.body["SessionId"]
+					session:confirmationBody["SessionId"]
 			},
-			response:req.body["SessionId"]+"-"+"payment",
+			response:confirmationBody["SessionId"]+"-"+"payment",
 			data:{
-				transactionRefId:req.body["ReferenceId"]
+				transactionRefId:confirmationBody["ReferenceId"]
 			}
 		}
 		sendExternalData(model)
