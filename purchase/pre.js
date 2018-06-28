@@ -347,7 +347,7 @@ function summary(model){
 		if(model.tags.transactionRefId){
 			model.reply={
 				type : 'quickReply',
-				text : 'We have gone ahead with '+model.tags.investmentType+' of '+model.tags.scheme+' with '+model.tags.folio+', investing Rs '+model.tags.amount+'. Reference ID would be '+model.tags.transactionRefId+'. Status of transaction is '+model.tags.status+". What would you like to do next?",
+				text : 'Hurray!! We have sucessfully initiated your transaction. Reference ID would be '+model.tags.transactionRefId+". What would you like to do next?",
 	            next:{
 	                data: [
 	                	{
