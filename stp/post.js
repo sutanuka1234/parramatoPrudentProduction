@@ -1073,8 +1073,8 @@ function euin(model){
 		let euinFlag=false;
 		for(let data of model.tags.euinApiDetailsList){
 			if(data["data"]==model.data){
-				
-				if(model.tags.schemeApiDetails["eKYC"] == "1"){
+
+				if(model.tags.stpSchemeObj["eKYC"] == "1"){
 					model.tags.stpSchemeObj["CurAmount"]="50000";
 				}
 				euinFlag=true;
@@ -1226,7 +1226,7 @@ function initAmount(model) {
 				}
 				
 
-				api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.divOption, model.tags.folio, model.tags.euin, model.tags.stpSchemeObj["SCH_CODE"],data[model.tags.scheme].schemeCode,model.tags.stpFrequency,model.tags.stpWeekDay,model.tags.stpMonthDay,model.tags.stpInstallments,model.tags.initAmount,model.tags.amount)
+				api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.divOption, model.tags.folio, model.tags.euin, model.tags.stpSchemeObj["SCH_CODE"],data[model.tags.scheme].schemeCode,model.tags.stpFrequency,model.tags.stpWeekDay,model.tags.stpMonthDay,model.tags.stpInstallments,model.tags.initAmount,model.tags.amount,model.tags.stpSchemeObj["eKYC"])
 				.then((data)=>{
 						console.log(data.body+":::::")
 						console.log(data)
