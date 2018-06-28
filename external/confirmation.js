@@ -8,8 +8,10 @@ module.exports={
 
 function main(req, res){
 		console.log("confirmation")
-		let confirmationBody=JSON.parse(req.body)
+		let confirmationBody=req.body
 		console.log(JSON.stringify(confirmationBody,null,3))
+		console.log(confirmationBody["SessionId"])
+		console.log(confirmationBody["ReferenceId"])
 		let model={
 			tags:{
 					session:confirmationBody["SessionId"]
