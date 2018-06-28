@@ -4,6 +4,6 @@ module.exports={
 
 function main(req, res){
 		console.log("confirmation")
-		console.log(JSON.stringify(req,null,3))
+		console.log(JSON.stringify(req.body,null,3))
 		res.sendStatus(200);
 }
