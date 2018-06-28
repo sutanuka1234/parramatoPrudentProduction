@@ -9,21 +9,41 @@ module.exports={
 function main(req, res){
 		console.log("confirmation")
 		let confirmationBody=req.body
-		console.log(JSON.stringify(confirmationBody,null,3))
-		console.log(confirmationBody["SessionId"])
-		console.log(confirmationBody["ReferenceId"])
-		let model={
-			tags:{
-					session:confirmationBody["SessionId"]
-			},
-			response:confirmationBody["SessionId"]+"-"+"payment",
-			data:{
-				transactionRefId:confirmationBody["ReferenceId"]
+		"ClientName:PATEL ARATIBEN RAJENDRAKUMAR,PAN:CPRPP3661J,SessionId:7C772321713D21713D21713D21713D21713D21713D21713D3F63262A7425,ReferenceId:1001195233,SchemeName:Axis Focused 25 Fund - Growth,FolioNo:91031723562,Amount:9000.00,BankName:Central Bank of India,Status:Transaction Success,Timest:28 Jun 2018 17:55:04:000"
+		
+		let arr=Object.keys(confirmationBody)
+		let session=""
+		let refId=""
+		if(arr.length>0){
+			arr=arr[0].split(",")
+			for(let element of arr){
+				if(element.startsWith("SessionId:")){
+					session=element.split(":")[1]	
+				}
+				if(element.startsWith("ReferenceId:")){
+					refId=element.split(":")[1]
+				}
 			}
 		}
-		sendExternalData(model)
-		.then(()=>{});
-		res.sendStatus(200);
+		if(session){
+			console.log(session)
+			console.log(refId)
+			let model={
+				tags:{
+						session:session
+				},
+				response:session+"-"+"payment",
+				data:{
+					transactionRefId:refId
+				}
+			}
+			sendExternalData(model)
+			.then(()=>{});
+			res.sendStatus(200);
+		}
+		else{
+			res.sendStatus(203);
+		}
 }
 
 
