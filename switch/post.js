@@ -914,8 +914,10 @@ function showSchemeName(model){
 								if(folioObj["DIVIDENDOPTION"]){
 									switch(folioObj["DIVIDENDOPTION"]){
 										case "Y": model.tags.divOption = 1
+												  sendExternalMessage(model,"Dividend option available to you is re-investment")
 											break;
 										case "N": model.tags.divOption = 2
+												  sendExternalMessage(model,"Dividend option available to you is Pay out")
 											break;
 										case "Z": model.tags.divOption = 0
 											break;

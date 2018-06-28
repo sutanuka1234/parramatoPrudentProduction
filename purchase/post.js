@@ -1430,15 +1430,18 @@ function folio(model){
 			if(model.data.includes('new')){
 				model.tags.folio = '0'
 			}
+
 			else{
 				model.tags.folio = model.data
 				for(let i in model.tags.folioObjList){
 					if(model.tags.folioObjList[i]["DIVIDENDOPTION"]){
 						switch(model.tags.folioObjList[i]["DIVIDENDOPTION"]){
 							case "Y": model.tags.divOption = 1
+									  sendExternalMessage(model,"Dividend option available to you is re-investment")
 									  divFlag=false;
 								break;
 							case "N": model.tags.divOption = 2
+									  sendExternalMessage(model,"Dividend option available to you is Pay out")
 									  divFlag=false;
 								break;
 							case "Z": model.tags.divOption = 0
