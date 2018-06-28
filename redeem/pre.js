@@ -236,7 +236,7 @@ function confirm(model){
 		}
 			model.reply={
 			type:"quickReply",
-            text:"You are about to redeem "+amount+" from "+model.tags.redeemSchemeObj["SCHEMENAME"]+". Do you confirm this transaction?",
+            text:"You are about to redeem "+amount+" from "+model.tags.redeemSchemeObj["SCHEMENAME"]+" with folio "+model.tags.folio+". Do you confirm this transaction?",
             next:{
                 data: [
                 	{

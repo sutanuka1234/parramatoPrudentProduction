@@ -326,7 +326,7 @@ function confirm(model){
 		}
 			model.reply={
 			type:"quickReply",
-            text:"You are about to stp "+amount+" from "+model.tags.stpSchemeObj["SCHEME_NAME"]+" to "+model.tags.scheme+". Do you confirm this transaction?",
+            text:"You are about to stp "+amount+" from "+model.tags.stpSchemeObj["SCHEME_NAME"]+" to "+model.tags.scheme+" with folio "+model.tags.folio+". Do you confirm this transaction?",
             next:{
                 data: [
                 	{

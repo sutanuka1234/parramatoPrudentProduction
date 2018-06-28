@@ -326,7 +326,7 @@ function bankMandate(model){
 	return new Promise(function(resolve, reject){
 		model.reply={
 			type:"generic",
-            text:"Investing Rs "+model.tags.amount+". Please select the bank for payment",
+            text:"You are about to invest "+model.tags.amount+" in "+model.tags.scheme+" with folio "+model.tags.folio+". Please select the bank to confirm and proceed for the payment",
             next:{
                 "data": model.tags.bankMandateList
             }
