@@ -20,7 +20,7 @@ function main(req, res){
 			}
 		}
 		sendExternalData(model)
-		.then(()={});
+		.then(()=>{});
 		res.sendStatus(200);
 }
 
@@ -34,17 +34,17 @@ function sendExternalData(data){
                 method  :'POST'   
             },(err,req,body)=>{
                 if(err){   
-                    // console.log(err)
+                    console.log(err)
                     return reject("Something went wrong.");
                 }
                 else{
-                    // console.log(body);
+                    console.log(body);
                     return resolve(body);
                 }
             })      
         }
         catch(e){
-            // console.log(e)
+            console.log(e)
             return reject("Something went wrong.")
         }
     });
