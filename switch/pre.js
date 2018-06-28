@@ -334,9 +334,16 @@ function confirm(model){
 		else{
 			amount+="Rs "+model.tags.amount
 		}
+		let divOpt=""
+		if(model.tags.divOption==1){
+			divOpt+=" re investment option"
+		}
+		if(model.tags.divOption==2){
+			divOpt+=" payout option"
+		}
 			model.reply={
 			type:"quickReply",
-            text:"You are about to switch "+amount+" from "+model.tags.switchSchemeObj["SchemeName"]+" to "+model.tags.scheme+" with folio "+model.tags.folio+". Do you confirm this transaction?",
+            text:"You are about to switch "+amount+" from "+model.tags.switchSchemeObj["SchemeName"]+" to "+model.tags.scheme+divOpt+" with folio "+model.tags.folio+". Do you confirm this transaction?",
             next:{
                 data: [
                 	{

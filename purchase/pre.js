@@ -324,9 +324,16 @@ function sipDay(model){
 }
 function bankMandate(model){
 	return new Promise(function(resolve, reject){
+		let divOpt=""
+		if(model.tags.divOption==1){
+			divOpt+=" re investment option"
+		}
+		if(model.tags.divOption==2){
+			divOpt+=" payout option"
+		}
 		model.reply={
 			type:"generic",
-            text:"You are about to invest "+model.tags.amount+" in "+model.tags.scheme+" with folio "+model.tags.folio+". Please select the bank to confirm and proceed for the payment",
+            text:"You are about to invest "+model.tags.amount+" in "+model.tags.scheme+divOpt+" with folio "+model.tags.folio+". Please select the bank to confirm and proceed for the payment",
             next:{
                 "data": model.tags.bankMandateList
             }
