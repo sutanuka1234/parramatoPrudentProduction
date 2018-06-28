@@ -1265,7 +1265,9 @@ function euin(model){
 			}
 		}
 					
-
+		if(model.tags.schemeApiDetails["eKYC"] == "1"){
+			model.tags.schemeApiDetails["MaximumInvestment"]="50000";
+		}
 		if(euinFlag){
 			if(model.tags.additional&&(model.tags.divOption==0||model.tags.divOption==1||model.tags.divOption==2&&model.tags.folio)){
 				if(model.tags.amount&&model.tags.schemeApiDetails){

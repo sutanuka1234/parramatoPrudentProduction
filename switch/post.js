@@ -1110,7 +1110,11 @@ function euin(model){
 					model.tags.euin=model.data
 					model.tags.existingEuinApiDetails=model.data
 				}
-				
+				console.log("::::::::::::::::::::::::::")
+				console.log(model.tags.schemeApiDetails)
+				if(model.tags.schemeApiDetails["eKYC"] == "1"){
+					model.tags.switchSchemeObj["AvailableAmt"]="50000";
+				}
 				if(model.tags.divOption!=undefined&&parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
 				// if(true&&model.tags.divOption!=undefined){
 							model.tags.unitOrAmount="AU";

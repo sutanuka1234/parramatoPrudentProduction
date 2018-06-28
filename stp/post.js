@@ -1073,6 +1073,10 @@ function euin(model){
 		let euinFlag=false;
 		for(let data of model.tags.euinApiDetailsList){
 			if(data["data"]==model.data){
+				
+				if(model.tags.schemeApiDetails["eKYC"] == "1"){
+					model.tags.stpSchemeObj["CurAmount"]="50000";
+				}
 				euinFlag=true;
 				if(model.data.toLowerCase().includes("direct")){
 					model.tags.euin=""
