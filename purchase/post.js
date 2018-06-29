@@ -2098,7 +2098,9 @@ function sipDay(model){
 
 function bankMandate(model){
 	return new Promise(function(resolve, reject){
-
+		console.log(":::::::::::::::::::::::::::::::::::::")
+		console.log("User said : "+model.data)
+		console.log("Txn Ref : "+model.tags.transactionRefId)
 		if(model.data==model.tags.session+"-payment"&&model.tags.transactionRefId){
 			model.tags.status="Successful"
 			delete model.stage
