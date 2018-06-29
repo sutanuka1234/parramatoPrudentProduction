@@ -759,7 +759,7 @@ function scheme(model){
 							})
 
 						}
-						model.stage="showSchemeName";
+						model.stage="askSchemeName";
 						return resolve(model);
 					}
 				}
