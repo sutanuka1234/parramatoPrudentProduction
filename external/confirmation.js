@@ -28,7 +28,7 @@ function main(req, res){
 			console.log(refId)
 			let model={
 				repo:{"tags.session":session,"callback": true},
-				response:session+"-"+"payment",
+				response:session+"-payment-"+refId,
 				data:{
 					transactionRefId:refId
 				}
