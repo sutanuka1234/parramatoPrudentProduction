@@ -2100,7 +2100,7 @@ function bankMandate(model){
 	return new Promise(function(resolve, reject){
 		console.log(":::::::::::::::::::::::::::::::::::::")
 		console.log("User said : "+model.data)
-		if(model.data.startsWith(model.tags.session+"-payment")&&model.data.split("-").length==3){
+		if(model.data.startsWith(model.tags.session+"-payment-")&&model.data.split("-").length==3){
 			model.tags.transactionRefId=model.data.split("-")[2]
 			model.tags.status="Successful"
 			delete model.stage
