@@ -3,7 +3,6 @@ module.exports={
 	main:main
 }
 
-let schemes = require('../schemes.js')
 let data = require('../data.js')
 let words = require('../words.js')
 let stringSimilarity = require('string-similarity');
