@@ -293,7 +293,7 @@ function initAmount(model){
 		
 			model.reply={
 				type:"text",
-	            text:"Tell me the amount you want to start stp with, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.stpSchemeObj["CurAmount"]+" and in the multiples of Rs "+model.tags.schemeApiDetails["RedemptionMultipleAmount"]
+	            text:"Tell me the amount you want to start stp with, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MININVT"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaxInvestment"]+" and in the multiples of Rs "+model.tags.schemeApiDetails["MULTIPLES"]
 			}
 		resolve(model)
 	})
@@ -305,7 +305,7 @@ function amount(model){
 		
 			model.reply={
 				type:"text",
-	            text:"Tell me the amount you want to invest in stp regularly, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinSwitchAmount"]+" and less than or equal to Rs "+model.tags.stpSchemeObj["CurAmount"]+" and in the multiples of Rs "+model.tags.schemeApiDetails["MULTIPLES"]
+	            text:"Tell me the amount you want to invest in stp regularly, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinRedemptionAmount"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaxInvestment"]
 			}
 		resolve(model)
 	})

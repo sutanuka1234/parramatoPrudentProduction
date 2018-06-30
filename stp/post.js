@@ -1156,12 +1156,12 @@ function initAmount(model) {
 		console.log("amount::::::::::::::::::"+model.tags.initAmount)
 		try{
 			if(model.tags.initAmount&&model.tags.stpSchemeObj){
-				
+			
 
 					let initAmount=parseFloat(model.tags.initAmount)
-					let maxAmount=parseFloat(model.tags.stpSchemeObj["CurAmount"])
-					let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
-					let multiple=parseFloat(model.tags.schemeApiDetails["RedemptionMultipleAmount"])
+					let maxAmount=parseFloat(model.tags.schemeApiDetails["MaxInvestment"])
+					let minAmount=parseFloat(model.tags.schemeApiDetails["MININVT"])
+					let multiple=parseFloat(model.tags.schemeApiDetails["MULTIPLES"])
 					console.log(minAmount)
 					console.log(maxAmount)
 					console.log(multiple)
@@ -1309,17 +1309,16 @@ function amount(model){
 					console.log(JSON.stringify(model.tags.stpSchemeObj,null,3))
 
 					let amount=parseFloat(model.tags.amount)
-					let maxAmount=parseFloat(model.tags.stpSchemeObj["CurAmount"])
-					let minAmount=parseFloat(model.tags.schemeApiDetails["MinSwitchAmount"])
-					let multiple=parseFloat(model.tags.schemeApiDetails["MULTIPLES"])
+					let maxAmount=parseFloat(model.tags.schemeApiDetails["MaxInvestment"])
+					let minAmount=parseFloat(model.tags.schemeApiDetails["MinRedemptionAmount"])
 					console.log(minAmount)
 					console.log(maxAmount)
-					console.log(multiple)
+					// console.log(multiple)
 					console.log(amount)
-					console.log(amount%multiple)
-					if(amount%multiple!=0){
-						model.tags.amount=undefined;
-					}
+					// console.log(amount%multiple)
+					// if(amount%multiple!=0){
+					// 	model.tags.amount=undefined;
+					// }
 					if(amount<minAmount){
 						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
 						model.tags.amount=undefined;
