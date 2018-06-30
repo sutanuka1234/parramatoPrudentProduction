@@ -1261,11 +1261,12 @@ function initAmount(model) {
 						            }
 									external(reply)
 									.then((data)=>{
-						                return reject(model);
+						                model.stage="amount"
+										return resolve(model);
 						            })
 						            .catch((e)=>{
-						                console.log(e);
-						                return reject(model)
+						                model.stage="amount"
+										return resolve(model);
 						            })
 								}
 								else if(data.Response&&data.Response.length>0){
