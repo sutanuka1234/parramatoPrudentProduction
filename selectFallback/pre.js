@@ -32,11 +32,16 @@ function fallback(model){
 	return new Promise((resolve,reject)=>{
 		try{
 			console.log(JSON.stringify(model.bestIntents,null,3)+":::::::::::::::::>>>>>>>>>>>>>>>>>")
+			let bestIntentSet=[]
 			for(let index in model.bestIntents){
 				if(model.bestIntents[index].intentName.startsWith("st_")){
-					model.bestIntents.splice(index, 1)
+					// model.bestIntents.splice(index, 1)
+				}
+				else{
+					bestIntentSet.push(model.bestIntents[index])
 				}
 			}
+			model.bestIntents=bestIntentSet;
 			if(model.prevQuery){
 				if(model.prevQuery.startsWith("[similar] ")){
 					model.prevQuery=model.prevQuery.replace("[similar]").replace("[/similar]").trim().split("|")[0];
