@@ -1077,7 +1077,7 @@ function euin(model){
 			if(data["data"]==model.data){
 
 				if(model.tags.stpSchemeObj["eKYC"] == "1"){
-					model.tags.stpSchemeObj["CurAmount"]="50000";
+					model.tags.schemeApiDetails["MaxInvestment"]="50000";
 				}
 				euinFlag=true;
 				if(model.data.toLowerCase().includes("direct")){
