@@ -964,7 +964,7 @@ function showSchemeName(model){
 												data : "Direct",
 												text : "Direct"
 											})
-											model.tags.switchMinAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+											// model.tags.switchMinAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 
 											// if(parseFloat(model.tags.switchSchemeObj["AvailableAmt"])<model.tags.switchMinAmount){
 											// 	console.log("2")
@@ -987,10 +987,10 @@ function showSchemeName(model){
 									  //           })
 											// }
 											// else{
-											if(parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])>model.tags.switchMinAmount){
-												model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
-											}
-											model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
+											// if(parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])>model.tags.switchMinAmount){
+											// 	model.tags.switchMinAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutAmount"])
+											// }
+											// model.tags.switchMinAmount=model.tags.switchMinAmount.toString()
 											model.stage="euin"
 											return resolve(model)
 											// }
@@ -1374,12 +1374,8 @@ function amount(model){
 				
 				if(model.tags.unitOrAmount=="PU"){
 					let amount=parseFloat(model.tags.amount)
-					let maxAmount=parseFloat(model.tags.switchSchemeObj["AvailableUnits"])
-					let minAmount=parseFloat(model.tags.switchSchemeObj["MinSwitchOutUnits"])
-					let multiple=parseFloat(model.tags.switchSchemeObj["SwitchOutMultiplesUnits"])
+					let minAmount=parseFloat(model.tags.schemeApiDetails["MinSwitchUnits"])
 					console.log(minAmount)
-					console.log(maxAmount)
-					console.log(multiple)
 					console.log(amount)
 					// if(amount%multiple!=0){
 					// 	model.tags.amount=undefined;
@@ -1388,18 +1384,12 @@ function amount(model){
 						sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
 						model.tags.amount=undefined;
 					}
-					else if(amount>maxAmount){
-						sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
-						model.tags.amount=undefined;
-					}
 				}
 				else{
 					let amount=parseFloat(model.tags.amount)
-					let maxAmount=parseFloat(model.tags.switchSchemeObj["AvailableAmt"])
-					let minAmount=parseFloat(model.tags.switchMinAmount)
-					let multiple=parseFloat(model.tags.switchSchemeObj["SwitchOutMultipleAmount"])
+					let minAmount=parseFloat(model.tags.schemeApiDetails["MinSwitchAmount"])
+					let multiple=parseFloat(model.tags.schemeApiDetails["SwitchMultipleAmount"])
 					console.log(minAmount)
-					console.log(maxAmount)
 					console.log(multiple)
 					console.log(amount)
 					console.log(amount%multiple)
@@ -1410,10 +1400,10 @@ function amount(model){
 						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
 						model.tags.amount=undefined;
 					}
-					else if(amount>maxAmount){
-						// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
-						model.tags.amount=undefined;
-					}
+					// else if(amount>maxAmount){
+					// 	// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
+					// 	model.tags.amount=undefined;
+					// }
 				}
 			
 

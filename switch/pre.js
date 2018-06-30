@@ -307,13 +307,13 @@ function amount(model){
 		if(model.tags.unitOrAmount=="PU"){
 			model.reply={
 				type:"text",
-	            text:"Tell me the number of units you want to switch, it should be greater or equal to "+model.tags.switchSchemeObj["MinSwitchOutUnits"]+" and less than or equal to "+model.tags.switchSchemeObj["AvailableUnits"]
+	            text:"Tell me the number of units you want to switch, it should be greater or equal to "+model.tags.schemeApiDetails["MinSwitchUnits"]
 			}
 		}
 		else{
 			model.reply={
 				type:"text",
-	            text:"Tell me the amount you want to switch, it should be greater or equal to Rs "+model.tags.switchMinAmount+" and less than or equal to Rs "+model.tags.switchSchemeObj["AvailableAmt"]+" and in the multiples of Rs "+model.tags.switchSchemeObj["SwitchOutMultipleAmount"]
+	            text:"Tell me the amount you want to switch, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinSwitchAmount"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["SwitchMultipleAmount"]
 			}
 
 		}
