@@ -1185,7 +1185,7 @@ function initAmount(model) {
 
 			if(model.tags.initAmount){
 
-				if(typeof model.tags.stpFrequency=="string"){
+				if(typeof model.tags.stpWeekDay=="string"){
 					if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("mon")){
 						model.tags.stpWeekDay=2
 					}
