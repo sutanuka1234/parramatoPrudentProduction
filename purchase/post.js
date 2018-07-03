@@ -1176,10 +1176,10 @@ function additional(model){
 
 				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 					for(let element of response.Response[0]){
-							if(element["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
-								model.tags.schemeApiDetails=element
-							}
+						if(element["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
+							model.tags.schemeApiDetails=element
 						}
+					}
 					model.tags.euinApiDetails=response.Response[1][0];
 					model.tags.euinApiDetailsList=[];
 					if(response.Response.length>1){
