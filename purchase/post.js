@@ -856,9 +856,9 @@ function holding(model){
 						return reject(model)
 						// console.log(e)
 					}
-
-
 					if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
+						console.log("SCHEME:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+						console.log(JSON.stringify(response.Response[0],null,3))
 						model.tags.schemeApiDetails=response.Response[0][0];
 						model.tags.euinApiDetails=response.Response[1][0];
 						model.tags.euinApiDetailsList=[];
