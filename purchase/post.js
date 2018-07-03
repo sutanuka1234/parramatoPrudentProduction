@@ -1167,7 +1167,8 @@ function additional(model){
 					// console.log(e)
 				}
 
-
+				console.log("SCHEME:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+				console.log(JSON.stringify(response.Response[0],null,3))
 				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 					model.tags.schemeApiDetails=response.Response[0][0];
 					model.tags.euinApiDetails=response.Response[1][0];
