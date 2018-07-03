@@ -313,16 +313,7 @@ function amount(model){
 
 function confirm(model){
 	return new Promise(function(resolve, reject){
-		let amount=""
-		if(model.tags.unitOrAmount=="PU"){
-			amount+=model.tags.amount+" units"
-		}
-		else if(model.tags.unitOrAmount=="AU"){
-			amount+=model.tags.stpSchemeObj["CurUnit"]+" units (All units)"
-		}
-		else{
-			amount+="Rs "+model.tags.amount
-		}
+		let amount="Rs "+model.tags.amount
 		let divOpt=""
 		if(model.tags.divOption==1){
 			divOpt+=" re investment option"
