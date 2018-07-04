@@ -314,6 +314,7 @@ function amount(model){
 function confirm(model){
 	return new Promise(function(resolve, reject){
 		let amount="Rs "+model.tags.amount
+		let initAmount="Rs "+model.tags.initAmount
 		let divOpt=""
 		if(model.tags.divOption==1){
 			divOpt+=" re investment option"
@@ -323,7 +324,7 @@ function confirm(model){
 		}
 			model.reply={
 			type:"quickReply",
-            text:"You are about to stp "+amount+" from "+model.tags.stpSchemeObj["SCHEME_NAME"]+" to "+model.tags.scheme+divOpt+" with folio "+model.tags.folio+". Do you confirm this transaction?",
+            text:"You are about to start stp with initial amount of "+initAmount+" and regular stp investment of "+amount+" from "+model.tags.stpSchemeObj["SCHEME_NAME"]+" to "+model.tags.scheme+divOpt+" with folio "+model.tags.folio+". Do you confirm this transaction?",
             next:{
                 data: [
                 	{
