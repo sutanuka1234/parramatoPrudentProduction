@@ -106,11 +106,11 @@ function main(req, res){
 		var buttonStageArr=req.body.data.split("|||")
 		if(buttonStageArr.length==2&&obj[buttonStageArr[0]]){
 			req.body.data=buttonStageArr[1]
-			console.log(req.params.stage+":::"+buttonStageArr[0])
-			if(req.params.stage!=buttonStageArr[0]&&sortedJourney.indexOf(req.params.stage)>sortedJourney.indexOf(buttonStageArr[0])){
-					req.params.stage=buttonStageArr[0];
-					delete req.body.stage
-			}
+			// console.log(req.params.stage+":::"+buttonStageArr[0])
+			// if(req.params.stage!=buttonStageArr[0]&&sortedJourney.indexOf(req.params.stage)>sortedJourney.indexOf(buttonStageArr[0])){
+			// 		req.params.stage=buttonStageArr[0];
+			// 		delete req.body.stage
+			// }
 		}
 		
 		if(obj[req.params.stage]){
@@ -951,7 +951,7 @@ function showSchemeName(model){
 													model.tags.stpMinAmount=parseFloat(model.tags.stpSchemeObj["MinRedemptionAmount"])
 												}
 												model.tags.stpMinAmount=model.tags.stpMinAmount.toString()
-												model.stage="euin"
+												model.stage="agreement"
 												return resolve(model)
 											
 												

@@ -17,6 +17,7 @@ let obj = {
 	scheme 	: scheme,
 	askSchemeName:askSchemeName,
 	showSchemeName:showSchemeName,
+	agreement:agreement,
 	euin	: euin,
 	divOps:divOps,
 	unitOrAmount:unitOrAmount,
@@ -160,7 +161,25 @@ function holding(model){
 		resolve(model)
 	})
 }
-
+function agreement(model){
+	return new Promise(function(resolve,reject){
+		model.reply={
+				type:"button",
+	            text:"In order to proceed, please read and agree to our and Fund House policies. "
+					+model.tags.schemeApiDetails.OfferDocumentLink+" is the Offer Document. "
+					+model.tags.schemeApiDetails.SchemeDocumentLink+" is the Scheme Document. "
+					+model.tags.schemeApiDetails.AddInformationDocumentLink+" is Additional Information Document. "
+					+" Terms and Conditions would be "+model.tags.schemeApiDetails.TermsAndConditionDocumentLink,
+	            next:{
+	                data: [{
+	                	text:"I accept and agree",
+	                	data:"I accept and agree"
+	                }]
+	            }
+			}
+		return resolve(model);
+	}) 
+}
 function scheme(model){
 	return new Promise(function(resolve, reject){
 			model.reply = {
