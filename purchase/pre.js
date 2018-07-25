@@ -266,11 +266,11 @@ function agreement(model){
 	return new Promise(function(resolve,reject){
 		model.reply={
 				type:"button",
-	            text:"In order to proceed, please read and agree to our terms and conditions - link  "
-					+" "+model.tags.schemeApiDetails.OfferDocumentLink
-					+" "+model.tags.schemeApiDetails.SchemeDocumentLink
-					+" "+model.tags.schemeApiDetails.AddInformationDocumentLink
-					+" "+model.tags.schemeApiDetails.TermsAndConditionDocumentLink,
+	            text:"In order to proceed, please read and agree to our and Fund House policies."
+					+" Offer Document "+model.tags.schemeApiDetails.OfferDocumentLink
+					+". Scheme Document "+model.tags.schemeApiDetails.SchemeDocumentLink
+					+". Additional Informatin Document "+model.tags.schemeApiDetails.AddInformationDocumentLink
+					+". Terms and Conditions "+model.tags.schemeApiDetails.TermsAndConditionDocumentLink,
 	            next:{
 	                data: [{
 	                	text:"I accept and agree",
