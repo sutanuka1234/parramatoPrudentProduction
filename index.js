@@ -15,22 +15,17 @@ const headers={
     Password    : "Prudent@123"
 }
 
-app.listen(process.env.PORT||80,()=>{
-    console.log("Server is listening.")
+app.listen(8888,()=>{
+    console.log("Server is listening at 8888..")
 })
-
-
-
 
 app.get('/external/pay', (req,res)=>{
     require('./external/pay.js').main(req, res)
 })
 
-
 app.post('/external/confirmation', (req,res)=>{
     require('./external/confirmation').main(req, res)
 })
-
 
 app.post('/:folder/:type/:stage', (req,res)=>{
     require('./'+req.params.folder+'/'+req.params.type).main(req, res)

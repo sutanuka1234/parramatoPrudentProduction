@@ -309,7 +309,7 @@ function sipDay(model){
 	return new Promise(function(resolve, reject){
 		model.reply={
 			type:"text",
-            text:"Which day of the month would you like to invest?"
+            text:"Which date of the month would you like to invest?"
            
 		}
 		if(model.tags.schemeApiDetails["SIPDays"]==="ALL"){

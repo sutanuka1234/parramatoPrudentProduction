@@ -1354,7 +1354,7 @@ function euin(model){
 									buttons : [{
 										type : 'url',
 										text : 'Pay',
-										data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
+										data : 'https://fundzbot.com/api/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
 									}]
 								})
 							}
@@ -1547,7 +1547,7 @@ function folio(model){
 											buttons : [{
 												type : 'url',
 												text : 'Pay',
-												data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
+												data : 'https://fundzbot.com/api/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
 											}]
 										})
 									}
@@ -1704,7 +1704,7 @@ function divOps(model){
 									buttons : [{
 										type : 'url',
 										text : 'Pay',
-										data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
+										data : 'https://fundzbot.com/api/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
 									}]
 								})
 							}
@@ -1877,7 +1877,7 @@ function amount(model){
 								buttons : [{
 									type : 'url',
 									text : 'Pay',
-									data : 'https://prudent-apiserver.herokuapp.com/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
+									data : 'https://fundzbot.com/api/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
 								}]
 							})
 						}

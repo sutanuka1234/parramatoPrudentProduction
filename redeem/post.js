@@ -795,13 +795,16 @@ function scheme(model){
 						}
 					}
 				}
+				reject(model)
+			}
+			else{
+				return reject(model)
 			}
 		}
 		catch(e){
 			console.log(e)
 			return reject(model);			
 		}
-
 		// return reject(model)
 	})
 }
