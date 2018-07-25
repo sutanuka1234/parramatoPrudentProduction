@@ -267,10 +267,10 @@ function agreement(model){
 		model.reply={
 				type:"button",
 	            text:"In order to proceed, please read and agree to our and Fund House policies."
-					+" Offer Document "+model.tags.schemeApiDetails.OfferDocumentLink
-					+". Scheme Document "+model.tags.schemeApiDetails.SchemeDocumentLink
-					+". Additional Informatin Document "+model.tags.schemeApiDetails.AddInformationDocumentLink
-					+". Terms and Conditions "+model.tags.schemeApiDetails.TermsAndConditionDocumentLink,
+					+model.tags.schemeApiDetails.OfferDocumentLink+" is the Offer Document."
+					+model.tags.schemeApiDetails.SchemeDocumentLink+" is the Scheme Document."
+					+model.tags.schemeApiDetails.AddInformationDocumentLink+" is Additional Information Document."
+					+" Terms and Conditions would be "+model.tags.schemeApiDetails.TermsAndConditionDocumentLink,
 	            next:{
 	                data: [{
 	                	text:"I accept and agree",
