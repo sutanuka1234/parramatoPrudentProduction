@@ -265,12 +265,16 @@ function holding(model){
 function agreement(model){
 	return new Promise(function(resolve,reject){
 		model.reply={
-				type:"buttons",
-	            text:model.tags.agreementText,
+				type:"button",
+	            text:"In order to proceed, please read and agree to our terms and conditions - link  "
+					+" "+model.tags.schemeApiDetails.OfferDocumentLink
+					+" "+model.tags.schemeApiDetails.SchemeDocumentLink
+					+" "+model.tags.schemeApiDetails.AddInformationDocumentLink
+					+" "+model.tags.schemeApiDetails.TermsAndConditionDocumentLink,
 	            next:{
 	                data: [{
 	                	text:"I accept and agree",
-	                	data:"i accept and agree"
+	                	data:"I accept and agree"
 	                }]
 	            }
 			}

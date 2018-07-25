@@ -198,7 +198,7 @@ function panMobile(model){
 					response = JSON.parse(data.body)
 				}
 				catch(e){
-					// console.log(e);
+					console.log(e);
 					if(!model.tags.mobile){
 						model.stage = 'mobile' 
 						return resolve(model)
@@ -225,7 +225,7 @@ function panMobile(model){
 						return resolve(model)
 		            })
 		            .catch((e)=>{
-		                // console.log(e);
+		                console.log(e);
 		                if(!model.tags.mobile){
 							model.stage = 'mobile' 
 							return resolve(model)
@@ -289,7 +289,7 @@ function panMobile(model){
 					try{
 						response = JSON.parse(data.body)
 					}
-					catch(e){// console.log(e);
+					catch(e){console.log(e);
 						if(!model.tags.mobile){
 							model.stage = 'mobile' 
 							return resolve(model)
@@ -316,7 +316,7 @@ function panMobile(model){
 							return resolve(model)
 			            })
 			            .catch((e)=>{
-			                // console.log(e);
+			                console.log(e);
 			                if(!model.tags.mobile){
 								model.stage = 'mobile' 
 								return resolve(model)
@@ -383,7 +383,7 @@ function mobile(model){
 						try{
 							response = JSON.parse(data.body)
 						}
-						catch(e){// console.log(e);
+						catch(e){console.log(e);
 							return reject(model);
 						}
 						if(response.Response[0].result=="FAIL"){
@@ -403,7 +403,7 @@ function mobile(model){
 								return resolve(model)
 				            })
 				            .catch((e)=>{
-				                // console.log(e);
+				                console.log(e);
 				                return reject(model)
 				            })
 						}
@@ -450,7 +450,7 @@ function pan(model){
 				try{
 					response = JSON.parse(data.body)
 				}
-				catch(e){// console.log(e);
+				catch(e){console.log(e);
 					return reject(model);
 				}
 				if(response.Response[0].result=="FAIL"){
@@ -470,7 +470,7 @@ function pan(model){
 						return resolve(model)
 		            })
 		            .catch((e)=>{
-		                // console.log(e);
+		                console.log(e);
 		                return reject(model)
 		            })
 				}
@@ -538,7 +538,7 @@ function otp(model){
 					try{
 						response = JSON.parse(data.body)
 					}
-					catch(e){// console.log(e);
+					catch(e){console.log(e);
 						return reject(model);
 					}
 					if(response.Response[0].result=="FAIL"){
@@ -553,7 +553,7 @@ function otp(model){
 							return reject(model)//wrongResolve
 			            })
 			            .catch((e)=>{
-			                // console.log(e);
+			                console.log(e);
 			                return reject(model)
 			            })
 					}
@@ -609,7 +609,7 @@ function otp(model){
 					}
 				}
 				catch(e){
-					// console.log(e);
+					console.log(e);
 					return reject(model);
 				}
 			})
@@ -897,7 +897,7 @@ function holding(model){
 							try{
 								response = JSON.parse(response.body)
 							}
-							catch(e){// console.log(e);
+							catch(e){console.log(e);
 								return reject(model);
 							}
 							let arr = []
@@ -944,7 +944,7 @@ function holding(model){
 							return resolve(model)
 			            })
 			            .catch((e)=>{
-			                // console.log(e);
+			                console.log(e);
 			                return reject(model)
 			            })
 					}
@@ -965,7 +965,7 @@ function holding(model){
 						return resolve(model)
 		            })
 		            .catch((e)=>{
-		                // console.log(e);
+		                console.log(e);
 		                return reject(model)
 		            })
 					return reject(model)
@@ -979,7 +979,7 @@ function holding(model){
 					}
 					catch(e){
 						return reject(model)
-						// console.log(e);
+						console.log(e);
 					}
 					model.tags.existingSchemeApiDetails=response.Response[0];
 					model.tags.existingEuinApiDetails=response.Response[1][0];
@@ -1077,7 +1077,7 @@ function holding(model){
 									try{
 										response = JSON.parse(response.body)
 									}
-									catch(e){// console.log(e);
+									catch(e){console.log(e);
 										return reject(model);
 									}
 									let arr = []
@@ -1124,7 +1124,7 @@ function holding(model){
 									return resolve(model)
 					            })
 					            .catch((e)=>{
-					                // console.log(e);
+					                console.log(e);
 					                return reject(model)
 					            })
 							}
@@ -1145,7 +1145,7 @@ function holding(model){
 								return resolve(model)
 				            })
 				            .catch((e)=>{
-				                // console.log(e);
+				                console.log(e);
 				                return reject(model)
 				            })
 							return reject(model)
@@ -1287,13 +1287,13 @@ function additional(model){
 						return resolve(model)
 		            })
 		            .catch((e)=>{
-		                // console.log(e);
+		                console.log(e);
 		                return reject(model)
 		            })
 				}
 			})
 			.catch(e=>{
-				// console.log(e);
+				console.log(e);
 				return reject(model);
 			})
 		}
@@ -1303,23 +1303,8 @@ function additional(model){
 	});	
 }
 
-
 function euin(model){
 	return new Promise(function(resolve, reject){
-
-		api.agreement(model.tags.session, model.tags.joinAccId)
-		.then(response=>{
-			console.log("AGREEMENT>>>>>>>>>>>>>>>>>>>>>>>")		
-			try{
-				response = JSON.parse(response.body)
-				console.log(JSON.parse(response,null,3))
-			}
-			catch(e){
-				console.log(e);
-			}
-		});
-
-
 		let euinFlag=false;
 		for(let data of model.tags.euinApiDetailsList){
 			if(data.buttons[0].data==model.data){
@@ -1368,7 +1353,7 @@ function euin(model){
 							data = JSON.parse(data.body)
 						}
 						catch(e){
-						     // console.log(e);
+						     console.log(e);
 						     let reply={
 				                text    : "API Not Responding Properly",
 				                type    : "text",
@@ -1380,7 +1365,7 @@ function euin(model){
 				                return reject(model);
 				            })
 				            .catch((e)=>{
-				                // console.log(e);
+				                console.log(e);
 				                return reject(model)
 				            })
 						}
@@ -1396,7 +1381,7 @@ function euin(model){
 				                return reject(model);
 				            })
 				            .catch((e)=>{
-				                // console.log(e);
+				                console.log(e);
 				                return reject(model)
 				            })
 						}
@@ -1465,7 +1450,7 @@ function euin(model){
 						}
 					})
 					.catch((e)=>{
-						// console.log(e)
+						console.log(e)
 						return reject(model)
 					})
 				}
@@ -1579,7 +1564,7 @@ function folio(model){
 									data = JSON.parse(data.body)
 								}
 								catch(e){
-									// console.log(e);
+									console.log(e);
 									let reply={
 							                text    : "API Not Responding Properly",
 							                type    : "text",
@@ -1592,7 +1577,7 @@ function folio(model){
 							                return reject(model);
 							            })
 							            .catch((e)=>{
-							                // console.log(e);
+							                console.log(e);
 							                return reject(model)
 							            })
 									// delete model.stage
@@ -1737,7 +1722,7 @@ function divOps(model){
 							data = JSON.parse(data.body)
 						}
 						catch(e){
-							// console.log(e);
+							console.log(e);
 							let reply={
 					                text    : "API Not Responding Properly",
 					                type    : "text",
@@ -1749,7 +1734,7 @@ function divOps(model){
 					                return reject(model);
 					            })
 					            .catch((e)=>{
-					                // console.log(e);
+					                console.log(e);
 					                return reject(model)
 					            })
 							// delete model.stage
@@ -1889,7 +1874,7 @@ function amount(model){
 						data= JSON.parse(data.body)
 					}
 					catch(e){	
-						// console.log(e);
+						console.log(e);
 						let reply={
 			                text    : "API Not Responding Properly",
 			                type    : "text",
@@ -1901,7 +1886,7 @@ function amount(model){
 			                return reject(model);
 			            })
 			            .catch((e)=>{
-			                // console.log(e);
+			                console.log(e);
 			                return reject(model)
 			            })
 						// return reject(model);
@@ -1919,7 +1904,7 @@ function amount(model){
 			                return reject(model);
 			            })
 			            .catch((e)=>{
-			                // console.log(e);
+			                console.log(e);
 			                return reject(model)
 			            })
 					}
@@ -1987,7 +1972,7 @@ function amount(model){
 				                return reject(model);
 				            })
 				            .catch((e)=>{
-				                // console.log(e);
+				                console.log(e);
 				                return reject(model)
 				            })
 						}
@@ -2040,7 +2025,7 @@ function sipDay(model){
 							data = JSON.parse(data.body)
 						}
 						catch(e){	
-							// console.log(e);
+							console.log(e);
 							let reply={
 				                text    : "API Not Responding Properly",
 				                type    : "text",
@@ -2053,7 +2038,7 @@ function sipDay(model){
 				                return reject(model);
 				            })
 				            .catch((e)=>{
-				                // console.log(e);
+				                console.log(e);
 				                return reject(model)
 				            })
 						}
@@ -2071,7 +2056,7 @@ function sipDay(model){
 					                return reject(model);
 					            })
 					            .catch((e)=>{
-					                // console.log(e);
+					                console.log(e);
 					                return reject(model)
 					            })
 							}
@@ -2125,7 +2110,7 @@ function sipDay(model){
 						                return reject(model);
 						            })
 						            .catch((e)=>{
-						                // console.log(e);
+						                console.log(e);
 						                return reject(model)
 						            })
 								}
@@ -2141,13 +2126,13 @@ function sipDay(model){
 							}
 						}
 						catch(e){
-							// console.log(e);
+							console.log(e);
 							return reject(model);
 				            
 						}
 					})
 					.catch(e=>{
-						// console.log(e);
+						console.log(e);
 						return reject(model);
 					})
 				}
@@ -2200,7 +2185,7 @@ function bankMandate(model){
 								data = JSON.parse(data.body)
 							}
 							catch(e){	
-								// console.log(e);
+								console.log(e);
 								let reply={
 					                text    : "API Not Responding Properly",
 					                type    : "text",
@@ -2212,7 +2197,7 @@ function bankMandate(model){
 					                return reject(model);
 					            })
 					            .catch((e)=>{
-					                // console.log(e);
+					                console.log(e);
 					                return reject(model)
 					            })
 							}
@@ -2228,7 +2213,7 @@ function bankMandate(model){
 					                return reject(model);
 					            })
 					            .catch((e)=>{
-					                // console.log(e);
+					                console.log(e);
 					                return reject(model)
 					            })
 							}
@@ -2240,7 +2225,7 @@ function bankMandate(model){
 										data = JSON.parse(data.body)
 									}
 									catch(e){	
-										// console.log(e);
+										console.log(e);
 										let reply={
 							                text    : "API Not Responding Properly",
 							                type    : "text",
@@ -2252,7 +2237,7 @@ function bankMandate(model){
 							                return reject(model);
 							            })
 							            .catch((e)=>{
-							                // console.log(e);
+							                console.log(e);
 							                return reject(model)
 							            })
 									}
@@ -2268,7 +2253,7 @@ function bankMandate(model){
 							                return reject(model);
 							            })
 							            .catch((e)=>{
-							                // console.log(e);
+							                console.log(e);
 							                return reject(model)
 							            })
 									}
@@ -2283,7 +2268,7 @@ function bankMandate(model){
 
 								})
 								.catch(e=>{
-					                // console.log(e);
+					                console.log(e);
 					                return reject(model)
 								})
 							}
@@ -2302,7 +2287,7 @@ function bankMandate(model){
 						try{
 							data = JSON.parse(data.body)
 						}
-						catch(e){// console.log(e);
+						catch(e){console.log(e);
 							return reject(model);
 						}
 						if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
@@ -2317,7 +2302,7 @@ function bankMandate(model){
 				                return reject(model);
 				            })
 				            .catch((e)=>{
-				                // console.log(e);
+				                console.log(e);
 				                return reject(model)
 				            })
 						}
@@ -2355,7 +2340,7 @@ function sendExternalMessage(model,text){
 		external(reply)
 		.then((data)=>{ })
         .catch((e)=>{
-            // console.log(e);
+            console.log(e);
        })
 }
 

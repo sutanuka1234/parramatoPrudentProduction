@@ -36,14 +36,7 @@ function otp(session, otp){
 	return runRequest(obj)
 }
 
-function agreement(session, joinAccId){
-	var obj = {
-		method 	: 'POST',
-		headers : headers,
-		url 	: url+'GetAMC?IPAddress=192.168.0.102&SessionId='+session+'&JoinAccId='+joinAccId
-	}
-	return runRequest(obj)
-}
+
 
 function getExistingSchemes(session, joinAccId){
 	var obj = {
@@ -318,7 +311,6 @@ module.exports = {
 	resendOtp 						: resendOtp,
 	otp 							: otp,
 	getScheme 						: getScheme,
-	agreement						: agreement,
 	getFolio 						: getFolio,
 	insertBuyCart 					: insertBuyCart,
 	insertBuyCartSip				: insertBuyCartSip,
