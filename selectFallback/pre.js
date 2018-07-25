@@ -34,7 +34,14 @@ function fallback(model){
 			console.log(JSON.stringify(model.bestIntents,null,3)+":::::::::::::::::>>>>>>>>>>>>>>>>>")
 			let bestIntentSet=[]
 			for(let index in model.bestIntents){
-				if(model.bestIntents[index].intentName.startsWith("st_")){
+				let confidence=model.bestIntents.confidence
+				try{
+					confidence=parseFloat(confidence)
+				}
+				catch(e){
+					console.log(e)
+				}
+				if(model.bestIntents[index].intentName.startsWith("st_")&&confidence<0.15){
 					// model.bestIntents.splice(index, 1)
 				}
 				else{
