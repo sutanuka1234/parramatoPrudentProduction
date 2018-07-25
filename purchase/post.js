@@ -869,14 +869,26 @@ function holding(model){
 						if(response.Response.length>1){
 							for(let i in response.Response[1]){
 								model.tags.euinApiDetailsList.push({
-									data : response.Response[1][i]["ID"],
-									text : response.Response[1][i]["ID"]
+									title 	: 'Mode',
+									text 	: "Invesment through "+response.Response[1][i]["EUIN"],
+									buttons : [
+										{
+											text : 'Select',
+											data : response.Response[1][i]["ID"]
+										}
+									]
 								})
 							}
 						}
 						model.tags.euinApiDetailsList.push({
-							data : "Direct",
-							text : "Direct"
+							title 	: 'Mode',
+							text 	: "Self initialized Investment",
+							buttons : [
+								{
+									text : 'Select',
+									data : "Direct"
+								}
+							]
 						})
 
 						api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,true)
@@ -975,14 +987,26 @@ function holding(model){
 					if(response.Response.length>1){
 						for(let i in response.Response[1]){
 							model.tags.euinApiDetailsList.push({
-								data : response.Response[1][i]["ID"],
-								text : response.Response[1][i]["ID"]
+								title 	: 'Mode',
+								text 	: "Invesment through "+response.Response[1][i]["EUIN"],
+								buttons : [
+									{
+										text : 'Select',
+										data : response.Response[1][i]["ID"]
+									}
+								]
 							})
 						}
 					}
 					model.tags.euinApiDetailsList.push({
-						data : "Direct",
-						text : "Direct"
+						title 	: 'Mode',
+						text 	: "Self initialized Investment",
+						buttons : [
+							{
+								text : 'Select',
+								data : "Direct"
+							}
+						]
 					})
 					model.tags.existingSchemeDetailsSet=[]
 					// // console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
@@ -1023,15 +1047,26 @@ function holding(model){
 								if(response.Response.length>1){
 									for(let i in response.Response[1]){
 										model.tags.euinApiDetailsList.push({
-											data : response.Response[1][i]["ID"],
-											text : response.Response[1][i]["ID"]
+											title 	: 'Mode',
+											text 	: "Invesment through "+response.Response[1][i]["EUIN"],
+											buttons : [
+												{
+													text : 'Select',
+													data : response.Response[1][i]["ID"]
+												}
+											]
 										})
 									}
 								}
-
 								model.tags.euinApiDetailsList.push({
-									data : "Direct",
-									text : "Direct"
+									title 	: 'Mode',
+									text 	: "Self initialized Investment",
+									buttons : [
+										{
+											text : 'Select',
+											data : "Direct"
+										}
+									]
 								})
 					            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
 					            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
@@ -1182,18 +1217,30 @@ function additional(model){
 					}
 					model.tags.euinApiDetails=response.Response[1][0];
 					model.tags.euinApiDetailsList=[];
-					if(response.Response.length>1){
-						for(let i in response.Response[1]){
-							model.tags.euinApiDetailsList.push({
-								data : response.Response[1][i]["ID"],
-								text : response.Response[1][i]["ID"]
-							})
+						if(response.Response.length>1){
+							for(let i in response.Response[1]){
+								model.tags.euinApiDetailsList.push({
+									title 	: 'Mode',
+									text 	: "Invesment through "+response.Response[1][i]["EUIN"],
+									buttons : [
+										{
+											text : 'Select',
+											data : response.Response[1][i]["ID"]
+										}
+									]
+								})
+							}
 						}
-					}
-					model.tags.euinApiDetailsList.push({
-						data : "Direct",
-						text : "Direct"
-					})
+						model.tags.euinApiDetailsList.push({
+							title 	: 'Mode',
+							text 	: "Self initialized Investment",
+							buttons : [
+								{
+									text : 'Select',
+									data : "Direct"
+								}
+							]
+						})
 					api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 					.then(response=>{
 						try{
