@@ -337,7 +337,23 @@ function sipDay(model){
 			model.reply.text+=" Any day between 1-28 works.";
 		}
 		else{
-			model.reply.text+=" Days "+model.tags.schemeApiDetails["SIPDays"]+" would be fine.";
+
+			if(model.tags.schemeApiDetails["SIPDays"].includes(",")){
+				model.reply.text+=" Days "+model.tags.schemeApiDetails["SIPDays"]+" would be fine.";
+			}
+			else{
+				model.reply.text+=" Following days would work.";
+				model.reply.type="quickReply"
+				model.reply.next={
+					"data": [
+		                	{
+		                		data : model.tags.schemeApiDetails["SIPDays"],
+		                		text : model.tags.schemeApiDetails["SIPDays"]
+		                	}
+		                ]
+				}
+			}
+			
 		}
 		resolve(model)
 	})
