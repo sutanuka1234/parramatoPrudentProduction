@@ -1308,7 +1308,7 @@ function euin(model){
 	return new Promise(function(resolve, reject){
 		let euinFlag=false;
 		for(let data of model.tags.euinApiDetailsList){
-			if(data["data"]==model.data){
+			if(data["data"].buttons[0].data==model.data){
 				euinFlag=true;
 				if(model.data.toLowerCase().includes("direct")){
 					model.tags.euin=""
