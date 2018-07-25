@@ -1306,6 +1306,20 @@ function additional(model){
 
 function euin(model){
 	return new Promise(function(resolve, reject){
+
+		api.agreement(model.tags.session, model.tags.joinAccId)
+		.then(response=>{
+			console.log("AGREEMENT>>>>>>>>>>>>>>>>>>>>>>>")		
+			try{
+				response = JSON.parse(response.body)
+				console.log(JSON.parse(response,null,3))
+			}
+			catch(e){
+				console.log(e);
+			}
+		});
+
+
 		let euinFlag=false;
 		for(let data of model.tags.euinApiDetailsList){
 			if(data.buttons[0].data==model.data){
@@ -1313,7 +1327,7 @@ function euin(model){
 				if(model.data.toLowerCase().includes("direct")){
 					model.tags.euin=""
 					model.tags.existingEuinApiDetails=""
-					sendExternalMessage(model,"Hey, as you have selected direct investment, you hereby confirm that this a transaction done purely at your sole discretion, hence transaction will process in 'Execution Only' mode");
+					sendExternalMessage(model,"Hey, as you are investing by yourself, you hereby confirm that this a transaction done purely at your sole discretion, hence transaction will process in 'Execution Only' mode");
 				}
 				else{
 					model.tags.euin=model.data

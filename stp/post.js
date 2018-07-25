@@ -1070,7 +1070,7 @@ function euin(model){
 				if(model.data.toLowerCase().includes("direct")){
 					model.tags.euin=""
 					model.tags.existingEuinApiDetails=""
-					sendExternalMessage(model,"Hey, as you have selected direct investment, you hereby confirm that this a transaction done purely at your sole discretion, hence transaction will process in 'Execution Only' mode");
+					sendExternalMessage(model,"Hey, as you are investing by yourself, you hereby confirm that this a transaction done purely at your sole discretion, hence transaction will process in 'Execution Only' mode");
 				}
 				else{
 					model.tags.euin=model.data

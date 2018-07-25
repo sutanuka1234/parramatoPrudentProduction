@@ -15,6 +15,7 @@ let obj = {
 	otp 	: otp,
 	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
+	agreement	: agreement,
 	divOps 	: divOps,
 	initAmount:initAmount,
 	amount 	: amount,
@@ -259,6 +260,22 @@ function holding(model){
 		}
 		resolve(model)
 	})
+}
+
+function agreement(model){
+	return new Promise(function(resolve,reject){
+		model.reply={
+				type:"buttons",
+	            text:model.tags.agreementText,
+	            next:{
+	                data: [{
+	                	text:"I accept and agree",
+	                	data:"i accept and agree"
+	                }]
+	            }
+			}
+		return resolve(model);
+	}) 
 }
 
 function euin(model){
