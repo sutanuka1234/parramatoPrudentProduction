@@ -643,6 +643,7 @@ function otp(model){
 function agreement(model){
 	return new Promise(function(resolve,reject){
 		if(model.data.toLowerCase().trim().includes("i accept and agree")){
+				delete model.stage;
 				return resolve(model);
 		}
 		else{
