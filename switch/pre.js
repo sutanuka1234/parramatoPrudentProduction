@@ -245,7 +245,7 @@ function euin(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.euinApiDetailsList){
 			model.reply={
-				type:"quickReply",
+				type:"generic",
 	            text:"Can you please let us know the investment mode. You can choose direct or through your advisor (advisor codes available below)",
 	            next:{
 	                data: model.tags.euinApiDetailsList

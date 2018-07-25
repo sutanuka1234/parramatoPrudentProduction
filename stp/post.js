@@ -923,14 +923,26 @@ function showSchemeName(model){
 											if(response.Response.length>1){
 												for(let i in response.Response[1]){
 													model.tags.euinApiDetailsList.push({
-														data : response.Response[1][i]["ID"],
-														text : response.Response[1][i]["ID"]
+														title 	: 'Mode',
+														text 	: "Invesment through "+response.Response[1][i]["EUIN"],
+														buttons : [
+															{
+																text : 'Select',
+																data : response.Response[1][i]["ID"]
+															}
+														]
 													})
 												}
 											}
 											model.tags.euinApiDetailsList.push({
-												data : "Direct",
-												text : "Direct"
+												title 	: 'Mode',
+												text 	: "Self initialized Investment",
+												buttons : [
+													{
+														text : 'Select',
+														data : "Direct"
+													}
+												]
 											})
 											model.tags.stpMinAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
 
@@ -1049,7 +1061,7 @@ function euin(model){
 	return new Promise(function(resolve, reject){
 		let euinFlag=false;
 		for(let data of model.tags.euinApiDetailsList){
-			if(data["data"]==model.data){
+			if(data.buttons[0].data==model.data){
 
 				if(model.tags.stpSchemeObj["eKYC"] == "1"){
 					model.tags.schemeApiDetails["MaxInvestment"]="50000";
