@@ -1470,6 +1470,7 @@ function euin(model){
 			}
 		}
 		catch(e){
+			console.log(e)
 			return reject(e);
 		}
 	});
