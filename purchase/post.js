@@ -863,71 +863,91 @@ function holding(model){
 								model.tags.schemeApiDetails=element
 							}
 						}
-
-						model.tags.euinApiDetails=response.Response[1][0];
-						model.tags.euinApiDetailsList=[];
-						if(response.Response.length>1){
-							for(let i in response.Response[1]){
-								model.tags.euinApiDetailsList.push({
-									title 	: 'Mode',
-									text 	: "Invesment through "+response.Response[1][i]["EUIN"],
-									buttons : [
-										{
-											text : 'Select',
-											data : response.Response[1][i]["ID"]
-										}
-									]
-								})
-							}
-						}
-						model.tags.euinApiDetailsList.push({
-							title 	: 'Mode',
-							text 	: "Self initialized Investment",
-							buttons : [
-								{
-									text : 'Select',
-									data : "Direct"
-								}
-							]
-						})
-
-						api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,true)
-						.then(response=>{
-							// // console.log(response.body)
-							try{
-								response = JSON.parse(response.body)
-							}
-							catch(e){console.log(e);
-								return reject(model);
-							}
-							let arr = []
-							for(let i in response.Response){
-								arr.push(response.Response[i].FolioNo.toLowerCase())
-							}
-							// if(model.tags.folio && arr.includes(model.tags.folio)){
-							// 	model.stage="amount";
-							// }
-							if(response.Response.length > 0){
-								model.tags.folioList = []
-								model.tags.folioObjList=response.Response;
-								for(let i in response.Response){
-									model.tags.folioList.push({
-										data : response.Response[i].FolioNo,
-										text : response.Response[i].FolioNo
+						if(model.tags.schemeApiDetails==undefined){
+							let reply={
+				                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+								model.stage = 'askSchemeName'
+								model.tags.schemes=undefined;
+								model.tags.scheme=undefined;
+								return resolve(model)
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
+				        }
+				        else{
+							model.tags.euinApiDetails=response.Response[1][0];
+							model.tags.euinApiDetailsList=[];
+							if(response.Response.length>1){
+								for(let i in response.Response[1]){
+									model.tags.euinApiDetailsList.push({
+										title 	: 'Mode',
+										text 	: "Invesment through "+response.Response[1][i]["EUIN"],
+										buttons : [
+											{
+												text : 'Select',
+												data : response.Response[1][i]["ID"]
+											}
+										]
 									})
 								}
-								model.stage='euin'
 							}
-							else{
-								model.tags.folioNo = response.Response[0].FolioNo
-								model.stage='euin'
-							}
-							return resolve(model)
-						})
-						.catch(e=>{
-							// console.log(e)
-							return reject(model)
-						})
+							model.tags.euinApiDetailsList.push({
+								title 	: 'Mode',
+								text 	: "Self initialized Investment",
+								buttons : [
+									{
+										text : 'Select',
+										data : "Direct"
+									}
+								]
+							})
+
+							api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,true)
+							.then(response=>{
+								// // console.log(response.body)
+								try{
+									response = JSON.parse(response.body)
+								}
+								catch(e){console.log(e);
+									return reject(model);
+								}
+								let arr = []
+								for(let i in response.Response){
+									arr.push(response.Response[i].FolioNo.toLowerCase())
+								}
+								// if(model.tags.folio && arr.includes(model.tags.folio)){
+								// 	model.stage="amount";
+								// }
+								if(response.Response.length > 0){
+									model.tags.folioList = []
+									model.tags.folioObjList=response.Response;
+									for(let i in response.Response){
+										model.tags.folioList.push({
+											data : response.Response[i].FolioNo,
+											text : response.Response[i].FolioNo
+										})
+									}
+									model.stage='euin'
+								}
+								else{
+									model.tags.folioNo = response.Response[0].FolioNo
+									model.stage='euin'
+								}
+								return resolve(model)
+							})
+							.catch(e=>{
+								// console.log(e)
+								return reject(model)
+							})
+						}
 					}
 					else{
 						let reply={
@@ -1041,73 +1061,93 @@ function holding(model){
 										model.tags.schemeApiDetails=element
 									}
 								}
-
-								model.tags.euinApiDetails=response.Response[1][0];
-								model.tags.euinApiDetailsList=[];
-								if(response.Response.length>1){
-									for(let i in response.Response[1]){
-										model.tags.euinApiDetailsList.push({
-											title 	: 'Mode',
-											text 	: "Invesment through "+response.Response[1][i]["EUIN"],
-											buttons : [
-												{
-													text : 'Select',
-													data : response.Response[1][i]["ID"]
-												}
-											]
-										})
-									}
-								}
-								model.tags.euinApiDetailsList.push({
-									title 	: 'Mode',
-									text 	: "Self initialized Investment",
-									buttons : [
-										{
-											text : 'Select',
-											data : "Direct"
-										}
-									]
-								})
-					            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
-					            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
-					            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
-								api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-								.then(response=>{
-									// // console.log(response.body)
-									try{
-										response = JSON.parse(response.body)
-									}
-									catch(e){console.log(e);
-										return reject(model);
-									}
-									let arr = []
-									for(let i in response.Response){
-										arr.push(response.Response[i].FolioNo.toLowerCase())
-									}
-									// if(model.tags.folio && arr.includes(model.tags.folio)){
-									// 	model.stage="amount";
-									// }
-									if(response.Response.length > 0){
-										model.tags.folioList = []
-										model.tags.folioObjList=response.Response;
-										for(let i in response.Response){
-											model.tags.folioList.push({
-												data : response.Response[i].FolioNo,
-												text : response.Response[i].FolioNo
+								if(model.tags.schemeApiDetails==undefined){
+									let reply={
+						                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+										model.stage = 'askSchemeName'
+										model.tags.schemes=undefined;
+										model.tags.scheme=undefined;
+										return resolve(model)
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+						        }
+						        else{
+									model.tags.euinApiDetails=response.Response[1][0];
+									model.tags.euinApiDetailsList=[];
+									if(response.Response.length>1){
+										for(let i in response.Response[1]){
+											model.tags.euinApiDetailsList.push({
+												title 	: 'Mode',
+												text 	: "Invesment through "+response.Response[1][i]["EUIN"],
+												buttons : [
+													{
+														text : 'Select',
+														data : response.Response[1][i]["ID"]
+													}
+												]
 											})
 										}
-										model.stage='euin'
 									}
-									else{
-										model.tags.folioNo = response.Response[0].FolioNo
-										model.stage='euin'
-									}
-									return resolve(model)
-								})
-								.catch(e=>{
-									// console.log(e)
-									return reject(model)
-								})
+									model.tags.euinApiDetailsList.push({
+										title 	: 'Mode',
+										text 	: "Self initialized Investment",
+										buttons : [
+											{
+												text : 'Select',
+												data : "Direct"
+											}
+										]
+									})
+						            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
+						            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
+						            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
+									api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+									.then(response=>{
+										// // console.log(response.body)
+										try{
+											response = JSON.parse(response.body)
+										}
+										catch(e){console.log(e);
+											return reject(model);
+										}
+										let arr = []
+										for(let i in response.Response){
+											arr.push(response.Response[i].FolioNo.toLowerCase())
+										}
+										// if(model.tags.folio && arr.includes(model.tags.folio)){
+										// 	model.stage="amount";
+										// }
+										if(response.Response.length > 0){
+											model.tags.folioList = []
+											model.tags.folioObjList=response.Response;
+											for(let i in response.Response){
+												model.tags.folioList.push({
+													data : response.Response[i].FolioNo,
+													text : response.Response[i].FolioNo
+												})
+											}
+											model.stage='euin'
+										}
+										else{
+											model.tags.folioNo = response.Response[0].FolioNo
+											model.stage='euin'
+										}
+										return resolve(model)
+									})
+									.catch(e=>{
+										// console.log(e)
+										return reject(model)
+									})
+								}
 							}
 							else{
 								let reply={
@@ -1215,62 +1255,83 @@ function additional(model){
 							model.tags.schemeApiDetails=element
 						}
 					}
-					model.tags.euinApiDetails=response.Response[1][0];
-					model.tags.euinApiDetailsList=[];
-						if(response.Response.length>1){
-							for(let i in response.Response[1]){
-								model.tags.euinApiDetailsList.push({
-									title 	: 'Mode',
-									text 	: "Invesment through "+response.Response[1][i]["EUIN"],
-									buttons : [
-										{
-											text : 'Select',
-											data : response.Response[1][i]["ID"]
-										}
-									]
-								})
-							}
-						}
-						model.tags.euinApiDetailsList.push({
-							title 	: 'Mode',
-							text 	: "Self initialized Investment",
-							buttons : [
-								{
-									text : 'Select',
-									data : "Direct"
+					if(model.tags.schemeApiDetails==undefined){
+						let reply={
+			                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+							model.stage = 'askSchemeName'
+							model.tags.schemes=undefined;
+							model.tags.scheme=undefined;
+							return resolve(model)
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+			        }
+			        else{
+						model.tags.euinApiDetails=response.Response[1][0];
+						model.tags.euinApiDetailsList=[];
+							if(response.Response.length>1){
+								for(let i in response.Response[1]){
+									model.tags.euinApiDetailsList.push({
+										title 	: 'Mode',
+										text 	: "Invesment through "+response.Response[1][i]["EUIN"],
+										buttons : [
+											{
+												text : 'Select',
+												data : response.Response[1][i]["ID"]
+											}
+										]
+									})
 								}
-							]
-						})
-					api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-					.then(response=>{
-						try{
-							response = JSON.parse(response.body)
-						}
-						catch(e){
-							// console.log(e)
-							return reject(model);
-						}
-						// // console.log(JSON.stringify(response,null,3));
-						if(response.Response.length > 0){
-							model.tags.folioList = []
-							model.tags.folioObjList=response.Response;
-							for(let i in response.Response){
-								model.tags.folioList.push({
-									data : response.Response[i].FolioNo,
-									text : response.Response[i].FolioNo
-								})
 							}
-						}
-						else{
-							model.tags.folioNo = response.Response[0].FolioNo
-						}
-						model.stage = 'euin'
-						return resolve(model)
-					})
-					.catch(e=>{
-						// console.log(e)
-						return reject(model)
-					}) 	
+							model.tags.euinApiDetailsList.push({
+								title 	: 'Mode',
+								text 	: "Self initialized Investment",
+								buttons : [
+									{
+										text : 'Select',
+										data : "Direct"
+									}
+								]
+							})
+						api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+						.then(response=>{
+							try{
+								response = JSON.parse(response.body)
+							}
+							catch(e){
+								// console.log(e)
+								return reject(model);
+							}
+							// // console.log(JSON.stringify(response,null,3));
+							if(response.Response.length > 0){
+								model.tags.folioList = []
+								model.tags.folioObjList=response.Response;
+								for(let i in response.Response){
+									model.tags.folioList.push({
+										data : response.Response[i].FolioNo,
+										text : response.Response[i].FolioNo
+									})
+								}
+							}
+							else{
+								model.tags.folioNo = response.Response[0].FolioNo
+							}
+							model.stage = 'euin'
+							return resolve(model)
+						})
+						.catch(e=>{
+							// console.log(e)
+							return reject(model)
+						}) 	
+					}
 				}
 				else{
 					let reply={
@@ -1323,7 +1384,7 @@ function euin(model){
 				}
 			}
 						
-			if(model.tags.schemeApiDetails["eKYC"] == "1"){
+			if(model.tags.schemeApiDetails&&model.tags.schemeApiDetails["eKYC"] == "1"){
 				model.tags.schemeApiDetails["MaximumInvestment"]="50000";
 			}
 			if(euinFlag){
