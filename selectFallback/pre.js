@@ -41,6 +41,7 @@ function fallback(model){
 				catch(e){
 					console.log(e)
 				}
+				console.log("Confidence:::::::::::::::::::::::"+confidence)
 				if(model.bestIntents[index].intentName.startsWith("st_")||confidence<0.30){
 					// model.bestIntents.splice(index, 1)
 				}
