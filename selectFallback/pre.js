@@ -34,10 +34,11 @@ function fallback(model){
 			console.log(JSON.stringify(model.bestIntents,null,3)+":::::::::::::::::>>>>>>>>>>>>>>>>>")
 			let bestIntentSet=[]
 			for(let index in model.bestIntents){
-				let confidence=model.bestIntents.confidence
+				let confidence=model.bestIntents[index].confidence
 				console.log("CONFIDENCE:::::::::::::::::::::::"+confidence)
 				try{
 					confidence=parseFloat(confidence)
+					console.log("CONFIDENCE:::FLOAT::::::::::::::::::::"+confidence)
 				}
 				catch(e){
 					console.log(e)
