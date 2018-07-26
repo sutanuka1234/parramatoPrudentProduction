@@ -1362,9 +1362,11 @@ function euin(model){
 				            }
 							external(reply)
 							.then((data)=>{
+								console.log("111111111111111111111111111111111")
 				                return reject(model);
 				            })
 				            .catch((e)=>{
+				            	console.log("22222222222222222222222222222222")
 				                console.log(e);
 				                return reject(model)
 				            })
@@ -1378,9 +1380,11 @@ function euin(model){
 				            }
 							external(reply)
 							.then((data)=>{
+								console.log("33333333333333333333333333333333")
 				                return reject(model);
 				            })
 				            .catch((e)=>{
+				            	console.log("4444444444444444444444444444")
 				                console.log(e);
 				                return reject(model)
 				            })
@@ -1460,12 +1464,14 @@ function euin(model){
 								return resolve(model)
 				            })
 				            .catch((e)=>{
+				            	console.log("5555555555555555555555555")
 				                console.log(e);
 				                return reject(model)
 				            })
 						}
 					})
 					.catch((e)=>{
+						console.log("6666666666666666666666666")
 						console.log(e)
 						return reject(model)
 					})
@@ -1481,6 +1487,7 @@ function euin(model){
 			}
 		}
 		else{
+			console.log("7777777777777777777777777")
 			return reject(model);
 		}
 	});
