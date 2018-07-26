@@ -1446,7 +1446,23 @@ function euin(model){
 							}
 						}
 						else{
-							return reject(model)
+							let reply={
+				                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+								model.stage = 'askSchemeName'
+								model.tags.schemes=undefined;
+								model.tags.scheme=undefined;
+								return resolve(model)
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
 						}
 					})
 					.catch((e)=>{
