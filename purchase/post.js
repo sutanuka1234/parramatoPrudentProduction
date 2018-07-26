@@ -1305,6 +1305,7 @@ function additional(model){
 
 function euin(model){
 	return new Promise(function(resolve, reject){
+		console.log("EEEEEEEEEEUUUUUUUUUUUUUUIIIIIIIIIIIINNNNNNNNNN")
 		let euinFlag=false;
 		for(let data of model.tags.euinApiDetailsList){
 			if(data.buttons[0].data==model.data){
