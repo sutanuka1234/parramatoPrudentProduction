@@ -1216,7 +1216,28 @@ function additional(model){
 				model.tags.folio=model.tags.existingSchemeDetailsSet[0]["FolioNo"]
 				model.tags.divOption=model.tags.existingSchemeDetailsSet[0]["DivOpt"]
 				model.tags.schemeApiDetails=model.tags.existingSchemeDetailsSet[0]
-				delete model.stage;	
+				if(model.tags.schemeApiDetails==undefined){
+					let reply={
+		                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+		                type    : "text",
+		                sender  : model.sender,
+		                language: "en"
+		            }
+					external(reply)
+					.then((data)=>{
+						model.stage = 'askSchemeName'
+						model.tags.schemes=undefined;
+						model.tags.scheme=undefined;
+						return resolve(model)
+		            })
+		            .catch((e)=>{
+		                console.log(e);
+		                return reject(model)
+		            })
+		        }
+		        else{
+					delete model.stage;	
+				}
 			}
 			else if(model.tags.existingSchemeDetailsSet.length>1){
 				// // console.log(">1:::")
@@ -1596,136 +1617,156 @@ function folio(model){
 							}
 						}
 					}
-
-					if(model.tags.amount&&model.tags.schemeApiDetails){
-						let amount=parseFloat(model.tags.amount)
-						let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
-						let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
-						let multiple =parseFloat(model.tags.schemeApiDetails["Multiples"]) 
-						if(amount%multiple!=0){
-							model.tags.amount=undefined;
-						}
-						if(amount<minAmount){
-							// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
-							model.tags.amount=undefined;
-						}
-						else if(amount>maxAmount){
-							// sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
-							model.tags.amount=undefined;
-						}
-					}
-					let schemeCode=data[model.tags.scheme].schemeCode
-					if(model.tags.amount){
-						if(model.tags.investmentType=="sip"){
-							//TODO
-							// // console.log("2")
-							model.stage = 'sipDay'
+					if(model.tags.schemeApiDetails==undefined){
+						let reply={
+			                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+							model.stage = 'askSchemeName'
+							model.tags.schemes=undefined;
+							model.tags.scheme=undefined;
 							return resolve(model)
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+			        }
+			        else{
+						if(model.tags.amount&&model.tags.schemeApiDetails){
+							let amount=parseFloat(model.tags.amount)
+							let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+							let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
+							let multiple =parseFloat(model.tags.schemeApiDetails["Multiples"]) 
+							if(amount%multiple!=0){
+								model.tags.amount=undefined;
+							}
+							if(amount<minAmount){
+								// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
+								model.tags.amount=undefined;
+							}
+							else if(amount>maxAmount){
+								// sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
+								model.tags.amount=undefined;
+							}
 						}
-						else{
+						let schemeCode=data[model.tags.scheme].schemeCode
+						if(model.tags.amount){
+							if(model.tags.investmentType=="sip"){
+								//TODO
+								// // console.log("2")
+								model.stage = 'sipDay'
+								return resolve(model)
+							}
+							else{
 
-							api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
-							.then((data)=>{
-								// // console.log(data.body)
-								try{
-									data = JSON.parse(data.body)
-								}
-								catch(e){
-									console.log(e);
-									let reply={
-							                text    : "API Not Responding Properly",
-							                type    : "text",
-							                sender  : model.sender,
-							                language: "en"
-							            }
-										external(reply)
-										.then((data)=>{
-											// console.log("api error")
-							                return reject(model);
-							            })
-							            .catch((e)=>{
-							                console.log(e);
-							                return reject(model)
-							            })
-									// delete model.stage
-									// return resolve(model)
-								}
-								if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
-									model.tags.bankMandateList = []
-									let maxAmountPossible=0;
-									for(let element of data.Response[2]){
-										model.tags.bankMandateList.push({
-											title: "Netbanking",
-											text : element.BankName,
-											buttons : [{
-												type : 'url',
-												text : 'Pay',
-												data : 'https://fundzbot.com/api/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
-											}]
-										})
+								api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
+								.then((data)=>{
+									// // console.log(data.body)
+									try{
+										data = JSON.parse(data.body)
 									}
-									for(let element of data.Response[1]){
-										try{
-											if(element.DailyLimit){
-												if(maxAmountPossible<=element.DailyLimit){
-													maxAmountPossible=element.DailyLimit;
-												}
-											}
-										}
-										catch(e){
-											// console.log(e)
-											model.stage="amount"
-											return resolve(model);
-										}
-										let expectedAmount=parseInt(model.tags.amount);
-										model.tags.skipMandate=false;
-										if(expectedAmount<=element.DailyLimit){
+									catch(e){
+										console.log(e);
+										let reply={
+								                text    : "API Not Responding Properly",
+								                type    : "text",
+								                sender  : model.sender,
+								                language: "en"
+								            }
+											external(reply)
+											.then((data)=>{
+												// console.log("api error")
+								                return reject(model);
+								            })
+								            .catch((e)=>{
+								                console.log(e);
+								                return reject(model)
+								            })
+										// delete model.stage
+										// return resolve(model)
+									}
+									if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
+										model.tags.bankMandateList = []
+										let maxAmountPossible=0;
+										for(let element of data.Response[2]){
 											model.tags.bankMandateList.push({
-												title: "Mandate",
-												text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
+												title: "Netbanking",
+												text : element.BankName,
 												buttons : [{
+													type : 'url',
 													text : 'Pay',
-													data : element.MandateId
+													data : 'https://fundzbot.com/api/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
 												}]
 											})
 										}
+										for(let element of data.Response[1]){
+											try{
+												if(element.DailyLimit){
+													if(maxAmountPossible<=element.DailyLimit){
+														maxAmountPossible=element.DailyLimit;
+													}
+												}
+											}
+											catch(e){
+												// console.log(e)
+												model.stage="amount"
+												return resolve(model);
+											}
+											let expectedAmount=parseInt(model.tags.amount);
+											model.tags.skipMandate=false;
+											if(expectedAmount<=element.DailyLimit){
+												model.tags.bankMandateList.push({
+													title: "Mandate",
+													text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
+													buttons : [{
+														text : 'Pay',
+														data : element.MandateId
+													}]
+												})
+											}
+											else{
+												model.tags.skipMandate=true
+											}
+										}
+										if(model.tags.skipMandate){
+											sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+										}
+										// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+										if(model.tags.bankMandateList.length==0){
+											// // console.log("3")
+											model.stage="amount"
+											return resolve(model)
+										}
 										else{
-											model.tags.skipMandate=true
+											// // console.log("4")
+											model.stage = 'bankMandate'
+											return resolve(model)
 										}
 									}
-									if(model.tags.skipMandate){
-										sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
-									}
-									// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
-									if(model.tags.bankMandateList.length==0){
-										// // console.log("3")
+									else{
+										// // console.log("5")
 										model.stage="amount"
 										return resolve(model)
 									}
-									else{
-										// // console.log("4")
-										model.stage = 'bankMandate'
-										return resolve(model)
-									}
-								}
-								else{
-									// // console.log("5")
+								})
+								.catch((e)=>{
+
+									// console.log(e)
 									model.stage="amount"
 									return resolve(model)
-								}
-							})
-							.catch((e)=>{
-
-								// console.log(e)
-								model.stage="amount"
-								return resolve(model)
-							})
+								})
+							}
 						}
-					}
-					else{
-						// // console.log("6")
-						model.stage="amount"
-						return resolve(model)
+						else{
+							// // console.log("6")
+							model.stage="amount"
+							return resolve(model)
+						}
 					}
 				}
 			}
@@ -1925,111 +1966,62 @@ function amount(model){
 				}
 			}
 		}
-
+		if(model.tags.schemeApiDetails==undefined){
+			let reply={
+                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+                type    : "text",
+                sender  : model.sender,
+                language: "en"
+            }
+			external(reply)
+			.then((data)=>{
+				model.stage = 'askSchemeName'
+				model.tags.schemes=undefined;
+				model.tags.scheme=undefined;
+				return resolve(model)
+            })
+            .catch((e)=>{
+                console.log(e);
+                return reject(model)
+            })
+        }
+        else{
 		
-		if(model.tags.amount){
-			if(model.tags.investmentType=="sip"){
-					//TODO
-					delete model.stage
-					return resolve(model)
-			}
-			else{
-				api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
-				.then((data)=>{
-					try{
-						// console.log(data.body+":>>>>>>>>>>")
-						data= JSON.parse(data.body)
-					}
-					catch(e){	
-						console.log(e);
-						let reply={
-			                text    : "API Not Responding Properly",
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
-			                return reject(model);
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-						// return reject(model);
-					}
-
-					if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-						let reply={
-			                text    : data.Response[0]['reject_reason'].trim(),
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
-			                return reject(model);
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-					}
-					else if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
-						model.tags.bankMandateList = []
-						let maxAmountPossible=0;
-						// // console.log(JSON.stringify(data.body.Response[1],null,3))
-						let typeInv="PURCHASE"
-						if(model.tags.additional){
-							typeInv="ADDITIONALPURCHASE"
+			if(model.tags.amount){
+				if(model.tags.investmentType=="sip"){
+						//TODO
+						delete model.stage
+						return resolve(model)
+				}
+				else{
+					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
+					.then((data)=>{
+						try{
+							// console.log(data.body+":>>>>>>>>>>")
+							data= JSON.parse(data.body)
 						}
-						for(let element of data.Response[2]){
-							model.tags.bankMandateList.push({
-								title: "Netbanking",
-								text : element.BankName,
-								buttons : [{
-									type : 'url',
-									text : 'Pay',
-									data : 'https://fundzbot.com/api/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
-								}]
-							})
-						}
-						model.tags.skipMandate=false;
-						for(let element of data.Response[1]){
-							try{
-									if(element.DailyLimit){
-										if(maxAmountPossible<=element.DailyLimit){
-											maxAmountPossible=element.DailyLimit;
-										}
-									}
-							}
-							catch(e){
-								// console.log(e)
-				                return reject(model)
-							}
-							let expectedAmount=parseInt(model.tags.amount);
-							if(expectedAmount<=element.DailyLimit){
-									model.tags.bankMandateList.push({
-										title: "Mandate",
-										text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
-										buttons : [{
-											text : 'Pay',
-											data : element.MandateId
-										}]
-									})
-								
-							}
-							else{
-								model.tags.skipMandate=true
-							}
-						}
-						if(model.tags.skipMandate){
-									sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
-								}
-						// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
-						if(model.tags.bankMandateList.length==0){
+						catch(e){	
+							console.log(e);
 							let reply={
-				                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
+				                text    : "API Not Responding Properly",
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+				                return reject(model);
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
+							// return reject(model);
+						}
+
+						if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+							let reply={
+				                text    : data.Response[0]['reject_reason'].trim(),
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
@@ -2043,26 +2035,95 @@ function amount(model){
 				                return reject(model)
 				            })
 						}
-						else{
-							model.stage = 'bankMandate'
-							return resolve(model)
+						else if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
+							model.tags.bankMandateList = []
+							let maxAmountPossible=0;
+							// // console.log(JSON.stringify(data.body.Response[1],null,3))
+							let typeInv="PURCHASE"
+							if(model.tags.additional){
+								typeInv="ADDITIONALPURCHASE"
+							}
+							for(let element of data.Response[2]){
+								model.tags.bankMandateList.push({
+									title: "Netbanking",
+									text : element.BankName,
+									buttons : [{
+										type : 'url',
+										text : 'Pay',
+										data : 'https://fundzbot.com/api/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
+									}]
+								})
+							}
+							model.tags.skipMandate=false;
+							for(let element of data.Response[1]){
+								try{
+										if(element.DailyLimit){
+											if(maxAmountPossible<=element.DailyLimit){
+												maxAmountPossible=element.DailyLimit;
+											}
+										}
+								}
+								catch(e){
+									// console.log(e)
+					                return reject(model)
+								}
+								let expectedAmount=parseInt(model.tags.amount);
+								if(expectedAmount<=element.DailyLimit){
+										model.tags.bankMandateList.push({
+											title: "Mandate",
+											text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
+											buttons : [{
+												text : 'Pay',
+												data : element.MandateId
+											}]
+										})
+									
+								}
+								else{
+									model.tags.skipMandate=true
+								}
+							}
+							if(model.tags.skipMandate){
+										sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+									}
+							// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+							if(model.tags.bankMandateList.length==0){
+								let reply={
+					                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
+					                type    : "text",
+					                sender  : model.sender,
+					                language: "en"
+					            }
+								external(reply)
+								.then((data)=>{
+					                return reject(model);
+					            })
+					            .catch((e)=>{
+					                console.log(e);
+					                return reject(model)
+					            })
+							}
+							else{
+								model.stage = 'bankMandate'
+								return resolve(model)
+							}
 						}
-					}
-					else{
-						// console.log(JSON.stringify(data.Response,null,3)+"--------------------")
+						else{
+							// console.log(JSON.stringify(data.Response,null,3)+"--------------------")
+							return reject(model)
+						}
+					})
+					.catch((e)=>{
+						// console.log(e)
 						return reject(model)
-					}
-				})
-				.catch((e)=>{
-					// console.log(e)
-					return reject(model)
-				})
+					})
+				}
 			}
+			else{
+				// console.log("no amount")
+				return reject(model)
+			}	
 		}
-		else{
-			// console.log("no amount")
-			return reject(model)
-		}	
 	})
 }
 
