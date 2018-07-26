@@ -1304,8 +1304,8 @@ function additional(model){
 }
 
 function euin(model){
+try{
 	return new Promise(function(resolve, reject){
-		console.log("EEEEEEEEEEUUUUUUUUUUUUUUIIIIIIIIIIIINNNNNNNNNN")
 		let euinFlag=false;
 		for(let data of model.tags.euinApiDetailsList){
 			if(data.buttons[0].data==model.data){
@@ -1492,7 +1492,10 @@ function euin(model){
 			return reject(model);
 		}
 	});
-
+	}
+	catch(e){
+		console.log(e);
+	}
 }
 
 
