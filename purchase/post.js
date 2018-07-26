@@ -1304,198 +1304,176 @@ function additional(model){
 }
 
 function euin(model){
-try{
 	return new Promise(function(resolve, reject){
-		let euinFlag=false;
-		for(let data of model.tags.euinApiDetailsList){
-			if(data.buttons[0].data==model.data){
-				euinFlag=true;
-				if(model.data.toLowerCase().includes("direct")){
-					model.tags.euin=""
-					model.tags.existingEuinApiDetails=""
-					sendExternalMessage(model,"Hey, as you are investing by yourself, you hereby confirm that this a transaction done purely at your sole discretion, hence transaction will process in 'Execution Only' mode");
+		try{
+			let euinFlag=false;
+			for(let data of model.tags.euinApiDetailsList){
+				if(data.buttons[0].data==model.data){
+					euinFlag=true;
+					if(model.data.toLowerCase().includes("direct")){
+						model.tags.euin=""
+						model.tags.existingEuinApiDetails=""
+						sendExternalMessage(model,"Hey, as you are investing by yourself, you hereby confirm that this a transaction done purely at your sole discretion, hence transaction will process in 'Execution Only' mode");
+					}
+					else{
+						model.tags.euin=model.data
+						model.tags.existingEuinApiDetails=model.data
+					}
+					break;
 				}
-				else{
-					model.tags.euin=model.data
-					model.tags.existingEuinApiDetails=model.data
-				}
-				break;
 			}
-		}
-					
-		if(model.tags.schemeApiDetails["eKYC"] == "1"){
-			model.tags.schemeApiDetails["MaximumInvestment"]="50000";
-		}
-		if(euinFlag){
-			if(model.tags.additional&&(model.tags.divOption==0||model.tags.divOption==1||model.tags.divOption==2&&model.tags.folio)){
-				if(model.tags.amount&&model.tags.schemeApiDetails){
-					let amount=parseFloat(model.tags.amount)
-					let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
-					let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
-					let multiple =parseFloat(model.tags.schemeApiDetails["Multiples"]) 
-					if(amount%multiple!=0){
-						model.tags.amount=undefined;
-					}
-					if(amount<minAmount){
-						// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
-						model.tags.amount=undefined;
-					}
-					else if(amount>maxAmount){
-						// sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
-						model.tags.amount=undefined;
-					}
-				}
-				let schemeCode=data[model.tags.scheme].schemeCode
-				if(model.tags.amount){
-					api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
-					.then((data)=>{
-						// // console.log(data.body)
-						try{
-							data = JSON.parse(data.body)
+						
+			if(model.tags.schemeApiDetails["eKYC"] == "1"){
+				model.tags.schemeApiDetails["MaximumInvestment"]="50000";
+			}
+			if(euinFlag){
+				if(model.tags.additional&&(model.tags.divOption==0||model.tags.divOption==1||model.tags.divOption==2&&model.tags.folio)){
+					if(model.tags.amount&&model.tags.schemeApiDetails){
+						let amount=parseFloat(model.tags.amount)
+						let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+						let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
+						let multiple =parseFloat(model.tags.schemeApiDetails["Multiples"]) 
+						if(amount%multiple!=0){
+							model.tags.amount=undefined;
 						}
-						catch(e){
-						     console.log(e);
-						     let reply={
-				                text    : "API Not Responding Properly",
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-								console.log("111111111111111111111111111111111")
-				                return reject(model);
-				            })
-				            .catch((e)=>{
-				            	console.log("22222222222222222222222222222222")
-				                console.log(e);
-				                return reject(model)
-				            })
+						if(amount<minAmount){
+							// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
+							model.tags.amount=undefined;
 						}
-						if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-							let reply={
-				                text    : data.Response[0]['reject_reason'].trim(),
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-								console.log("33333333333333333333333333333333")
-				                return reject(model);
-				            })
-				            .catch((e)=>{
-				            	console.log("4444444444444444444444444444")
-				                console.log(e);
-				                return reject(model)
-				            })
+						else if(amount>maxAmount){
+							// sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
+							model.tags.amount=undefined;
 						}
-						else if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
-							model.tags.bankMandateList = []
-							let maxAmountPossible=0;
-							// // console.log(JSON.stringify(data.Response[1],null,3))
-							let typeInv="PURCHASE"
-							if(model.tags.additional){
-								typeInv="ADDITIONALPURCHASE"
+					}
+					let schemeCode=data[model.tags.scheme].schemeCode
+					if(model.tags.amount){
+						api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
+						.then((data)=>{
+							// // console.log(data.body)
+							try{
+								data = JSON.parse(data.body)
 							}
-							for(let element of data.Response[2]){
-								model.tags.bankMandateList.push({
-									title: "Netbanking",
-									text : element.BankName,
-									buttons : [{
-										type : 'url',
-										text : 'Pay',
-										data : 'https://fundzbot.com/api/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
-									}]
-								})
+							catch(e){
+							     console.log(e);
+							     let reply={
+					                text    : "API Not Responding Properly",
+					                type    : "text",
+					                sender  : model.sender,
+					                language: "en"
+					            }
+								external(reply)
+								.then((data)=>{
+					                return reject(model);
+					            })
+					            .catch((e)=>{
+					                console.log(e);
+					                return reject(model)
+					            })
 							}
-							for(let element of data.Response[1]){
-								try{
-										if(element.DailyLimit){
-											if(maxAmountPossible<element.DailyLimit){
-												maxAmountPossible=element.DailyLimit;
+							if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+								let reply={
+					                text    : data.Response[0]['reject_reason'].trim(),
+					                type    : "text",
+					                sender  : model.sender,
+					                language: "en"
+					            }
+								external(reply)
+								.then((data)=>{
+					                return reject(model);
+					            })
+					            .catch((e)=>{
+					                console.log(e);
+					                return reject(model)
+					            })
+							}
+							else if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
+								model.tags.bankMandateList = []
+								let maxAmountPossible=0;
+								// // console.log(JSON.stringify(data.Response[1],null,3))
+								let typeInv="PURCHASE"
+								if(model.tags.additional){
+									typeInv="ADDITIONALPURCHASE"
+								}
+								for(let element of data.Response[2]){
+									model.tags.bankMandateList.push({
+										title: "Netbanking",
+										text : element.BankName,
+										buttons : [{
+											type : 'url',
+											text : 'Pay',
+											data : 'https://fundzbot.com/api/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
+										}]
+									})
+								}
+								for(let element of data.Response[1]){
+									try{
+											if(element.DailyLimit){
+												if(maxAmountPossible<element.DailyLimit){
+													maxAmountPossible=element.DailyLimit;
+												}
 											}
-										}
+									}
+									catch(e){
+										console.log(e)
+									}
+									let expectedAmount=parseInt(model.tags.amount);
+									model.tags.skipMandate=false
+									if(expectedAmount<=element.DailyLimit){
+											model.tags.bankMandateList.push({
+												title: "Mandate",
+												text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
+												buttons : [{
+													text : 'Pay',
+													data : element.MandateId
+												}]
+											})
+										
+									}
+									else{
+										model.tags.skipMandate=true
+									}
 								}
-								catch(e){
-									console.log(e)
-								}
-								let expectedAmount=parseInt(model.tags.amount);
-								model.tags.skipMandate=false
-								if(expectedAmount<=element.DailyLimit){
-										model.tags.bankMandateList.push({
-											title: "Mandate",
-											text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
-											buttons : [{
-												text : 'Pay',
-												data : element.MandateId
-											}]
-										})
-									
+								if(model.tags.skipMandate){
+										sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+									}
+								// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+								if(model.tags.bankMandateList.length==0){
+									model.stage = 'amount'
+									return resolve(model)
 								}
 								else{
-									model.tags.skipMandate=true
+									model.stage = 'bankMandate'
+									return resolve(model)
 								}
-							}
-							if(model.tags.skipMandate){
-									sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
-								}
-							// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
-							if(model.tags.bankMandateList.length==0){
-								model.stage = 'amount'
-								return resolve(model)
 							}
 							else{
-								model.stage = 'bankMandate'
-								return resolve(model)
+								return reject(model)
 							}
-						}
-						else{
-							let reply={
-				                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-								model.stage = 'askSchemeName'
-								model.tags.schemes=undefined;
-								model.tags.scheme=undefined;
-								return resolve(model)
-				            })
-				            .catch((e)=>{
-				            	console.log("5555555555555555555555555")
-				                console.log(e);
-				                return reject(model)
-				            })
-						}
-					})
-					.catch((e)=>{
-						console.log("6666666666666666666666666")
-						console.log(e)
-						return reject(model)
-					})
+						})
+						.catch((e)=>{
+							console.log(e)
+							return reject(model)
+						})
+					}
+					else{
+						model.stage = 'amount'
+						return resolve(model)
+					}
 				}
 				else{
-					model.stage = 'amount'
+					delete model.stage
 					return resolve(model)
 				}
 			}
 			else{
-				delete model.stage
-				return resolve(model)
+				return reject(model);
 			}
 		}
-		else{
-			console.log("7777777777777777777777777")
-			return reject(model);
+		catch(e){
+			return reject(e);
 		}
 	});
-	}
-	catch(e){
-		console.log(e);
-	}
+
 }
 
 
