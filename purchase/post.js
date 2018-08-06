@@ -1504,7 +1504,7 @@ function euin(model){
 									if(expectedAmount<=element.DailyLimit){
 											model.tags.bankMandateList.push({
 												title: "Mandate",
-												text : element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
+												text : element.BankName.split('-')[0]+"-"+element.MandateId+", Limit of Rs. "+element.DailyLimit.toString(),
 												buttons : [{
 													text : 'Pay',
 													data : element.MandateId
