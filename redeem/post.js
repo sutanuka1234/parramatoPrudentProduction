@@ -1109,6 +1109,9 @@ function extractFolio(model){
 	if(model.data.match(regexFolio)){
 
 		model.tags.folio = model.data.match(regexFolio)[0].match(/\d+|new folio/)[0]
+		if(model.tags.folio.includes("new folio")){
+			model.tags.folio="0";
+		}
 		model.data = model.data.replace(model.tags.folio, '')
 	}
 	return model;

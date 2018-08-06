@@ -1581,22 +1581,23 @@ function folio(model){
 				model.tags.folio = model.data
 				for(let i in model.tags.folioObjList){
 					if(model.tags.folioObjList[i]["DIVIDENDOPTION"]){
-						switch(model.tags.folioObjList[i]["DIVIDENDOPTION"]){
-							case "Y": model.tags.divOption = 1
-									  sendExternalMessage(model,"Dividend option available to you is re-investment")
-									  divFlag=false;
-								break;
-							case "N": model.tags.divOption = 2
-									  sendExternalMessage(model,"Dividend option available to you is Pay out")
-									  divFlag=false;
-								break;
-							case "Z": model.tags.divOption = 0
-									  divFlag=false;
-								break;
-							default: model.tags.divOption = undefined
+						if(model.tags.folioObjList["FolioNo"]==model.tags.folio||(model.tags.folioObjList["FolioNo"]=="New Folio"&&model.tags.folio=="0")){
+							switch(model.tags.folioObjList[i]["DIVIDENDOPTION"]){
+								case "Y": model.tags.divOption = 1
+										  sendExternalMessage(model,"Dividend option available to you is re-investment")
+										  divFlag=false;
 									break;
+								case "N": model.tags.divOption = 2
+										  sendExternalMessage(model,"Dividend option available to you is Pay out")
+										  divFlag=false;
+									break;
+								case "Z": model.tags.divOption = 0
+										  divFlag=false;
+									break;
+								default: model.tags.divOption = undefined
+										break;
+							}
 						}
-						break;
 					}
 					if(data[model.tags.scheme].optionCode == 1){
 							model.tags.divOption = 0
@@ -2491,8 +2492,10 @@ function extractDivOption(model){
 
 function extractFolio(model){
 	if(model.data.match(regexFolio)){
-
 		model.tags.folio = model.data.match(regexFolio)[0].match(/\d+|new folio/)[0]
+		if(model.tags.folio.includes("new folio")){
+			model.tags.folio="0";
+		}
 		model.data = model.data.replace(model.tags.folio, '')
 	}
 	return model;
