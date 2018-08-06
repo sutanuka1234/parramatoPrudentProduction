@@ -876,6 +876,7 @@ function showSchemeName(model){
 						for(let i in folioData){
 							if(folioData[i].FolioNo==model.tags.folio){
 								folioObj=folioData[i]
+								model.tags.folioObj=folioObj
 							}
 						}
 						if(folioObj){
@@ -1325,9 +1326,68 @@ function amount(model){
 			}
 
 			if(model.tags.amount){
-				//STP Insert Cart
-				delete model.stage;
-				return resolve(model);
+				if(model.tags.folioObj["IsIFolio"]==1){
+					//STP Insert Cart
+					api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.divOption, model.tags.folio, model.tags.euin, model.tags.stpSchemeObj["SCH_CODE"],data[model.tags.scheme].schemeCode,model.tags.stpFrequency,model.tags.stpWeekDay,model.tags.stpMonthDay,model.tags.stpInstallments,model.tags.initAmount,model.tags.amount,model.tags.stpSchemeObj["eKYC"])
+					.then((data)=>{
+							console.log(data.body+":::::")
+							console.log(data)
+									try{
+										data = JSON.parse(data.body)
+									}
+									catch(e){	
+										console.log(e);
+										let reply={
+							                text    : "API Not Responding Properly",
+							                type    : "text",
+							                sender  : model.sender,
+							                language: "en"
+							            }
+										external(reply)
+										.then((data)=>{
+							                return reject(model);
+							            })
+							            .catch((e)=>{
+							                console.log(e);
+							                return reject(model)
+							            })
+									}
+									if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
+										let reply={
+							                text    : data.Response[0]['reject_reason'].trim(),
+							                type    : "text",
+							                sender  : model.sender,
+							                language: "en"
+							            }
+										external(reply)
+										.then((data)=>{
+							                model.stage="amount"
+											return resolve(model);
+							            })
+							            .catch((e)=>{
+							                model.stage="amount"
+											return resolve(model);
+							            })
+									}
+									else if(data.Response&&data.Response.length>0){
+										model.tags.refrenceIdStpTxn=data.Response[0]["TranReferenceID"];
+										model.stage="confirm"
+										return resolve(model);
+									}
+									else{
+							                return reject(model)
+										
+									}
+					})
+					.catch(e=>{
+			            console.log(e);
+			            return reject(model)
+					})
+				}
+				else{
+					delete model.stage;
+					return resolve(model);
+				}
 			}
 			else{
 				console.log("no data")
