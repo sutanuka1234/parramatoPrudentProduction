@@ -387,20 +387,25 @@ function summary(model){
 	            next:{
 	                data: [
 	                	{
-	                		data : "Invest now",
-	                		text : "Invest now"
+	                		data : "Invest",
+	                		text : "Invest"
 	                	},
 	                	{
-	                		data : "Redeem now",
-	                		text : "Redeem now"
+	                		data : "Start SIP",
+	                		text : "Start SIP"
 	                	},
 	                	{
-	                		data : "Switch now",
-	                		text : "Switch now"
+	                		data : "Redeem",
+	                		text : "Redeem"
 	                	},
 	                	{
-	                		data: "STP now",
-	                		text: "STP now"
+	                		data : "Switch",
+	                		text : "Switch"
+	                	},
+	                	
+	                	{
+	                		data : "STP",
+	                		text : "STP"
 	                	},
 	                	{
 	                		data : "FAQs",
@@ -421,21 +426,25 @@ function summary(model){
 	                		text : "Talk to customer care"
 	                	},
 	                	{
-	                		data : "Invest now",
-	                		text : "Invest now"
+	                		data : "Invest",
+	                		text : "Invest"
 	                	},
 	                	{
-	                		data : "Redeem now",
-	                		text : "Redeem now"
+	                		data : "Start SIP",
+	                		text : "Start SIP"
 	                	},
 	                	{
-	                		data : "Switch now",
-	                		text : "Switch now"
+	                		data : "Redeem",
+	                		text : "Redeem"
+	                	},
+	                	{
+	                		data : "Switch",
+	                		text : "Switch"
 	                	},
 	                	
 	                	{
-	                		data : "Stp now",
-	                		text : "Stp now"
+	                		data : "STP",
+	                		text : "STP"
 	                	},
 	                	{
 	                		data : "FAQs",
