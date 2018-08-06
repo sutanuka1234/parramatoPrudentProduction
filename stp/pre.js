@@ -345,7 +345,7 @@ function confirm(model){
 		}
 			model.reply={
 			type:"quickReply",
-            text:"You are about to start stp with initial amount of "+initAmount+" and regular stp investment of "+amount+" from "+model.tags.stpSchemeObj["SCHEME_NAME"]+" to "+model.tags.scheme+divOpt+" with folio "+model.tags.folio+". Do you confirm this transaction?",
+            text:model.tags.investorName+", you are about to start stp with initial amount of "+initAmount+" and regular stp investment of "+amount+" from "+model.tags.stpSchemeObj["SCHEME_NAME"]+" to "+model.tags.scheme+divOpt+" with folio "+model.tags.folio+". Do you confirm this transaction?",
             next:{
                 data: [
                 	{

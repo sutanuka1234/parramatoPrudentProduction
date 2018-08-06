@@ -242,7 +242,7 @@ function confirm(model){
 		}
 			model.reply={
 			type:"quickReply",
-            text:"You are about to redeem "+amount+" from "+model.tags.redeemSchemeObj["SCHEMENAME"]+divOpt+" with folio "+model.tags.folio+". Do you confirm this transaction?",
+            text:model.tags.investorName+", you are about to redeem "+amount+" from "+model.tags.redeemSchemeObj["SCHEMENAME"]+divOpt+" with folio "+model.tags.folio+". Do you confirm this transaction?",
             next:{
                 data: [
                 	{

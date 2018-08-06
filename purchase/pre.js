@@ -369,7 +369,7 @@ function bankMandate(model){
 		}
 		model.reply={
 			type:"generic",
-            text:"You are about to invest "+model.tags.amount+" in "+model.tags.scheme+divOpt+" with folio "+model.tags.folio+". Please select the bank to confirm and proceed for the payment. Note that by proceeding, you confirm that you are not using a third party bank account to fund mutual fund investment.",
+            text:model.tags.investorName+", you are about to invest "+model.tags.amount+" in "+model.tags.scheme+divOpt+" with folio "+model.tags.folio+". Please select the bank to confirm and proceed for the payment. Note that by proceeding, you confirm that you are not using a third party bank account to fund mutual fund investment.",
             next:{
                 "data": model.tags.bankMandateList
             }
