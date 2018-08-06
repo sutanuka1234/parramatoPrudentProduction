@@ -43,7 +43,7 @@ function fallback(model){
 				catch(e){
 					console.log(e)
 				}
-				if(model.bestIntents[index].intentName.startsWith("st_")||confidence<0.30){
+				if(model.bestIntents[index].intentName.startsWith("st_")||confidence<0.35){
 					// model.bestIntents.splice(index, 1)
 				}
 				else{
@@ -85,7 +85,7 @@ function fallback(model){
 			}
 			if(data.length>0){
 				data[data.length-1].buttons.push({
-					text : 'None relevant',
+					text : 'Not relevant',
 					data : "[nomatch] "+model.prevQuery+"|"+model.bestIntents[0].id.split("-")[0]+" [/nomatch]"
 				})
 				model.reply={

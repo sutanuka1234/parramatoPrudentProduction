@@ -1517,6 +1517,18 @@ function extractMobile(model){
 			// console.log(model.tags.mobile+"mobile")
 			break;
 		}
+		else if(text[i].length == 11&&text[i].startsWith("0")){
+			model.tags.mobile = text[i].substring(1, 11)
+			model.data = model.data.replace(model.tags.mobile, '')
+			// console.log(model.tags.mobile+"mobile")
+			break;
+		}
+		else if(text[i].length == 12&&text[i].startsWith("91")){
+			model.tags.mobile = text[i].substring(2, 12)
+			model.data = model.data.replace(model.tags.mobile, '')
+			// console.log(model.tags.mobile+"mobile")
+			break;
+		}
 	}
 	return model;
 }

@@ -230,7 +230,7 @@ function initAmount(model){
 
 		model.reply={
 			type:"text",
-            text:"Tell me the amount you want to start with, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaximumInvestment"] +" and in the multiples of "+model.tags.schemeApiDetails["Multiples"] 
+            text:"Tell me the amount you want to start with, it should be greater than or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaximumInvestment"] +" and in the multiples of "+model.tags.schemeApiDetails["Multiples"] 
 		}
 		resolve(model)
 	})
@@ -241,7 +241,7 @@ function amount(model){
 
 		model.reply={
 			type:"text",
-            text:"Tell me the amount you want to invest, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaximumInvestment"] +" and in the multiples of "+model.tags.schemeApiDetails["Multiples"] 
+            text:"Tell me the amount you want to invest, it should be greater than or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaximumInvestment"] +" and in the multiples of "+model.tags.schemeApiDetails["Multiples"] 
 		}
 		resolve(model)
 	})
@@ -512,6 +512,18 @@ function extractMobile(model){
 			// model.tags.mobileEntered=true;
 			model.tags.mobile = text[i]
 			model.tags.userSays = model.tags.userSays.replace(model.tags.mobile, '')
+			break;
+		}
+		else if(text[i].length == 11&&text[i].startsWith("0")){
+			model.tags.mobile = text[i].substring(1, 11)
+			model.tags.userSays = model.tags.userSays.replace(model.tags.mobile, '')
+			// console.log(model.tags.mobile+"mobile")
+			break;
+		}
+		else if(text[i].length == 12&&text[i].startsWith("91")){
+			model.tags.mobile = text[i].substring(2, 12)
+			model.tags.userSays = model.tags.userSays.replace(model.tags.mobile, '')
+			// console.log(model.tags.mobile+"mobile")
 			break;
 		}
 	}

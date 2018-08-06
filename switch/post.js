@@ -1393,7 +1393,7 @@ function amount(model){
 					// 	model.tags.amount=undefined;
 					// }
 					if(amount<minAmount){
-						sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
+						sendExternalMessage(model,"Amount should be greater than or equal to Rs "+minAmount+".")
 						model.tags.amount=undefined;
 					}
 				}
@@ -1643,6 +1643,18 @@ function extractMobile(model){
 	for(let i in text){
 		if(text[i].length == 10){
 			model.tags.mobile = text[i]
+			model.data = model.data.replace(model.tags.mobile, '')
+			// console.log(model.tags.mobile+"mobile")
+			break;
+		}
+		else if(text[i].length == 11&&text[i].startsWith("0")){
+			model.tags.mobile = text[i].substring(1, 11)
+			model.data = model.data.replace(model.tags.mobile, '')
+			// console.log(model.tags.mobile+"mobile")
+			break;
+		}
+		else if(text[i].length == 12&&text[i].startsWith("91")){
+			model.tags.mobile = text[i].substring(2, 12)
 			model.data = model.data.replace(model.tags.mobile, '')
 			// console.log(model.tags.mobile+"mobile")
 			break;

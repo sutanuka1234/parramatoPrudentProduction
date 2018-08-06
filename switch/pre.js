@@ -326,13 +326,13 @@ function amount(model){
 		if(model.tags.unitOrAmount=="PU"){
 			model.reply={
 				type:"text",
-	            text:"Tell me the number of units you want to switch, it should be greater or equal to "+model.tags.schemeApiDetails["MinSwitchUnits"]
+	            text:"Tell me the number of units you want to switch, it should be greater than or equal to "+model.tags.schemeApiDetails["MinSwitchUnits"]
 			}
 		}
 		else{
 			model.reply={
 				type:"text",
-	            text:"Tell me the amount you want to switch, it should be greater or equal to Rs "+model.tags.schemeApiDetails["MinSwitchAmount"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["SwitchMultipleAmount"]
+	            text:"Tell me the amount you want to switch, it should be greater than or equal to Rs "+model.tags.schemeApiDetails["MinSwitchAmount"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["SwitchMultipleAmount"]
 			}
 
 		}
@@ -492,6 +492,18 @@ function extractMobile(model){
 			// model.tags.mobileEntered=true;
 			model.tags.mobile = text[i]
 			model.tags.userSays = model.tags.userSays.replace(model.tags.mobile, '')
+			break;
+		}
+		else if(text[i].length == 11&&text[i].startsWith("0")){
+			model.tags.mobile = text[i].substring(1, 11)
+			model.tags.userSays = model.tags.userSays.replace(model.tags.mobile, '')
+			// console.log(model.tags.mobile+"mobile")
+			break;
+		}
+		else if(text[i].length == 12&&text[i].startsWith("91")){
+			model.tags.mobile = text[i].substring(2, 12)
+			model.tags.userSays = model.tags.userSays.replace(model.tags.mobile, '')
+			// console.log(model.tags.mobile+"mobile")
 			break;
 		}
 	}
