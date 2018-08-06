@@ -332,7 +332,7 @@ function amount(model){
 		else{
 			model.reply={
 				type:"text",
-	            text:"Tell me the amount you want to switch, it should be greater than or equal to Rs "+model.tags.schemeApiDetails["MinSwitchAmount"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["SwitchMultipleAmount"]
+	            text:"Tell me the amount you want to switch, it should be greater than or equal to Rs "+model.tags.schemeApiDetails["MinSwitchAmount"]+" and in multiple of Rs "+model.tags.schemeApiDetails["SwitchMultipleAmount"]
 			}
 
 		}
