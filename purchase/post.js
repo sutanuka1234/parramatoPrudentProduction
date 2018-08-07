@@ -1577,7 +1577,8 @@ function folio(model){
 				model.tags.folio = model.data
 				for(let i in model.tags.folioObjList){
 					if(model.tags.folioObjList[i]["DIVIDENDOPTION"]){
-						if(model.tags.folioObjList["FolioNo"]==model.tags.folio||(model.tags.folioObjList["FolioNo"]=="New Folio"&&model.tags.folio=="0")){
+						if(model.tags.folioObjList[i]["FolioNo"]==model.tags.folio||(model.tags.folioObjList[i]["FolioNo"]=="New Folio"&&model.tags.folio=="0")){
+							
 							switch(model.tags.folioObjList[i]["DIVIDENDOPTION"]){
 								case "Y": model.tags.divOption = 1
 										  sendExternalMessage(model,"Dividend option available to you is re-investment")
