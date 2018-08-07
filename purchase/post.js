@@ -2211,7 +2211,7 @@ function sipDay(model){
 									if(expectedAmount<=element.DailyLimit){
 											model.tags.bankMandateList.push({
 												title: "Mandate",
-												text : "Mandate Id - "+element.MandateId+","+element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
+												text : element.MandateId+", "+element.BankName.split('-')[0]+", Limit of Rs. "+element.DailyLimit.toString(),
 												buttons : [{
 													text : 'Pay',
 													data : element.MandateId
