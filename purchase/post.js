@@ -1573,11 +1573,7 @@ function folio(model){
 		let divFlag=true;
 		if(arr.includes(model.data)){
 			sendExternalMessage(model,"Going ahead with "+model.data)
-			if(model.data.includes('new')){
-				model.tags.folio = '0'
-			}
-
-			else{
+			
 				model.tags.folio = model.data
 				for(let i in model.tags.folioObjList){
 					if(model.tags.folioObjList[i]["DIVIDENDOPTION"]){
@@ -1771,7 +1767,7 @@ function folio(model){
 						}
 					}
 				}
-			}
+			
 			
 		}
 		else{
