@@ -23,6 +23,7 @@ let obj = {
 	euin	: euin,
 	divOps:divOps,
 	stpMonthDay:stpMonthDay,
+	stpWeekDay:stpWeekDay,
 	initAmount:initAmount,
 	amount : amount,
 	confirm : confirm
@@ -872,6 +873,15 @@ function showSchemeName(model){
 
 					if(response.Response.length > 0){
 						let folioData=response.Response[0]
+
+						model.tags.stpFrequencyFromApi=[]
+						if(response.Response.length>1){
+							model.tags.stpFrequencyFromApi=response.Response[1]
+						}
+						model.tags.stpDatesFromApi=[]
+						if(response.Response.length>2){
+							model.tags.stpDatesFromApi=response.Response[2]
+						}
 						let folioObj;
 						for(let i in folioData){
 							if(folioData[i].FolioNo==model.tags.folio){
@@ -1129,10 +1139,52 @@ function divOps(model){
 function stpMonthDay(model) {
 
 	return new Promise(function(resolve, reject){
-		let text = matchAll(model.data, /(\d+)/gi).toArray()
-		if(1<=parseInt(text[0])&&parseInt(text[0])<=28){
-			model.tags.stpMonthDay=parseInt(text[0])
-			model.stage="amount";
+		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
+			let dates=dates.split(",")
+			for (let date in dates){
+				if(date==model.data){
+					model.tags.stpMonthDay=parseInt(date)
+					return resolve(model);
+				}
+			}
+		}
+		else{
+			let text = matchAll(model.data, /(\d+)/gi).toArray()
+			if(1<=parseInt(text[0])&&parseInt(text[0])<=28){
+				model.tags.stpMonthDay=parseInt(text[0])
+				model.stage="amount";
+				return resolve(model);
+			}
+		}
+		return reject(model);
+	});
+}
+
+function stpWeekDay(model){
+	return new Promise(function(resolve, reject){
+		if(model.data.toLowerCase().includes("mon")){
+			model.tags.stpWeekDay="mon"
+			delete model.stage;
+			return resolve(model);
+		}
+		if(model.data.toLowerCase().includes("tue")){
+			model.tags.stpWeekDay="tue"
+			delete model.stage;
+			return resolve(model);
+		}
+		if(model.data.toLowerCase().includes("wed")){
+			model.tags.stpWeekDay="wed"
+			delete model.stage;
+			return resolve(model);
+		}
+		if(model.data.toLowerCase().includes("thu")){
+			model.tags.stpWeekDay="thu"
+			delete model.stage;
+			return resolve(model);
+		}
+		if(model.data.toLowerCase().includes("fri")){
+			model.tags.stpWeekDay="fri"
+			delete model.stage;
 			return resolve(model);
 		}
 		return reject(model);

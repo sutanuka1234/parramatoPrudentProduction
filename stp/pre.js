@@ -20,6 +20,8 @@ let obj = {
 	euin	: euin,
 	divOps:divOps,
 	agreement:agreement,
+	stpMonthDay:stpMonthDay,
+	stpWeekDay:stpWeekDay,
 	// unitOrAmount:unitOrAmount,
 	amount:amount,
 	initAmount:initAmount,
@@ -308,6 +310,64 @@ function folio(model){
 	})
 }
 
+
+function stpMonthDay(model) {
+
+	return new Promise(function(resolve, reject){
+		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
+			let dates=model.tags.stpDatesFromApi[0].["Values"]
+			model.reply={
+				type:"quickReply",
+	            text:"Which date of the month would you like to invest? You can choose following dates."
+	            next:{
+	            	data:[]
+	            }
+			}
+			let dates=dates.split(",")
+			for (let date in dates){
+				model.reply.next.data.push({data:date,text:date})
+			}
+		}
+		else{
+			model.reply={
+				type:"text",
+	            text:"Which date of the month would you like to invest? Anything between 1-28"
+			}
+		}
+		
+		resolve(model)
+	});
+}
+
+function stpWeekDay(model){
+	return new Promise(function(resolve, reject){
+		model.reply={
+				type:"quickReply",
+	            text:"Which day of the week would you like to invest?",
+	            next:{
+	            	data:[
+		            	{
+		            		data:"mon",
+		            		text:"Mon"
+		            	},{
+		            		data:"tue",
+		            		text:"Wed"
+		            	},{
+		            		data:"wed",
+		            		text:"Wed"
+		            	},{
+		            		data:"thu",
+		            		text:"Thu"
+		            	},{
+		            		data:"fri",
+		            		text:"Fri"
+		            	}
+	            	]
+	            }
+			}
+		resolve(model)
+	});
+}
 
 function initAmount(model){
 	return new Promise(function(resolve, reject){
