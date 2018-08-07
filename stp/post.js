@@ -877,6 +877,7 @@ function showSchemeName(model){
 							if(folioData[i].FolioNo==model.tags.folio){
 								folioObj=folioData[i]
 								model.tags.folioObj=folioObj
+								model.tags.folioObj["IsIFolio"]=1
 							}
 						}
 						if(folioObj){
