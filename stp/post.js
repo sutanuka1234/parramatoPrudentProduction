@@ -1146,12 +1146,17 @@ function stpFrequency(model){
 						model.stage="stpMonthDay";
 						return resolve(model);
 					}
-					else if(freq==2){
+					else if(freq["Value"]==2){
 						model.tags.stpFrequency=2
+						if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
+							model.tags.stpWeekDay=model.tags.stpDatesFromApi[0]["Value"]
+							model.stage="amount";
+							return resolve(model);
+						}
 						model.stage="stpWeekDay";
 						return resolve(model);
 					}
-					else if (freq==3){
+					else if (freq["Value"]==3){
 						model.tags.stpFrequency=3
 						model.stage="amount";
 						return resolve(model);
@@ -1285,9 +1290,6 @@ function initAmount(model) {
 					}
 					else if(model.tags.stpWeekDay&&model.tags.stpWeekDay.toLowerCase().includes("fri")){
 						model.tags.stpWeekDay=6
-					}
-					else{
-						model.tags.stpWeekDay=""
 					}
 				}
 				if(!model.tags.stpMonthDay){
