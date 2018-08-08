@@ -1145,6 +1145,7 @@ function stpMonthDay(model) {
 			for (let date of dates){
 				if(date==model.data){
 					model.tags.stpMonthDay=parseInt(date)
+					delete model.stage;
 					return resolve(model);
 				}
 			}
@@ -1169,6 +1170,7 @@ function stpWeekDay(model){
 			for (let date of dates){
 				if(date==model.data){
 					model.tags.stpWeekDay=parseInt(date)
+					delete model.stage;
 					return resolve(model);
 				}
 			}
