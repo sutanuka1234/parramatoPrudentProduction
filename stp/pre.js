@@ -318,7 +318,7 @@ function stpMonthDay(model) {
 			let dates=model.tags.stpDatesFromApi[0]["Values"]
 			model.reply={
 				type:"quickReply",
-	            text:"Which date of the month would you like to invest? You can choose following dates."
+	            text:"Which date of the month would you like to invest? You can choose following dates.",
 	            next:{
 	            	data:[]
 	            }
@@ -345,7 +345,7 @@ function stpWeekDay(model){
 			let dates=model.tags.stpDatesFromApi[0]["Values"]
 			model.reply={
 				type:"quickReply",
-	            text:"Which date would you like to start investing? You can choose following dates."
+	            text:"Which date would you like to start investing? You can choose following dates.",
 	            next:{
 	            	data:[]
 	            }
