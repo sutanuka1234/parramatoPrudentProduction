@@ -22,6 +22,7 @@ let obj = {
 	showSchemeName:showSchemeName,
 	euin	: euin,
 	divOps:divOps,
+	stpFrequency:stpFrequency,
 	stpMonthDay:stpMonthDay,
 	stpWeekDay:stpWeekDay,
 	initAmount:initAmount,
@@ -1135,6 +1136,30 @@ function divOps(model){
 }
 
 
+function stpFrequency(model){
+	return new Promise(function(resolve, reject){
+		if(model.tags.stpFrequencyFromApi&&model.tags.stpFrequencyFromApi.length>0){
+			for (let freq of model.tags.stpFrequencyFromApi){
+				if(model.data.toLowerCase().includes(freq["Frequency"].toLowerCase())){
+					if(freq["Value"]==1){
+						model.stage="stpMonthDay";
+						return resolve(model);
+					}
+					else if(freq==2){
+						model.stage="stpWeekDay";
+						return resolve(model);
+					}
+					else if (freq==3){
+						model.stage="amount";
+						return resolve(model);
+					}
+				}
+				
+			}
+		}
+		return reject(model);
+	});
+}
 
 function stpMonthDay(model) {
 

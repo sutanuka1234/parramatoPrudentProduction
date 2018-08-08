@@ -20,6 +20,7 @@ let obj = {
 	euin	: euin,
 	divOps:divOps,
 	agreement:agreement,
+	stpFrequency:stpFrequency,
 	stpMonthDay:stpMonthDay,
 	stpWeekDay:stpWeekDay,
 	// unitOrAmount:unitOrAmount,
@@ -310,6 +311,27 @@ function folio(model){
 	})
 }
 
+function stpFrequency(model) {
+
+	return new Promise(function(resolve, reject){
+		model.reply={
+				type:"text",
+	            text:"Let us know how would you like to invest?",
+	            next:{
+	            	data:[]
+	            }
+		}
+		if(model.tags.stpFrequencyFromApi&&model.tags.stpFrequencyFromApi.length>0){
+			console.log(model.tags.stpFrequencyFromApi)
+			model.reply.type="quickReply"
+			for (let freq of model.tags.stpFrequencyFromApi){
+				model.reply.next.data.push({data:freq["Frequency"],text:freq["Frequency"]})
+			}
+		}
+		
+		resolve(model)
+	});
+}
 
 function stpMonthDay(model) {
 
