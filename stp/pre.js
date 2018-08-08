@@ -325,7 +325,7 @@ function stpMonthDay(model) {
 	            }
 			}
 			dates=dates.split(",")
-			for (let date in dates){
+			for (let date of dates){
 				model.reply.next.data.push({data:date,text:date})
 			}
 		}
@@ -353,7 +353,7 @@ function stpWeekDay(model){
 	            }
 			}
 			dates=dates.split(",")
-			for (let date in dates){
+			for (let date of dates){
 				model.reply.next.data.push({data:date,text:date})
 			}
 		}
