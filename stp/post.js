@@ -1162,6 +1162,15 @@ function stpMonthDay(model) {
 
 function stpWeekDay(model){
 	return new Promise(function(resolve, reject){
+		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
+			let dates=dates.split(",")
+			for (let date in dates){
+				if(date==model.data){
+					model.tags.stpWeekDay=parseInt(date)
+					return resolve(model);
+				}
+			}
+		}
 		if(model.data.toLowerCase().includes("mon")){
 			model.tags.stpWeekDay="mon"
 			delete model.stage;

@@ -341,30 +341,46 @@ function stpMonthDay(model) {
 
 function stpWeekDay(model){
 	return new Promise(function(resolve, reject){
-		model.reply={
+		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
+			let dates=model.tags.stpDatesFromApi[0].["Values"]
+			model.reply={
 				type:"quickReply",
-	            text:"Which day of the week would you like to invest?",
+	            text:"Which date would you like to start investing? You can choose following dates."
 	            next:{
-	            	data:[
-		            	{
-		            		data:"mon",
-		            		text:"Mon"
-		            	},{
-		            		data:"tue",
-		            		text:"Wed"
-		            	},{
-		            		data:"wed",
-		            		text:"Wed"
-		            	},{
-		            		data:"thu",
-		            		text:"Thu"
-		            	},{
-		            		data:"fri",
-		            		text:"Fri"
-		            	}
-	            	]
+	            	data:[]
 	            }
 			}
+			let dates=dates.split(",")
+			for (let date in dates){
+				model.reply.next.data.push({data:date,text:date})
+			}
+		}
+		else{
+			model.reply={
+					type:"quickReply",
+		            text:"Which day of the week would you like to invest?",
+		            next:{
+		            	data:[
+			            	{
+			            		data:"mon",
+			            		text:"Mon"
+			            	},{
+			            		data:"tue",
+			            		text:"Wed"
+			            	},{
+			            		data:"wed",
+			            		text:"Wed"
+			            	},{
+			            		data:"thu",
+			            		text:"Thu"
+			            	},{
+			            		data:"fri",
+			            		text:"Fri"
+			            	}
+		            	]
+		            }
+				}
+		}	
 		resolve(model)
 	});
 }
