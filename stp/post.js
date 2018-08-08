@@ -1142,14 +1142,17 @@ function stpFrequency(model){
 			for (let freq of model.tags.stpFrequencyFromApi){
 				if(model.data.toLowerCase().includes(freq["Frequency"].toLowerCase())){
 					if(freq["Value"]==1){
+						model.tags.stpFrequency=1
 						model.stage="stpMonthDay";
 						return resolve(model);
 					}
 					else if(freq==2){
+						model.tags.stpFrequency=2
 						model.stage="stpWeekDay";
 						return resolve(model);
 					}
 					else if (freq==3){
+						model.tags.stpFrequency=3
 						model.stage="amount";
 						return resolve(model);
 					}
