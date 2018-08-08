@@ -2161,11 +2161,11 @@ function sipDay(model){
 				            }
 							external(reply)
 							.then((data)=>{
-								// console.log("improper json")
+								console.log("111improper json")
 				                return reject(model);
 				            })
 				            .catch((e)=>{
-				                console.log(e);
+				                console.log("222"+e);
 				                return reject(model)
 				            })
 						}
@@ -2180,10 +2180,11 @@ function sipDay(model){
 					            }
 								external(reply)
 								.then((data)=>{
+									console.log("333")
 					                return reject(model);
 					            })
 					            .catch((e)=>{
-					                console.log(e);
+					                console.log("444"+e);
 					                return reject(model)
 					            })
 							}
@@ -2200,7 +2201,7 @@ function sipDay(model){
 											}
 									}
 									catch(e){
-										console.log(e)
+										console.log("555"+e)
 						                return reject(model)
 									}
 									let expectedAmount=parseInt(model.tags.amount);
@@ -2234,11 +2235,14 @@ function sipDay(model){
 						            }
 									external(reply)
 									.then((data)=>{
-						                return reject(model);
+										console.log("666")
+										model.stage="amount"
+						                return resolve(model);
 						            })
 						            .catch((e)=>{
-						                console.log(e);
-						                return reject(model)
+						                console.log("777"+e);
+										model.stage="amount"
+						                return resolve(model)
 						            })
 								}
 								else{
@@ -2253,28 +2257,28 @@ function sipDay(model){
 							}
 						}
 						catch(e){
-							console.log(e);
+							console.log("888"+e);
 							return reject(model);
 				            
 						}
 					})
 					.catch(e=>{
-						console.log(e);
+						console.log("999"+e);
 						return reject(model);
 					})
 				}
 				else{
-					// console.log("not valid date")
+					console.log("101010not valid date")
 					return reject(model);
 				}
 			}
 			else{
-				// console.log("No number")
+				console.log("111111No number")
 				return reject(model);
 			}
 		}
 		catch(e){
-			// console.log(e)
+			console.log("121212"+e)
 			return reject(model);
 		}
 	});
