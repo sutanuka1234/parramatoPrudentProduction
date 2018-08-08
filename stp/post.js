@@ -1148,8 +1148,9 @@ function stpFrequency(model){
 					}
 					else if(freq["Value"]==2){
 						model.tags.stpFrequency=2
-						if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
+						if(data[model.tags.scheme].schemeCode=="12758"||data[model.tags.scheme].schemeCode=="12760"){
 							model.tags.stpWeekDay=model.tags.stpDatesFromApi[0]["Value"]
+							sendExternalMessage(model,"Note that your investment would take place in "+model.tags.stpWeekDay+"dates.")
 							model.stage="amount";
 							return resolve(model);
 						}
@@ -1424,6 +1425,7 @@ function amount(model){
 			if(model.tags.amount){
 				if(model.tags.folioObj["IsIFolio"]==1){
 					//STP Insert Cart
+					model.tags.initAmount="0"
 					api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.divOption, model.tags.folio, model.tags.euin, model.tags.stpSchemeObj["SCH_CODE"],data[model.tags.scheme].schemeCode,model.tags.stpFrequency,model.tags.stpWeekDay,model.tags.stpMonthDay,model.tags.stpInstallments,model.tags.initAmount,model.tags.amount,model.tags.stpSchemeObj["eKYC"])
 					.then((data)=>{
 							console.log(data.body+":::::")

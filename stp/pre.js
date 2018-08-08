@@ -364,22 +364,22 @@ function stpMonthDay(model) {
 
 function stpWeekDay(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
-			console.log(model.tags.stpDatesFromApi)
-			let dates=model.tags.stpDatesFromApi[0]["Value"]
-			model.reply={
-				type:"quickReply",
-	            text:"Which date would you like to start investing? You can choose following dates.",
-	            next:{
-	            	data:[]
-	            }
-			}
-			dates=dates.split(",")
-			for (let date of dates){
-				model.reply.next.data.push({data:date,text:date})
-			}
-		}
-		else{
+		// if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
+		// 	console.log(model.tags.stpDatesFromApi)
+		// 	let dates=model.tags.stpDatesFromApi[0]["Value"]
+		// 	model.reply={
+		// 		type:"quickReply",
+	 //            text:"Which date would you like to start investing? You can choose following dates.",
+	 //            next:{
+	 //            	data:[]
+	 //            }
+		// 	}
+		// 	dates=dates.split(",")
+		// 	for (let date of dates){
+		// 		model.reply.next.data.push({data:date,text:date})
+		// 	}
+		// }
+		// else{
 			model.reply={
 					type:"quickReply",
 		            text:"Which day of the week would you like to invest?",
@@ -404,7 +404,7 @@ function stpWeekDay(model){
 		            	]
 		            }
 				}
-		}	
+		// }	
 		resolve(model)
 	});
 }

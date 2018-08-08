@@ -159,6 +159,9 @@ function getMandate(session,joinAccId){
 }
 
 function insertBuyCartSip(session, joinAccId, schemeCode, amcName, amcId, dividendOption, amount, folioNo, euin, day,installments, refNo,ekyc){
+	if(folioNo.includes("olio")){
+		folioNo="0"
+	}
 	
 	var obj = {
 		method 	: 'POST',
@@ -180,6 +183,10 @@ function confirmSip(session,tranId){
 
 
 function insertBuyCart(session, joinAccId, schemeCode, amcName, amcId, dividendOption, amount, folioNo, euin, additional,tranId,ekyc){
+	if(folioNo.includes("olio")){
+		folioNo="0"
+	}
+
 	if(additional){
 		var obj = {
 			method 	: 'POST',
