@@ -1170,7 +1170,7 @@ function stpMonthDay(model) {
 			for (let date of dates){
 				if(date==model.data){
 					model.tags.stpMonthDay=parseInt(date)
-					delete model.stage;
+					model.stage="amount";
 					return resolve(model);
 				}
 			}
