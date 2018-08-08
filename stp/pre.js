@@ -316,7 +316,7 @@ function stpMonthDay(model) {
 	return new Promise(function(resolve, reject){
 		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
 			console.log(model.tags.stpDatesFromApi)
-			let dates=model.tags.stpDatesFromApi[0]["Values"]
+			let dates=model.tags.stpDatesFromApi[0]["Value"]
 			model.reply={
 				type:"quickReply",
 	            text:"Which date of the month would you like to invest? You can choose following dates.",
@@ -344,7 +344,7 @@ function stpWeekDay(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
 			console.log(model.tags.stpDatesFromApi)
-			let dates=model.tags.stpDatesFromApi[0]["Values"]
+			let dates=model.tags.stpDatesFromApi[0]["Value"]
 			model.reply={
 				type:"quickReply",
 	            text:"Which date would you like to start investing? You can choose following dates.",
