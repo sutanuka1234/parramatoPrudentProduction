@@ -2134,7 +2134,7 @@ function sipDay(model){
 			if(text&&text.length>0){
 				text=parseInt(text[0]);
 				let validDate=false;
-				if(model.tags.schemeApiDetails["SIPDays"].includes(",")){
+				if(model.tags.schemeApiDetails["SIPDays"]!="ALL"){
 					let dates=model.tags.schemeApiDetails["SIPDays"].split(",");
 					for(let i in dates){
 						if(text==parseInt(dates[i].trim())){
