@@ -1140,7 +1140,8 @@ function stpMonthDay(model) {
 
 	return new Promise(function(resolve, reject){
 		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
-			let dates=dates.split(",")
+			let dates=model.tags.stpDatesFromApi[0]["Value"]
+			dates=dates.split(",")
 			for (let date of dates){
 				if(date==model.data){
 					model.tags.stpMonthDay=parseInt(date)
@@ -1163,7 +1164,8 @@ function stpMonthDay(model) {
 function stpWeekDay(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
-			let dates=dates.split(",")
+			let dates=model.tags.stpDatesFromApi[0]["Value"]
+			dates=dates.split(",")
 			for (let date of dates){
 				if(date==model.data){
 					model.tags.stpWeekDay=parseInt(date)
