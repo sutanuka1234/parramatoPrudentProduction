@@ -2200,7 +2200,7 @@ function sipDay(model){
 											}
 									}
 									catch(e){
-										// console.log(e)
+										console.log(e)
 						                return reject(model)
 									}
 									let expectedAmount=parseInt(model.tags.amount);
