@@ -2143,7 +2143,7 @@ function sipDay(model){
 						}
 					}
 				}
-				if((model.tags.schemeApiDetails["SIPDays"]==="ALL"&&text<=28)||validDate){
+				if((model.tags.schemeApiDetails["SIPDays"]==="ALL"&&text<=28&&text>0)||validDate){
 					model.tags.sipDay=text.toString();
 					api.getMandate(model.tags.session, model.tags.joinAccId)
 					.then((data)=>{

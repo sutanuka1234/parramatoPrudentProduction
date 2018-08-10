@@ -1186,7 +1186,7 @@ function stpMonthDay(model) {
 		}
 		else{
 			let text = matchAll(model.data, /(\d+)/gi).toArray()
-			if(1<=parseInt(text[0])&&parseInt(text[0])<=28){
+			if(1<=parseInt(text[0])&&parseInt(text[0])<=28&&parseInt(text[0])>0){
 				model.tags.stpMonthDay=parseInt(text[0])
 				model.stage="amount";
 				return resolve(model);

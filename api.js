@@ -138,6 +138,18 @@ function getMandate(session,joinAccId){
 
 
  function insertBuyCartStp(session, joinAccId, dividendOption, folioNo, euin, schemeCodeFrom,schemeCodeTo,STPFrequency,STPWeek,STPMonth,installments,initAmount,amount){	
+	if(!STPWeek){
+		STPWeek=0
+	}
+	if(!STPMonth){
+		STPMonth=0
+	}
+	if(!installments){
+		installments=""
+	}
+	if(!initAmount){
+		initAmount=0
+	}
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
