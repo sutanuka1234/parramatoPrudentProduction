@@ -1706,15 +1706,26 @@ function folio(model){
 										model.tags.bankMandateList = []
 										let maxAmountPossible=0;
 										for(let element of data.Response[2]){
+											let uid=uuidv1();
+											session[uid]={
+												joinAccId:model.tags.joinAccId,
+												schemeCode:schemeCode,
+												typeInv:typeInv,
+												session:model.tags.session,
+												bankId:element.BankId
+											}
 											model.tags.bankMandateList.push({
 												title: "Netbanking",
 												text : element.BankName,
 												buttons : [{
 													type : 'url',
 													text : 'Pay',
-													data : 'https://fundzbot.com/api/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
+													data : 'https://fundzbot.com/api/external/pay?u='+uid
 												}]
 											})
+											setTimeout(()=>{
+												delete session[uid];
+											},1200000)
 										}
 										for(let element of data.Response[1]){
 											try{
@@ -1864,15 +1875,26 @@ function divOps(model){
 							model.tags.bankMandateList = []
 							let maxAmountPossible=0;
 							for(let element of data.Response[2]){
-								model.tags.bankMandateList.push({
-									title: "Netbanking",
-									text : element.BankName,
-									buttons : [{
-										type : 'url',
-										text : 'Pay',
-										data : 'https://fundzbot.com/api/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId
-									}]
-								})
+								let uid=uuidv1();
+									session[uid]={
+										joinAccId:model.tags.joinAccId,
+										schemeCode:schemeCode,
+										typeInv:typeInv,
+										session:model.tags.session,
+										bankId:element.BankId
+									}
+									model.tags.bankMandateList.push({
+										title: "Netbanking",
+										text : element.BankName,
+										buttons : [{
+											type : 'url',
+											text : 'Pay',
+											data : 'https://fundzbot.com/api/external/pay?u='+uid
+										}]
+									})
+									setTimeout(()=>{
+										delete session[uid];
+									},1200000)
 							}
 							model.tags.skipMandate=false
 							for(let element of data.Response[1]){
@@ -2056,15 +2078,26 @@ function amount(model){
 								typeInv="ADDITIONALPURCHASE"
 							}
 							for(let element of data.Response[2]){
-								model.tags.bankMandateList.push({
-									title: "Netbanking",
-									text : element.BankName,
-									buttons : [{
-										type : 'url',
-										text : 'Pay',
-										data : 'https://fundzbot.com/api/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
-									}]
-								})
+								let uid=uuidv1();
+									session[uid]={
+										joinAccId:model.tags.joinAccId,
+										schemeCode:schemeCode,
+										typeInv:typeInv,
+										session:model.tags.session,
+										bankId:element.BankId
+									}
+									model.tags.bankMandateList.push({
+										title: "Netbanking",
+										text : element.BankName,
+										buttons : [{
+											type : 'url',
+											text : 'Pay',
+											data : 'https://fundzbot.com/api/external/pay?u='+uid
+										}]
+									})
+									setTimeout(()=>{
+										delete session[uid];
+									},1200000)
 							}
 							model.tags.skipMandate=false;
 							for(let element of data.Response[1]){
