@@ -1173,7 +1173,7 @@ function stpFrequency(model){
 function stpMonthDay(model) {
 
 	return new Promise(function(resolve, reject){
-		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
+		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0&&(data[model.tags.scheme].schemeCode=="12758"||data[model.tags.scheme].schemeCode=="12760")){
 			let dates=model.tags.stpDatesFromApi[0]["Value"]
 			dates=dates.split(",")
 			for (let date of dates){
@@ -1198,7 +1198,7 @@ function stpMonthDay(model) {
 
 function stpWeekDay(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
+		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0&&(data[model.tags.scheme].schemeCode=="12758"||data[model.tags.scheme].schemeCode=="12760")){
 			let dates=model.tags.stpDatesFromApi[0]["Value"]
 			dates=dates.split(",")
 			for (let date of dates){
