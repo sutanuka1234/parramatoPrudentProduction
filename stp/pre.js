@@ -321,7 +321,7 @@ function stpFrequency(model) {
 	            	data:[]
 	            }
 		}
-		if(model.tags.stpFrequencyFromApi&&model.tags.stpFrequencyFromApi.length>0){
+		if(model.tags.stpFrequencyFromApi&&model.tags.stpFrequencyFromApi.length>0&&(data[model.tags.scheme].schemeCode=="12758"||data[model.tags.scheme].schemeCode=="12760")){
 			console.log(model.tags.stpFrequencyFromApi)
 			model.reply.type="quickReply"
 			for (let freq of model.tags.stpFrequencyFromApi){
