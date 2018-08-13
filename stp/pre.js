@@ -321,7 +321,7 @@ function stpFrequency(model) {
 	            	data:[]
 	            }
 		}
-		if(model.tags.stpFrequencyFromApi&&model.tags.stpFrequencyFromApi.length>0&&(data[model.tags.scheme].schemeCode=="12758"||data[model.tags.scheme].schemeCode=="12760")){
+		if(model.tags.stpFrequencyFromApi&&model.tags.stpFrequencyFromApi.length>0){
 			console.log(model.tags.stpFrequencyFromApi)
 			model.reply.type="quickReply"
 			for (let freq of model.tags.stpFrequencyFromApi){
@@ -336,7 +336,7 @@ function stpFrequency(model) {
 function stpMonthDay(model) {
 
 	return new Promise(function(resolve, reject){
-		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0){
+		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0&&(data[model.tags.scheme].schemeCode=="12758"||data[model.tags.scheme].schemeCode=="12760")){
 			console.log(model.tags.stpDatesFromApi)
 			let dates=model.tags.stpDatesFromApi[0]["Value"]
 			model.reply={
