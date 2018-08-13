@@ -6,10 +6,12 @@ module.exports={
 let api = require('../api.js')
 let external = require('../external.js')
 let words = require('../words.js')
+let session = require('../session.js')
 let data = require('../data.js')
 let stringSimilarity = require('string-similarity');
 let sortBy = require('sort-by')
 let matchAll = require('match-all')
+const uuidv1 = require('uuid/v1');
 
 let obj = {
 	panMobile : panMobile,
@@ -1478,15 +1480,26 @@ function euin(model){
 									typeInv="ADDITIONALPURCHASE"
 								}
 								for(let element of data.Response[2]){
+									let uid=uuidv1();
+									session[uid]={
+										joinAccId:model.tags.joinAccId,
+										schemeCode:schemeCode,
+										typeInv:typeInv,
+										session:model.tags.session,
+										bankId:element.BankId
+									}
 									model.tags.bankMandateList.push({
 										title: "Netbanking",
 										text : element.BankName,
 										buttons : [{
 											type : 'url',
 											text : 'Pay',
-											data : 'https://fundzbot.com/api/external/pay?session='+model.tags.session+'&joinAccId='+model.tags.joinAccId+'&schemeCode='+schemeCode+'&bankId='+element.BankId+'&typeInv='+typeInv
+											data : 'https://fundzbot.com/api/external/pay?u='+uid
 										}]
 									})
+									setTimeout(()=>{
+										delete session[uid];
+									},1200000)
 								}
 								for(let element of data.Response[1]){
 									try{

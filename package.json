@@ -17,6 +17,7 @@
     "request": "^2.85.0",
     "sort-by": "^1.2.0",
     "string-mask": "^0.3.0",
-    "string-similarity": "^1.2.0"
+    "string-similarity": "^1.2.0",
+    "uuid": "^3.3.2"
   }
 }
