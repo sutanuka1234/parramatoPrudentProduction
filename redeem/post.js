@@ -641,7 +641,7 @@ function holding(model){
 							model.tags.redeemSchemeList=[]
 							model.tags.redeemSchemes.forEach(function(element,index){
 								if(index<10){
-									if(index==9&&model.tags.redeemSchemes.length>10){
+									if(index==0&&model.tags.redeemSchemes.length>1){
 										model.tags.redeemSchemeList.push({
 											title 	: element["SCHEMENAME"],
 											text 	: "Folio "+element["FOLIONO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],

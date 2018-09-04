@@ -661,7 +661,7 @@ function holding(model){
 						model.tags.switchSchemes.forEach(function(element,index){
 							console.log(index+"::::::::::::::::::::::::::::::")
 							if(index<10){
-								if(index==9&&model.tags.switchSchemes.length>10){
+								if(index==0&&model.tags.switchSchemes.length>1){
 									model.tags.switchSchemeList.push({
 										title 	: element["SchemeName"],
 										text 	: "Folio "+element["FOLIO_NO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
