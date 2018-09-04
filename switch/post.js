@@ -732,7 +732,7 @@ function holding(model){
 
 function scheme(model){
 	return new Promise(function(resolve, reject){
-		
+		console.log(model.data+"::::::::::::::::::::>>>>")
 		model.tags.amount = undefined
 		model.tags.tranId=undefined
 		model.tags.switchSchemeList=undefined
