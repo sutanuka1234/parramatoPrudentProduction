@@ -738,7 +738,7 @@ function scheme(model){
 			if(model.data.endsWith("next")&&model.tags.lastRedeemSchemeElement&&model.tags.redeemSchemes.length>model.tags.lastRedeemSchemeElement){
 				model.tags.redeemSchemeList=[]
 				// model.tags.redeemSchemes.forEach(function(element,index){
-				for(let index = model.tags.lastRedeemSchemeElement-1;index<model.tags.redeemSchemes.length;index++){
+				for(let index = model.tags.lastRedeemSchemeElement;index<model.tags.redeemSchemes.length;index++){
 					let element=model.tags.redeemSchemes[index];
 					if(index<model.tags.lastRedeemSchemeElement+size){
 						if(index==model.tags.lastRedeemSchemeElement-1+size&&model.tags.redeemSchemes.length>model.tags.lastRedeemSchemeElement+size){
