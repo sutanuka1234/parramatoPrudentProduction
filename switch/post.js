@@ -741,10 +741,11 @@ function scheme(model){
 		try{
 			if(model.data.endsWith("next")&&model.tags.lastSwitchSchemeElement&&model.tags.switchSchemes.length>model.tags.lastSwitchSchemeElement){
 				model.tags.switchSchemeList=[]
-				model.tags.switchSchemes.forEach(function(element,index){
+				for(let index = model.tags.lastSwitchSchemeElement-1;index<model.tags.switchSchemes.length;index++){
+					let element=model.tags.switchSchemes[index];
 					console.log(index+"::::::::::::::::::::::::::::::")
-					if(index<10){
-						if(index==9&&model.tags.switchSchemes.length>10){
+					if(index<1){
+						if(index==0&&model.tags.switchSchemes.length>1){
 							model.tags.switchSchemeList.push({
 								title 	: element["SchemeName"],
 								text 	: "Folio "+element["FOLIO_NO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
@@ -777,7 +778,7 @@ function scheme(model){
 
 
 					}
-				})
+				}
 			}
 			else if(model.tags.switchSchemes){
 				for(let scheme of model.tags.switchSchemes){

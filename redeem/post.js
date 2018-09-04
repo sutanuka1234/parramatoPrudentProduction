@@ -737,7 +737,9 @@ function scheme(model){
 		try{
 			if(model.data.endsWith("next")&&model.tags.lastRedeemSchemeElement&&model.tags.redeemSchemes.length>model.tags.lastRedeemSchemeElement){
 				model.tags.redeemSchemeList=[]
-				model.tags.redeemSchemes.forEach(function(element,index){
+				// model.tags.redeemSchemes.forEach(function(element,index){
+				for(let index = model.tags.lastRedeemSchemeElement-1;index<model.tags.redeemSchemes.length;index++){
+					let element=model.tags.redeemSchemes[index];
 					if(index<1){
 						if(index==0&&model.tags.redeemSchemes.length>1){
 							model.tags.redeemSchemeList.push({
@@ -770,7 +772,7 @@ function scheme(model){
 						
 						model.tags.lastRedeemSchemeElement=index+1;
 					}
-				})
+				}
 				model.stage="scheme"
 				return resolve(model)
 			}
