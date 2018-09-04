@@ -640,7 +640,7 @@ function holding(model){
 							model.tags.redeemSchemes=response.Response[0];
 							model.tags.redeemSchemeList=[]
 							model.tags.redeemSchemes.forEach(function(element,index){
-								if(index<10){
+								if(index<1){
 									if(index==0&&model.tags.redeemSchemes.length>1){
 										model.tags.redeemSchemeList.push({
 											title 	: element["SCHEMENAME"],
@@ -735,10 +735,11 @@ function scheme(model){
 		model.tags.redeemReferenceId=undefined
 		model.tags.refrenceIdRedeemTxn=undefined
 		try{
-			if(model.data.endsWith("next")){
+			if(model.data.endsWith("next")&&model.tags.lastRedeemSchemeElement&&model.tags.redeemSchemes.length>model.tags.lastRedeemSchemeElement){
+				model.tags.redeemSchemeList=[]
 				model.tags.redeemSchemes.forEach(function(element,index){
-					if(index<10){
-						if(index==9&&model.tags.redeemSchemes.length>10){
+					if(index<1){
+						if(index==0&&model.tags.redeemSchemes.length>1){
 							model.tags.redeemSchemeList.push({
 								title 	: element["SCHEMENAME"],
 								text 	: "Folio "+element["FOLIONO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],

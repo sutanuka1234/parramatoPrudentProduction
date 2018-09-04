@@ -660,7 +660,7 @@ function holding(model){
 						model.tags.switchSchemeList=[]
 						model.tags.switchSchemes.forEach(function(element,index){
 							console.log(index+"::::::::::::::::::::::::::::::")
-							if(index<10){
+							if(index<1){
 								if(index==0&&model.tags.switchSchemes.length>1){
 									model.tags.switchSchemeList.push({
 										title 	: element["SchemeName"],
@@ -739,7 +739,8 @@ function scheme(model){
 		model.tags.switchReferenceId=undefined
 		model.tags.refrenceIdSwitchTxn=undefined
 		try{
-			if(model.data.endsWith("next")){
+			if(model.data.endsWith("next")&&model.tags.lastSwitchSchemeElement&&model.tags.switchSchemes.length>model.tags.lastSwitchSchemeElement){
+				model.tags.switchSchemeList=[]
 				model.tags.switchSchemes.forEach(function(element,index){
 					console.log(index+"::::::::::::::::::::::::::::::")
 					if(index<10){
