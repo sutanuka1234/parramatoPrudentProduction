@@ -658,19 +658,41 @@ function holding(model){
 			        else{
 						model.tags.switchSchemes=response.Response;
 						model.tags.switchSchemeList=[]
-						response.Response.forEach(function(element,index){
+						model.tags.switchSchemes.forEach(function(element,index){
 							console.log(index+"::::::::::::::::::::::::::::::")
 							if(index<10){
-								model.tags.switchSchemeList.push({
-									title 	: element["SchemeName"],
-									text 	: "Folio "+element["FOLIO_NO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
-									buttons : [
-										{
-											text : 'Select',
-											data : "scheme|||"+element["SCHEMECODE"].toString()
-										}
-									]
-								})
+								if(index==9&&model.tags.switchSchemes.length>10){
+									model.tags.switchSchemeList.push({
+										title 	: element["SchemeName"],
+										text 	: "Folio "+element["FOLIO_NO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
+										buttons : [
+											{
+												text : 'Select',
+												data : "scheme|||"+element["SCHEMECODE"].toString()
+											},
+											{
+												text : 'Next',
+												data : "scheme|||next"
+											}
+										]
+									})
+								}
+								else{
+									model.tags.switchSchemeList.push({
+										title 	: element["SchemeName"],
+										text 	: "Folio "+element["FOLIO_NO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
+										buttons : [
+											{
+												text : 'Select',
+												data : "scheme|||"+element["SCHEMECODE"].toString()
+											}
+										]
+									})
+								}
+								
+								model.tags.lastSwitchSchemeElement=index+1;
+
+
 							}
 						})
 
@@ -717,7 +739,46 @@ function scheme(model){
 		model.tags.switchReferenceId=undefined
 		model.tags.refrenceIdSwitchTxn=undefined
 		try{
-			if(model.tags.switchSchemes){
+			if(model.data.endsWith("next")){
+				model.tags.switchSchemes.forEach(function(element,index){
+					console.log(index+"::::::::::::::::::::::::::::::")
+					if(index<10){
+						if(index==9&&model.tags.switchSchemes.length>10){
+							model.tags.switchSchemeList.push({
+								title 	: element["SchemeName"],
+								text 	: "Folio "+element["FOLIO_NO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
+								buttons : [
+									{
+										text : 'Select',
+										data : "scheme|||"+element["SCHEMECODE"].toString()
+									},
+									{
+										text : 'Next',
+										data : "scheme|||next"
+									}
+								]
+							})
+						}
+						else{
+							model.tags.switchSchemeList.push({
+								title 	: element["SchemeName"],
+								text 	: "Folio "+element["FOLIO_NO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
+								buttons : [
+									{
+										text : 'Select',
+										data : "scheme|||"+element["SCHEMECODE"].toString()
+									}
+								]
+							})
+						}
+						
+						model.tags.lastSwitchSchemeElement=index+1;
+
+
+					}
+				})
+			}
+			else if(model.tags.switchSchemes){
 				for(let scheme of model.tags.switchSchemes){
 					console.log(model.data+"::"+scheme["SCHEMECODE"])
 					if(scheme["SCHEMECODE"]==model.data){

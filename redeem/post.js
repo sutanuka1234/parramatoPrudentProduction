@@ -639,18 +639,38 @@ function holding(model){
 						if(response.Response&&response.Response.length>0&&response.Response[0].length>0){
 							model.tags.redeemSchemes=response.Response[0];
 							model.tags.redeemSchemeList=[]
-							response.Response[0].forEach(function(element,index){
+							model.tags.redeemSchemes.forEach(function(element,index){
 								if(index<10){
-									model.tags.redeemSchemeList.push({
-										title 	: element["SCHEMENAME"],
-										text 	: "Folio "+element["FOLIONO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
-										buttons : [
-											{
-												text : 'Select',
-												data : "scheme|||"+element["SCHEMECODE"].toString()
-											}
-										]
-									})
+									if(index==9&&model.tags.redeemSchemes.length>10){
+										model.tags.redeemSchemeList.push({
+											title 	: element["SCHEMENAME"],
+											text 	: "Folio "+element["FOLIONO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
+											buttons : [
+												{
+													text : 'Select',
+													data : "scheme|||"+element["SCHEMECODE"].toString()
+												},
+												{
+													text : 'Next',
+													data : "scheme|||next"
+												}
+											]
+										})
+									}
+									else{
+										model.tags.redeemSchemeList.push({
+											title 	: element["SCHEMENAME"],
+											text 	: "Folio "+element["FOLIONO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
+											buttons : [
+												{
+													text : 'Select',
+													data : "scheme|||"+element["SCHEMECODE"].toString()
+												}
+											]
+										})
+									}
+									
+									model.tags.lastRedeemSchemeElement=index+1;
 								}
 							})
 							if(model.tags.redeemSchemeList.length==0){
@@ -715,7 +735,45 @@ function scheme(model){
 		model.tags.redeemReferenceId=undefined
 		model.tags.refrenceIdRedeemTxn=undefined
 		try{
-			if(model.tags.redeemSchemes){
+			if(model.data.endsWith("next")){
+				model.tags.redeemSchemes.forEach(function(element,index){
+					if(index<10){
+						if(index==9&&model.tags.redeemSchemes.length>10){
+							model.tags.redeemSchemeList.push({
+								title 	: element["SCHEMENAME"],
+								text 	: "Folio "+element["FOLIONO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
+								buttons : [
+									{
+										text : 'Select',
+										data : "scheme|||"+element["SCHEMECODE"].toString()
+									},
+									{
+										text : 'Next',
+										data : "scheme|||next"
+									}
+								]
+							})
+						}
+						else{
+							model.tags.redeemSchemeList.push({
+								title 	: element["SCHEMENAME"],
+								text 	: "Folio "+element["FOLIONO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
+								buttons : [
+									{
+										text : 'Select',
+										data : "scheme|||"+element["SCHEMECODE"].toString()
+									}
+								]
+							})
+						}
+						
+						model.tags.lastRedeemSchemeElement=index+1;
+					}
+				})
+				model.stage="scheme"
+				return resolve(model)
+			}
+			else if(model.tags.redeemSchemes){
 				for(let scheme of model.tags.redeemSchemes){
 					console.log(model.data+"::"+scheme["SCHEMECODE"])
 					if(scheme["SCHEMECODE"]==model.data){
