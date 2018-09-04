@@ -741,10 +741,10 @@ function scheme(model){
 		try{
 			if(model.data.endsWith("next")&&model.tags.lastSwitchSchemeElement&&model.tags.switchSchemes.length>model.tags.lastSwitchSchemeElement){
 				model.tags.switchSchemeList=[]
-				for(let index = model.tags.lastSwitchSchemeElement;index<model.tags.redeemSchemes.length;index++){
-					let element=model.tags.redeemSchemes[index];
+				for(let index = model.tags.lastSwitchSchemeElement;index<model.tags.switchSchemes.length;index++){
+					let element=model.tags.switchSchemes[index];
 					if(index<model.tags.lastSwitchSchemeElement+size){
-						if(index==model.tags.lastSwitchSchemeElement-1+size&&model.tags.redeemSchemes.length>model.tags.lastSwitchSchemeElement+size){
+						if(index==model.tags.lastSwitchSchemeElement-1+size&&model.tags.switchSchemes.length>model.tags.lastSwitchSchemeElement+size){
 							model.tags.switchSchemeList.push({
 								title 	: element["SchemeName"],
 								text 	: "Folio "+element["FOLIO_NO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
