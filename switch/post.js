@@ -823,6 +823,7 @@ function scheme(model){
 					}
 				}
 			}
+			return reject(model);
 		}
 		catch(e){
 			console.log(e)
