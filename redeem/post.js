@@ -10,7 +10,7 @@ let data = require('../data.js')
 let stringSimilarity = require('string-similarity');
 let sortBy = require('sort-by')
 let matchAll = require('match-all')
-const size=1
+const size=10
 let obj = {
 	panMobile : panMobile,
 	mobile	: mobile,

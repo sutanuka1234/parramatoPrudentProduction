@@ -10,7 +10,7 @@ let data = require('../data.js')
 let stringSimilarity = require('string-similarity');
 let sortBy = require('sort-by')
 let matchAll = require('match-all')
-
+const size=1
 let obj = {
 	panMobile : panMobile,
 	mobile	: mobile,
@@ -660,8 +660,8 @@ function holding(model){
 						model.tags.switchSchemeList=[]
 						model.tags.switchSchemes.forEach(function(element,index){
 							console.log(index+"::::::::::::::::::::::::::::::")
-							if(index<1){
-								if(index==0&&model.tags.switchSchemes.length>1){
+							if(index<size){
+								if(index==size-1&&model.tags.switchSchemes.length>size){
 									model.tags.switchSchemeList.push({
 										title 	: element["SchemeName"],
 										text 	: "Folio "+element["FOLIO_NO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
@@ -741,11 +741,10 @@ function scheme(model){
 		try{
 			if(model.data.endsWith("next")&&model.tags.lastSwitchSchemeElement&&model.tags.switchSchemes.length>model.tags.lastSwitchSchemeElement){
 				model.tags.switchSchemeList=[]
-				for(let index = model.tags.lastSwitchSchemeElement-1;index<model.tags.switchSchemes.length;index++){
-					let element=model.tags.switchSchemes[index];
-					console.log(index+"::::::::::::::::::::::::::::::")
-					if(index<1){
-						if(index==0&&model.tags.switchSchemes.length>1){
+				for(let index = model.tags.lastSwitchSchemeElement;index<model.tags.redeemSchemes.length;index++){
+					let element=model.tags.redeemSchemes[index];
+					if(index<model.tags.lastSwitchSchemeElement+size){
+						if(index==model.tags.lastSwitchSchemeElement-1+size&&model.tags.redeemSchemes.length>model.tags.lastSwitchSchemeElement+size){
 							model.tags.switchSchemeList.push({
 								title 	: element["SchemeName"],
 								text 	: "Folio "+element["FOLIO_NO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
