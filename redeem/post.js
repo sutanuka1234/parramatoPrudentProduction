@@ -10,7 +10,7 @@ let data = require('../data.js')
 let stringSimilarity = require('string-similarity');
 let sortBy = require('sort-by')
 let matchAll = require('match-all')
-
+const size=1
 let obj = {
 	panMobile : panMobile,
 	mobile	: mobile,
@@ -640,8 +640,8 @@ function holding(model){
 							model.tags.redeemSchemes=response.Response[0];
 							model.tags.redeemSchemeList=[]
 							model.tags.redeemSchemes.forEach(function(element,index){
-								if(index<1){
-									if(index==0&&model.tags.redeemSchemes.length>1){
+								if(index<size){
+									if(index==size-1&&model.tags.redeemSchemes.length>size){
 										model.tags.redeemSchemeList.push({
 											title 	: element["SCHEMENAME"],
 											text 	: "Folio "+element["FOLIONO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
@@ -740,8 +740,8 @@ function scheme(model){
 				// model.tags.redeemSchemes.forEach(function(element,index){
 				for(let index = model.tags.lastRedeemSchemeElement-1;index<model.tags.redeemSchemes.length;index++){
 					let element=model.tags.redeemSchemes[index];
-					if(index<1){
-						if(index==0&&model.tags.redeemSchemes.length>1){
+					if(index<model.tags.lastRedeemSchemeElement+size){
+						if(index==model.tags.lastRedeemSchemeElement-1+size&&model.tags.redeemSchemes.length>model.tags.lastRedeemSchemeElement+size){
 							model.tags.redeemSchemeList.push({
 								title 	: element["SCHEMENAME"],
 								text 	: "Folio "+element["FOLIONO"]+". Amount Rs. "+element["AvailableAmt"]+". Units "+element["AvailableUnits"],
