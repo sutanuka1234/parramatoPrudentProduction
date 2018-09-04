@@ -778,6 +778,8 @@ function scheme(model){
 
 					}
 				}
+				model.stage="scheme";
+				return resolve(model);
 			}
 			else if(model.tags.switchSchemes){
 				for(let scheme of model.tags.switchSchemes){
