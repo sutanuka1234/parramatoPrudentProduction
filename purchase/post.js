@@ -1622,6 +1622,7 @@ function folio(model){
 	return new Promise(function(resolve, reject){
 		// console.log("::::::::::::::::::::::::EUIN::::::::::::::::::::::::")
 		// console.log(JSON.stringify(model.tags.euinApiDetails,null,3))
+		console.log(model.tags.schemeApiDetails)
 		let arr = []
 		for(let i in model.tags.folioList){
 			arr.push(model.tags.folioList[i].data)
@@ -1853,6 +1854,7 @@ function divOps(model){
 	return new Promise(function(resolve, reject){
 		model = extractAmount(model)
 		// model = extractFolio(model)
+		console.log(model.tags.schemeApiDetails)
 		if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')|| model.data.toLowerCase().includes('payout')){
 			
 			if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')){
