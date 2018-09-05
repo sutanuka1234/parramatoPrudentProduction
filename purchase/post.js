@@ -1284,10 +1284,14 @@ function additional(model){
 							return resolve(model);
 						}
 					}
+					if(!flag){
+						return reject(model);
+					}
 				}
-				if(!flag){
+				else{
 					return reject(model);
 				}
+				
 			})
 			.catch((e)=>{
 				return reject(e);
@@ -1424,6 +1428,8 @@ function additional(model){
 
 function euin(model){
 	return new Promise(function(resolve, reject){
+
+		console.log(model.tags.schemeApiDetails)
 		model.tags.decideStage=undefined
 		try{
 			let euinFlag=false;
