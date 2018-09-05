@@ -645,6 +645,7 @@ function otp(model){
 
 function agreement(model){
 	return new Promise(function(resolve,reject){
+		console.log(model.tags.schemeApiDetails)
 		if(model.data.toLowerCase().trim().includes("i accept and agree")){
 			if(model.tags.decideStage){
 				model.stage=model.tags.decideStage;
