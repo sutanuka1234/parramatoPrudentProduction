@@ -856,8 +856,11 @@ function scheme(model){
 
 						}
 					}
+					else{
+						return reject(model)
+					}
 				}
-				// return reject(model)
+				
 			}
 			else{
 				console.log("none")
