@@ -734,6 +734,7 @@ function scheme(model){
 		model.tags.redeemSchemeList=undefined
 		model.tags.redeemReferenceId=undefined
 		model.tags.refrenceIdRedeemTxn=undefined
+		let flag=false
 		try{
 			if(model.data.endsWith("next")&&model.tags.lastRedeemSchemeElement&&model.tags.redeemSchemes.length>model.tags.lastRedeemSchemeElement){
 				model.tags.redeemSchemeList=[]
@@ -780,6 +781,7 @@ function scheme(model){
 				for(let scheme of model.tags.redeemSchemes){
 					console.log(model.data+"::"+scheme["SCHEMECODE"])
 					if(scheme["SCHEMECODE"]==model.data){
+						flag=true
 						model.tags.redeemSchemeObj=scheme;
 						model.tags.folio=scheme["FOLIONO"]
 						let message="Going ahead with "+scheme["SCHEMENAME"]+",";
@@ -856,9 +858,9 @@ function scheme(model){
 
 						}
 					}
-					else{
-						return reject(model)
-					}
+				}
+				if(!flag){
+					return reject(model)
 				}
 				
 			}
