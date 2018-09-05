@@ -1000,33 +1000,96 @@ function holding(model){
 				})
 			}
 			else{
-				api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,true)
+				api.getExistingSchemes(model.tags.session, model.tags.joinAccId)
 				.then((response)=>{
-					// // console.log(response.body)
 					try{
 						response = JSON.parse(response.body)
-						// console.log(JSON.stringify(response,null,3))
 					}
 					catch(e){
 						return reject(model)
-						// console.log(e)
+						console.log(e);
 					}
-					if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
-						
-						for(let element of response.Response[0]){
-							if(element["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
-								model.tags.schemeApiDetails=element
-								api.getExistingSchemes(model.tags.session, model.tags.joinAccId)
-								.then((response)=>{
-									try{
-										response = JSON.parse(response.body)
+					model.tags.existingSchemeApiDetails=response.Response[0];
+					model.tags.existingEuinApiDetails=response.Response[1][0];
+					model.tags.euinApiDetailsList=[];
+					if(response.Response.length>1){
+						for(let i in response.Response[1]){
+							model.tags.euinApiDetailsList.push({
+								title 	: 'Mode',
+								text 	: "Invesment through "+response.Response[1][i]["EUIN"],
+								buttons : [
+									{
+										text : 'Select',
+										data : response.Response[1][i]["ID"]
 									}
-									catch(e){
-										return reject(model)
-										console.log(e);
+								]
+							})
+						}
+					}
+					model.tags.euinApiDetailsList.push({
+						title 	: 'Mode',
+						text 	: "Self initialized Investment",
+						buttons : [
+							{
+								text : 'Select',
+								data : "Direct"
+							}
+						]
+					})
+					model.tags.existingSchemeDetailsSet=[]
+					// // console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
+					for (let existingScheme of model.tags.existingSchemeApiDetails){
+						if(existingScheme["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
+							model.tags.existingSchemeDetailsSet.push(existingScheme)
+						}
+					}
+					model.tags.additionalPossible=false;
+					if(model.tags.existingSchemeDetailsSet.length>0){
+						model.tags.additionalPossible=true;
+						delete model.stage
+						return resolve(model)		
+					}
+					else{
+						// // console.log("<1:::")
+						api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
+						.then((response)=>{
+							// // console.log(response.body)
+							try{
+								response = JSON.parse(response.body)
+								// console.log(JSON.stringify(response,null,3))
+							}
+							catch(e){
+								return reject(model)
+								// console.log(e)
+							}
+
+							if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
+								for(let element of response.Response[0]){
+									if(element["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
+										model.tags.schemeApiDetails=element
 									}
-									model.tags.existingSchemeApiDetails=response.Response[0];
-									model.tags.existingEuinApiDetails=response.Response[1][0];
+								}
+								if(model.tags.schemeApiDetails==undefined){
+									let reply={
+						                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+										model.stage = 'askSchemeName'
+										model.tags.schemes=undefined;
+										model.tags.scheme=undefined;
+										return resolve(model)
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+						        }
+						        else{
+									model.tags.euinApiDetails=response.Response[1][0];
 									model.tags.euinApiDetailsList=[];
 									if(response.Response.length>1){
 										for(let i in response.Response[1]){
@@ -1052,182 +1115,96 @@ function holding(model){
 											}
 										]
 									})
-									model.tags.existingSchemeDetailsSet=[]
-									// // console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
-									for (let existingScheme of model.tags.existingSchemeApiDetails){
-										if(existingScheme["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
-											model.tags.existingSchemeDetailsSet.push(existingScheme)
+						            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
+						            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
+						            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
+									api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+									.then(response=>{
+										// // console.log(response.body)
+										try{
+											response = JSON.parse(response.body)
 										}
-									}
-									model.tags.additionalPossible=false;
-									if(model.tags.existingSchemeDetailsSet.length>0){
-										model.tags.additionalPossible=true;
-										delete model.stage
-										return resolve(model)		
-									}
-									else{
-										// // console.log("<1:::")
-										api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
-										.then((response)=>{
-											// // console.log(response.body)
-											try{
-												response = JSON.parse(response.body)
-												// console.log(JSON.stringify(response,null,3))
+										catch(e){console.log(e);
+											return reject(model);
+										}
+										let arr = []
+										for(let i in response.Response){
+											arr.push(response.Response[i].FolioNo.toLowerCase())
+										}
+										// if(model.tags.folio && arr.includes(model.tags.folio)){
+										// 	model.stage="amount";
+										// }
+										if(response.Response.length > 0){
+											model.tags.folioList = []
+											model.tags.folioObjList=response.Response;
+											for(let i in response.Response){
+												model.tags.folioList.push({
+													data : response.Response[i].FolioNo,
+													text : response.Response[i].FolioNo
+												})
 											}
-											catch(e){
-												return reject(model)
-												// console.log(e)
-											}
-
-											if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
-												for(let element of response.Response[0]){
-													if(element["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
-														model.tags.schemeApiDetails=element
-													}
-												}
-												if(model.tags.schemeApiDetails==undefined){
-													let reply={
-										                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-										                type    : "text",
-										                sender  : model.sender,
-										                language: "en"
-										            }
-													external(reply)
-													.then((data)=>{
-														model.stage = 'askSchemeName'
-														model.tags.schemes=undefined;
-														model.tags.scheme=undefined;
-														return resolve(model)
-										            })
-										            .catch((e)=>{
-										                console.log(e);
-										                return reject(model)
-										            })
-										        }
-										        else{
-													model.tags.euinApiDetails=response.Response[1][0];
-													model.tags.euinApiDetailsList=[];
-													if(response.Response.length>1){
-														for(let i in response.Response[1]){
-															model.tags.euinApiDetailsList.push({
-																title 	: 'Mode',
-																text 	: "Invesment through "+response.Response[1][i]["EUIN"],
-																buttons : [
-																	{
-																		text : 'Select',
-																		data : response.Response[1][i]["ID"]
-																	}
-																]
-															})
-														}
-													}
-													model.tags.euinApiDetailsList.push({
-														title 	: 'Mode',
-														text 	: "Self initialized Investment",
-														buttons : [
-															{
-																text : 'Select',
-																data : "Direct"
-															}
-														]
-													})
-										            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
-										            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
-										            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
-													api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-													.then(response=>{
-														// // console.log(response.body)
-														try{
-															response = JSON.parse(response.body)
-														}
-														catch(e){console.log(e);
-															return reject(model);
-														}
-														let arr = []
-														for(let i in response.Response){
-															arr.push(response.Response[i].FolioNo.toLowerCase())
-														}
-														// if(model.tags.folio && arr.includes(model.tags.folio)){
-														// 	model.stage="amount";
-														// }
-														if(response.Response.length > 0){
-															model.tags.folioList = []
-															model.tags.folioObjList=response.Response;
-															for(let i in response.Response){
-																model.tags.folioList.push({
-																	data : response.Response[i].FolioNo,
-																	text : response.Response[i].FolioNo
-																})
-															}
-															model.stage='euin'
-														}
-														else{
-															model.tags.folioNo = response.Response[0].FolioNo
-															model.stage='euin'
-														}
-														return resolve(model)
-													})
-													.catch(e=>{
-														// console.log(e)
-														return reject(model)
-													})
-												}
-											}
-											else{
-												let reply={
-									                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-									                type    : "text",
-									                sender  : model.sender,
-									                language: "en"
-									            }
-												external(reply)
-												.then((data)=>{
-													model.stage = 'askSchemeName'
-													model.tags.schemes=undefined;
-													model.tags.scheme=undefined;
-													return resolve(model)
-									            })
-									            .catch((e)=>{
-									                console.log(e);
-									                return reject(model)
-									            })
-											}
-										})
-										.catch(e=>{
-											// console.log(e)
-											let reply={
-								                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-								                type    : "text",
-								                sender  : model.sender,
-								                language: "en"
-								            }
-											external(reply)
-											.then((data)=>{
-												model.stage = 'askSchemeName'
-												model.tags.schemes=undefined;
-												model.tags.scheme=undefined;
-												return resolve(model)
-								            })
-								            .catch((e)=>{
-								                console.log(e);
-								                return reject(model)
-								            })
-											return reject(model)
-										})
-									}
-								})
-								.catch(e=>{
-									// console.log(e)
-									return reject(model)
-								})
+											model.stage='euin'
+										}
+										else{
+											model.tags.folioNo = response.Response[0].FolioNo
+											model.stage='euin'
+										}
+										return resolve(model)
+									})
+									.catch(e=>{
+										// console.log(e)
+										return reject(model)
+									})
+								}
 							}
-						}
+							else{
+								let reply={
+					                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+					                type    : "text",
+					                sender  : model.sender,
+					                language: "en"
+					            }
+								external(reply)
+								.then((data)=>{
+									model.stage = 'askSchemeName'
+									model.tags.schemes=undefined;
+									model.tags.scheme=undefined;
+									return resolve(model)
+					            })
+					            .catch((e)=>{
+					                console.log(e);
+					                return reject(model)
+					            })
+							}
+						})
+						.catch(e=>{
+							// console.log(e)
+							let reply={
+				                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+				                type    : "text",
+				                sender  : model.sender,
+				                language: "en"
+				            }
+							external(reply)
+							.then((data)=>{
+								model.stage = 'askSchemeName'
+								model.tags.schemes=undefined;
+								model.tags.scheme=undefined;
+								return resolve(model)
+				            })
+				            .catch((e)=>{
+				                console.log(e);
+				                return reject(model)
+				            })
+							return reject(model)
+						})
 					}
 				})
 				.catch(e=>{
 					// console.log(e)
 					return reject(model)
 				})
+
 				
 			}
 		}
@@ -1240,52 +1217,79 @@ function holding(model){
 function additional(model){
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes("yes")&&model.tags.existingSchemeDetailsSet.length>0){
-			model.tags.additional=true;
-			if(model.tags.existingSchemeDetailsSet.length===1){
-				// // console.log("1:::")
-				model.tags.tranId=model.tags.existingSchemeDetailsSet[0]["Tranid"]
-				model.tags.folio=model.tags.existingSchemeDetailsSet[0]["FolioNo"]
-				model.tags.divOption=model.tags.existingSchemeDetailsSet[0]["DivOpt"]
-				model.tags.schemeApiDetails=model.tags.existingSchemeDetailsSet[0]
-				if(model.tags.schemeApiDetails==undefined){
-					let reply={
-		                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-		                type    : "text",
-		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{
-						model.stage = 'askSchemeName'
-						model.tags.schemes=undefined;
-						model.tags.scheme=undefined;
-						return resolve(model)
-		            })
-		            .catch((e)=>{
-		                console.log(e);
-		                return reject(model)
-		            })
-		        }
-		        else{
-					delete model.stage;	
+			api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
+			.then((response)=>{
+				// // console.log(response.body)
+				try{
+					response = JSON.parse(response.body)
+					// console.log(JSON.stringify(response,null,3))
 				}
-			}
-			else if(model.tags.existingSchemeDetailsSet.length>1){
-				// // console.log(">1:::")
-
-				model.tags.additionalPossible=true;
-				model.tags.folioList = []
-				for(let i in model.tags.existingSchemeDetailsSet){
-					model.tags.folioList.push({
-						data : model.tags.existingSchemeDetailsSet[i].FolioNo,
-						text : model.tags.existingSchemeDetailsSet[i].FolioNo
-					})
+				catch(e){
+					return reject(model)
+					// console.log(e)
 				}
+				let flag=false
+				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
+					for(let element of response.Response[0]){
+						if(element["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
+							flag=true;
+							model.tags.schemeApiDetails=element
+							model.tags.additional=true;
+							if(model.tags.existingSchemeDetailsSet.length===1){
+								// // console.log("1:::")
+								model.tags.tranId=model.tags.existingSchemeDetailsSet[0]["Tranid"]
+								model.tags.folio=model.tags.existingSchemeDetailsSet[0]["FolioNo"]
+								model.tags.divOption=model.tags.existingSchemeDetailsSet[0]["DivOpt"]
+								model.tags.schemeApiDetails=model.tags.existingSchemeDetailsSet[0]
+								if(model.tags.schemeApiDetails==undefined){
+									let reply={
+						                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
+						                type    : "text",
+						                sender  : model.sender,
+						                language: "en"
+						            }
+									external(reply)
+									.then((data)=>{
+										model.stage = 'askSchemeName'
+										model.tags.schemes=undefined;
+										model.tags.scheme=undefined;
+										return resolve(model)
+						            })
+						            .catch((e)=>{
+						                console.log(e);
+						                return reject(model)
+						            })
+						        }
+						        else{
+									delete model.stage;	
+								}
+							}
+							else if(model.tags.existingSchemeDetailsSet.length>1){
+								// // console.log(">1:::")
 
-				delete model.stage
-			}
+								model.tags.additionalPossible=true;
+								model.tags.folioList = []
+								for(let i in model.tags.existingSchemeDetailsSet){
+									model.tags.folioList.push({
+										data : model.tags.existingSchemeDetailsSet[i].FolioNo,
+										text : model.tags.existingSchemeDetailsSet[i].FolioNo
+									})
+								}
 
-			return resolve(model);
+								delete model.stage
+							}
+
+							return resolve(model);
+						}
+					}
+				}
+				if(!flag){
+					return reject(model);
+				}
+			})
+			.catch((e)=>{
+				return reject(e);
+			});
 		}
 		else if(model.data.toLowerCase().includes("no")){
 			model.tags.additional=false;
