@@ -238,7 +238,7 @@ function initAmount(model){
 
 function amount(model){
 	return new Promise(function(resolve, reject){
-
+		console.log(model.tags.schemeApiDetails)
 		model.reply={
 			type:"text",
             text:"Tell me the amount you want to invest, it should be greater than or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaximumInvestment"] +" and in the multiples of "+model.tags.schemeApiDetails["Multiples"] 
