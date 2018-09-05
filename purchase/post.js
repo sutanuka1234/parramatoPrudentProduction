@@ -646,8 +646,13 @@ function otp(model){
 function agreement(model){
 	return new Promise(function(resolve,reject){
 		if(model.data.toLowerCase().trim().includes("i accept and agree")){
+			if(model.tags.decideStage){
+				model.stage=model.tags.decideStage;
+			}
+			else{
 				delete model.stage;
-				return resolve(model);
+			}
+			return resolve(model);
 		}
 		else{
 			return reject(model);
@@ -1390,6 +1395,7 @@ function additional(model){
 
 function euin(model){
 	return new Promise(function(resolve, reject){
+		model.tags.decideStage=undefined
 		try{
 			let euinFlag=false;
 			for(let data of model.tags.euinApiDetailsList){
@@ -1534,11 +1540,13 @@ function euin(model){
 									}
 								// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 								if(model.tags.bankMandateList.length==0){
-									model.stage = 'amount'
+									model.stage = 'agreement'
+									model.tags.decideStage='amount'
 									return resolve(model)
 								}
 								else{
-									model.stage = 'bankMandate'
+									model.stage = 'agreement'
+									model.tags.decideStage='bankMandate'
 									return resolve(model)
 								}
 							}
@@ -1552,7 +1560,8 @@ function euin(model){
 						})
 					}
 					else{
-						model.stage = 'amount'
+						model.stage = 'agreement'
+						model.tags.decideStage='amount'
 						return resolve(model)
 					}
 				}
