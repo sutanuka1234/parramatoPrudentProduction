@@ -1235,7 +1235,7 @@ function additional(model){
 						if(element["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
 							flag=true;
 							console.log("ADDITIONAL::::??>>>")
-							console.log(element)
+							console.log(model.tags.schemeApiDetails)
 							model.tags.termsAdditional=element
 							model.tags.additional=true;
 							if(model.tags.existingSchemeDetailsSet.length===1){
