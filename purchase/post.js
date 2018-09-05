@@ -1233,6 +1233,8 @@ function additional(model){
 					for(let element of response.Response[0]){
 						if(element["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
 							flag=true;
+							console.log("ADDITIONAL::::??>>>")
+							console.log(element)
 							model.tags.schemeApiDetails=element
 							model.tags.additional=true;
 							if(model.tags.existingSchemeDetailsSet.length===1){
