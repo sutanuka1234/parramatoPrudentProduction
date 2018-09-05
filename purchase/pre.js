@@ -264,13 +264,20 @@ function holding(model){
 
 function agreement(model){
 	return new Promise(function(resolve,reject){
+		let doc;
+		if(model.tags.additional){
+			doc=model.tags.termsAdditional
+		}
+		else{
+			doc=model.tags.schemeApiDetails
+		}
 		model.reply={
 				type:"button",
 	            text:"In order to proceed, please read and agree to our and Fund House policies. "
-					+model.tags.schemeApiDetails.OfferDocumentLink+" is the Offer Document. "
-					+model.tags.schemeApiDetails.SchemeDocumentLink+" is the Scheme Document. "
-					+model.tags.schemeApiDetails.AddInformationDocumentLink+" is Additional Information Document. "
-					+" Terms and Conditions would be "+model.tags.schemeApiDetails.TermsAndConditionDocumentLink,
+					+doc.OfferDocumentLink+" is the Offer Document. "
+					+doc.SchemeDocumentLink+" is the Scheme Document. "
+					+doc.AddInformationDocumentLink+" is Additional Information Document. "
+					+" Terms and Conditions would be "+doc.TermsAndConditionDocumentLink,
 	            next:{
 	                data: [{
 	                	text:"I accept and agree",
