@@ -1661,16 +1661,18 @@ function folio(model){
 							divFlag=false;
 					}
 				}
+				if(model.tags.additional){
+					model.tags.divOption=model.tags.existingSchemeApiDetails["DivOpt"]
+					divFlag=false;
+				}
 
 
-
-				if(divFlag&&!model.tags.additional){
+				if(divFlag){
 					// // console.log("1")
 					delete model.stage;
 					return resolve(model);
 				}
 				else{
-					model.tags.divOption=model.tags.existingSchemeApiDetails["DivOpt"]
 					if(model.tags.additional&&model.tags.existingSchemeDetailsSet.length>1){
 						for(let schemeVal of model.tags.existingSchemeDetailsSet){
 							if(schemeVal["FolioNo"]==model.tags.folio){
