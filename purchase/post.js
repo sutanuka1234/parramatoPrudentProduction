@@ -1658,7 +1658,6 @@ function folio(model){
 					}
 					else if(model.tags.schemeApiDetails&&(model.tags.schemeApiDetails["OPT_CODE"]==0||model.tags.schemeApiDetails["OPT_CODE"]==1||model.tags.schemeApiDetails["OPT_CODE"]==2)){
 						model.tags.divOption=model.tags.schemeApiDetails["OPT_CODE"]
-					  divFlag=false;
 					}
 					if(data[model.tags.scheme].optionCode == 1){
 							model.tags.divOption = 0
