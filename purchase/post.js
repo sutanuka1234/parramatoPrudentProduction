@@ -1656,20 +1656,21 @@ function folio(model){
 							}
 						}
 					}
-					else if(model.tags.schemeApiDetails&&(model.tags.schemeApiDetails["OPT_CODE"]==0||model.tags.schemeApiDetails["OPT_CODE"]==1||model.tags.schemeApiDetails["OPT_CODE"]==2)){
-						model.tags.divOption=model.tags.schemeApiDetails["OPT_CODE"]
-					}
 					if(data[model.tags.scheme].optionCode == 1){
 							model.tags.divOption = 0
 							divFlag=false;
 					}
 				}
-				if(divFlag){
+
+
+
+				if(divFlag&&!model.tags.additional){
 					// // console.log("1")
 					delete model.stage;
 					return resolve(model);
 				}
 				else{
+					model.tags.divOption=model.tags.schemeApiDetails["OPT_CODE"]
 					if(model.tags.additional&&model.tags.existingSchemeDetailsSet.length>1){
 						for(let schemeVal of model.tags.existingSchemeDetailsSet){
 							if(schemeVal["FolioNo"]==model.tags.folio){
