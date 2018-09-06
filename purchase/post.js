@@ -1634,6 +1634,7 @@ function folio(model){
 			sendExternalMessage(model,"Going ahead with "+model.data)
 			
 				model.tags.folio = model.data
+				console.log(model.tags.folioObjList)
 				for(let i in model.tags.folioObjList){
 					if(model.tags.folioObjList[i]["DIVIDENDOPTION"]){
 						if(model.tags.folioObjList[i]["FolioNo"]==model.tags.folio||(model.tags.folioObjList[i]["FolioNo"]=="New Folio"&&model.tags.folio=="0")){
