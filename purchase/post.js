@@ -1670,7 +1670,7 @@ function folio(model){
 					return resolve(model);
 				}
 				else{
-					model.tags.divOption=model.tags.schemeApiDetails["OPT_CODE"]
+					console.log(model.tags.existingSchemeApiDetails)
 					if(model.tags.additional&&model.tags.existingSchemeDetailsSet.length>1){
 						for(let schemeVal of model.tags.existingSchemeDetailsSet){
 							if(schemeVal["FolioNo"]==model.tags.folio){
