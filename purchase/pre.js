@@ -294,7 +294,7 @@ function euin(model){
 		if(model.tags.euinApiDetailsList){
 			model.reply={
 				type:"generic",
-	            text:"Can you please let us know the investment mode. You can invest by yourself or through your advisor (advisor codes available below)",
+	            text:"Select whether fund selection is done by you or suggested by distributor. Is fund selection done yourself or suggested by distributor?",
 	            next:{
 	                data: model.tags.euinApiDetailsList
 	            }
