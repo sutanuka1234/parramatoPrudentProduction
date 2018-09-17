@@ -1663,14 +1663,21 @@ function folio(model){
 					}
 				}
 				if(model.tags.additional){
-					model.tags.divOption=model.tags.existingSchemeApiDetails["DivOpt"]
-					divFlag=false;
+					if(model.tags.existingSchemeApiDetails["DivOpt"]!=undefined){
+						model.tags.divOption=model.tags.existingSchemeApiDetails["DivOpt"]
+						divFlag=false;
+					}
+					else if(model.tags.existingSchemeApiDetails&&model.tags.existingSchemeApiDetails.length>0){
+						for (let scheme of model.tags.existingSchemeApiDetails){
+							console.log(scheme["SCHEMECODE"])
+							console.log(scheme["S_Name"])
+							console.log(scheme["DivOpt"])
+						}
+					}
 				}
 				console.log(":::::::::::::::::::::::FOLIO:::::::::::::::::::::::::::::::::")
 				console.log(model.tags.folioObjList)
 				console.log(":::::::::::::::::::::::DIV OPTION:::::::::::::::::::::::::::::::::")
-				console.log(model.tags.existingSchemeApiDetails)
-				console.log("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
 
 
 				if(divFlag){
