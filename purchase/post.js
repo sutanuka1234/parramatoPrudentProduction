@@ -1670,20 +1670,21 @@ function folio(model){
 					else if(model.tags.existingSchemeApiDetails&&model.tags.existingSchemeApiDetails.length>0){
 						for (let scheme of model.tags.existingSchemeApiDetails){
 							if(data[model.tags.scheme].schemeCode==scheme["SCHEMECODE"]&&scheme["FolioNo"]==model.tags.folio){
-								console.log(scheme["SCHEMECODE"]+":"+data[model.tags.scheme].schemeCode)
-								console.log(scheme["S_Name"])
-								console.log(scheme["DivOpt"])
-								console.log(model.tags.folio)
+								// console.log(scheme["SCHEMECODE"]+":"+data[model.tags.scheme].schemeCode)
+								// console.log(scheme["S_Name"])
+								// console.log(scheme["DivOpt"])
+								// console.log(model.tags.folio)
 								model.tags.divOption=scheme["DivOpt"]
 								divFlag=false;
-								console.log(scheme)
+								// console.log(scheme)
+								break;
 							}
 						}
 					}
 				}
-				console.log(":::::::::::::::::::::::FOLIO:::::::::::::::::::::::::::::::::")
-				console.log(model.tags.folioObjList)
-				console.log(":::::::::::::::::::::::DIV OPTION:::::::::::::::::::::::::::::::::")
+				// console.log(":::::::::::::::::::::::FOLIO:::::::::::::::::::::::::::::::::")
+				// console.log(model.tags.folioObjList)
+				// console.log(":::::::::::::::::::::::DIV OPTION:::::::::::::::::::::::::::::::::")
 
 
 				if(divFlag){
