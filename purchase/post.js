@@ -1675,6 +1675,7 @@ function folio(model){
 								console.log(scheme["DivOpt"])
 								model.tags.divOption=scheme["DivOpt"]
 								divFlag=false;
+								console.log(scheme)
 							}
 						}
 					}
