@@ -1669,7 +1669,7 @@ function folio(model){
 				console.log(":::::::::::::::::::::::FOLIO:::::::::::::::::::::::::::::::::")
 				console.log(model.tags.folioObjList)
 				console.log(":::::::::::::::::::::::DIV OPTION:::::::::::::::::::::::::::::::::")
-				console.log(model.tags.existingSchemeApiDetails["DivOpt"])
+				console.log(model.tags.existingSchemeApiDetails)
 
 
 				if(divFlag){
