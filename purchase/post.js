@@ -1669,9 +1669,12 @@ function folio(model){
 					}
 					else if(model.tags.existingSchemeApiDetails&&model.tags.existingSchemeApiDetails.length>0){
 						for (let scheme of model.tags.existingSchemeApiDetails){
-							console.log(scheme["SCHEMECODE"])
-							console.log(scheme["S_Name"])
-							console.log(scheme["DivOpt"])
+							if(data[model.tags.scheme].schemeCode==scheme["SCHEMECODE"]){
+								console.log(scheme["SCHEMECODE"]+":"+data[model.tags.scheme].schemeCode)
+								console.log(scheme["S_Name"])
+								console.log(scheme["DivOpt"])
+								model.tags.divOption=scheme["DivOpt"]
+							}
 						}
 					}
 				}
