@@ -158,9 +158,9 @@ function agreement(model){
 	return new Promise(function(resolve,reject){
 		model.reply={
 				type:"button",
-	            text:"In order to proceed, please read and agree to our and Fund House policies."
-					+model.tags.schemeApiDetails.OfferDocumentLink+" is the Offer Document."
-					+model.tags.schemeApiDetails.SchemeDocumentLink+" is the Scheme Document."
+	            text:"In order to proceed, please read and agree to our and Fund House policies.Link "
+					+model.tags.schemeApiDetails.OfferDocumentLink+" is the Offer Document.Link "
+					+model.tags.schemeApiDetails.SchemeDocumentLink+" is the Scheme Document.Link "
 					+model.tags.schemeApiDetails.AddInformationDocumentLink+" is Additional Information Document."
 					+"Terms and Conditions would be "+model.tags.schemeApiDetails.TermsAndConditionDocumentLink,
 	            next:{
