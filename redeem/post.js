@@ -521,7 +521,7 @@ function otp(model){
 					else{
 						model.tags.joinAcc = response.Response
 						model.tags.investorName=model.tags.joinAcc[0].JoinHolderName.split("/")[0];
-						sendExternalMessage(model,"Hi "+model.tags.joinAcc[0].JoinHolderName.split("/")[0]+", "+greeting[Math.floor((Math.random() * 3))];
+						sendExternalMessage(model,"Hi "+model.tags.joinAcc[0].JoinHolderName.split("/")[0]+", "+greeting[Math.floor(Math.random()* 3)]);
 						model.tags.joinAccIdList = []
 						response.Response.forEach(function(element){
 							model.tags.joinAccIdList.push(element.JoinAccId.toString())
