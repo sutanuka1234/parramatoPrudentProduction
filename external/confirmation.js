@@ -10,37 +10,42 @@ function main(req, res){
 		console.log("confirmation")
 		console.log(req)
 		let confirmationBody=req.body
-		let arr=Object.keys(confirmationBody)
-		let session=""
-		let refId=""
-		if(arr.length>0){
-			arr=arr[0].split(",")
-			for(let element of arr){
-				if(element.startsWith("SessionId:")){
-					session=element.split(":")[1]	
-				}
-				if(element.startsWith("ReferenceId:")){
-					refId=element.split(":")[1]
-				}
-			}
-		}
-		if(session){
-			console.log(session)
-			console.log(refId)
-			let model={
-				repo:{"tags.session":session,"callback": true},
-				response:session+"-payment-"+refId,
-				data:{
-					transactionRefId:refId
+		if(confirmationBody["Status"]&&confirmationBody["Status"].toLowerCase().trim()!="failed"){
+			let arr=Object.keys(confirmationBody)
+			let session=""
+			let refId=""
+			if(arr.length>0){
+				arr=arr[0].split(",")
+				for(let element of arr){
+					if(element.startsWith("SessionId:")){
+						session=element.split(":")[1]	
+					}
+					if(element.startsWith("ReferenceId:")){
+						refId=element.split(":")[1]
+					}
 				}
 			}
-			sendExternalData(model)
-			.then(()=>{});
-			res.sendStatus(200);
+			if(session){
+				console.log(session)
+				console.log(refId)
+				let model={
+					repo:{"tags.session":session,"callback": true},
+					response:session+"-payment-"+refId,
+					data:{
+						transactionRefId:refId
+					}
+				}
+				sendExternalData(model)
+				.then(()=>{});
+				res.sendStatus(200);
+			}
+			else{
+				res.sendStatus(203);
+			}
 		}
 		else{
 			res.sendStatus(203);
-		}
+		}	
 }
 
 
