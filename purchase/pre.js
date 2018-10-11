@@ -277,7 +277,7 @@ function agreement(model){
 					+doc.OfferDocumentLink+" is the Offer Document."
 					+doc.SchemeDocumentLink+" is the Scheme Document."
 					+doc.AddInformationDocumentLink+" is Additional Information Document."
-					+" Terms and Conditions would be "+doc.TermsAndConditionDocumentLink,
+					+"Terms and Conditions would be "+doc.TermsAndConditionDocumentLink,
 	            next:{
 	                data: [{
 	                	text:"I accept and agree",

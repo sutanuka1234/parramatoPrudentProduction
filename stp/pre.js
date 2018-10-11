@@ -161,7 +161,7 @@ function agreement(model){
 					+model.tags.schemeApiDetails.OfferDocumentLink+" is the Offer Document."
 					+model.tags.schemeApiDetails.SchemeDocumentLink+" is the Scheme Document."
 					+model.tags.schemeApiDetails.AddInformationDocumentLink+" is Additional Information Document."
-					+" Terms and Conditions would be "+model.tags.schemeApiDetails.TermsAndConditionDocumentLink,
+					+"Terms and Conditions would be "+model.tags.schemeApiDetails.TermsAndConditionDocumentLink,
 	            next:{
 	                data: [{
 	                	text:"I accept and agree",

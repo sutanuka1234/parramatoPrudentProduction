@@ -8,6 +8,7 @@ module.exports={
 
 function main(req, res){
 		console.log("confirmation")
+		console.log(req)
 		let confirmationBody=req.body
 		let arr=Object.keys(confirmationBody)
 		let session=""
