@@ -102,6 +102,7 @@ function panMobile(model){
 		model.tags.stpSchemeList=undefined
 		model.tags.stpReferenceId=undefined
 		model.tags.refrenceIdStpTxn=undefined
+		model.tags.schemes=false;
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)

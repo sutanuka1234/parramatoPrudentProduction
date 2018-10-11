@@ -101,6 +101,7 @@ function panMobile(model){
 		model.tags.investmentType=undefined
 		model.tags.transactionRefId=undefined
 		model.tags.additional=false;
+		model.tags.schemes=false;
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)

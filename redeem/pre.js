@@ -92,6 +92,7 @@ function panMobile(model){
 		model.tags.redeemSchemeList=undefined
 		model.tags.redeemReferenceId=undefined
 		model.tags.refrenceIdRedeemTxn=undefined
+		model.tags.schemes=false;
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
