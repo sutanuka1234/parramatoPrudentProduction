@@ -105,6 +105,7 @@ let sortedJourney=["panMobile",
 "bankMandate",
 "summary"]
 
+let greeting = ["hope you are doing great today", "good to see you!", "hope you are having a good time", "hope you are doing well today."]
 
 function main(req, res){
 		// console.log(req.params.stage)
@@ -563,7 +564,7 @@ function otp(model){
 						model.tags.joinAcc = response.Response
 						// console.log("sent message")
 						model.tags.investorName=model.tags.joinAcc[0].JoinHolderName.split("/")[0];
-						sendExternalMessage(model,"Hi "+model.tags.joinAcc[0].JoinHolderName.split("/")[0]+", hope you are doing great today.");
+						sendExternalMessage(model,"Hi "+model.tags.joinAcc[0].JoinHolderName.split("/")[0]+", "+greeting[Math.floor((Math.random() * 4))]);
 						model.tags.joinAccIdList = []
 						response.Response.forEach(function(element){
 							model.tags.joinAccIdList.push(element.JoinAccId.toString())

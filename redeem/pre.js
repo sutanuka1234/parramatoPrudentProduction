@@ -277,7 +277,7 @@ function summary(model){
 		if(model.tags.redeemReferenceId){
 			model.reply={
 				type:"quickReply",
-	            text:"Thanks, your reference id is "+model.tags.redeemReferenceId+". What would you like to do next?",
+	            text:"Your redemption is processed and reference ID is "+model.tags.redeemReferenceId+". What would you like to do next?",
 	            next:{
 	                data: [
 	                	{

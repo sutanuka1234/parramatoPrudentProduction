@@ -250,7 +250,7 @@ function showSchemeName(model){
 		else{
 			model.reply = {
 				type:"generic",
-	            text:"Choose among the closest schemes, or type if you wish to invest in a different scheme.",
+	            text:"Choose amongst the closest schemes, or type if you wish to invest in a different scheme.",
 	            next:{ 
 	            	data : model.tags.schemeList
 	            }
