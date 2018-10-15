@@ -141,13 +141,16 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
+
 		model=dataClean(model);
 		if(model.data.toLowerCase().includes("not")&&model.data.toLowerCase().includes("me")){
 			model.stage="panMobile";
 			model.tags={}
 			return resolve(model);
 		}
+		
 		model = extractPan(model);
+		console.log(model.tags+"::POST")
 		if(model.tags.newPan){
 			let temp = {pan:model.tags.pan}
 			if(model.tags.newFolio){
