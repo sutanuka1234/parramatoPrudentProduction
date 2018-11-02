@@ -11,8 +11,6 @@ function main(req, res){
 		console.log(req)
 		let confirmationBody=req.body
 		let arr=Object.keys(confirmationBody)
-		console.log(session)
-		console.log(refId)
 		if(confirmationBody){
 			let session=""
 			let refId=""
