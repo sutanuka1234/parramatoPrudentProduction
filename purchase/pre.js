@@ -388,8 +388,8 @@ function bankMandate(model){
 
 function summary(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.tags.transactionRefId+'----------')
-		if(model.tags.transactionRefId){
+		console.log(typeof model.tags.transactionRefId+'----------')
+		if(model.tags.transactionRefId&&model.tags.transactionRefId!='undefined'){
 			model.reply={
 				type : 'quickReply',
 				text : 'Hurray!! We have sucessfully initiated your transaction. Reference ID would be '+model.tags.transactionRefId+". What would you like to do next?",
