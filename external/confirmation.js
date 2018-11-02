@@ -42,7 +42,6 @@ function main(req, res){
 					console.log('FAILED')
 					console.log(session)
 					console.log(refId)
-					refId = undefined
 					let model={
 						repo:{"tags.session":session,"callback": true},
 						response:session+"-payment-"+refId,
@@ -53,8 +52,8 @@ function main(req, res){
 					sendExternalData(model)
 					.then((data)=>{ 
 			            model.tags={}
-						return res.sendStatus(200)
 			        })
+					return res.sendStatus(200)
 				}
 			}
 		}
