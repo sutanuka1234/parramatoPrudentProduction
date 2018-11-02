@@ -10,8 +10,7 @@ function main(req, res){
 		console.log("confirmation")
 		console.log(req)
 		let confirmationBody=req.body
-		if(confirmationBody["Status"]&&confirmationBody["Status"].toLowerCase().trim()!="failed"){
-			let arr=Object.keys(confirmationBody)
+		if(confirmationBody){
 			let session=""
 			let refId=""
 			if(arr.length>0){
@@ -26,26 +25,43 @@ function main(req, res){
 				}
 			}
 			if(session){
-				console.log(session)
-				console.log(refId)
-				let model={
-					repo:{"tags.session":session,"callback": true},
-					response:session+"-payment-"+refId,
-					data:{
-						transactionRefId:refId
+				if(confirmationBody["Status"]&&confirmationBody["Status"].toLowerCase().trim()!="failed"){
+					let arr=Object.keys(confirmationBody)
+				
+					console.log(session)
+					console.log(refId)
+					let model={
+						repo:{"tags.session":session,"callback": true},
+						response:session+"-payment-"+refId,
+						data:{
+							transactionRefId:refId
+						}
 					}
+					sendExternalData(model)
+					.then(()=>{});
+					return res.sendStatus(200);
 				}
-				sendExternalData(model)
-				.then(()=>{});
-				res.sendStatus(200);
-			}
-			else{
-				res.sendStatus(203);
+				else{
+
+						console.log(session)
+						console.log(refId)
+						let model={
+							repo:{"tags.session":session,"callback": true},
+							response:session+"-payment-"+refId,
+							data:{
+								transactionRefId:false
+							}
+						}
+						sendExternalData(reply)
+						.then((data)=>{ 
+				            model.tags={}
+							return resolve(model)
+				        })
+				}
 			}
 		}
-		else{
-			res.sendStatus(203);
-		}	
+		return res.sendStatus(203);
+			
 }
 
 

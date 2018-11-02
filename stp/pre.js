@@ -30,7 +30,7 @@ let obj = {
 	summary:summary
 }
 
-let regexPan   	= /[a-z]{3}p[a-z]\d{4}[a-z]/;
+let regexPan   	= /[a-z]{3}p[a-z]\d{4}[a-z]|[a-z]{3}h[a-z]\d{4}[a-z]/;
 let regexMobile = /((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/;
 let regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/
 let schemeType 	= /dividend|growth/

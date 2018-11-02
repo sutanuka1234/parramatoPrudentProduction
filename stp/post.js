@@ -31,7 +31,7 @@ let obj = {
 }
 
 let regexMobile	= /[789]\d{9}/gi
-let regexPan 	= /[a-z]{3}p[a-z]\d{4}[a-z]/
+let regexPan 	= /[a-z]{3}p[a-z]\d{4}[a-z]|[a-z]{3}h[a-z]\d{4}[a-z]/
 let number		= /\d+/
 let regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/gi
 let divOption 	= /re(-|\s)?invest|pay(\s)?out/
