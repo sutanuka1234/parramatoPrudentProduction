@@ -43,14 +43,14 @@ function main(req, res){
 
 						console.log(session)
 						console.log(refId)
-						let rep={
+						let model={
 							repo:{"tags.session":session,"callback": true},
 							response:session+"-payment-"+refId,
 							data:{
 								transactionRefId:false
 							}
 						}
-						sendExternalData(rep)
+						sendExternalData(model)
 						.then((data)=>{ 
 				            model.tags={}
 							return resolve(model)
