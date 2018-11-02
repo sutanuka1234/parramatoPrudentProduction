@@ -388,6 +388,7 @@ function bankMandate(model){
 
 function summary(model){
 	return new Promise(function(resolve, reject){
+		console.log(model.tags.transactionRefId+'----------')
 		if(model.tags.transactionRefId){
 			model.reply={
 				type : 'quickReply',

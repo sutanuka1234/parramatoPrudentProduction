@@ -26,7 +26,6 @@ function main(req, res){
 				}
 			}
 			if(session){
-				console.log(confirmationBody)
 				if(confirmationBody["Status"]&&confirmationBody["Status"].toLowerCase().trim()!="failed"){
 					let model={
 						repo:{"tags.session":session,"callback": true},
