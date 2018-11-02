@@ -26,8 +26,8 @@ function main(req, res){
 				}
 			}
 			if(session){
+				console.log(confirmationBody)
 				if(confirmationBody["Status"]&&confirmationBody["Status"].toLowerCase().trim()!="failed"){
-					
 					let model={
 						repo:{"tags.session":session,"callback": true},
 						response:session+"-payment-"+refId,
@@ -40,21 +40,21 @@ function main(req, res){
 					return res.sendStatus(200);
 				}
 				else{
-
-						console.log(session)
-						console.log(refId)
-						let model={
-							repo:{"tags.session":session,"callback": true},
-							response:session+"-payment-"+refId,
-							data:{
-								transactionRefId:false
-							}
+					console.log('FAILED')
+					console.log(session)
+					console.log(refId)
+					let model={
+						repo:{"tags.session":session,"callback": true},
+						response:session+"-payment-"+refId,
+						data:{
+							transactionRefId:false
 						}
-						sendExternalData(model)
-						.then((data)=>{ 
-				            model.tags={}
-							return resolve(model)
-				        })
+					}
+					sendExternalData(model)
+					.then((data)=>{ 
+			            model.tags={}
+						return res.sendStatus(200)
+			        })
 				}
 			}
 		}
