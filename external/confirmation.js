@@ -10,6 +10,9 @@ function main(req, res){
 		console.log("confirmation")
 		console.log(req)
 		let confirmationBody=req.body
+		let arr=Object.keys(confirmationBody)
+		console.log(session)
+		console.log(refId)
 		if(confirmationBody){
 			let session=""
 			let refId=""
@@ -26,10 +29,7 @@ function main(req, res){
 			}
 			if(session){
 				if(confirmationBody["Status"]&&confirmationBody["Status"].toLowerCase().trim()!="failed"){
-					let arr=Object.keys(confirmationBody)
-				
-					console.log(session)
-					console.log(refId)
+					
 					let model={
 						repo:{"tags.session":session,"callback": true},
 						response:session+"-payment-"+refId,
