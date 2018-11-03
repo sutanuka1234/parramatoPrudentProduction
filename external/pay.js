@@ -34,6 +34,7 @@ function main(req, res){
 
 				<script type="text/javascript">
 				(function(){
+					console.log('calling')
 					openPopupPage('192.168.0.239','`+data["session"]+`','`+data["bankId"]+`','`+data["typeInv"]+`','`+data["joinAccId"]+`','`+data["schemeCode"]+`','1','Prudent','Prudent@123');
 				})();
 				function openPopupPage(IPAddress, SessionId, BankId, InvestmentType, JoinAccId, SchemeCode, IsThirdPartyBankTerms, UserName, Password) {
