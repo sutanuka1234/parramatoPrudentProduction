@@ -53,10 +53,8 @@ function main(req, res){
 						}
 					}
 					sendExternalData(model)
-					.then((data)=>{ 
-			            model.tags={}
-						return res.sendStatus(200)
-			        })
+					.then(()=>{});
+					return res.sendStatus(200);
 				}
 			}
 		}
