@@ -388,7 +388,7 @@ function bankMandate(model){
 
 function summary(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.transactionRefId&&model.tags.transactionRefId!='undefined'){
+		if(model.tags.paymentDone&&model.tags.paymentDone=='true'){
 			model.reply={
 				type : 'quickReply',
 				text : 'Hurray!! We have sucessfully initiated your transaction. Reference ID would be '+model.tags.transactionRefId+". What would you like to do next?",
@@ -426,7 +426,7 @@ function summary(model){
 		else{
 			model.reply={
 				type : 'quickReply',
-				text : 'We cannot go ahead with the investment with given details. However you can try again or go ahead with the following.',
+				text : 'We cannot go ahead with the investment with given details. However you can try again or go ahead with the following. Reference ID would be '+model.tags.transactionRefId+". " ,
 	            next:{
 	                data: [
 	                	{

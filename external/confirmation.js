@@ -31,6 +31,7 @@ function main(req, res){
 						repo:{"tags.session":session,"callback": true},
 						response:session+"-payment-"+refId,
 						data:{
+							paymentDone:true
 							transactionRefId:refId
 						}
 					}
@@ -47,7 +48,8 @@ function main(req, res){
 						repo:{"tags.session":session,"callback": true},
 						response:session+"-payment-"+refId,
 						data:{
-							transactionRefId:false
+							paymentDone:false
+							transactionRefId:refId
 						}
 					}
 					sendExternalData(model)
