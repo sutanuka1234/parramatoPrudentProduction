@@ -37,7 +37,7 @@ function main(req, res){
 			        var params = { 'IPAddress': IPAddress, 'SessionId': SessionId, 'BankId': BankId, 'InvestmentType': InvestmentType, 'JoinAccId': JoinAccId, 'SchemeCode': SchemeCode, 'IsThirdPartyBankTerms': IsThirdPartyBankTerms, 'UserName': UserName, 'Password': Password };
 			        var form = document.createElement("form");
 			        form.setAttribute("method", "post");
-			        form.setAttribute("action", "http://localhost:50427/MakePayment");
+			        form.setAttribute("action", "http://PRudentcorporate.com/CBAPI/MakePayment");
 			        form.setAttribute("target", "_self");
 			        for (var i in params) {
 			            if (params.hasOwnProperty(i)) {
