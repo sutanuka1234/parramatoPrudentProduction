@@ -31,7 +31,7 @@ function main(req, res){
 						repo:{"tags.session":session,"callback": true},
 						response:session+"-payment-"+refId,
 						data:{
-							paymentDone:true
+							paymentDone:true,
 							transactionRefId:refId
 						}
 					}
@@ -48,7 +48,7 @@ function main(req, res){
 						repo:{"tags.session":session,"callback": true},
 						response:session+"-payment-"+refId,
 						data:{
-							paymentDone:false
+							paymentDone:false,
 							transactionRefId:refId
 						}
 					}
