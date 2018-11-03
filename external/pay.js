@@ -28,29 +28,34 @@ module.exports={
 
 function main(req, res){
 		console.log("pay")
-		let data=session[req.query.u]
-		res.send(`<asp:Button ID="Button1" runat="server" Text="Button Client" 
-			OnClientClick="return openPopupPage('192.168.0.239','`+data["session"]+`','`+data["bankId"]+`','`+data["typeInv"]+`','`+data["joinAccId"]+`','`+data["schemeCode"]+`','1','Prudent','Prudent@123');" />
+		try{
+			let data=session[req.query.u]
+			res.send(`<asp:Button ID="Button1" runat="server" Text="Button Client" 
+				OnClientClick="return openPopupPage('192.168.0.239','`+data["session"]+`','`+data["bankId"]+`','`+data["typeInv"]+`','`+data["joinAccId"]+`','`+data["schemeCode"]+`','1','Prudent','Prudent@123');" />
 
-			<script type="text/javascript">
-			function openPopupPage(IPAddress, SessionId, BankId, InvestmentType, JoinAccId, SchemeCode, IsThirdPartyBankTerms, UserName, Password) {
-			        var params = { 'IPAddress': IPAddress, 'SessionId': SessionId, 'BankId': BankId, 'InvestmentType': InvestmentType, 'JoinAccId': JoinAccId, 'SchemeCode': SchemeCode, 'IsThirdPartyBankTerms': IsThirdPartyBankTerms, 'UserName': UserName, 'Password': Password };
-			        var form = document.createElement("form");
-			        form.setAttribute("method", "post");
-			        form.setAttribute("action", "http://PRudentcorporate.com/CBAPI/MakePayment");
-			        form.setAttribute("target", "_self");
-			        for (var i in params) {
-			            if (params.hasOwnProperty(i)) {
-			                var input = document.createElement('input');
-			                input.type = 'hidden';
-			                input.name = i;
-			                input.value = params[i];
-			                form.appendChild(input);
-			            }
-			        }
-			        document.body.appendChild(form);
-			        form.submit();
-			        return false;
-			    }
-			</script>`);
+				<script type="text/javascript">
+				function openPopupPage(IPAddress, SessionId, BankId, InvestmentType, JoinAccId, SchemeCode, IsThirdPartyBankTerms, UserName, Password) {
+				        var params = { 'IPAddress': IPAddress, 'SessionId': SessionId, 'BankId': BankId, 'InvestmentType': InvestmentType, 'JoinAccId': JoinAccId, 'SchemeCode': SchemeCode, 'IsThirdPartyBankTerms': IsThirdPartyBankTerms, 'UserName': UserName, 'Password': Password };
+				        var form = document.createElement("form");
+				        form.setAttribute("method", "post");
+				        form.setAttribute("action", "http://PRudentcorporate.com/CBAPI/MakePayment");
+				        form.setAttribute("target", "_self");
+				        for (var i in params) {
+				            if (params.hasOwnProperty(i)) {
+				                var input = document.createElement('input');
+				                input.type = 'hidden';
+				                input.name = i;
+				                input.value = params[i];
+				                form.appendChild(input);
+				            }
+				        }
+				        document.body.appendChild(form);
+				        form.submit();
+				        return false;
+				    }
+				</script>`);
+		}
+		catch(e){
+			res.send("Failed, Please try again.")
+		}
 }
