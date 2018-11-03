@@ -388,7 +388,6 @@ function bankMandate(model){
 
 function summary(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.tags)
 		if(model.tags.paymentDone&&model.tags.paymentDone=='true'){
 			model.reply={
 				type : 'quickReply',
