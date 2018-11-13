@@ -388,7 +388,9 @@ function bankMandate(model){
 
 function summary(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.paymentDone&&model.tags.paymentDone=='true'){
+		console.log(model.tags.paymentDone)
+		console.log(typeof model.tags.paymentDone)
+		if(model.tags.paymentDone&&model.tags.paymentDone==true){
 			model.reply={
 				type : 'quickReply',
 				text : 'Hurray!! We have sucessfully initiated your transaction. Reference ID would be '+model.tags.transactionRefId+". What would you like to do next?",

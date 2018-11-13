@@ -8,8 +8,12 @@ module.exports={
 
 function main(req, res){
 		console.log("confirmation")
-		console.log(req)
-		let confirmationBody=req.body
+		// console.log(req)
+		let confirmationBody = req.body		
+		// let confirmationBody={
+		//   "ClientName:PATEL ARATIBEN RAJENDRAKUMAR,PAN:CPRPP3661J,SessionId:7C772321713D21713D21713D21713D21713D21713D5E6D3A2364252A7425,ReferenceId:100 1887723,SchemeName:Reliance Liquid Fund - Growth,FolioNo:499153817726,Amount:400.00,BankName:Central Bank of India,Status:Transaction Success,Timest:13 Nov 2018 12:35:00:000": ""
+		// }
+
 		let arr=Object.keys(confirmationBody)
 		if(confirmationBody){
 			let session=""
@@ -25,8 +29,17 @@ function main(req, res){
 					}
 				}
 			}
+			let status;
+			var infoData = Object.keys(confirmationBody)[0].split(',')
+			console.log(infoData)
+			infoData.forEach(function(element){
+			  if(element.includes('Status')){
+			    console.log(element.split(':')[1])
+			    status = element.split(':')[1]
+			  }
+			})
 			if(session){
-				if(confirmationBody["Status"]&&confirmationBody["Status"].toLowerCase().trim()!="failed"){
+				if(status.includes('Success')){
 					let model={
 						repo:{"tags.session":session,"callback": true},
 						response:session+"-payment-"+refId,
