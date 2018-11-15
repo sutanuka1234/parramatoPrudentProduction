@@ -60,7 +60,7 @@ function main(req, res){
 						repo:{"tags.session":session,"callback": true},
 						response:session+"-payment-"+refId,
 						data:{
-							paymentDone:false,
+							paymentDone:"false",
 							transactionRefId:refId
 						}
 					}
@@ -71,7 +71,6 @@ function main(req, res){
 			}
 		}
 		return res.sendStatus(203);
-			
 }
 
 

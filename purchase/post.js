@@ -2415,6 +2415,7 @@ function bankMandate(model){
 		if(model.data.startsWith(model.tags.session+"-payment-")&&model.data.split("-").length==3){
 			model.tags.transactionRefId=model.data.split("-")[2]
 			model.tags.status="Successful"
+			// model.tags.paymentDone=true
 			delete model.stage
 			return resolve(model);
 		}
@@ -2516,6 +2517,7 @@ function bankMandate(model){
 										model.tags.transactionRefId=data.Response[0]["REFERENCENO"]
 										model.tags.sipRefId=model.tags.transactionRefId
 										model.tags.status="Successful"
+										model.tags.paymentDone=true
 										delete model.stage
 										return resolve(model)
 
@@ -2565,6 +2567,7 @@ function bankMandate(model){
 							model.tags.paymentSummary = data.Response[0]
 							model.tags.transactionRefId=model.tags.paymentSummary.ReferenceID
 							model.tags.status=model.tags.paymentSummary.STATUS
+							model.tags.paymentDone=true
 							delete model.stage
 							return resolve(model)
 						}

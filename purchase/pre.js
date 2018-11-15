@@ -102,6 +102,7 @@ function panMobile(model){
 		model.tags.transactionRefId=undefined
 		model.tags.additional=false;
 		model.tags.schemes=false;
+		model.tags.paymentDone="false";
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
@@ -464,6 +465,8 @@ function summary(model){
 	            }
 			}
 		}
+
+		model.tags.paymentDone="false";
 		model.tags.amount = undefined
 		model.tags.joinAccId = undefined
 		model.tags.divOption = undefined
