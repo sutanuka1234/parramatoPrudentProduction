@@ -140,7 +140,7 @@ function otp(model){
 		else{
 			model.reply={
 				type : "text",
-				text : "We have sent an OTP to your mobile number ("+formatter.apply(model.tags.mobile)+"), please share it here. In case if you have not received any OTP, we would send you one if you say 'resend'"
+				text : "Kindly provide an OTP sent to your mobile number ("+formatter.apply(model.tags.mobile)+"), in case if you have not received any OTP type 'Resend'"
 			}
 		}
 		return resolve(model)
