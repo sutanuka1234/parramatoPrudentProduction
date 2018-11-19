@@ -78,7 +78,7 @@ function sendExternalData(data){
     return new Promise(function(resolve,reject){
         try{
             request({
-                uri     :'http://localhost:8080/JUBI2prC24_PrudentProduction/external/webViewCallback',
+                uri     :'http://localhost:8041/JUBI2prC24_PrudentAPIs/external/webViewCallback',
                 json    :data,
                 method  :'POST'   
             },(err,req,body)=>{
