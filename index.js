@@ -15,8 +15,8 @@ const headers={
     Password    : "Prudent@123"
 }
 
-app.listen(8888,()=>{
-    console.log("Server is listening at 8888..")
+app.listen(8042,()=>{
+    console.log("Server is listening at 8042..")
 })
 
 app.get('/external/pay', (req,res)=>{
