@@ -1,4 +1,3 @@
-
 let session = require('../session.js')
 module.exports={
 	main:main
@@ -31,66 +30,13 @@ function main(req, res){
 		try{
 			let data=session[req.query.u]
 			res.send(`
-
 				<script type="text/javascript">
 				(function(){
 					console.log('calling')
 					setTimeout(()=>{
-						getUserIP(function(ip){
-							if(ip){
-								ip=ip.toString();
-							}
-							else{
-								ip='192.168.0.239'
-							}
-							openPopupPage(ip,'`+data["session"]+`','`+data["bankId"]+`','`+data["typeInv"]+`','`+data["joinAccId"]+`','`+data["schemeCode"]+`','1','Prudent','Prudent@123');
-						});
+						openPopupPage('192.168.0.239','`+data["session"]+`','`+data["bankId"]+`','`+data["typeInv"]+`','`+data["joinAccId"]+`','`+data["schemeCode"]+`','1','Prudent','Prudent@123');
 					},100)
 				})();
-
-				/**
-				 * Get the user IP throught the webkitRTCPeerConnection
-				 * @param onNewIP {Function} listener function to expose the IP locally
-				 * @return undefined
-				 */
-				function getUserIP(onNewIP) { //  onNewIp - your listener function for new IPs
-				    //compatibility for firefox and chrome
-				    var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
-				    var pc = new myPeerConnection({
-				        iceServers: []
-				    }),
-				    noop = function() {},
-				    localIPs = {},
-				    ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g,
-				    key;
-
-				    function iterateIP(ip) {
-				        if (!localIPs[ip]) onNewIP(ip);
-				        localIPs[ip] = true;
-				    }
-
-				     //create a bogus data channel
-				    pc.createDataChannel("");
-
-				    // create offer and set local description
-				    pc.createOffer().then(function(sdp) {
-				        sdp.sdp.split('\n').forEach(function(line) {
-				            if (line.indexOf('candidate') < 0) return;
-				            line.match(ipRegex).forEach(iterateIP);
-				        });
-				        
-				        pc.setLocalDescription(sdp, noop, noop);
-				    }).catch(function(reason) {
-				        // An error occurred, so handle the failure to connect
-				    });
-
-				    //listen for candidate events
-				    pc.onicecandidate = function(ice) {
-				        if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
-				        ice.candidate.candidate.match(ipRegex).forEach(iterateIP);
-				    };
-				}
-
 				function openPopupPage(IPAddress, SessionId, BankId, InvestmentType, JoinAccId, SchemeCode, IsThirdPartyBankTerms, UserName, Password) {
 				        var params = { 'IPAddress': IPAddress, 'SessionId': SessionId, 'BankId': BankId, 'InvestmentType': InvestmentType, 'JoinAccId': JoinAccId, 'SchemeCode': SchemeCode, 'IsThirdPartyBankTerms': IsThirdPartyBankTerms, 'UserName': UserName, 'Password': Password };
 				        var form = document.createElement("form");

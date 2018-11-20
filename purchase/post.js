@@ -1578,7 +1578,7 @@ function euin(model){
 									}
 								}
 								if(model.tags.skipMandate){
-										sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+										sendExternalMessage(model,"Hey, your investment amount is higher than the mandate limit, kindly proceed with net banking.")
 									}
 								// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
 								if(model.tags.bankMandateList.length==0){
