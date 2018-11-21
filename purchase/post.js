@@ -1797,7 +1797,7 @@ function folio(model){
 												buttons : [{
 													type : 'url',
 													text : 'Pay',
-													data : 'https://fundzbot.com/api/external/pay?u='+uid
+													data : 'https://development.jubi.ai/prudent/api/external/pay?u='+uid
 												}]
 											})
 											setTimeout(()=>{
@@ -1967,7 +1967,7 @@ function divOps(model){
 										buttons : [{
 											type : 'url',
 											text : 'Pay',
-											data : 'https://fundzbot.com/api/external/pay?u='+uid
+											data : 'https://development.jubi.ai/prudent/api/external/pay?u='+uid
 										}]
 									})
 									setTimeout(()=>{
@@ -2170,7 +2170,7 @@ function amount(model){
 										buttons : [{
 											type : 'url',
 											text : 'Pay',
-											data : 'https://fundzbot.com/api/external/pay?u='+uid
+											data : 'https://development.jubi.ai/prudent/api/external/pay?u='+uid
 										}]
 									})
 									setTimeout(()=>{
