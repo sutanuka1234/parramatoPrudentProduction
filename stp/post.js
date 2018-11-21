@@ -188,7 +188,7 @@ function panMobile(model){
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
 			console.log("2")
-			api.panMobile(model.tags.mobile, model.tags.pan)
+			api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				// console.log("then")
 				// console.log(data.body)
@@ -276,7 +276,7 @@ function panMobile(model){
 			model = extractMobile(model);
 			// model = extractAmount(model);
 			if(model.tags.pan&&model.tags.mobile){
-				api.panMobile(model.tags.mobile, model.tags.pan)
+				api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 				.then(data=>{
 					// console.log(data.body)
 					let response;
@@ -371,7 +371,7 @@ function mobile(model){
 			// model=extractDivOption(model)
 			// model=extractSchemeName(model)
 			if(model.tags.pan&&model.tags.mobile){
-					api.panMobile(model.tags.mobile, model.tags.pan)
+					api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 					.then(data=>{
 						// console.log(data.body)
 						let response;
@@ -434,7 +434,7 @@ function pan(model){
 			// console.log("TAGG")
 			// console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.pan&&model.tags.mobile){
-			api.panMobile(model.tags.mobile, model.tags.pan)
+			api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				// console.log(data.body)
 				let response;
@@ -493,7 +493,7 @@ function otp(model){
 		model = dataClean(model);
 		model = extractOTP(model);
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
-			api.resendOtp(model.tags.session)
+			api.resendOtp(model.tags.ip,model.tags.session)
 			.then((response)=>{
 				// console.log(response.body)
 				try{
@@ -517,7 +517,7 @@ function otp(model){
 			})
 		}
 		else if(model.tags.otp){
-			api.otp(model.tags.session, model.tags.otp)
+			api.otp(model.tags.ip,model.tags.session, model.tags.otp)
 			.then(data=>{
 				try{
 					// console.log(data.body)
@@ -619,7 +619,7 @@ function holding(model){
 			}
 			model.tags.joinAccId = model.data
 			console.log("here")
-			api.getSTPScheme(model.tags.session,model.tags.joinAccId)
+			api.getSTPScheme(model.tags.ip,model.tags.session,model.tags.joinAccId)
 			.then((data)=>{
 				let response;
 				try{
@@ -864,7 +864,7 @@ function showSchemeName(model){
 			else{
 				model.tags.scheme = model.data
 			}
-			api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,undefined,false,model.tags.folio,true)
+			api.getFolio(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,undefined,false,model.tags.folio,true)
 			.then(response=>{
 				console.log(response.body)
 				try{
@@ -922,7 +922,7 @@ function showSchemeName(model){
 								// 	delete model.stage
 								// }
 								sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
-								api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,model.tags.folio,model.tags.stpSchemeObj["SCH_CODE"],undefined,true)
+								api.getScheme(model.tags.ip,model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,model.tags.folio,model.tags.stpSchemeObj["SCH_CODE"],undefined,true)
 								.then((response)=>{
 									console.log(response.body)
 									try{
@@ -1317,7 +1317,7 @@ function initAmount(model) {
 				}
 				
 
-				api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.divOption, model.tags.folio, model.tags.euin, model.tags.stpSchemeObj["SCH_CODE"],data[model.tags.scheme].schemeCode,model.tags.stpFrequency,model.tags.stpWeekDay,model.tags.stpMonthDay,model.tags.stpInstallments,model.tags.initAmount,model.tags.amount,model.tags.stpSchemeObj["eKYC"])
+				api.insertBuyCartStp(model.tags.ip,model.tags.session, model.tags.joinAccId, model.tags.divOption, model.tags.folio, model.tags.euin, model.tags.stpSchemeObj["SCH_CODE"],data[model.tags.scheme].schemeCode,model.tags.stpFrequency,model.tags.stpWeekDay,model.tags.stpMonthDay,model.tags.stpInstallments,model.tags.initAmount,model.tags.amount,model.tags.stpSchemeObj["eKYC"])
 				.then((data)=>{
 						console.log(data.body+":::::")
 						console.log(data)
@@ -1427,7 +1427,7 @@ function amount(model){
 				if(model.tags.folioObj["IsIFolio"]==1){
 					//STP Insert Cart
 					model.tags.initAmount="0"
-					api.insertBuyCartStp(model.tags.session, model.tags.joinAccId, model.tags.divOption, model.tags.folio, model.tags.euin, model.tags.stpSchemeObj["SCH_CODE"],data[model.tags.scheme].schemeCode,model.tags.stpFrequency,model.tags.stpWeekDay,model.tags.stpMonthDay,model.tags.stpInstallments,model.tags.initAmount,model.tags.amount,model.tags.stpSchemeObj["eKYC"])
+					api.insertBuyCartStp(model.tags.ip,model.tags.session, model.tags.joinAccId, model.tags.divOption, model.tags.folio, model.tags.euin, model.tags.stpSchemeObj["SCH_CODE"],data[model.tags.scheme].schemeCode,model.tags.stpFrequency,model.tags.stpWeekDay,model.tags.stpMonthDay,model.tags.stpInstallments,model.tags.initAmount,model.tags.amount,model.tags.stpSchemeObj["eKYC"])
 					.then((data)=>{
 							console.log(data.body+":::::")
 							console.log(data)
@@ -1505,7 +1505,7 @@ function confirm(model){
 
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes("yes")){
-			api.confirmSTP(model.tags.session,model.tags.refrenceIdStpTxn)
+			api.confirmSTP(model.tags.ip,model.tags.session,model.tags.refrenceIdStpTxn)
 			.then((data)=>{
 				console.log(data.body)
 				try{

@@ -195,7 +195,7 @@ function panMobile(model){
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
 			// // console.log("2")
-			api.panMobile(model.tags.mobile, model.tags.pan)
+			api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				// // console.log("then")
 				// // console.log(data.body)
@@ -288,7 +288,7 @@ function panMobile(model){
 			// model = extractFolio(model);
 			// console.log(model.tags.investmentType)
 			if(model.tags.pan&&model.tags.mobile){
-				api.panMobile(model.tags.mobile, model.tags.pan)
+				api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 				.then(data=>{
 					// // console.log(data.body)
 					let response;
@@ -382,7 +382,7 @@ function mobile(model){
 			// model = extractFolio(model);
 			// console.log(model.tags.investmentType)
 			if(model.tags.pan&&model.tags.mobile){
-					api.panMobile(model.tags.mobile, model.tags.pan)
+					api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 					.then(data=>{
 						// // console.log(data.body)
 						let response;
@@ -449,7 +449,7 @@ function pan(model){
 			// // console.log("TAGG")
 			// // console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.pan&&model.tags.mobile){
-			api.panMobile(model.tags.mobile, model.tags.pan)
+			api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				// // console.log(data.body)
 				let response;
@@ -512,7 +512,7 @@ function otp(model){
 		model=extractInvetmentType(model);
 		// console.log(model.tags.investmentType)
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
-			api.resendOtp(model.tags.session)
+			api.resendOtp(model.tags.ip,model.tags.session)
 			.then((response)=>{
 				// // console.log(response.body)
 				try{
@@ -536,7 +536,7 @@ function otp(model){
 			})
 		}
 		else if(model.tags.otp){
-			api.otp(model.tags.session, model.tags.otp)
+			api.otp(model.tags.ip,model.tags.session, model.tags.otp)
 			.then(data=>{
 				try{
 					// // console.log(data.body)
@@ -861,7 +861,7 @@ function holding(model){
 			// // console.log("INVESTMENT TYPE::::::::::")
 			// // console.log(model.tags.investmentType)
 			if(model.tags.investmentType=="sip"){
-				api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,true)
+				api.getScheme(model.tags.ip,model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,true)
 				.then((response)=>{
 					// // console.log(response.body)
 					try{
@@ -926,7 +926,7 @@ function holding(model){
 								]
 							})
 
-							api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,true)
+							api.getFolio(model.tags.ip,model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,true)
 							.then(response=>{
 								// // console.log(response.body)
 								try{
@@ -1008,7 +1008,7 @@ function holding(model){
 				})
 			}
 			else{
-				api.getExistingSchemes(model.tags.session, model.tags.joinAccId)
+				api.getExistingSchemes(model.tags.ip,model.tags.session, model.tags.joinAccId)
 				.then((response)=>{
 					try{
 						response = JSON.parse(response.body)
@@ -1059,7 +1059,7 @@ function holding(model){
 					}
 					else{
 						// // console.log("<1:::")
-						api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
+						api.getScheme(model.tags.ip,model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
 						.then((response)=>{
 							// // console.log(response.body)
 							try{
@@ -1126,7 +1126,7 @@ function holding(model){
 						            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
 						            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
 						            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
-									api.getFolio(model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+									api.getFolio(model.tags.ip,model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 									.then(response=>{
 										// // console.log(response.body)
 										try{
@@ -1225,7 +1225,7 @@ function holding(model){
 function additional(model){
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes("yes")&&model.tags.existingSchemeDetailsSet.length>0){
-			api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
+			api.getScheme(model.tags.ip,model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
 			.then((response)=>{
 				// // console.log(response.body)
 				try{
@@ -1307,7 +1307,7 @@ function additional(model){
 		}
 		else if(model.data.toLowerCase().includes("no")){
 			model.tags.additional=false;
-			api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
+			api.getScheme(model.tags.ip,model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
 			.then((response)=>{
 				// // console.log(response.body)
 				try{
@@ -1371,7 +1371,7 @@ function additional(model){
 									}
 								]
 							})
-						api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+						api.getFolio(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
 						.then(response=>{
 							try{
 								response = JSON.parse(response.body)
@@ -1480,7 +1480,7 @@ function euin(model){
 					}
 					let schemeCode=data[model.tags.scheme].schemeCode
 					if(model.tags.amount){
-						api.insertBuyCart(model.tags.session, model.tags.joinAccId, schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
+						api.insertBuyCart(model.tags.ip,model.tags.session, model.tags.joinAccId, schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
 						.then((data)=>{
 							// // console.log(data.body)
 							try{
@@ -1753,7 +1753,7 @@ function folio(model){
 							}
 							else{
 
-								api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
+								api.insertBuyCart(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
 								.then((data)=>{
 									// // console.log(data.body)
 									try{
@@ -1924,7 +1924,7 @@ function divOps(model){
 				}
 				else{
 
-					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
+					api.insertBuyCart(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
 					.then((data)=>{
 						// // console.log(data.body)
 						try{
@@ -2106,7 +2106,7 @@ function amount(model){
 						return resolve(model)
 				}
 				else{
-					api.insertBuyCart(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
+					api.insertBuyCart(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
 					.then((data)=>{
 						try{
 							// console.log(data.body+":>>>>>>>>>>")
@@ -2269,7 +2269,7 @@ function sipDay(model){
 				}
 				if((model.tags.schemeApiDetails["SIPDays"]==="ALL"&&text<=28&&text>0)||validDate){
 					model.tags.sipDay=text.toString();
-					api.getMandate(model.tags.session, model.tags.joinAccId)
+					api.getMandate(model.tags.ip,model.tags.session, model.tags.joinAccId)
 					.then((data)=>{
 						try{
 							// console.log(data.body)
@@ -2435,7 +2435,7 @@ function bankMandate(model){
 				model.tags.bankMandate = model.data
 
 				if(model.tags.investmentType==="sip"){
-						api.insertBuyCartSip(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.sipDay,model.tags.sipInstallments,model.tags.bankMandate,model.tags.schemeApiDetails["eKYC"])
+						api.insertBuyCartSip(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.sipDay,model.tags.sipInstallments,model.tags.bankMandate,model.tags.schemeApiDetails["eKYC"])
 						.then((data)=>{
 							try{
 								data = JSON.parse(data.body)
@@ -2475,7 +2475,7 @@ function bankMandate(model){
 							}
 							else{
 								model.tags.sipRefId=data.Response[0]["TranReferenceID"];
-								api.confirmSip(model.tags.session,model.tags.sipRefId)
+								api.confirmSip(model.tags.ip,model.tags.session,model.tags.sipRefId)
 								.then((data)=>{
 									try{
 										data = JSON.parse(data.body)
@@ -2538,7 +2538,7 @@ function bankMandate(model){
 				}
 				else{
 
-					api.bankMandate(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.bankMandate, model.tags.amount,model.tags.additional)
+					api.bankMandate(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.bankMandate, model.tags.amount,model.tags.additional)
 					.then((data)=>{
 						// console.log(data.body)
 						try{
