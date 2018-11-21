@@ -2168,6 +2168,7 @@ function amount(model){
 										bankId:element.BankId,
 										ip:model.tags.ip
 									}
+									
 									model.tags.bankMandateList.push({
 										title: "Netbanking",
 										text : element.BankName,
