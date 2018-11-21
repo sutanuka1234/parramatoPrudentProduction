@@ -36,7 +36,7 @@ function main(req, res){
 				(function(){
 					console.log('calling')
 					setTimeout(()=>{
-							var ip=''
+							var ip='`+data["ip"]+`'
 							
 							openPopupPage(ip,'`+data["session"]+`','`+data["bankId"]+`','`+data["typeInv"]+`','`+data["joinAccId"]+`','`+data["schemeCode"]+`','1','Prudent','Prudent@123');
 						

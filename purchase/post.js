@@ -1534,7 +1534,8 @@ function euin(model){
 										schemeCode:schemeCode,
 										typeInv:typeInv,
 										session:model.tags.session,
-										bankId:element.BankId
+										bankId:element.BankId,
+										ip:model.tags.ip
 									}
 									model.tags.bankMandateList.push({
 										title: "Netbanking",
@@ -1789,7 +1790,8 @@ function folio(model){
 												schemeCode:schemeCode,
 												typeInv:typeInv,
 												session:model.tags.session,
-												bankId:element.BankId
+												bankId:element.BankId,
+												ip:model.tags.ip
 											}
 											model.tags.bankMandateList.push({
 												title: "Netbanking",
@@ -1959,7 +1961,8 @@ function divOps(model){
 										schemeCode:schemeCode,
 										typeInv:typeInv,
 										session:model.tags.session,
-										bankId:element.BankId
+										bankId:element.BankId,
+										ip:model.tags.ip
 									}
 									model.tags.bankMandateList.push({
 										title: "Netbanking",
@@ -2162,7 +2165,8 @@ function amount(model){
 										schemeCode:schemeCode,
 										typeInv:typeInv,
 										session:model.tags.session,
-										bankId:element.BankId
+										bankId:element.BankId,
+										ip:model.tags.ip
 									}
 									model.tags.bankMandateList.push({
 										title: "Netbanking",
