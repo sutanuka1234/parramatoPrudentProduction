@@ -306,6 +306,14 @@ function getSTPScheme(ip,session,joinAccId){
 	return runRequest(obj)
 }
 
+function getSchemes(ip){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'SchemeMasterGet?IPAddress='+ip
+	}
+	return runRequest(obj)
+}
 
 
 
@@ -330,6 +338,7 @@ module.exports = {
 	resendOtp 						: resendOtp,
 	otp 							: otp,
 	getScheme 						: getScheme,
+	getSchemes 						: getSchemes,
 	getFolio 						: getFolio,
 	insertBuyCart 					: insertBuyCart,
 	insertBuyCartSip				: insertBuyCartSip,

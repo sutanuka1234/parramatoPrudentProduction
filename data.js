@@ -1,4 +1,12 @@
-module.exports={
+module.exports.get=function(){
+   return data;
+}
+
+module.exports.set = function(dataIn){
+   data=dataIn;
+}
+
+var data={
    "Aditya Birla Sun Life Active Debt Multi Manager FoF Scheme - Growth": {
       "amcCode": 400004,
       "amcName": "Aditya Birla Sun Life AMC Limited",
