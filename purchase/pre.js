@@ -10,6 +10,7 @@ let sortBy = require('sort-by')
 let matchAll = require('match-all')
 let StringMask = require('string-mask')
 
+let path = require("path");
 let obj = {
 	panMobile : panMobile,
 	otp 	: otp,
@@ -634,7 +635,7 @@ async function extractSchemeName(model){
 }
 function readSchemes(){
 	return new Promise((resolve,reject)=>{
-		fs.readFile(`${__dirname}/data.json`, 'utf8', function(err, data) {
+		fs.readFile(path.resolve(__dirname, "../data.json"), 'utf8', function(err, data) {
             if(err){
                 return reject(err)
             }

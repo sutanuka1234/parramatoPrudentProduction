@@ -13,6 +13,8 @@ let sortBy = require('sort-by')
 let matchAll = require('match-all')
 const uuidv1 = require('uuid/v1');
 
+let path = require("path");
+
 let obj = {
 	panMobile : panMobile,
 	mobile	: mobile,
@@ -2772,7 +2774,8 @@ async function extractSchemeName(model){
 }
 function readSchemes(){
 	return new Promise((resolve,reject)=>{
-		fs.readFile(`${__dirname}/data.json`, 'utf8', function(err, data) {
+		
+		fs.readFile(path.resolve(__dirname, "../data.json"), 'utf8', function(err, data) {
             if(err){
                 return reject(err)
             }
