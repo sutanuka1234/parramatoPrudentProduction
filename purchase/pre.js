@@ -639,7 +639,7 @@ function readSchemes(){
             if(err){
                 return reject(err)
             }
-            console.log(data)
+            console.log(typeof data)
             return resolve(JSON.parse(data));
         });
 	})
