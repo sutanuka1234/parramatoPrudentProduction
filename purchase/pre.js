@@ -90,7 +90,7 @@ function main(req, res){
 }
 
 function panMobile(model){
-	return new Promise(function(resolve, reject){
+	return new Promise(async function(resolve, reject){
 		model.tags.amount = undefined
 		model.tags.joinAccId = undefined
 		model.tags.divOption = undefined
@@ -110,7 +110,7 @@ function panMobile(model){
 			model=extractMobile(model)
 			model=extractInvestmentType(model)
 			// model=extractDivOption(model)
-			model=extractSchemeName(model)
+			model=await extractSchemeName(model)
 			model=extractAmount(model)
 			// model=extractFolio(model)
 			console.log(model.tags.investmentType+":Type of investment")
@@ -583,8 +583,8 @@ function extractInvestmentType(model){
 	return model;
 }
 
-async function extractSchemeName(model){
-
+function extractSchemeName(model){
+	return new Promise(async function(resolve,reject){
 		let schemeNames = Object.keys(await readSchemes());
 		// console.log(model)
 		// console.log(schemeNames)
@@ -636,7 +636,8 @@ async function extractSchemeName(model){
 				}
 			}
 		}
-		return model;
+		return resolve(model);
+	})
 }
 function readSchemes(){
 	return new Promise((resolve,reject)=>{
