@@ -3,7 +3,6 @@ module.exports={
 	main:main
 }
 
-let data = require('../data.js').get()
 let words = require('../words.js')
 let stringSimilarity = require('string-similarity');
 let sortBy = require('sort-by')
@@ -582,16 +581,16 @@ function extractInvestmentType(model){
 	return model;
 }
 
-function extractSchemeName(model){
-		let dataAmc=getAmcNamesEntityReplaced(model.tags.userSays);
-		model.tags.userSays=dataAmc.text
-		let wordsInUserSays=model.tags.userSays.toLowerCase().split(" ");
+async function extractSchemeName(model){
+		let schemeNames = Object.keys(await readSchemes());
+		let dataAmc=getAmcNamesEntityReplaced(model.data);
+		model.data=dataAmc.text
+		let wordsInUserSays=model.data.toLowerCase().split(" ");
 		let count=0;
 		let startIndex;
 		let endIndex;
 		let amcIndex;
 		let amcFlag;
-
 		for(let wordIndex in wordsInUserSays){
 			if(words.includes(wordsInUserSays[wordIndex])){
 				count++;
@@ -608,35 +607,40 @@ function extractSchemeName(model){
 				amcFlag=true;
 			}
 		}
-
-
-
 		if(amcFlag){
-			startIndex=amcIndex
-		}
-		if(count>0){
-			let searchTerm=""
-			for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
-				searchTerm+=wordsInUserSays[i]+" "
+			// 	startIndex=amcIndex
+			// }
+
+			if(count>0){
+				let searchTerm=""
+				for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
+					searchTerm+=wordsInUserSays[i]+" "
+				}
+				searchTerm=searchTerm.trim();
+				// // console.log(searchTerm)
+				let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+				if(matches.bestMatch.rating>0.9){
+					model.tags.schemes = []
+					model.tags.schemes.push(matches.bestMatch.target)
+				}
+				else if(matches.bestMatch.rating>0.4||dataAmc.flag){
+					model.tags.schemes = []
+					matches.ratings=matches.ratings.sort(sortBy('-rating'));
+					model.tags.schemes = matches.ratings.splice(0,9);
+				}
 			}
-			searchTerm=searchTerm.trim();
-			console.log(searchTerm)
-			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
-			if(matches.bestMatch.rating>0.9){
-				model.tags.schemes = []
-				model.tags.schemes.push(matches.bestMatch.target)
-				model.tags.newScheme=true;
-			}
-			else if(matches.bestMatch.rating>0.4||dataAmc.flag){
-				model.tags.schemes = []
-				matches.ratings=matches.ratings.sort(sortBy('-rating'));
-				model.tags.schemes = matches.ratings.splice(0,9);
-				model.tags.newScheme=true;
-			}
-			console.log("MATCHHH"+matches.bestMatch.rating+matches.bestMatch.target)
-			// console.log(matches)
 		}
 		return model;
+}
+function readSchemes(){
+	return new Promise((resolve,reject)=>{
+		fs.readFile(`${__dirname}/data.json`, 'utf8', function(err, data) {
+            if(err){
+                return reject(err)
+            }
+            return resolve(data);
+        });
+	})
 }
 
 

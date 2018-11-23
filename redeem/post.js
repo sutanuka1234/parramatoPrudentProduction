@@ -6,7 +6,6 @@ module.exports={
 let api = require('../api.js')
 let external = require('../external.js')
 let words = require('../words.js')
-let data = require('../data.js').get()
 let stringSimilarity = require('string-similarity');
 let sortBy = require('sort-by')
 let matchAll = require('match-all')
@@ -32,7 +31,6 @@ let divOption 	= /re(-|\s)?invest|pay(\s)?out/
 let regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
 let schemeType 	= /dividend|growth/
 let regexOtp    = /\d{6}/
-let schemeNames = Object.keys(data)
 let amc = [  
 	'kotak',
 	'birla',

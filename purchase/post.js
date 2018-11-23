@@ -7,7 +7,7 @@ let api = require('../api.js')
 let external = require('../external.js')
 let words = require('../words.js')
 let session = require('../session.js')
-let data = require('../data.js').get()
+let fs = require('fs')
 let stringSimilarity = require('string-similarity');
 let sortBy = require('sort-by')
 let matchAll = require('match-all')
@@ -43,7 +43,6 @@ let divOption 	= /re(-|\s)?invest|pay(\s)?out/
 let regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
 let schemeType 	= /dividend|growth/
 let regexOtp    = /\d{6}/
-let schemeNames = Object.keys(data)
 let amc = [  
 	'kotak',
 	'birla',
@@ -2720,7 +2719,8 @@ function extractInvetmentType(model){
 	return model;
 }
 
-function extractSchemeName(model){
+async function extractSchemeName(model){
+		let schemeNames = Object.keys(await readSchemes());
 		let dataAmc=getAmcNamesEntityReplaced(model.data);
 		model.data=dataAmc.text
 		let wordsInUserSays=model.data.toLowerCase().split(" ");
@@ -2770,7 +2770,16 @@ function extractSchemeName(model){
 		}
 		return model;
 }
-
+function readSchemes(){
+	return new Promise((resolve,reject)=>{
+		fs.readFile(`${__dirname}/data.json`, 'utf8', function(err, data) {
+            if(err){
+                return reject(err)
+            }
+            return resolve(data);
+        });
+	})
+}
 
 var amcsEntities={
 	"Axis":["axis"],
@@ -2815,3 +2824,4 @@ function dataClean(model){
 	model.data = model.data.toLowerCase()
     return model;
 }
+

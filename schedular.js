@@ -1,14 +1,17 @@
 var api = require("./api.js");
-var data= require('../data.js').get();
+var data= require('../data.js')
 
 
 setInterval(()=>{
 	resetFunds();
-},24*60*60*1000)
+},12*60*60*1000)
+
+
 
 
 
 function resetFunds(){
+
 	api.getSchemes("10.10.10.10")
 	.then((body)=>{
 		let elements = JSON.parse(body["body"]);
@@ -23,7 +26,10 @@ function resetFunds(){
 				option:element["OPTION"]
 			}
 		}
-		data.set(resp);
+		fs.writeFile(`${__dirname}/data.json`, resp,async function (err)  {  
+                if (err) throw err;
+                console.log("Scheme update...")
+     	})
 	})
 }
 

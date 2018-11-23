@@ -3,7 +3,6 @@ module.exports={
 	main:main
 }
 
-let data = require('../data.js').get()
 let words = require('../words.js')
 let stringSimilarity = require('string-similarity');
 let sortBy = require('sort-by')
@@ -26,7 +25,6 @@ let regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/
 let schemeType 	= /dividend|growth/
 let divOption 	= /re(-|\s)?invest|pay(\s)?out/
 let regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
-let schemeNames = Object.keys(data)
 let formatter 	= new StringMask('XXXXXX0000', {reverse:true});
 let amc = [  
 	'kotak',
