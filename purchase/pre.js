@@ -588,10 +588,10 @@ async function extractSchemeName(model){
 		let schemeNames = Object.keys(await readSchemes());
 		// console.log(model)
 		// console.log(schemeNames)
-		let dataAmc=getAmcNamesEntityReplaced(model.data);
+		let dataAmc=getAmcNamesEntityReplaced(model.tags.userSays);
 		console.log(model)
-		model.data=dataAmc.text
-		let wordsInUserSays=model.data.toLowerCase().split(" ");
+		model.tags.userSays=dataAmc.text
+		let wordsInUserSays=model.tags.userSays.toLowerCase().split(" ");
 		let count=0;
 		let startIndex;
 		let endIndex;
