@@ -7,11 +7,8 @@ function resetFunds(){
 			let elements = JSON.parse(body["body"]);
 			elements=elements["Response"]
 			let resp={}
-			console.log(elements)
 			for(let element of elements){
-				if(element["SCHEMECODE"]=="41737"||element["SCHEMECODE"]=="36002"){
-					console.log(element)
-				}
+				
 
 				resp[element["SchemeName"]+" "+element["SubNature"]+element["OPTION"]]={
 					amcCode:element["AMC_CODE"],
@@ -21,6 +18,10 @@ function resetFunds(){
 					subNatureName:element["SubNature"],
 					optionCode:element["OPT_CODE"],
 					option:element["OPTION"]
+				}
+				if(element["SCHEMECODE"]=="41737"||element["SCHEMECODE"]=="36002"){
+					console.log(element["SchemeName"]+" "+element["SubNature"]+element["OPTION"])
+					console.log(resp[element["SchemeName"]+" "+element["SubNature"]+element["OPTION"]])
 				}
 			}
 			fs.writeFile(`${__dirname}/data.json`, JSON.stringify(resp,null,3),async function (err)  {  
