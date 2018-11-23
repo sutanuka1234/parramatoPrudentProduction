@@ -3,6 +3,7 @@ module.exports={
 	main:main
 }
 
+let fs = require('fs')
 let words = require('../words.js')
 let stringSimilarity = require('string-similarity');
 let sortBy = require('sort-by')
