@@ -583,8 +583,12 @@ function extractInvestmentType(model){
 }
 
 async function extractSchemeName(model){
+
 		let schemeNames = Object.keys(await readSchemes());
+		console.log(model)
+		console.log(schemeNames)
 		let dataAmc=getAmcNamesEntityReplaced(model.data);
+		console.log(model)
 		model.data=dataAmc.text
 		let wordsInUserSays=model.data.toLowerCase().split(" ");
 		let count=0;
