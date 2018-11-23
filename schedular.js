@@ -9,6 +9,13 @@ function resetFunds(){
 			let resp={}
 			console.log(elements)
 			for(let element of elements){
+				if(element["SCHEMECODE"]=="41737"||element["SCHEMECODE"]=="36002"){
+					console.log(element)
+				}
+				else{
+					console.log(element["SCHEMECODE"])
+				}
+
 				resp[element["SchemeName"]+" "+element["SubNature"]+element["OPTION"]]={
 					amcCode:element["AMC_CODE"],
 					amcName:element["FUNDNAME"],

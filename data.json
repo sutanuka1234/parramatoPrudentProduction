@@ -3959,6 +3959,24 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
+   "DSP Healthcare Fund - Regular Plan - Dividend Equity-SectorDividend": {
+      "amcCode": 400009,
+      "amcName": "DSP Investment Managers Private Limited",
+      "schemeCode": 41737,
+      "subNatureCode": 23,
+      "subNatureName": "Equity-Sector",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "DSP Healthcare Fund - Regular Plan - Growth Equity-SectorGrowth": {
+      "amcCode": 400009,
+      "amcName": "DSP Investment Managers Private Limited",
+      "schemeCode": 36002,
+      "subNatureCode": 23,
+      "subNatureName": "Equity-Sector",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "DSP India T.I.G.E.R. Fund - Regular Plan - Dividend Equity-SectorDividend": {
       "amcCode": 400009,
       "amcName": "DSP Investment Managers Private Limited",
@@ -7451,10 +7469,28 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
+   "ICICI Prudential Overnight Fund - Annual Dividend Debt-Other DebtDividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 41805,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
    "ICICI Prudential Overnight Fund - Daily Dividend Debt-Other DebtDividend": {
       "amcCode": 400015,
       "amcName": "ICICI Prudential Asset Management Company Limited",
       "schemeCode": 41799,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "ICICI Prudential Overnight Fund - Fortnightly Dividend Debt-Other DebtDividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 41801,
       "subNatureCode": 21,
       "subNatureName": "Debt-Other Debt",
       "optionCode": 2,
@@ -7468,6 +7504,42 @@ module.exports={
       "subNatureName": "Debt-Other Debt",
       "optionCode": 1,
       "option": "Growth"
+   },
+   "ICICI Prudential Overnight Fund - Half Yearly Dividend Debt-Other DebtDividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 41804,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "ICICI Prudential Overnight Fund - Monthly Dividend Debt-Other DebtDividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 41802,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "ICICI Prudential Overnight Fund - Quarterly Dividend Debt-Other DebtDividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 41803,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "ICICI Prudential Overnight Fund - Weekly Dividend Debt-Other DebtDividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 41800,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
    },
    "ICICI Prudential Pharma Healthcare and Diagnostics (P.H.D) Fund - Dividend Equity-SectorDividend": {
       "amcCode": 400015,
@@ -9912,6 +9984,33 @@ module.exports={
       "amcCode": 400019,
       "amcName": "Kotak Mahindra Asset Management Company Limited",
       "schemeCode": 1970,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Kotak Bond Fund - Short Term Plan - Normal Dividend Debt-Short/Medium TermDividend": {
+      "amcCode": 400019,
+      "amcName": "Kotak Mahindra Asset Management Company Limited",
+      "schemeCode": 34659,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Kotak Bond Fund - Short Term Plan - Normal Dividend Reinvestment Debt-Short/Medium TermDividend": {
+      "amcCode": 400019,
+      "amcName": "Kotak Mahindra Asset Management Company Limited",
+      "schemeCode": 34660,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Kotak Bond Unit Scheme 99 - Regular Plan - Half-Yearly Dividend Debt-Short/Medium TermDividend": {
+      "amcCode": 400019,
+      "amcName": "Kotak Mahindra Asset Management Company Limited",
+      "schemeCode": 31173,
       "subNatureCode": 25,
       "subNatureName": "Debt-Short/Medium Term",
       "optionCode": 2,
@@ -14542,6 +14641,24 @@ module.exports={
       "subNatureName": "Equity-Balance",
       "optionCode": 2,
       "option": "Dividend"
+   },
+   "Sundaram Equity Savings Fund - Regular Plan - Dividend Equity-Equity - Savings / IncomeDividend": {
+      "amcCode": 400029,
+      "amcName": "Sundaram Asset Management Company Limited",
+      "schemeCode": 41746,
+      "subNatureCode": 27,
+      "subNatureName": "Equity-Equity - Savings / Income",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Sundaram Equity Savings Fund - Regular Plan - Growth Equity-Equity - Savings / IncomeGrowth": {
+      "amcCode": 400029,
+      "amcName": "Sundaram Asset Management Company Limited",
+      "schemeCode": 33432,
+      "subNatureCode": 27,
+      "subNatureName": "Equity-Equity - Savings / Income",
+      "optionCode": 1,
+      "option": "Growth"
    },
    "Sundaram Financial Services Opportunities Fund - Dividend Equity-SectorDividend": {
       "amcCode": 400029,
