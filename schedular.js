@@ -10,7 +10,7 @@ function resetFunds(){
 			for(let element of elements){
 				
 
-				resp[element["SchemeName"]+" "+element["SubNature"]+element["OPTION"]]={
+				resp[element["SchemeName"]+" "+element["OPTION"]]={
 					amcCode:element["AMC_CODE"],
 					amcName:element["FUNDNAME"],
 					schemeCode:element["SCHEMECODE"],
