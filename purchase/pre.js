@@ -103,6 +103,7 @@ function panMobile(model){
 		model.tags.additional=false;
 		model.tags.schemes=false;
 		model.tags.paymentDone="false";
+		console.log(model)
 		model=dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
@@ -585,8 +586,8 @@ function extractInvestmentType(model){
 async function extractSchemeName(model){
 
 		let schemeNames = Object.keys(await readSchemes());
-		console.log(model)
-		console.log(schemeNames)
+		// console.log(model)
+		// console.log(schemeNames)
 		let dataAmc=getAmcNamesEntityReplaced(model.data);
 		console.log(model)
 		model.data=dataAmc.text
