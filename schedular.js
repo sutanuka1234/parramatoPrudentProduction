@@ -24,11 +24,7 @@ function resetFunds(){
 					console.log(resp[element["SchemeName"]+" "+element["SubNature"]+element["OPTION"]])
 				}
 			}
-			fs.writeFile(`${__dirname}/data.json`, JSON.stringify(resp,null,3),async function (err)  {  
-	                if (err) throw err;
-	                console.log("Scheme update...")
-	     	})
-	     	fs.writeFile(`${__dirname}/data.json`, "module.exports="+JSON.stringify(resp,null,3),async function (err)  {  
+	     	fs.writeFile(`${__dirname}/data.js`, "module.exports="+JSON.stringify(resp,null,3),async function (err)  {  
 	                if (err) throw err;
 	                console.log("Scheme update...")
 	     	})
