@@ -1,6 +1,7 @@
 var request = require('request');
 var stringSimilarity = require('string-similarity');
  
+const schedular = require("./schedular.js")()
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
