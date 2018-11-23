@@ -639,7 +639,8 @@ function readSchemes(){
             if(err){
                 return reject(err)
             }
-            return resolve(data);
+            console.log(data)
+            return resolve(JSON.parse(data));
         });
 	})
 }

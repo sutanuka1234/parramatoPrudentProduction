@@ -2774,12 +2774,13 @@ async function extractSchemeName(model){
 }
 function readSchemes(){
 	return new Promise((resolve,reject)=>{
-		
+
 		fs.readFile(path.resolve(__dirname, "../data.json"), 'utf8', function(err, data) {
             if(err){
                 return reject(err)
             }
-            return resolve(data);
+            console.log(data)
+            return resolve(JSON.parse(data));
         });
 	})
 }
