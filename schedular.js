@@ -12,9 +12,6 @@ function resetFunds(){
 				if(element["SCHEMECODE"]=="41737"||element["SCHEMECODE"]=="36002"){
 					console.log(element)
 				}
-				else{
-					console.log(element["SCHEMECODE"])
-				}
 
 				resp[element["SchemeName"]+" "+element["SubNature"]+element["OPTION"]]={
 					amcCode:element["AMC_CODE"],
