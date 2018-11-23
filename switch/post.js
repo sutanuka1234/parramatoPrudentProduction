@@ -181,7 +181,7 @@ function panMobile(model){
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
 			console.log("2")
-			api.panMobile(model.tags.mobile, model.tags.pan)
+			api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				// console.log("then")
 				// console.log(data.body)
@@ -269,7 +269,7 @@ function panMobile(model){
 			model = extractMobile(model);
 			// model = extractAmount(model);
 			if(model.tags.pan&&model.tags.mobile){
-				api.panMobile(model.tags.mobile, model.tags.pan)
+				api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 				.then(data=>{
 					// console.log(data.body)
 					let response;
@@ -364,7 +364,7 @@ function mobile(model){
 			// model=extractDivOption(model)
 			// model=extractSchemeName(model)
 			if(model.tags.pan&&model.tags.mobile){
-					api.panMobile(model.tags.mobile, model.tags.pan)
+					api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 					.then(data=>{
 						// console.log(data.body)
 						let response;
@@ -427,7 +427,7 @@ function pan(model){
 			// console.log("TAGG")
 			// console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.pan&&model.tags.mobile){
-			api.panMobile(model.tags.mobile, model.tags.pan)
+			api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				// console.log(data.body)
 				let response;
@@ -486,7 +486,7 @@ function otp(model){
 		model = dataClean(model);
 		model = extractOTP(model);
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
-			api.resendOtp(model.tags.session)
+			api.resendOtp(model.tags.ip,model.tags.session)
 			.then((response)=>{
 				// console.log(response.body)
 				try{
@@ -510,7 +510,7 @@ function otp(model){
 			})
 		}
 		else if(model.tags.otp){
-			api.otp(model.tags.session, model.tags.otp)
+			api.otp(model.tags.ip,model.tags.session, model.tags.otp)
 			.then(data=>{
 				try{
 					// console.log(data.body)
@@ -612,7 +612,7 @@ function holding(model){
 			}
 			model.tags.joinAccId = model.data
 			console.log("here")
-			api.getSwitchScheme(model.tags.session,model.tags.joinAccId)
+			api.getSwitchScheme(model.tags.ip,model.tags.session,model.tags.joinAccId)
 			.then((data)=>{
 				let response;
 				try{
@@ -925,7 +925,7 @@ function showSchemeName(model){
 			else{
 				model.tags.scheme = model.data
 			}
-			api.getFolio(model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,undefined,true)
+			api.getFolio(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,undefined,true)
 			.then(response=>{
 				console.log(response.body)
 				try{
@@ -1005,7 +1005,7 @@ function showSchemeName(model){
 								// 	delete model.stage
 								// }
 								sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
-								api.getScheme(model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,model.tags.folio,model.tags.switchSchemeObj["SCHEMECODE"],true)
+								api.getScheme(model.tags.ip,model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,model.tags.folio,model.tags.switchSchemeObj["SCHEMECODE"],true)
 								.then((response)=>{
 									console.log(response.body)
 									try{
@@ -1202,7 +1202,7 @@ function euin(model){
 				// if(true&&model.tags.divOption!=undefined){
 							model.tags.unitOrAmount="AU";
 							// console.log("amount valid")
-							api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin,model.tags.switchSchemeObj["eKYC"])
+							api.insertBuyCartSwitch(model.tags.ip,model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin,model.tags.switchSchemeObj["eKYC"])
 							.then((data)=>{
 								console.log(data)
 								try{
@@ -1366,7 +1366,7 @@ function unitOrAmount(model) {
 		if(model.data.includes("all")){
 			model.tags.unitOrAmount="AU";
 			// console.log("amount valid")
-			api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin,model.tags.switchSchemeObj["eKYC"])
+			api.insertBuyCartSwitch(model.tags.ip,model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin,model.tags.switchSchemeObj["eKYC"])
 			.then((data)=>{
 				console.log(data.body)
 				try{
@@ -1494,7 +1494,7 @@ function amount(model){
 			if(model.tags.amount){
 
 				// console.log("amount valid")
-				api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount,  model.tags.amount, model.tags.folio,model.tags.divOption,model.tags.euin,model.tags.switchSchemeObj["eKYC"])
+				api.insertBuyCartSwitch(model.tags.ip,model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount,  model.tags.amount, model.tags.folio,model.tags.divOption,model.tags.euin,model.tags.switchSchemeObj["eKYC"])
 				.then((data)=>{
 					console.log(data.body)
 					try{
@@ -1567,7 +1567,7 @@ function confirm(model){
 
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes("yes")){
-			api.confirmSwitch(model.tags.session,model.tags.refrenceIdSwitchTxn)
+			api.confirmSwitch(model.tags.ip,model.tags.session,model.tags.refrenceIdSwitchTxn)
 			.then((data)=>{
 				console.log(data.body)
 				try{

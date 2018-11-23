@@ -30,13 +30,19 @@ function main(req, res){
 		try{
 			let data=session[req.query.u]
 			res.send(`
+
 				<script type="text/javascript">
 				(function(){
 					console.log('calling')
 					setTimeout(()=>{
-						openPopupPage('192.168.0.239','`+data["session"]+`','`+data["bankId"]+`','`+data["typeInv"]+`','`+data["joinAccId"]+`','`+data["schemeCode"]+`','1','Prudent','Prudent@123');
+							var ip='`+data["ip"]+`'
+							
+							openPopupPage(ip,'`+data["session"]+`','`+data["bankId"]+`','`+data["typeInv"]+`','`+data["joinAccId"]+`','`+data["schemeCode"]+`','1','Prudent','Prudent@123');
+						
 					},100)
 				})();
+
+				
 				function openPopupPage(IPAddress, SessionId, BankId, InvestmentType, JoinAccId, SchemeCode, IsThirdPartyBankTerms, UserName, Password) {
 				        var params = { 'IPAddress': IPAddress, 'SessionId': SessionId, 'BankId': BankId, 'InvestmentType': InvestmentType, 'JoinAccId': JoinAccId, 'SchemeCode': SchemeCode, 'IsThirdPartyBankTerms': IsThirdPartyBankTerms, 'UserName': UserName, 'Password': Password };
 				        var form = document.createElement("form");

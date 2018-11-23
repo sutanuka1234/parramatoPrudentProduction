@@ -166,7 +166,7 @@ function panMobile(model){
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
 			// console.log("2")
-			api.panMobile(model.tags.mobile, model.tags.pan)
+			api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				// console.log("then")
 				// console.log(data.body)
@@ -255,7 +255,7 @@ function panMobile(model){
 			// model = extractAmount(model);
 			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
-				api.panMobile(model.tags.mobile, model.tags.pan)
+				api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 				.then(data=>{
 					// console.log(data.body)
 					let response;
@@ -345,7 +345,7 @@ function mobile(model){
 			// model = extractAmount(model);
 			// model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
-					api.panMobile(model.tags.mobile, model.tags.pan)
+					api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 					.then(data=>{
 						// console.log(data.body)
 						let response;
@@ -408,7 +408,7 @@ function pan(model){
 			// console.log("TAGG")
 			// console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.pan&&model.tags.mobile){
-			api.panMobile(model.tags.mobile, model.tags.pan)
+			api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				// console.log(data.body)
 				let response;
@@ -467,7 +467,7 @@ function otp(model){
 		model = dataClean(model);
 		model = extractOTP(model);
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
-			api.resendOtp(model.tags.session)
+			api.resendOtp(model.tags.ip,model.tags.session)
 			.then((response)=>{
 				// console.log(response.body)
 				try{
@@ -491,7 +491,7 @@ function otp(model){
 			})
 		}
 		else if(model.tags.otp){
-			api.otp(model.tags.session, model.tags.otp)
+			api.otp(model.tags.ip,model.tags.session, model.tags.otp)
 			.then(data=>{
 				try{
 					// console.log(data.body)
@@ -593,7 +593,7 @@ function holding(model){
 			}
 			model.tags.joinAccId = model.data
 			console.log("here")
-			api.getRedemptionSchemes(model.tags.session, model.tags.joinAccId)
+			api.getRedemptionSchemes(model.tags.ip,model.tags.session, model.tags.joinAccId)
 			.then((data)=>{
 				let response;
 					try{
@@ -794,7 +794,7 @@ function scheme(model){
 						// if(true){
 							model.tags.unitOrAmount="AU";
 							// console.log("amount valid")
-							api.insertBuyCartRedeem(model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["AvailableUnits"], model.tags.folio,model.tags.unitOrAmount)
+							api.insertBuyCartRedeem(model.tags.ip,model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["AvailableUnits"], model.tags.folio,model.tags.unitOrAmount)
 							.then((data)=>{
 								console.log(data.body)
 								try{
@@ -886,7 +886,7 @@ function unitOrAmount(model) {
 		if(model.data.includes("all")){
 			model.tags.unitOrAmount="AU";
 			// console.log("amount valid")
-			api.insertBuyCartRedeem(model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["AvailableUnits"], model.tags.folio,model.tags.unitOrAmount)
+			api.insertBuyCartRedeem(model.tags.ip,model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["AvailableUnits"], model.tags.folio,model.tags.unitOrAmount)
 			.then((data)=>{
 				console.log(data.body)
 				try{
@@ -1016,7 +1016,7 @@ function amount(model){
 			if(model.tags.amount){
 
 				// console.log("amount valid")
-				api.insertBuyCartRedeem(model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.amount, model.tags.folio,model.tags.unitOrAmount)
+				api.insertBuyCartRedeem(model.tags.ip,model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.amount, model.tags.folio,model.tags.unitOrAmount)
 				.then((data)=>{
 					console.log(data.body)
 					try{
@@ -1089,7 +1089,7 @@ function confirm(model){
 
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes("yes")){
-			api.confirmRedemption(model.tags.session,model.tags.refrenceIdRedeemTxn)
+			api.confirmRedemption(model.tags.ip,model.tags.session,model.tags.refrenceIdRedeemTxn)
 			.then((data)=>{
 				console.log(data.body)
 				try{
