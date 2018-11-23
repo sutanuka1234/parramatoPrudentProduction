@@ -141,7 +141,7 @@ function main(req, res){
 //============================================================
 
 function panMobile(model){
-	return new Promise(function(resolve, reject){
+	return new Promise(async function(resolve, reject){
 
 		model=dataClean(model);
 		if(model.data.toLowerCase().includes("not")&&model.data.toLowerCase().includes("me")){
@@ -197,7 +197,7 @@ function panMobile(model){
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
 			// // console.log("2")
 			api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
-			.then(data=>{
+			.then(function(data){
 				// // console.log("then")
 				// // console.log(data.body)
 				let response;
@@ -283,7 +283,7 @@ function panMobile(model){
 			// // console.log("4")
 			model = extractMobile(model);
 			// model = extractDivOption(model);
-			model = extractSchemeName(model);
+			model = await extractSchemeName(model);
 			model = extractInvetmentType(model)
 			model = extractAmount(model);
 			// model = extractFolio(model);
@@ -373,11 +373,11 @@ function panMobile(model){
 }
 
 function mobile(model){
-	return new Promise(function(resolve, reject){
+	return new Promise(async function(resolve, reject){
 		    model=dataClean(model);
 			model = extractMobile(model);
 			// model = extractDivOption(model);
-			model=extractSchemeName(model);
+			model=await extractSchemeName(model);
 			model=extractInvetmentType(model)
 			model = extractAmount(model);
 			// model = extractFolio(model);
@@ -438,11 +438,11 @@ function mobile(model){
 }
 
 function pan(model){
-	return new Promise(function(resolve, reject){
+	return new Promise(async function(resolve, reject){
 		model = dataClean(model);
 		model = extractPan(model);
 		// model = extractDivOption(model);
-		model=extractSchemeName(model);
+		model=await extractSchemeName(model);
 		model=extractInvetmentType(model)
 		model = extractAmount(model);
 		// model = extractFolio(model);
@@ -503,13 +503,13 @@ function pan(model){
 }
 
 function otp(model){
-	return new Promise(function(resolve, reject){
+	return new Promise(async function(resolve, reject){
 
 		// model.tags.mobileEntered=false;
 		model = dataClean(model);
 		model = extractOTP(model);
 		// model = extractDivOption(model);
-		model = extractSchemeName(model);
+		model = await extractSchemeName(model);
 		model=extractInvetmentType(model);
 		// console.log(model.tags.investmentType)
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
