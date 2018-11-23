@@ -328,6 +328,7 @@ function runRequest(obj){
 				console.log(error)
 				return reject(error);
 			}
+			console.log(body)
 			return resolve({response:response,body:body})
 		})
 	})

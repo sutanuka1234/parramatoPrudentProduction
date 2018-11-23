@@ -886,6 +886,7 @@ function holding(model){
 				                sender  : model.sender,
 				                language: "en"
 				            }
+				            console.log("111111111111111")
 							external(reply)
 							.then((data)=>{
 								model.stage = 'askSchemeName'
@@ -972,6 +973,7 @@ function holding(model){
 			                sender  : model.sender,
 			                language: "en"
 			            }
+			            console.log("2222222")
 						external(reply)
 						.then((data)=>{
 							model.stage = 'askSchemeName'
@@ -993,6 +995,7 @@ function holding(model){
 		                sender  : model.sender,
 		                language: "en"
 		            }
+		            console.log("333333333")
 					external(reply)
 					.then((data)=>{
 						model.stage = 'askSchemeName'
@@ -1073,6 +1076,7 @@ function holding(model){
 
 							if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 								for(let element of response.Response[0]){
+									console.log(element["SCHEMECODE"]+":"+data[model.tags.scheme].schemeCode)
 									if(element["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
 										model.tags.schemeApiDetails=element
 									}
@@ -1084,6 +1088,7 @@ function holding(model){
 						                sender  : model.sender,
 						                language: "en"
 						            }
+						            console.log("4444444")
 									external(reply)
 									.then((data)=>{
 										model.stage = 'askSchemeName'
@@ -1172,6 +1177,7 @@ function holding(model){
 					                sender  : model.sender,
 					                language: "en"
 					            }
+					            console.log("5555555")
 								external(reply)
 								.then((data)=>{
 									model.stage = 'askSchemeName'
@@ -1186,13 +1192,14 @@ function holding(model){
 							}
 						})
 						.catch(e=>{
-							// console.log(e)
+							 console.log(e)
 							let reply={
 				                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
 				                type    : "text",
 				                sender  : model.sender,
 				                language: "en"
 				            }
+				            console.log("6666666")
 							external(reply)
 							.then((data)=>{
 								model.stage = 'askSchemeName'
@@ -1258,6 +1265,7 @@ function additional(model){
 						                sender  : model.sender,
 						                language: "en"
 						            }
+						            console.log("777777")
 									external(reply)
 									.then((data)=>{
 										model.stage = 'askSchemeName'
@@ -1332,6 +1340,7 @@ function additional(model){
 			                sender  : model.sender,
 			                language: "en"
 			            }
+			            console.log("888888")
 						external(reply)
 						.then((data)=>{
 							model.stage = 'askSchemeName'
@@ -1410,6 +1419,7 @@ function additional(model){
 		                sender  : model.sender,
 		                language: "en"
 		            }
+		            console.log("99999999")
 					external(reply)
 					.then((data)=>{
 						model.stage = 'askSchemeName'
@@ -1714,6 +1724,7 @@ function folio(model){
 			                sender  : model.sender,
 			                language: "en"
 			            }
+			            console.log("1010101010")
 						external(reply)
 						.then((data)=>{
 							model.stage = 'askSchemeName'
@@ -2088,6 +2099,7 @@ function amount(model){
                 sender  : model.sender,
                 language: "en"
             }
+            console.log("111 111 111")
 			external(reply)
 			.then((data)=>{
 				model.stage = 'askSchemeName'
