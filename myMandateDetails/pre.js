@@ -147,6 +147,8 @@ function nach(model){
 	return new Promise(function(resolve,reject){
 		api.getMandate(model.tags.ip, model.tags.session, model.tags.joinAcc).then((data)=>{
 			let nachDetails = JSON.parse(data.body)
+			console.log("----------------here----------------nach-----------")
+			console.log(nachDetails.Response)
 			console.log(nachDetails.length)
 			model.tags.nachArray = []
 			if(nachDetails.Response.length>=5){
