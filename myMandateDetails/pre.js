@@ -163,7 +163,7 @@ function nach(model){
 			let nachDetails = JSON.parse(data.body)
 			console.log("----------------here----------------nach-----------")
 			console.log(nachDetails.Response)
-			console.log(nachDetails.length)
+			console.log(nachDetails.length+"lllllllllength")
 			model.tags.nachArray = []
 			if(nachDetails.Response.length>=5){
 				for(let i=0; i<5; i++){
@@ -195,7 +195,6 @@ function nach(model){
 					})
 				}
 			}
-			console.log(model.tags.nachArray)
 			model.reply = {
 				type : "generic",
 				text : "I have now fetched your Nach Mandate details, have a look",
