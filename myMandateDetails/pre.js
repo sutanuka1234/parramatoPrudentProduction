@@ -149,11 +149,11 @@ function nach(model){
 			let nachDetails = JSON.parse(data.body)
 			console.log(nachDetails.length)
 			model.tags.nachArray = []
-			if(data.body.Response.length>=5){
+			if(nachDetails.Response.length>=5){
 				for(let i=0; i<5; i++){
 					model.tags.nachArray.push({
-						title 	: data.body.Response[i].MandateStatus ,
-						text 	: "BankName:"+data.body.Response[i].BankName+".AccountNo:"+data.body.Response[i].AccountNo,
+						title 	: nachDetails.Response[i].MandateStatus ,
+						text 	: "BankName:"+nachDetails.Response[i].BankName+".AccountNo:"+nachDetails.Response[i].AccountNo,
 						image 	: '',
 						buttons : [
 							{
@@ -167,8 +167,8 @@ function nach(model){
 			else{
 				for(let i=0; i<nachDetails.length; i++){
 					model.tags.nachArray.push({
-						title 	: data.body.Response[i].MandateStatus ,
-						text 	: "BankName:"+data.body.Response[i].BankName+".AccountNo:"+data.body.Response[i].AccountNo,
+						title 	: nachDetails.Response[i].MandateStatus ,
+						text 	: "BankName:"+nachDetails.Response[i].BankName+".AccountNo:"+nachDetails.Response[i].AccountNo,
 						image 	: '',
 						buttons : [
 							{
