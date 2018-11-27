@@ -163,7 +163,7 @@ function panMobile(model){
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
 			// console.log("2")
-			api.panMobile(model.tags.mobile, model.tags.pan)
+			api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				// console.log("then")
 				// console.log(data.body)
@@ -252,7 +252,7 @@ function panMobile(model){
 			// model = extractAmount(model);
 			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
-				api.panMobile(model.tags.mobile, model.tags.pan)
+				api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
 				.then(data=>{
 					// console.log(data.body)
 					let response;
@@ -342,7 +342,7 @@ function mobile(model){
 			// model = extractAmount(model);
 			// model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
-					api.panMobile(model.tags.mobile, model.tags.pan)
+					api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
 					.then(data=>{
 						// console.log(data.body)
 						let response;
@@ -405,7 +405,7 @@ function pan(model){
 			// console.log("TAGG")
 			// console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.pan&&model.tags.mobile){
-			api.panMobile(model.tags.mobile, model.tags.pan)
+			api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				// console.log(data.body)
 				let response;
@@ -464,7 +464,7 @@ function otp(model){
 		model = dataClean(model);
 		model = extractOTP(model);
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
-			api.resendOtp(model.tags.session)
+			api.resendOtp(model.tags.ip, model.tags.session)
 			.then((response)=>{
 				// console.log(response.body)
 				try{
@@ -488,7 +488,7 @@ function otp(model){
 			})
 		}
 		else if(model.tags.otp){
-			api.otp(model.tags.session, model.tags.otp)
+			api.otp(model.tags.ip, model.tags.session, model.tags.otp)
 			.then(data=>{
 				try{
 					// console.log(data.body)
