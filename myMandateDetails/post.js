@@ -17,6 +17,7 @@ let obj = {
 	mobile				: mobile,
 	pan					: pan,
 	otp					: otp,
+	holding 			: holding,
 	nach 				: nach
 }
 
@@ -564,6 +565,120 @@ function otp(model){
 			})
 		}
 		else{
+			return reject(model)
+		}
+	})
+}
+
+function holding(model){
+	return new Promise(function(resolve, reject){
+		model.tags.amount = undefined
+		model.tags.joinAccId = undefined
+		model.tags.tranId=undefined
+		model.tags.stpSchemeList=undefined
+		model.tags.stpReferenceId=undefined
+		model.tags.refrenceIdStpTxn=undefined
+		if(model.tags.joinAccIdList.includes(model.data)){
+			for (let element of model.tags.joinAcc){
+				console.log(element.JoinAccId+"::"+model.data)
+				if(element.JoinAccId==model.data){
+					sendExternalMessage(model,"Going ahead with "+element.JoinHolderName)
+					break;
+				}
+			}
+			model.tags.joinAccId = model.data
+			console.log("here")
+			api.getSTPScheme(model.tags.ip,model.tags.session,model.tags.joinAccId)
+			.then((data)=>{
+				let response;
+				try{
+					console.log(data)
+					response = JSON.parse(data.body)
+				}
+				catch(e){
+					console.log(e);
+					     let reply={
+			                text    : "API Not Responding Properly",
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model);
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+				}
+
+				if(response.Response&&response.Response.length>0){
+					if(response.Response[0]["reject_reason"]){
+							
+
+						let reply={
+			                text    : response.Response[0]["reject_reason"],
+			                type    : "text",
+			                sender  : model.sender,
+			                language: "en"
+			            }
+						external(reply)
+						.then((data)=>{
+			                return reject(model)
+			            })
+			            .catch((e)=>{
+			                console.log(e);
+			                return reject(model)
+			            })
+			        }
+					else{
+						model.tags.stpSchemes=response.Response;
+						model.tags.stpSchemeList=[]
+						response.Response.forEach(function(element,index){
+							console.log(index+"::::::::::::::::::::::::::::::")
+							if(index<10){
+								model.tags.stpSchemeList.push({
+									title 	: element["SCHEME_NAME"],
+									//todo
+									text 	: "Folio "+element["FOLIO_NO"]+". Amount Rs. "+element["CurAmount"]+". ",
+									buttons : [
+										{
+											text : 'Select',
+											data : "scheme|||"+element["SCH_CODE"].toString()
+										}
+									]
+								})
+							}
+						})
+
+						if(model.tags.stpSchemeList.length==0){
+							sendExternalMessage(model,"Oops. This pattern has no schemes to stp.")
+							model.stage="summary"
+							return resolve(model)
+						}
+						else{
+							console.log(JSON.stringify(model.tags.stpSchemeList,null,3))
+							model.stage="scheme"
+							return resolve(model)
+						}
+					}
+				}
+				else{
+					sendExternalMessage(model,"Sorry, you dont have any scheme in this pattern.");
+					model.stage="summary"
+					return resolve(model)
+				}				 
+				 
+			})
+			.catch((e)=>{
+				console.log(e)
+				return reject(model);
+			})
+				
+		}
+		else{
+			console.log("3 reject no data")
 			return reject(model)
 		}
 	})

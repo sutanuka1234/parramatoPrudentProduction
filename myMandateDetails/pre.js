@@ -15,6 +15,7 @@ let obj = {
 	panMobile 	: panMobile,
 	otp 		: otp,
 	nach 		: nach,
+	holding 	: holding,
 	nachDetails : nachDetails
 }
 
@@ -143,9 +144,22 @@ function otp(model){
 	})
 }
 
+function holding(model){
+	return new Promise(function(resolve, reject){
+		model.reply={
+			type:"generic",
+            text:" Please select your holding pattern",
+            next:{
+                data: model.tags.joinAccList
+            }
+		}
+		resolve(model)
+	})
+}
+
 function nach(model){
 	return new Promise(function(resolve,reject){
-		api.getMandate(model.tags.ip, model.tags.session, model.tags.joinAcc).then((data)=>{
+		api.getMandate(model.tags.ip, model.tags.session, model.tags.joinAccId).then((data)=>{
 			let nachDetails = JSON.parse(data.body)
 			console.log("----------------here----------------nach-----------")
 			console.log(nachDetails.Response)
