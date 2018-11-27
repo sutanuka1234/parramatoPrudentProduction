@@ -145,7 +145,7 @@ function otp(model){
 
 function nach(model){
 	return new Promise(function(resolve,reject){
-		api.getMandateDetails(model.tags.ip, model.tags.session, model.tags.joinAcc).then((data)=>{
+		api.getMandate(model.tags.ip, model.tags.session, model.tags.joinAcc).then((data)=>{
 			let nachDetails = JSON.parse(data.body)
 			console.log(nachDetails.length)
 			model.tags.nachArray = []
