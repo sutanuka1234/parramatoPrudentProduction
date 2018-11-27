@@ -9,6 +9,7 @@ let stringSimilarity = require('string-similarity');
 let sortBy = require('sort-by')
 let matchAll = require('match-all')
 let StringMask = require('string-mask')
+let data = require('../data.json')
 
 let path = require("path");
 let obj = {
