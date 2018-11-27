@@ -133,10 +133,6 @@ function getMandate(ip,session,joinAccId){
 }
 
 
-
-
-
-
  function insertBuyCartStp(ip,session, joinAccId, dividendOption, folioNo, euin, schemeCodeFrom,schemeCodeTo,STPFrequency,STPWeek,STPMonth,installments,initAmount,amount){	
 	if(!STPWeek){
 		STPWeek=0
