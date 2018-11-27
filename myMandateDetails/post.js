@@ -16,7 +16,8 @@ let obj = {
 	panMobile 			: panMobile,
 	mobile				: mobile,
 	pan					: pan,
-	otp					: otp
+	otp					: otp,
+	nach 				: nach
 }
 
 
@@ -568,23 +569,24 @@ function otp(model){
 	})
 }
 
-// function nach(model){
-// 	return new Promise(function (resolve,reject){
-// 		if(model.data.includes('more')){
-// 			for(var i=0; i<9; i++){
-// 				model.tags.nachArray.shift()
-// 				model.tags.fbNachArray.shift()
-// 			}
-// 			model.tags.fbNachArray.shift()
-// 			model.tags.nextNach = 1
-// 			resolve(model)
-// 		}
-// 		else{
-// 			model.stage = 'final'
-// 			resolve(model)
-// 		}
-// 	})
-// }
+function nach(model){
+	return new Promise(function (resolve,reject){
+		if(model.data.includes('/')){
+			let selectedNachArray = model.data.split("/")
+			model.tags.referenceNo = selectedNachArray[0]
+			model.tags.dailyLimit = selectedNachArray[1]
+			model.tags.mandateStatus = selectedNachArray[2]
+			model.tags.accountNo = selectedNachArray[3]
+			model.tags.bankName = selectedNachArray[4]
+
+			model.stage = 'nachDetails'
+			return resolve(model)
+		}
+		else{
+			return reject(model)
+		}
+	})
+}
 
 
 function sendExternalMessage(model,text){

@@ -12,9 +12,10 @@ let StringMask = require('string-mask')
 var api = require('../api.js');
 
 let obj = {
-	panMobile : panMobile,
-	otp 	: otp,
-	nach : nach
+	panMobile 	: panMobile,
+	otp 		: otp,
+	nach 		: nach,
+	nachDetails : nachDetails
 }
 
 let regexPan   	= /[a-z]{3}p[a-z]\d{4}[a-z]/;
@@ -143,16 +144,49 @@ function otp(model){
 }
 
 function nach(model){
-	return new Promise(function(resolve, reject){
+	return new Promise(function(resolve,reject){
 		api.getMandateDetails(model.tags.session).then((data)=>{
-		data.body = JSON.parse(data.body)
-		console.log(data.body.Response.length)
-		model.reply = {
-			type : 'text',
-			text : "Let me brief you on your nach mandate status of "+data.body.Response[0].ReferenceNo+
-			". Your daily limit is "+data.body.Response[0].DailyLimit+" and status is "+data.body.Response[0].MandateStatus+". This mandate is for Account number "+data.body.Response[0].AccountNo+" linked to "+data.body.Response[0].BankName
-		}
-		resolve(model)
+			let nachDetails = JSON.parse(data.body)
+			console.log(nachDetails.length)
+			model.tags.nachArray = []
+			if(data.body.Response.length>=5){
+				for(let i=0; i<5; i++){
+					model.tags.nachArray.push({
+						title 	: data.body.Response[i].MandateStatus ,
+						text 	: "BankName:"+data.body.Response[i].BankName+".AccountNo:"+data.body.Response[i].AccountNo,
+						image 	: '',
+						buttons : [
+							{
+								data : nachDetails.Response[i].ReferenceNo+"/"+nachDetails.Response[i].DailyLimit+"/"+nachDetails.Response[i].MandateStatus+"/"+nachDetails.Response[i].AccountNo+"/"+nachDetails.Response[i].BankName,
+								text : 'Select'
+							}
+						]
+					})
+				}
+			}
+			else{
+				for(let i=0; i<nachDetails.length; i++){
+					model.tags.nachArray.push({
+						title 	: data.body.Response[i].MandateStatus ,
+						text 	: "BankName:"+data.body.Response[i].BankName+".AccountNo:"+data.body.Response[i].AccountNo,
+						image 	: '',
+						buttons : [
+							{
+								data : nachDetails.Response[i].ReferenceNo+"/"+nachDetails.Response[i].DailyLimit+"/"+nachDetails.Response[i].MandateStatus+"/"+nachDetails.Response[i].AccountNo+"/"+nachDetails.Response[i].BankName,
+								text : 'Select'
+							}
+						]
+					})
+				}
+			}
+			model.reply = {
+				type : "generic",
+				text : "I have now fetched your Nach Mandate details, have a look",
+				next : {
+					data : model.tags.nachArray
+				}
+			}
+			return resolve(model)
 		})
 		.catch((e)=>{
 			console.log(e)
@@ -160,110 +194,16 @@ function nach(model){
 	})
 }
 
-// function nach(model){
-// 	return new Promise(function(resolve,reject){
-// 		if(model.tags.nextNach == 1){
-// 			if(model.tags.nachArray.length<9){
-// 				for(var i=0; i<model.tags.nachArray.length; i++){
-// 					model.tags.fbNachArray.push(model.tags.nachArray[i])
-// 				}
-// 				model.reply = {
-// 					type : "generic",
-// 					text : "I have now fetched your Nach Mandate details, have a look",
-// 					next : {
-// 						data : model.tags.fbNachArray
-// 					}
-// 				}
-// 			}
-// 			else{
-// 				for(var i=0; i<9; i++){
-// 					model.tags.fbNachArray.push(model.tags.nachArray[i])
-// 				}
-// 				model.tags.fbNachArray.push({
-// 					title 	: 'More Folio',
-// 					text  	: 'More Nach Mandate Details',
-// 					image 	: '',
-// 					buttons : [
-// 						{
-// 							data : 'more',
-// 							text : 'More Nach Mandate Details'
-// 						}
-// 					]
-// 				})
-// 				model.reply = {
-// 					type : "generic",
-// 					text : "I have now fetched your Nach Mandate details, have a look",
-// 					next : {
-// 						data : model.tags.fbNachArray
-// 					}
-// 				}	
-// 			}
-// 			resolve(model)
-// 		}
-// 		else{
-// 			api.getMandateDetails(model.tags.session).then((data)=>{
-// 				data.body = JSON.parse(data.body)
-// 				console.log(data.body.Response.length)
-// 				model.tags.nachArray = []
-// 				model.tags.fbNachArray = []
-// 				for(var i=0; i<data.body.Response.length; i++){
-// 					model.tags.nachArray.push({
-// 						title 	: data.body.Response[i].MandateStatus ,
-// 						text 	: "BankName:"+data.body.Response[i].BankName+".AccountNo:"+data.body.Response[i].AccountNo,
-// 						// +".ReferenceNo:"+data.body.Response[i].ReferenceNo+".DailyLimit:"+data.body.Response[i].DailyLimit
-// 						image 	: '',
-// 						buttons : [
-// 							{
-// 								data : 'thanks',
-// 								text : 'Done'
-// 							}
-// 						]
-// 					})
-// 				}
-// 				if(data.body.Response.length<9){
-// 					for(var i=0; i<data.body.Response.length; i++){
-// 						model.tags.fbNachArray.push(model.tags.nachArray[i])
-// 					}
-// 					model.reply = {
-// 						type : "generic",
-// 						text : "I have now fetched your Nach Mandate details, have a look",
-// 						next : {
-// 							data : model.tags.fbNachArray
-// 						}
-// 					}
-// 					resolve(model)
-// 				}
-// 				else{
-// 					for(var i=0; i<9; i++){
-// 						model.tags.fbNachArray.push(model.tags.nachArray[i])
-// 					}
-// 					model.tags.fbNachArray.push({
-// 						title 	: 'More Nach Mandate Details',
-// 						text 	: '',
-// 						image 	: '',
-// 						buttons : [
-// 							{
-// 								data : 'more',
-// 								text : 'More Nach Mandate Details'
-// 							}
-// 						]
-// 					})
-// 					model.reply = {
-// 						type : "generic",
-// 						text : "I have now fetched your Nach Mandate details, have a look.",
-// 						next : {
-// 							data : model.tags.fbNachArray
-// 						}
-// 					}
-// 					resolve(model)
-// 				}
-// 			})
-// 			.catch((e)=>{
-// 				console.log(e)
-// 			})
-// 		}
-// 	})
-// }
+function nachDetails(model){
+	return new Promise(function(resolve, reject){	
+		model.reply = {
+			type : 'text',
+			text : "Let me brief you on your nach mandate status of "+model.tags.referenceNo+
+			". Your daily limit is "+model.tags.dailyLimit+" and status is "+model.tags.mandateStatus+". This mandate is for Account number "+model.tags.accountNo+" linked to "+model.tags.bankName
+		}
+		return resolve(model)
+	})
+}
 
 function extractFolio(model){
 	if(model.tags.userSays.match(regexFolio)){
