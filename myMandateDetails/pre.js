@@ -165,7 +165,7 @@ function nach(model){
 				}
 			}
 			else{
-				for(let i=0; i<nachDetails.length; i++){
+				for(let i=0; i<nachDetails.Response.length; i++){
 					model.tags.nachArray.push({
 						title 	: nachDetails.Response[i].MandateStatus ,
 						text 	: "BankName:"+nachDetails.Response[i].BankName+".AccountNo:"+nachDetails.Response[i].AccountNo,
@@ -179,6 +179,7 @@ function nach(model){
 					})
 				}
 			}
+			console.log(model.tags.nachArray)
 			model.reply = {
 				type : "generic",
 				text : "I have now fetched your Nach Mandate details, have a look",
