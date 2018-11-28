@@ -86,6 +86,21 @@ function getScheme(ip,session, joinAccId, fundsType, amcId, schemeOption, subNat
 	return runRequest(obj)
 }
 
+function getClientAllFolio(ip,session){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'GetClientAllFolio?IPAddress='+ip+'&SessionId='+session
+	}
+	return runRequest(obj)
+}
+// getClientAllFolio("190.100.10.200","7C772321713D21713D21713D21713D21713D2F612A21713D2F612A236425").then((data)=>{
+// 	let urldata = JSON.parse(data.body)
+// 	console.log(urldata)
+// })
+// .catch((e)=>{
+// 	console.log(e)
+// })
 
 function getFolio(ip,session, joinAccId, schemeCode, amcId,investmentType,switchBool,folio,STPBool){
 	if(STPBool){
@@ -350,6 +365,7 @@ module.exports = {
 	insertBuyCartSwitch 			: insertBuyCartSwitch,
 	insertBuyCartStp				: insertBuyCartStp,
 	confirmSwitch 					: confirmSwitch,
-	confirmSTP 						: confirmSTP
+	confirmSTP 						: confirmSTP,
+	getClientAllFolio 				: getClientAllFolio
 }
 
