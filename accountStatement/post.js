@@ -500,7 +500,7 @@ function otp(model){
 		            })
 				}
 				else{
-					let data=await api.getFolio(mode.tags.ip, model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode, false,false,true,false);
+					let data=await api.getFolio(model.tags.ip, model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode, false,false,true,false);
 					data.body = JSON.parse(data.body);
 					model.tags.folioArray = []
 					model.tags.showFolioArray = []
