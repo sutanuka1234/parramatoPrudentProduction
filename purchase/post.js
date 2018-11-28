@@ -927,7 +927,7 @@ function holding(model){
 								]
 							})
 
-							api.getFolio(model.tags.ip,model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,true)
+							api.getFolio(model.tags.ip, model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,true)
 							.then(response=>{
 								// // console.log(response.body)
 								try{
