@@ -588,12 +588,7 @@ function holding(model){
 			}
 			model.tags.joinAccId = model.data
 			console.log("here")
-			
-			.catch((e)=>{
-				console.log(e)
-				return reject(model);
-			})
-				
+			return resolve(model)				
 		}
 		else{
 			console.log("3 reject no data")
