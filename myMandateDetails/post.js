@@ -588,6 +588,7 @@ function holding(model){
 			}
 			model.tags.joinAccId = model.data
 			console.log("here")
+			delete model.stage
 			return resolve(model)				
 		}
 		else{
