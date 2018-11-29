@@ -102,6 +102,15 @@ function getClientAllFolio(ip,session){
 // 	console.log(e)
 // })
 
+function getAccountStatement(ip, session, amcId, folio){
+	var obj = {
+		method  : 'POST',
+		headers : headers,
+		url 	: url+"GetAccountStatement?IPAddress="+ip+"&SessionId="+session+"&FolioNo="+folio+"&AMCCode="+amcId
+	}
+	return runRequest(obj)
+}
+
 function getFolio(ip,session, joinAccId, schemeCode, amcId,investmentType,switchBool,folio,STPBool){
 	if(STPBool){
 		var obj = {

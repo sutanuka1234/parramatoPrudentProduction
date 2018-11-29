@@ -592,31 +592,31 @@ function folio(model){
 			model.tags.folioNo = model.data.split(",")[1]
 			delete model.stage
 			return resolve(model);
-			// model.tags.amcCodeFolioNo = model.data.split(",")
-			// api.getAccountStatement(model.tags.session,model.tags.amcCodeFolioNo[1],model.tags.amcCodeFolioNo[0]).then((data)=>{
-			// 	data.body = JSON.parse(data.body)
-			// 	if(data.body.Response[0].FileStatus == "No"){
-			// 		model.tags.fail = 1
-			// 		model.tags.nextFolio = undefined
-			// 		model.stage = 'statement'
-			// 		resolve(model)
-			// 	}
-			// 	else if(data.body.Response[0].FileStatus == "File Not Found"){
-			// 		model.tags.fail = 1
-			// 		model.tags.nextFolio = undefined
-			// 		model.stage = 'statement'
-			// 		resolve(model)
-			// 	}
-			// 	else{
-			// 		model.tags.nextFolio = undefined
-			// 		model.stage = 'statement'
-			// 		resolve(model)
-			// 	}
-			// })
-			// .catch((e)=>{
-			// 	console.log(e)
-			// 	return reject(model);
-			// })
+			model.tags.amcCodeFolioNo = model.data.split(",")
+			api.getAccountStatement(model.tags.ip,model.tags.session,model.tags.amcCodeFolioNo[1],model.tags.amcCodeFolioNo[0]).then((data)=>{
+				data.body = JSON.parse(data.body)
+				if(data.body.Response[0].FileStatus == "No"){
+					model.tags.fail = 1
+					model.tags.nextFolio = undefined
+					model.stage = 'statement'
+					resolve(model)
+				}
+				else if(data.body.Response[0].FileStatus == "File Not Found"){
+					model.tags.fail = 1
+					model.tags.nextFolio = undefined
+					model.stage = 'statement'
+					resolve(model)
+				}
+				else{
+					model.tags.nextFolio = undefined
+					model.stage = 'statement'
+					resolve(model)
+				}
+			})
+			.catch((e)=>{
+				console.log(e)
+				return reject(model);
+			})
 		}
 		else{
 			console.log("3::::::::::::")
