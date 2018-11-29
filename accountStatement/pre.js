@@ -163,7 +163,7 @@ function statement(model){
 		if(model.tags.fail == 1){
 			model.reply = {
 				type : "text",
-				text : "Oh no, we have checked with your details but we are not getting any response."
+				text : "Oh no, we have checked with your details but we are not getting any response. Please try again after sometime."
 			}
 			model.tags.fail = undefined
 		}
