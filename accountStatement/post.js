@@ -595,23 +595,34 @@ function folio(model){
 			model.tags.amcCodeFolioNo = model.data.split(",")
 			api.getAccountStatement(model.tags.ip,model.tags.session,model.tags.amcCodeFolioNo[1],model.tags.amcCodeFolioNo[0]).then((data)=>{
 				data.body = JSON.parse(data.body)
-				if(data.body.Response[0].FileStatus == "No"){
+				let input = data.body.Response[0].FileStatus.toLowerCase().trim()
+				if(input.includes("no")){
 					console.log("------------getAccountStatement response--------------------01")
-					console.log(data.body.Response[0].FileStatus)
+					console.log(input)
 					model.tags.fail = 1
 					model.tags.nextFolio = undefined
 					model.stage = 'statement'
 					return resolve(model)
 				}
-				else if(data.body.Response[0].FileStatus == "File Not Found"){
+				else if(input.includes("not found")){
+					console.log("------------getAccountStatement response--------------------02")
+					console.log(input)
+					model.tags.fail = 1
+					model.tags.nextFolio = undefined
+					model.stage = 'statement'
+					return resolve(model)
+				}
+				else if(input.includes("yes")){
+					console.log("------------getAccountStatement response--------------------03")
+					console.log(input)
 					model.tags.fail = 1
 					model.tags.nextFolio = undefined
 					model.stage = 'statement'
 					return resolve(model)
 				}
 				else{
-					console.log("------------getAccountStatement response")
-					console.log(data.body.Response[0].FileStatus)
+					console.log("------------getAccountStatement response--------------------04")
+					console.log(input)
 					model.tags.nextFolio = undefined
 					model.stage = 'statement'
 					return resolve(model)
