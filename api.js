@@ -102,7 +102,7 @@ function getClientAllFolio(ip,session){
 // 	console.log(e)
 // })
 
-function getAccountStatement(ip, session, amcId, folio){
+function getAccountStatement(ip, session, folio, amcId){
 	var obj = {
 		method  : 'POST',
 		headers : headers,
