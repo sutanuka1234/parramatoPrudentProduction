@@ -163,7 +163,7 @@ function nach(model){
 			let nachDetails = JSON.parse(data.body)
 			console.log("----------------here----------------nach-----------")
 			console.log(nachDetails.Response)
-			console.log("Mandate Status: "+nachDetails.Response[i].MandateStatus)
+			console.log("Mandate Status: "+nachDetails.Response[0].MandateStatus)
 			console.log(nachDetails.Response.length+"lllllllllength")
 			model.tags.nachArray = []
 			if(nachDetails.Response.length>=5){
