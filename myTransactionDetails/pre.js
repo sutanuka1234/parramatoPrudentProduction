@@ -182,35 +182,14 @@ function lastTenTransactions(model){
 	return new Promise((resolve,reject)=>{
 		console.log("--------------lastTenTransactions pre---------")
 		console.log(model)
-		api.getTransactionDetails(model.tags.session,model.tags.transactionId).then((data)=>{
-			data.body = JSON.parse(data.body)
-			console.log(data.body.Response.length)
-			model.tags.transactions = []
-			for(var i = 0; i<10; i++){
-				model.tags.transactions.push({
-					title 	: "Folio No. "+data.body.Response[i].Foliono,
-					text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType,
-					image 	: '',
-					buttons : [
-						{
-							data : data.body.Response[i].ReferenceID,
-							text : "Tx ID: "+data.body.Response[i].ReferenceID
-						}
-					]
-				})
+		model.reply = {
+			type : "generic",
+			text : "Here you go, you can select one by one and know its details along with the status.",
+			next : {
+				data : model.tags.transactions
 			}
-			model.reply = {
-				type : "generic",
-				text : "Here you go, you can select one by one and know its details along with the status.",
-				next : {
-					data : model.tags.transactions
-				}
-			}
-			resolve(model)
-		})
-		.catch((e)=>{
-			console.log(e)
-		})
+		}
+		return resolve(model)
 	})
 }
 

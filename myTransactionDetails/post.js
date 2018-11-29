@@ -580,7 +580,28 @@ function transactionStatus(model){
 		if(model.data == 'tenTransaction'|| model.data.toLowerCase().includes('last 10 transactions') || model.data.toLowerCase().includes('last ten transactions')){
 			model.tags.transactionId = 0
 			model.stage = 'lastTenTransactions'
-			resolve(model)
+			api.getTransactionDetails(model.tags.session,model.tags.transactionId).then((data)=>{
+				data.body = JSON.parse(data.body)
+				console.log(data.body.Response.length)
+				model.tags.transactions = []
+				for(var i = 0; i<10; i++){
+					model.tags.transactions.push({
+						title 	: "Folio No. "+data.body.Response[i].Foliono,
+						text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType,
+						image 	: '',
+						buttons : [
+							{
+								data : data.body.Response[i].ReferenceID,
+								text : "Tx ID: "+data.body.Response[i].ReferenceID
+							}
+						]
+					})
+				}
+				return resolve(model)
+			})
+			.catch((e)=>{
+				console.log(e)
+			})	
 		}
 		else if(model.data.match(/\d{10}/)){
 			model.tags.transactionId = model.data.match(/\d{10}/)[0]
