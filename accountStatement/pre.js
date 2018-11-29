@@ -26,7 +26,7 @@ let divOption 	= /re(-|\s)?invest|pay(\s)?out/
 let regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
 let schemeNames = Object.keys(data)
 let formatter 	= new StringMask('XXXXXX0000', {reverse:true});
-// let formatter2 	= new StringMask('0XXXXX0000', {reverse:true});
+let formatter2 	= new StringMask('00XXXXXX00', {reverse:true});
 let amc = [  
 	'kotak',
 	'birla',
@@ -170,7 +170,7 @@ function statement(model){
 		else{
 			model.reply = {
 		 		type : "text",
-				text : "Got it. You will receive your account statement of folio on your registered email ID 📩"
+				text : "Got it. You will receive your account statement of folio "+formatter.apply(model.tags.folioNo)+" on your registered email ID 📩"
 			}
 		}
 		resolve(model);

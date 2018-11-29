@@ -589,6 +589,7 @@ function folio(model){
 		}
 		else if(model.data.includes(",")&&model.tags.folios.includes(model.data.split(",")[1])){
 			console.log("2::::::::::::")
+			model.tags.folioNo = model.data.split(",")[1]
 			delete model.stage
 			return resolve(model);
 			// model.tags.amcCodeFolioNo = model.data.split(",")
