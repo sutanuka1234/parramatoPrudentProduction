@@ -103,6 +103,9 @@ function getClientAllFolio(ip,session){
 // })
 
 function getAccountStatement(ip, session, folio, amcId){
+	console.log("------------------------api call-----------------")
+	console.log(folio)
+	console.log(amcId)
 	var obj = {
 		method  : 'POST',
 		headers : headers,

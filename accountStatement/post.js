@@ -593,7 +593,7 @@ function folio(model){
 			// delete model.stage
 			// return resolve(model);
 			model.tags.amcCodeFolioNo = model.data.split(",")
-			api.getAccountStatement(model.tags.ip,model.tags.session,model.tags.amcCodeFolioNo[1],model.tags.amcCodeFolioNo[0]).then((data)=>{
+			api.getAccountStatement(model.tags.ip,model.tags.session,model.data.split(",")[1],model.data.split(",")[0]).then((data)=>{
 				data.body = JSON.parse(data.body)
 				let input = data.body.Response[0].FileStatus.toLowerCase().trim()
 				console.log("------------getAccountStatement response--------------------01")
