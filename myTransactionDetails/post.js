@@ -578,9 +578,9 @@ function transactionStatus(model){
 		console.log("--------------transactionStatus post---------")
 		console.log(model)
 		if(model.data == 'tenTransaction'|| model.data.toLowerCase().includes('last 10 transactions') || model.data.toLowerCase().includes('last ten transactions')){
-			model.tags.transactionId = 0
+			model.tags.transactionId = '0'
 			model.stage = 'lastTenTransactions'
-			api.getTransactionDetails(model.tags.session,model.tags.transactionId).then((data)=>{
+			api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
 				data.body = JSON.parse(data.body)
 				console.log(data.body.Response.length)
 				console.log("--------------transactionStatus post getTransactionDetails---------")
