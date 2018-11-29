@@ -597,7 +597,7 @@ function folio(model){
 				data.body = JSON.parse(data.body)
 				let input = data.body.Response[0].FileStatus.toLowerCase().trim()
 				console.log("------------getAccountStatement response--------------------01")
-					console.log(input)
+				console.log(input)
 				if(input.includes("no")){
 					model.tags.fail = 1
 					model.tags.nextFolio = undefined

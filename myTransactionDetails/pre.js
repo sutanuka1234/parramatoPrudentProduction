@@ -16,8 +16,7 @@ let obj = {
 	otp 				: otp,
 	transactionStatus 	: transactionStatus,
 	lastTenTransactions : lastTenTransactions,
-	transactionID 		: transactionID,
-	transactionIDTwo 	: transactionIDTwo
+	transactionID 		: transactionID
 }
 
 let regexPan   	= /[a-z]{3}p[a-z]\d{4}[a-z]/;
@@ -182,49 +181,7 @@ function lastTenTransactions(model){
 	return new Promise((resolve,reject)=>{
 		console.log("--------------lastTenTransactions pre---------")
 		console.log(model)
-		model.reply = {
-			type : "generic",
-			text : "Here you go, you can select one by one and know its details along with the status.",
-			next : {
-				data : model.tags.transactions
-			}
-		}
-		return resolve(model)
-	})
-}
-
-function transactionID(model){
-	return new Promise((resolve,reject)=>{
-		api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
-		data.body = JSON.parse(data.body)
-		console.log(data.body.Response.length)
-		data.body.Response[0].ProcessDate = dateTimeFormat(data.body.Response[0].ProcessDate)
-		if(data.body.Response.length > 0){
-			model.reply = {
-				type : "text",
-				text : "Let me give you a brief of Transaction "+data.body.Response[0].ReferenceID+" for scheme "+data.body.Response[0].SchemeName+", "+data.body.Response[0].DivOpt+" - "+data.body.Response[0].TransactionType+". You have purchased "+data.body.Response[0].UNITS+" units for a total of Rs "+data.body.Response[0].AMOUNT+", your status is "+data.body.Response[0].TransactionStatus+" which was processed on "+data.body.Response[0].ProcessDate+". "
-			}
-			resolve(model)
-		}
-		else{
-			model.tags.transactionId = 0
-			api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
-			data.body = JSON.parse(data.body)
-			console.log(data.body.Response.length)
-			model.tags.transactions = []
-			for(var i = 0; i<10; i++){
-				model.tags.transactions.push({
-					title 	: "Folio No. "+data.body.Response[i].Foliono,
-					text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType,
-					image 	: '',
-					buttons : [
-						{
-							data : data.body.Response[i].ReferenceID,
-							text : "Tx ID: "+data.body.Response[i].ReferenceID
-						}
-					]
-				})
-			}
+		if(model.tags.txNotFound == 1){
 			model.reply = {
 				type : "generic",
 				text : "Oh no. This does not match to any of your transaction reference ID (s). But don’t worry find below the list of the previous transactions, you can choose from it.",
@@ -232,22 +189,24 @@ function transactionID(model){
 					data : model.tags.transactions
 				}
 			}
-			resolve(model)
-			})
-			.catch((e)=>{
-				console.log(e)
-			})
 		}
-		})
-		.catch((e)=>{
-			console.log(e)
-		})
+		else{
+			model.reply = {
+				type : "generic",
+				text : "Here you go, you can select one by one and know its details along with the status.",
+				next : {
+					data : model.tags.transactions
+				}
+			}
+		}
+		model.tags.txNotFound = undefined
+		return resolve(model)
 	})
 }
 
-function transactionIDTwo(model){
+function transactionID(model){
 	return new Promise((resolve,reject)=>{
-		console.log("-------------------------txid2-----------")
+		console.log("-------------------------txid1-----------")
 		api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
 		data.body = JSON.parse(data.body)
 		console.log(data.body.Response.length)
@@ -267,6 +226,29 @@ function transactionIDTwo(model){
 		})
 	})
 }
+
+// function transactionIDTwo(model){
+// 	return new Promise((resolve,reject)=>{
+// 		console.log("-------------------------txid1-----------")
+// 		api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
+// 		data.body = JSON.parse(data.body)
+// 		console.log(data.body.Response.length)
+// 		if(data.body.Response[0].ProcessDate != null){
+//     		data.body.Response[0].ProcessDate = dateTimeFormat(data.body.Response[0].ProcessDate)
+// 		}
+// 		if(data.body.Response.length > 0){
+// 			model.reply = {
+// 				type : "text",
+// 				text : "Let me give you a brief of Transaction "+data.body.Response[0].ReferenceID+" for scheme "+data.body.Response[0].SchemeName+", "+data.body.Response[0].DivOpt+" - "+data.body.Response[0].TransactionType+". You have purchased "+data.body.Response[0].UNITS+" units for a total of Rs "+data.body.Response[0].AMOUNT+", your status is "+data.body.Response[0].TransactionStatus+" which was processed on "+data.body.Response[0].ProcessDate+". "
+// 			}
+// 			resolve(model)
+// 		}
+// 		})
+// 		.catch((e)=>{
+// 			console.log(e)
+// 		})
+// 	})
+// }
 
 function extractFolio(model){
 	if(model.tags.userSays.match(regexFolio)){

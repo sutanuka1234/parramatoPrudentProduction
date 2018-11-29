@@ -19,8 +19,7 @@ let obj = {
 	pan					: pan,
 	otp					: otp,
 	transactionStatus 	: transactionStatus,
-	lastTenTransactions : lastTenTransactions,
-	transactionID 		: transactionID
+	lastTenTransactions : lastTenTransactions
 }
 
 
@@ -578,8 +577,7 @@ function transactionStatus(model){
 		console.log("--------------transactionStatus post---------")
 		console.log(model)
 		if(model.data == 'tenTransaction'|| model.data.toLowerCase().includes('last 10 transactions') || model.data.toLowerCase().includes('last ten transactions')){
-			model.tags.transactionId = '0'
-			model.stage = 'lastTenTransactions'
+			model.tags.transactionId = 0
 			api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
 				data.body = JSON.parse(data.body)
 				console.log(data.body.Response.length)
@@ -599,6 +597,7 @@ function transactionStatus(model){
 						]
 					})
 				}
+				model.stage = 'lastTenTransactions'
 				return resolve(model)
 			})
 			.catch((e)=>{
@@ -610,8 +609,36 @@ function transactionStatus(model){
 			api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
 			data.body = JSON.parse(data.body)
 			console.log(data.body.Response.length)
-			if(data.body.Response.length > 0 || data.body){
-				model.stage = 'transactionIDTwo'
+			if(data.body.Response.length == 0){
+				model.tags.txNotFound = 1
+				model.tags.transactionId = 0
+				api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
+					data.body = JSON.parse(data.body)
+					console.log(data.body.Response.length)
+					model.tags.transactions = []
+					for(var i = 0; i<10; i++){
+						model.tags.transactions.push({
+							title 	: "Folio No. "+data.body.Response[i].Foliono,
+							text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType,
+							image 	: '',
+							buttons : [
+								{
+									data : data.body.Response[i].ReferenceID,
+									text : "Tx ID: "+data.body.Response[i].ReferenceID
+								}
+							]
+						})
+					}
+					model.stage = 'lastTenTransactions'
+					resolve (model)
+				})
+				.catch((e)=>{
+					console.log(e)
+					reject(model)
+				})
+			}
+			else if(data.body.Response.length > 0 || data.body){
+				model.stage = 'transactionID'
 				resolve(model)
 			}
 			else{
@@ -621,6 +648,7 @@ function transactionStatus(model){
 			})
 			.catch((e)=>{
 				console.log(e)
+				reject(model)
 			})
 		}
 		else if(model.data.includes('iHaveTransctionId') || model.data.toLowerCase().includes('transaction id')){
@@ -637,7 +665,7 @@ function lastTenTransactions(model){
 	return new Promise(function(resolve,reject){
 		if(model.data.match(/\d{10}/)){
 			model.tags.transactionId = model.data.match(/\d{10}/)[0]
-			model.stage = 'transactionIDTwo'
+			model.stage = 'transactionID'
 			resolve(model)
 		}
 		else{
@@ -646,20 +674,6 @@ function lastTenTransactions(model){
 	})
 }
 
-function transactionID(model){
-	return new Promise(function(resolve,reject){
-		if(model.data.match(/\d{10}/)){
-			model.tags.transactionId = model.data.match(/\d{10}/)[0]
-			console.log("--transactionID----------")
-			console.log(model)
-			model.stage = 'transactionIDTwo'
-			resolve(model)
-		}
-		else{
-			reject(model)
-		}
-	})
-}
 
 function sendExternalMessage(model,text){
 	let reply={
