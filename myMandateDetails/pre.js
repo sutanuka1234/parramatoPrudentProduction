@@ -163,12 +163,13 @@ function nach(model){
 			let nachDetails = JSON.parse(data.body)
 			console.log("----------------here----------------nach-----------")
 			console.log(nachDetails.Response)
-			console.log(nachDetails.length+"lllllllllength")
+			console.log("Mandate Status: "+nachDetails.Response[i].MandateStatus)
+			console.log(nachDetails.Response.length+"lllllllllength")
 			model.tags.nachArray = []
 			if(nachDetails.Response.length>=5){
 				for(let i=0; i<5; i++){
 					model.tags.nachArray.push({
-						title 	: nachDetails.Response[i].MandateStatus ,
+						title 	: "Mandate Status: "+nachDetails.Response[i].MandateStatus ,
 						text 	: "BankName:"+nachDetails.Response[i].BankName+". AccountNo:"+nachDetails.Response[i].AccountNo,
 						image 	: '',
 						buttons : [
@@ -183,7 +184,7 @@ function nach(model){
 			else{
 				for(let i=0; i<nachDetails.Response.length; i++){
 					model.tags.nachArray.push({
-						title 	: nachDetails.Response[i].MandateStatus ,
+						title 	: "Mandate Status: "+nachDetails.Response[i].MandateStatus ,
 						text 	: "BankName:"+nachDetails.Response[i].BankName+". AccountNo:"+nachDetails.Response[i].AccountNo,
 						image 	: '',
 						buttons : [
