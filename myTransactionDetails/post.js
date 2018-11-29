@@ -7,6 +7,7 @@ module.exports = {
 let api = require('../api.js')
 let external = require('../external.js')
 let words = require('../words.js')
+let data = require('../data.json')
 let stringSimilarity = require('string-similarity');
 let sortBy = require('sort-by')
 let matchAll = require('match-all')
