@@ -375,6 +375,7 @@ module.exports = {
 	insertBuyCartStp				: insertBuyCartStp,
 	confirmSwitch 					: confirmSwitch,
 	confirmSTP 						: confirmSTP,
-	getClientAllFolio 				: getClientAllFolio
+	getClientAllFolio 				: getClientAllFolio,
+	getAccountStatement 			: getAccountStatement
 }
 

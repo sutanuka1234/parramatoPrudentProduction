@@ -590,8 +590,8 @@ function folio(model){
 		else if(model.data.includes(",")&&model.tags.folios.includes(model.data.split(",")[1])){
 			console.log("2::::::::::::")
 			model.tags.folioNo = model.data.split(",")[1]
-			delete model.stage
-			return resolve(model);
+			// delete model.stage
+			// return resolve(model);
 			model.tags.amcCodeFolioNo = model.data.split(",")
 			api.getAccountStatement(model.tags.ip,model.tags.session,model.tags.amcCodeFolioNo[1],model.tags.amcCodeFolioNo[0]).then((data)=>{
 				data.body = JSON.parse(data.body)
