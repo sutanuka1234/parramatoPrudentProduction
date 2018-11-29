@@ -169,7 +169,7 @@ function nach(model){
 				for(let i=0; i<5; i++){
 					model.tags.nachArray.push({
 						title 	: "Mandate Status: "+nachDetails.Response[i].MandateStatus ,
-						text 	: "BankName: "+nachDetails.Response[i].BankName+". AccountNo: "+nachDetails.Response[i].AccountNo,
+						text 	: "Bank Name: "+nachDetails.Response[i].BankName+". Account No: "+nachDetails.Response[i].AccountNo,
 						image 	: '',
 						buttons : [
 							{
@@ -184,7 +184,7 @@ function nach(model){
 				for(let i=0; i<nachDetails.Response.length; i++){
 					model.tags.nachArray.push({
 						title 	: "Mandate Status: "+nachDetails.Response[i].MandateStatus ,
-						text 	: "BankName: "+nachDetails.Response[i].BankName+". AccountNo: "+nachDetails.Response[i].AccountNo,
+						text 	: "Bank Name: "+nachDetails.Response[i].BankName+". Account No: "+nachDetails.Response[i].AccountNo,
 						image 	: '',
 						buttons : [
 							{
