@@ -170,7 +170,7 @@ function statement(model){
 		else{
 			model.reply = {
 		 		type : "text",
-				text : "Got it. You will receive your account statement of folio "+formatter2.apply(model.tags.folioNo)+" on your registered email ID 📩"
+				text : "Got it. You will receive your account statement of folio "+formatter.apply(model.tags.folioNo)+" on your registered email ID 📩"
 			}
 		}
 		resolve(model);
