@@ -215,7 +215,7 @@ function nachDetails(model){
 		model.reply = {
 			type : 'text',
 			text : "Let me brief you on your nach mandate status of "+model.tags.referenceNo+
-			". Your daily limit is "+model.tags.dailyLimit+" and status is "+model.tags.mandateStatus+". This mandate is for Account number "+model.tags.accountNo+" linked to "+model.tags.bankName
+			". Your daily limit is "+model.tags.dailyLimit+" and status is "+model.tags.mandateStatus+". This mandate is for Account number "+model.tags.accountNo+" linked to "+model.tags.bankName+"."
 		}
 		return resolve(model)
 	})
