@@ -596,23 +596,25 @@ function folio(model){
 			api.getAccountStatement(model.tags.ip,model.tags.session,model.tags.amcCodeFolioNo[1],model.tags.amcCodeFolioNo[0]).then((data)=>{
 				data.body = JSON.parse(data.body)
 				if(data.body.Response[0].FileStatus == "No"){
+					console.log("------------getAccountStatement response--------------------01")
+					console.log(data.body.Response[0].FileStatus)
 					model.tags.fail = 1
 					model.tags.nextFolio = undefined
 					model.stage = 'statement'
-					resolve(model)
+					return resolve(model)
 				}
 				else if(data.body.Response[0].FileStatus == "File Not Found"){
 					model.tags.fail = 1
 					model.tags.nextFolio = undefined
 					model.stage = 'statement'
-					resolve(model)
+					return resolve(model)
 				}
 				else{
 					console.log("------------getAccountStatement response")
 					console.log(data.body.Response[0].FileStatus)
 					model.tags.nextFolio = undefined
 					model.stage = 'statement'
-					resolve(model)
+					return resolve(model)
 				}
 			})
 			.catch((e)=>{
