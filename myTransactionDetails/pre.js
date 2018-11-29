@@ -251,7 +251,9 @@ function transactionIDTwo(model){
 		api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
 		data.body = JSON.parse(data.body)
 		console.log(data.body.Response.length)
-    	data.body.Response[0].ProcessDate = dateTimeFormat(data.body.Response[0].ProcessDate)
+		if(data.body.Response[0].ProcessDate != null){
+    		data.body.Response[0].ProcessDate = dateTimeFormat(data.body.Response[0].ProcessDate)
+		}
 		if(data.body.Response.length > 0){
 			model.reply = {
 				type : "text",
