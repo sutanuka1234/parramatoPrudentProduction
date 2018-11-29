@@ -583,6 +583,8 @@ function transactionStatus(model){
 			api.getTransactionDetails(model.tags.session,model.tags.transactionId).then((data)=>{
 				data.body = JSON.parse(data.body)
 				console.log(data.body.Response.length)
+				console.log("--------------transactionStatus post getTransactionDetails---------")
+				console.log(data.body)
 				model.tags.transactions = []
 				for(var i = 0; i<10; i++){
 					model.tags.transactions.push({
