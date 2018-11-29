@@ -608,6 +608,8 @@ function folio(model){
 					resolve(model)
 				}
 				else{
+					console.log("------------getAccountStatement response")
+					console.log(data.body.Response[0].FileStatus)
 					model.tags.nextFolio = undefined
 					model.stage = 'statement'
 					resolve(model)
