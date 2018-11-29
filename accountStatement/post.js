@@ -611,7 +611,6 @@ function folio(model){
 					return resolve(model)
 				}
 				else if(input.includes("yes")){
-					model.tags.fail = 1
 					model.tags.nextFolio = undefined
 					model.stage = 'statement'
 					return resolve(model)
