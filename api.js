@@ -123,6 +123,15 @@ function getTransactionDetails(ip,session,txId){
 	return runRequest(obj)
 }
 
+function getMandateDetails(ip,session){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+"MandateDetailsGet?IPAddress="+ip+"&SessionId="+session
+	}
+	return runRequest(obj)
+}
+
 // getTransactionDetails("190.100.10.200","7C772321713D21713D21713D21713D21713D2F612A7C77237C77237C7723",0).then((data)=>{
 // 	let urldata = JSON.parse(data.body)
 // 	console.log(urldata.Response[0].Foliono)
@@ -398,6 +407,7 @@ module.exports = {
 	confirmSTP 						: confirmSTP,
 	getClientAllFolio 				: getClientAllFolio,
 	getAccountStatement 			: getAccountStatement,
-	getTransactionDetails 			: getTransactionDetails
+	getTransactionDetails 			: getTransactionDetails,
+	getMandateDetails 				: getMandateDetails
 }
 

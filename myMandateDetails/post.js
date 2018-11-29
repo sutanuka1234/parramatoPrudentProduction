@@ -17,7 +17,6 @@ let obj = {
 	mobile				: mobile,
 	pan					: pan,
 	otp					: otp,
-	holding 			: holding,
 	nach 				: nach
 }
 
@@ -570,33 +569,33 @@ function otp(model){
 	})
 }
 
-function holding(model){
-	return new Promise(function(resolve, reject){
-		model.tags.amount = undefined
-		model.tags.joinAccId = undefined
-		model.tags.tranId=undefined
-		model.tags.stpSchemeList=undefined
-		model.tags.stpReferenceId=undefined
-		model.tags.refrenceIdStpTxn=undefined
-		if(model.tags.joinAccIdList.includes(model.data)){
-			for (let element of model.tags.joinAcc){
-				console.log(element.JoinAccId+"::"+model.data)
-				if(element.JoinAccId==model.data){
-					sendExternalMessage(model,"Going ahead with "+element.JoinHolderName)
-					break;
-				}
-			}
-			model.tags.joinAccId = model.data
-			console.log("here")
-			delete model.stage
-			return resolve(model)				
-		}
-		else{
-			console.log("3 reject no data")
-			return reject(model)
-		}
-	})
-}
+// function holding(model){
+// 	return new Promise(function(resolve, reject){
+// 		model.tags.amount = undefined
+// 		model.tags.joinAccId = undefined
+// 		model.tags.tranId=undefined
+// 		model.tags.stpSchemeList=undefined
+// 		model.tags.stpReferenceId=undefined
+// 		model.tags.refrenceIdStpTxn=undefined
+// 		if(model.tags.joinAccIdList.includes(model.data)){
+// 			for (let element of model.tags.joinAcc){
+// 				console.log(element.JoinAccId+"::"+model.data)
+// 				if(element.JoinAccId==model.data){
+// 					sendExternalMessage(model,"Going ahead with "+element.JoinHolderName)
+// 					break;
+// 				}
+// 			}
+// 			model.tags.joinAccId = model.data
+// 			console.log("here")
+// 			delete model.stage
+// 			return resolve(model)				
+// 		}
+// 		else{
+// 			console.log("3 reject no data")
+// 			return reject(model)
+// 		}
+// 	})
+// }
 
 function nach(model){
 	return new Promise(function (resolve,reject){
