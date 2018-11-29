@@ -583,7 +583,7 @@ function transactionStatus(model){
 		}
 		else if(model.data.match(/\d{10}/)){
 			model.tags.transactionId = model.data.match(/\d{10}/)[0]
-			api.getTransactionDetails(model.tags.session,model.tags.transactionId).then((data)=>{
+			api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
 			data.body = JSON.parse(data.body)
 			console.log(data.body.Response.length)
 			if(data.body.Response.length > 0 || data.body){

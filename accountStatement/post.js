@@ -596,33 +596,27 @@ function folio(model){
 			api.getAccountStatement(model.tags.ip,model.tags.session,model.tags.amcCodeFolioNo[1],model.tags.amcCodeFolioNo[0]).then((data)=>{
 				data.body = JSON.parse(data.body)
 				let input = data.body.Response[0].FileStatus.toLowerCase().trim()
-				if(input.includes("no")){
-					console.log("------------getAccountStatement response--------------------01")
+				console.log("------------getAccountStatement response--------------------01")
 					console.log(input)
+				if(input.includes("no")){
 					model.tags.fail = 1
 					model.tags.nextFolio = undefined
 					model.stage = 'statement'
 					return resolve(model)
 				}
 				else if(input.includes("not found")){
-					console.log("------------getAccountStatement response--------------------02")
-					console.log(input)
 					model.tags.fail = 1
 					model.tags.nextFolio = undefined
 					model.stage = 'statement'
 					return resolve(model)
 				}
 				else if(input.includes("yes")){
-					console.log("------------getAccountStatement response--------------------03")
-					console.log(input)
 					model.tags.fail = 1
 					model.tags.nextFolio = undefined
 					model.stage = 'statement'
 					return resolve(model)
 				}
 				else{
-					console.log("------------getAccountStatement response--------------------04")
-					console.log(input)
 					model.tags.nextFolio = undefined
 					model.stage = 'statement'
 					return resolve(model)

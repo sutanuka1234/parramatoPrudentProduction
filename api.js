@@ -111,6 +111,15 @@ function getAccountStatement(ip, session, amcId, folio){
 	return runRequest(obj)
 }
 
+function getTransactionDetails(ip,session,txId){
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+"TransactionDetailsGet?IPAddress="+ip+"&SessionId="+session+"&TranReferenceID="+txId
+	}
+	return runRequest(obj)
+}
+
 function getFolio(ip,session, joinAccId, schemeCode, amcId,investmentType,switchBool,folio,STPBool){
 	if(STPBool){
 		var obj = {
@@ -376,6 +385,7 @@ module.exports = {
 	confirmSwitch 					: confirmSwitch,
 	confirmSTP 						: confirmSTP,
 	getClientAllFolio 				: getClientAllFolio,
-	getAccountStatement 			: getAccountStatement
+	getAccountStatement 			: getAccountStatement,
+	getTransactionDetails 			: getTransactionDetails
 }
 

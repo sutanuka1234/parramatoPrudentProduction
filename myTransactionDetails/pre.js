@@ -216,7 +216,7 @@ function lastTenTransactions(model){
 
 function transactionID(model){
 	return new Promise((resolve,reject)=>{
-		api.getTransactionDetails(model.tags.session,model.tags.transactionId).then((data)=>{
+		api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
 		data.body = JSON.parse(data.body)
 		console.log(data.body.Response.length)
 		data.body.Response[0].ProcessDate = dateTimeFormat(data.body.Response[0].ProcessDate)
@@ -229,7 +229,7 @@ function transactionID(model){
 		}
 		else{
 			model.tags.transactionId = 0
-			api.getTransactionDetails(model.tags.session,model.tags.transactionId).then((data)=>{
+			api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
 			data.body = JSON.parse(data.body)
 			console.log(data.body.Response.length)
 			model.tags.transactions = []
@@ -269,7 +269,7 @@ function transactionID(model){
 function transactionIDTwo(model){
 	return new Promise((resolve,reject)=>{
 		console.log("-------------------------txid2-----------")
-		api.getTransactionDetails(model.tags.session,model.tags.transactionId).then((data)=>{
+		api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
 		data.body = JSON.parse(data.body)
 		console.log(data.body.Response.length)
     	data.body.Response[0].ProcessDate = dateTimeFormat(data.body.Response[0].ProcessDate)
