@@ -150,7 +150,7 @@ function panMobile(model){
 		}
 		
 		model = extractPan(model);
-		console.log(model.tags+"::POST")
+// console.logodel.tags+"::POST")
 		if(model.tags.newPan){
 			let temp = {pan:model.tags.pan}
 			if(model.tags.newFolio){
@@ -649,7 +649,7 @@ function otp(model){
 
 function agreement(model){
 	return new Promise(function(resolve,reject){
-		console.log(model.tags.schemeApiDetails)
+// console.logodel.tags.schemeApiDetails)
 		if(model.data.toLowerCase().trim().includes("i accept and agree")){
 			if(model.tags.additional){
 				model.tags.schemeApiDetails=model.tags.termsAdditional
@@ -886,7 +886,7 @@ function holding(model){
 				                sender  : model.sender,
 				                language: "en"
 				            }
-				            console.log("111111111111111")
+// console.log111111111111111")
 							external(reply)
 							.then((data)=>{
 								model.stage = 'askSchemeName'
@@ -973,7 +973,7 @@ function holding(model){
 			                sender  : model.sender,
 			                language: "en"
 			            }
-			            console.log("2222222")
+// console.log2222222")
 						external(reply)
 						.then((data)=>{
 							model.stage = 'askSchemeName'
@@ -995,7 +995,7 @@ function holding(model){
 		                sender  : model.sender,
 		                language: "en"
 		            }
-		            console.log("333333333")
+// console.log333333333")
 					external(reply)
 					.then((data)=>{
 						model.stage = 'askSchemeName'
@@ -1088,7 +1088,7 @@ function holding(model){
 						                sender  : model.sender,
 						                language: "en"
 						            }
-						            console.log("4444444")
+// console.log4444444")
 									external(reply)
 									.then((data)=>{
 										model.stage = 'askSchemeName'
@@ -1177,7 +1177,7 @@ function holding(model){
 					                sender  : model.sender,
 					                language: "en"
 					            }
-					            console.log("5555555")
+// console.log5555555")
 								external(reply)
 								.then((data)=>{
 									model.stage = 'askSchemeName'
@@ -1199,7 +1199,7 @@ function holding(model){
 				                sender  : model.sender,
 				                language: "en"
 				            }
-				            console.log("6666666")
+// console.log6666666")
 							external(reply)
 							.then((data)=>{
 								model.stage = 'askSchemeName'
@@ -1248,8 +1248,8 @@ function additional(model){
 					for(let element of response.Response[0]){
 						if(element["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
 							flag=true;
-							console.log("ADDITIONAL::::??>>>")
-							console.log(model.tags.schemeApiDetails)
+// console.logADDITIONAL::::??>>>")
+// console.logodel.tags.schemeApiDetails)
 							model.tags.termsAdditional=element
 							model.tags.additional=true;
 							if(model.tags.existingSchemeDetailsSet.length===1){
@@ -1265,7 +1265,7 @@ function additional(model){
 						                sender  : model.sender,
 						                language: "en"
 						            }
-						            console.log("777777")
+// console.log777777")
 									external(reply)
 									.then((data)=>{
 										model.stage = 'askSchemeName'
@@ -1340,7 +1340,7 @@ function additional(model){
 			                sender  : model.sender,
 			                language: "en"
 			            }
-			            console.log("888888")
+// console.log888888")
 						external(reply)
 						.then((data)=>{
 							model.stage = 'askSchemeName'
@@ -1419,7 +1419,7 @@ function additional(model){
 		                sender  : model.sender,
 		                language: "en"
 		            }
-		            console.log("99999999")
+// console.log99999999")
 					external(reply)
 					.then((data)=>{
 						model.stage = 'askSchemeName'
@@ -1446,7 +1446,7 @@ function additional(model){
 
 function euin(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.tags.schemeApiDetails)
+// console.logodel.tags.schemeApiDetails)
 		model.tags.decideStage=undefined
 		try{
 			let euinFlag=false;
@@ -1640,7 +1640,7 @@ function folio(model){
 	return new Promise(function(resolve, reject){
 		// console.log("::::::::::::::::::::::::EUIN::::::::::::::::::::::::")
 		// console.log(JSON.stringify(model.tags.euinApiDetails,null,3))
-		console.log(model.tags.schemeApiDetails)
+// console.logodel.tags.schemeApiDetails)
 		let arr = []
 		for(let i in model.tags.folioList){
 			arr.push(model.tags.folioList[i].data)
@@ -1724,7 +1724,7 @@ function folio(model){
 			                sender  : model.sender,
 			                language: "en"
 			            }
-			            console.log("1010101010")
+// console.log1010101010")
 						external(reply)
 						.then((data)=>{
 							model.stage = 'askSchemeName'
@@ -1899,7 +1899,7 @@ function divOps(model){
 	return new Promise(function(resolve, reject){
 		model = extractAmount(model)
 		// model = extractFolio(model)
-		console.log(model.tags.schemeApiDetails)
+// console.logodel.tags.schemeApiDetails)
 		if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')|| model.data.toLowerCase().includes('payout')){
 			
 			if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')){
@@ -2099,7 +2099,7 @@ function amount(model){
                 sender  : model.sender,
                 language: "en"
             }
-            console.log("111 111 111")
+// console.log111 111 111")
 			external(reply)
 			.then((data)=>{
 				model.stage = 'askSchemeName'
@@ -2301,11 +2301,11 @@ function sipDay(model){
 				            }
 							external(reply)
 							.then((data)=>{
-								console.log("111improper json")
+// console.log111improper json")
 				                return reject(model);
 				            })
 				            .catch((e)=>{
-				                console.log("222"+e);
+// console.log222"+e);
 				                return reject(model)
 				            })
 						}
@@ -2320,11 +2320,11 @@ function sipDay(model){
 					            }
 								external(reply)
 								.then((data)=>{
-									console.log("333")
+// console.log333")
 					                return reject(model);
 					            })
 					            .catch((e)=>{
-					                console.log("444"+e);
+// console.log444"+e);
 					                return reject(model)
 					            })
 							}
@@ -2341,7 +2341,7 @@ function sipDay(model){
 											}
 									}
 									catch(e){
-										console.log("555"+e)
+// console.log555"+e)
 						                return reject(model)
 									}
 									let expectedAmount=parseInt(model.tags.amount);
@@ -2375,12 +2375,12 @@ function sipDay(model){
 						            }
 									external(reply)
 									.then((data)=>{
-										console.log("666")
+// console.log666")
 										model.stage="amount"
 						                return resolve(model);
 						            })
 						            .catch((e)=>{
-						                console.log("777"+e);
+// console.log777"+e);
 										model.stage="amount"
 						                return resolve(model)
 						            })
@@ -2397,28 +2397,28 @@ function sipDay(model){
 							}
 						}
 						catch(e){
-							console.log("888"+e);
+// console.log888"+e);
 							return reject(model);
 				            
 						}
 					})
 					.catch(e=>{
-						console.log("999"+e);
+// console.log999"+e);
 						return reject(model);
 					})
 				}
 				else{
-					console.log("101010not valid date")
+// console.log101010not valid date")
 					return reject(model);
 				}
 			}
 			else{
-				console.log("111111No number")
+// console.log111111No number")
 				return reject(model);
 			}
 		}
 		catch(e){
-			console.log("121212"+e)
+// console.log121212"+e)
 			return reject(model);
 		}
 	});
@@ -2426,8 +2426,8 @@ function sipDay(model){
 
 function bankMandate(model){
 	return new Promise(function(resolve, reject){
-		console.log(":::::::::::::::::::::::::::::::::::::")
-		console.log("User said : "+model.data)
+// console.log:::::::::::::::::::::::::::::::::::::")
+// console.logUser said : "+model.data)
 		if(model.data.startsWith(model.tags.session+"-payment-")&&model.data.split("-").length==3){
 			model.tags.transactionRefId=model.data.split("-")[2]
 			model.tags.status="Successful"

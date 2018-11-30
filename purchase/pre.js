@@ -78,7 +78,7 @@ let amc = [
 ]
 
 function main(req, res){
-		console.log(req.params.stage)
+// console.logeq.params.stage)
 		obj[req.params.stage](req.body)
 		.then((data)=>{
 			res.send(data)
@@ -112,7 +112,7 @@ function panMobile(model){
 			model=extractSchemeName(model)
 			model=extractAmount(model)
 			// model=extractFolio(model)
-			console.log(model.tags.investmentType+":Type of investment")
+// console.logodel.tags.investmentType+":Type of investment")
 		}
 		let invType=""
 		if(model.tags.investmentType){
@@ -140,7 +140,7 @@ function panMobile(model){
 	            }
 			}
 		}
-		console.log(model.tags.schemes)
+// console.logodel.tags.schemes)
 		return resolve(model)
 	})
 }
@@ -240,7 +240,7 @@ function initAmount(model){
 
 function amount(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.tags.schemeApiDetails)
+// console.logodel.tags.schemeApiDetails)
 		model.reply={
 			type:"text",
             text:"Tell me the amount you want to invest, it should be greater than or equal to Rs "+model.tags.schemeApiDetails["MinimumInvestment"]+" and less than or equal to Rs "+model.tags.schemeApiDetails["MaximumInvestment"] +" and in the multiples of "+model.tags.schemeApiDetails["Multiples"] 
@@ -389,8 +389,8 @@ function bankMandate(model){
 
 function summary(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.tags.paymentDone)
-		console.log(typeof model.tags.paymentDone)
+// console.logodel.tags.paymentDone)
+// console.logypeof model.tags.paymentDone)
 		if(model.tags.paymentDone&&model.tags.paymentDone==true){
 			model.reply={
 				type : 'quickReply',
@@ -620,7 +620,7 @@ function extractSchemeName(model){
 				searchTerm+=wordsInUserSays[i]+" "
 			}
 			searchTerm=searchTerm.trim();
-			console.log(searchTerm)
+// console.logearchTerm)
 			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
 			if(matches.bestMatch.rating>0.9){
 				model.tags.schemes = []
@@ -633,7 +633,7 @@ function extractSchemeName(model){
 				model.tags.schemes = matches.ratings.splice(0,9);
 				model.tags.newScheme=true;
 			}
-			console.log("MATCHHH"+matches.bestMatch.rating+matches.bestMatch.target)
+// console.logMATCHHH"+matches.bestMatch.rating+matches.bestMatch.target)
 			// console.log(matches)
 		}
 		return model;

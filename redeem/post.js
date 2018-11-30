@@ -90,11 +90,11 @@ let sortedJourney=["panMobile",
 let greeting = ["Hope you are doing great today", "Good to see you!", "Hope you are having a good time", "Hope you are doing well today."]
 
 function main(req, res){
-		console.log(req.params.stage)
+// console.logeq.params.stage)
 		var buttonStageArr=req.body.data.split("|||")
 		if(buttonStageArr.length==2&&obj[buttonStageArr[0]]){
 			req.body.data=buttonStageArr[1]
-			console.log(req.params.stage+":::"+buttonStageArr[0])
+// console.logeq.params.stage+":::"+buttonStageArr[0])
 			if(req.params.stage!=buttonStageArr[0]&&sortedJourney.indexOf(req.params.stage)>sortedJourney.indexOf(buttonStageArr[0])){
 					req.params.stage=buttonStageArr[0];
 					delete req.body.stage
@@ -104,7 +104,7 @@ function main(req, res){
 		if(obj[req.params.stage]){
 			obj[req.params.stage](req.body)
 			.then((data)=>{
-				console.log("3")
+// console.log3")
 				res.send(data)
 			})
 			.catch((e)=>{
@@ -113,7 +113,7 @@ function main(req, res){
 			})
 		}
 		else{
-				console.log("No such function available")
+// console.logNo such function available")
 				res.sendStatus(203)
 		}
 		
@@ -592,15 +592,15 @@ function holding(model){
 				}
 			}
 			model.tags.joinAccId = model.data
-			console.log("here")
+// console.loghere")
 			api.getRedemptionSchemes(model.tags.ip,model.tags.session, model.tags.joinAccId)
 			.then((data)=>{
 				let response;
 					try{
-						console.log(data)
+// console.logata)
 						response = JSON.parse(data.body)
-						console.log("yogi")
-						console.log(JSON.stringify(response, null, 3))
+// console.logyogi")
+// console.logSON.stringify(response, null, 3))
 					}
 					catch(e){
 						console.log(e);
@@ -636,7 +636,7 @@ function holding(model){
 				                return reject(model)
 				            })
 						}
-						console.log(JSON.stringify(response,null,3))
+// console.logSON.stringify(response,null,3))
 						if(response.Response&&response.Response.length>0&&response.Response[0].length>0){
 							model.tags.redeemSchemes=response.Response[0];
 							model.tags.redeemSchemeList=[]
@@ -702,7 +702,7 @@ function holding(model){
 				
 		}
 		else{
-			console.log("3 reject no data")
+// console.log3 reject no data")
 			return reject(model)
 		}
 	})
@@ -780,7 +780,7 @@ function scheme(model){
 			}
 			else if(model.tags.redeemSchemes){
 				for(let scheme of model.tags.redeemSchemes){
-					console.log(model.data+"::"+scheme["SCHEMECODE"])
+// console.logodel.data+"::"+scheme["SCHEMECODE"])
 					if(scheme["SCHEMECODE"]==model.data){
 						flag=true
 						model.tags.redeemSchemeObj=scheme;
@@ -796,7 +796,7 @@ function scheme(model){
 							// console.log("amount valid")
 							api.insertBuyCartRedeem(model.tags.ip,model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["AvailableUnits"], model.tags.folio,model.tags.unitOrAmount)
 							.then((data)=>{
-								console.log(data.body)
+// console.logata.body)
 								try{
 									data = JSON.parse(data.body)
 								}
@@ -810,7 +810,7 @@ function scheme(model){
 						            }
 									external(reply)
 									.then((data)=>{
-										console.log("data 1 failed")
+// console.logdata 1 failed")
 						                return reject(model);
 						            })
 						            .catch((e)=>{
@@ -827,7 +827,7 @@ function scheme(model){
 						            }
 									external(reply)
 									.then((data)=>{
-										console.log("data 2 failed")
+// console.logdata 2 failed")
 						                return reject(model);
 						            })
 						            .catch((e)=>{
@@ -838,11 +838,11 @@ function scheme(model){
 								else if(data.Response&&data.Response.length>0){
 									model.tags.refrenceIdRedeemTxn=data.Response[0]["TranReferenceID"];
 									model.stage="confirm";
-									console.log("resolved confirm")
+// console.logresolved confirm")
 									return resolve(model);
 								}
 								else{
-									console.log("all failed")
+// console.logall failed")
 						                return reject(model)
 									
 								}
@@ -866,7 +866,7 @@ function scheme(model){
 				
 			}
 			else{
-				console.log("none")
+// console.lognone")
 				return reject(model)
 			}
 		}
@@ -882,13 +882,13 @@ function unitOrAmount(model) {
 
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
-		console.log(model.data)
+// console.logodel.data)
 		if(model.data.includes("all")){
 			model.tags.unitOrAmount="AU";
 			// console.log("amount valid")
 			api.insertBuyCartRedeem(model.tags.ip,model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.redeemSchemeObj["AvailableUnits"], model.tags.folio,model.tags.unitOrAmount)
 			.then((data)=>{
-				console.log(data.body)
+// console.logata.body)
 				try{
 					data = JSON.parse(data.body)
 				}
@@ -959,7 +959,7 @@ function unitOrAmount(model) {
 }
 
 function amount(model){
-	console.log("amount::::::::::::::::::")
+// console.logamount::::::::::::::::::")
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
 		if(model.tags.unitOrAmount=="PU"){
@@ -969,7 +969,7 @@ function amount(model){
 			model=extractAmount(model)
 		}
 		// model=extractAmount(model)
-		console.log("amount::::::::::::::::::"+model.tags.amount)
+// console.logamount::::::::::::::::::"+model.tags.amount)
 		try{
 			if(model.tags.amount&&model.tags.redeemSchemeObj){
 				if(model.tags.unitOrAmount=="PU"){
@@ -977,9 +977,9 @@ function amount(model){
 					let maxAmount=parseFloat(model.tags.redeemSchemeObj["AvailableUnits"])
 					let minAmount=parseFloat(model.tags.redeemSchemeObj["MinRedemptionUnits"])
 					let multiple=parseFloat(model.tags.redeemSchemeObj["RedemptionMultiplesUnits"])
-					console.log(minAmount)
-					console.log(maxAmount)
-					console.log(amount)
+// console.loginAmount)
+// console.logaxAmount)
+// console.logmount)
 					if(amount<minAmount){
 						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
 						model.tags.amount=undefined;
@@ -994,11 +994,11 @@ function amount(model){
 					let maxAmount=parseFloat(model.tags.redeemSchemeObj["AvailableAmt"])
 					let minAmount=parseFloat(model.tags.redeemSchemeObj["MinRedemptionAmount"])
 					let multiple=parseFloat(model.tags.redeemSchemeObj["RedemptionMultipleAmount"])
-					console.log(minAmount)
-					console.log(maxAmount)
-					console.log(multiple)
-					console.log(amount)
-					console.log(amount%multiple)
+// console.loginAmount)
+// console.logaxAmount)
+// console.logultiple)
+// console.logmount)
+// console.logmount%multiple)
 					if(amount%multiple!=0){
 						model.tags.amount=undefined;
 					}
@@ -1018,7 +1018,7 @@ function amount(model){
 				// console.log("amount valid")
 				api.insertBuyCartRedeem(model.tags.ip,model.tags.session, model.tags.joinAccId, model.tags.redeemSchemeObj["SCHEMECODE"], model.tags.redeemSchemeObj["SCHEMENAME"],model.tags.amount, model.tags.folio,model.tags.unitOrAmount)
 				.then((data)=>{
-					console.log(data.body)
+// console.logata.body)
 					try{
 						data = JSON.parse(data.body)
 					}
@@ -1061,7 +1061,7 @@ function amount(model){
 						return resolve(model)
 					}
 					else{
-						console.log("no ref id")
+// console.logno ref id")
 			                return reject(model)
 						
 					}
@@ -1074,7 +1074,7 @@ function amount(model){
 
 			}
 			else{
-				console.log("no data")
+// console.logno data")
 				return reject(model)
 			}	
 		}
@@ -1091,7 +1091,7 @@ function confirm(model){
 		if(model.data.toLowerCase().includes("yes")){
 			api.confirmRedemption(model.tags.ip,model.tags.session,model.tags.refrenceIdRedeemTxn)
 			.then((data)=>{
-				console.log(data.body)
+// console.logata.body)
 				try{
 					data = JSON.parse(data.body)
 				}
@@ -1129,7 +1129,7 @@ function confirm(model){
 		            })
 				}
 				else{
-					console.log("summaryyyyy")
+// console.logsummaryyyyy")
 					model.tags.redeemReferenceId=data.Response[0]["ReferenceNo"];
 					model.stage="summary"
 					return resolve(model)
@@ -1190,15 +1190,15 @@ function extractAmountUptoThree(model){
 	
  	if(model.data.match(/\d+\./)){
  		let text = matchAll(model.data, /(\d+\.\d+)/gi).toArray()
- 		console.log(text)
- 		console.log(text.length)
+// console.logext)
+// console.logext.length)
  		if(text.length>0){
  			if(!model.data.includes("-"+text[0])){
-	 			console.log(text[0])
-	 			console.log(parseFloat(text[0]).toFixed(3))
-	 			console.log(typeof parseFloat(text[0]).toFixed(3))
+// console.logext[0])
+// console.logarseFloat(text[0]).toFixed(3))
+// console.logypeof parseFloat(text[0]).toFixed(3))
 				model.tags.amount = parseFloat(parseFloat(text[0]).toFixed(3))
-				console.log(model.tags.amount+":::::::::::::::::;amount")
+// console.logodel.tags.amount+":::::::::::::::::;amount")
 			}
 			model.data = model.data.replace(text[0], '')
 		}

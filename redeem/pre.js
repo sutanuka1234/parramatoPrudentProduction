@@ -71,7 +71,7 @@ let amc = [
 ]
 
 function main(req, res){
-		console.log(req.params.stage)
+// console.logeq.params.stage)
 		obj[req.params.stage](req.body)
 		.then((data)=>{
 			res.send(data)
@@ -123,7 +123,7 @@ function panMobile(model){
 	            }
 			}
 		}
-		console.log(model.tags.schemes)
+// console.logodel.tags.schemes)
 		return resolve(model)
 	})
 }
@@ -275,7 +275,7 @@ function confirm(model){
 
 function summary(model){
 	return new Promise(function(resolve, reject){
-		console.log(JSON.stringify(model.tags,null,3))
+// console.logSON.stringify(model.tags,null,3))
 		if(model.tags.redeemReferenceId){
 			model.reply={
 				type:"quickReply",
@@ -436,7 +436,7 @@ function extractPan(model){
 
 
 function dataClean(model){
-	console.log(model.tags.userSays)
+// console.logodel.tags.userSays)
 	if(model.tags.userSays){
 		model.tags.userSays = model.tags.userSays.toLowerCase()
 	}

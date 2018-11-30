@@ -81,7 +81,7 @@ let amc = [
 ]
 
 function main(req, res){
-		console.log(req.params.stage)
+// console.logeq.params.stage)
 		obj[req.params.stage](req.body)
 		.then((data)=>{
 			res.send(data)
@@ -324,7 +324,7 @@ function stpFrequency(model) {
 	            }
 		}
 		if(model.tags.stpFrequencyFromApi&&model.tags.stpFrequencyFromApi.length>0){
-			console.log(model.tags.stpFrequencyFromApi)
+// console.logodel.tags.stpFrequencyFromApi)
 			model.reply.type="quickReply"
 			for (let freq of model.tags.stpFrequencyFromApi){
 				model.reply.next.data.push({data:freq["Frequency"],text:freq["Frequency"]})
@@ -339,7 +339,7 @@ function stpMonthDay(model) {
 
 	return new Promise(function(resolve, reject){
 		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0&&(data[model.tags.scheme].schemeCode=="12758"||data[model.tags.scheme].schemeCode=="12760")){
-			console.log(model.tags.stpDatesFromApi)
+// console.logodel.tags.stpDatesFromApi)
 			let dates=model.tags.stpDatesFromApi[0]["Value"]
 			model.reply={
 				type:"quickReply",
@@ -467,7 +467,7 @@ function confirm(model){
 
 function summary(model){
 	return new Promise(function(resolve, reject){
-		console.log(JSON.stringify(model.tags,null,3))
+// console.logSON.stringify(model.tags,null,3))
 		if(model.tags.stpReferenceId){
 			model.reply={
 				type:"quickReply",
@@ -633,7 +633,7 @@ function extractDivOption(model){
 
 
 function dataClean(model){
-	console.log(model.tags.userSays)
+// console.logodel.tags.userSays)
 	if(model.tags.userSays){
 		model.tags.userSays = model.tags.userSays.toLowerCase()
 	}

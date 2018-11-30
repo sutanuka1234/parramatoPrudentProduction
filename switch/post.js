@@ -98,7 +98,7 @@ let sortedJourney=["panMobile",
 let greeting = ["Hope you are doing great today", "Good to see you!", "Hope you are having a good time", "Hope you are doing well today."]
 
 function main(req, res){
-		console.log(req.params.stage)
+// console.logeq.params.stage)
 		var buttonStageArr=req.body.data.split("|||")
 		if(buttonStageArr.length==2&&obj[buttonStageArr[0]]){
 			req.body.data=buttonStageArr[1]
@@ -112,7 +112,7 @@ function main(req, res){
 		if(obj[req.params.stage]){
 			obj[req.params.stage](req.body)
 			.then((data)=>{
-				console.log("3")
+// console.log3")
 				res.send(data)
 			})
 			.catch((e)=>{
@@ -121,7 +121,7 @@ function main(req, res){
 			})
 		}
 		else{
-				console.log("No such function available")
+// console.logNo such function available")
 				res.sendStatus(203)
 		}
 		
@@ -134,15 +134,13 @@ function panMobile(model){
 		model=dataClean(model);
 		// model=extractDivOption(model)
 		// model=extractSchemeName(model)
-
-		console.log("::::::::::::::::::")
+// console.log::::::::::::::::::")
 		if(model.data.toLowerCase().includes("not")&&model.data.toLowerCase().includes("me")){
 			model.stage="panMobile";
 			model.tags={}
 			return resolve(model);
 		}
-
-		console.log("::::::::::::::::::")
+// console.log::::::::::::::::::")
 		model = extractPan(model);
 		if(model.tags.newPan){
 			let temp = {pan:model.tags.pan}
@@ -174,13 +172,13 @@ function panMobile(model){
 				model.tags.newAmount=undefined;
 
 		}
-		console.log("::::::::::::::::::")
+// console.log::::::::::::::::::")
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
-			console.log("1")
+// console.log1")
 			return reject(model);
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
-			console.log("2")
+// console.log2")
 			api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				// console.log("then")
@@ -250,7 +248,7 @@ function panMobile(model){
 			})		
 		}
 		else if(model.data&&model.data.includes("proceed")&&(model.tags.mobile||model.tags.pan)){
-			console.log("3")
+// console.log3")
 
 			if(!model.tags.mobile&&!model.tags.pan){
 				return reject(model);
@@ -265,7 +263,7 @@ function panMobile(model){
 			}
 		}
 		else{ 
-			console.log("4")
+// console.log4")
 			model = extractMobile(model);
 			// model = extractAmount(model);
 			if(model.tags.pan&&model.tags.mobile){
@@ -338,16 +336,16 @@ function panMobile(model){
 
 				
 				if(!model.tags.mobile&&!model.tags.pan){
-					console.log("no pan mobile")
+// console.logno pan mobile")
 					return reject(model);
 				}
 				if(!model.tags.mobile){
-					console.log("no mobile")
+// console.logno mobile")
 					model.stage = 'mobile' 
 					return resolve(model)
 				}
 				else if(!model.tags.pan){
-					console.log("no pan")
+// console.logno pan")
 					model.stage = 'pan' 
 					return resolve(model)
 				}		
@@ -611,12 +609,12 @@ function holding(model){
 				}
 			}
 			model.tags.joinAccId = model.data
-			console.log("here")
+// console.loghere")
 			api.getSwitchScheme(model.tags.ip,model.tags.session,model.tags.joinAccId)
 			.then((data)=>{
 				let response;
 				try{
-					console.log(data)
+// console.logata)
 					response = JSON.parse(data.body)
 				}
 				catch(e){
@@ -660,7 +658,7 @@ function holding(model){
 						model.tags.switchSchemes=response.Response;
 						model.tags.switchSchemeList=[]
 						model.tags.switchSchemes.forEach(function(element,index){
-							console.log(index+"::::::::::::::::::::::::::::::")
+// console.logndex+"::::::::::::::::::::::::::::::")
 							if(index<size){
 								if(index==size-1&&model.tags.switchSchemes.length>size){
 									model.tags.switchSchemeList.push({
@@ -703,7 +701,7 @@ function holding(model){
 							return resolve(model)
 						}
 						else{
-							console.log(JSON.stringify(model.tags.switchSchemeList,null,3))
+// console.logSON.stringify(model.tags.switchSchemeList,null,3))
 							model.stage="scheme"
 							return resolve(model)
 						}
@@ -723,7 +721,7 @@ function holding(model){
 				
 		}
 		else{
-			console.log("3 reject no data")
+// console.log3 reject no data")
 			return reject(model)
 		}
 	})
@@ -733,7 +731,7 @@ function holding(model){
 
 function scheme(model){
 	return new Promise(function(resolve, reject){
-		console.log(model.data+"::::::::::::::::::::>>>>")
+// console.logodel.data+"::::::::::::::::::::>>>>")
 		model.tags.amount = undefined
 		model.tags.tranId=undefined
 		model.tags.switchSchemeList=undefined
@@ -784,7 +782,7 @@ function scheme(model){
 			}
 			else if(model.tags.switchSchemes){
 				for(let scheme of model.tags.switchSchemes){
-					console.log(model.data+"::"+scheme["SCHEMECODE"])
+// console.logodel.data+"::"+scheme["SCHEMECODE"])
 					if(scheme["SCHEMECODE"]==model.data){
 						model.tags.switchSchemeObj=scheme;
 						model.tags.folio=scheme["FOLIO_NO"]
@@ -849,7 +847,7 @@ function askSchemeName(model){
 		// 	model.stage = 'holding'
 		// 	return resolve(model)
 		// }
-		console.log(JSON.stringify(model.tags.switchSchemeObj,null,3))
+// console.logSON.stringify(model.tags.switchSchemeObj,null,3))
 		let filteredData={}
 		for(let key in data){
 			if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]&&model.tags.switchSchemeObj["SCHEMECODE"]!=data[key].schemeCode){
@@ -927,7 +925,7 @@ function showSchemeName(model){
 			}
 			api.getFolio(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,undefined,true)
 			.then(response=>{
-				console.log(response.body)
+// console.logesponse.body)
 				try{
 
 
@@ -976,7 +974,7 @@ function showSchemeName(model){
 
 
 						if(folioObj){
-							console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(folioObj,null,3)+":::::"+data[model.tags.scheme].optionCode)
+// console.logFOLIO:::::::::::::::::::::::::::::"+JSON.stringify(folioObj,null,3)+":::::"+data[model.tags.scheme].optionCode)
 							model.tags.divOption=undefined
 								if(folioObj["DIVIDENDOPTION"]){
 									if(folioObj["FolioNo"]==model.tags.folio||(folioObj["FolioNo"]=="New Folio"&&model.tags.folio=="0")){
@@ -1007,12 +1005,11 @@ function showSchemeName(model){
 								sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
 								api.getScheme(model.tags.ip,model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,model.tags.folio,model.tags.switchSchemeObj["SCHEMECODE"],true)
 								.then((response)=>{
-									console.log(response.body)
+// console.logesponse.body)
 									try{
 										response = JSON.parse(response.body)
 										if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
-
-											console.log("1")
+// console.log1")
 											for(let schemeElement of response.Response[0]){
 												if(schemeElement["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
 													model.tags.schemeApiDetails=schemeElement;
@@ -1193,8 +1190,8 @@ function euin(model){
 					model.tags.euin=model.data
 					model.tags.existingEuinApiDetails=model.data
 				}
-				console.log("::::::::::::::::::::::::::")
-				console.log(model.tags.switchSchemeObj)
+// console.log::::::::::::::::::::::::::")
+// console.logodel.tags.switchSchemeObj)
 				if(model.tags.switchSchemeObj["eKYC"] == "1"){
 					model.tags.switchSchemeObj["AvailableAmt"]="50000";
 				}
@@ -1204,7 +1201,7 @@ function euin(model){
 							// console.log("amount valid")
 							api.insertBuyCartSwitch(model.tags.ip,model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin,model.tags.switchSchemeObj["eKYC"])
 							.then((data)=>{
-								console.log(data)
+// console.logata)
 								try{
 									data = JSON.parse(data.body)
 								}
@@ -1292,7 +1289,7 @@ function divOps(model){
 							// console.log("amount valid")
 							api.insertBuyCartSwitch(model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin,model.tags.switchSchemeObj["eKYC"])
 							.then((data)=>{
-								console.log(data.body)
+// console.logata.body)
 								try{
 									data = JSON.parse(data.body)
 								}
@@ -1362,13 +1359,13 @@ function unitOrAmount(model) {
 
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
-		console.log(model.data)
+// console.logodel.data)
 		if(model.data.includes("all")){
 			model.tags.unitOrAmount="AU";
 			// console.log("amount valid")
 			api.insertBuyCartSwitch(model.tags.ip,model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount, model.tags.switchSchemeObj["AvailableUnits"], model.tags.folio,model.tags.divOption,model.tags.euin,model.tags.switchSchemeObj["eKYC"])
 			.then((data)=>{
-				console.log(data.body)
+// console.logata.body)
 				try{
 					data = JSON.parse(data.body)
 				}
@@ -1440,14 +1437,14 @@ function amount(model){
 	// console.log(model.tags.schemeApiDetails["MinimumInvestment"]+":::::::::::::::::::::::::::::::::::::::::::::::")
 	return new Promise(function(resolve, reject){
 		model=dataClean(model)
-		console.log(model.tags.unitOrAmount)
+// console.logodel.tags.unitOrAmount)
 		if(model.tags.unitOrAmount=="PU"){
 			model=extractAmountUptoThree(model)
 		}
 		else{
 			model=extractAmount(model)
 		}
-		console.log("amount::::::::::::::::::"+model.tags.amount)
+// console.logamount::::::::::::::::::"+model.tags.amount)
 		try{
 			if(model.tags.amount&&model.tags.switchSchemeObj){
 				
@@ -1456,8 +1453,8 @@ function amount(model){
 				if(model.tags.unitOrAmount=="PU"){
 					let amount=parseFloat(model.tags.amount)
 					let minAmount=parseFloat(model.tags.schemeApiDetails["MinSwitchUnits"])
-					console.log(minAmount)
-					console.log(amount)
+// console.loginAmount)
+// console.logmount)
 					// if(amount%multiple!=0){
 					// 	model.tags.amount=undefined;
 					// }
@@ -1470,10 +1467,10 @@ function amount(model){
 					let amount=parseFloat(model.tags.amount)
 					let minAmount=parseFloat(model.tags.schemeApiDetails["MinSwitchAmount"])
 					let multiple=parseFloat(model.tags.schemeApiDetails["SwitchMultipleAmount"])
-					console.log(minAmount)
-					console.log(multiple)
-					console.log(amount)
-					console.log(amount%multiple)
+// console.loginAmount)
+// console.logultiple)
+// console.logmount)
+// console.logmount%multiple)
 					if(amount%multiple!=0){
 						model.tags.amount=undefined;
 					}
@@ -1496,7 +1493,7 @@ function amount(model){
 				// console.log("amount valid")
 				api.insertBuyCartSwitch(model.tags.ip,model.tags.session, model.tags.joinAccId, model.tags.switchSchemeObj["SCHEMECODE"], data[model.tags.scheme].schemeCode,model.tags.unitOrAmount,  model.tags.amount, model.tags.folio,model.tags.divOption,model.tags.euin,model.tags.switchSchemeObj["eKYC"])
 				.then((data)=>{
-					console.log(data.body)
+// console.logata.body)
 					try{
 						data = JSON.parse(data.body)
 					}
@@ -1551,7 +1548,7 @@ function amount(model){
 
 			}
 			else{
-				console.log("no data")
+// console.logno data")
 				return reject(model)
 			}	
 		}
@@ -1569,7 +1566,7 @@ function confirm(model){
 		if(model.data.toLowerCase().includes("yes")){
 			api.confirmSwitch(model.tags.ip,model.tags.session,model.tags.refrenceIdSwitchTxn)
 			.then((data)=>{
-				console.log(data.body)
+// console.logata.body)
 				try{
 					data = JSON.parse(data.body)
 				}
@@ -1607,7 +1604,7 @@ function confirm(model){
 		            })
 				}
 				else{
-					console.log(model.tags.switchReferenceId+":::::::::::::")
+// console.logodel.tags.switchReferenceId+":::::::::::::")
 					model.tags.switchReferenceId=data.Response[0]["ReferenceNo"];
 					model.stage="summary"
 					return resolve(model)
@@ -1684,15 +1681,15 @@ function extractAmountUptoThree(model){
 	
  	if(model.data.match(/\d+\./)){
  		let text = matchAll(model.data, /(\d+\.\d+)/gi).toArray()
- 		console.log(text)
- 		console.log(text.length)
+// console.logext)
+// console.logext.length)
  		if(text.length>0){
  			if(!model.data.includes("-"+text[0])){
-	 			console.log(text[0])
-	 			console.log(parseFloat(text[0]).toFixed(3))
-	 			console.log(typeof parseFloat(text[0]).toFixed(3))
+// console.logext[0])
+// console.logarseFloat(text[0]).toFixed(3))
+// console.logypeof parseFloat(text[0]).toFixed(3))
 				model.tags.amount = parseFloat(parseFloat(text[0]).toFixed(3))
-				console.log(model.tags.amount+":::::::::::::::::;amount")
+// console.logodel.tags.amount+":::::::::::::::::;amount")
 			}
 			model.data = model.data.replace(text[0], '')
 		}

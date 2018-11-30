@@ -16,13 +16,13 @@ let obj = {
 
 
 function main(req, res){
-		console.log(req.params.stage)
+		// console.log(req.params.stage)
 		obj[req.params.stage](req.body)
 		.then((data)=>{
 			res.send(data)
 		})
 		.catch((e)=>{
-			console.log(e)
+			// console.log(e)
 			res.sendStatus(203)
 		})
 }
@@ -31,17 +31,17 @@ function main(req, res){
 function fallback(model){
 	return new Promise((resolve,reject)=>{
 		try{
-			console.log(JSON.stringify(model.bestIntents,null,3)+":::::::::::::::::>>>>>>>>>>>>>>>>>")
+			// console.log(JSON.stringify(model.bestIntents,null,3)+":::::::::::::::::>>>>>>>>>>>>>>>>>")
 			let bestIntentSet=[]
 			for(let index in model.bestIntents){
 				let confidence=model.bestIntents[index].confidence
-				console.log("CONFIDENCE:::::::::::::::::::::::"+confidence)
+				// console.log("CONFIDENCE:::::::::::::::::::::::"+confidence)
 				try{
 					confidence=parseFloat(confidence)
-					console.log("CONFIDENCE:::FLOAT::::::::::::::::::::"+confidence)
+					// console.log("CONFIDENCE:::FLOAT::::::::::::::::::::"+confidence)
 				}
 				catch(e){
-					console.log(e)
+					// console.log(e)
 				}
 				if(model.bestIntents[index].intentName.startsWith("st_")||confidence<0.35){
 					// model.bestIntents.splice(index, 1)
@@ -137,7 +137,7 @@ function fallback(model){
 			}
 		}
 		catch(e){
-			console.log(e)
+			// console.log(e)
 			return reject(model)
 		}
 		return resolve(model)

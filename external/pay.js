@@ -4,7 +4,7 @@ module.exports={
 }
 
 // function main(req, res){
-// 		console.log("pay")
+// 		// // console.log("pay")
 // 		let data=session[req.query.u]
 // 		res.send(`<form target='_self' name='s1_2' id='s1_2' action='https://www.prudentcorporate.com/cbapi/MakePayment' method='post'>
 // 						            <input type='hidden' value='192.168.0.102' name='IPAddress'>
@@ -26,14 +26,14 @@ module.exports={
 // }
 
 function main(req, res){
-		console.log("pay")
+		// // console.log("pay")
 		try{
 			let data=session[req.query.u]
 			res.send(`
 
 				<script type="text/javascript">
 				(function(){
-					console.log('calling')
+					// // console.log('calling')
 					setTimeout(()=>{
 							var ip='`+data["ip"]+`'
 							
