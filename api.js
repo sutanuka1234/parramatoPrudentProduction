@@ -8,6 +8,9 @@ var headers = {
 var url = 'https://www.prudentcorporate.com/cbapi/'
 
 function panMobile(ip,mobile, pan){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
 	var obj = {
 		method  : 'POST',
         headers : headers,
@@ -18,6 +21,9 @@ function panMobile(ip,mobile, pan){
 
 
 function resendOtp(ip,session){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
@@ -28,6 +34,9 @@ function resendOtp(ip,session){
 
 
 function otp(ip,session, otp){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
@@ -39,6 +48,9 @@ function otp(ip,session, otp){
 
 
 function getExistingSchemes(ip,session, joinAccId){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
@@ -50,6 +62,9 @@ function getExistingSchemes(ip,session, joinAccId){
 
 
 function getScheme(ip,session, joinAccId, fundsType, amcId, schemeOption, subNature,investmentType,folioNo,schemeCode,switchBool,STPBool){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
 	if(STPBool){
 		var obj = {
 				method 	: 'POST',
@@ -88,6 +103,9 @@ function getScheme(ip,session, joinAccId, fundsType, amcId, schemeOption, subNat
 
 
 function getFolio(ip,session, joinAccId, schemeCode, amcId,investmentType,switchBool,folio,STPBool){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
 	if(STPBool){
 		var obj = {
 			method 	: 'POST',
@@ -124,6 +142,9 @@ function getFolio(ip,session, joinAccId, schemeCode, amcId,investmentType,switch
 
 
 function getMandate(ip,session,joinAccId){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
@@ -138,6 +159,10 @@ function getMandate(ip,session,joinAccId){
 
 
  function insertBuyCartStp(ip,session, joinAccId, dividendOption, folioNo, euin, schemeCodeFrom,schemeCodeTo,STPFrequency,STPWeek,STPMonth,installments,initAmount,amount){	
+	
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
 	if(!STPWeek){
 		STPWeek=0
 	}
@@ -171,6 +196,10 @@ function getMandate(ip,session,joinAccId){
 }
 
 function insertBuyCartSip(ip,session, joinAccId, schemeCode, amcName, amcId, dividendOption, amount, folioNo, euin, day,installments, refNo,ekyc){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	
 	if(folioNo.includes("olio")){
 		folioNo="0"
 	}
@@ -184,6 +213,10 @@ function insertBuyCartSip(ip,session, joinAccId, schemeCode, amcName, amcId, div
 }
 
 function confirmSip(ip,session,tranId){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
@@ -195,6 +228,10 @@ function confirmSip(ip,session,tranId){
 
 
 function insertBuyCart(ip,session, joinAccId, schemeCode, amcName, amcId, dividendOption, amount, folioNo, euin, additional,tranId,ekyc){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	
 	if(folioNo.includes("olio")){
 		folioNo="0"
 	}
@@ -217,6 +254,10 @@ function insertBuyCart(ip,session, joinAccId, schemeCode, amcName, amcId, divide
 }
 
 function bankMandate(ip,session, joinAccId, schemeCode, mandateId, amount, additional){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	
 
 	var obj = {
 		method 	: 'POST',
@@ -231,6 +272,10 @@ function bankMandate(ip,session, joinAccId, schemeCode, mandateId, amount, addit
 
 
 function getRedemptionSchemes(ip,session, joinAccId){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	
 
 	var obj = {
 		method 	: 'POST',
@@ -241,6 +286,10 @@ function getRedemptionSchemes(ip,session, joinAccId){
 }
 
 function insertBuyCartRedeem(ip,session, joinAccId, schemeCode, amcName, amount, folioNo,unitOrAmount){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	
 
 	var obj = {
 		method 	: 'POST',
@@ -251,6 +300,10 @@ function insertBuyCartRedeem(ip,session, joinAccId, schemeCode, amcName, amount,
 }
 
 function insertBuyCartSwitch(ip,session, joinAccId, schemeCodeFrom,schemeCodeTo, switchType, amount, folioNo,dividendOption,euin,ekyc){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	
 
 	var obj = {
 		method 	: 'POST',
@@ -261,6 +314,10 @@ function insertBuyCartSwitch(ip,session, joinAccId, schemeCodeFrom,schemeCodeTo,
 }
 
 function confirmRedemption(ip,session,tranId){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
@@ -270,6 +327,10 @@ function confirmRedemption(ip,session,tranId){
 }
 
 function confirmSwitch(ip,session,tranId){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
@@ -279,6 +340,10 @@ function confirmSwitch(ip,session,tranId){
 }
 
 function confirmSTP(ip,session,tranId){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
@@ -289,6 +354,10 @@ function confirmSTP(ip,session,tranId){
 
 
 function getSwitchScheme(ip,session,joinAccId){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
@@ -298,6 +367,10 @@ function getSwitchScheme(ip,session,joinAccId){
 }
 
 function getSTPScheme(ip,session,joinAccId){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
@@ -307,6 +380,10 @@ function getSTPScheme(ip,session,joinAccId){
 }
 
 function getSchemes(ip){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	
 	var obj = {
 		method 	: 'POST',
 		headers : headers,
