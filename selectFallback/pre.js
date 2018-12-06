@@ -129,6 +129,19 @@ function fallback(model){
 		                	{
 		                		data : "FAQs",
 		                		text : "FAQs"
+		                	},
+		                	{
+		                		data : "Get account statement",
+		                		text : "Get account statement"
+		                	},
+		                	
+		                	{
+		                		data : "Transaction Details",
+		                		text : "Transaction Details"
+		                	},
+		                	{
+		                		data : "Nach Mandate",
+		                		text : "Nach Mandate"
 		                	}
 		                ]
 		            }

@@ -515,7 +515,8 @@ function otp(model){
 					}
 					for(var i = 0; i<data.body.Response.length; i++){
 						model.tags.folioArray.push({
-							title 	: model.tags.maskedFolios[i],
+							title 	: model.tags.Folios[i],
+							// title 	: model.tags.maskedFolios[i],
 							text 	: data.body.Response[i].AMCNAME,
 							image 	: '',
 							buttons : [

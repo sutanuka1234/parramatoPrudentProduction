@@ -606,6 +606,7 @@ function nach(model){
 			model.tags.mandateStatus = selectedNachArray[2]
 			model.tags.accountNo = selectedNachArray[3]
 			model.tags.bankName = selectedNachArray[4]
+			model.tags.date = selectedNachArray[5]
 
 			model.stage = 'nachDetails'
 			return resolve(model)
