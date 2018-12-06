@@ -188,7 +188,7 @@ function nach(model){
 						image 	: '',
 						buttons : [
 							{
-								data : nachDetails.Response[i].ReferenceNo+"/"+nachDetails.Response[i].DailyLimit+"/"+nachDetails.Response[i].MandateStatus+"/"+nachDetails.Response[i].AccountNo+"/"+nachDetails.Response[i].BankName,
+								data : nachDetails.Response[i].ReferenceNo+"/"+nachDetails.Response[i].DailyLimit+"/"+nachDetails.Response[i].MandateStatus+"/"+nachDetails.Response[i].AccountNo+"/"+nachDetails.Response[i].BankName+"/"+nachDetails.Response[i].CreatedDate,
 								text : 'Select'
 							}
 						]
