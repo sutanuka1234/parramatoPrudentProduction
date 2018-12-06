@@ -169,7 +169,7 @@ function nach(model){
 				for(let i=0; i<5; i++){
 					model.tags.nachArray.push({
 						title 	: "Mandate Status: "+nachDetails.Response[i].MandateStatus ,
-						text 	: "BankName:"+nachDetails.Response[i].BankName+". AccountNo:"+nachDetails.Response[i].AccountNo,
+						text 	: "BankName:"+nachDetails.Response[i].BankName+". AccountNo:"+nachDetails.Response[i].AccountNo+". Date:"+dateTimeFormat(nachDetails.Response[i].CreatedDate),
 						image 	: '',
 						buttons : [
 							{
@@ -184,7 +184,7 @@ function nach(model){
 				for(let i=0; i<nachDetails.Response.length; i++){
 					model.tags.nachArray.push({
 						title 	: "Mandate Status: "+nachDetails.Response[i].MandateStatus ,
-						text 	: "BankName:"+nachDetails.Response[i].BankName+". AccountNo:"+nachDetails.Response[i].AccountNo,
+						text 	: "BankName:"+nachDetails.Response[i].BankName+". AccountNo:"+nachDetails.Response[i].AccountNo+". Date:"+dateTimeFormat(nachDetails.Response[i].CreatedDate),
 						image 	: '',
 						buttons : [
 							{
@@ -215,7 +215,7 @@ function nachDetails(model){
 		model.reply = {
 			type : 'text',
 			text : "Let me brief you on your nach mandate status of "+model.tags.referenceNo+
-			". Your daily limit is "+model.tags.dailyLimit+" and status is "+model.tags.mandateStatus+". This mandate is for Account number "+model.tags.accountNo+" linked to "+model.tags.bankName+"."
+			". Your daily limit is "+model.tags.dailyLimit+" and status is "+model.tags.mandateStatus+". This mandate is for Account number "+model.tags.accountNo+" linked to "+model.tags.bankName+" as on "+model.tags.date+"."
 		}
 		return resolve(model)
 	})
@@ -307,4 +307,11 @@ function dataClean(model){
 		model.tags.userSays = model.tags.userSays.toLowerCase()
 	}
     return model;
+}
+
+function dateTimeFormat(dateTimeValue) {
+    var dt = new Date(parseInt(dateTimeValue.replace(/(^.*\()|([+-].*$)/g, '')));
+    var dateTimeFormat = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+    console.log(dateTimeFormat)
+    return dateTimeFormat;
 }
