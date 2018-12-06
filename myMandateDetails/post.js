@@ -601,6 +601,7 @@ function nach(model){
 	return new Promise(function (resolve,reject){
 		if(model.data.includes('/')){
 			let selectedNachArray = model.data.split("/")
+			console.log(selectedNachArray+"-----------------------------------------------------")
 			model.tags.referenceNo = selectedNachArray[0]
 			model.tags.dailyLimit = selectedNachArray[1]
 			model.tags.mandateStatus = selectedNachArray[2]
