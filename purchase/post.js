@@ -721,16 +721,16 @@ function askSchemeName(model){
 			model.tags.schemes=[]
 		}
 		if(matches.bestMatch.rating>0.9){
-			// // console.log("nine")
+			console.log("nine+++++++++++++++")
 			model.tags.schemes.push(matches.bestMatch.target)
 		}
 		else if(matches.bestMatch.rating>0.10||dataAmc.flag){
-			// // console.log("one")
+			console.log("none++++++++++++++++++")
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
 			model.tags.schemes = matches.ratings.splice(0,9);
 		}
 		else{
-			// // console.log("undefined")
+			console.log("undefined++++++++++++++++++++")
 			return reject(model);
 		}
 		if(model.tags.schemes){
