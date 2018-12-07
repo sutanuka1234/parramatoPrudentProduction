@@ -587,7 +587,7 @@ function transactionStatus(model){
 				for(var i = 0; i<10; i++){
 					model.tags.transactions.push({
 						title 	: "Folio No. "+data.body.Response[i].Foliono,
-						text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" at "+dateTimeFormat(data.body.Response[i].ProcessDate),
+						text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" on "+dateTimeFormat(data.body.Response[i].ProcessDate),
 						image 	: '',
 						buttons : [
 							{
@@ -619,7 +619,7 @@ function transactionStatus(model){
 					for(var i = 0; i<10; i++){
 						model.tags.transactions.push({
 							title 	: "Folio No. "+data.body.Response[i].Foliono,
-							text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" at "+dateTimeFormat(data.body.Response[i].ProcessDate),
+							text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" on "+dateTimeFormat(data.body.Response[i].ProcessDate),
 							image 	: '',
 							buttons : [
 								{
