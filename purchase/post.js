@@ -749,7 +749,8 @@ function askSchemeName(model){
 				})
 			})
 		}
-
+		console.log("---------------------------------------------")
+		console.log(model)
 		delete model.stage
 		return resolve(model)
 	})
