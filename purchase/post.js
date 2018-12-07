@@ -721,11 +721,14 @@ function askSchemeName(model){
 			model.tags.schemes=[]
 		}
 		console.log(matches)
-		if(matches.bestMatch.rating>0.9){
-			console.log("nine+++++++++++++++")
-			model.tags.schemes.push(matches.bestMatch.target)
-		}
-		else if(matches.bestMatch.rating>0.10||dataAmc.flag){
+		// if(matches.bestMatch.rating>0.9){
+		// 	console.log("nine+++++++++++++++")
+		// 	model.tags.schemes.push(matches.bestMatch.target)
+
+		// }
+		// else 
+
+		if(matches.bestMatch.rating>0.10||dataAmc.flag){
 			console.log("none++++++++++++++++++")
 			matches.ratings=matches.ratings.sort(sortBy('-rating'));
 			model.tags.schemes = matches.ratings.splice(0,9);
