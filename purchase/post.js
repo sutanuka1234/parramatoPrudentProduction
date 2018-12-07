@@ -813,10 +813,11 @@ function showSchemeName(model){
 			let dataAmc=getAmcNamesEntityReplaced(model.data);
 			model.data=dataAmc.text
 			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
-			if(matches.bestMatch.rating>0.9){
-				model.tags.schemes.push(matches.bestMatch.target)
-			}
-			else if(matches.bestMatch.rating>0.10||dataAmc.flag){
+			// if(matches.bestMatch.rating>0.9){
+			// 	model.tags.schemes.push(matches.bestMatch.target)
+			// }
+			// else 
+			if(matches.bestMatch.rating>0.10||dataAmc.flag){
 				matches.ratings=matches.ratings.sort(sortBy('-rating'));
 				model.tags.schemes = matches.ratings.splice(0,9);
 			}
@@ -2774,11 +2775,12 @@ function extractSchemeName(model){
 				searchTerm=searchTerm.trim();
 				// // console.log(searchTerm)
 				let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
-				if(matches.bestMatch.rating>0.9){
-					model.tags.schemes = []
-					model.tags.schemes.push(matches.bestMatch.target)
-				}
-				else if(matches.bestMatch.rating>0.4||dataAmc.flag){
+				// if(matches.bestMatch.rating>0.9){
+				// 	model.tags.schemes = []
+				// 	model.tags.schemes.push(matches.bestMatch.target)
+				// }
+				// else 
+				if(matches.bestMatch.rating>0.4||dataAmc.flag){
 					model.tags.schemes = []
 					matches.ratings=matches.ratings.sort(sortBy('-rating'));
 					model.tags.schemes = matches.ratings.splice(0,9);
