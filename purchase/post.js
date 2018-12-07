@@ -720,6 +720,7 @@ function askSchemeName(model){
 		if(model.tags.schemes===undefined){
 			model.tags.schemes=[]
 		}
+		console.log(matches)
 		if(matches.bestMatch.rating>0.9){
 			console.log("nine+++++++++++++++")
 			model.tags.schemes.push(matches.bestMatch.target)
