@@ -754,6 +754,7 @@ function askSchemeName(model){
 		}
 		console.log("---------------------------------------------")
 		console.log(model)
+		console.log("---------------------------------------------")
 		delete model.stage
 		return resolve(model)
 	})
