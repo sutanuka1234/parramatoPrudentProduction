@@ -587,7 +587,7 @@ function transactionStatus(model){
 				for(var i = 0; i<10; i++){
 					model.tags.transactions.push({
 						title 	: "Folio No. "+data.body.Response[i].Foliono,
-						text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType,
+						text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" at "+dateTimeFormat(data.body.Response[i].ProcessDate),
 						image 	: '',
 						buttons : [
 							{
@@ -619,7 +619,7 @@ function transactionStatus(model){
 					for(var i = 0; i<10; i++){
 						model.tags.transactions.push({
 							title 	: "Folio No. "+data.body.Response[i].Foliono,
-							text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType,
+							text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" at "+dateTimeFormat(data.body.Response[i].ProcessDate),
 							image 	: '',
 							buttons : [
 								{
@@ -810,4 +810,11 @@ function extractPan(model){
 function dataClean(model){
 	model.data = model.data.toLowerCase()
     return model;
+}
+
+function dateTimeFormat(dateTimeValue) {
+    var dt = new Date(parseInt(dateTimeValue.replace(/(^.*\()|([+-].*$)/g, '')));
+    var dateTimeFormat = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+    console.log(dateTimeFormat)
+    return dateTimeFormat;
 }
