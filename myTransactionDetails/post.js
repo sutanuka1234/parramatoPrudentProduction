@@ -813,6 +813,8 @@ function dataClean(model){
 }
 
 function dateTimeFormat(dateTimeValue) {
+	console.log("------------------here-----------")
+	console.log(dateTimeValue)
     var dt = new Date(parseInt(dateTimeValue.replace(/(^.*\()|([+-].*$)/g, '')));
     var dateTimeFormat = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
     console.log(dateTimeFormat)
