@@ -709,6 +709,7 @@ function lastTenTransactions(model){
 		else if(model.data.match(/\d{10}/)){
 			model.tags.transactionId = model.data.match(/\d{10}/)[0]
 			api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
+				data.body = JSON.parse(data.body)
 				model.tags.txResObj = {}
 				model.tags.txResObj.ReferenceID = data.body.Response[0].ReferenceID
 				model.tags.txResObj.SchemeName = data.body.Response[0].SchemeName
