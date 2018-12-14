@@ -601,10 +601,7 @@ function nach(model){
 	return new Promise(function (resolve,reject){
 		if(model.data.toLowerCase().includes("more")){
 			if(model.tags.nachArray && model.tags.nachArray.length>10){
-				model.tags.nachArray.splice(0,10)
-				for(let i = 0;i<9;i++){
-					model.tags.showNachArray.push(model.tags.nachArray[i])
-				}
+				model.tags.showNachArray = model.tags.nachArray.splice(0,9)
 				model.tags.showNachArray.push({
 					title : 'More Nach Details',
 					text : '',
@@ -619,10 +616,7 @@ function nach(model){
 				return resolve(model)
 			}
 			else if(model.tags.nachArray && model.tags.nachArray.length<=10){
-				model.tags.nachArray.splice(0,10)
-				for(let i = 0;i<9;i++){
-					model.tags.showNachArray.push(model.tags.nachArray[i])
-				}
+				model.tags.showNachArray = model.tags.nachArray.splice(0, model.tags.nachArray.length)
 				return resolve(model)
 			}
 			else{
