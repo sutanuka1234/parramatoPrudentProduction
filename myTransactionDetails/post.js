@@ -656,7 +656,7 @@ function transactionStatus(model){
 					for(let i = 0; i<data.body.Response.length; i++){
 						model.tags.transactions.push({
 							title 	: "TX ID: "+data.body.Response[i].ReferenceID,
-							text 	: data.body.Response[i].SchemeName
+							text 	: data.body.Response[i].SchemeName,
 							image 	: '',
 							buttons : [
 								{
