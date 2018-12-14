@@ -574,9 +574,8 @@ function otp(model){
 
 function transactionStatus(model){
 	return new Promise((resolve,reject)=>{
-		console.log("--------------transactionStatus post---------")
-		console.log(model)
 		if(model.data.includes("|")){
+			console.log("-------here")
 			let dataArray = model.data.split("|")
 			model.tags.txResObj.ReferenceID = dataArray[0]
 			model.tags.txResObj.SchemeName = dataArray[1]
