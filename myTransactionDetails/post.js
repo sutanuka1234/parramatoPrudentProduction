@@ -665,7 +665,7 @@ function transactionStatus(model){
 					model.tags.txResObj.AMOUNT = data.body.Response[0].AMOUNT
 					model.tags.txResObj.TransactionStatus = data.body.Response[0].TransactionStatus
 					model.tags.txResObj.ProcessDate = dateTimeFormat(data.body.Response[0].ProcessDate)
-					console.log(model.tags)
+					// console.log(model.tags)
 					model.stage = 'transactionID'
 					resolve(model)
 				}
@@ -692,7 +692,7 @@ function transactionStatus(model){
 function lastTenTransactions(model){
 	return new Promise(function(resolve,reject){
 		if(model.data.includes("|")){
-			console.log("-------here")
+			// console.log("-------here")
 			let dataArray = model.data.split("|")
 			model.tags.txResObj = {}
 			model.tags.txResObj.ReferenceID = dataArray[0]
@@ -877,6 +877,6 @@ function dateTimeFormat(dateTimeValue) {
 	}
     var dt = new Date(parseInt(dateTimeValue.replace(/(^.*\()|([+-].*$)/g, '')));
     var dateTimeFormat = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
-    console.log(dateTimeFormat)
+    // console.log(dateTimeFormat)
     return dateTimeFormat;
 }
