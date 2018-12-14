@@ -191,13 +191,13 @@ function nach(model){
 						model.tags.showNachArray.push(model.tags.nachArray[i])
 					}
 					model.tags.showNachArray.push({
-						title : 'More Nach Details',
+						title : 'Show more Nach Mandate Details',
 						text : '',
 						image : '',
 						buttons : [
 							{
 								data : 'more',
-								text : 'More Nach'
+								text : 'Select'
 							}
 						]
 					})
@@ -210,7 +210,7 @@ function nach(model){
 							image 	: '',
 							buttons : [
 								{
-									data : nachDetails.Response[i].ReferenceNo+"/"+nachDetails.Response[i].DailyLimit+"/"+nachDetails.Response[i].MandateStatus+"/"+nachDetails.Response[i].AccountNo+"/"+nachDetails.Response[i].BankName+"/"+nachDetails.Response[i].CreatedDate,
+									data : nachDetails.Response[i].ReferenceNo+"|"+nachDetails.Response[i].DailyLimit+"|"+nachDetails.Response[i].MandateStatus+"|"+nachDetails.Response[i].AccountNo+"|"+nachDetails.Response[i].BankName+"|"+nachDetails.Response[i].CreatedDate,
 									text : 'Select'
 								}
 							]
@@ -237,7 +237,9 @@ function nach(model){
 function nachDetails(model){
 	return new Promise(function(resolve, reject){
 		let reply 
-		if(model.tags.date == 'null'){
+		console.log("_--------------here-------")
+		console.log(model.tags)
+		if(model.tags.date == 'null' || model.tags.date == null){
 			reply = "Let me brief you on your nach mandate status of "+model.tags.referenceNo+
 			". Your daily limit is "+model.tags.dailyLimit+" and status is "+model.tags.mandateStatus+". This mandate is for Account number "+model.tags.accountNo+" linked to "+model.tags.bankName+"."
 		}
@@ -249,6 +251,12 @@ function nachDetails(model){
 			type : 'text',
 			text : reply
 		}
+		model.tags.dailyLimit = undefined
+		model.tags.referenceNo = undefined
+		model.tags.mandateStatus = undefined
+		model.tags.accountNo = undefined
+		model.tags.bankName = undefined
+		model.tags.date = undefined
 		model.tags.showNachArray = undefined
 		model.tags.nachArray = undefined
 		return resolve(model)

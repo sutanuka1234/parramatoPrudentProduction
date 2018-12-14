@@ -607,13 +607,13 @@ function nach(model){
 					model.tags.showNachArray.push(model.tags.nachArray[i])
 				}
 				model.tags.showNachArray.push({
-					title : 'More Nach Details',
+					title : 'show more nach Mandate Details',
 					text : '',
 					image : '',
 					buttons : [
 						{
 							data : 'more',
-							text : 'More Nach'
+							text : 'Select'
 						}
 					]
 				})
