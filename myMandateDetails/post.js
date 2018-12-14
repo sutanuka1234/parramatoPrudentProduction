@@ -601,6 +601,7 @@ function nach(model){
 	return new Promise(function (resolve,reject){
 		if(model.data.toLowerCase().includes("more")){
 			model.tags.nachArray.splice(0,10)
+			model.tags.showNachArray = []
 			if(model.tags.nachArray && model.tags.nachArray.length>10){
 				for(let i = 0;i<9;i++){
 					model.tags.showNachArray.push(model.tags.nachArray[i])
