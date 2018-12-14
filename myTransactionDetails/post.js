@@ -708,8 +708,23 @@ function lastTenTransactions(model){
 		}
 		else if(model.data.match(/\d{10}/)){
 			model.tags.transactionId = model.data.match(/\d{10}/)[0]
-			model.stage = 'transactionID'
-			resolve(model)
+			api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
+				model.tags.txResObj = {}
+				model.tags.txResObj.ReferenceID = data.body.Response[0].ReferenceID
+				model.tags.txResObj.SchemeName = data.body.Response[0].SchemeName
+				model.tags.txResObj.DivOpt = data.body.Response[0].DivOpt
+				model.tags.txResObj.TransactionType = data.body.Response[0].TransactionType
+				model.tags.txResObj.UNITS = data.body.Response[0].UNITS
+				model.tags.txResObj.AMOUNT = data.body.Response[0].AMOUNT
+				model.tags.txResObj.TransactionStatus = data.body.Response[0].TransactionStatus
+				model.tags.txResObj.ProcessDate = data.body.Response[0].ProcessDate
+				model.stage = 'transactionID'
+				return resolve(model)
+			})
+			.catch((e)=>{
+				console.log(e)
+				reject(model)
+			})
 		}
 		else{
 			reject(model)
