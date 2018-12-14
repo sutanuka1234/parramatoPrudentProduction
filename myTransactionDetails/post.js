@@ -584,7 +584,7 @@ function transactionStatus(model){
 				console.log("--------------transactionStatus post getTransactionDetails---------")
 				console.log(data.body)
 				model.tags.transactions = []
-				for(var i = 0; i<10; i++){
+				for(let i = 0; i<10; i++){
 					model.tags.transactions.push({
 						title 	: "Folio No. "+data.body.Response[i].Foliono,
 						text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" on "+dateTimeFormat(data.body.Response[i].ProcessDate),
@@ -616,7 +616,7 @@ function transactionStatus(model){
 					data.body = JSON.parse(data.body)
 					console.log(data.body.Response.length)
 					model.tags.transactions = []
-					for(var i = 0; i<10; i++){
+					for(let i = 0; i<10; i++){
 						model.tags.transactions.push({
 							title 	: "Folio No. "+data.body.Response[i].Foliono,
 							text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" on "+dateTimeFormat(data.body.Response[i].ProcessDate),
@@ -637,7 +637,25 @@ function transactionStatus(model){
 					reject(model)
 				})
 			}
-			else if(data.body.Response.length > 0 || data.body){
+			else if(data.body.Response.length >1){
+				model.tags.transactions = []
+				for(let i = 0; idata.body.Response.length<; i++){
+					model.tags.transactions.push({
+						title 	: "Folio No. "+data.body.Response[i].Foliono,
+						text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" on "+dateTimeFormat(data.body.Response[i].ProcessDate),
+						image 	: '',
+						buttons : [
+							{
+								data : data.body.Response[i].ReferenceID,
+								text : "Tx ID: "+data.body.Response[i].ReferenceID
+							}
+						]
+					})
+				}
+				model.stage = 'lastTenTransactions'
+				return resolve (model)
+			}
+			else if(data.body.Response.length == 1 || data.body){
 				model.stage = 'transactionID'
 				resolve(model)
 			}
@@ -813,8 +831,6 @@ function dataClean(model){
 }
 
 function dateTimeFormat(dateTimeValue) {
-	console.log("------------------here-----------")
-	console.log(dateTimeValue)
 	if(dateTimeValue == null){
 		return dateTimeValue = "no date"
 	}

@@ -599,8 +599,38 @@ function otp(model){
 
 function nach(model){
 	return new Promise(function (resolve,reject){
-		if(model.data.includes('/')){
-			let selectedNachArray = model.data.split("/")
+		if(model.data.toLowerCase().includes("more")){
+			if(model.tags.nachArray && model.tags.nachArray.length>10){
+				model.tags.nachArray.splice(0,10)
+				for(let i = 0;i<9;i++){
+					model.tags.showNachArray.push(model.tags.nachArray[i])
+				}
+				model.tags.showNachArray.push({
+					title : 'More Nach Details',
+					text : '',
+					image : '',
+					buttons : [
+						{
+							data : 'more',
+							text : 'More Nach'
+						}
+					]
+				})
+				return resolve(model)
+			}
+			else{
+				model.tags.nachArray.splice(0,10)
+				for(let i = 0;i<9;i++){
+					model.tags.showNachArray.push(model.tags.nachArray[i])
+				}
+				return resolve(model)
+			}
+			else{
+				return reject(model)
+			}
+		}
+		else if(model.data.includes('|')){
+			let selectedNachArray = model.data.split("|")
 			console.log(selectedNachArray+"-----------------------------------------------------")
 			model.tags.referenceNo = selectedNachArray[0]
 			model.tags.dailyLimit = selectedNachArray[1]

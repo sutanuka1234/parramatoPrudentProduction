@@ -157,56 +157,80 @@ function otp(model){
 // }
 
 function nach(model){
-	return new Promise(function(resolve,reject){
-		api.getMandateDetails(model.tags.ip, model.tags.session, model.tags.joinAccId).then((data)=>{
-			let nachDetails = JSON.parse(data.body)
-			console.log("----------------here----------------nach-----------")
-			console.log(nachDetails.Response)
-			console.log("Mandate Status: "+nachDetails.Response[0].MandateStatus)
-			console.log(nachDetails.Response.length+"lllllllllength")
-			model.tags.nachArray = []
-			if(nachDetails.Response.length>=5){
-				for(let i=0; i<5; i++){
-					model.tags.nachArray.push({
-						title 	: "Mandate Status: "+nachDetails.Response[i].MandateStatus ,
-						text 	: "BankName:"+nachDetails.Response[i].BankName+". AccountNo:"+nachDetails.Response[i].AccountNo+". Date:"+dateTimeFormat(nachDetails.Response[i].CreatedDate),
-						image 	: '',
-						buttons : [
-							{
-								data : nachDetails.Response[i].ReferenceNo+"/"+nachDetails.Response[i].DailyLimit+"/"+nachDetails.Response[i].MandateStatus+"/"+nachDetails.Response[i].AccountNo+"/"+nachDetails.Response[i].BankName+"/"+nachDetails.Response[i].CreatedDate,
-								text : 'Select'
-							}
-						]
-					})
-				}
-			}
-			else{
-				for(let i=0; i<nachDetails.Response.length; i++){
-					model.tags.nachArray.push({
-						title 	: "Mandate Status: "+nachDetails.Response[i].MandateStatus ,
-						text 	: "BankName:"+nachDetails.Response[i].BankName+". AccountNo:"+nachDetails.Response[i].AccountNo+". Date:"+dateTimeFormat(nachDetails.Response[i].CreatedDate),
-						image 	: '',
-						buttons : [
-							{
-								data : nachDetails.Response[i].ReferenceNo+"/"+nachDetails.Response[i].DailyLimit+"/"+nachDetails.Response[i].MandateStatus+"/"+nachDetails.Response[i].AccountNo+"/"+nachDetails.Response[i].BankName+"/"+nachDetails.Response[i].CreatedDate,
-								text : 'Select'
-							}
-						]
-					})
-				}
-			}
+	return new Promise(async function(resolve,reject){
+		if(model.tags.showNachArray){
 			model.reply = {
 				type : "generic",
 				text : "I have now fetched your Nach Mandate details, have a look",
 				next : {
-					data : model.tags.nachArray
+					data : model.tags.showNachArray
 				}
 			}
 			return resolve(model)
-		})
-		.catch((e)=>{
-			console.log(e)
-		})
+		}
+		else{
+			api.getMandateDetails(model.tags.ip, model.tags.session, model.tags.joinAccId).then((data)=>{
+				let nachDetails = JSON.parse(data.body)
+				model.tags.nachArray = []
+				model.tags.showNachArray = []
+				if(nachDetails.Response.length>10){
+					for(let i=0; i<nachDetails.Response.length; i++){
+						model.tags.nachArray.push({
+							title 	: "Mandate Status: "+nachDetails.Response[i].MandateStatus ,
+							text 	: "BankName:"+nachDetails.Response[i].BankName+". AccountNo:"+nachDetails.Response[i].AccountNo+". Date:"+dateTimeFormat(nachDetails.Response[i].CreatedDate),
+							image 	: '',
+							buttons : [
+								{
+									data : nachDetails.Response[i].ReferenceNo+"|"+nachDetails.Response[i].DailyLimit+"|"+nachDetails.Response[i].MandateStatus+"|"+nachDetails.Response[i].AccountNo+"|"+nachDetails.Response[i].BankName+"|"+nachDetails.Response[i].CreatedDate,
+									text : 'Select'
+								}
+							]
+						})
+					}
+					for(let i = 0;i<9;i++){
+						model.tags.showNachArray.push(model.tags.nachArray[i])
+					}
+					model.tags.showNachArray.push({
+						title : 'More Nach Details',
+						text : '',
+						image : '',
+						buttons : [
+							{
+								data : 'more',
+								text : 'More Nach'
+							}
+						]
+					})
+				}
+				else{
+					for(let i=0; i<nachDetails.Response.length; i++){
+						model.tags.showNachArray.push({
+							title 	: "Mandate Status: "+nachDetails.Response[i].MandateStatus ,
+							text 	: "BankName:"+nachDetails.Response[i].BankName+". AccountNo:"+nachDetails.Response[i].AccountNo+". Date:"+dateTimeFormat(nachDetails.Response[i].CreatedDate),
+							image 	: '',
+							buttons : [
+								{
+									data : nachDetails.Response[i].ReferenceNo+"/"+nachDetails.Response[i].DailyLimit+"/"+nachDetails.Response[i].MandateStatus+"/"+nachDetails.Response[i].AccountNo+"/"+nachDetails.Response[i].BankName+"/"+nachDetails.Response[i].CreatedDate,
+									text : 'Select'
+								}
+							]
+						})
+					}
+				}
+				model.reply = {
+					type : "generic",
+					text : "I have now fetched your Nach Mandate details, have a look",
+					next : {
+						data : model.tags.showNachArray
+					}
+				}
+				return resolve(model)
+			})
+			.catch((e)=>{
+				console.log(e)
+			})
+		}
+
 	})
 }
 
@@ -217,6 +241,8 @@ function nachDetails(model){
 			text : "Let me brief you on your nach mandate status of "+model.tags.referenceNo+
 			". Your daily limit is "+model.tags.dailyLimit+" and status is "+model.tags.mandateStatus+". This mandate is for Account number "+model.tags.accountNo+" linked to "+model.tags.bankName+" as on "+model.tags.date+"."
 		}
+		model.tags.showNachArray = undefined
+		model.tags.nachArray = undefined
 		return resolve(model)
 	})
 }
