@@ -103,9 +103,6 @@ function getClientAllFolio(ip,session){
 // })
 
 function getAccountStatement(ip, session, folio, amcId){
-	console.log("------------------------api call-----------------")
-	console.log(folio)
-	console.log(amcId)
 	var obj = {
 		method  : 'POST',
 		headers : headers,
@@ -370,14 +367,14 @@ function getSchemes(ip){
 function runRequest(obj){
 	return new Promise(function(resolve, reject){
 		console.log("reqested")
-		console.log(obj)
+		// console.log(obj)
 		request(obj, (error,response,body)=>{
 			if(error){
 				console.log("error")
 				console.log(error)
 				return reject(error);
 			}
-			console.log(JSON.stringify(body))
+			// console.log(JSON.stringify(body))
 			return resolve({response:response,body:body})
 		})
 	})

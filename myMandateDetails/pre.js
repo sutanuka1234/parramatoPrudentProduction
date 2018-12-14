@@ -119,7 +119,7 @@ function panMobile(model){
 	            }
 			}
 		}
-		console.log(model.tags.schemes)
+		// console.log(model.tags.schemes)
 		return resolve(model)
 	})
 }
@@ -328,7 +328,7 @@ function extractPan(model){
 
 
 function dataClean(model){
-	console.log(model.tags.userSays)
+	// console.log(model.tags.userSays)
 	if(model.tags.userSays){
 		model.tags.userSays = model.tags.userSays.toLowerCase()
 	}
@@ -338,6 +338,6 @@ function dataClean(model){
 function dateTimeFormat(dateTimeValue) {
     var dt = new Date(parseInt(dateTimeValue.replace(/(^.*\()|([+-].*$)/g, '')));
     var dateTimeFormat = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
-    console.log(dateTimeFormat)
+    // console.log(dateTimeFormat)
     return dateTimeFormat;
 }

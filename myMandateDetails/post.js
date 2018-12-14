@@ -102,7 +102,7 @@ function main(req, res){
 	if(obj[req.params.stage]){
 		obj[req.params.stage](req.body)
 		.then((data)=>{
-			console.log("3")
+			// console.log("3")
 			res.send(data)
 		})
 		.catch((e)=>{
@@ -787,8 +787,11 @@ function dataClean(model){
 }
 
 function dateTimeFormat(dateTimeValue) {
+	if(dateTimeValue == null){
+		return dateTimeValue = "no date"
+	}
     var dt = new Date(parseInt(dateTimeValue.replace(/(^.*\()|([+-].*$)/g, '')));
     var dateTimeFormat = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
-    console.log(dateTimeFormat)
+    // console.log(dateTimeFormat)
     return dateTimeFormat;
 }
