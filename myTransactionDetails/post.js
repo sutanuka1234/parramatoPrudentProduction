@@ -574,22 +574,7 @@ function otp(model){
 
 function transactionStatus(model){
 	return new Promise((resolve,reject)=>{
-		if(model.data.includes("|")){
-			console.log("-------here")
-			let dataArray = model.data.split("|")
-			model.tags.txResObj.ReferenceID = dataArray[0]
-			model.tags.txResObj.SchemeName = dataArray[1]
-			model.tags.txResObj.DivOpt = dataArray[2]
-			model.tags.txResObj.TransactionType = dataArray[3]
-			model.tags.txResObj.UNITS = dataArray[4]
-			model.tags.txResObj.AMOUNT = dataArray[5]
-			model.tags.txResObj.TransactionStatus = dataArray[6]
-			model.tags.txResObj.ProcessDate = dataArray[7]
-			model.stage = 'transactionID'
-			return resolve(model)
-
-		}
-		else if(model.data == 'tenTransaction'|| model.data.toLowerCase().includes('last 10 transactions') || model.data.toLowerCase().includes('last ten transactions')){
+		if(model.data == 'tenTransaction'|| model.data.toLowerCase().includes('last 10 transactions') || model.data.toLowerCase().includes('last ten transactions')){
 			model.tags.transactionId = 0
 			api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
 				data.body = JSON.parse(data.body)
@@ -704,7 +689,21 @@ function transactionStatus(model){
 
 function lastTenTransactions(model){
 	return new Promise(function(resolve,reject){
-		if(model.data.match(/\d{10}/)){
+		if(model.data.includes("|")){
+			console.log("-------here")
+			let dataArray = model.data.split("|")
+			model.tags.txResObj.ReferenceID = dataArray[0]
+			model.tags.txResObj.SchemeName = dataArray[1]
+			model.tags.txResObj.DivOpt = dataArray[2]
+			model.tags.txResObj.TransactionType = dataArray[3]
+			model.tags.txResObj.UNITS = dataArray[4]
+			model.tags.txResObj.AMOUNT = dataArray[5]
+			model.tags.txResObj.TransactionStatus = dataArray[6]
+			model.tags.txResObj.ProcessDate = dataArray[7]
+			model.stage = 'transactionID'
+			return resolve(model)
+		}
+		else if(model.data.match(/\d{10}/)){
 			model.tags.transactionId = model.data.match(/\d{10}/)[0]
 			model.stage = 'transactionID'
 			resolve(model)

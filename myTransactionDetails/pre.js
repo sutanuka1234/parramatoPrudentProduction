@@ -199,6 +199,7 @@ function lastTenTransactions(model){
 					data : model.tags.transactions
 				}
 			}
+			model.tags.txNotFound = undefined
 		}
 		else{
 			model.reply = {
@@ -209,7 +210,7 @@ function lastTenTransactions(model){
 				}
 			}
 		}
-		model.tags.txNotFound = undefined
+		
 		return resolve(model)
 	})
 }
