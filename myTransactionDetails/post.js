@@ -655,6 +655,7 @@ function transactionStatus(model){
 					return resolve (model)
 				}
 				else if(data.body.Response.length == 1 || data.body){
+					console.log("here---------------")
 					model.tags.txResObj = {}
 					model.tags.txResObj.ReferenceID = data.body.Response[0].ReferenceID
 					model.tags.txResObj.SchemeName = data.body.Response[0].SchemeName
@@ -664,6 +665,7 @@ function transactionStatus(model){
 					model.tags.txResObj.AMOUNT = data.body.Response[0].AMOUNT
 					model.tags.txResObj.TransactionStatus = data.body.Response[0].TransactionStatus
 					model.tags.txResObj.ProcessDate = data.body.Response[0].ProcessDate
+					console.log(model.tags)
 					model.stage = 'transactionID'
 					resolve(model)
 				}
