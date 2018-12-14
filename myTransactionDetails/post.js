@@ -576,7 +576,21 @@ function transactionStatus(model){
 	return new Promise((resolve,reject)=>{
 		console.log("--------------transactionStatus post---------")
 		console.log(model)
-		if(model.data == 'tenTransaction'|| model.data.toLowerCase().includes('last 10 transactions') || model.data.toLowerCase().includes('last ten transactions')){
+		if(model.data.includes("|")){
+			let dataArray = model.data.split("|")
+			model.tags.txResObj.ReferenceID = dataArray[0]
+			model.tags.txResObj.SchemeName = dataArray[1]
+			model.tags.txResObj.DivOpt = dataArray[2]
+			model.tags.txResObj.TransactionType = dataArray[3]
+			model.tags.txResObj.UNITS = dataArray[4]
+			model.tags.txResObj.AMOUNT = dataArray[5]
+			model.tags.txResObj.TransactionStatus = dataArray[6]
+			model.tags.txResObj.ProcessDate = dataArray[7]
+			model.stage = 'transactionID'
+			return resolve(model)
+
+		}
+		else if(model.data == 'tenTransaction'|| model.data.toLowerCase().includes('last 10 transactions') || model.data.toLowerCase().includes('last ten transactions')){
 			model.tags.transactionId = 0
 			api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
 				data.body = JSON.parse(data.body)
@@ -607,62 +621,72 @@ function transactionStatus(model){
 		else if(model.data.match(/\d{10}/)){
 			model.tags.transactionId = model.data.match(/\d{10}/)[0]
 			api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
-			data.body = JSON.parse(data.body)
-			console.log(data.body.Response.length)
-			if(data.body.Response.length == 0){
-				model.tags.txNotFound = 1
-				model.tags.transactionId = 0
-				api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
-					data.body = JSON.parse(data.body)
-					console.log(data.body.Response.length)
+				data.body = JSON.parse(data.body)
+				console.log(data.body.Response.length)
+				if(data.body.Response.length == 0){
+					model.tags.txNotFound = 1
+					model.tags.transactionId = 0
+					api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
+						data.body = JSON.parse(data.body)
+						console.log(data.body.Response.length)
+						model.tags.transactions = []
+						for(let i = 0; i<10; i++){
+							model.tags.transactions.push({
+								title 	: "Folio No. "+data.body.Response[i].Foliono,
+								text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" on "+dateTimeFormat(data.body.Response[i].ProcessDate),
+								image 	: '',
+								buttons : [
+									{
+										data : data.body.Response[i].ReferenceID,
+										text : "Tx ID: "+data.body.Response[i].ReferenceID
+									}
+								]
+							})
+						}
+						model.stage = 'lastTenTransactions'
+						resolve (model)
+					})
+					.catch((e)=>{
+						console.log(e)
+						reject(model)
+					})
+				}
+				else if(data.body.Response.length >1){
 					model.tags.transactions = []
-					for(let i = 0; i<10; i++){
+					for(let i = 0; idata.body.Response.length<; i++){
 						model.tags.transactions.push({
-							title 	: "Folio No. "+data.body.Response[i].Foliono,
-							text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" on "+dateTimeFormat(data.body.Response[i].ProcessDate),
+							title 	: "TX ID: "+data.body.Response[i].ReferenceID,
+							text 	: data.body.Response[i].SchemeName
 							image 	: '',
 							buttons : [
 								{
-									data : data.body.Response[i].ReferenceID,
-									text : "Tx ID: "+data.body.Response[i].ReferenceID
+									data : data.body.Response[i].ReferenceID+"|"+data.body.Response[i].SchemeName+"|"+data.body.Response[i].DivOpt+"|"+data.body.Response[i].TransactionType+"|"+data.body.Response[i].UNITS+"|"+data.body.Response[i].AMOUNT+"|"+data.body.Response[i].TransactionStatus+"|"+dateTimeFormat(data.body.Response[i].ProcessDate),
+									text : "Select"
 								}
 							]
 						})
 					}
+					model.tags.multipleTx = 1
 					model.stage = 'lastTenTransactions'
-					resolve (model)
-				})
-				.catch((e)=>{
-					console.log(e)
-					reject(model)
-				})
-			}
-			else if(data.body.Response.length >1){
-				model.tags.transactions = []
-				for(let i = 0; idata.body.Response.length<; i++){
-					model.tags.transactions.push({
-						title 	: "Folio No. "+data.body.Response[i].Foliono,
-						text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" on "+dateTimeFormat(data.body.Response[i].ProcessDate),
-						image 	: '',
-						buttons : [
-							{
-								data : data.body.Response[i].ReferenceID,
-								text : "Tx ID: "+data.body.Response[i].ReferenceID
-							}
-						]
-					})
+					return resolve (model)
 				}
-				model.stage = 'lastTenTransactions'
-				return resolve (model)
-			}
-			else if(data.body.Response.length == 1 || data.body){
-				model.stage = 'transactionID'
-				resolve(model)
-			}
-			else{
-				model.stage = 'lastTenTransactions'
-				resolve(model)
-			}
+				else if(data.body.Response.length == 1 || data.body){
+					model.tags.txResObj = {}
+					model.tags.txResObj.ReferenceID = data.body.Response[0].ReferenceID
+					model.tags.txResObj.SchemeName = data.body.Response[0].SchemeName
+					model.tags.txResObj.DivOpt = data.body.Response[0].DivOpt
+					model.tags.txResObj.TransactionType = data.body.Response[0].TransactionType
+					model.tags.txResObj.UNITS = data.body.Response[0].UNITS
+					model.tags.txResObj.AMOUNT = data.body.Response[0].AMOUNT
+					model.tags.txResObj.TransactionStatus = data.body.Response[0].TransactionStatus
+					model.tags.txResObj.ProcessDate = data.body.Response[0].ProcessDate
+					model.stage = 'transactionID'
+					resolve(model)
+				}
+				else{
+					model.stage = 'lastTenTransactions'
+					resolve(model)
+				}
 			})
 			.catch((e)=>{
 				console.log(e)
@@ -832,7 +856,7 @@ function dataClean(model){
 
 function dateTimeFormat(dateTimeValue) {
 	if(dateTimeValue == null){
-		return dateTimeValue = "no date"
+		return dateTimeValue = "-"
 	}
     var dt = new Date(parseInt(dateTimeValue.replace(/(^.*\()|([+-].*$)/g, '')));
     var dateTimeFormat = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();

@@ -181,7 +181,17 @@ function lastTenTransactions(model){
 	return new Promise((resolve,reject)=>{
 		console.log("--------------lastTenTransactions pre---------")
 		console.log(model)
-		if(model.tags.txNotFound == 1){
+		if(model.tags.multipleTx == 1){
+			model.reply = {
+				type : "generic",
+				text : "Here you go, you can select one by one and know its details along with the status.",
+				next : {
+					data : model.tags.transactions
+				}
+			}
+			model.tags.multipleTx = undefined
+		}
+		else if(model.tags.txNotFound == 1){
 			model.reply = {
 				type : "generic",
 				text : "Oh no. This does not match to any of your transaction reference ID (s). But don’t worry find below the list of the previous transactions, you can choose from it.",
@@ -207,23 +217,24 @@ function lastTenTransactions(model){
 function transactionID(model){
 	return new Promise((resolve,reject)=>{
 		console.log("-------------------------txid1-----------")
-		api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
-		data.body = JSON.parse(data.body)
-		console.log(data.body.Response.length)
-		if(data.body.Response[0].ProcessDate != null){
-    		data.body.Response[0].ProcessDate = dateTimeFormat(data.body.Response[0].ProcessDate)
+			model.tags.txResObj.AMOUNT
+			model.tags.txResObj.TransactionStatus
+			model.tags.txResObj.ProcessDate
+		let reply
+		if(model.tags.txResObj.AMOUNT == null){
+			reply = "Let me give you a brief of Transaction "+model.tags.txResObj.ReferenceID+" for scheme "+model.tags.txResObj.SchemeName+", "+model.tags.txResObj.DivOpt+" - "+model.tags.txResObj.TransactionType+". You have purchased "+model.tags.txResObj.UNITS+" and , your status is "+model.tags.txResObj.TransactionStatus+" which was processed on "+model.tags.txResObj.ProcessDate+". "
 		}
-		if(data.body.Response.length > 0){
-			model.reply = {
-				type : "text",
-				text : "Let me give you a brief of Transaction "+data.body.Response[0].ReferenceID+" for scheme "+data.body.Response[0].SchemeName+", "+data.body.Response[0].DivOpt+" - "+data.body.Response[0].TransactionType+". You have purchased "+data.body.Response[0].UNITS+" units for a total of Rs "+data.body.Response[0].AMOUNT+", your status is "+data.body.Response[0].TransactionStatus+" which was processed on "+data.body.Response[0].ProcessDate+". "
-			}
-			resolve(model)
+		else if(model.tags.txResObj.UNITS == null){
+			reply = "Let me give you a brief of Transaction "+model.tags.txResObj.ReferenceID+" for scheme "+model.tags.txResObj.SchemeName+", "+model.tags.txResObj.DivOpt+" - "+model.tags.txResObj.TransactionType+". You have purchased for a total of Rs "+model.tags.txResObj.AMOUNT+", your status is "+model.tags.txResObj.TransactionStatus+" which was processed on "+model.tags.txResObj.ProcessDate+". "
 		}
-		})
-		.catch((e)=>{
-			console.log(e)
-		})
+		else{
+			reply = "Let me give you a brief of Transaction "+model.tags.txResObj.ReferenceID+" for scheme "+model.tags.txResObj.SchemeName+", "+model.tags.txResObj.DivOpt+" - "+model.tags.txResObj.TransactionType+". You have purchased "+model.tags.txResObj.UNITS+" units for a total of Rs "+model.tags.txResObj.AMOUNT+", your status is "+model.tags.txResObj.TransactionStatus+" which was processed on "+model.tags.txResObj.ProcessDate+". "
+		}
+		model.reply = {
+			type : "text",
+			text : reply
+		}
+		resolve(model)
 	})
 }
 
@@ -354,6 +365,9 @@ function dataClean(model){
 }
 
 function dateTimeFormat(dateTimeValue) {
+	if(dateTimeValue == null){
+		return dateTimeValue = "-"
+	}
     var dt = new Date(parseInt(dateTimeValue.replace(/(^.*\()|([+-].*$)/g, '')));
     var dateTimeFormat = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
     console.log(dateTimeFormat)
