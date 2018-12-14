@@ -653,7 +653,7 @@ function transactionStatus(model){
 				}
 				else if(data.body.Response.length >1){
 					model.tags.transactions = []
-					for(let i = 0; idata.body.Response.length<; i++){
+					for(let i = 0; i<data.body.Response.length; i++){
 						model.tags.transactions.push({
 							title 	: "TX ID: "+data.body.Response[i].ReferenceID,
 							text 	: data.body.Response[i].SchemeName
