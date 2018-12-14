@@ -607,7 +607,7 @@ function nach(model){
 					model.tags.showNachArray.push(model.tags.nachArray[i])
 				}
 				model.tags.showNachArray.push({
-					title : 'show more nach Mandate Details',
+					title : 'show more nach Mandate details',
 					text : '',
 					image : '',
 					buttons : [

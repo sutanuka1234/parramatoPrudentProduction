@@ -191,7 +191,7 @@ function nach(model){
 						model.tags.showNachArray.push(model.tags.nachArray[i])
 					}
 					model.tags.showNachArray.push({
-						title : 'Show more Nach Mandate Details',
+						title : 'Show more Nach Mandate details',
 						text : '',
 						image : '',
 						buttons : [
