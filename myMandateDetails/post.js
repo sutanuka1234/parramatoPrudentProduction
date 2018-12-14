@@ -637,7 +637,7 @@ function nach(model){
 			model.tags.mandateStatus = selectedNachArray[2]
 			model.tags.accountNo = selectedNachArray[3]
 			model.tags.bankName = selectedNachArray[4]
-			model.tags.date = dateTimeFormat(selectedNachArray[6])
+			model.tags.date = dateTimeFormat(selectedNachArray[5])
 
 			model.stage = 'nachDetails'
 			return resolve(model)
@@ -787,8 +787,8 @@ function dataClean(model){
 }
 
 function dateTimeFormat(dateTimeValue) {
-	if(dateTimeValue == null){
-		return dateTimeValue = "null"
+	if(dateTimeValue == null ){
+		return model.tags.date = undefined
 	}
     var dt = new Date(parseInt(dateTimeValue.replace(/(^.*\()|([+-].*$)/g, '')));
     var dateTimeFormat = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();

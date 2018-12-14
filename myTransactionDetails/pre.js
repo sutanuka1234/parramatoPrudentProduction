@@ -232,6 +232,8 @@ function transactionID(model){
 			type : "text",
 			text : reply
 		}
+		model.tags.txResObj = undefined
+		model.tags.transactions = undefined
 		resolve(model)
 	})
 }

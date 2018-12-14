@@ -237,9 +237,8 @@ function nach(model){
 function nachDetails(model){
 	return new Promise(function(resolve, reject){
 		let reply 
-		console.log("_--------------here-------")
-		console.log(model.tags)
-		if(model.tags.date == 'null' || model.tags.date == null){
+		
+		if(model.tags.date){
 			reply = "Let me brief you on your nach mandate status of "+model.tags.referenceNo+
 			". Your daily limit is "+model.tags.dailyLimit+" and status is "+model.tags.mandateStatus+". This mandate is for Account number "+model.tags.accountNo+" linked to "+model.tags.bankName+"."
 		}
