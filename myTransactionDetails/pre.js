@@ -220,7 +220,7 @@ function transactionID(model){
 		console.log("-------------------------txid1-----------")
 		let reply
 		if(model.tags.txResObj.AMOUNT == "null" || model.tags.txResObj.AMOUNT == null){
-			reply = "Let me give you a brief of Transaction "+model.tags.txResObj.ReferenceID+" for scheme "+model.tags.txResObj.SchemeName+", "+model.tags.txResObj.DivOpt+" - "+model.tags.txResObj.TransactionType+". You have purchased "+model.tags.txResObj.UNITS+", your status is "+model.tags.txResObj.TransactionStatus+" which was processed on "+model.tags.txResObj.ProcessDate+". "
+			reply = "Let me give you a brief of Transaction "+model.tags.txResObj.ReferenceID+" for scheme "+model.tags.txResObj.SchemeName+", "+model.tags.txResObj.DivOpt+" - "+model.tags.txResObj.TransactionType+". You have purchased "+model.tags.txResObj.UNITS+" units, your status is "+model.tags.txResObj.TransactionStatus+" which was processed on "+model.tags.txResObj.ProcessDate+". "
 		}
 		else if(model.tags.txResObj.UNITS == "null" || model.tags.txResObj.UNITS == null){
 			reply = "Let me give you a brief of Transaction "+model.tags.txResObj.ReferenceID+" for scheme "+model.tags.txResObj.SchemeName+", "+model.tags.txResObj.DivOpt+" - "+model.tags.txResObj.TransactionType+". You have purchased for a total of Rs "+model.tags.txResObj.AMOUNT+", your status is "+model.tags.txResObj.TransactionStatus+" which was processed on "+model.tags.txResObj.ProcessDate+". "
