@@ -692,6 +692,8 @@ function lastTenTransactions(model){
 		if(model.data.includes("|")){
 			console.log("-------here")
 			let dataArray = model.data.split("|")
+			console.log(dataArray)
+			model.tags.txResObj = {}
 			model.tags.txResObj.ReferenceID = dataArray[0]
 			model.tags.txResObj.SchemeName = dataArray[1]
 			model.tags.txResObj.DivOpt = dataArray[2]
