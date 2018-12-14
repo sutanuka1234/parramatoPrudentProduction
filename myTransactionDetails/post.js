@@ -640,7 +640,7 @@ function transactionStatus(model){
 					for(let i = 0; i<data.body.Response.length; i++){
 						model.tags.transactions.push({
 							title 	: "TX ID: "+data.body.Response[i].ReferenceID,
-							text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" on "+dateTimeFormat(data.body.Response[i].ProcessDate),
+							text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". "+amountNull(data.body.Response[i].AMOUNT)+" on "+dateTimeFormat(data.body.Response[i].ProcessDate),
 							image 	: '',
 							buttons : [
 								{
@@ -715,7 +715,7 @@ function lastTenTransactions(model){
 					for(let i = 0; i<data.body.Response.length; i++){
 						model.tags.transactions.push({
 							title 	: "TX ID: "+data.body.Response[i].ReferenceID,
-							text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" on "+dateTimeFormat(data.body.Response[i].ProcessDate),
+							text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". "+amountNull(data.body.Response[i].AMOUNT)+" on "+dateTimeFormat(data.body.Response[i].ProcessDate),
 							image 	: '',
 							buttons : [
 								{
@@ -753,6 +753,14 @@ function lastTenTransactions(model){
 	})
 }
 
+function amountNull(amount){
+	if(amount == 'null' || amount == null){
+		return ""
+	}
+	else{
+		return " Amount: "+amount
+	}
+}
 
 function sendExternalMessage(model,text){
 	let reply={
