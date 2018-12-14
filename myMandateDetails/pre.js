@@ -235,11 +235,19 @@ function nach(model){
 }
 
 function nachDetails(model){
-	return new Promise(function(resolve, reject){	
+	return new Promise(function(resolve, reject){
+		let reply 
+		if(model.tags.date == 'null'){
+			reply = "Let me brief you on your nach mandate status of "+model.tags.referenceNo+
+			". Your daily limit is "+model.tags.dailyLimit+" and status is "+model.tags.mandateStatus+". This mandate is for Account number "+model.tags.accountNo+" linked to "+model.tags.bankName+"."
+		}
+		else{
+			reply = "Let me brief you on your nach mandate status of "+model.tags.referenceNo+
+			". Your daily limit is "+model.tags.dailyLimit+" and status is "+model.tags.mandateStatus+". This mandate is for Account number "+model.tags.accountNo+" linked to "+model.tags.bankName+" as on "+model.tags.date+"."
+		}
 		model.reply = {
 			type : 'text',
-			text : "Let me brief you on your nach mandate status of "+model.tags.referenceNo+
-			". Your daily limit is "+model.tags.dailyLimit+" and status is "+model.tags.mandateStatus+". This mandate is for Account number "+model.tags.accountNo+" linked to "+model.tags.bankName+" as on "+model.tags.date+"."
+			text : reply
 		}
 		model.tags.showNachArray = undefined
 		model.tags.nachArray = undefined

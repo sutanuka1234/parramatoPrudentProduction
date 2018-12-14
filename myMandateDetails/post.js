@@ -788,7 +788,7 @@ function dataClean(model){
 
 function dateTimeFormat(dateTimeValue) {
 	if(dateTimeValue == null){
-		return dateTimeValue = "-"
+		return dateTimeValue = "null"
 	}
     var dt = new Date(parseInt(dateTimeValue.replace(/(^.*\()|([+-].*$)/g, '')));
     var dateTimeFormat = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
