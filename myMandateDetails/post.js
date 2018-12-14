@@ -618,7 +618,7 @@ function nach(model){
 				})
 				return resolve(model)
 			}
-			else{
+			else if(model.tags.nachArray && model.tags.nachArray.length<=10){
 				model.tags.nachArray.splice(0,10)
 				for(let i = 0;i<9;i++){
 					model.tags.showNachArray.push(model.tags.nachArray[i])
