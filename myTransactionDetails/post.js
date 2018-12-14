@@ -710,17 +710,37 @@ function lastTenTransactions(model){
 			model.tags.transactionId = model.data.match(/\d{10}/)[0]
 			api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
 				data.body = JSON.parse(data.body)
-				model.tags.txResObj = {}
-				model.tags.txResObj.ReferenceID = data.body.Response[0].ReferenceID
-				model.tags.txResObj.SchemeName = data.body.Response[0].SchemeName
-				model.tags.txResObj.DivOpt = data.body.Response[0].DivOpt
-				model.tags.txResObj.TransactionType = data.body.Response[0].TransactionType
-				model.tags.txResObj.UNITS = data.body.Response[0].UNITS
-				model.tags.txResObj.AMOUNT = data.body.Response[0].AMOUNT
-				model.tags.txResObj.TransactionStatus = data.body.Response[0].TransactionStatus
-				model.tags.txResObj.ProcessDate = dateTimeFormat(data.body.Response[0].ProcessDate)
-				model.stage = 'transactionID'
-				return resolve(model)
+				if(data.body.Response.length >1){
+					model.tags.transactions = []
+					for(let i = 0; i<data.body.Response.length; i++){
+						model.tags.transactions.push({
+							title 	: "TX ID: "+data.body.Response[i].ReferenceID,
+							text 	: data.body.Response[i].SchemeName+" - "+data.body.Response[i].TransactionType+". Amount: "+data.body.Response[i].AMOUNT+" on "+dateTimeFormat(data.body.Response[i].ProcessDate),
+							image 	: '',
+							buttons : [
+								{
+									data : data.body.Response[i].ReferenceID+"|"+data.body.Response[i].SchemeName+"|"+data.body.Response[i].DivOpt+"|"+data.body.Response[i].TransactionType+"|"+data.body.Response[i].UNITS+"|"+data.body.Response[i].AMOUNT+"|"+data.body.Response[i].TransactionStatus+"|"+dateTimeFormat(data.body.Response[i].ProcessDate),
+									text : "Select"
+								}
+							]
+						})
+					}
+					model.tags.multipleTx = 1
+					return resolve (model)
+				}
+				else{
+					model.tags.txResObj = {}
+					model.tags.txResObj.ReferenceID = data.body.Response[0].ReferenceID
+					model.tags.txResObj.SchemeName = data.body.Response[0].SchemeName
+					model.tags.txResObj.DivOpt = data.body.Response[0].DivOpt
+					model.tags.txResObj.TransactionType = data.body.Response[0].TransactionType
+					model.tags.txResObj.UNITS = data.body.Response[0].UNITS
+					model.tags.txResObj.AMOUNT = data.body.Response[0].AMOUNT
+					model.tags.txResObj.TransactionStatus = data.body.Response[0].TransactionStatus
+					model.tags.txResObj.ProcessDate = dateTimeFormat(data.body.Response[0].ProcessDate)
+					model.stage = 'transactionID'
+					return resolve(model)
+				}
 			})
 			.catch((e)=>{
 				console.log(e)
