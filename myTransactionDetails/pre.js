@@ -217,9 +217,6 @@ function lastTenTransactions(model){
 function transactionID(model){
 	return new Promise((resolve,reject)=>{
 		console.log("-------------------------txid1-----------")
-			model.tags.txResObj.AMOUNT
-			model.tags.txResObj.TransactionStatus
-			model.tags.txResObj.ProcessDate
 		let reply
 		if(model.tags.txResObj.AMOUNT == null){
 			reply = "Let me give you a brief of Transaction "+model.tags.txResObj.ReferenceID+" for scheme "+model.tags.txResObj.SchemeName+", "+model.tags.txResObj.DivOpt+" - "+model.tags.txResObj.TransactionType+". You have purchased "+model.tags.txResObj.UNITS+" and , your status is "+model.tags.txResObj.TransactionStatus+" which was processed on "+model.tags.txResObj.ProcessDate+". "
