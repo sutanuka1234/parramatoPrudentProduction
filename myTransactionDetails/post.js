@@ -664,7 +664,7 @@ function transactionStatus(model){
 					model.tags.txResObj.UNITS = data.body.Response[0].UNITS
 					model.tags.txResObj.AMOUNT = data.body.Response[0].AMOUNT
 					model.tags.txResObj.TransactionStatus = data.body.Response[0].TransactionStatus
-					model.tags.txResObj.ProcessDate = data.body.Response[0].ProcessDate
+					model.tags.txResObj.ProcessDate = dateTimeFormat(data.body.Response[0].ProcessDate)
 					console.log(model.tags)
 					model.stage = 'transactionID'
 					resolve(model)
