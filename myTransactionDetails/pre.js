@@ -219,7 +219,7 @@ function transactionID(model){
 	return new Promise((resolve,reject)=>{
 		console.log("-------------------------txid1-----------")
 		let reply
-		let rorp
+		let rorp = model.tags.txResObj.TransactionTyp
 
 		if(rorp.includes("Redemption")){
 			rorp = "reedemed"
