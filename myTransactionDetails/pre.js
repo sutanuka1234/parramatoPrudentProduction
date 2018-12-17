@@ -219,14 +219,26 @@ function transactionID(model){
 	return new Promise((resolve,reject)=>{
 		console.log("-------------------------txid1-----------")
 		let reply
-		if(model.tags.txResObj.AMOUNT == "null" || model.tags.txResObj.AMOUNT == null){
-			reply = "Let me give you a brief of Transaction "+model.tags.txResObj.ReferenceID+" for scheme "+model.tags.txResObj.SchemeName+", "+model.tags.txResObj.DivOpt+" - "+model.tags.txResObj.TransactionType+". You have purchased "+model.tags.txResObj.UNITS+" units and your status is "+model.tags.txResObj.TransactionStatus+" which was processed on "+model.tags.txResObj.ProcessDate+". Let us know what you wish to do next."
+		let rorp
+
+		if(rorp.includes("Redemption")){
+			rorp = "reedemed"
 		}
-		else if(model.tags.txResObj.UNITS == "null" || model.tags.txResObj.UNITS == null){
-			reply = "Let me give you a brief of Transaction "+model.tags.txResObj.ReferenceID+" for scheme "+model.tags.txResObj.SchemeName+", "+model.tags.txResObj.DivOpt+" - "+model.tags.txResObj.TransactionType+". You have purchased for a total of Rs "+model.tags.txResObj.AMOUNT+", your status is "+model.tags.txResObj.TransactionStatus+" which was processed on "+model.tags.txResObj.ProcessDate+". Let us know what you wish to do next."
+		else if(rorp.includes("STPIn")){
+			rorp = "initiated STP"
 		}
 		else{
-			reply = "Let me give you a brief of Transaction "+model.tags.txResObj.ReferenceID+" for scheme "+model.tags.txResObj.SchemeName+", "+model.tags.txResObj.DivOpt+" - "+model.tags.txResObj.TransactionType+". You have purchased "+model.tags.txResObj.UNITS+" units for a total of Rs "+model.tags.txResObj.AMOUNT+", your status is "+model.tags.txResObj.TransactionStatus+" which was processed on "+model.tags.txResObj.ProcessDate+". Let us know what you wish to do next."
+			rorp = "purchased"
+		}
+
+		if(model.tags.txResObj.AMOUNT == "null" || model.tags.txResObj.AMOUNT == null){
+			reply = "Let me give you a brief of Transaction "+model.tags.txResObj.ReferenceID+" for scheme "+model.tags.txResObj.SchemeName+", "+model.tags.txResObj.DivOpt+" - "+model.tags.txResObj.TransactionType+". You have "+rorp+" - "+model.tags.txResObj.UNITS+" units and your status is "+model.tags.txResObj.TransactionStatus+" which was processed on "+model.tags.txResObj.ProcessDate+". Let us know what you wish to do next."
+		}
+		else if(model.tags.txResObj.UNITS == "null" || model.tags.txResObj.UNITS == null){
+			reply = "Let me give you a brief of Transaction "+model.tags.txResObj.ReferenceID+" for scheme "+model.tags.txResObj.SchemeName+", "+model.tags.txResObj.DivOpt+" - "+model.tags.txResObj.TransactionType+". You have "+rorp+" for a total of Rs "+model.tags.txResObj.AMOUNT+", your status is "+model.tags.txResObj.TransactionStatus+" which was processed on "+model.tags.txResObj.ProcessDate+". Let us know what you wish to do next."
+		}
+		else{
+			reply = "Let me give you a brief of Transaction "+model.tags.txResObj.ReferenceID+" for scheme "+model.tags.txResObj.SchemeName+", "+model.tags.txResObj.DivOpt+" - "+model.tags.txResObj.TransactionType+". You have "+rorp+" of "+model.tags.txResObj.UNITS+" units for a total of Rs "+model.tags.txResObj.AMOUNT+", your status is "+model.tags.txResObj.TransactionStatus+" which was processed on "+model.tags.txResObj.ProcessDate+". Let us know what you wish to do next."
 		}
 		model.reply = {
 			type : "quickReply",
