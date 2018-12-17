@@ -127,6 +127,18 @@ function fallback(model){
 		                		data : "STP",
 		                		text : "STP"
 		                	},
+		                	 {
+		                        data : 'Get account statement',
+		                        text : 'Get account statement'
+		                    },
+		                   {
+		                        data : 'Transaction Details',
+		                       text : 'Transaction Details'
+		                   },
+		                    {
+		                        data : "Nach Mandate",
+		                        text : 'Nach Mandate'
+		                    },
 		                	{
 		                		data : "FAQs",
 		                		text : "FAQs"

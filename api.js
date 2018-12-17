@@ -393,6 +393,54 @@ function getSchemes(ip){
 }
 
 
+function getClientAllFolio(ip,session){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+		var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+'GetClientAllFolio?IPAddress='+ip+'&SessionId='+session
+	}
+	return runRequest(obj)
+}
+
+
+function getAccountStatement(ip, session, folio, amcId){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	var obj = {
+		method  : 'POST',
+		headers : headers,
+		url 	: url+"GetAccountStatement?IPAddress="+ip+"&SessionId="+session+"&FolioNo="+folio+"&AMCCode="+amcId
+	}
+	return runRequest(obj)
+}
+
+function getTransactionDetails(ip,session,txId){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+"TransactionDetailsGet?IPAddress="+ip+"&SessionId="+session+"&TranReferenceID="+txId
+	}
+	return runRequest(obj)
+}
+
+function getMandateDetails(ip,session){
+	if(!ip||ip==undefined||ip=="localhost"){
+		ip="10.10.10.10"
+	}
+	var obj = {
+		method 	: 'POST',
+		headers : headers,
+		url 	: url+"MandateDetailsGet?IPAddress="+ip+"&SessionId="+session
+	}
+	return runRequest(obj)
+}
 
 
 function runRequest(obj){
@@ -432,6 +480,10 @@ module.exports = {
 	insertBuyCartSwitch 			: insertBuyCartSwitch,
 	insertBuyCartStp				: insertBuyCartStp,
 	confirmSwitch 					: confirmSwitch,
-	confirmSTP 						: confirmSTP
+	confirmSTP 						: confirmSTP,
+	getClientAllFolio 				: getClientAllFolio,
+	getAccountStatement 			: getAccountStatement,
+	getTransactionDetails 			: getTransactionDetails,
+	getMandateDetails 				: getMandateDetails
 }
 
