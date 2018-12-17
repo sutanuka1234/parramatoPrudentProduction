@@ -220,7 +220,7 @@ function transactionID(model){
 		console.log("-------------------------txid1-----------")
 		let reply
 		let rorp = model.tags.txResObj.TransactionType
-		let msg = "Let us know what you wish to do next."
+		let msg = "Let me know what you wish to do next."
 
 		if(rorp.toLowerCase().includes("redemption")){
 			rorp = "reedemed"
