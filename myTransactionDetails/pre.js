@@ -221,13 +221,13 @@ function transactionID(model){
 		let reply
 		let rorp = model.tags.txResObj.TransactionType
 
-		if(rorp.includes("Redemption")){
+		if(rorp.toLowerCase().includes("redemption")){
 			rorp = "reedemed"
 		}
-		else if(rorp.includes("STPIn")){
+		else if(rorp.toLowerCase().includes("stpin")){
 			rorp = "initiated STP"
 		}
-		else if(rorp.includes("SIP")){
+		else if(rorp.toLowerCase().includes("sip")){
 			rorp = "initiated SIP"
 		}
 		else{
