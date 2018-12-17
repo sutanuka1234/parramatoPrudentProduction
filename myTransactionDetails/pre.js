@@ -234,8 +234,8 @@ function transactionID(model){
 			next : {
 				data : [
 					{
-						data : "I'm done",
-						text : "I'm done"
+						data : "I am done",
+						text : "I am done"
 					},
 					{
 						data : "Check other Transaction details",
