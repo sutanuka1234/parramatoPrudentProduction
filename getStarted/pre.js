@@ -47,7 +47,7 @@ function start(model){
         }
         
         model.reply={
-            type : "button",
+            type : "quickReply",
             text : `Hi ${greet}, If you are not an existing investor click here - https://www.fundzbazar.com/signup to register. If you are an existing investor you can do the following right now!`,
             next : {
                 data : [
