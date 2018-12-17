@@ -227,6 +227,9 @@ function transactionID(model){
 		else if(rorp.includes("STPIn")){
 			rorp = "initiated STP"
 		}
+		else if(rorp.includes("SIP")){
+			rorp = "initiated SIP"
+		}
 		else{
 			rorp = "purchased"
 		}
