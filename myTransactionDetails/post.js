@@ -19,7 +19,8 @@ let obj = {
 	pan					: pan,
 	otp					: otp,
 	transactionStatus 	: transactionStatus,
-	lastTenTransactions : lastTenTransactions
+	lastTenTransactions : lastTenTransactions,
+	transactionID 		: transactionID
 }
 
 
@@ -750,6 +751,21 @@ function lastTenTransactions(model){
 		else{
 			reject(model)
 		}
+	})
+}
+
+function transactionID(model){
+	return new Promise((resolve,reject)=>{
+		let input = model.data.toLowerCase().trim()
+		if(input.includes("done")){
+			model.stage = 'final'
+			return resolve(model)
+		}
+		else if(input.includes("check other transaction details") || input.includes("check other") || input.includes("transaction details")){
+			model.stage = 'transactionStatus'
+			return resolve(model)
+		}
+		return reject(model)
 	})
 }
 
