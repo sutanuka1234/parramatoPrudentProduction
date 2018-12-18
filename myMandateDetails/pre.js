@@ -237,7 +237,7 @@ function nach(model){
 function nachDetails(model){
 	return new Promise(function(resolve, reject){
 		let reply
-		let msg = "Let me know what you wish to do next." 
+		let msg = " Let me know what you wish to do next." 
 		if(model.tags.date){
 			reply = "Let me brief you on your nach mandate status of "+model.tags.referenceNo+
 			". Your daily limit is "+model.tags.dailyLimit+" and status is "+model.tags.mandateStatus+". This mandate is for Account number "+model.tags.accountNo+" linked to "+model.tags.bankName+" as on "+model.tags.date+"."
@@ -256,8 +256,8 @@ function nachDetails(model){
 						text : "I am done"
 					},
 					{
-						data : "Check other Transaction details",
-						text : "Check other Transaction details"
+						data : "Check other Nach Mandate",
+						text : "Check other Nach Mandate"
 					}
 				]
 			}
