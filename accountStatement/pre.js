@@ -160,19 +160,51 @@ function folio(model){
 
 function statement(model){
 	return new Promise((resolve,reject)=>{
+		let reply;
+		let msg = " I can also help you with the following"
 		if(model.tags.fail == 1){
-			model.reply = {
-				type : "text",
-				text : "Oh no, we have checked with your details but we are not getting any response. Please try again after sometime."
-			}
-			model.tags.fail = undefined
+			reply = "Oh no, we have checked with your details but we are not getting any response. Please try again after sometime."
 		}
 		else{
-			model.reply = {
-		 		type : "text",
-				text : "Got it. You will receive your account statement of folio "+formatter.apply(model.tags.folioNo)+" on your registered email ID 📩"
+			reply = "Got it. You will receive your account statement of folio "+formatter.apply(model.tags.folioNo)+" on your registered email ID 📩"
+		}
+		model.reply = {
+			type : "quickReply",
+			text : reply + msg,
+			next : {
+				data : [
+					{
+                    	data : 'Invest Now',
+                    	text : 'Invest Now'
+                    },
+                    {
+                        data : 'Redeem Now',
+                        text : 'Redeem Now'
+                    },
+                    {
+                        data : 'Switch Now',
+                        text : 'Switch Now'
+                    },
+                    {
+                        data : "STP Now",
+                        text : 'STP Now'
+                    },
+                    {
+                        data : 'FAQs',
+                        text : 'FAQs'
+                    },
+                    {
+                        data : 'Transaction Details',
+                        text : 'Transaction Details'
+                    },
+                    {
+                        data : "Nach Mandate",
+                        text : 'Nach Mandate'
+                    }
+				]
 			}
 		}
+		model.tags.fail = undefined
 		resolve(model);
 	})
 }
