@@ -256,8 +256,8 @@ function nachDetails(model){
 						text : "I am done"
 					},
 					{
-						data : "Check other Nach Mandate",
-						text : "Check other Nach Mandate"
+						data : "Check more Nach Mandates",
+						text : "Check more Nach Mandates"
 					}
 				]
 			}

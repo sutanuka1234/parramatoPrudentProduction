@@ -656,7 +656,7 @@ function nachDetails(model){
 			model.stage = 'final'
 			return resolve(model)
 		}
-		else if(input.includes("check other nach mandate") || input.includes("check other") || input.includes("nach mandate")){
+		else if(input.includes("check more nach mandates") || input.includes("check more") || input.includes("nach mandates")){
 			model.stage = 'nach'
 			return resolve(model)
 		}
