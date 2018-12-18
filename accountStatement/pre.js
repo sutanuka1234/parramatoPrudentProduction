@@ -166,7 +166,7 @@ function statement(model){
 			reply = "Oh no, we have checked with your details but we are not getting any response. Please try again after sometime."
 		}
 		else{
-			reply = "Got it. You will receive your account statement of folio "+formatter.apply(model.tags.folioNo)+" on your registered email ID 📩"
+			reply = "Got it. You will receive your account statement of folio "+formatter.apply(model.tags.folioNo)+" on your registered email ID 📩."
 		}
 		model.reply = {
 			type : "quickReply",
