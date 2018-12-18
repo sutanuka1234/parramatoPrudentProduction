@@ -56,6 +56,10 @@ function start(model){
                         text : 'Invest Now'
                     },
                     {
+                        data: 'Start SIP',
+                        text: 'Start SIP'
+                    },
+                    {
                         data : 'Redeem Now',
                         text : 'Redeem Now'
                     },
