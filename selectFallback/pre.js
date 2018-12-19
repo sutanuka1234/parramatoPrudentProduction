@@ -102,10 +102,7 @@ function fallback(model){
 		            text:"I am not sure how to answer this, trying my best to learn. However, right now, you could try the following.",
 		            next:{
 		                data: [
-		                	{
-		                		data : "Talk to customer care",
-		                		text : "Talk to customer care"
-		                	},
+		                	
 		                	{
 		                		data : "Invest",
 		                		text : "Invest"
@@ -142,6 +139,10 @@ function fallback(model){
 		                	{
 		                		data : "FAQs",
 		                		text : "FAQs"
+		                	},
+		                	{
+		                		data : "Talk to customer care",
+		                		text : "Talk to customer care"
 		                	}
 		                ]
 		            }

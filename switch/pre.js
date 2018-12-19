@@ -138,7 +138,7 @@ function otp(model){
 			model.tags.resend=undefined
 			model.reply={
 				type : "text",
-				text : "The new OTP is sent to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please share it here. In case if you have not received any OTP, we would send you one if you say 'resend'"
+				text : "The new OTP is sent to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please share it here.In case if you have not received any OTP, we would send you one if you say 'resend'"
 			}
 		}
 		else{

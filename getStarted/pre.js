@@ -86,6 +86,10 @@ function start(model){
                     {
                         data : 'FAQs',
                         text : 'FAQs'
+                    },
+                    {
+                        data : "Talk to customer care",
+                        text : "Talk to customer care"
                     }
                 ]
             }

@@ -93,6 +93,7 @@ let sortedJourney = [
 
 function main(req, res){
 	console.log(req.params.stage)
+	console.log("POST")
 	var buttonStageArr=req.body.data.split("|||")
 	if(buttonStageArr.length==2&&obj[buttonStageArr[0]]){
 		req.body.data=buttonStageArr[1]
@@ -575,7 +576,7 @@ function otp(model){
 
 function transactionStatus(model){
 	return new Promise((resolve,reject)=>{
-		if(model.data == 'tenTransaction'|| model.data.toLowerCase().includes('last 10 transactions') || model.data.toLowerCase().includes('last ten transactions')){
+		if(model.data.toLowerCase().includes('10 transaction') || model.data.toLowerCase().includes('last 10 transactions') || model.data.toLowerCase().includes('last ten transactions')){
 			model.tags.transactionId = 0
 			api.getTransactionDetails(model.tags.ip, model.tags.session,model.tags.transactionId).then((data)=>{
 				data.body = JSON.parse(data.body)
@@ -680,12 +681,13 @@ function transactionStatus(model){
 				reject(model)
 			})
 		}
-		else if(model.data.includes('iHaveTransctionId') || model.data.toLowerCase().includes('transaction id')){
+		else if(model.data.toLowerCase().includes('id') || model.data.toLowerCase().includes('transaction id')){
 			model.tags.txId = 1
 			resolve(model)
 		}
 		else{
 			reject(model)
+
 		}
 	})
 }
@@ -761,7 +763,7 @@ function transactionID(model){
 			model.stage = 'final'
 			return resolve(model)
 		}
-		else if(input.includes("check other transaction details") || input.includes("check other") || input.includes("transaction details")){
+		else if(input.includes("more transaction") || input.includes("check other") || input.includes("transaction details")){
 			model.stage = 'transactionStatus'
 			return resolve(model)
 		}

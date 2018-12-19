@@ -71,6 +71,7 @@ let amc = [
 
 function main(req, res){
 	console.log(req.params.stage)
+	console.log("PRE")
 	obj[req.params.stage](req.body)
 	.then((data)=>{
 		res.send(data)
@@ -131,13 +132,13 @@ function otp(model){
 			model.tags.resend=undefined
 			model.reply={
 				type : "text",
-				text : "The new OTP is sent to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please share it here. In case if you have not received any OTP, we would send you one if you say 'resend'"
+				text : "The new OTP is sent to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please share it here.In case if you have not received any OTP, we would send you one if you say 'resend'"
 			}
 		}
 		else{
 			model.reply={
 				type : "text",
-				text : "We have sent an OTP to your mobile number ("+formatter.apply(model.tags.mobile)+"), please share it here. In case if you have not received any OTP, we would send you one if you say 'resend'"
+				text : "We have sent an OTP to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please share it here.In case if you have not received any OTP, we would send you one if you say 'resend'"
 			}
 		}
 		return resolve(model)
@@ -162,12 +163,12 @@ function transactionStatus(model){
 				next : {
 					data : [
 						{
-							data : "tenTransaction",
+							data : "Last 10 Transactions",
 							text : "Last 10 Transactions"
 						},
 						{
-							data : "iHaveTransctionId",
-							text : "I have Transaction ID"
+							data : "Transaction ID",
+							text : "Transaction ID"
 						}
 					]
 				}
@@ -254,8 +255,8 @@ function transactionID(model){
 						text : "I am done"
 					},
 					{
-						data : "Check other Transaction details",
-						text : "Check other Transaction details"
+						data : "More Transactions",
+						text : "More Transactions"
 					}
 				]
 			}

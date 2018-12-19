@@ -17,7 +17,8 @@ let obj = {
 	mobile				: mobile,
 	pan					: pan,
 	otp					: otp,
-	nach 				: nach
+	nach 				: nach,
+	nachDetails 		: nachDetails
 }
 
 
@@ -648,6 +649,22 @@ function nach(model){
 	})
 }
 
+function nachDetails(model){
+	return new Promise((resolve,reject)=>{
+		console.log(model.data)
+		console.log(":::::::::::::::::::")
+		let input = model.data.toLowerCase().trim()
+		if(input.includes("done")){
+			model.stage = 'final'
+			return resolve(model)
+		}
+		else if(input.includes("check more nach mandates") || input.includes("check more") || input.includes("nach mandates")){
+			model.stage = 'nach'
+			return resolve(model)
+		}
+		return reject(model)
+	})
+}
 
 function sendExternalMessage(model,text){
 	let reply={

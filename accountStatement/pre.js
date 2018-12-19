@@ -2,6 +2,7 @@
 module.exports={
 	main:main
 }
+
 let data = require('../data.js')
 let words = require('../words.js')
 let stringSimilarity = require('string-similarity');
@@ -130,13 +131,13 @@ function otp(model){
 			model.tags.resend=undefined
 			model.reply={
 				type : "text",
-				text : "The new OTP is sent to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please share it here. In case if you have not received any OTP, we would send you one if you say 'resend'"
+				text : "The new OTP is sent to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please share it here.In case if you have not received any OTP, we would send you one if you say 'resend'"
 			}
 		}
 		else{
 			model.reply={
 				type : "text",
-				text : "We have sent an OTP to your mobile number ("+formatter.apply(model.tags.mobile)+"), please share it here. In case if you have not received any OTP, we would send you one if you say 'resend'"
+				text : "We have sent an OTP to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please share it here.In case if you have not received any OTP, we would send you one if you say 'resend'"
 			}
 		}
 		return resolve(model)
@@ -159,19 +160,57 @@ function folio(model){
 
 function statement(model){
 	return new Promise((resolve,reject)=>{
+		let reply;
+		let msg = " I can also help you with the following"
 		if(model.tags.fail == 1){
-			model.reply = {
-				type : "text",
-				text : "Oh no, we have checked with your details but we are not getting any response. Please try again after sometime."
-			}
-			model.tags.fail = undefined
+			reply = "Oh no, we have checked with your details but we are not getting any response. Please try again after sometime."
 		}
 		else{
-			model.reply = {
-		 		type : "text",
-				text : "Got it. You will receive your account statement of folio "+formatter.apply(model.tags.folioNo)+" on your registered email ID 📩"
+			reply = "You will receive your account statement of folio "+formatter.apply(model.tags.folioNo)+" on your registered email ID 📩."
+		}
+		model.reply = {
+			type : "quickReply",
+			text : reply + msg,
+			next : {
+				data : [
+					{
+                    	data : 'Invest Now',
+                    	text : 'Invest Now'
+                    },
+                    {
+                        data : 'Redeem Now',
+                        text : 'Redeem Now'
+                    },
+                    {
+                        data : 'Switch Now',
+                        text : 'Switch Now'
+                    },
+                    {
+                        data : "STP Now",
+                        text : 'STP Now'
+                    },
+                    
+                    {
+                        data : 'Transaction Details',
+                        text : 'Transaction Details'
+                    },
+                    {
+                        data : "Nach Mandate",
+                        text : 'Nach Mandate'
+                    },
+                    {
+                        data : 'FAQs',
+                        text : 'FAQs'
+                    },
+                    {
+
+                    	data:"Talk to Customer Care",
+                    	text:"Talk to Customer Care"
+                    }
+				]
 			}
 		}
+		model.tags.fail = undefined
 		resolve(model);
 	})
 }
