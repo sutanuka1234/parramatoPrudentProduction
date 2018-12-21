@@ -564,72 +564,78 @@ function otp(model){
 
 function folio(model){
 	return new Promise(function (resolve,reject){
-		if(model.data.toLowerCase().trim()== 'more'){
-			console.log("1:::::::::::::")
-			model.tags.firstFolioIndex+=9
-			model.tags.currentFolioShow+=(model.tags.folioArray.length-model.tags.currentFolioShow)>9?(model.tags.currentFolioShow+9):(model.tags.folioArray.length-model.tags.currentFolioShow);
-			model.tags.showFolioArray=[]
-			for(var i=model.tags.firstFolioIndex; i<model.tags.currentFolioShow; i++){
-				model.tags.showFolioArray.push(model.tags.folioArray[i])
+		try{
+			if(model.data.toLowerCase().trim()== 'more'){
+				console.log("1:::::::::::::")
+				model.tags.firstFolioIndex+=9
+				model.tags.currentFolioShow+=(model.tags.folioArray.length-model.tags.currentFolioShow)>9?(model.tags.currentFolioShow+9):(model.tags.folioArray.length-model.tags.currentFolioShow);
+				model.tags.showFolioArray=[]
+				for(var i=model.tags.firstFolioIndex; i<model.tags.currentFolioShow; i++){
+					model.tags.showFolioArray.push(model.tags.folioArray[i])
+				}
+				if(model.tags.currentFolioShow<model.tags.folioArray){
+					model.tags.showFolioArray=model.tags.showFolioArray.splice(0,9)
+					model.tags.showFolioArray.push({
+						title : 'More Folio',
+						text : '',
+						image : '',
+						buttons : [
+							{
+								data : 'more',
+								text : 'More Folios'
+							}
+						]
+					})
+				}
+				return resolve(model)
 			}
-			if(model.tags.currentFolioShow<model.tags.folioArray){
-				model.tags.showFolioArray=model.tags.showFolioArray.splice(0,9)
-				model.tags.showFolioArray.push({
-					title : 'More Folio',
-					text : '',
-					image : '',
-					buttons : [
-						{
-							data : 'more',
-							text : 'More Folios'
-						}
-					]
+			else if(model.data.includes(",")&&model.tags.folios.includes(model.data.split(",")[1])){
+				console.log("2::::::::::::")
+				model.tags.folioNo = model.data.split(",")[1]
+				// delete model.stage
+				// return resolve(model);
+				model.tags.amcCodeFolioNo = model.data.split(",")
+				api.getAccountStatement(model.tags.ip,model.tags.session,model.data.split(",")[1],model.data.split(",")[0]).then((data)=>{
+					data.body = JSON.parse(data.body)
+					let input = data.body.Response[0].FileStatus.toLowerCase().trim()
+					console.log("------------getAccountStatement response--------------------01")
+					console.log(input)
+					if(input.includes("no")){
+						model.tags.fail = 1
+						model.tags.nextFolio = undefined
+						model.stage = 'statement'
+						return resolve(model)
+					}
+					else if(input.includes("not found")){
+						model.tags.fail = 1
+						model.tags.nextFolio = undefined
+						model.stage = 'statement'
+						return resolve(model)
+					}
+					else if(input.includes("yes")){
+						model.tags.nextFolio = undefined
+						model.stage = 'statement'
+						return resolve(model)
+					}
+					else{
+						model.tags.nextFolio = undefined
+						model.stage = 'statement'
+						return resolve(model)
+					}
+				})
+				.catch((e)=>{
+					console.log(e)
+					return reject(model);
 				})
 			}
-			return resolve(model)
+			else{
+				console.log("3::::::::::::")
+				return reject("error");
+			}
 		}
-		else if(model.data.includes(",")&&model.tags.folios.includes(model.data.split(",")[1])){
-			console.log("2::::::::::::")
-			model.tags.folioNo = model.data.split(",")[1]
-			// delete model.stage
-			// return resolve(model);
-			model.tags.amcCodeFolioNo = model.data.split(",")
-			api.getAccountStatement(model.tags.ip,model.tags.session,model.data.split(",")[1],model.data.split(",")[0]).then((data)=>{
-				data.body = JSON.parse(data.body)
-				let input = data.body.Response[0].FileStatus.toLowerCase().trim()
-				console.log("------------getAccountStatement response--------------------01")
-				console.log(input)
-				if(input.includes("no")){
-					model.tags.fail = 1
-					model.tags.nextFolio = undefined
-					model.stage = 'statement'
-					return resolve(model)
-				}
-				else if(input.includes("not found")){
-					model.tags.fail = 1
-					model.tags.nextFolio = undefined
-					model.stage = 'statement'
-					return resolve(model)
-				}
-				else if(input.includes("yes")){
-					model.tags.nextFolio = undefined
-					model.stage = 'statement'
-					return resolve(model)
-				}
-				else{
-					model.tags.nextFolio = undefined
-					model.stage = 'statement'
-					return resolve(model)
-				}
-			})
-			.catch((e)=>{
-				console.log(e)
-				return reject(model);
-			})
-		}
-		else{
-			console.log("3::::::::::::")
-			return reject("error");
+		catch (error) {
+			console.log(error)
+			return reject(model)
 		}
 	})
 }
