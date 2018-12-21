@@ -596,32 +596,39 @@ function folio(model){
 				// return resolve(model);
 				model.tags.amcCodeFolioNo = model.data.split(",")
 				api.getAccountStatement(model.tags.ip,model.tags.session,model.data.split(",")[1],model.data.split(",")[0]).then((data)=>{
-					data.body = JSON.parse(data.body)
-					let input = data.body.Response[0].FileStatus.toLowerCase().trim()
-					console.log("------------getAccountStatement response--------------------01")
-					console.log(input)
-					if(input.includes("no")){
-						model.tags.fail = 1
-						model.tags.nextFolio = undefined
-						model.stage = 'statement'
-						return resolve(model)
+					try{
+						data.body = JSON.parse(data.body)
+						let input = data.body.Response[0].FileStatus.toLowerCase().trim()
+						console.log("------------getAccountStatement response--------------------01")
+						console.log(input)
+						if(input.includes("no")){
+							model.tags.fail = 1
+							model.tags.nextFolio = undefined
+							model.stage = 'statement'
+							return resolve(model)
+						}
+						else if(input.includes("not found")){
+							model.tags.fail = 1
+							model.tags.nextFolio = undefined
+							model.stage = 'statement'
+							return resolve(model)
+						}
+						else if(input.includes("yes")){
+							model.tags.nextFolio = undefined
+							model.stage = 'statement'
+							return resolve(model)
+						}
+						else{
+							model.tags.nextFolio = undefined
+							model.stage = 'statement'
+							return resolve(model)
+						}
 					}
-					else if(input.includes("not found")){
-						model.tags.fail = 1
-						model.tags.nextFolio = undefined
-						model.stage = 'statement'
-						return resolve(model)
+					catch(error){
+						console.log(error)
+						return reject(model)
 					}
-					else if(input.includes("yes")){
-						model.tags.nextFolio = undefined
-						model.stage = 'statement'
-						return resolve(model)
-					}
-					else{
-						model.tags.nextFolio = undefined
-						model.stage = 'statement'
-						return resolve(model)
-					}
+
 				})
 				.catch((e)=>{
 					console.log(e)
