@@ -174,8 +174,12 @@ function statement(model){
 			next : {
 				data : [
 					{
-                    	data : 'Invest Now',
-                    	text : 'Invest Now'
+                        data : 'Invest Now',
+                        text : 'Invest Now'
+                    },
+                    {
+                        data: 'Start SIP',
+                        text: 'Start SIP'
                     },
                     {
                         data : 'Redeem Now',
@@ -189,10 +193,13 @@ function statement(model){
                         data : "STP Now",
                         text : 'STP Now'
                     },
-                    
+                    {
+                        data : 'Get account statement',
+                        text : 'Get account statement'
+                   },
                     {
                         data : 'Transaction Details',
-                        text : 'Transaction Details'
+                       text : 'Transaction Details'
                     },
                     {
                         data : "Nach Mandate",
@@ -203,9 +210,8 @@ function statement(model){
                         text : 'FAQs'
                     },
                     {
-
-                    	data:"Talk to Customer Care",
-                    	text:"Talk to Customer Care"
+                        data : "Talk to customer care",
+                        text : "Talk to customer care"
                     }
 				]
 			}
