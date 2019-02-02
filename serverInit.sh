@@ -1,3 +1,3 @@
 git pull origin uat
-pm2 restart fb-adapter
-pm2 logs fb-adapter
+sudo pm2 restart fb-adapter
+sudo pm2 logs fb-adapter
