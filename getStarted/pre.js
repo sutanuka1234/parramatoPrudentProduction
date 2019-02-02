@@ -49,7 +49,7 @@ function start(model){
         model.reply={
             type : "button",
             // text : "Hi"+greet+"I am the friendly Fundzbazar bot and I'm here to help you ease your Mutual Fund investment process. ${image::https://media.giphy.com/media/VeBeB9rR524RW/giphy.gif} If you are an existing investor, you can do the following right now ☺",
-            text : "Hello "+greet+", let 2019 be all about getting your financial priorities right. Watch the video to know 9 New Year Promises you should make in 2019 to secure the future of your loved ones and achieving your dreams. If you are not an existing investor click here - https://www.fundzbazar.com/signup to register. If you are an existing investor you can do the following right now!",
+            text : "Hello "+greet+" let 2019 be all about getting your financial priorities right. Watch the video to know 9 New Year Promises you should make in 2019 to secure the future of your loved ones and achieving your dreams. If you are not an existing investor click here - https://www.fundzbazar.com/signup to register. If you are an existing investor you can do the following right now!",
             next : {
                 data : [
                     {
