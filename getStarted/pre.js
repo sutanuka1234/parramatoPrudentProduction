@@ -37,13 +37,13 @@ function start(model){
         let greet;
 
         if(hoursIST < 12){
-            greet = " Good Morning"
+            greet = " Good Morning! "
         }
         else if(hoursIST < 17){
-            greet = " Good Afternoon"
+            greet = " Good Afternoon! "
         }
         else{
-            greet = " Good Evening"
+            greet = " Good Evening! "
         }
         
         model.reply={
