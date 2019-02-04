@@ -49,7 +49,7 @@ function start(model){
         model.reply={
             type : "quickReply",
             //text : `Hi ${greet}, If you are not an existing investor click here - https://www.fundzbazar.com/signup to register. If you are an existing investor you can do the following right now!`,
-             text : "Hello "+greet+"!Let 2019 be all about getting your financial priorities right. Watch the video to know 9 New Year Promises you should make in 2019 to secure the future of your loved ones and achieving your dreams. ${video::https://www.youtube.com/embed/0sn2_64I7nU} If you are not an existing investor click here - https://www.fundzbazar.com/signup to register. If you are an existing investor you can do the following right now!",
+             text : "Hello "+greet+" If you are not an existing investor click here - https://www.fundzbazar.com/signup to register. If you are an existing investor you can do the following right now!",
             next : {
                 data : [
                     {

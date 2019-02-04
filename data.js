@@ -314,7 +314,7 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
-   "Aditya Birla Sun Life Floating Rate Fund - Long Term Plan - Daily Dividend Reinvestment": {
+   "Aditya Birla Sun Life Floating Rate Fund - Daily Dividend Reinvestment": {
       "amcCode": 400004,
       "amcName": "Aditya Birla Sun Life AMC Limited",
       "schemeCode": 13093,
@@ -323,7 +323,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Aditya Birla Sun Life Floating Rate Fund - Long Term Plan - Growth": {
+   "Aditya Birla Sun Life Floating Rate Fund - Growth": {
       "amcCode": 400004,
       "amcName": "Aditya Birla Sun Life AMC Limited",
       "schemeCode": 7727,
@@ -332,7 +332,7 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
-   "Aditya Birla Sun Life Floating Rate Fund - Long Term Plan - Weekly Dividend": {
+   "Aditya Birla Sun Life Floating Rate Fund - Weekly Dividend": {
       "amcCode": 400004,
       "amcName": "Aditya Birla Sun Life AMC Limited",
       "schemeCode": 8142,
@@ -1358,6 +1358,24 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
+   "Axis Small Cap Fund - Regular Plan - Dividend": {
+      "amcCode": 400040,
+      "amcName": "Axis Asset Management Company Ltd.",
+      "schemeCode": 24656,
+      "subNatureCode": 24,
+      "subNatureName": "Equity-Small & Mid Cap",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Axis Small Cap Fund - Regular Plan - Growth": {
+      "amcCode": 400040,
+      "amcName": "Axis Asset Management Company Ltd.",
+      "schemeCode": 21651,
+      "subNatureCode": 24,
+      "subNatureName": "Equity-Small & Mid Cap",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "Axis Strategic Bond Fund - Growth": {
       "amcCode": 400040,
       "amcName": "Axis Asset Management Company Ltd.",
@@ -1484,9 +1502,99 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
+   "Baroda Banking and Financial Services Fund - Dividend": {
+      "amcCode": 400005,
+      "amcName": "Baroda Asset Management India Limited",
+      "schemeCode": 16956,
+      "subNatureCode": 23,
+      "subNatureName": "Equity-Sector",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Baroda Banking and Financial Services Fund - Growth": {
+      "amcCode": 400005,
+      "amcName": "Baroda Asset Management India Limited",
+      "schemeCode": 16955,
+      "subNatureCode": 23,
+      "subNatureName": "Equity-Sector",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Baroda Conservative Hybrid Fund - Growth": {
+      "amcCode": 400005,
+      "amcName": "Baroda Asset Management India Limited",
+      "schemeCode": 506,
+      "subNatureCode": 20,
+      "subNatureName": "Hybrid  -MIP",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Baroda Conservative Hybrid Fund - Monthly Dividend": {
+      "amcCode": 400005,
+      "amcName": "Baroda Asset Management India Limited",
+      "schemeCode": 507,
+      "subNatureCode": 20,
+      "subNatureName": "Hybrid  -MIP",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Baroda Conservative Hybrid Fund - Quarterly Dividend": {
+      "amcCode": 400005,
+      "amcName": "Baroda Asset Management India Limited",
+      "schemeCode": 508,
+      "subNatureCode": 20,
+      "subNatureName": "Hybrid  -MIP",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Baroda Credit Risk Fund - Plan A - Growth": {
+      "amcCode": 400005,
+      "amcName": "Baroda Asset Management India Limited",
+      "schemeCode": 25569,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Baroda Credit Risk Fund - Plan A - Monthly Dividend": {
+      "amcCode": 400005,
+      "amcName": "Baroda Asset Management India Limited",
+      "schemeCode": 31794,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Baroda Credit Risk Fund - Plan A - Quarterly Dividend": {
+      "amcCode": 400005,
+      "amcName": "Baroda Asset Management India Limited",
+      "schemeCode": 31795,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Baroda Dynamic Bond Fund - Dividend": {
+      "amcCode": 400005,
+      "amcName": "Baroda Asset Management India Limited",
+      "schemeCode": 17055,
+      "subNatureCode": 13,
+      "subNatureName": "Debt-Income/Gilt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Baroda Dynamic Bond Fund - Growth": {
+      "amcCode": 400005,
+      "amcName": "Baroda Asset Management India Limited",
+      "schemeCode": 17054,
+      "subNatureCode": 13,
+      "subNatureName": "Debt-Income/Gilt",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "Baroda Dynamic Equity Fund - Regular Plan - Dividend": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 41661,
       "subNatureCode": 2,
       "subNatureName": "Equity-Balance",
@@ -1495,313 +1603,223 @@ module.exports={
    },
    "Baroda Dynamic Equity Fund - Regular Plan - Growth": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 38263,
       "subNatureCode": 2,
       "subNatureName": "Equity-Balance",
       "optionCode": 1,
       "option": "Growth"
    },
-   "Baroda Pioneer Banking and Financial Services Fund - Dividend": {
+   "Baroda Equity Linked Saving Scheme 96": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
-      "schemeCode": 16956,
-      "subNatureCode": 23,
-      "subNatureName": "Equity-Sector",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "Baroda Pioneer Banking and Financial Services Fund - Growth": {
-      "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
-      "schemeCode": 16955,
-      "subNatureCode": 23,
-      "subNatureName": "Equity-Sector",
-      "optionCode": 1,
-      "option": "Growth"
-   },
-   "Baroda Pioneer Conservative Hybrid Fund - Growth": {
-      "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
-      "schemeCode": 506,
-      "subNatureCode": 20,
-      "subNatureName": "Hybrid  -MIP",
-      "optionCode": 1,
-      "option": "Growth"
-   },
-   "Baroda Pioneer Conservative Hybrid Fund - Monthly Dividend": {
-      "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
-      "schemeCode": 507,
-      "subNatureCode": 20,
-      "subNatureName": "Hybrid  -MIP",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "Baroda Pioneer Conservative Hybrid Fund - Quarterly Dividend": {
-      "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
-      "schemeCode": 508,
-      "subNatureCode": 20,
-      "subNatureName": "Hybrid  -MIP",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "Baroda Pioneer Credit Risk Fund - Plan A - Growth": {
-      "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
-      "schemeCode": 25569,
-      "subNatureCode": 25,
-      "subNatureName": "Debt-Short/Medium Term",
-      "optionCode": 1,
-      "option": "Growth"
-   },
-   "Baroda Pioneer Credit Risk Fund - Plan A - Monthly Dividend": {
-      "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
-      "schemeCode": 31794,
-      "subNatureCode": 25,
-      "subNatureName": "Debt-Short/Medium Term",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "Baroda Pioneer Credit Risk Fund - Plan A - Quarterly Dividend": {
-      "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
-      "schemeCode": 31795,
-      "subNatureCode": 25,
-      "subNatureName": "Debt-Short/Medium Term",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "Baroda Pioneer Dynamic Bond Fund - Dividend": {
-      "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
-      "schemeCode": 17055,
-      "subNatureCode": 13,
-      "subNatureName": "Debt-Income/Gilt",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "Baroda Pioneer Dynamic Bond Fund - Growth": {
-      "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
-      "schemeCode": 17054,
-      "subNatureCode": 13,
-      "subNatureName": "Debt-Income/Gilt",
-      "optionCode": 1,
-      "option": "Growth"
-   },
-   "Baroda Pioneer Equity Linked Saving Scheme 96": {
-      "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 495,
       "subNatureCode": 5,
       "subNatureName": "Equity-ELSS",
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Baroda Pioneer Equity Linked Saving Scheme 96 - Growth": {
+   "Baroda Equity Linked Saving Scheme 96 - Growth": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 32294,
       "subNatureCode": 5,
       "subNatureName": "Equity-ELSS",
       "optionCode": 1,
       "option": "Growth"
    },
-   "Baroda Pioneer Gilt Fund - Dividend": {
+   "Baroda Gilt Fund - Dividend": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 496,
       "subNatureCode": 13,
       "subNatureName": "Debt-Income/Gilt",
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Baroda Pioneer Gilt Fund - Growth": {
+   "Baroda Gilt Fund - Growth": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 497,
       "subNatureCode": 13,
       "subNatureName": "Debt-Income/Gilt",
       "optionCode": 1,
       "option": "Growth"
    },
-   "Baroda Pioneer Hybrid Equity Fund - Dividend": {
+   "Baroda Hybrid Equity Fund - Dividend": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 490,
       "subNatureCode": 2,
       "subNatureName": "Equity-Balance",
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Baroda Pioneer Hybrid Equity Fund - Growth": {
+   "Baroda Hybrid Equity Fund - Growth": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 491,
       "subNatureCode": 2,
       "subNatureName": "Equity-Balance",
       "optionCode": 1,
       "option": "Growth"
    },
-   "Baroda Pioneer Income Fund - Dividend": {
+   "Baroda Income Fund - Dividend": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 501,
       "subNatureCode": 25,
       "subNatureName": "Debt-Short/Medium Term",
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Baroda Pioneer Income Fund - Growth": {
+   "Baroda Income Fund - Growth": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 502,
       "subNatureCode": 25,
       "subNatureName": "Debt-Short/Medium Term",
       "optionCode": 1,
       "option": "Growth"
    },
-   "Baroda Pioneer Large Cap Fund - Dividend": {
+   "Baroda Large Cap Fund - Dividend": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 8230,
       "subNatureCode": 18,
       "subNatureName": "Equity-Large Cap",
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Baroda Pioneer Large Cap Fund - Growth": {
+   "Baroda Large Cap Fund - Growth": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 8229,
       "subNatureCode": 18,
       "subNatureName": "Equity-Large Cap",
       "optionCode": 1,
       "option": "Growth"
    },
-   "Baroda Pioneer Liquid Fund - Daily Dividend": {
+   "Baroda Liquid Fund - Daily Dividend": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 7595,
       "subNatureCode": 19,
       "subNatureName": "Debt-Liquid",
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Baroda Pioneer Liquid Fund - Growth": {
+   "Baroda Liquid Fund - Growth": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 7594,
       "subNatureCode": 19,
       "subNatureName": "Debt-Liquid",
       "optionCode": 1,
       "option": "Growth"
    },
-   "Baroda Pioneer Liquid Fund - Weekly Dividend": {
+   "Baroda Liquid Fund - Weekly Dividend": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 9806,
       "subNatureCode": 19,
       "subNatureName": "Debt-Liquid",
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Baroda Pioneer Mid-cap Fund - Dividend": {
+   "Baroda Mid-cap Fund - Dividend": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 8228,
       "subNatureCode": 24,
       "subNatureName": "Equity-Small & Mid Cap",
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Baroda Pioneer Mid-cap Fund - Growth": {
+   "Baroda Mid-cap Fund - Growth": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 8227,
       "subNatureCode": 24,
       "subNatureName": "Equity-Small & Mid Cap",
       "optionCode": 1,
       "option": "Growth"
    },
-   "Baroda Pioneer Multi Cap Fund - Dividend": {
+   "Baroda Multi Cap Fund - Dividend": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 499,
       "subNatureCode": 4,
       "subNatureName": "Equity-Diversified",
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Baroda Pioneer Multi Cap Fund - Growth": {
+   "Baroda Multi Cap Fund - Growth": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 500,
       "subNatureCode": 4,
       "subNatureName": "Equity-Diversified",
       "optionCode": 1,
       "option": "Growth"
    },
-   "Baroda Pioneer Short Term Bond Fund - Growth": {
+   "Baroda Short Term Bond Fund - Growth": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 8374,
       "subNatureCode": 25,
       "subNatureName": "Debt-Short/Medium Term",
       "optionCode": 1,
       "option": "Growth"
    },
-   "Baroda Pioneer Short Term Bond Fund - Monthly Dividend": {
+   "Baroda Short Term Bond Fund - Monthly Dividend": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 8375,
       "subNatureCode": 25,
       "subNatureName": "Debt-Short/Medium Term",
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Baroda Pioneer Treasury Advantage Fund - Daily Dividend": {
+   "Baroda Treasury Advantage Fund - Daily Dividend": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 7830,
       "subNatureCode": 21,
       "subNatureName": "Debt-Other Debt",
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Baroda Pioneer Treasury Advantage Fund - Growth": {
+   "Baroda Treasury Advantage Fund - Growth": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 7829,
       "subNatureCode": 21,
       "subNatureName": "Debt-Other Debt",
       "optionCode": 1,
       "option": "Growth"
    },
-   "Baroda Pioneer Treasury Advantage Fund - Monthly Dividend": {
+   "Baroda Treasury Advantage Fund - Monthly Dividend": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 9813,
       "subNatureCode": 21,
       "subNatureName": "Debt-Other Debt",
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Baroda Pioneer Treasury Advantage Fund - Quarterly Dividend": {
+   "Baroda Treasury Advantage Fund - Quarterly Dividend": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 9814,
       "subNatureCode": 21,
       "subNatureName": "Debt-Other Debt",
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Baroda Pioneer Treasury Advantage Fund - Weekly Dividend": {
+   "Baroda Treasury Advantage Fund - Weekly Dividend": {
       "amcCode": 400005,
-      "amcName": "Baroda Pioneer Asset Management Company Limited",
+      "amcName": "Baroda Asset Management India Limited",
       "schemeCode": 7895,
       "subNatureCode": 21,
       "subNatureName": "Debt-Other Debt",
@@ -2410,6 +2428,24 @@ module.exports={
       "subNatureName": "Debt-Short/Medium Term",
       "optionCode": 2,
       "option": "Dividend"
+   },
+   "BOI AXA Small Cap Fund - Regular Plan - Dividend": {
+      "amcCode": 400034,
+      "amcName": "BOI AXA Investment Managers Private Limited",
+      "schemeCode": 41869,
+      "subNatureCode": 24,
+      "subNatureName": "Equity-Small & Mid Cap",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "BOI AXA Small Cap Fund - Regular Plan - Growth": {
+      "amcCode": 400034,
+      "amcName": "BOI AXA Investment Managers Private Limited",
+      "schemeCode": 41323,
+      "subNatureCode": 24,
+      "subNatureName": "Equity-Small & Mid Cap",
+      "optionCode": 1,
+      "option": "Growth"
    },
    "BOI AXA Tax Advantage Fund - Regular Plan - Dividend": {
       "amcCode": 400034,
@@ -6047,24 +6083,6 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
-   "HSBC Dynamic Asset Allocation Fund - Dividend": {
-      "amcCode": 400014,
-      "amcName": "HSBC Global Asset Management (India) Private Limited",
-      "schemeCode": 1345,
-      "subNatureCode": 2,
-      "subNatureName": "Equity-Balance",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "HSBC Dynamic Asset Allocation Fund - Growth": {
-      "amcCode": 400014,
-      "amcName": "HSBC Global Asset Management (India) Private Limited",
-      "schemeCode": 1346,
-      "subNatureCode": 2,
-      "subNatureName": "Equity-Balance",
-      "optionCode": 1,
-      "option": "Growth"
-   },
    "HSBC Equity Hybrid Fund - Regular Plan - Dividend": {
       "amcCode": 400014,
       "amcName": "HSBC Global Asset Management (India) Private Limited",
@@ -7896,6 +7914,24 @@ module.exports={
       "amcCode": 400043,
       "amcName": "IDBI Asset Management Ltd.",
       "schemeCode": 27810,
+      "subNatureCode": 4,
+      "subNatureName": "Equity-Diversified",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "IDBI Dividend Yield Fund - Regular Plan - Dividend": {
+      "amcCode": 400043,
+      "amcName": "IDBI Asset Management Ltd.",
+      "schemeCode": 42013,
+      "subNatureCode": 4,
+      "subNatureName": "Equity-Diversified",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "IDBI Dividend Yield Fund - Regular Plan - Growth": {
+      "amcCode": 400043,
+      "amcName": "IDBI Asset Management Ltd.",
+      "schemeCode": 41332,
       "subNatureCode": 4,
       "subNatureName": "Equity-Diversified",
       "optionCode": 1,
@@ -11852,6 +11888,24 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
+   "Mirae Asset Equity Savings Fund - Regular Plan - Dividend": {
+      "amcCode": 400033,
+      "amcName": "Mirae Asset Global Investment Management (India) Private Limited",
+      "schemeCode": 41914,
+      "subNatureCode": 27,
+      "subNatureName": "Equity-Equity - Savings / Income",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Mirae Asset Equity Savings Fund - Regular Plan - Growth": {
+      "amcCode": 400033,
+      "amcName": "Mirae Asset Global Investment Management (India) Private Limited",
+      "schemeCode": 39401,
+      "subNatureCode": 27,
+      "subNatureName": "Equity-Equity - Savings / Income",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "Mirae Asset Great Consumer Fund - Regular Plan - Dividend": {
       "amcCode": 400033,
       "amcName": "Mirae Asset Global Investment Management (India) Private Limited",
@@ -12041,6 +12095,15 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
+   "Motilal Oswal Liquid Fund - Regular Plan - Growth": {
+      "amcCode": 400042,
+      "amcName": "Motilal Oswal Asset Management Company Limited",
+      "schemeCode": 41872,
+      "subNatureCode": 19,
+      "subNatureName": "Debt-Liquid",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "Motilal Oswal Long Term Equity Fund - Regular Plan - Dividend": {
       "amcCode": 400042,
       "amcName": "Motilal Oswal Asset Management Company Limited",
@@ -12092,6 +12155,15 @@ module.exports={
       "schemeCode": 26481,
       "subNatureCode": 4,
       "subNatureName": "Equity-Diversified",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Motilal Oswal Nasdaq 100 Fund of Fund - Regular Plan - Growth": {
+      "amcCode": 400042,
+      "amcName": "Motilal Oswal Asset Management Company Limited",
+      "schemeCode": 41322,
+      "subNatureCode": 11,
+      "subNatureName": "Equity-FOF - Overseas",
       "optionCode": 1,
       "option": "Growth"
    },
@@ -13316,6 +13388,51 @@ module.exports={
       "schemeCode": 40087,
       "subNatureCode": 13,
       "subNatureName": "Debt-Income/Gilt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Reliance Overnight Fund - Regular Plan - Daily Dividend": {
+      "amcCode": 400025,
+      "amcName": "Reliance Nippon Life Asset Management Limited",
+      "schemeCode": 42087,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Reliance Overnight Fund - Regular Plan - Growth": {
+      "amcCode": 400025,
+      "amcName": "Reliance Nippon Life Asset Management Limited",
+      "schemeCode": 41900,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Reliance Overnight Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400025,
+      "amcName": "Reliance Nippon Life Asset Management Limited",
+      "schemeCode": 42089,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Reliance Overnight Fund - Regular Plan - Quarterly Dividend": {
+      "amcCode": 400025,
+      "amcName": "Reliance Nippon Life Asset Management Limited",
+      "schemeCode": 42090,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Reliance Overnight Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400025,
+      "amcName": "Reliance Nippon Life Asset Management Limited",
+      "schemeCode": 42088,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
       "optionCode": 2,
       "option": "Dividend"
    },
@@ -14921,24 +15038,6 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Sundaram Multi Asset Fund - Dividend": {
-      "amcCode": 400029,
-      "amcName": "Sundaram Asset Management Company Limited",
-      "schemeCode": 14634,
-      "subNatureCode": 26,
-      "subNatureName": "Hybrid-Asset",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "Sundaram Multi Asset Fund - Growth": {
-      "amcCode": 400029,
-      "amcName": "Sundaram Asset Management Company Limited",
-      "schemeCode": 14632,
-      "subNatureCode": 26,
-      "subNatureName": "Hybrid-Asset",
-      "optionCode": 1,
-      "option": "Growth"
-   },
    "Sundaram Rural and Consumption Fund - Appreciation": {
       "amcCode": 400029,
       "amcName": "Sundaram Asset Management Company Limited",
@@ -15143,6 +15242,42 @@ module.exports={
       "schemeCode": 36020,
       "subNatureCode": 16,
       "subNatureName": "Equity-Index",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Tata Arbitrage Fund - Regular Plan - Growth": {
+      "amcCode": 400030,
+      "amcName": "Tata Asset Management Limited",
+      "schemeCode": 38865,
+      "subNatureCode": 1,
+      "subNatureName": "Hybrid  -Arbitrage",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Tata Arbitrage Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400030,
+      "amcName": "Tata Asset Management Limited",
+      "schemeCode": 42020,
+      "subNatureCode": 1,
+      "subNatureName": "Hybrid  -Arbitrage",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Tata Balanced Advantage Fund - Regular Plan - Dividend": {
+      "amcCode": 400030,
+      "amcName": "Tata Asset Management Limited",
+      "schemeCode": 42250,
+      "subNatureCode": 2,
+      "subNatureName": "Equity-Balance",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Tata Balanced Advantage Fund - Regular Plan - Growth": {
+      "amcCode": 400030,
+      "amcName": "Tata Asset Management Limited",
+      "schemeCode": 39531,
+      "subNatureCode": 2,
+      "subNatureName": "Equity-Balance",
       "optionCode": 1,
       "option": "Growth"
    },
