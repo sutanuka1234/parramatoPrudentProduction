@@ -75,10 +75,10 @@ function start(model){
                     {
                         data : 'Get account statement',
                         text : 'Get account statement'
-                   },
+                    },
                     {
                         data : 'Transaction Details',
-                       text : 'Transaction Details'
+                        text : 'Transaction Details'
                     },
                     {
                         data : "Nach Mandate",

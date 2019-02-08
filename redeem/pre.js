@@ -306,7 +306,23 @@ function summary(model){
 	                	{
 	                		data : "FAQs",
 	                		text : "FAQs"
-	                	}
+	                	},
+	                	{
+	                        data : 'Transaction Details',
+	                        text : 'Transaction Details'
+	                    },
+	                    {
+	                        data : 'Get account statement',
+	                        text : 'Get account statement'
+	                    },
+	                    {
+	                        data : "Nach Mandate",
+	                        text : 'Nach Mandate'
+	                    },
+	                    {
+	                        data : "Talk to customer care",
+	                        text : "Talk to customer care"
+	                    }
 	                ]
 	            }
 			}
@@ -317,10 +333,6 @@ function summary(model){
 	            text:"Could not proceed with the redemption with given details. However you can try again or go ahead with the following.",
 	            next:{
 	                data: [
-	                	{
-	                		data : "Talk to customer care",
-	                		text : "Talk to customer care"
-	                	},
 	                	{
 	                		data : "Invest",
 	                		text : "Invest"
@@ -345,7 +357,23 @@ function summary(model){
 	                	{
 	                		data : "FAQs",
 	                		text : "FAQs"
-	                	}
+	                	},
+	                	{
+	                        data : 'Transaction Details',
+	                        text : 'Transaction Details'
+	                    },
+	                    {
+	                        data : 'Get account statement',
+	                        text : 'Get account statement'
+	                    },
+	                    {
+	                        data : "Nach Mandate",
+	                        text : 'Nach Mandate'
+	                    },
+	                    {
+	                        data : "Talk to customer care",
+	                        text : "Talk to customer care"
+	                    }
 	                ]
 	            }
 			}
