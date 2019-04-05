@@ -1,0 +1,13 @@
+{
+        "name": "ClonePrudentProduction bot",
+        "short_name": "ClonePrudentProduction",
+        "theme_color": "#000000",
+        "background_color": "#ffffff",
+        "display": "standalone",
+        "orientation": "portrait",
+        "Scope": "/",
+        "start_url": "/",
+        "icons": [],
+        "gcm_sender_id": "103953800507",
+        "splash_pages": null
+    }
