@@ -7,8 +7,7 @@ module.exports={
 	let obj = {
 	panMobile : panMobile,
 	mobile	: mobile,
-	pan		: pan,
-	otp		: otp,
+	
 	agreement	: agreement,
 	investmentType :investmentType,
 	askSchemeName : askSchemeName,
