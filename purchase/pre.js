@@ -158,7 +158,7 @@ function investmentType(model) {
 			
 			model.reply = {
 				type: "button",
-				text: message,
+				text: "Make a choice",
 				next: {
 					data: [
 						{
