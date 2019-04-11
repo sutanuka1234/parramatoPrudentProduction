@@ -163,11 +163,11 @@ function investmentType(model) {
 					data: [
 						{
 							text: "*lumpsum* ",
-							data: '1'
+							data: 'lumpsum'
 						},
 						{
 							text: "*SIP* ",
-							data: '2'
+							data: 'SIP'
 						}
 					]
 				}
