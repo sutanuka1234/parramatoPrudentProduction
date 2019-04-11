@@ -1,21 +1,6 @@
 "use strict"
 module.exports={
-	main:main
-}
-
-let api = require('../api.js')
-let external = require('../external.js')
 let words = require('../words.js')
-let session = require('../session.js')
-let fs = require('fs')
-let stringSimilarity = require('string-similarity');
-let sortBy = require('sort-by')
-let matchAll = require('match-all')
-const uuidv1 = require('uuid/v1');
-
-let path = require("path");
-
-let obj = {
 	panMobile : panMobile,
 	mobile	: mobile,
 	pan		: pan,
@@ -32,7 +17,20 @@ let obj = {
 	folio 	: folio,
 	sipDay	: sipDay,
 	bankMandate : bankMandate
+	
 }
+
+let api = require('../api.js')
+let external = require('../external.js')
+let session = require('../session.js')
+let fs = require('fs')
+let stringSimilarity = require('string-similarity');
+let sortBy = require('sort-by')
+let matchAll = require('match-all')
+const uuidv1 = require('uuid/v1');
+
+let path = require("path");
+
 
 
 
@@ -108,35 +106,7 @@ let sortedJourney=["panMobile",
 
 let greeting = ["Hope you are doing great today", "Good to see you!", "Hope you are having a good time", "Hope you are doing well today."]
 
-function main(req, res){
-		// console.log(req.params.stage)
-		var buttonStageArr=req.body.data.split("|||")
-		if(buttonStageArr.length==2&&obj[buttonStageArr[0]]){
-			req.body.data=buttonStageArr[1]
-			// // console.log(req.params.stage+":::"+buttonStageArr[0])
-			// if(req.params.stage!=buttonStageArr[0]&&sortedJourney.indexOf(req.params.stage)>sortedJourney.indexOf(buttonStageArr[0])){
-			// 		req.params.stage=buttonStageArr[0];
-			// 		delete req.body.stage
-			// }
-		}
-		
-		if(obj[req.params.stage]){
-			obj[req.params.stage](req.body)
-			.then((data)=>{
-				// console.log("3")
-				res.send(data)
-			})
-			.catch((e)=>{
-				// // console.log(e)
-				res.sendStatus(203)
-			})
-		}
-		else{
-				// console.log("No such function available")
-				res.sendStatus(203)
-		}
-		
-}
+
 
 //============================================================
 
