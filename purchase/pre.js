@@ -18,6 +18,7 @@ let obj = {
 	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
 	agreement	: agreement,
+	//investmentType : investmentType,
 	divOps 	: divOps,
 	initAmount:initAmount,
 	amount 	: amount,
@@ -144,6 +145,43 @@ function panMobile(model){
 		}
 		console.log(model.tags.schemes)
 		return resolve(model)
+	})
+}
+function investmentType(model) {
+	console.log("INVESTMENT TYPE PRE")
+	return new Promise(async function (resolve, reject) {
+		try {
+
+			let message = ''
+			if (model && model.tags) {
+				if (model.tags.otpgreet) {
+					message = model.tags.otpgreet + " \n"
+				}
+			}
+			message += "Would you like to invest in *lumpsum or SIP*"
+			console.log("INVESTMENT TYPE PRE" + message)
+			model.reply = {
+				type: "button",
+				text: message,
+				next: {
+					data: [
+						{
+							text: "*lumpsum* ",
+							data: '1'
+						},
+						{
+							text: "*SIP* ",
+							data: '2'
+						}
+					]
+				}
+			}
+			return resolve(model)
+
+		} catch (e) {
+			console.log(e)
+			return reject(e)
+		}
 	})
 }
 
