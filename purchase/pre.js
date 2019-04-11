@@ -162,11 +162,11 @@ function investmentType(model) {
 				next: {
 					data: [
 						{
-							text: "*lumpsum* ",
+							text: "lumpsum",
 							data: 'lumpsum'
 						},
 						{
-							text: "*SIP* ",
+							text: "SIP",
 							data: 'SIP'
 						}
 					]
@@ -203,8 +203,9 @@ function otp(model){
 }
 
 function askSchemeName(model){
+	console.log("inside ask schem ename")
 	return new Promise(function(resolve, reject){
-		console.log("inside ask schem ename")
+
 		if(!model.tags.schemes){
 			model.reply={
 				type:"text",
