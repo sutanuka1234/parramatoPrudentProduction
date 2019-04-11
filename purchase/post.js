@@ -1,6 +1,6 @@
 "use strict"
 module.exports={
-let words = require('../words.js')
+
 	panMobile : panMobile,
 	mobile	: mobile,
 	pan		: pan,
@@ -19,7 +19,7 @@ let words = require('../words.js')
 	bankMandate : bankMandate
 	
 }
-
+let words = require('../words.js')
 let api = require('../api.js')
 let external = require('../external.js')
 let session = require('../session.js')
