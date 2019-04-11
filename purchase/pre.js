@@ -5,7 +5,7 @@ module.exports={
 	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
 	agreement	: agreement,
-	//investmentType : investmentType,
+	investmentType : investmentType,
 	divOps 	: divOps,
 	initAmount:initAmount,
 	amount 	: amount,
