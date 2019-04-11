@@ -204,6 +204,7 @@ function otp(model){
 
 function askSchemeName(model){
 	return new Promise(function(resolve, reject){
+		console.log("inside ask schem ename")
 		if(!model.tags.schemes){
 			model.reply={
 				type:"text",
