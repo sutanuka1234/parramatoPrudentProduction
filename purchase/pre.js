@@ -1,21 +1,26 @@
 'use strict'
 module.exports={
-		panMobile : panMobile,
-	otp 	: otp,
+		main:main
+
+}
+
+	let obj = {
+	panMobile : panMobile,
+	mobile	: mobile,
+	pan		: pan,
+	otp		: otp,
+	agreement	: agreement,
+	investmentType :investmentType,
 	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
-	agreement	: agreement,
-	investmentType : investmentType,
 	divOps 	: divOps,
-	initAmount:initAmount,
 	amount 	: amount,
 	holding : holding,
-	euin	: euin,
+	additional : additional,
+	euin: euin , 
 	folio 	: folio,
 	sipDay	: sipDay,
-	bankMandate : bankMandate,
-	summary : summary
-
+	bankMandate : bankMandate
 }
 
 let fs = require('fs')
