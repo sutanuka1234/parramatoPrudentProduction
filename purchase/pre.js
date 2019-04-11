@@ -15,7 +15,7 @@ module.exports={
 	divOps 	: divOps,
 	amount 	: amount,
 	holding : holding,
-	additional : additional,
+	//additional : additional,
 	euin: euin , 
 	folio 	: folio,
 	sipDay	: sipDay,
