@@ -1,4 +1,4 @@
-git pull origin master
+git pull origin uat
 git add .
 git commit -m msg
-git push origin master
+git push origin uat

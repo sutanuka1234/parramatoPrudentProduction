@@ -150,14 +150,8 @@ function investmentType(model) {
 	return new Promise(async function (resolve, reject) {
 		try {
 
-			let message = ''
-			if (model && model.tags) {
-				if (model.tags.otpgreet) {
-					message = model.tags.otpgreet + " \n"
-				}
-			}
-			message += "Would you like to invest in *lumpsum or SIP*"
-			console.log("INVESTMENT TYPE PRE" + message)
+			
+			
 			model.reply = {
 				type: "button",
 				text: message,
