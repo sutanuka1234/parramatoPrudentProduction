@@ -673,6 +673,7 @@ function agreement(model){
 function investmentType(model){
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes("lumpsum")||model.data.toLowerCase().includes("one time")){
+			console.log("here _________")
 			model.tags.investmentType="lumpsum"
 			if(model.tags.schemes && model.tags.schemes.length > 0){
 				model.stage = 'showSchemeName'
@@ -680,6 +681,7 @@ function investmentType(model){
 			}
 			else{
 				model.stage = 'askSchemeName'
+				console.log("there")
 				return resolve(model);
 			}
 		}

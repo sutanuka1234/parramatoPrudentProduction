@@ -172,10 +172,12 @@ function investmentType(model) {
 					]
 				}
 			}
+			console.log("resolved here")
 			return resolve(model)
 
 		} catch (e) {
 			console.log(e)
+			console.log("rejected here")
 			return reject(e)
 		}
 	})
