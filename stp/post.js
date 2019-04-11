@@ -9,7 +9,7 @@ let words = require('../words.js')
 let stringSimilarity = require('string-similarity');
 let sortBy = require('sort-by')
 let matchAll = require('match-all')
-let data -require('../data.json')
+let data =require('../data.json')
 let obj = {
 	panMobile : panMobile,
 	mobile	: mobile,
