@@ -27,23 +27,6 @@ let StringMask = require('string-mask')
 let data = require('../data.json')
 
 let path = require("path");
-/*let obj = {
-	panMobile : panMobile,
-	otp 	: otp,
-	askSchemeName : askSchemeName,
-	showSchemeName : showSchemeName,
-	agreement	: agreement,
-	//investmentType : investmentType,
-	divOps 	: divOps,
-	initAmount:initAmount,
-	amount 	: amount,
-	holding : holding,
-	euin	: euin,
-	folio 	: folio,
-	sipDay	: sipDay,
-	bankMandate : bankMandate,
-	summary : summary
-}*/
 
 let regexPan   	= /[a-z]{3}p[a-z]\d{4}[a-z]|[a-z]{3}h[a-z]\d{4}[a-z]/;
 let regexMobile = /((?:(?:\+|0{0,2})91(\s*[\-|\s]\s*)?|[0]?)?[789]\d{9})/;
@@ -94,7 +77,7 @@ let amc = [
 	'principal pnb'
 ]
 
-/*function main(req, res){
+function main(req, res){
 		console.log(req.params.stage)
 		obj[req.params.stage](req.body)
 		.then((data)=>{
@@ -105,7 +88,7 @@ let amc = [
 			res.sendStatus(203)
 		})
 }
-*/
+
 function panMobile(model){
 	return new Promise(async function(resolve, reject){
 		model.tags.amount = undefined
