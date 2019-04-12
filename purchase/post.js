@@ -28,6 +28,7 @@ let obj = {
 	amount 	: amount,
 	holding : holding,
 	additional : additional,
+	sipInstallments: sipInstallments,
 	euin: euin , 
 	folio 	: folio,
 	sipDay	: sipDay,
