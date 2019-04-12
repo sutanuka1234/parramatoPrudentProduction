@@ -657,6 +657,12 @@ function nachDetails(model){
 			return resolve(model)
 		}
 		else if(input.includes("check more nach mandates") || input.includes("check more") || input.includes("nach mandates")){
+			model.tags.dailyLimit =false
+			model.tags.referenceNo =false
+			model.tags.mandateStatus =false
+			model.tags.accountNo =false
+			model.tags.bankName =false
+			model.tags.date =false
 			model.stage = 'nach'
 			return resolve(model)
 		}
