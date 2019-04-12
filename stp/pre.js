@@ -469,7 +469,7 @@ function confirm(model){
 function summary(model){
 	return new Promise(function(resolve, reject){
 		console.log(JSON.stringify(model.tags,null,3))
-		console,log(console.log(model.tags.stpReferenceId+":::::::::::::"))
+		//console,log(console.log(model.tags.stpReferenceId+":::::::::::::"))
 		if(model.tags.stpReferenceId){
 			model.reply={
 				type:"quickReply",

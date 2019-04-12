@@ -1568,8 +1568,11 @@ function confirm(model){
 					console.log(model.tags.stpReferenceId+":::::::::::::")
 					model.tags.stpReferenceId=data.Response[0]["STPTransactionId"];
 					console.log(model.tags.stpReferenceId+":::::::::::::")
+					console.log("stage"+model.stage)
 					delete model.stage
+					console.log("stage"+model.stage)
 					model.stage="summary"
+					console.log("stage"+model.stage)
 					return resolve(model)
 
 				}
