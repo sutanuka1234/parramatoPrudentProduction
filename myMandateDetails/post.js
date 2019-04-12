@@ -603,7 +603,9 @@ function nach(model){
 		console.log(model.data+"model.data")
 		if(model.data.toLowerCase().includes("more")){
 			model.tags.nachArray.splice(0,10)
-			model.tags.showNachArray = []
+			if(!model.tags.showNachArray)
+			{model.tags.showNachArray = []}
+			
 			if(model.tags.nachArray && model.tags.nachArray.length>10){
 				console.log("does it come here???")
 				for(let i = 0;i<9;i++){
@@ -677,6 +679,7 @@ function nachDetails(model){
 			model.tags.mandateStatus =false
 			model.tags.accountNo =false
 			model.tags.bankName =false
+			model.tags.showNachArray =false
 			model.tags.date =false
 			model.stage = 'nach'
 			return resolve(model)
