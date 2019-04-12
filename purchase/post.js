@@ -2420,6 +2420,25 @@ function sipDay(model){
 		}
 	});
 }
+function sipInstallments(model) {
+	return new Promise(async function (resolve, reject) {
+		console.log("inside sip installments posts")
+		
+		model.tags.sipInstallments = model.data;
+
+		console.log(typeof model.tags.sipInstallments)
+		if (parseInt(model.tags.sipInstallments) >= 12 && parseInt(model.tags.sipInstallments) <= 500) {
+			console.log("iffffffffffffffffffffff")
+			delete model.stage
+			return resolve(model)
+		}
+		else {
+			console.log("elssssssssssssssssssssssssss")
+			return reject(model)
+		}
+
+	});
+}
 
 function bankMandate(model){
 	return new Promise(function(resolve, reject){
