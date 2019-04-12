@@ -1521,6 +1521,7 @@ function amount(model){
 function confirm(model){
 
 	return new Promise(function(resolve, reject){
+		console.log("in the post of confirm")
 		if(model.data.toLowerCase().includes("yes")){
 			api.confirmSTP(model.tags.ip,model.tags.session,model.tags.refrenceIdStpTxn)
 			.then((data)=>{

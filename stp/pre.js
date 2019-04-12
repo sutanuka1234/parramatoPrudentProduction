@@ -436,6 +436,7 @@ function amount(model){
 
 function confirm(model){
 	return new Promise(function(resolve, reject){
+		console.log("In the pre of confirm")
 		let amount="Rs "+model.tags.amount
 		let initAmount="Rs "+model.tags.initAmount
 		let divOpt=""
