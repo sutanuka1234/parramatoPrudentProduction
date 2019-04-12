@@ -8,6 +8,7 @@ let stringSimilarity = require('string-similarity');
 let sortBy = require('sort-by')
 let matchAll = require('match-all')
 let StringMask = require('string-mask')
+let data =require('../data.json')
 
 let obj = {
 	panMobile : panMobile,
@@ -19,6 +20,7 @@ let obj = {
 	euin	: euin,
 	divOps:divOps,
 	agreement:agreement,
+
 	stpFrequency:stpFrequency,
 	stpMonthDay:stpMonthDay,
 	stpWeekDay:stpWeekDay,
