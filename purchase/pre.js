@@ -19,7 +19,8 @@ module.exports={
 	euin: euin , 
 	folio 	: folio,
 	sipDay	: sipDay,
-	bankMandate : bankMandate
+	bankMandate : bankMandate,
+	summary: summary
 }
 
 let fs = require('fs')
