@@ -1523,6 +1523,7 @@ function confirm(model){
 	return new Promise(function(resolve, reject){
 		console.log("in the post of confirm")
 		if(model.data.toLowerCase().includes("yes")){
+			console.log("model.data inside confirm pre"+model.data)
 			api.confirmSTP(model.tags.ip,model.tags.session,model.tags.refrenceIdStpTxn)
 			.then((data)=>{
 				console.log(data.body)
@@ -1563,8 +1564,11 @@ function confirm(model){
 		            })
 				}
 				else{
+					//model.tags.stpReferenceId=
 					console.log(model.tags.stpReferenceId+":::::::::::::")
 					model.tags.stpReferenceId=data.Response[0]["STPTransactionId"];
+					console.log(model.tags.stpReferenceId+":::::::::::::")
+					delete model.stage
 					model.stage="summary"
 					return resolve(model)
 
