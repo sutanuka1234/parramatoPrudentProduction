@@ -719,6 +719,7 @@ function askSchemeName(model){
 		// 	model.stage = 'holding'
 		// 	return resolve(model)
 		// }
+		console.log("inside ask scheme purchase")
 		let dataAmc=getAmcNamesEntityReplaced(model.data);
 		model.data=dataAmc.text
 		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
