@@ -2,7 +2,7 @@
 module.exports={
 	main:main
 }
-
+let data=require('../data.json')
 let api = require('../api.js')
 let external = require('../external.js')
 let words = require('../words.js')
