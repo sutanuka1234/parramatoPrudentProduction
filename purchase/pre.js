@@ -9,8 +9,8 @@ module.exports={
 	
 	otp		: otp,
 	agreement	: agreement,
-	investmentType :investmentType,
-	//askSchemeName : askSchemeName,
+	//investmentType :investmentType,
+	askSchemeName : askSchemeName,
 	showSchemeName : showSchemeName,
 	divOps 	: divOps,
 	amount 	: amount,
