@@ -600,13 +600,15 @@ function otp(model){
 
 function nach(model){
 	return new Promise(function (resolve,reject){
+		console.log(model.data+"model.data")
 		if(model.data.toLowerCase().includes("more")){
 			model.tags.nachArray.splice(0,10)
 			model.tags.showNachArray = []
 			if(model.tags.nachArray && model.tags.nachArray.length>10){
+				console.log("does it come here???")
 				for(let i = 0;i<9;i++){
 					model.tags.showNachArray.push(model.tags.nachArray[i])
-					console.log(model.tags.showNachArray[i])
+					console.log(model.tags.showNachArray[i]+"when user clicks mores")
 				}
 				model.tags.showNachArray.push({
 					title : 'show more nach Mandate details',
@@ -622,6 +624,7 @@ function nach(model){
 				return resolve(model)
 			}
 			else if(model.tags.nachArray && model.tags.nachArray.length<=10){
+				console.log("2222222")
 				for(let i = 0;i<9;i++){
 					model.tags.showNachArray.push(model.tags.nachArray[i])
 				}
@@ -632,6 +635,7 @@ function nach(model){
 			}
 		}
 		else if(model.data.includes('|')){
+			console.log("::::::::::::::::::")
 			let selectedNachArray = model.data.split("|")
 			console.log(selectedNachArray+"-----------------------------------------------------")
 			model.tags.referenceNo = selectedNachArray[0]
@@ -654,6 +658,16 @@ function nachDetails(model){
 	return new Promise((resolve,reject)=>{
 		let input = model.data.toLowerCase().trim()
 		if(input.includes("done")){
+			model.stage = 'final'
+			model.tags.dailyLimit =false
+			model.tags.referenceNo =false
+			model.tags.mandateStatus =false
+			model.tags.accountNo =false
+			model.tags.bankName =false
+			model.tags.date =false
+			model.tags.showNachArray =false
+			model.tags.nachArray =false
+			return resolve(model)
 			model.stage = 'final'
 			return resolve(model)
 		}
