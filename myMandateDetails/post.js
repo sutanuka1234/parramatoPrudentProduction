@@ -606,6 +606,7 @@ function nach(model){
 			if(model.tags.nachArray && model.tags.nachArray.length>10){
 				for(let i = 0;i<9;i++){
 					model.tags.showNachArray.push(model.tags.nachArray[i])
+					console.log(model.tags.showNachArray[i])
 				}
 				model.tags.showNachArray.push({
 					title : 'show more nach Mandate details',
