@@ -17,6 +17,7 @@ let obj = {
 	otp		: otp,
 	holding : holding,
 	scheme 	: scheme,
+	stpInstallments:stpInstallments,
 	askSchemeName:askSchemeName,
 	showSchemeName:showSchemeName,
 	euin	: euin,
@@ -1194,7 +1195,25 @@ function stpMonthDay(model) {
 		return reject(model);
 	});
 }
+function stpInstallments(model) {
+	console.log("Inside stp")
+	return new Promise(async function (resolve, reject) {
 
+		model.tags.stpInstallments = model.data;
+
+		console.log(typeof model.tags.stpInstallments)
+		if (parseInt(model.tags.stpInstallments) >= 6) {
+			console.log("Installment valid")
+			delete model.stage
+			return resolve(model)
+		}
+		else {
+			console.log(" installmentInvalid ")
+			return reject(model)
+		}
+
+	});
+}
 function stpWeekDay(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.stpDatesFromApi&&model.tags.stpDatesFromApi.length>0&&(data[model.tags.scheme].schemeCode=="12758"||data[model.tags.scheme].schemeCode=="12760")){
