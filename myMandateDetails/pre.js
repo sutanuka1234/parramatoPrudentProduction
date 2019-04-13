@@ -82,10 +82,12 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
-		if (model.tags && model.tags.notme) {
+	if (model.tags && model.tags.notme) {
 			model.tags = {}
+		
 			console.log("should ask again")
 		}
+		console.log("normal course")
 		model.tags.amount = false
 		model.tags.joinAccId = false
 		model.tags.otp=false
