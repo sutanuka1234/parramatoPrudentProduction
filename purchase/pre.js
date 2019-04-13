@@ -96,20 +96,24 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(async function(resolve, reject){
-		model.tags.amount = undefined
-		model.tags.joinAccId = undefined
-		model.tags.divOption = undefined
-		model.tags.otp=undefined
-		model.tags.schemeApiDetails=undefined
-		model.tags.resend=undefined
-		model.tags.tranId=undefined
-		model.tags.investmentType=undefined
-		model.tags.transactionRefId=undefined
-		model.tags.additional=false;
-		model.tags.schemes=false;
-		model.tags.paymentDone="false";
-		console.log(model)
-		model=dataClean(model)
+		try{
+		model.tags.amount = false
+			model.tags.joinAccId = false
+			model.tags.divOption = false
+			model.tags.otp = false
+			model.tags.schemeApiDetails = false
+			model.tags.resend = false
+			model.tags.tranId = false
+			model.tags.investmentType = false
+			model.tags.transactionRefId = false
+			model.tags.additional = false;
+			model.tags.schemes = false;
+			model.tags.paymentDone = "false";
+			model.tags.newPan = true;//added
+			model.tags.sipDay = false
+			model.tags.sipInstallments = false
+			model.tags.selectedSchemeName = false
+			model = dataClean(model)
 		if(model.tags.userSays){
 			model=extractPan(model)
 			model=extractMobile(model)
@@ -124,7 +128,7 @@ function panMobile(model){
 		if(model.tags.investmentType){
 			invType=model.tags.investmentType
 		}
-		if(model.tags.mobile || model.tags.pan){
+		if(model.tags.mobile && model.tags.pan){
 			model.reply={
 				type:"quickReply",
 	            text:"Sure, we have your credentials linked to mobile "+formatter.apply(model.tags.mobile)+" saved. Would you like to proceed with the "+invType+" investment?",
@@ -148,6 +152,24 @@ function panMobile(model){
 		}
 		console.log(model.tags.schemes)
 		return resolve(model)
+
+			if (model.tags && model.tags.panmobileerr) {
+				model.reply = {
+					type: "text",
+					text: model.tags.panmobileerr
+				}
+				model.tags.panmobileerr = false
+				console.log("else i pam mobile" + JSON.stringify(model.tags.panmobileerr))
+			}
+			console.log("else i pam mobile")
+			return resolve(model)
+	}
+	catch (e) {
+			console.log(e + "pann mobile error")
+			return reject(e)
+		}
+
+	
 	})
 }
 function investmentType(model) {
