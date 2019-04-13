@@ -83,6 +83,9 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
+		if (model.tags && model.tags.notme) {
+			model.tags = {}
+		}
 		model.tags.amount = undefined
 		model.tags.joinAccId = undefined
 		model.tags.otp=undefined
