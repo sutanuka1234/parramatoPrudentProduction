@@ -84,6 +84,7 @@ function panMobile(model){
 	return new Promise(function(resolve, reject){
 		if (model.tags && model.tags.notme) {
 			model.tags = {}
+			console.log("should ask again")
 		}
 		model.tags.amount = false
 		model.tags.joinAccId = false
