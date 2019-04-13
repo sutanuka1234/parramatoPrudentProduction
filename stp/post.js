@@ -895,7 +895,7 @@ function showSchemeName(model){
 						}
 						if(folioObj){
 							console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(folioObj,null,3)+":::::"+data[model.tags.scheme].optionCode)
-							model.tags.divOption=fundefined
+							model.tags.divOption=undefined
 								if(folioObj["DIVIDENDOPTION"]){
 									if(folioObj["FolioNo"]==model.tags.folio||(folioObj["FolioNo"]=="New Folio"&&model.tags.folio=="0")){
 										switch(folioObj["DIVIDENDOPTION"]){
