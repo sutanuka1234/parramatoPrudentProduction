@@ -655,7 +655,7 @@ function pan(model){
 		model=extractInvetmentType(model)
 		model = extractAmount(model);
 		// model = extractFolio(model);
-		 console.log(model.tags.investmentType)
+		 console.log(model.tags.investmentType+"---&&--ghgkh")
 			// // console.log("TAGG")
 			// // console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.pan&&model.tags.mobile){
