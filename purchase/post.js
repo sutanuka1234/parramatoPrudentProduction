@@ -396,7 +396,7 @@ function panMobile(model) {
 				case "proceed":
 					console.log(JSON.stringify(model.tags) + "+++++++====================model.data when case is 1")
 					if (model.tags.newPan) {
-						let temp = { pan: model.tags.pan, mobile: model.tags.mobile } // I HAVE ADDED MOBILE TO THE MODEL HERE WHICH WAS MISSING
+						let temp = { pan: model.tags.pan, mobile: model.tags.mobile,investmentType:model.tags.investmentType} // I HAVE ADDED MOBILE TO THE MODEL HERE WHICH WAS MISSING
 						if (model.tags.newFolio) {
 							temp.folio = model.tags.folio;
 						}
@@ -410,9 +410,9 @@ function panMobile(model) {
 						// if (model.tags.newDivOption) {
 						// 	temp.divOption = model.tags.divOption;
 						// }
-						// if (model.tags.investmentType) {
-						// 	temp.investmentType = model.tags.investmentType
-						// }
+						if (model.tags.investmentType) {
+							temp.investmentType = model.tags.investmentType
+						}
 						model.tags = temp;
 						model.tags.newPan = false;
 						model.tags.newFolio = false;
@@ -454,13 +454,14 @@ function panMobile(model) {
 				// console.log("IF ::::::::::::::::::::::::::::::::::::::" + (model.data&&model.tags.pan && model.tags.mobile))
 			}
 			else {
+				console.log("Here !!!!!!!!!!!!!!!!1")
 				// console.log("ELSSEEEEF ::::::::::::::::::::::::::::::::::::::" + (model.data&&model.tags.pan && model.tags.mobile))
 				model = extractPan(model);
 				model = extractMobile(model);
 				model = extractSchemeName(model);
 				model = extractInvetmentType(model)
 				model = extractAmount(model);
-				console.log("panmobilestage investmnt"+model.tags.investmentType)
+				console.log("panmobilestage investmnt "+model.tags.investmentType)
 			}
 			// console.log("model.tags.mobile    ++++" +JSON.stringify(model))
 			if (model.tags.pan && model.tags.mobile) {
