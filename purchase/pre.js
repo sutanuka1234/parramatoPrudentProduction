@@ -640,7 +640,9 @@ function extractInvestmentType(model){
 			model.tags.userSays = model.tags.userSays.replace("systematic","")
 			model.tags.userSays = model.tags.userSays.replace("monthly","")
 			model.tags.investmentType="sip"
+			console.log("pre investmenttype"+model.tags.investmentType)
 			model.tags.newInvestmentType=true;
+
 	}
 	return model;
 }
