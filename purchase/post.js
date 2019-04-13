@@ -2954,6 +2954,7 @@ function extractInvetmentType(model){
 			model.data = model.data.replace("systematic","")
 			model.data = model.data.replace("monthly","")
 			model.tags.investmentType="sip"
+			console.log(model.tags.investmentType+"abcdef")
 	}
 	return model;
 }
