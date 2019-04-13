@@ -497,7 +497,7 @@ function panMobile(model) {
 			}
 			else {
 				// console.log("PAN DATA :::::::::::: model.tags.mobile    ++++" +model.tags.mobile)
-				if (!model.tags.mobile && !model.tags.pan) {
+				if (!model.tags.mobile || !model.tags.pan) {
 					return reject(model);
 				}
 				if (!model.tags.mobile) {
