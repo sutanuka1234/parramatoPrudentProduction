@@ -124,10 +124,16 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
+		if (model.tags && model.tags.notme) {
+			model.tags = {}
+		}
 		model=dataClean(model);
 		if(model.data.toLowerCase().includes("not")&&model.data.toLowerCase().includes("me")){
-			model.stage="panMobile";
-			model.tags={}
+			model.tags.mobile = false;
+			model.tags.pan = false;
+			model.tags.panMobile = false;
+			model.stage = "panMobile";
+			model.tags.notme = true
 			return resolve(model);
 		}
 		model = extractPan(model);
@@ -150,15 +156,15 @@ function panMobile(model){
 				temp.divOption=model.tags.divOption;
 			}
 			model.tags=temp;
-			model.tags.newPan=undefined;
-			model.tags.newFolio=undefined;
-			model.tags.newScheme=undefined;
-			model.tags.newAmount=undefined;
+			model.tags.newPan=false;
+			model.tags.newFolio=false;
+			model.tags.newScheme=false;
+			model.tags.newAmount=false;
 		}
 		else{
-				model.tags.newFolio=undefined;
-				model.tags.newScheme=undefined;
-				model.tags.newAmount=undefined;
+				model.tags.newFolio=false;
+				model.tags.newScheme=false;
+				model.tags.newAmount=false;
 
 		}
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
