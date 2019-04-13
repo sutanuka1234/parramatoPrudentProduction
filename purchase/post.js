@@ -141,14 +141,18 @@ function main(req, res){
 
 //============================================================
 
-function panMobile(model){
+/*function panMobile(model){
 	return new Promise(async function(resolve, reject){
 
 		model=dataClean(model);
 		if(model.data.toLowerCase().includes("not")&&model.data.toLowerCase().includes("me")){
-			model.stage="panMobile";
-			model.tags={}
-			return resolve(model);
+	model.tags.mobile = false;
+					model.tags.pan = false;
+					model.tags.newPan = false;//here
+					model.tags.panMobile = false;
+					model.stage = "panMobile";
+					return resolve(model);
+					break;
 		}
 		
 		model = extractPan(model);
@@ -369,6 +373,175 @@ function panMobile(model){
 				}		
 				return reject(model);
 			}
+		}
+	})
+}*/
+
+function panMobile(model) {
+	return new Promise(async function (resolve, reject) {
+		console.log("working ???????????????????????????????")
+
+		try {
+			model = dataClean(model);
+			// console.log(model+"model is printed before this")
+			// console.log("pan mobile post : printing to check model . data " +model.data);
+			if (model.data == "1") {
+				model.data = "proceed"
+			}
+			if (model.data == "2") {
+				model.data = "not me"
+			}
+			/*		// console.log("Before Switch case: " +model.data)
+					// console.log(typeof(model.data))
+		
+					// console.log("MODEL DATA ::::::")
+					// console.log("MODEL DATA ::::::")
+					// console.log("MODEL DATA ::::::")
+					// console.log(JSON.stringify(model))
+					// console.log("MODEL DATA ::::::")
+					// console.log("MODEL DATA ::::::")*/
+			// console.log("MODEL DATA ::::::")
+			if(model.tags && model.tags.selectedSchemeName) {
+				model.tags.selectedSchemeName = undefined
+			}
+			if(model.tags && model.tags.isScehmaSelected) {
+				model.tags.isScehmaSelected = undefined
+			}
+			
+
+			switch (model.data) {
+				case "proceed":
+					console.log(JSON.stringify(model.tags) + "+++++++====================model.data when case is 1")
+					if (model.tags.newPan) {
+						let temp = { pan: model.tags.pan, mobile: model.tags.mobile } // I HAVE ADDED MOBILE TO THE MODEL HERE WHICH WAS MISSING
+						if (model.tags.newFolio) {
+							temp.folio = model.tags.folio;
+						}
+
+						// if (model.tags.newScheme) {
+						// 	temp.schemes = model.tags.schemes;
+						// }
+						// if (model.tags.newAmount) {
+						// 	temp.amount = model.tags.amount;
+						// }
+						// if (model.tags.newDivOption) {
+						// 	temp.divOption = model.tags.divOption;
+						// }
+						// if (model.tags.investmentType) {
+						// 	temp.investmentType = model.tags.investmentType
+						// }
+						model.tags = temp;
+						model.tags.newPan = false;
+						model.tags.newFolio = false;
+						model.tags.newScheme = false;
+						model.tags.newAmount = false;
+						model.tags.newDivOption = false;
+						model.tags.newInvestmentType = false;
+
+						console.log(JSON.stringify(model.tags) + "+++++++====================model.data when case is 1))))))))))))))))))))))))")
+					}
+					else {
+						model.tags.newFolio = false;
+						model.tags.newScheme = false;
+						model.tags.newAmount = false;
+						model.tags.newDivOption = false;
+						model.tags.newInvestmentType = false;
+
+					}
+					delete model.stage
+					// console.log("mofeeeeeeeeeeeeeeeeeeeeeeeee proceed  ++++" +JSON.stringify(model))
+
+					break;
+				case "not me":
+					model.tags.mobile = false;
+					model.tags.pan = false;
+					model.tags.newPan = false;//here
+					model.tags.panMobile = false;
+					model.stage = "panMobile";
+					return resolve(model);
+					break;
+				default:
+					if (model.data && model.tags.mobile && model.tags.pan) {
+						return reject(model);
+					}
+					break;
+			}
+
+			if (model.data && model.tags.pan && model.tags.mobile) {
+				// console.log("IF ::::::::::::::::::::::::::::::::::::::" + (model.data&&model.tags.pan && model.tags.mobile))
+			}
+			else {
+				// console.log("ELSSEEEEF ::::::::::::::::::::::::::::::::::::::" + (model.data&&model.tags.pan && model.tags.mobile))
+				model = extractPan(model);
+				model = extractMobile(model);
+				model = extractSchemeName(model);
+				model = extractInvetmentType(model)
+				model = extractAmount(model);
+			}
+			// console.log("model.tags.mobile    ++++" +JSON.stringify(model))
+			if (model.tags.pan && model.tags.mobile) {
+				let data = await api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
+				let response = JSON.parse(data.body)
+				if (response.Response[0].result == "FAIL") {
+					if (response.Response[0]['reject_reason'] == "Client does not exists.") {
+						response.Response[0]['reject_reason'] = "Your pan and mobile combination does not seem to be valid."
+						model.tags.panmobileerr = ''
+						model.tags.panmobileerr = "Your pan and mobile combination does not seem to be valid."
+					}
+					let reply = {
+						text: response.Response[0]['reject_reason'],
+						type: "text",
+						sender: model.sender,
+						language: "en",
+						projectId: "JUBI2prC24_prudentWhatsapp"
+					}
+					let data = await external(reply)
+					model.tags.mobile = false;
+					model.tags.pan = false;
+					// model.tags.newPan=false;
+					model.tags.panMobile = false;
+					//model.stage = "panMobile";
+					// console.log(model.tags.mobile+"------------"+model.tags.panwsdt)
+					//hgconsole.log("resolved panMobile")
+					return resolve(model)
+				}
+				else {
+					model.tags.panmobileerr = false
+					model.tags.session = response.Response[0].SessionId
+					model.stage = 'otp'
+					return resolve(model)
+				}
+			}
+			else {
+				// console.log("PAN DATA :::::::::::: model.tags.mobile    ++++" +model.tags.mobile)
+				if (!model.tags.mobile && !model.tags.pan) {
+					return reject(model);
+				}
+				if (!model.tags.mobile) {
+					model.stage = 'mobile'
+					// console.log("resolve mobile")
+					return resolve(model)
+				}
+				else if (!model.tags.pan) {
+					model.stage = 'pan'
+					// console.log("resolve pan")
+					return resolve(model)
+				}
+				return reject(model);
+			}
+
+		}
+		catch (e) {
+			// console.log("catch")
+			if (!model.tags.mobile) {
+				model.stage = 'mobile'
+				return resolve(model)
+			}
+			else if (!model.tags.pan) {
+				model.stage = 'pan'
+				return resolve(model)
+			}
+			return reject(model)
 		}
 	})
 }

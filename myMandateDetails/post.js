@@ -679,7 +679,7 @@ function nachDetails(model){
 			model.tags.mandateStatus =false
 			model.tags.accountNo =false
 			model.tags.bankName =false
-			model.tags.showNachArray =false
+			//model.tags.showNachArray =false
 			model.tags.date =false
 			model.stage = 'nach'
 			return resolve(model)

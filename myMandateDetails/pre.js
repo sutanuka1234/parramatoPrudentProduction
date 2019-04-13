@@ -158,6 +158,7 @@ function otp(model){
 
 function nach(model){
 	return new Promise(async function(resolve,reject){
+			model.tags.showNachArray = undefined
 		if(model.tags.showNachArray){
 			model.reply = {
 				type : "generic",
