@@ -460,6 +460,7 @@ function panMobile(model) {
 				model = extractSchemeName(model);
 				model = extractInvetmentType(model)
 				model = extractAmount(model);
+				console.log("panmobilestage investmnt"+model.tags.investmentType)
 			}
 			// console.log("model.tags.mobile    ++++" +JSON.stringify(model))
 			if (model.tags.pan && model.tags.mobile) {
@@ -719,7 +720,7 @@ function otp(model){
 		 model = extractDivOption(model);
 		model = await extractSchemeName(model);
 		model=extractInvetmentType(model);
-		// console.log(model.tags.investmentType)
+		 console.log("-----------------------------???"model.tags.investmentType)
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
 			api.resendOtp(model.tags.ip,model.tags.session)
 			.then((response)=>{
@@ -818,7 +819,7 @@ function otp(model){
 						// 	}
 						// }
 						// else{
-							delete model.stage;
+							
 							if(model.tags.investmentType){
 								if(model.tags.schemes && model.tags.schemes.length > 0){
 									console.log(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::here::::::::::::::")
@@ -831,6 +832,7 @@ function otp(model){
 								}
 							}
 							else{
+								console.log("save investmentType")
 								model.stage="investmentType"
 								return resolve(model);
 							}
