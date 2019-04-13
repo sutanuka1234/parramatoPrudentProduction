@@ -516,10 +516,10 @@ function panMobile(model) {
 		}
 		catch (e) {
 			// console.log("catch")
-			if (!model.tags.mobile) {
-				model.stage = 'mobile'
-				return resolve(model)
-			}
+			// if (!model.tags.mobile) {
+			// 	model.stage = 'mobile'
+			// 	return resolve(model)
+			// }
 			else if (!model.tags.pan) {
 				model.stage = 'pan'
 				return resolve(model)
