@@ -88,14 +88,14 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
-		model.tags.amount = undefined
-		model.tags.joinAccId = undefined
-		model.tags.otp=undefined
-		model.tags.resend=undefined
-		model.tags.tranId=undefined
-		model.tags.switchSchemeList=undefined
-		model.tags.switchReferenceId=undefined
-		model.tags.refrenceIdSwitchTxn=undefined
+		model.tags.amount = false
+		model.tags.joinAccId = false
+		model.tags.otp=false
+		model.tags.resend=false
+		model.tags.tranId=false
+		model.tags.switchSchemeList=false
+		model.tags.switchReferenceId=false
+		model.tags.refrenceIdSwitchTxn=false
 		model.tags.schemes=false;
 		model.tags.paymentDone="false";
 		model=dataClean(model)
@@ -133,7 +133,7 @@ function panMobile(model){
 function otp(model){
 	return new Promise(function(resolve, reject){
 		if(model.tags.resend){
-			model.tags.resend=undefined
+			model.tags.resend=false
 			model.reply={
 				type : "text",
 				text : "The new OTP is sent to your mobile number ("+formatter.apply(model.tags.mobile)+"), Please share it here. In case if you have not received any OTP, we would send you one if you say 'resend'"
@@ -233,7 +233,7 @@ function askSchemeName(model){
 
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
-		if(model.tags.schemes!=undefined&&model.tags.schemes.length == 1){
+		if(model.tags.schemes!=false&&model.tags.schemes.length == 1){
 			model.reply={
 				type:"quickReply",
 	            text:"Would you like to go ahead with "+model.tags.schemes+"? You can also type if there is something else on your mind.",
@@ -499,7 +499,7 @@ function extractMobile(model){
 	let text = matchAll(model.tags.userSays, /(\d+)/gi).toArray()
 	for(let i in text){
 		if(text[i].length == 10){
-			// if(text[i]!=model.tags.mobile||model.tags.mobile===undefined){
+			// if(text[i]!=model.tags.mobile||model.tags.mobile===false){
 			// 	console.log(text[i]+"mobile")
 			// 	model.tags = {userSays:model.tags.userSays}
 			// }
@@ -527,7 +527,7 @@ function extractMobile(model){
 function extractPan(model){
 	let matchPan=model.tags.userSays.match(regexPan)
 	if(matchPan&&matchPan.length>0&&matchPan[0]){
-		if(matchPan[0]!=model.tags.pan||model.tags.pan===undefined){
+		if(matchPan[0]!=model.tags.pan||model.tags.pan===false){
 			model.tags = {userSays:model.tags.userSays}
 		}
 		model.tags.pan = matchPan[0]
