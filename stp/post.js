@@ -137,6 +137,7 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
+
 		model=dataClean(model);
 		// model=extractDivOption(model)
 		// model=extractSchemeName(model)
@@ -145,6 +146,7 @@ function panMobile(model){
 		if(model.data.toLowerCase().includes("not")&&model.data.toLowerCase().includes("me")){
 			model.stage="panMobile";
 			model.tags={}
+			model.tags.notme = true
 			return resolve(model);
 		}
 
@@ -169,15 +171,15 @@ function panMobile(model){
 				temp.divOption=model.tags.divOption;
 			}
 			model.tags=temp;
-			model.tags.newPan=undefined;
-			model.tags.newFolio=undefined;
-			model.tags.newScheme=undefined;
-			model.tags.newAmount=undefined;
+			model.tags.newPan=false;
+			model.tags.newFolio=false;
+			model.tags.newScheme=false;
+			model.tags.newAmount=false;
 		}
 		else{
-				model.tags.newFolio=undefined;
-				model.tags.newScheme=undefined;
-				model.tags.newAmount=undefined;
+				model.tags.newFolio=false;
+				model.tags.newScheme=false;
+				model.tags.newAmount=false;
 
 		}
 		console.log("::::::::::::::::::")
@@ -602,12 +604,12 @@ function otp(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
-		model.tags.amount = undefined
-		model.tags.joinAccId = undefined
-		model.tags.tranId=undefined
-		model.tags.stpSchemeList=undefined
-		model.tags.stpReferenceId=undefined
-		model.tags.refrenceIdStpTxn=undefined
+		model.tags.amount = false
+		model.tags.joinAccId = false
+		model.tags.tranId=false
+		model.tags.stpSchemeList=false
+		model.tags.stpReferenceId=false
+		model.tags.refrenceIdStpTxn=false
 		if(model.tags.joinAccIdList.includes(model.data)){
 			for (let element of model.tags.joinAcc){
 				console.log(element.JoinAccId+"::"+model.data)
@@ -719,11 +721,11 @@ function holding(model){
 function scheme(model){
 	return new Promise(function(resolve, reject){
 		
-		model.tags.amount = undefined
-		model.tags.tranId=undefined
-		model.tags.stpSchemeList=undefined
-		model.tags.stpReferenceId=undefined
-		model.tags.refrenceIdStpTxn=undefined
+		model.tags.amount = false
+		model.tags.tranId=false
+		model.tags.stpSchemeList=false
+		model.tags.stpReferenceId=false
+		model.tags.refrenceIdStpTxn=false
 		try{
 			if(model.tags.stpSchemes){
 				for(let scheme of model.tags.stpSchemes){
@@ -838,16 +840,16 @@ function askSchemeName(model){
 
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
-		model.tags.amount = undefined
-		model.tags.tranId=undefined
-		model.tags.stpReferenceId=undefined
-		model.tags.refrenceIdStpTxn=undefined
+		model.tags.amount = false
+		model.tags.tranId=false
+		model.tags.stpReferenceId=false
+		model.tags.refrenceIdStpTxn=false
 		if(model.data.toLowerCase().includes("cancel")||model.data.toLowerCase().includes("stop")||model.data.toLowerCase().trim()=="exit"){
 			return reject(model)
 		}
 		model = extractDivOption(model)
 
-		if(model.tags.schemes===undefined){
+		if(model.tags.schemes===false){
 			model.tags.schemes=[]
 		}
 		let arr = []
@@ -870,7 +872,7 @@ function showSchemeName(model){
 
 
 					response = JSON.parse(response.body)
-					model.tags.unitOrAmountList=undefined
+					model.tags.unitOrAmountList=false
 
 					if(response.Response.length > 0){
 						let folioData=response.Response[0]
@@ -893,7 +895,7 @@ function showSchemeName(model){
 						}
 						if(folioObj){
 							console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(folioObj,null,3)+":::::"+data[model.tags.scheme].optionCode)
-							model.tags.divOption=undefined
+							model.tags.divOption=fundefined
 								if(folioObj["DIVIDENDOPTION"]){
 									if(folioObj["FolioNo"]==model.tags.folio||(folioObj["FolioNo"]=="New Folio"&&model.tags.folio=="0")){
 										switch(folioObj["DIVIDENDOPTION"]){
@@ -987,8 +989,8 @@ function showSchemeName(model){
 											external(reply)
 											.then((data)=>{
 												model.stage = 'showSchemeName'
-												model.tags.schemes=undefined;
-												model.tags.scheme=undefined;
+												model.tags.schemes=false;
+												model.tags.scheme=false;
 												return resolve(model)
 								            })
 								            .catch((e)=>{
@@ -1277,15 +1279,15 @@ function initAmount(model) {
 					console.log(initAmount)
 					console.log(initAmount%multiple)
 					if(initAmount%multiple!=0){
-						model.tags.initAmount=undefined;
+						model.tags.initAmount=false;
 					}
 					if(initAmount<minAmount){
 						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
-						model.tags.initAmount=undefined;
+						model.tags.initAmount=false;
 					}
 					else if(initAmount>maxAmount){
 						// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
-						model.tags.initAmount=undefined;
+						model.tags.initAmount=false;
 					}
 			
 
@@ -1425,15 +1427,15 @@ function amount(model){
 					console.log(amount)
 					console.log(amount%multiple)
 					if(amount%multiple!=0){
-						model.tags.amount=undefined;
+						model.tags.amount=false;
 					}
 					if(amount<minAmount){
 						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
-						model.tags.amount=undefined;
+						model.tags.amount=false;
 					}
 					else if(amount>maxAmount){
 						// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
-						model.tags.amount=undefined;
+						model.tags.amount=false;
 					}
 			
 
