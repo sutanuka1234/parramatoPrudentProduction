@@ -649,7 +649,7 @@ function pan(model){
 	return new Promise(async function(resolve, reject){
 		model = dataClean(model);
 		model = extractPan(model);
-		// model = extractDivOption(model);
+		 model = extractDivOption(model);
 		model=await extractSchemeName(model);
 		model=extractInvetmentType(model)
 		model = extractAmount(model);
@@ -716,7 +716,7 @@ function otp(model){
 		// model.tags.mobileEntered=false;
 		model = dataClean(model);
 		model = extractOTP(model);
-		// model = extractDivOption(model);
+		 model = extractDivOption(model);
 		model = await extractSchemeName(model);
 		model=extractInvetmentType(model);
 		// console.log(model.tags.investmentType)
