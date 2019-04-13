@@ -82,6 +82,7 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
+		console.log(model.tags.notme)
 	if (model.tags && model.tags.notme) {
 			model.tags = {}
 		
