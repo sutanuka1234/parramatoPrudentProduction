@@ -720,7 +720,7 @@ function otp(model){
 		 model = extractDivOption(model);
 		model = await extractSchemeName(model);
 		model=extractInvetmentType(model);
-		 console.log("-----------------------------???"model.tags.investmentType)
+		 console.log("-----------------------------???"+model.tags.investmentType)
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
 			api.resendOtp(model.tags.ip,model.tags.session)
 			.then((response)=>{
