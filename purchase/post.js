@@ -719,8 +719,8 @@ function otp(model){
 		model = extractOTP(model);
 		 model = extractDivOption(model);
 		model = await extractSchemeName(model);
-		model=extractInvetmentType(model);
-		 console.log("-----------------------------???"+model.tags.investmentType)
+		//model=extractInvetmentType(model);
+		 console.log("-----------------otp ------------???"+model.tags.investmentType)
 		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
 			api.resendOtp(model.tags.ip,model.tags.session)
 			.then((response)=>{
@@ -819,8 +819,9 @@ function otp(model){
 						// 	}
 						// }
 						// else{
-							
-							if(invType){
+
+		
+							if(model.tags.investmentType){
 								if(model.tags.schemes && model.tags.schemes.length > 0){
 									console.log(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::here::::::::::::::")
 									model.stage = 'showSchemeName'
