@@ -520,7 +520,7 @@ function panMobile(model) {
 			// 	model.stage = 'mobile'
 			// 	return resolve(model)
 			// }
-			else if (!model.tags.pan) {
+			if (!model.tags.pan) {
 				model.stage = 'pan'
 				return resolve(model)
 			}
