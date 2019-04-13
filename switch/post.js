@@ -135,8 +135,10 @@ function panMobile(model){
 
 		console.log("::::::::::::::::::")
 		if(model.data.toLowerCase().includes("not")&&model.data.toLowerCase().includes("me")){
-			model.stage="panMobile";
-			model.tags={}
+			model.stage = "panMobile";
+			model.tags = {}
+			model.tags.notme = true
+			console.log("::::::::::::::::::" + JSON.stringify(model))
 			return resolve(model);
 		}
 
@@ -161,15 +163,15 @@ function panMobile(model){
 				temp.divOption=model.tags.divOption;
 			}
 			model.tags=temp;
-			model.tags.newPan=undefined;
-			model.tags.newFolio=undefined;
-			model.tags.newScheme=undefined;
-			model.tags.newAmount=undefined;
+			model.tags.newPan=false;
+			model.tags.newFolio=false;
+			model.tags.newScheme=false;
+			model.tags.newAmount=false;
 		}
 		else{
-				model.tags.newFolio=undefined;
-				model.tags.newScheme=undefined;
-				model.tags.newAmount=undefined;
+				model.tags.newFolio=false;
+				model.tags.newScheme=false;
+				model.tags.newAmount=false;
 
 		}
 		console.log("::::::::::::::::::")
@@ -594,12 +596,12 @@ function otp(model){
 
 function holding(model){
 	return new Promise(function(resolve, reject){
-		model.tags.amount = undefined
-		model.tags.joinAccId = undefined
-		model.tags.tranId=undefined
-		model.tags.switchSchemeList=undefined
-		model.tags.switchReferenceId=undefined
-		model.tags.refrenceIdSwitchTxn=undefined
+		model.tags.amount = false
+		model.tags.joinAccId = false
+		model.tags.tranId=false
+		model.tags.switchSchemeList=false
+		model.tags.switchReferenceId=false
+		model.tags.refrenceIdSwitchTxn=false
 		if(model.tags.joinAccIdList.includes(model.data)){
 			for (let element of model.tags.joinAcc){
 				console.log(element.JoinAccId+"::"+model.data)
@@ -732,11 +734,11 @@ function holding(model){
 function scheme(model){
 	return new Promise(function(resolve, reject){
 		console.log(model.data+"::::::::::::::::::::>>>>")
-		model.tags.amount = undefined
-		model.tags.tranId=undefined
-		model.tags.switchSchemeList=undefined
-		model.tags.switchReferenceId=undefined
-		model.tags.refrenceIdSwitchTxn=undefined
+		model.tags.amount = false
+		model.tags.tranId=false
+		model.tags.switchSchemeList=false
+		model.tags.switchReferenceId=false
+		model.tags.refrenceIdSwitchTxn=false
 		try{
 			if(model.data.endsWith("next")&&model.tags.lastSwitchSchemeElement&&model.tags.switchSchemes.length>model.tags.lastSwitchSchemeElement){
 				model.tags.switchSchemeList=[]
@@ -894,10 +896,10 @@ function askSchemeName(model){
 
 function showSchemeName(model){
 	return new Promise(function(resolve, reject){
-		model.tags.amount = undefined
-		model.tags.tranId=undefined
-		model.tags.switchReferenceId=undefined
-		model.tags.refrenceIdSwitchTxn=undefined
+		model.tags.amount = false
+		model.tags.tranId=false
+		model.tags.switchReferenceId=false
+		model.tags.refrenceIdSwitchTxn=false
 		if(model.data.toLowerCase().includes("cancel")||model.data.toLowerCase().includes("stop")||model.data.toLowerCase().trim()=="exit"){
 			return reject(model)
 		}
@@ -907,7 +909,7 @@ function showSchemeName(model){
 		// 	model.stage = 'holding'
 		// 	return resolve(model)
 		// }
-		if(model.tags.schemes===undefined){
+		if(model.tags.schemes===false){
 			model.tags.schemes=[]
 		}
 		let arr = []
@@ -930,7 +932,7 @@ function showSchemeName(model){
 
 
 					response = JSON.parse(response.body)
-					model.tags.unitOrAmountList=undefined
+					model.tags.unitOrAmountList=false
 
 					if(response.Response.length > 0){
 						let folioData=response.Response[0]
@@ -975,7 +977,7 @@ function showSchemeName(model){
 
 						if(folioObj){
 							console.log("FOLIO:::::::::::::::::::::::::::::"+JSON.stringify(folioObj,null,3)+":::::"+data[model.tags.scheme].optionCode)
-							model.tags.divOption=undefined
+							model.tags.divOption=false
 								if(folioObj["DIVIDENDOPTION"]){
 									if(folioObj["FolioNo"]==model.tags.folio||(folioObj["FolioNo"]=="New Folio"&&model.tags.folio=="0")){
 										switch(folioObj["DIVIDENDOPTION"]){
@@ -987,7 +989,7 @@ function showSchemeName(model){
 												break;
 											case "Z": model.tags.divOption = 0
 												break;
-											default: model.tags.divOption = undefined
+											default: model.tags.divOption = false
 													break;
 										}
 									}
@@ -995,7 +997,7 @@ function showSchemeName(model){
 								if(data[model.tags.scheme].optionCode == 1){
 										model.tags.divOption = 0
 								}
-								// if(model.tags.divOption!=undefined){
+								// if(model.tags.divOption!=false){
 
 								// 	model.stage = 'unitOrAmount'
 								// }
@@ -1090,8 +1092,8 @@ function showSchemeName(model){
 											external(reply)
 											.then((data)=>{
 												model.stage = 'showSchemeName'
-												model.tags.schemes=undefined;
-												model.tags.scheme=undefined;
+												model.tags.schemes=false;
+												model.tags.scheme=false;
 												return resolve(model)
 								            })
 								            .catch((e)=>{
@@ -1196,7 +1198,7 @@ function euin(model){
 				if(model.tags.switchSchemeObj["eKYC"] == "1"){
 					model.tags.switchSchemeObj["AvailableAmt"]="50000";
 				}
-				if(model.tags.divOption!=undefined&&parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
+				if(model.tags.divOption!=false&&parseFloat(model.tags.switchSchemeObj["AvailableUnits"])<=1){
 				// if(true&&model.tags.divOption!=undefined){
 							model.tags.unitOrAmount="AU";
 							// console.log("amount valid")
@@ -1255,7 +1257,7 @@ function euin(model){
 							})
 				}
 				else{
-					if(model.tags.divOption!=undefined){
+					if(model.tags.divOption!=false){
 						model.stage = 'unitOrAmount'
 					}
 					else{
@@ -1429,7 +1431,7 @@ function unitOrAmount(model) {
 			return resolve(model);
 		}
 		else{
-			model.tags.unitOrAmount=undefined;
+			model.tags.unitOrAmount=false;
 			return reject(model);
 		}
 	});
@@ -1457,11 +1459,11 @@ function amount(model){
 					console.log(minAmount)
 					console.log(amount)
 					// if(amount%multiple!=0){
-					// 	model.tags.amount=undefined;
+					// 	model.tags.amount=false;
 					// }
 					if(amount<minAmount){
 						sendExternalMessage(model,"Amount should be greater than or equal to Rs "+minAmount+".")
-						model.tags.amount=undefined;
+						model.tags.amount=false;
 					}
 				}
 				else{
@@ -1473,15 +1475,15 @@ function amount(model){
 					console.log(amount)
 					console.log(amount%multiple)
 					if(amount%multiple!=0){
-						model.tags.amount=undefined;
+						model.tags.amount=false;
 					}
 					if(amount<minAmount){
 						// sendExternalMessage(model,"Redemption amount should be greater than or equal to Rs "+minAmount+".")
-						model.tags.amount=undefined;
+						model.tags.amount=false;
 					}
 					// else if(amount>maxAmount){
 					// 	// sendExternalMessage(model,"Redemption amount should be equal to or less than Rs "+maxAmount+".")
-					// 	model.tags.amount=undefined;
+					// 	model.tags.amount=false;
 					// }
 				}
 			

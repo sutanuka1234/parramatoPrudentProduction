@@ -88,6 +88,12 @@ function main(req, res){
 
 function panMobile(model){
 	return new Promise(function(resolve, reject){
+			if(!model.tags) {
+			model.tags = {}
+		}
+		if(model.tags.notme) {
+			model.tags = {}
+		}
 		model.tags.amount = false
 		model.tags.joinAccId = false
 		model.tags.otp=false
