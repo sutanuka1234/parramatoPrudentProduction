@@ -383,24 +383,7 @@ function panMobile(model) {
 
 		try {
 			model = dataClean(model);
-			// console.log(model+"model is printed before this")
-			// console.log("pan mobile post : printing to check model . data " +model.data);
-			if (model.data == "1") {
-				model.data = "proceed"
-			}
-			if (model.data == "2") {
-				model.data = "not me"
-			}
-			/*		// console.log("Before Switch case: " +model.data)
-					// console.log(typeof(model.data))
-		
-					// console.log("MODEL DATA ::::::")
-					// console.log("MODEL DATA ::::::")
-					// console.log("MODEL DATA ::::::")
-					// console.log(JSON.stringify(model))
-					// console.log("MODEL DATA ::::::")
-					// console.log("MODEL DATA ::::::")*/
-			// console.log("MODEL DATA ::::::")
+			
 			if(model.tags && model.tags.selectedSchemeName) {
 				model.tags.selectedSchemeName = undefined
 			}
@@ -546,7 +529,7 @@ function panMobile(model) {
 	})
 }
 
-function mobile(model){
+/*function mobile(model){
 	return new Promise(async function(resolve, reject){
 		    model=dataClean(model);
 			model = extractMobile(model);
@@ -608,6 +591,60 @@ function mobile(model){
 				return reject(model);
 			}
 	
+	})
+}*/
+
+function mobile(model) {
+	return new Promise(async function (resolve, reject) {
+		try {
+			model = dataClean(model);
+			model = extractMobile(model);
+			model = extractSchemeName(model);
+			model = extractInvetmentType(model)
+			model = extractAmount(model);
+			if (model.tags.pan && model.tags.mobile) {
+				let data = await api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
+				let response = JSON.parse(data.body)
+				if (response.Response[0].result == "FAIL") {
+					if (response.Response[0]['reject_reason'] == "Client does not exists.") {
+						response.Response[0]['reject_reason'] = "Your pan and mobile combination does not seem to be valid."
+					}
+					let reply = {
+						text: response.Response[0]['reject_reason'],
+						type: "text",
+						sender: model.sender,
+						language: "en",
+						projectId: "JUBI2prC24_prudentWhatsapp"
+					}
+					let data = await external(reply)
+					model.tags.mobile = false;
+					model.tags.pan = false;
+					model.tags.newPan = false;
+					model.tags.panMobile = false;
+					model.stage = "panMobile";
+					return resolve(model)
+				}
+				else {
+					model.tags.session = response.Response[0].SessionId
+					model.stage = 'otp'
+					return resolve(model)
+				}
+			}
+
+			else if (model.tags.mobile) {
+				model.stage = 'pan'
+				return resolve(model)
+			}
+			else {
+				return reject(model);
+			}
+		}
+		catch (e) {
+
+			// console.log(e);
+			return reject(model)
+		}
+
 	})
 }
 
