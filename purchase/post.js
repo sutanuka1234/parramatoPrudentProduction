@@ -654,7 +654,7 @@ function pan(model){
 		model=extractInvetmentType(model)
 		model = extractAmount(model);
 		// model = extractFolio(model);
-		// console.log(model.tags.investmentType)
+		 console.log(model.tags.investmentType)
 			// // console.log("TAGG")
 			// // console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.pan&&model.tags.mobile){
@@ -821,6 +821,7 @@ function otp(model){
 							delete model.stage;
 							if(model.tags.investmentType){
 								if(model.tags.schemes && model.tags.schemes.length > 0){
+									console.log(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::here::::::::::::::")
 									model.stage = 'showSchemeName'
 									return resolve(model);
 								}
@@ -2944,6 +2945,7 @@ function extractInvetmentType(model){
 			model.data=model.data.replace("lumpsum","")
 			model.data = model.data.replace("one time","")
 			model.tags.investmentType="lumpsum"
+
 	}
 	else if(model.data.toLowerCase().includes("sip")||model.data.toLowerCase().includes("systematic")||model.data.toLowerCase().includes("monthly")){
 			model.data=model.data.replace("sip","")
