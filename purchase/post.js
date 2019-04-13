@@ -760,7 +760,7 @@ function otp(model){
 					if(response.Response[0].result=="FAIL"){
 						let reply={
 			                text    : response.Response[0]['reject_reason'],
-			                type    : "text",
+			                type    : "text",-----------------------------???
 			                sender  : model.sender,
 			                language: "en"
 			            }
@@ -820,7 +820,7 @@ function otp(model){
 						// }
 						// else{
 							
-							if(model.tags.investmentType){
+							if(invType){
 								if(model.tags.schemes && model.tags.schemes.length > 0){
 									console.log(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::here::::::::::::::")
 									model.stage = 'showSchemeName'
