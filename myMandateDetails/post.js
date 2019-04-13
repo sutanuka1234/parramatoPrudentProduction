@@ -119,13 +119,256 @@ function main(req, res){
 
 //============================================================
 
+// function panMobile(model){
+// 	return new Promise(function(resolve, reject){
+// 		model=dataClean(model);
+// 		if(model.data.toLowerCase().includes("not")&&model.data.toLowerCase().includes("me")){
+// 		model.tags.mobile = false;
+// 			model.tags.pan = false;
+// 			model.tags.panMobile = false;
+// 			model.tags.notme = true
+
+// 			model.stage = "panMobile";
+// 			return resolve(model);
+// 		}
+// 		model = extractPan(model);
+// 		if(model.tags.newPan){
+// 			let temp = {pan:model.tags.pan}
+// 			if(model.tags.newFolio){
+// 				// console.log("FOLIO")
+// 				temp.folio=model.tags.folio;
+// 			}
+// 			if(model.tags.newScheme){
+// 				// console.log("SCHEME")
+// 				temp.schemes=model.tags.schemes;
+// 			}
+// 			if(model.tags.newAmount){
+// 				// console.log("AMOUNT")
+// 				temp.amount=model.tags.amount;
+// 			}
+// 			if(model.tags.newDivOption){
+// 				// console.log("DIVOPTION")
+// 				temp.divOption=model.tags.divOption;
+// 			}
+// 			model.tags=temp;
+// 			model.tags.newPan=false;
+// 			model.tags.newFolio=false;
+// 			model.tags.newScheme=false;
+// 			model.tags.newAmount=false;
+// 		}
+// 		else{
+// 				model.tags.newFolio=false;
+// 				model.tags.newScheme=false;
+// 				model.tags.newAmount=false;
+
+// 		}
+// 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
+// 			// console.log("1")
+// 			return reject(model);
+// 		}
+// 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
+// 			// console.log("2")
+// 			api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
+// 			.then(data=>{
+// 				// console.log("then")
+// 				// console.log(data.body)
+// 				let response;
+// 				try{
+// 					response = JSON.parse(data.body)
+// 				}
+// 				catch(e){
+// 					console.log(e);
+// 					if(!model.tags.mobile){
+// 						model.stage = 'mobile' 
+// 						return resolve(model)
+// 					}
+// 					else if(!model.tags.pan){
+// 						model.stage = 'pan' 
+// 						return resolve(model)
+// 					}		
+// 					return reject(model);
+// 				}
+// 				if(response.Response[0].result=="FAIL"){
+// 					if(response.Response[0]['reject_reason']=="Client does not exists."){
+// 						response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
+// 					}
+// 					let reply={
+// 		                text    : response.Response[0]['reject_reason'],
+// 		                type    : "text",
+// 		                sender  : model.sender,
+// 		                language: "en"
+// 		            }
+// 					external(reply)
+// 					.then((data)=>{ 
+// 		                model.tags={}
+// 						return resolve(model)
+// 		            })
+// 		            .catch((e)=>{
+// 		                // console.log(e);
+// 		                if(!model.tags.mobile){
+// 							model.stage = 'mobile' 
+// 							return resolve(model)
+// 						}
+// 						else if(!model.tags.pan){
+// 							model.stage = 'pan' 
+// 							return resolve(model)
+// 						}		
+// 		                return reject(model)
+// 		            })
+// 				}
+// 				else{
+// 					model.tags.session = response.Response[0].SessionId
+// 					model.stage = 'otp' 
+// 					return resolve(model)
+// 				}
+// 			})
+// 			.catch(error=>{
+// 				// console.log("catch")
+// 				console.log(error);
+// 				if(!model.tags.mobile){
+// 					model.stage = 'mobile' 
+// 					return resolve(model)
+// 				}
+// 				else if(!model.tags.pan){
+// 					model.stage = 'pan' 
+// 					return resolve(model)
+// 				}		
+// 				return reject(model)
+// 			})		
+// 		}
+// 		else if(model.data&&model.data.includes("proceed")&&(model.tags.mobile||model.tags.pan)){
+// 			// console.log("3")
+
+// 			if(!model.tags.mobile&&!model.tags.pan){
+// 				return reject(model);
+// 			}
+// 			if(!model.tags.mobile){
+// 				model.stage = 'mobile' 
+// 				return resolve(model)
+// 			}
+// 			else if(!model.tags.pan){
+// 				model.stage = 'pan' 
+// 				return resolve(model)
+// 			}
+// 		}
+// 		else{ 
+// 			// console.log("4")
+// 			model = extractMobile(model);
+// 			// model = extractAmount(model);
+// 			model = extractFolio(model);
+// 			if(model.tags.pan&&model.tags.mobile){
+// 				api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
+// 				.then(data=>{
+// 					// console.log(data.body)
+// 					let response;
+// 					try{
+// 						response = JSON.parse(data.body)
+// 					}
+// 					catch(e){// console.log(e);
+// 						if(!model.tags.mobile){
+// 							model.stage = 'mobile' 
+// 							return resolve(model)
+// 						}
+// 						else if(!model.tags.pan){
+// 							model.stage = 'pan' 
+// 							return resolve(model)
+// 						}		
+// 						return reject(model);
+// 					}
+// 					if(response.Response[0].result=="FAIL"){
+// 						if(response.Response[0]['reject_reason']=="Client does not exists."){
+// 							response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
+// 						}
+// 						let reply={
+// 			                text    : response.Response[0]['reject_reason'],
+// 			                type    : "text",
+// 			                sender  : model.sender,
+// 			                language: "en"
+// 			            }
+// 						external(reply)
+// 						.then((data)=>{  
+// 		                	model.tags={};
+// 							return resolve(model)
+// 			            })
+// 			            .catch((e)=>{
+// 			                // console.log(e);
+// 			                if(!model.tags.mobile){
+// 								model.stage = 'mobile' 
+// 								return resolve(model)
+// 							}
+// 							else if(!model.tags.pan){
+// 								model.stage = 'pan' 
+// 								return resolve(model)
+// 							}		
+// 			                return reject(model)
+// 			            })
+// 					}
+// 					else{
+// 						model.tags.session = response.Response[0].SessionId
+// 						model.stage = 'otp' 
+// 						return resolve(model)
+// 					}
+// 				})
+// 				.catch(error=>{
+// 					console.log(error);
+// 					if(!model.tags.mobile){
+// 						model.stage = 'mobile' 
+// 						return resolve(model)
+// 					}
+// 					else if(!model.tags.pan){
+// 						model.stage = 'pan' 
+// 						return resolve(model)
+// 					}		
+// 					return reject(model)
+// 				})		
+// 			}
+// 			else{
+// 				if(!model.tags.mobile&&!model.tags.pan){
+// 					return reject(model);
+// 				}
+// 				if(!model.tags.mobile){
+// 					model.stage = 'mobile' 
+// 					return resolve(model)
+// 				}
+// 				else if(!model.tags.pan){
+// 					model.stage = 'pan' 
+// 					return resolve(model)
+// 				}		
+// 				return reject(model);
+// 			}
+// 		}
+// 	})
+// }
 function panMobile(model){
-	return new Promise(function(resolve, reject){
+	return new Promise(async function(resolve, reject){
+console.log(model.data+"model.data on entry")
+		if(model && model.data) {
+			let options = {
+				'1' : 'Proceed', 
+				'2' : 'Not me',
+				'3' : 'Cancel'
+			}
+			if(options[model.data]) {
+			  model.data = options[model.data];
+			  console.log(model.data + "olllllll::::::::::::::::::::")
+			}
+		} else {
+			return reject("No data")
+		} 
+
+
+
 		model=dataClean(model);
 		if(model.data.toLowerCase().includes("not")&&model.data.toLowerCase().includes("me")){
+			model.tags.mobile = false;
+			model.tags.pan = false;
+			model.tags.panMobile= false;
 			model.stage="panMobile";
-			model.tags={}
+			model.tags.notme = true
+			// model.tags={}
+			console.log(JSON.stringify(model) + ":::::::::::PAN MOBILE")
 			return resolve(model);
+			
 		}
 		model = extractPan(model);
 		if(model.tags.newPan){
@@ -147,15 +390,15 @@ function panMobile(model){
 				temp.divOption=model.tags.divOption;
 			}
 			model.tags=temp;
-			model.tags.newPan=undefined;
-			model.tags.newFolio=undefined;
-			model.tags.newScheme=undefined;
-			model.tags.newAmount=undefined;
+			model.tags.newPan=false;
+			model.tags.newFolio=false;
+			model.tags.newScheme=false;
+			model.tags.newAmount=false;
 		}
 		else{
-				model.tags.newFolio=undefined;
-				model.tags.newScheme=undefined;
-				model.tags.newAmount=undefined;
+				model.tags.newFolio=false;
+				model.tags.newScheme=false;
+				model.tags.newAmount=false;
 
 		}
 		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
@@ -164,13 +407,13 @@ function panMobile(model){
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
 			// console.log("2")
-			api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
-			.then(data=>{
+			try{
+			let response = await api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
+			{
 				// console.log("then")
 				// console.log(data.body)
-				let response;
 				try{
-					response = JSON.parse(data.body)
+					response = JSON.parse(response.body)
 				}
 				catch(e){
 					console.log(e);
@@ -192,14 +435,16 @@ function panMobile(model){
 		                text    : response.Response[0]['reject_reason'],
 		                type    : "text",
 		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{ 
+						language: "en",
+						 projectId:"JUBI2prC24_prudentWhatsapp" 
+					}
+					try{
+					let data = await external(reply)
+				{ 
 		                model.tags={}
 						return resolve(model)
-		            })
-		            .catch((e)=>{
+		            }}
+		            catch(e){
 		                // console.log(e);
 		                if(!model.tags.mobile){
 							model.stage = 'mobile' 
@@ -210,15 +455,16 @@ function panMobile(model){
 							return resolve(model)
 						}		
 		                return reject(model)
-		            })
+		            }
 				}
 				else{
 					model.tags.session = response.Response[0].SessionId
 					model.stage = 'otp' 
 					return resolve(model)
 				}
-			})
-			.catch(error=>{
+			}
+		}
+			catch(e){
 				// console.log("catch")
 				console.log(error);
 				if(!model.tags.mobile){
@@ -230,7 +476,7 @@ function panMobile(model){
 					return resolve(model)
 				}		
 				return reject(model)
-			})		
+			}		
 		}
 		else if(model.data&&model.data.includes("proceed")&&(model.tags.mobile||model.tags.pan)){
 			// console.log("3")
@@ -253,8 +499,9 @@ function panMobile(model){
 			// model = extractAmount(model);
 			model = extractFolio(model);
 			if(model.tags.pan&&model.tags.mobile){
-				api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
-				.then(data=>{
+				try{
+				let data= await api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
+				{
 					// console.log(data.body)
 					let response;
 					try{
@@ -279,14 +526,18 @@ function panMobile(model){
 			                text    : response.Response[0]['reject_reason'],
 			                type    : "text",
 			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{  
+							language: "en" ,
+							projectId:"JUBI2prC24_prudentWhatsapp" 
+						}
+						try{
+						let data = await external(reply)
+						
+					{  
 		                	model.tags={};
 							return resolve(model)
-			            })
-			            .catch((e)=>{
+						}
+					}
+			            catch(e){
 			                // console.log(e);
 			                if(!model.tags.mobile){
 								model.stage = 'mobile' 
@@ -297,15 +548,16 @@ function panMobile(model){
 								return resolve(model)
 							}		
 			                return reject(model)
-			            })
+			            }
 					}
 					else{
 						model.tags.session = response.Response[0].SessionId
 						model.stage = 'otp' 
 						return resolve(model)
 					}
-				})
-				.catch(error=>{
+				}
+			}
+				catch(e){
 					console.log(error);
 					if(!model.tags.mobile){
 						model.stage = 'mobile' 
@@ -316,7 +568,7 @@ function panMobile(model){
 						return resolve(model)
 					}		
 					return reject(model)
-				})		
+				}		
 			}
 			else{
 				if(!model.tags.mobile&&!model.tags.pan){
@@ -336,6 +588,254 @@ function panMobile(model){
 	})
 }
 
+function panMobile(model){
+	return new Promise(async function(resolve, reject){
+console.log(model.data+"model.data on entry")
+		if(model && model.data) {
+			let options = {
+				'1' : 'Proceed', 
+				'2' : 'Not me',
+				'3' : 'Cancel'
+			}
+			if(options[model.data]) {
+			  model.data = options[model.data];
+			  console.log(model.data + "olllllll::::::::::::::::::::")
+			}
+		} else {
+			return reject("No data")
+		} 
+
+
+
+		model=dataClean(model);
+		if(model.data.toLowerCase().includes("not")&&model.data.toLowerCase().includes("me")){
+			model.tags.mobile = false;
+			model.tags.pan = false;
+			model.tags.panMobile= false;
+			model.stage="panMobile";
+			model.tags.notme = true
+			// model.tags={}
+			console.log(JSON.stringify(model) + ":::::::::::PAN MOBILE")
+			return resolve(model);
+			
+		}
+		model = extractPan(model);
+		if(model.tags.newPan){
+			let temp = {pan:model.tags.pan}
+			if(model.tags.newFolio){
+				// console.log("FOLIO")
+				temp.folio=model.tags.folio;
+			}
+			if(model.tags.newScheme){
+				// console.log("SCHEME")
+				temp.schemes=model.tags.schemes;
+			}
+			if(model.tags.newAmount){
+				// console.log("AMOUNT")
+				temp.amount=model.tags.amount;
+			}
+			if(model.tags.newDivOption){
+				// console.log("DIVOPTION")
+				temp.divOption=model.tags.divOption;
+			}
+			model.tags=temp;
+			model.tags.newPan=false;
+			model.tags.newFolio=false;
+			model.tags.newScheme=false;
+			model.tags.newAmount=false;
+		}
+		else{
+				model.tags.newFolio=false;
+				model.tags.newScheme=false;
+				model.tags.newAmount=false;
+
+		}
+		if(model.data&&!model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){	
+			// console.log("1")
+			return reject(model);
+		}
+		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
+			// console.log("2")
+			try{
+			let response = await api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
+			{
+				// console.log("then")
+				// console.log(data.body)
+				try{
+					response = JSON.parse(response.body)
+				}
+				catch(e){
+					console.log(e);
+					if(!model.tags.mobile){
+						model.stage = 'mobile' 
+						return resolve(model)
+					}
+					else if(!model.tags.pan){
+						model.stage = 'pan' 
+						return resolve(model)
+					}		
+					return reject(model);
+				}
+				if(response.Response[0].result=="FAIL"){
+					if(response.Response[0]['reject_reason']=="Client does not exists."){
+						response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
+					}
+					let reply={
+		                text    : response.Response[0]['reject_reason'],
+		                type    : "text",
+		                sender  : model.sender,
+						language: "en",
+						 projectId:"JUBI2prC24_prudentWhatsapp" 
+					}
+					try{
+					let data = await external(reply)
+				{ 
+		                model.tags={}
+						return resolve(model)
+		            }}
+		            catch(e){
+		                // console.log(e);
+		                if(!model.tags.mobile){
+							model.stage = 'mobile' 
+							return resolve(model)
+						}
+						else if(!model.tags.pan){
+							model.stage = 'pan' 
+							return resolve(model)
+						}		
+		                return reject(model)
+		            }
+				}
+				else{
+					model.tags.session = response.Response[0].SessionId
+					model.stage = 'otp' 
+					return resolve(model)
+				}
+			}
+		}
+			catch(e){
+				// console.log("catch")
+				console.log(error);
+				if(!model.tags.mobile){
+					model.stage = 'mobile' 
+					return resolve(model)
+				}
+				else if(!model.tags.pan){
+					model.stage = 'pan' 
+					return resolve(model)
+				}		
+				return reject(model)
+			}		
+		}
+		else if(model.data&&model.data.includes("proceed")&&(model.tags.mobile||model.tags.pan)){
+			// console.log("3")
+
+			if(!model.tags.mobile&&!model.tags.pan){
+				return reject(model);
+			}
+			if(!model.tags.mobile){
+				model.stage = 'mobile' 
+				return resolve(model)
+			}
+			else if(!model.tags.pan){
+				model.stage = 'pan' 
+				return resolve(model)
+			}
+		}
+		else{ 
+			// console.log("4")
+			model = extractMobile(model);
+			// model = extractAmount(model);
+			model = extractFolio(model);
+			if(model.tags.pan&&model.tags.mobile){
+				try{
+				let data= await api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
+				{
+					// console.log(data.body)
+					let response;
+					try{
+						response = JSON.parse(data.body)
+					}
+					catch(e){// console.log(e);
+						if(!model.tags.mobile){
+							model.stage = 'mobile' 
+							return resolve(model)
+						}
+						else if(!model.tags.pan){
+							model.stage = 'pan' 
+							return resolve(model)
+						}		
+						return reject(model);
+					}
+					if(response.Response[0].result=="FAIL"){
+						if(response.Response[0]['reject_reason']=="Client does not exists."){
+							response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
+						}
+						let reply={
+			                text    : response.Response[0]['reject_reason'],
+			                type    : "text",
+			                sender  : model.sender,
+							language: "en" ,
+							projectId:"JUBI2prC24_prudentWhatsapp" 
+						}
+						try{
+						let data = await external(reply)
+						
+					{  
+		                	model.tags={};
+							return resolve(model)
+						}
+					}
+			            catch(e){
+			                // console.log(e);
+			                if(!model.tags.mobile){
+								model.stage = 'mobile' 
+								return resolve(model)
+							}
+							else if(!model.tags.pan){
+								model.stage = 'pan' 
+								return resolve(model)
+							}		
+			                return reject(model)
+			            }
+					}
+					else{
+						model.tags.session = response.Response[0].SessionId
+						model.stage = 'otp' 
+						return resolve(model)
+					}
+				}
+			}
+				catch(e){
+					console.log(error);
+					if(!model.tags.mobile){
+						model.stage = 'mobile' 
+						return resolve(model)
+					}
+					else if(!model.tags.pan){
+						model.stage = 'pan' 
+						return resolve(model)
+					}		
+					return reject(model)
+				}		
+			}
+			else{
+				if(!model.tags.mobile&&!model.tags.pan){
+					return reject(model);
+				}
+				if(!model.tags.mobile){
+					model.stage = 'mobile' 
+					return resolve(model)
+				}
+				else if(!model.tags.pan){
+					model.stage = 'pan' 
+					return resolve(model)
+				}		
+				return reject(model);
+			}
+		}
+	})
+}
 function mobile(model){
 	return new Promise(function(resolve, reject){
 		    model=dataClean(model);
@@ -572,7 +1072,7 @@ function otp(model){
 
 // function holding(model){
 // 	return new Promise(function(resolve, reject){
-// 		model.tags.amount = undefined
+// 		model.tags.amount = false
 // 		model.tags.joinAccId = undefined
 // 		model.tags.tranId=undefined
 // 		model.tags.stpSchemeList=undefined
@@ -827,7 +1327,7 @@ function dataClean(model){
 
 function dateTimeFormat(dateTimeValue) {
 	if(dateTimeValue == null ){
-		return model.tags.date = undefined
+		return model.tags.date = false
 	}
     var dt = new Date(parseInt(dateTimeValue.replace(/(^.*\()|([+-].*$)/g, '')));
     var dateTimeFormat = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
