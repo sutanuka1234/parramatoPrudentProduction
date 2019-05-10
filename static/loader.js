@@ -96,14 +96,14 @@
         socket: "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js",
         responsiveVoice :"https://code.responsivevoice.org/responsivevoice.js",
         nluComponent:"https://unpkg.com/compromise@latest/builds/compromise.min.js",
-        bundle: "https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/js/bundle.js"
+        bundle: "https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/js/bundle.js"
     });
                 window.directMultiplier=1;
             window.fallbackMultiplier=0.8;
             window.speechOnBrowser="Hindi Female"
             window.speechGenderBackend="FEMALE"
             window.speechLanguageCodeBackend="en-US"
-            window.jubiUrl='https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/';
+            window.jubiUrl='https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/';
             window.jubiModal={
                 url:'wss://development.jubi.ai',
                 path:'/prudent-uat/socket',
@@ -113,7 +113,7 @@
                     },
                     css:{
                     },
-                    images:{"logo":"https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/logo.png","sendIcon":"https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/icon_send.png","sendIconActive":"https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/iconRed_send.png","loaderBotChat":"https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/response-loading.gif","userIcon":"https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/user.png","botIcon":"https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/boticon.png","logoIcon":"https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/logo-icon.png","voiceIcon":"https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/voice.png","closeWebView":"https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/closeWebView.png","attachment":"https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/attachment.png","permissionIcon":"https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/parrot_loader.gif"},
+                    images:{"logo":"https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/logo.png","sendIcon":"https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/icon_send.png","sendIconActive":"https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/iconRed_send.png","loaderBotChat":"https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/response-loading.gif","userIcon":"https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/user.png","botIcon":"https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/boticon.png","logoIcon":"https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/logo-icon.png","voiceIcon":"https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/voice.png","closeWebView":"https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/closeWebView.png","attachment":"https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/attachment.png","permissionIcon":"https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/parrot_loader.gif"},
                     text:{
                         closeMessage:'',
                         headMessage:'Ask me anything.'
@@ -124,7 +124,7 @@
             window.voiceEnable=true;
             window.chatPersistence = true;
                 window.mainpage =   '<section class="sec_main" id="jubisecmain" style="display: none;"></section>';
-                window.leftpanel =  '<div class="leftPage" id="leftpanel"><div class="leftpanelBg"><div class="leftpage_opacity">&nbsp</div></div><div class="leftContent"><div class="logo"><img src="https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/logo.png" class="img-fluid" ></div><h2>Ask me anything.</h2></div></div>';   
+                window.leftpanel =  '<div class="leftPage" id="leftpanel"><div class="leftpanelBg"><div class="leftpage_opacity">&nbsp</div></div><div class="leftContent"><div class="logo"><img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/logo.png" class="img-fluid" ></div><h2>Ask me anything.</h2></div></div>';   
                 window.rightpanel = '<div class="rightPage" id="rightpanel"><section class="jubichatbot" id="jubichatbot" style="display: none;"></section></div>';
                 window.templateOpenView = '<section class="pm-sec_calliframe" id="pm-secIframe"  style="display:none">'+
                 '<section class="pm-sec_scroll2 pm-sec_openview" id="pm-mainSec">' + 
@@ -132,7 +132,7 @@
                     '<section id="pm-heading" class="pm-sec_newHeader">'+
                         '<div class="pm-titleheader" >'+
                             '<h3>'+
-                                '<img src="https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/logo-icon.png" class="img-responsive"><span class="pm-headOnline" >&nbsp;</span>'+
+                                '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/logo-icon.png" class="img-responsive"><span class="pm-headOnline" >&nbsp;</span>'+
                             '</h3>'+
                         '</div>'+
                         '<p>Ask me anything.</p>'+
@@ -157,12 +157,12 @@
                                     '<textarea id="pm-answerBottom" placeholder="Type a message here..." style="resize:none;overflow:hidden;" autofocus></textarea>' +
                                 '</div>' +
                                 '<button id="pm-bottomClick" type="submit" onclick="return false;">'+
-                                    '<img src="https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/icon_send.png" id="graySend" class="img-responsive" style="display: block;">'+
+                                    '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/icon_send.png" id="graySend" class="img-responsive" style="display: block;">'+
                                 '</button>'+
                                 '<div class="uploadbox">' +
                                     '<label>' +
                                         '<div class="inputfile">' +
-                                            '<img src="https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/attachment.png" class="img-responsive">' +
+                                            '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/attachment.png" class="img-responsive">' +
                                             '<input class="jubi-file-upload" type="file" name="fileName" >' +
                                         '</div>' +
                                         '<div class="button-section" style="display:none">' +
@@ -182,17 +182,17 @@
 
                         '<aside class="jubi-muteUnmuteVoice">'+
                             '<div id="jubi-unmuteVoice">'+
-                                '<img src="https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/unmute.png">'+
+                                '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/unmute.png">'+
                             '</div>'+
                             '<div id="jubi-muteVoice">'+
-                                '<img src="https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/mute.png">'+
+                                '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/mute.png">'+
                             '</div>'+
                         '</aside>'+
                     
                     
                         '<div class="voice-buttons" id="voice-buttons">'+
                             '<div class="voiceIcon" id="button-play-ws">'+
-                                '<img src="https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/voice.png" class="img-fluid">'+
+                                '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/voice.png" class="img-fluid">'+
                             '</div>'+
                             '<div class="voicePulse" id="button-stop-ws">'+
                                 '<div class="sk-three-bounce">'+
@@ -209,15 +209,15 @@
                         '<div class="datasendButtons">'+
                             '<div class="sendIcon" id="button-send">'+
                                 '<button id="jubi-bottomClick" type="submit" onclick="return false;">'+
-                                    '<img src="https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/icon_send.png" id="jubi-graySend" class="img-responsive" style="display: block;">'+
-                                    '<img src="https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/iconRed_send.png" id="jubi-redSend" class="img-responsive" style="display: none;">'+
+                                    '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/icon_send.png" id="jubi-graySend" class="img-responsive" style="display: block;">'+
+                                    '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/iconRed_send.png" id="jubi-redSend" class="img-responsive" style="display: none;">'+
                                 '</button>'+
                                 
                             '</div>'+
                             '<div class="uploadbox">' +
                                 '<label>' +
                                     '<div class="inputfile">' +
-                                        '<img src="https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/attachment.png" class="img-responsive">' +
+                                        '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/attachment.png" class="img-responsive">' +
                                         '<input class="jubi-file-upload" type="file" name="fileName" >' +
                                     '</div>' +
                                     '<div class="button-section" style="display:none">' +
@@ -240,7 +240,7 @@
         '<section id="pm-heading" class="pm-sec_newHeader">'+
             '<div class="pm-titleheader" >'+
                 '<h3>'+
-                    '<img src="https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/logo-icon.png" class="img-responsive"><span class="pm-headOnline" >&nbsp;</span>'+
+                    '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/logo-icon.png" class="img-responsive"><span class="pm-headOnline" >&nbsp;</span>'+
                 '</h3>'+
             '</div>'+
             '<p>Ask me anything.</p>'+
@@ -248,7 +248,7 @@
         '<section class="pm-sec_show_option_on_start" id="pm-sec_show_option_on_start" style="display:block">'+         
             '<div class="chatProceed" id="chatProceed">'+
                 '<div class="chatProceed-botimg">'+
-                    '<img src="https://parramato.s3.ap-south-1.amazonaws.com/ClonePrudentProduction_432543815345/dev/images/parrot_loader.gif" class="img-responsive">'+
+                    '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/parrot_loader.gif" class="img-responsive">'+
                 '</div>'+
                 '<p>Welcome back! Let us begin...</p>'+
                 '<ul>'+
