@@ -1097,6 +1097,7 @@ function confirm(model){
 		if(model.data.toLowerCase().includes("yes")){
 			api.confirmRedemption(model.tags.ip,model.tags.session,model.tags.refrenceIdRedeemTxn)
 			.then((data)=>{
+				console.log("here it comes")
 				console.log(data.body)
 				try{
 					data = JSON.parse(data.body)
