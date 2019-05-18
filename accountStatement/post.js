@@ -165,7 +165,7 @@ function panMobile(model){
 			return reject(model);
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
-			// console.log("2")
+			console.log("2")
 			api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				// console.log("then")
