@@ -394,7 +394,7 @@ function panMobile(model) {
 
 			switch (model.data) {
 				case "proceed":
-					console.log(JSON.stringify(model.tags) + "+++++++====================model.data when case is 1")
+					console.log(model.data+ "+++++++====================model.data when case is 1")
 					if (model.tags.newPan) {
 						console.log("???yaha kya")
 						let temp = { pan: model.tags.pan, mobile: model.tags.mobile, investmentType: model.tags.investmentType } // I HAVE ADDED MOBILE TO THE MODEL HERE WHICH WAS MISSING
