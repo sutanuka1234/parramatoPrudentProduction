@@ -150,7 +150,8 @@ function panMobile(model){
 	            }
 			}
 		}
-		console.log(model.tags.schemes)
+		//console.log(model.tags.schemes)
+		console.log(model.data+"model.data")
 		return resolve(model)
 
 			if (model.tags && model.tags.panmobileerr) {

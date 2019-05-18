@@ -1,8 +1,8 @@
 "use strict"
-module.exports={
-	main:main
+module.exports = {
+	main: main
 }
-let data=require('../data.json')
+let data = require('../data.json')
 let api = require('../api.js')
 let external = require('../external.js')
 let words = require('../words.js')
@@ -16,37 +16,37 @@ const uuidv1 = require('uuid/v1');
 let path = require("path");
 
 let obj = {
-	panMobile : panMobile,
-	mobile	: mobile,
-	pan		: pan,
-	otp		: otp,
-	agreement	: agreement,
-	investmentType :investmentType,
-	askSchemeName : askSchemeName,
-	showSchemeName : showSchemeName,
-	divOps 	: divOps,
-	amount 	: amount,
-	holding : holding,
-	additional : additional,
+	panMobile: panMobile,
+	mobile: mobile,
+	pan: pan,
+	otp: otp,
+	agreement: agreement,
+	investmentType: investmentType,
+	askSchemeName: askSchemeName,
+	showSchemeName: showSchemeName,
+	divOps: divOps,
+	amount: amount,
+	holding: holding,
+	additional: additional,
 	sipInstallments: sipInstallments,
-	euin: euin , 
-	folio 	: folio,
-	sipDay	: sipDay,
-	bankMandate : bankMandate
+	euin: euin,
+	folio: folio,
+	sipDay: sipDay,
+	bankMandate: bankMandate
 }
 
 
 
 
-let regexMobile	= /[789]\d{9}/gi
-let regexPan 	= /[a-z]{3}p[a-z]\d{4}[a-z]|[a-z]{3}h[a-z]\d{4}[a-z]/
-let number		= /\d+/
-let regexAmount	= /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/gi
-let divOption 	= /re(-|\s)?invest|pay(\s)?out/
-let regexFolio 	= /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
-let schemeType 	= /dividend|growth/
-let regexOtp    = /\d{6}/
-let amc = [  
+let regexMobile = /[789]\d{9}/gi
+let regexPan = /[a-z]{3}p[a-z]\d{4}[a-z]|[a-z]{3}h[a-z]\d{4}[a-z]/
+let number = /\d+/
+let regexAmount = /(\d{7}|\d{6}|\d{5}|\d{4}|\d{3}|\d{2}(k|l)|\d{1}(k|l))/gi
+let divOption = /re(-|\s)?invest|pay(\s)?out/
+let regexFolio = /i?\s*(have|my)?\s*a?\s*folio\s*(n(umber|um|o)?)?\s*(is|=|:)?\s*(\d+|new folio)/
+let schemeType = /dividend|growth/
+let regexOtp = /\d{6}/
+let amc = [
 	'kotak',
 	'birla',
 	'sun life',
@@ -88,55 +88,55 @@ let amc = [
 	'principal pnb'
 ]
 
-let sortedJourney=["panMobile",
-"mobile",
-"pan",
-"otp",
-"agreement",
-"investmentType",
-"askSchemeName",
-"showSchemeName",
-"holding",
-"additional",
-"euin",
-"folio",
-"divOps",
-"amount",
-"sipDay",
-"sipInstallments",
-"bankMandate",
-"summary"]
+let sortedJourney = ["panMobile",
+	"mobile",
+	"pan",
+	"otp",
+	"agreement",
+	"investmentType",
+	"askSchemeName",
+	"showSchemeName",
+	"holding",
+	"additional",
+	"euin",
+	"folio",
+	"divOps",
+	"amount",
+	"sipDay",
+	"sipInstallments",
+	"bankMandate",
+	"summary"]
 
 let greeting = ["Hope you are doing great today", "Good to see you!", "Hope you are having a good time", "Hope you are doing well today."]
 
-function main(req, res){
-		// console.log(req.params.stage)
-		var buttonStageArr=req.body.data.split("|||")
-		if(buttonStageArr.length==2&&obj[buttonStageArr[0]]){
-			req.body.data=buttonStageArr[1]
-			// // console.log(req.params.stage+":::"+buttonStageArr[0])
-			// if(req.params.stage!=buttonStageArr[0]&&sortedJourney.indexOf(req.params.stage)>sortedJourney.indexOf(buttonStageArr[0])){
-			// 		req.params.stage=buttonStageArr[0];
-			// 		delete req.body.stage
-			// }
-		}
-		
-		if(obj[req.params.stage]){
-			obj[req.params.stage](req.body)
-			.then((data)=>{
+function main(req, res) {
+	// console.log(req.params.stage)
+	var buttonStageArr = req.body.data.split("|||")
+	if (buttonStageArr.length == 2 && obj[buttonStageArr[0]]) {
+		req.body.data = buttonStageArr[1]
+		// // console.log(req.params.stage+":::"+buttonStageArr[0])
+		// if(req.params.stage!=buttonStageArr[0]&&sortedJourney.indexOf(req.params.stage)>sortedJourney.indexOf(buttonStageArr[0])){
+		// 		req.params.stage=buttonStageArr[0];
+		// 		delete req.body.stage
+		// }
+	}
+
+	if (obj[req.params.stage]) {
+		obj[req.params.stage](req.body)
+			.then((data) => {
 				// console.log("3")
 				res.send(data)
 			})
-			.catch((e)=>{
+			.catch((e) => {
 				// // console.log(e)
 				res.sendStatus(203)
 			})
-		}
-		else{
-				// console.log("No such function available")
-				res.sendStatus(203)
-		}
-		
+	}
+	else {
+		// console.log("No such function available")
+		res.sendStatus(203)
+	}
+
 }
 
 //============================================================
@@ -383,21 +383,21 @@ function panMobile(model) {
 
 		try {
 			model = dataClean(model);
-			
-			if(model.tags && model.tags.selectedSchemeName) {
+
+			if (model.tags && model.tags.selectedSchemeName) {
 				model.tags.selectedSchemeName = undefined
 			}
-			if(model.tags && model.tags.isScehmaSelected) {
+			if (model.tags && model.tags.isScehmaSelected) {
 				model.tags.isScehmaSelected = undefined
 			}
-			
+
 
 			switch (model.data) {
 				case "proceed":
 					console.log(JSON.stringify(model.tags) + "+++++++====================model.data when case is 1")
 					if (model.tags.newPan) {
 						console.log("???yaha kya")
-						let temp = { pan: model.tags.pan, mobile: model.tags.mobile,investmentType:model.tags.investmentType} // I HAVE ADDED MOBILE TO THE MODEL HERE WHICH WAS MISSING
+						let temp = { pan: model.tags.pan, mobile: model.tags.mobile, investmentType: model.tags.investmentType } // I HAVE ADDED MOBILE TO THE MODEL HERE WHICH WAS MISSING
 						if (model.tags.newFolio) {
 
 							temp.folio = model.tags.folio;
@@ -415,10 +415,10 @@ function panMobile(model) {
 						if (model.tags.investmentType) {
 							temp.investmentType = model.tags.investmentType
 						}
-						let invType=""
-		if(model.tags.investmentType){
-			invType=model.tags.investmentType
-		}
+						let invType = ""
+						if (model.tags.investmentType) {
+							invType = model.tags.investmentType
+						}
 						model.tags = temp;
 						model.tags.newPan = false;
 						model.tags.newFolio = false;
@@ -468,7 +468,7 @@ function panMobile(model) {
 				model = extractSchemeName(model);
 				model = extractInvetmentType(model)
 				model = extractAmount(model);
-				console.log("panmobilestage investmnt "+model.tags.investmentType)
+				console.log("panmobilestage investmnt " + model.tags.investmentType)
 			}
 			// console.log("model.tags.mobile    ++++" +JSON.stringify(model))
 			if (model.tags.pan && model.tags.mobile) {
@@ -529,7 +529,7 @@ function panMobile(model) {
 			// 	model.stage = 'mobile'
 			// 	return resolve(model)
 			// }
-			
+
 			return reject(model)
 		}
 	})
@@ -654,212 +654,214 @@ function mobile(model) {
 	})
 }
 
-function pan(model){
-	return new Promise(async function(resolve, reject){
+function pan(model) {
+	return new Promise(async function (resolve, reject) {
 		model = dataClean(model);
 		model = extractPan(model);
-		 model = extractDivOption(model);
-		model=await extractSchemeName(model);
-		model=extractInvetmentType(model)
+		model = extractDivOption(model);
+		model = await extractSchemeName(model);
+		model = extractInvetmentType(model)
 		model = extractAmount(model);
 		// model = extractFolio(model);
-		 console.log(model.tags.investmentType+"---&&--ghgkh")
-			// // console.log("TAGG")
-			// // console.log(JSON.stringify(model.tags,null,3))
-		if(model.tags.pan&&model.tags.mobile){
-			api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
-			.then(data=>{
-				// // console.log(data.body)
-				let response;
-				try{
-					response = JSON.parse(data.body)
-				}
-				catch(e){console.log(e);
-					return reject(model);
-				}
-				if(response.Response[0].result=="FAIL"){
-					if(response.Response[0]['reject_reason']=="Client does not exists."){
-						response.Response[0]['reject_reason']="Your pan and mobile combination does not seem to be valid."
+		console.log(model.tags.investmentType + "---&&--ghgkh")
+		// // console.log("TAGG")
+		// // console.log(JSON.stringify(model.tags,null,3))
+		if (model.tags.pan && model.tags.mobile) {
+			api.panMobile(model.tags.ip, model.tags.mobile, model.tags.pan)
+				.then(data => {
+					// // console.log(data.body)
+					let response;
+					try {
+						response = JSON.parse(data.body)
 					}
-					let reply={
-		                text    : response.Response[0]['reject_reason'],
-		                type    : "text",
-		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{
-		                model.stage = 'panMobile' 
-		                model.tags={};
+					catch (e) {
+						console.log(e);
+						return reject(model);
+					}
+					if (response.Response[0].result == "FAIL") {
+						if (response.Response[0]['reject_reason'] == "Client does not exists.") {
+							response.Response[0]['reject_reason'] = "Your pan and mobile combination does not seem to be valid."
+						}
+						let reply = {
+							text: response.Response[0]['reject_reason'],
+							type: "text",
+							sender: model.sender,
+							language: "en"
+						}
+						external(reply)
+							.then((data) => {
+								model.stage = 'panMobile'
+								model.tags = {};
+								return resolve(model)
+							})
+							.catch((e) => {
+								console.log(e);
+								return reject(model)
+							})
+					}
+					else {
+						model.tags.session = response.Response[0].SessionId
+						model.stage = 'otp'
 						return resolve(model)
-		            })
-		            .catch((e)=>{
-		                console.log(e);
-		                return reject(model)
-		            })
-				}
-				else{
-					model.tags.session = response.Response[0].SessionId
-					model.stage = 'otp' 
-					return resolve(model)
-				}
-			})
-			.catch(error=>{
-				// console.log(error);
-				return reject(model)
-			})		
+					}
+				})
+				.catch(error => {
+					// console.log(error);
+					return reject(model)
+				})
 		}
-		else if(model.tags.pan){
-			model.stage = 'mobile' 
+		else if (model.tags.pan) {
+			model.stage = 'mobile'
 			return resolve(model)
 		}
-		else{
+		else {
 			return reject(model);
 		}
 	})
 }
 
-function otp(model){
-	return new Promise(async function(resolve, reject){
+function otp(model) {
+	return new Promise(async function (resolve, reject) {
 
 		// model.tags.mobileEntered=false;
 		model = dataClean(model);
 		model = extractOTP(model);
-		 model = extractDivOption(model);
+		model = extractDivOption(model);
 		model = await extractSchemeName(model);
 		//model=extractInvetmentType(model);
-		 console.log("-----------------otp ------------???"+model.tags.investmentType)
-		if(model.data.toLowerCase().includes('re send')||model.data.toLowerCase().includes('resend')){
-			api.resendOtp(model.tags.ip,model.tags.session)
-			.then((response)=>{
-				// // console.log(response.body)
-				try{
-					response = JSON.parse(response.body)
-				}
-				catch(e){
+		console.log("-----------------otp ------------???" + model.tags.investmentType)
+		if (model.data.toLowerCase().includes('re send') || model.data.toLowerCase().includes('resend')) {
+			api.resendOtp(model.tags.ip, model.tags.session)
+				.then((response) => {
+					// // console.log(response.body)
+					try {
+						response = JSON.parse(response.body)
+					}
+					catch (e) {
+						// console.log(e)
+						reject(model)
+					}
+					if (response.Response) {
+						model.tags.resend = true
+						resolve(model)
+					}
+					else {
+						reject(model)
+					}
+				})
+				.catch(e => {
 					// console.log(e)
 					reject(model)
-				}
-				if(response.Response){
-					model.tags.resend = true
-					resolve(model)
-				}
-				else{
-					reject(model)
-				}
-			})
-			.catch(e=>{
-				// console.log(e)
-				reject(model)
-			})
+				})
 		}
-		else if(model.tags.otp){
-			api.otp(model.tags.ip,model.tags.session, model.tags.otp)
-			.then(data=>{
-				try{
-					// // console.log(data.body)
-					let response;
-					try{
-						response = JSON.parse(data.body)
-					}
-					catch(e){console.log(e);
-						return reject(model);
-					}
-					if(response.Response[0].result=="FAIL"){
-						let reply={
-			                text    : response.Response[0]['reject_reason'],
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
-							return reject(model)//wrongResolve
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-					}
-					else{
-						model.tags.joinAcc = response.Response
-						// console.log("sent message")
-						model.tags.investorName=model.tags.joinAcc[0].JoinHolderName.split("/")[0];
-						sendExternalMessage(model,"Hi "+model.tags.joinAcc[0].JoinHolderName.split("/")[0]+", "+greeting[Math.floor(Math.random()* 3)]);
-						model.tags.joinAccIdList = []
-						response.Response.forEach(function(element){
-							model.tags.joinAccIdList.push(element.JoinAccId.toString())
-						})
-						model.tags.joinAccList = []
-						for(let i in model.tags.joinAcc){
-							model.tags.joinAccList.push({
-								title: 'Holding Patterns',
-								text : model.tags.joinAcc[i].JoinHolderName,
-								buttons : [{
-									data : "holding|||"+model.tags.joinAcc[i].JoinAccId,
-									text : 'Select'
-								}]
-							})
+		else if (model.tags.otp) {
+			api.otp(model.tags.ip, model.tags.session, model.tags.otp)
+				.then(data => {
+					try {
+						// // console.log(data.body)
+						let response;
+						try {
+							response = JSON.parse(data.body)
 						}
-						if(model.tags.schemes && model.tags.schemes.length > 0){
-							model.tags.schemeList = []
-							for(let element of model.tags.schemes){
-								model.tags.schemeList.push({
-									title 	: 'Schemes',
-									text 	: element.target,
-									buttons : [
-										{
-											text : 'Select',
-											data : "showSchemeName|||"+element.target
-										}
-									]
+						catch (e) {
+							console.log(e);
+							return reject(model);
+						}
+						if (response.Response[0].result == "FAIL") {
+							let reply = {
+								text: response.Response[0]['reject_reason'],
+								type: "text",
+								sender: model.sender,
+								language: "en"
+							}
+							external(reply)
+								.then((data) => {
+									return reject(model)//wrongResolve
+								})
+								.catch((e) => {
+									console.log(e);
+									return reject(model)
+								})
+						}
+						else {
+							model.tags.joinAcc = response.Response
+							// console.log("sent message")
+							model.tags.investorName = model.tags.joinAcc[0].JoinHolderName.split("/")[0];
+							sendExternalMessage(model, "Hi " + model.tags.joinAcc[0].JoinHolderName.split("/")[0] + ", " + greeting[Math.floor(Math.random() * 3)]);
+							model.tags.joinAccIdList = []
+							response.Response.forEach(function (element) {
+								model.tags.joinAccIdList.push(element.JoinAccId.toString())
+							})
+							model.tags.joinAccList = []
+							for (let i in model.tags.joinAcc) {
+								model.tags.joinAccList.push({
+									title: 'Holding Patterns',
+									text: model.tags.joinAcc[i].JoinHolderName,
+									buttons: [{
+										data: "holding|||" + model.tags.joinAcc[i].JoinAccId,
+										text: 'Select'
+									}]
 								})
 							}
-						}
-						// if(model.tags.investmentType){
-						// 	if(model.tags.schemes && model.tags.schemes.length > 0){
-						// 		model.stage = 'showSchemeName'
-						// 		return resolve(model)
-						// 	}
-						// 	else{
-						// 		model.stage = 'askSchemeName'
-						// 		return resolve(model)
-						// 	}
-						// }
-						// else{
+							if (model.tags.schemes && model.tags.schemes.length > 0) {
+								model.tags.schemeList = []
+								for (let element of model.tags.schemes) {
+									model.tags.schemeList.push({
+										title: 'Schemes',
+										text: element.target,
+										buttons: [
+											{
+												text: 'Select',
+												data: "showSchemeName|||" + element.target
+											}
+										]
+									})
+								}
+							}
+							// if(model.tags.investmentType){
+							// 	if(model.tags.schemes && model.tags.schemes.length > 0){
+							// 		model.stage = 'showSchemeName'
+							// 		return resolve(model)
+							// 	}
+							// 	else{
+							// 		model.stage = 'askSchemeName'
+							// 		return resolve(model)
+							// 	}
+							// }
+							// else{
 
-		
-							if(model.tags.investmentType){
-								if(model.tags.schemes && model.tags.schemes.length > 0){
+
+							if (model.tags.investmentType) {
+								if (model.tags.schemes && model.tags.schemes.length > 0) {
 									console.log(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::here::::::::::::::")
 									model.stage = 'showSchemeName'
 									return resolve(model);
 								}
-								else{
+								else {
 									model.stage = 'askSchemeName'
 									return resolve(model);
 								}
 							}
-							else{
+							else {
 								console.log("save investmentType")
-								model.stage="investmentType"
+								model.stage = "investmentType"
 								return resolve(model);
 							}
-						// }
+							// }
 
+						}
 					}
-				}
-				catch(e){
-					console.log(e);
-					return reject(model);
-				}
-			})
-			.catch(error=>{
-				// console.log(error);
-				return reject(model)
-			})
+					catch (e) {
+						console.log(e);
+						return reject(model);
+					}
+				})
+				.catch(error => {
+					// console.log(error);
+					return reject(model)
+				})
 		}
-		else{
+		else {
 			return reject(model)
 		}
 	})
@@ -868,68 +870,68 @@ function otp(model){
 //============================================================
 
 
-function agreement(model){
-	return new Promise(function(resolve,reject){
+function agreement(model) {
+	return new Promise(function (resolve, reject) {
 		console.log(model.tags.schemeApiDetails)
-		if(model.data.toLowerCase().trim().includes("i accept and agree")){
-			if(model.tags.additional){
-				model.tags.schemeApiDetails=model.tags.termsAdditional
+		if (model.data.toLowerCase().trim().includes("i accept and agree")) {
+			if (model.tags.additional) {
+				model.tags.schemeApiDetails = model.tags.termsAdditional
 			}
-			if(model.tags.decideStage){
-				model.stage=model.tags.decideStage;
+			if (model.tags.decideStage) {
+				model.stage = model.tags.decideStage;
 			}
-			else{
+			else {
 				delete model.stage;
 			}
 			return resolve(model);
 		}
-		else{
+		else {
 			return reject(model);
 		}
 	})
 }
 
 
-function investmentType(model){
-	return new Promise(function(resolve, reject){
-		if(model.data.toLowerCase().includes("lumpsum")||model.data.toLowerCase().includes("one time")){
+function investmentType(model) {
+	return new Promise(function (resolve, reject) {
+		if (model.data.toLowerCase().includes("lumpsum") || model.data.toLowerCase().includes("one time")) {
 			console.log("here _________lumpsum")
-			model.tags.investmentType="lumpsum"
-			if(model.tags.schemes && model.tags.schemes.length > 0){
+			model.tags.investmentType = "lumpsum"
+			if (model.tags.schemes && model.tags.schemes.length > 0) {
 				model.stage = 'showSchemeName'
 				return resolve(model)
 			}
-			else{
+			else {
 				model.stage = 'askSchemeName'
 				console.log("there")
 				return resolve(model);
 			}
 		}
-		else if(model.data.toLowerCase().includes("sip")||model.data.toLowerCase().includes("systematic")){
-			model.tags.investmentType="sip"
+		else if (model.data.toLowerCase().includes("sip") || model.data.toLowerCase().includes("systematic")) {
+			model.tags.investmentType = "sip"
 			console.log("here SIP")
-			if(model.tags.schemes && model.tags.schemes.length > 0){
+			if (model.tags.schemes && model.tags.schemes.length > 0) {
 				model.stage = 'showSchemeName'
 				return resolve(model)
 			}
-			else{
+			else {
 				model.stage = 'askSchemeName'
 				console.log("there")
 				return resolve(model);
 			}
 		}
-		else{
+		else {
 			return reject(model);
 		}
-		
+
 	});
 }
 
 
 
-function askSchemeName(model){
-	return new Promise(function(resolve, reject){
-		if(model.data.toLowerCase().includes("cancel")||model.data.toLowerCase().includes("stop")||model.data.toLowerCase().trim()=="exit"){
+function askSchemeName(model) {
+	return new Promise(function (resolve, reject) {
+		if (model.data.toLowerCase().includes("cancel") || model.data.toLowerCase().includes("stop") || model.data.toLowerCase().trim() == "exit") {
 			return reject(model)
 		}
 		// model = extractDivOption(model)
@@ -941,35 +943,35 @@ function askSchemeName(model){
 		// }
 		console.log("inside ask scheme purchase")
 		console.log(model.data)
-		let dataAmc=getAmcNamesEntityReplaced(model.data);
-		model.data=dataAmc.text
+		let dataAmc = getAmcNamesEntityReplaced(model.data);
+		model.data = dataAmc.text
 		let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
-		if(model.tags.schemes===undefined){
-			model.tags.schemes=[]
+		if (model.tags.schemes === undefined) {
+			model.tags.schemes = []
 		}
-		if(matches.bestMatch.rating>0.9){
+		if (matches.bestMatch.rating > 0.9) {
 			// // console.log("nine")
 			model.tags.schemes.push(matches.bestMatch.target)
 		}
-		else if(matches.bestMatch.rating>0.10||dataAmc.flag){
+		else if (matches.bestMatch.rating > 0.10 || dataAmc.flag) {
 			// // console.log("one")
-			matches.ratings=matches.ratings.sort(sortBy('-rating'));
-			model.tags.schemes = matches.ratings.splice(0,9);
+			matches.ratings = matches.ratings.sort(sortBy('-rating'));
+			model.tags.schemes = matches.ratings.splice(0, 9);
 		}
-		else{
+		else {
 			// // console.log("undefined")
 			return reject(model);
 		}
-		if(model.tags.schemes){
+		if (model.tags.schemes) {
 			model.tags.schemeList = []
-			model.tags.schemes.forEach(function(element){
+			model.tags.schemes.forEach(function (element) {
 				model.tags.schemeList.push({
-					title 	: 'Schemes',
-					text 	: element.target,
-					buttons : [
+					title: 'Schemes',
+					text: element.target,
+					buttons: [
 						{
-							text : 'Select',
-							data : "showSchemeName|||"+element.target
+							text: 'Select',
+							data: "showSchemeName|||" + element.target
 						}
 					]
 				})
@@ -981,9 +983,9 @@ function askSchemeName(model){
 	})
 }
 
-function showSchemeName(model){
-	return new Promise(function(resolve, reject){
-		if(model.data.toLowerCase().includes("cancel")||model.data.toLowerCase().includes("stop")||model.data.toLowerCase().trim()=="exit"){
+function showSchemeName(model) {
+	return new Promise(function (resolve, reject) {
+		if (model.data.toLowerCase().includes("cancel") || model.data.toLowerCase().includes("stop") || model.data.toLowerCase().trim() == "exit") {
 			return reject(model)
 		}
 		// model = extractDivOption(model)
@@ -994,66 +996,66 @@ function showSchemeName(model){
 		// 	return resolve(model)
 		// }
 		model.tags.divOption = undefined
-		model.tags.schemeApiDetails=undefined
-		model.tags.tranId=undefined
-		model.tags.transactionRefId=undefined
-		model.tags.additional=false;
-		model.tags.folio=undefined;
-		if(model.tags.schemes===undefined){
-			model.tags.schemes=[]
+		model.tags.schemeApiDetails = undefined
+		model.tags.tranId = undefined
+		model.tags.transactionRefId = undefined
+		model.tags.additional = false;
+		model.tags.folio = undefined;
+		if (model.tags.schemes === undefined) {
+			model.tags.schemes = []
 		}
 		let arr = []
-		for(let i in model.tags.schemes){
+		for (let i in model.tags.schemes) {
 			arr.push(model.tags.schemes[i].target)
 		}
 		// // console.log(model.data)
 		// // console.log(JSON.stringify(model.tags.schemes))
 
-		if(arr.includes(model.data) || (model.data.toLowerCase().includes("yes")&&model.tags.schemes.length==1)){
-			if(model.tags.schemes.length==1){
-				model.tags.scheme=model.tags.schemes[0]
+		if (arr.includes(model.data) || (model.data.toLowerCase().includes("yes") && model.tags.schemes.length == 1)) {
+			if (model.tags.schemes.length == 1) {
+				model.tags.scheme = model.tags.schemes[0]
 			}
-			else{
+			else {
 				model.tags.scheme = model.data
 			}
 			model.tags.joinAccList = []
-			for(let i in model.tags.joinAcc){
+			for (let i in model.tags.joinAcc) {
 				model.tags.joinAccList.push({
 					title: 'Holding Patterns',
-					text : model.tags.joinAcc[i].JoinHolderName,
-					buttons : [{
-						data : "holding|||"+model.tags.joinAcc[i].JoinAccId,
-						text : 'Select'
+					text: model.tags.joinAcc[i].JoinHolderName,
+					buttons: [{
+						data: "holding|||" + model.tags.joinAcc[i].JoinAccId,
+						text: 'Select'
 					}]
 				})
 			}
-			model.stage="holding"
-			sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
+			model.stage = "holding"
+			sendExternalMessage(model, "Going ahead with " + model.tags.scheme)
 		}
-		else{
-			let dataAmc=getAmcNamesEntityReplaced(model.data);
-			model.data=dataAmc.text
+		else {
+			let dataAmc = getAmcNamesEntityReplaced(model.data);
+			model.data = dataAmc.text
 			let matches = stringSimilarity.findBestMatch(model.data, Object.keys(data))
-			if(matches.bestMatch.rating>0.9){
+			if (matches.bestMatch.rating > 0.9) {
 				model.tags.schemes.push(matches.bestMatch.target)
 			}
-			else if(matches.bestMatch.rating>0.10||dataAmc.flag){
-				matches.ratings=matches.ratings.sort(sortBy('-rating'));
-				model.tags.schemes = matches.ratings.splice(0,9);
+			else if (matches.bestMatch.rating > 0.10 || dataAmc.flag) {
+				matches.ratings = matches.ratings.sort(sortBy('-rating'));
+				model.tags.schemes = matches.ratings.splice(0, 9);
 			}
-			else{
+			else {
 				return reject(model);
 			}
-			if(model.tags.schemes){
+			if (model.tags.schemes) {
 				model.tags.schemeList = []
-				model.tags.schemes.forEach(function(element){
+				model.tags.schemes.forEach(function (element) {
 					model.tags.schemeList.push({
-						title 	: 'Schemes',
-						text 	: element.target,
-						buttons : [
+						title: 'Schemes',
+						text: element.target,
+						buttons: [
 							{
-								text : 'Select',
-								data :"showSchemeName|||"+element.target
+								text: 'Select',
+								data: "showSchemeName|||" + element.target
 							}
 						]
 					})
@@ -1068,783 +1070,785 @@ function showSchemeName(model){
 
 //============================================================
 
-function holding(model){
-	return new Promise(function(resolve, reject){
+function holding(model) {
+	return new Promise(function (resolve, reject) {
 		model.tags.divOption = undefined
-		model.tags.schemeApiDetails=undefined
-		model.tags.tranId=undefined
-		model.tags.transactionRefId=undefined
-		model.tags.additional=false;
-		model.tags.folio=undefined;
-		if(model.tags.joinAccIdList.includes(model.data)){
-			for (let element of model.tags.joinAcc){
+		model.tags.schemeApiDetails = undefined
+		model.tags.tranId = undefined
+		model.tags.transactionRefId = undefined
+		model.tags.additional = false;
+		model.tags.folio = undefined;
+		if (model.tags.joinAccIdList.includes(model.data)) {
+			for (let element of model.tags.joinAcc) {
 				// console.log(element.JoinAccId+"::"+model.data)
-				if(element.JoinAccId==model.data){
-					sendExternalMessage(model,"Going ahead with "+element.JoinHolderName)
+				if (element.JoinAccId == model.data) {
+					sendExternalMessage(model, "Going ahead with " + element.JoinHolderName)
 					break;
 				}
 			}
 			model.tags.joinAccId = model.data
 			// // console.log("INVESTMENT TYPE::::::::::")
 			// // console.log(model.tags.investmentType)
-			if(model.tags.investmentType=="sip"){
-				api.getScheme(model.tags.ip,model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,true)
-				.then((response)=>{
-					// // console.log(response.body)
-					try{
-						response = JSON.parse(response.body)
-						// console.log(JSON.stringify(response,null,3))
-					}
-					catch(e){
-						return reject(model)
-						// console.log(e)
-					}
-					if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
-						
-						for(let element of response.Response[0]){
-							if(element["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
-								model.tags.schemeApiDetails=element
-							}
+			if (model.tags.investmentType == "sip") {
+				api.getScheme(model.tags.ip, model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode, true)
+					.then((response) => {
+						// // console.log(response.body)
+						try {
+							response = JSON.parse(response.body)
+							// console.log(JSON.stringify(response,null,3))
 						}
-						if(model.tags.schemeApiDetails==undefined){
-							let reply={
-				                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-								model.stage = 'askSchemeName'
-								model.tags.schemes=undefined;
-								model.tags.scheme=undefined;
-								return resolve(model)
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-				        }
-				        else{
-							model.tags.euinApiDetails=response.Response[1][0];
-							model.tags.euinApiDetailsList=[];
-							if(response.Response.length>1){
-								for(let i in response.Response[1]){
-									model.tags.euinApiDetailsList.push({
-										title 	: 'Mode',
-										text 	: "Invesment through "+response.Response[1][i]["EUIN"],
-										buttons : [
-											{
-												text : 'Select',
-												data : response.Response[1][i]["ID"]
-											}
-										]
-									})
+						catch (e) {
+							return reject(model)
+							// console.log(e)
+						}
+						if (response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME) {
+
+							for (let element of response.Response[0]) {
+								if (element["SCHEMECODE"] == data[model.tags.scheme].schemeCode) {
+									model.tags.schemeApiDetails = element
 								}
 							}
-							model.tags.euinApiDetailsList.push({
-								title 	: 'Mode',
-								text 	: "Self initialized Investment",
-								buttons : [
-									{
-										text : 'Select',
-										data : "Direct"
-									}
-								]
-							})
-
-							api.getFolio(model.tags.ip, model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode,true)
-							.then(response=>{
-								// // console.log(response.body)
-								try{
-									response = JSON.parse(response.body)
+							if (model.tags.schemeApiDetails == undefined) {
+								let reply = {
+									text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
+									type: "text",
+									sender: model.sender,
+									language: "en"
 								}
-								catch(e){console.log(e);
-									return reject(model);
-								}
-								let arr = []
-								for(let i in response.Response){
-									arr.push(response.Response[i].FolioNo.toLowerCase())
-								}
-								// if(model.tags.folio && arr.includes(model.tags.folio)){
-								// 	model.stage="amount";
-								// }
-								if(response.Response.length > 0){
-									model.tags.folioList = []
-									model.tags.folioObjList=response.Response;
-									for(let i in response.Response){
-										model.tags.folioList.push({
-											data : response.Response[i].FolioNo,
-											text : response.Response[i].FolioNo
+								external(reply)
+									.then((data) => {
+										model.stage = 'askSchemeName'
+										model.tags.schemes = undefined;
+										model.tags.scheme = undefined;
+										return resolve(model)
+									})
+									.catch((e) => {
+										console.log(e);
+										return reject(model)
+									})
+							}
+							else {
+								model.tags.euinApiDetails = response.Response[1][0];
+								model.tags.euinApiDetailsList = [];
+								if (response.Response.length > 1) {
+									for (let i in response.Response[1]) {
+										model.tags.euinApiDetailsList.push({
+											title: 'Mode',
+											text: "Invesment through " + response.Response[1][i]["EUIN"],
+											buttons: [
+												{
+													text: 'Select',
+													data: response.Response[1][i]["ID"]
+												}
+											]
 										})
 									}
-									model.stage='euin'
 								}
-								else{
-									model.tags.folioNo = response.Response[0].FolioNo
-									model.stage='euin'
-								}
-								return resolve(model)
-							})
-							.catch(e=>{
-								// console.log(e)
-								return reject(model)
-							})
-						}
-					}
-					else{
-						let reply={
-			                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
-							model.stage = 'askSchemeName'
-							model.tags.schemes=undefined;
-							model.tags.scheme=undefined;
-							return resolve(model)
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-					}
-				})
-				.catch(e=>{
-					// console.log(e)
-					let reply={
-		                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-		                type    : "text",
-		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{
-						model.stage = 'askSchemeName'
-						model.tags.schemes=undefined;
-						model.tags.scheme=undefined;
-						return resolve(model)
-		            })
-		            .catch((e)=>{
-		                console.log(e);
-		                return reject(model)
-		            })
-					return reject(model)
-				})
-			}
-			else{
-				api.getExistingSchemes(model.tags.ip,model.tags.session, model.tags.joinAccId)
-				.then((response)=>{
-					try{
-						response = JSON.parse(response.body)
-					}
-					catch(e){
-						return reject(model)
-						console.log(e);
-					}
-					model.tags.existingSchemeApiDetails=response.Response[0];
-					model.tags.existingEuinApiDetails=response.Response[1][0];
-					model.tags.euinApiDetailsList=[];
-					if(response.Response.length>1){
-						for(let i in response.Response[1]){
-							model.tags.euinApiDetailsList.push({
-								title 	: 'Mode',
-								text 	: "Invesment through "+response.Response[1][i]["EUIN"],
-								buttons : [
-									{
-										text : 'Select',
-										data : response.Response[1][i]["ID"]
-									}
-								]
-							})
-						}
-					}
-					model.tags.euinApiDetailsList.push({
-						title 	: 'Mode',
-						text 	: "Self initialized Investment",
-						buttons : [
-							{
-								text : 'Select',
-								data : "Direct"
-							}
-						]
-					})
-					model.tags.existingSchemeDetailsSet=[]
-					// // console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
-					for (let existingScheme of model.tags.existingSchemeApiDetails){
-						if(existingScheme["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
-							model.tags.existingSchemeDetailsSet.push(existingScheme)
-						}
-					}
-					model.tags.additionalPossible=false;
-					if(model.tags.existingSchemeDetailsSet.length>0){
-						model.tags.additionalPossible=true;
-						delete model.stage
-						return resolve(model)		
-					}
-					else{
-						// // console.log("<1:::")
-						api.getScheme(model.tags.ip,model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
-						.then((response)=>{
-							// // console.log(response.body)
-							try{
-								response = JSON.parse(response.body)
-								// console.log(JSON.stringify(response,null,3))
-							}
-							catch(e){
-								return reject(model)
-								// console.log(e)
-							}
-
-							if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
-								for(let element of response.Response[0]){
-									if(element["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
-										model.tags.schemeApiDetails=element
-									}
-								}
-								if(model.tags.schemeApiDetails==undefined){
-									let reply={
-						                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-						                type    : "text",
-						                sender  : model.sender,
-						                language: "en"
-						            }
-									external(reply)
-									.then((data)=>{
-										model.stage = 'askSchemeName'
-										model.tags.schemes=undefined;
-										model.tags.scheme=undefined;
-										return resolve(model)
-						            })
-						            .catch((e)=>{
-						                console.log(e);
-						                return reject(model)
-						            })
-						        }
-						        else{
-									model.tags.euinApiDetails=response.Response[1][0];
-									model.tags.euinApiDetailsList=[];
-									if(response.Response.length>1){
-										for(let i in response.Response[1]){
-											model.tags.euinApiDetailsList.push({
-												title 	: 'Mode',
-												text 	: "Invesment through "+response.Response[1][i]["EUIN"],
-												buttons : [
-													{
-														text : 'Select',
-														data : response.Response[1][i]["ID"]
-													}
-												]
-											})
+								model.tags.euinApiDetailsList.push({
+									title: 'Mode',
+									text: "Self initialized Investment",
+									buttons: [
+										{
+											text: 'Select',
+											data: "Direct"
 										}
-									}
-									model.tags.euinApiDetailsList.push({
-										title 	: 'Mode',
-										text 	: "Self initialized Investment",
-										buttons : [
-											{
-												text : 'Select',
-												data : "Direct"
-											}
-										]
-									})
-						            // sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
-						            // 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
-						            // 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
-									api.getFolio(model.tags.ip,model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-									.then(response=>{
+									]
+								})
+
+								api.getFolio(model.tags.ip, model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode, true)
+									.then(response => {
 										// // console.log(response.body)
-										try{
+										try {
 											response = JSON.parse(response.body)
 										}
-										catch(e){console.log(e);
+										catch (e) {
+											console.log(e);
 											return reject(model);
 										}
 										let arr = []
-										for(let i in response.Response){
+										for (let i in response.Response) {
 											arr.push(response.Response[i].FolioNo.toLowerCase())
 										}
 										// if(model.tags.folio && arr.includes(model.tags.folio)){
 										// 	model.stage="amount";
 										// }
-										if(response.Response.length > 0){
+										if (response.Response.length > 0) {
 											model.tags.folioList = []
-											model.tags.folioObjList=response.Response;
-											for(let i in response.Response){
+											model.tags.folioObjList = response.Response;
+											for (let i in response.Response) {
 												model.tags.folioList.push({
-													data : response.Response[i].FolioNo,
-													text : response.Response[i].FolioNo
+													data: response.Response[i].FolioNo,
+													text: response.Response[i].FolioNo
 												})
 											}
-											model.stage='euin'
+											model.stage = 'euin'
 										}
-										else{
+										else {
 											model.tags.folioNo = response.Response[0].FolioNo
-											model.stage='euin'
+											model.stage = 'euin'
 										}
 										return resolve(model)
 									})
-									.catch(e=>{
+									.catch(e => {
 										// console.log(e)
 										return reject(model)
 									})
-								}
 							}
-							else{
-								let reply={
-					                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-					                type    : "text",
-					                sender  : model.sender,
-					                language: "en"
-					            }
-								external(reply)
-								.then((data)=>{
-									model.stage = 'askSchemeName'
-									model.tags.schemes=undefined;
-									model.tags.scheme=undefined;
-									return resolve(model)
-					            })
-					            .catch((e)=>{
-					                console.log(e);
-					                return reject(model)
-					            })
+						}
+						else {
+							let reply = {
+								text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
+								type: "text",
+								sender: model.sender,
+								language: "en"
 							}
-						})
-						.catch(e=>{
-							// console.log(e)
-							let reply={
-				                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
 							external(reply)
-							.then((data)=>{
+								.then((data) => {
+									model.stage = 'askSchemeName'
+									model.tags.schemes = undefined;
+									model.tags.scheme = undefined;
+									return resolve(model)
+								})
+								.catch((e) => {
+									console.log(e);
+									return reject(model)
+								})
+						}
+					})
+					.catch(e => {
+						// console.log(e)
+						let reply = {
+							text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
+							type: "text",
+							sender: model.sender,
+							language: "en"
+						}
+						external(reply)
+							.then((data) => {
 								model.stage = 'askSchemeName'
-								model.tags.schemes=undefined;
-								model.tags.scheme=undefined;
+								model.tags.schemes = undefined;
+								model.tags.scheme = undefined;
 								return resolve(model)
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
+							})
+							.catch((e) => {
+								console.log(e);
+								return reject(model)
+							})
+						return reject(model)
+					})
+			}
+			else {
+				api.getExistingSchemes(model.tags.ip, model.tags.session, model.tags.joinAccId)
+					.then((response) => {
+						try {
+							response = JSON.parse(response.body)
+						}
+						catch (e) {
 							return reject(model)
+							console.log(e);
+						}
+						model.tags.existingSchemeApiDetails = response.Response[0];
+						model.tags.existingEuinApiDetails = response.Response[1][0];
+						model.tags.euinApiDetailsList = [];
+						if (response.Response.length > 1) {
+							for (let i in response.Response[1]) {
+								model.tags.euinApiDetailsList.push({
+									title: 'Mode',
+									text: "Invesment through " + response.Response[1][i]["EUIN"],
+									buttons: [
+										{
+											text: 'Select',
+											data: response.Response[1][i]["ID"]
+										}
+									]
+								})
+							}
+						}
+						model.tags.euinApiDetailsList.push({
+							title: 'Mode',
+							text: "Self initialized Investment",
+							buttons: [
+								{
+									text: 'Select',
+									data: "Direct"
+								}
+							]
 						})
-					}
-				})
-				.catch(e=>{
-					// console.log(e)
-					return reject(model)
-				})
+						model.tags.existingSchemeDetailsSet = []
+						// // console.log(JSON.stringify(model.tags.existingSchemeApiDetails,null,3))
+						for (let existingScheme of model.tags.existingSchemeApiDetails) {
+							if (existingScheme["SCHEMECODE"] == data[model.tags.scheme].schemeCode) {
+								model.tags.existingSchemeDetailsSet.push(existingScheme)
+							}
+						}
+						model.tags.additionalPossible = false;
+						if (model.tags.existingSchemeDetailsSet.length > 0) {
+							model.tags.additionalPossible = true;
+							delete model.stage
+							return resolve(model)
+						}
+						else {
+							// // console.log("<1:::")
+							api.getScheme(model.tags.ip, model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
+								.then((response) => {
+									// // console.log(response.body)
+									try {
+										response = JSON.parse(response.body)
+										// console.log(JSON.stringify(response,null,3))
+									}
+									catch (e) {
+										return reject(model)
+										// console.log(e)
+									}
 
-				
+									if (response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME) {
+										for (let element of response.Response[0]) {
+											if (element["SCHEMECODE"] == data[model.tags.scheme].schemeCode) {
+												model.tags.schemeApiDetails = element
+											}
+										}
+										if (model.tags.schemeApiDetails == undefined) {
+											let reply = {
+												text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
+												type: "text",
+												sender: model.sender,
+												language: "en"
+											}
+											external(reply)
+												.then((data) => {
+													model.stage = 'askSchemeName'
+													model.tags.schemes = undefined;
+													model.tags.scheme = undefined;
+													return resolve(model)
+												})
+												.catch((e) => {
+													console.log(e);
+													return reject(model)
+												})
+										}
+										else {
+											model.tags.euinApiDetails = response.Response[1][0];
+											model.tags.euinApiDetailsList = [];
+											if (response.Response.length > 1) {
+												for (let i in response.Response[1]) {
+													model.tags.euinApiDetailsList.push({
+														title: 'Mode',
+														text: "Invesment through " + response.Response[1][i]["EUIN"],
+														buttons: [
+															{
+																text: 'Select',
+																data: response.Response[1][i]["ID"]
+															}
+														]
+													})
+												}
+											}
+											model.tags.euinApiDetailsList.push({
+												title: 'Mode',
+												text: "Self initialized Investment",
+												buttons: [
+													{
+														text: 'Select',
+														data: "Direct"
+													}
+												]
+											})
+											// sendExternalMessage(model,"Hurray, you are eligible to invest in "+model.tags.scheme+", following are few details about the scheme. Its current NAV is "+model.tags.schemeApiDetails["CurrentNAV"]+
+											// 	". One year return is "+model.tags.schemeApiDetails["1YearReturns"]+"%, Three years returns is "+model.tags.schemeApiDetails["1YearReturns"]+
+											// 	"%, and Five years return is "+model.tags.schemeApiDetails["5YearReturns"]+"%.")
+											api.getFolio(model.tags.ip, model.tags.session, model.data, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+												.then(response => {
+													// // console.log(response.body)
+													try {
+														response = JSON.parse(response.body)
+													}
+													catch (e) {
+														console.log(e);
+														return reject(model);
+													}
+													let arr = []
+													for (let i in response.Response) {
+														arr.push(response.Response[i].FolioNo.toLowerCase())
+													}
+													// if(model.tags.folio && arr.includes(model.tags.folio)){
+													// 	model.stage="amount";
+													// }
+													if (response.Response.length > 0) {
+														model.tags.folioList = []
+														model.tags.folioObjList = response.Response;
+														for (let i in response.Response) {
+															model.tags.folioList.push({
+																data: response.Response[i].FolioNo,
+																text: response.Response[i].FolioNo
+															})
+														}
+														model.stage = 'euin'
+													}
+													else {
+														model.tags.folioNo = response.Response[0].FolioNo
+														model.stage = 'euin'
+													}
+													return resolve(model)
+												})
+												.catch(e => {
+													// console.log(e)
+													return reject(model)
+												})
+										}
+									}
+									else {
+										let reply = {
+											text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
+											type: "text",
+											sender: model.sender,
+											language: "en"
+										}
+										external(reply)
+											.then((data) => {
+												model.stage = 'askSchemeName'
+												model.tags.schemes = undefined;
+												model.tags.scheme = undefined;
+												return resolve(model)
+											})
+											.catch((e) => {
+												console.log(e);
+												return reject(model)
+											})
+									}
+								})
+								.catch(e => {
+									// console.log(e)
+									let reply = {
+										text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
+										type: "text",
+										sender: model.sender,
+										language: "en"
+									}
+									external(reply)
+										.then((data) => {
+											model.stage = 'askSchemeName'
+											model.tags.schemes = undefined;
+											model.tags.scheme = undefined;
+											return resolve(model)
+										})
+										.catch((e) => {
+											console.log(e);
+											return reject(model)
+										})
+									return reject(model)
+								})
+						}
+					})
+					.catch(e => {
+						// console.log(e)
+						return reject(model)
+					})
+
+
 			}
 		}
-		else{
+		else {
 			return reject(model)
 		}
 	})
 }
 
-function additional(model){
-	return new Promise(function(resolve, reject){
-		if(model.data.toLowerCase().includes("yes")&&model.tags.existingSchemeDetailsSet.length>0){
-			api.getScheme(model.tags.ip,model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
-			.then((response)=>{
-				// // console.log(response.body)
-				try{
-					response = JSON.parse(response.body)
-					// console.log(JSON.stringify(response,null,3))
-				}
-				catch(e){
-					return reject(model)
-					// console.log(e)
-				}
-				let flag=false
-				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
-					for(let element of response.Response[0]){
-						if(element["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
-							flag=true;
-							console.log("ADDITIONAL::::??>>>")
-							console.log(model.tags.schemeApiDetails)
-							model.tags.termsAdditional=element
-							model.tags.additional=true;
-							if(model.tags.existingSchemeDetailsSet.length===1){
-								// // console.log("1:::")
-								model.tags.tranId=model.tags.existingSchemeDetailsSet[0]["Tranid"]
-								model.tags.folio=model.tags.existingSchemeDetailsSet[0]["FolioNo"]
-								model.tags.divOption=model.tags.existingSchemeDetailsSet[0]["DivOpt"]
-								model.tags.schemeApiDetails=model.tags.existingSchemeDetailsSet[0]
-								if(model.tags.schemeApiDetails==undefined){
-									let reply={
-						                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-						                type    : "text",
-						                sender  : model.sender,
-						                language: "en"
-						            }
-									external(reply)
-									.then((data)=>{
-										model.stage = 'askSchemeName'
-										model.tags.schemes=undefined;
-										model.tags.scheme=undefined;
-										return resolve(model)
-						            })
-						            .catch((e)=>{
-						                console.log(e);
-						                return reject(model)
-						            })
-						        }
-						        else{
-									delete model.stage;	
+function additional(model) {
+	return new Promise(function (resolve, reject) {
+		if (model.data.toLowerCase().includes("yes") && model.tags.existingSchemeDetailsSet.length > 0) {
+			api.getScheme(model.tags.ip, model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
+				.then((response) => {
+					// // console.log(response.body)
+					try {
+						response = JSON.parse(response.body)
+						// console.log(JSON.stringify(response,null,3))
+					}
+					catch (e) {
+						return reject(model)
+						// console.log(e)
+					}
+					let flag = false
+					if (response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME) {
+						for (let element of response.Response[0]) {
+							if (element["SCHEMECODE"] == data[model.tags.scheme].schemeCode) {
+								flag = true;
+								console.log("ADDITIONAL::::??>>>")
+								console.log(model.tags.schemeApiDetails)
+								model.tags.termsAdditional = element
+								model.tags.additional = true;
+								if (model.tags.existingSchemeDetailsSet.length === 1) {
+									// // console.log("1:::")
+									model.tags.tranId = model.tags.existingSchemeDetailsSet[0]["Tranid"]
+									model.tags.folio = model.tags.existingSchemeDetailsSet[0]["FolioNo"]
+									model.tags.divOption = model.tags.existingSchemeDetailsSet[0]["DivOpt"]
+									model.tags.schemeApiDetails = model.tags.existingSchemeDetailsSet[0]
+									if (model.tags.schemeApiDetails == undefined) {
+										let reply = {
+											text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
+											type: "text",
+											sender: model.sender,
+											language: "en"
+										}
+										external(reply)
+											.then((data) => {
+												model.stage = 'askSchemeName'
+												model.tags.schemes = undefined;
+												model.tags.scheme = undefined;
+												return resolve(model)
+											})
+											.catch((e) => {
+												console.log(e);
+												return reject(model)
+											})
+									}
+									else {
+										delete model.stage;
+									}
 								}
-							}
-							else if(model.tags.existingSchemeDetailsSet.length>1){
-								// // console.log(">1:::")
+								else if (model.tags.existingSchemeDetailsSet.length > 1) {
+									// // console.log(">1:::")
 
-								model.tags.additionalPossible=true;
-								model.tags.folioList = []
-								for(let i in model.tags.existingSchemeDetailsSet){
-									model.tags.folioList.push({
-										data : model.tags.existingSchemeDetailsSet[i].FolioNo,
-										text : model.tags.existingSchemeDetailsSet[i].FolioNo
-									})
+									model.tags.additionalPossible = true;
+									model.tags.folioList = []
+									for (let i in model.tags.existingSchemeDetailsSet) {
+										model.tags.folioList.push({
+											data: model.tags.existingSchemeDetailsSet[i].FolioNo,
+											text: model.tags.existingSchemeDetailsSet[i].FolioNo
+										})
+									}
+
+									delete model.stage
 								}
 
-								delete model.stage
+								return resolve(model);
 							}
-
-							return resolve(model);
+						}
+						if (!flag) {
+							return reject(model);
 						}
 					}
-					if(!flag){
+					else {
 						return reject(model);
 					}
-				}
-				else{
-					return reject(model);
-				}
-				
-			})
-			.catch((e)=>{
-				return reject(e);
-			});
-		}
-		else if(model.data.toLowerCase().includes("no")){
-			model.tags.additional=false;
-			api.getScheme(model.tags.ip,model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
-			.then((response)=>{
-				// // console.log(response.body)
-				try{
-					response = JSON.parse(response.body)
-					// console.log(JSON.stringify(response,null,3))
-				}
-				catch(e){
-					return reject(model)
-					// console.log(e)
-				}
 
-				if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
-					for(let element of response.Response[0]){
-						if(element["SCHEMECODE"]==data[model.tags.scheme].schemeCode){
-							model.tags.schemeApiDetails=element
-						}
+				})
+				.catch((e) => {
+					return reject(e);
+				});
+		}
+		else if (model.data.toLowerCase().includes("no")) {
+			model.tags.additional = false;
+			api.getScheme(model.tags.ip, model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
+				.then((response) => {
+					// // console.log(response.body)
+					try {
+						response = JSON.parse(response.body)
+						// console.log(JSON.stringify(response,null,3))
 					}
-					if(model.tags.schemeApiDetails==undefined){
-						let reply={
-			                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
-							model.stage = 'askSchemeName'
-							model.tags.schemes=undefined;
-							model.tags.scheme=undefined;
-							return resolve(model)
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-			        }
-			        else{
-						model.tags.euinApiDetails=response.Response[1][0];
-						model.tags.euinApiDetailsList=[];
-							if(response.Response.length>1){
-								for(let i in response.Response[1]){
+					catch (e) {
+						return reject(model)
+						// console.log(e)
+					}
+
+					if (response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME) {
+						for (let element of response.Response[0]) {
+							if (element["SCHEMECODE"] == data[model.tags.scheme].schemeCode) {
+								model.tags.schemeApiDetails = element
+							}
+						}
+						if (model.tags.schemeApiDetails == undefined) {
+							let reply = {
+								text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
+								type: "text",
+								sender: model.sender,
+								language: "en"
+							}
+							external(reply)
+								.then((data) => {
+									model.stage = 'askSchemeName'
+									model.tags.schemes = undefined;
+									model.tags.scheme = undefined;
+									return resolve(model)
+								})
+								.catch((e) => {
+									console.log(e);
+									return reject(model)
+								})
+						}
+						else {
+							model.tags.euinApiDetails = response.Response[1][0];
+							model.tags.euinApiDetailsList = [];
+							if (response.Response.length > 1) {
+								for (let i in response.Response[1]) {
 									model.tags.euinApiDetailsList.push({
-										title 	: 'Mode',
-										text 	: "Invesment through "+response.Response[1][i]["EUIN"],
-										buttons : [
+										title: 'Mode',
+										text: "Invesment through " + response.Response[1][i]["EUIN"],
+										buttons: [
 											{
-												text : 'Select',
-												data : response.Response[1][i]["ID"]
+												text: 'Select',
+												data: response.Response[1][i]["ID"]
 											}
 										]
 									})
 								}
 							}
 							model.tags.euinApiDetailsList.push({
-								title 	: 'Mode',
-								text 	: "Self initialized Investment",
-								buttons : [
+								title: 'Mode',
+								text: "Self initialized Investment",
+								buttons: [
 									{
-										text : 'Select',
-										data : "Direct"
+										text: 'Select',
+										data: "Direct"
 									}
 								]
 							})
-						api.getFolio(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
-						.then(response=>{
-							try{
-								response = JSON.parse(response.body)
-							}
-							catch(e){
-								// console.log(e)
-								return reject(model);
-							}
-							// // console.log(JSON.stringify(response,null,3));
-							if(response.Response.length > 0){
-								model.tags.folioList = []
-								model.tags.folioObjList=response.Response;
-								for(let i in response.Response){
-									model.tags.folioList.push({
-										data : response.Response[i].FolioNo,
-										text : response.Response[i].FolioNo
-									})
-								}
-							}
-							else{
-								model.tags.folioNo = response.Response[0].FolioNo
-							}
-							model.stage = 'euin'
-							return resolve(model)
-						})
-						.catch(e=>{
-							// console.log(e)
-							return reject(model)
-						}) 	
+							api.getFolio(model.tags.ip, model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, data[model.tags.scheme].amcCode)
+								.then(response => {
+									try {
+										response = JSON.parse(response.body)
+									}
+									catch (e) {
+										// console.log(e)
+										return reject(model);
+									}
+									// // console.log(JSON.stringify(response,null,3));
+									if (response.Response.length > 0) {
+										model.tags.folioList = []
+										model.tags.folioObjList = response.Response;
+										for (let i in response.Response) {
+											model.tags.folioList.push({
+												data: response.Response[i].FolioNo,
+												text: response.Response[i].FolioNo
+											})
+										}
+									}
+									else {
+										model.tags.folioNo = response.Response[0].FolioNo
+									}
+									model.stage = 'euin'
+									return resolve(model)
+								})
+								.catch(e => {
+									// console.log(e)
+									return reject(model)
+								})
+						}
 					}
-				}
-				else{
-					let reply={
-		                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-		                type    : "text",
-		                sender  : model.sender,
-		                language: "en"
-		            }
-					external(reply)
-					.then((data)=>{
-						model.stage = 'askSchemeName'
-						model.tags.schemes=undefined;
-						model.tags.scheme=undefined;
-						return resolve(model)
-		            })
-		            .catch((e)=>{
-		                console.log(e);
-		                return reject(model)
-		            })
-				}
-			})
-			.catch(e=>{
-				console.log(e);
-				return reject(model);
-			})
+					else {
+						let reply = {
+							text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
+							type: "text",
+							sender: model.sender,
+							language: "en"
+						}
+						external(reply)
+							.then((data) => {
+								model.stage = 'askSchemeName'
+								model.tags.schemes = undefined;
+								model.tags.scheme = undefined;
+								return resolve(model)
+							})
+							.catch((e) => {
+								console.log(e);
+								return reject(model)
+							})
+					}
+				})
+				.catch(e => {
+					console.log(e);
+					return reject(model);
+				})
 		}
-		else{
+		else {
 			return reject(model);
 		}
-	});	
+	});
 }
 
-function euin(model){
-	return new Promise(function(resolve, reject){
+function euin(model) {
+	return new Promise(function (resolve, reject) {
 		console.log(model.tags.schemeApiDetails)
-		model.tags.decideStage=undefined
-		try{
-			let euinFlag=false;
-			for(let data of model.tags.euinApiDetailsList){
-				if(data.buttons[0].data==model.data){
-					euinFlag=true;
-					if(model.data.toLowerCase().includes("direct")){
-						model.tags.euin=""
-						model.tags.existingEuinApiDetails=""
-						sendExternalMessage(model,"Hey, as you are investing by yourself, you hereby confirm that this a transaction done purely at your sole discretion, hence transaction will process in 'Execution Only' mode");
+		model.tags.decideStage = undefined
+		try {
+			let euinFlag = false;
+			for (let data of model.tags.euinApiDetailsList) {
+				if (data.buttons[0].data == model.data) {
+					euinFlag = true;
+					if (model.data.toLowerCase().includes("direct")) {
+						model.tags.euin = ""
+						model.tags.existingEuinApiDetails = ""
+						sendExternalMessage(model, "Hey, as you are investing by yourself, you hereby confirm that this a transaction done purely at your sole discretion, hence transaction will process in 'Execution Only' mode");
 					}
-					else{
-						model.tags.euin=model.data
-						model.tags.existingEuinApiDetails=model.data
+					else {
+						model.tags.euin = model.data
+						model.tags.existingEuinApiDetails = model.data
 					}
 					break;
 				}
 			}
-						
-			if(model.tags.schemeApiDetails&&model.tags.schemeApiDetails["eKYC"] == "1"){
-				model.tags.schemeApiDetails["MaximumInvestment"]="50000";
+
+			if (model.tags.schemeApiDetails && model.tags.schemeApiDetails["eKYC"] == "1") {
+				model.tags.schemeApiDetails["MaximumInvestment"] = "50000";
 			}
-			if(euinFlag){
-				if(model.tags.additional&&(model.tags.divOption==0||model.tags.divOption==1||model.tags.divOption==2&&model.tags.folio)){
-					if(model.tags.amount&&model.tags.schemeApiDetails){
-						let amount=parseFloat(model.tags.amount)
-						let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
-						let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
-						let multiple =parseFloat(model.tags.schemeApiDetails["Multiples"]) 
-						if(amount%multiple!=0){
-							model.tags.amount=undefined;
+			if (euinFlag) {
+				if (model.tags.additional && (model.tags.divOption == 0 || model.tags.divOption == 1 || model.tags.divOption == 2 && model.tags.folio)) {
+					if (model.tags.amount && model.tags.schemeApiDetails) {
+						let amount = parseFloat(model.tags.amount)
+						let minAmount = parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+						let maxAmount = parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
+						let multiple = parseFloat(model.tags.schemeApiDetails["Multiples"])
+						if (amount % multiple != 0) {
+							model.tags.amount = undefined;
 						}
-						if(amount<minAmount){
+						if (amount < minAmount) {
 							// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
-							model.tags.amount=undefined;
+							model.tags.amount = undefined;
 						}
-						else if(amount>maxAmount){
+						else if (amount > maxAmount) {
 							// sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
-							model.tags.amount=undefined;
+							model.tags.amount = undefined;
 						}
 					}
-					let schemeCode=data[model.tags.scheme].schemeCode
-					if(model.tags.amount){
-						api.insertBuyCart(model.tags.ip,model.tags.session, model.tags.joinAccId, schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
-						.then((data)=>{
-							// // console.log(data.body)
-							try{
-								data = JSON.parse(data.body)
-							}
-							catch(e){
-							     console.log(e);
-							     let reply={
-					                text    : "API Not Responding Properly",
-					                type    : "text",
-					                sender  : model.sender,
-					                language: "en"
-					            }
-								external(reply)
-								.then((data)=>{
-					                return reject(model);
-					            })
-					            .catch((e)=>{
-					                console.log(e);
-					                return reject(model)
-					            })
-							}
-							if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-								let reply={
-					                text    : data.Response[0]['reject_reason'].trim(),
-					                type    : "text",
-					                sender  : model.sender,
-					                language: "en"
-					            }
-								external(reply)
-								.then((data)=>{
-					                return reject(model);
-					            })
-					            .catch((e)=>{
-					                console.log(e);
-					                return reject(model)
-					            })
-							}
-							else if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
-								model.tags.bankMandateList = []
-								let maxAmountPossible=0;
-								// // console.log(JSON.stringify(data.Response[1],null,3))
-								let typeInv="PURCHASE"
-								if(model.tags.additional){
-									typeInv="ADDITIONALPURCHASE"
+					let schemeCode = data[model.tags.scheme].schemeCode
+					if (model.tags.amount) {
+						api.insertBuyCart(model.tags.ip, model.tags.session, model.tags.joinAccId, schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin, model.tags.additional, model.tags.tranId, model.tags.schemeApiDetails["eKYC"])
+							.then((data) => {
+								// // console.log(data.body)
+								try {
+									data = JSON.parse(data.body)
 								}
-								for(let element of data.Response[2]){
-									let uid=uuidv1();
-									session[uid]={
-										joinAccId:model.tags.joinAccId,
-										schemeCode:schemeCode,
-										typeInv:typeInv,
-										session:model.tags.session,
-										bankId:element.BankId,
-										ip:model.tags.ip
+								catch (e) {
+									console.log(e);
+									let reply = {
+										text: "API Not Responding Properly",
+										type: "text",
+										sender: model.sender,
+										language: "en"
 									}
-									model.tags.bankMandateList.push({
-										title: "Netbanking",
-										text : element.BankName,
-										buttons : [{
-											type : 'url',
-											text : 'Pay',
-											data : 'https://development.jubi.ai/prudent/api/external/pay?u='+uid
-										}]
-									})
-									setTimeout(()=>{
-										delete session[uid];
-									},1200000)
+									external(reply)
+										.then((data) => {
+											return reject(model);
+										})
+										.catch((e) => {
+											console.log(e);
+											return reject(model)
+										})
 								}
-								for(let element of data.Response[1]){
-									try{
-											if(element.DailyLimit){
-												if(maxAmountPossible<element.DailyLimit){
-													maxAmountPossible=element.DailyLimit;
+								if (data.Response && data.Response.length > 0 && data.Response[0].result == "FAIL") {
+									let reply = {
+										text: data.Response[0]['reject_reason'].trim(),
+										type: "text",
+										sender: model.sender,
+										language: "en"
+									}
+									external(reply)
+										.then((data) => {
+											return reject(model);
+										})
+										.catch((e) => {
+											console.log(e);
+											return reject(model)
+										})
+								}
+								else if (data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName) {
+									model.tags.bankMandateList = []
+									let maxAmountPossible = 0;
+									// // console.log(JSON.stringify(data.Response[1],null,3))
+									let typeInv = "PURCHASE"
+									if (model.tags.additional) {
+										typeInv = "ADDITIONALPURCHASE"
+									}
+									for (let element of data.Response[2]) {
+										let uid = uuidv1();
+										session[uid] = {
+											joinAccId: model.tags.joinAccId,
+											schemeCode: schemeCode,
+											typeInv: typeInv,
+											session: model.tags.session,
+											bankId: element.BankId,
+											ip: model.tags.ip
+										}
+										model.tags.bankMandateList.push({
+											title: "Netbanking",
+											text: element.BankName,
+											buttons: [{
+												type: 'url',
+												text: 'Pay',
+												data: 'https://development.jubi.ai/prudent/api/external/pay?u=' + uid
+											}]
+										})
+										setTimeout(() => {
+											delete session[uid];
+										}, 1200000)
+									}
+									for (let element of data.Response[1]) {
+										try {
+											if (element.DailyLimit) {
+												if (maxAmountPossible < element.DailyLimit) {
+													maxAmountPossible = element.DailyLimit;
 												}
 											}
-									}
-									catch(e){
-										console.log(e)
-									}
-									let expectedAmount=parseInt(model.tags.amount);
-									model.tags.skipMandate=false
-									if(expectedAmount<=element.DailyLimit){
+										}
+										catch (e) {
+											console.log(e)
+										}
+										let expectedAmount = parseInt(model.tags.amount);
+										model.tags.skipMandate = false
+										if (expectedAmount <= element.DailyLimit) {
 											model.tags.bankMandateList.push({
 												title: "Mandate",
-												text : element.BankName.split('-')[0]+"-"+element.MandateId+", Limit of Rs. "+element.DailyLimit.toString(),
-												buttons : [{
-													text : 'Pay',
-													data : element.MandateId
+												text: element.BankName.split('-')[0] + "-" + element.MandateId + ", Limit of Rs. " + element.DailyLimit.toString(),
+												buttons: [{
+													text: 'Pay',
+													data: element.MandateId
 												}]
 											})
-										
+
+										}
+										else {
+											model.tags.skipMandate = true
+										}
 									}
-									else{
-										model.tags.skipMandate=true
+									if (model.tags.skipMandate) {
+										sendExternalMessage(model, "Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+									}
+									// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+									if (model.tags.bankMandateList.length == 0) {
+										model.stage = 'agreement'
+										model.tags.decideStage = 'amount'
+										return resolve(model)
+									}
+									else {
+										model.stage = 'agreement'
+										model.tags.decideStage = 'bankMandate'
+										return resolve(model)
 									}
 								}
-								if(model.tags.skipMandate){
-										sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
-									}
-								// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
-								if(model.tags.bankMandateList.length==0){
-									model.stage = 'agreement'
-									model.tags.decideStage='amount'
-									return resolve(model)
+								else {
+									return reject(model)
 								}
-								else{
-									model.stage = 'agreement'
-									model.tags.decideStage='bankMandate'
-									return resolve(model)
-								}
-							}
-							else{
+							})
+							.catch((e) => {
+								console.log(e)
 								return reject(model)
-							}
-						})
-						.catch((e)=>{
-							console.log(e)
-							return reject(model)
-						})
+							})
 					}
-					else{
+					else {
 						model.stage = 'agreement'
-						model.tags.decideStage='amount'
+						model.tags.decideStage = 'amount'
 						return resolve(model)
 					}
 				}
-				else{
+				else {
 					delete model.stage
 					return resolve(model)
 				}
 			}
-			else{
+			else {
 				return reject(model);
 			}
 		}
-		catch(e){
+		catch (e) {
 			console.log(e)
 			return reject(e);
 		}
@@ -1853,255 +1857,255 @@ function euin(model){
 }
 
 
-function folio(model){
-	return new Promise(function(resolve, reject){
+function folio(model) {
+	return new Promise(function (resolve, reject) {
 		// console.log("::::::::::::::::::::::::EUIN::::::::::::::::::::::::")
 		// console.log(JSON.stringify(model.tags.euinApiDetails,null,3))
 		console.log(model.tags.schemeApiDetails)
 		let arr = []
-		for(let i in model.tags.folioList){
+		for (let i in model.tags.folioList) {
 			arr.push(model.tags.folioList[i].data)
 		}
 		model.tags.amcName = data[model.tags.scheme].amcName
-		let divFlag=true;
-		if(arr.includes(model.data)){
-			sendExternalMessage(model,"Going ahead with "+model.data)
-			
-				model.tags.folio = model.data
-				for(let i in model.tags.folioObjList){
-					if(model.tags.folioObjList[i]["DIVIDENDOPTION"]){
-						if(model.tags.folioObjList[i]["FolioNo"]==model.tags.folio||(model.tags.folioObjList[i]["FolioNo"]=="New Folio"&&model.tags.folio=="0")){
-							
-							switch(model.tags.folioObjList[i]["DIVIDENDOPTION"]){
-								case "Y": model.tags.divOption = 1
-										  sendExternalMessage(model,"Dividend option available to you is re-investment")
-										  divFlag=false;
-									break;
-								case "N": model.tags.divOption = 2
-										  sendExternalMessage(model,"Dividend option available to you is Pay out")
-										  divFlag=false;
-									break;
-								case "Z": model.tags.divOption = 0
-										  divFlag=false;
-									break;
-								default: model.tags.divOption = undefined
-										break;
-							}
-						}
-					}
-					if(data[model.tags.scheme].optionCode == 1){
-							model.tags.divOption = 0
-							divFlag=false;
-					}
-				}
-				if(model.tags.additional){
-					if(model.tags.existingSchemeApiDetails["DivOpt"]!=undefined){
-						model.tags.divOption=model.tags.existingSchemeApiDetails["DivOpt"]
-						divFlag=false;
-					}
-					else if(model.tags.existingSchemeApiDetails&&model.tags.existingSchemeApiDetails.length>0){
-						for (let scheme of model.tags.existingSchemeApiDetails){
-							if(data[model.tags.scheme].schemeCode==scheme["SCHEMECODE"]&&scheme["FolioNo"]==model.tags.folio){
-								// console.log(scheme["SCHEMECODE"]+":"+data[model.tags.scheme].schemeCode)
-								// console.log(scheme["S_Name"])
-								// console.log(scheme["DivOpt"])
-								// console.log(model.tags.folio)
-								model.tags.divOption=scheme["DivOpt"]
-								divFlag=false;
-								// console.log(scheme)
+		let divFlag = true;
+		if (arr.includes(model.data)) {
+			sendExternalMessage(model, "Going ahead with " + model.data)
+
+			model.tags.folio = model.data
+			for (let i in model.tags.folioObjList) {
+				if (model.tags.folioObjList[i]["DIVIDENDOPTION"]) {
+					if (model.tags.folioObjList[i]["FolioNo"] == model.tags.folio || (model.tags.folioObjList[i]["FolioNo"] == "New Folio" && model.tags.folio == "0")) {
+
+						switch (model.tags.folioObjList[i]["DIVIDENDOPTION"]) {
+							case "Y": model.tags.divOption = 1
+								sendExternalMessage(model, "Dividend option available to you is re-investment")
+								divFlag = false;
 								break;
-							}
+							case "N": model.tags.divOption = 2
+								sendExternalMessage(model, "Dividend option available to you is Pay out")
+								divFlag = false;
+								break;
+							case "Z": model.tags.divOption = 0
+								divFlag = false;
+								break;
+							default: model.tags.divOption = undefined
+								break;
 						}
 					}
 				}
-				// console.log(":::::::::::::::::::::::FOLIO:::::::::::::::::::::::::::::::::")
-				// console.log(model.tags.folioObjList)
-				// console.log(":::::::::::::::::::::::DIV OPTION:::::::::::::::::::::::::::::::::")
+				if (data[model.tags.scheme].optionCode == 1) {
+					model.tags.divOption = 0
+					divFlag = false;
+				}
+			}
+			if (model.tags.additional) {
+				if (model.tags.existingSchemeApiDetails["DivOpt"] != undefined) {
+					model.tags.divOption = model.tags.existingSchemeApiDetails["DivOpt"]
+					divFlag = false;
+				}
+				else if (model.tags.existingSchemeApiDetails && model.tags.existingSchemeApiDetails.length > 0) {
+					for (let scheme of model.tags.existingSchemeApiDetails) {
+						if (data[model.tags.scheme].schemeCode == scheme["SCHEMECODE"] && scheme["FolioNo"] == model.tags.folio) {
+							// console.log(scheme["SCHEMECODE"]+":"+data[model.tags.scheme].schemeCode)
+							// console.log(scheme["S_Name"])
+							// console.log(scheme["DivOpt"])
+							// console.log(model.tags.folio)
+							model.tags.divOption = scheme["DivOpt"]
+							divFlag = false;
+							// console.log(scheme)
+							break;
+						}
+					}
+				}
+			}
+			// console.log(":::::::::::::::::::::::FOLIO:::::::::::::::::::::::::::::::::")
+			// console.log(model.tags.folioObjList)
+			// console.log(":::::::::::::::::::::::DIV OPTION:::::::::::::::::::::::::::::::::")
 
 
-				if(divFlag){
-					// // console.log("1")
-					delete model.stage;
-					return resolve(model);
-				}
-				else{
-					if(model.tags.additional&&model.tags.existingSchemeDetailsSet.length>1){
-						for(let schemeVal of model.tags.existingSchemeDetailsSet){
-							if(schemeVal["FolioNo"]==model.tags.folio){
-								model.tags.tranId=schemeVal["Tranid"]
-								model.tags.schemeApiDetails=schemeVal;
-								break;
-							}
+			if (divFlag) {
+				// // console.log("1")
+				delete model.stage;
+				return resolve(model);
+			}
+			else {
+				if (model.tags.additional && model.tags.existingSchemeDetailsSet.length > 1) {
+					for (let schemeVal of model.tags.existingSchemeDetailsSet) {
+						if (schemeVal["FolioNo"] == model.tags.folio) {
+							model.tags.tranId = schemeVal["Tranid"]
+							model.tags.schemeApiDetails = schemeVal;
+							break;
 						}
 					}
-					if(model.tags.schemeApiDetails==undefined){
-						let reply={
-			                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-			                type    : "text",
-			                sender  : model.sender,
-			                language: "en"
-			            }
-						external(reply)
-						.then((data)=>{
+				}
+				if (model.tags.schemeApiDetails == undefined) {
+					let reply = {
+						text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
+						type: "text",
+						sender: model.sender,
+						language: "en"
+					}
+					external(reply)
+						.then((data) => {
 							model.stage = 'askSchemeName'
-							model.tags.schemes=undefined;
-							model.tags.scheme=undefined;
+							model.tags.schemes = undefined;
+							model.tags.scheme = undefined;
 							return resolve(model)
-			            })
-			            .catch((e)=>{
-			                console.log(e);
-			                return reject(model)
-			            })
-			        }
-			        else{
-						if(model.tags.amount&&model.tags.schemeApiDetails){
-							let amount=parseFloat(model.tags.amount)
-							let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
-							let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
-							let multiple =parseFloat(model.tags.schemeApiDetails["Multiples"]) 
-							if(amount%multiple!=0){
-								model.tags.amount=undefined;
-							}
-							if(amount<minAmount){
-								// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
-								model.tags.amount=undefined;
-							}
-							else if(amount>maxAmount){
-								// sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
-								model.tags.amount=undefined;
-							}
+						})
+						.catch((e) => {
+							console.log(e);
+							return reject(model)
+						})
+				}
+				else {
+					if (model.tags.amount && model.tags.schemeApiDetails) {
+						let amount = parseFloat(model.tags.amount)
+						let minAmount = parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+						let maxAmount = parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
+						let multiple = parseFloat(model.tags.schemeApiDetails["Multiples"])
+						if (amount % multiple != 0) {
+							model.tags.amount = undefined;
 						}
-						let schemeCode=data[model.tags.scheme].schemeCode
-						if(model.tags.amount){
-							if(model.tags.investmentType=="sip"){
-								//TODO
-								// // console.log("2")
-								model.stage = 'sipDay'
-								return resolve(model)
-							}
-							else{
+						if (amount < minAmount) {
+							// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
+							model.tags.amount = undefined;
+						}
+						else if (amount > maxAmount) {
+							// sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
+							model.tags.amount = undefined;
+						}
+					}
+					let schemeCode = data[model.tags.scheme].schemeCode
+					if (model.tags.amount) {
+						if (model.tags.investmentType == "sip") {
+							//TODO
+							// // console.log("2")
+							model.stage = 'sipDay'
+							return resolve(model)
+						}
+						else {
 
-								api.insertBuyCart(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
-								.then((data)=>{
+							api.insertBuyCart(model.tags.ip, model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin, model.tags.additional, model.tags.tranId, model.tags.schemeApiDetails["eKYC"])
+								.then((data) => {
 									// // console.log(data.body)
-									try{
+									try {
 										data = JSON.parse(data.body)
 									}
-									catch(e){
+									catch (e) {
 										console.log(e);
-										let reply={
-								                text    : "API Not Responding Properly",
-								                type    : "text",
-								                sender  : model.sender,
-								                language: "en"
-								            }
-											external(reply)
-											.then((data)=>{
+										let reply = {
+											text: "API Not Responding Properly",
+											type: "text",
+											sender: model.sender,
+											language: "en"
+										}
+										external(reply)
+											.then((data) => {
 												// console.log("api error")
-								                return reject(model);
-								            })
-								            .catch((e)=>{
-								                console.log(e);
-								                return reject(model)
-								            })
+												return reject(model);
+											})
+											.catch((e) => {
+												console.log(e);
+												return reject(model)
+											})
 										// delete model.stage
 										// return resolve(model)
 									}
-									if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
+									if (data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName) {
 										model.tags.bankMandateList = []
-										let maxAmountPossible=0;
-										for(let element of data.Response[2]){
-											let uid=uuidv1();
-											session[uid]={
-												joinAccId:model.tags.joinAccId,
-												schemeCode:schemeCode,
-												typeInv:typeInv,
-												session:model.tags.session,
-												bankId:element.BankId,
-												ip:model.tags.ip
+										let maxAmountPossible = 0;
+										for (let element of data.Response[2]) {
+											let uid = uuidv1();
+											session[uid] = {
+												joinAccId: model.tags.joinAccId,
+												schemeCode: schemeCode,
+												typeInv: typeInv,
+												session: model.tags.session,
+												bankId: element.BankId,
+												ip: model.tags.ip
 											}
 											model.tags.bankMandateList.push({
 												title: "Netbanking",
-												text : element.BankName,
-												buttons : [{
-													type : 'url',
-													text : 'Pay',
-													data : 'https://development.jubi.ai/prudent/api/external/pay?u='+uid
+												text: element.BankName,
+												buttons: [{
+													type: 'url',
+													text: 'Pay',
+													data: 'https://development.jubi.ai/prudent/api/external/pay?u=' + uid
 												}]
 											})
-											setTimeout(()=>{
+											setTimeout(() => {
 												delete session[uid];
-											},1200000)
+											}, 1200000)
 										}
-										for(let element of data.Response[1]){
-											try{
-												if(element.DailyLimit){
-													if(maxAmountPossible<=element.DailyLimit){
-														maxAmountPossible=element.DailyLimit;
+										for (let element of data.Response[1]) {
+											try {
+												if (element.DailyLimit) {
+													if (maxAmountPossible <= element.DailyLimit) {
+														maxAmountPossible = element.DailyLimit;
 													}
 												}
 											}
-											catch(e){
+											catch (e) {
 												// console.log(e)
-												model.stage="amount"
+												model.stage = "amount"
 												return resolve(model);
 											}
-											let expectedAmount=parseInt(model.tags.amount);
-											model.tags.skipMandate=false;
-											if(expectedAmount<=element.DailyLimit){
+											let expectedAmount = parseInt(model.tags.amount);
+											model.tags.skipMandate = false;
+											if (expectedAmount <= element.DailyLimit) {
 												model.tags.bankMandateList.push({
 													title: "Mandate",
-													text : element.BankName.split('-')[0]+"-"+element.MandateId+", Limit of Rs. "+element.DailyLimit.toString(),
-													buttons : [{
-														text : 'Pay',
-														data : element.MandateId
+													text: element.BankName.split('-')[0] + "-" + element.MandateId + ", Limit of Rs. " + element.DailyLimit.toString(),
+													buttons: [{
+														text: 'Pay',
+														data: element.MandateId
 													}]
 												})
 											}
-											else{
-												model.tags.skipMandate=true
+											else {
+												model.tags.skipMandate = true
 											}
 										}
-										if(model.tags.skipMandate){
-											sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+										if (model.tags.skipMandate) {
+											sendExternalMessage(model, "Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
 										}
 										// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
-										if(model.tags.bankMandateList.length==0){
+										if (model.tags.bankMandateList.length == 0) {
 											// // console.log("3")
-											model.stage="amount"
+											model.stage = "amount"
 											return resolve(model)
 										}
-										else{
+										else {
 											// // console.log("4")
 											model.stage = 'bankMandate'
 											return resolve(model)
 										}
 									}
-									else{
+									else {
 										// // console.log("5")
-										model.stage="amount"
+										model.stage = "amount"
 										return resolve(model)
 									}
 								})
-								.catch((e)=>{
+								.catch((e) => {
 
 									// console.log(e)
-									model.stage="amount"
+									model.stage = "amount"
 									return resolve(model)
 								})
-							}
-						}
-						else{
-							// // console.log("6")
-							model.stage="amount"
-							return resolve(model)
 						}
 					}
+					else {
+						// // console.log("6")
+						model.stage = "amount"
+						return resolve(model)
+					}
 				}
-			
-			
+			}
+
+
 		}
-		else{
+		else {
 			// // console.log("last reject")
 			return reject(model)
 		}
@@ -2111,157 +2115,157 @@ function folio(model){
 
 
 
-function divOps(model){
-	return new Promise(function(resolve, reject){
+function divOps(model) {
+	return new Promise(function (resolve, reject) {
 		model = extractAmount(model)
 		// model = extractFolio(model)
 		console.log(model.tags.schemeApiDetails)
-		if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')|| model.data.toLowerCase().includes('payout')){
-			
-			if(model.data.toLowerCase().includes('re invest')||model.data.toLowerCase().includes('re-invest')){
+		if (model.data.toLowerCase().includes('re invest') || model.data.toLowerCase().includes('re-invest') || model.data.toLowerCase().includes('payout')) {
+
+			if (model.data.toLowerCase().includes('re invest') || model.data.toLowerCase().includes('re-invest')) {
 				model.tags.divOption = 1
-				model.tags.divOptionText="Re-investment Option"
+				model.tags.divOptionText = "Re-investment Option"
 			}
-			else{
+			else {
 				model.tags.divOption = 2
-				model.tags.divOptionText="Payout Option"
+				model.tags.divOptionText = "Payout Option"
 			}
-			sendExternalMessage(model,"Going ahead with "+model.tags.divOptionText)
-			if(model.tags.amount&&model.tags.schemeApiDetails){
-				let amount=parseFloat(model.tags.amount)
-				let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
-				let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
-				let multiple =parseFloat(model.tags.schemeApiDetails["Multiples"]) 
-				if(amount%multiple!=0){
-					model.tags.amount=undefined;
+			sendExternalMessage(model, "Going ahead with " + model.tags.divOptionText)
+			if (model.tags.amount && model.tags.schemeApiDetails) {
+				let amount = parseFloat(model.tags.amount)
+				let minAmount = parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+				let maxAmount = parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
+				let multiple = parseFloat(model.tags.schemeApiDetails["Multiples"])
+				if (amount % multiple != 0) {
+					model.tags.amount = undefined;
 				}
-				if(amount<minAmount){
+				if (amount < minAmount) {
 					// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
-					model.tags.amount=undefined;
+					model.tags.amount = undefined;
 				}
-				else if(amount>maxAmount){
+				else if (amount > maxAmount) {
 					// sendExternalMessage(model,"Investment amount should be less than Rs "+maxAmount+".")
-					model.tags.amount=undefined;
+					model.tags.amount = undefined;
 				}
 			}
-			let schemeCode=data[model.tags.scheme].schemeCode
-			if(model.tags.amount){
-				if(model.tags.investmentType=="sip"){
+			let schemeCode = data[model.tags.scheme].schemeCode
+			if (model.tags.amount) {
+				if (model.tags.investmentType == "sip") {
 					//TODO
 					model.stage = 'sipDay'
 					return resolve(model)
 				}
-				else{
+				else {
 
-					api.insertBuyCart(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
-					.then((data)=>{
-						// // console.log(data.body)
-						try{
-							data = JSON.parse(data.body)
-						}
-						catch(e){
-							console.log(e);
-							let reply={
-					                text    : "API Not Responding Properly",
-					                type    : "text",
-					                sender  : model.sender,
-					                language: "en"
-					            }
+					api.insertBuyCart(model.tags.ip, model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin, model.tags.additional, model.tags.tranId, model.tags.schemeApiDetails["eKYC"])
+						.then((data) => {
+							// // console.log(data.body)
+							try {
+								data = JSON.parse(data.body)
+							}
+							catch (e) {
+								console.log(e);
+								let reply = {
+									text: "API Not Responding Properly",
+									type: "text",
+									sender: model.sender,
+									language: "en"
+								}
 								external(reply)
-								.then((data)=>{
-					                return reject(model);
-					            })
-					            .catch((e)=>{
-					                console.log(e);
-					                return reject(model)
-					            })
-							// delete model.stage
-							// return resolve(model)
-						}
-						if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
-							model.tags.bankMandateList = []
-							let maxAmountPossible=0;
-							for(let element of data.Response[2]){
-								let uid=uuidv1();
-									session[uid]={
-										joinAccId:model.tags.joinAccId,
-										schemeCode:schemeCode,
-										typeInv:typeInv,
-										session:model.tags.session,
-										bankId:element.BankId,
-										ip:model.tags.ip
+									.then((data) => {
+										return reject(model);
+									})
+									.catch((e) => {
+										console.log(e);
+										return reject(model)
+									})
+								// delete model.stage
+								// return resolve(model)
+							}
+							if (data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName) {
+								model.tags.bankMandateList = []
+								let maxAmountPossible = 0;
+								for (let element of data.Response[2]) {
+									let uid = uuidv1();
+									session[uid] = {
+										joinAccId: model.tags.joinAccId,
+										schemeCode: schemeCode,
+										typeInv: typeInv,
+										session: model.tags.session,
+										bankId: element.BankId,
+										ip: model.tags.ip
 									}
 									model.tags.bankMandateList.push({
 										title: "Netbanking",
-										text : element.BankName,
-										buttons : [{
-											type : 'url',
-											text : 'Pay',
-											data : 'https://development.jubi.ai/prudent/api/external/pay?u='+uid
+										text: element.BankName,
+										buttons: [{
+											type: 'url',
+											text: 'Pay',
+											data: 'https://development.jubi.ai/prudent/api/external/pay?u=' + uid
 										}]
 									})
-									setTimeout(()=>{
+									setTimeout(() => {
 										delete session[uid];
-									},1200000)
-							}
-							model.tags.skipMandate=false
-							for(let element of data.Response[1]){
-								try{
-									if(element.DailyLimit){
-										if(maxAmountPossible<=element.DailyLimit){
-											maxAmountPossible=element.DailyLimit;
+									}, 1200000)
+								}
+								model.tags.skipMandate = false
+								for (let element of data.Response[1]) {
+									try {
+										if (element.DailyLimit) {
+											if (maxAmountPossible <= element.DailyLimit) {
+												maxAmountPossible = element.DailyLimit;
+											}
 										}
 									}
-								}
-								catch(e){
-									// console.log(e)
-								}
-								let expectedAmount=parseInt(model.tags.amount);
+									catch (e) {
+										// console.log(e)
+									}
+									let expectedAmount = parseInt(model.tags.amount);
 
-								if(expectedAmount<=element.DailyLimit){
-									model.tags.bankMandateList.push({
-										title: "Mandate",
-										text : element.BankName.split('-')[0]+"-"+element.MandateId+", Limit of Rs. "+element.DailyLimit.toString(),
-										buttons : [{
-											text : 'Pay',
-											data : element.MandateId
-										}]
-									})
+									if (expectedAmount <= element.DailyLimit) {
+										model.tags.bankMandateList.push({
+											title: "Mandate",
+											text: element.BankName.split('-')[0] + "-" + element.MandateId + ", Limit of Rs. " + element.DailyLimit.toString(),
+											buttons: [{
+												text: 'Pay',
+												data: element.MandateId
+											}]
+										})
+									}
+									else {
+										model.tags.skipMandate = true
+									}
 								}
-								else{
-									model.tags.skipMandate=true
+								if (model.tags.skipMandate) {
+									sendExternalMessage(model, "Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+								}
+								// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+								if (model.tags.bankMandateList.length == 0) {
+									delete model.stage
+									return resolve(model)
+								}
+								else {
+									model.stage = 'bankMandate'
+									return resolve(model)
 								}
 							}
-							if(model.tags.skipMandate){
-									sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
-								}
-							// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
-							if(model.tags.bankMandateList.length==0){
+							else {
 								delete model.stage
 								return resolve(model)
 							}
-							else{
-								model.stage = 'bankMandate'
-								return resolve(model)
-							}
-						}
-						else{
+						})
+						.catch((e) => {
 							delete model.stage
 							return resolve(model)
-						}
-					})
-					.catch((e)=>{
-						delete model.stage
-						return resolve(model)
-					})
+						})
 				}
 			}
-			else{
+			else {
 				delete model.stage
 				return resolve(model)
 			}
 		}
-		else{
+		else {
 			return reject(model)
 		}
 	})
@@ -2272,369 +2276,369 @@ function divOps(model){
 
 //============================================================
 
-function amount(model){
-	return new Promise(function(resolve, reject){
-		model=dataClean(model)
-		model=extractAmount(model)
-		if(model.tags.amount&&model.tags.schemeApiDetails){
-			let amount=parseFloat(model.tags.amount)
-			let minAmount=parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
-			let maxAmount=parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
-			let multiple =parseFloat(model.tags.schemeApiDetails["Multiples"]) 
-			if(amount%multiple!=0){
-				model.tags.amount=undefined;
+function amount(model) {
+	return new Promise(function (resolve, reject) {
+		model = dataClean(model)
+		model = extractAmount(model)
+		if (model.tags.amount && model.tags.schemeApiDetails) {
+			let amount = parseFloat(model.tags.amount)
+			let minAmount = parseFloat(model.tags.schemeApiDetails["MinimumInvestment"])
+			let maxAmount = parseFloat(model.tags.schemeApiDetails["MaximumInvestment"])
+			let multiple = parseFloat(model.tags.schemeApiDetails["Multiples"])
+			if (amount % multiple != 0) {
+				model.tags.amount = undefined;
 			}
 			// console.log(minAmount)
 			// console.log(maxAmount)
 			// console.log(amount)
 
-			if(amount<minAmount){
+			if (amount < minAmount) {
 				// sendExternalMessage(model,"Investment amount should be greater than Rs "+minAmount+".")
-				model.tags.amount=undefined;
+				model.tags.amount = undefined;
 			}
-			else if(amount>maxAmount){
+			else if (amount > maxAmount) {
 				// sendExternalMessage(model,"Investment amount should be less than or equal to Rs "+maxAmount+".")
-				model.tags.amount=undefined;
+				model.tags.amount = undefined;
 			}
 		}
 
-		let schemeCode=data[model.tags.scheme].schemeCode
-		if(model.tags.additional&&model.tags.existingSchemeDetailsSet.length>1){
-			for(let schemeVal of model.tags.existingSchemeDetailsSet){
-				if(schemeVal["FolioNo"]==model.tags.folio){
-					model.tags.tranId=schemeVal["Tranid"]
-					model.tags.schemeApiDetails=schemeVal;
+		let schemeCode = data[model.tags.scheme].schemeCode
+		if (model.tags.additional && model.tags.existingSchemeDetailsSet.length > 1) {
+			for (let schemeVal of model.tags.existingSchemeDetailsSet) {
+				if (schemeVal["FolioNo"] == model.tags.folio) {
+					model.tags.tranId = schemeVal["Tranid"]
+					model.tags.schemeApiDetails = schemeVal;
 					break;
 				}
 			}
 		}
-		if(model.tags.schemeApiDetails==undefined){
-			let reply={
-                text    : 'The scheme '+model.tags.scheme+' cannot be purchased with this account',
-                type    : "text",
-                sender  : model.sender,
-                language: "en"
-            }
+		if (model.tags.schemeApiDetails == undefined) {
+			let reply = {
+				text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
+				type: "text",
+				sender: model.sender,
+				language: "en"
+			}
 			external(reply)
-			.then((data)=>{
-				model.stage = 'askSchemeName'
-				model.tags.schemes=undefined;
-				model.tags.scheme=undefined;
-				return resolve(model)
-            })
-            .catch((e)=>{
-                console.log(e);
-                return reject(model)
-            })
-        }
-        else{
-		
-			if(model.tags.amount){
-				if(model.tags.investmentType=="sip"){
-						//TODO
-						delete model.stage
-						return resolve(model)
-				}
-				else{
-					api.insertBuyCart(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.additional,model.tags.tranId,model.tags.schemeApiDetails["eKYC"])
-					.then((data)=>{
-						try{
-							// console.log(data.body+":>>>>>>>>>>")
-							data= JSON.parse(data.body)
-						}
-						catch(e){	
-							console.log(e);
-							let reply={
-				                text    : "API Not Responding Properly",
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-				                return reject(model);
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-							// return reject(model);
-						}
+				.then((data) => {
+					model.stage = 'askSchemeName'
+					model.tags.schemes = undefined;
+					model.tags.scheme = undefined;
+					return resolve(model)
+				})
+				.catch((e) => {
+					console.log(e);
+					return reject(model)
+				})
+		}
+		else {
 
-						if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-							let reply={
-				                text    : data.Response[0]['reject_reason'].trim(),
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-				                return reject(model);
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-						}
-						else if(data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName){
-							model.tags.bankMandateList = []
-							let maxAmountPossible=0;
-							// // console.log(JSON.stringify(data.body.Response[1],null,3))
-							let typeInv="PURCHASE"
-							if(model.tags.additional){
-								typeInv="ADDITIONALPURCHASE"
+			if (model.tags.amount) {
+				if (model.tags.investmentType == "sip") {
+					//TODO
+					delete model.stage
+					return resolve(model)
+				}
+				else {
+					api.insertBuyCart(model.tags.ip, model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin, model.tags.additional, model.tags.tranId, model.tags.schemeApiDetails["eKYC"])
+						.then((data) => {
+							try {
+								// console.log(data.body+":>>>>>>>>>>")
+								data = JSON.parse(data.body)
 							}
-							for(let element of data.Response[2]){
-								let uid=uuidv1();
-									session[uid]={
-										joinAccId:model.tags.joinAccId,
-										schemeCode:schemeCode,
-										typeInv:typeInv,
-										session:model.tags.session,
-										bankId:element.BankId,
-										ip:model.tags.ip
+							catch (e) {
+								console.log(e);
+								let reply = {
+									text: "API Not Responding Properly",
+									type: "text",
+									sender: model.sender,
+									language: "en"
+								}
+								external(reply)
+									.then((data) => {
+										return reject(model);
+									})
+									.catch((e) => {
+										console.log(e);
+										return reject(model)
+									})
+								// return reject(model);
+							}
+
+							if (data.Response && data.Response.length > 0 && data.Response[0].result == "FAIL") {
+								let reply = {
+									text: data.Response[0]['reject_reason'].trim(),
+									type: "text",
+									sender: model.sender,
+									language: "en"
+								}
+								external(reply)
+									.then((data) => {
+										return reject(model);
+									})
+									.catch((e) => {
+										console.log(e);
+										return reject(model)
+									})
+							}
+							else if (data.Response[0][0].SchemeCode && data.Response[0][0].SchemeName) {
+								model.tags.bankMandateList = []
+								let maxAmountPossible = 0;
+								// // console.log(JSON.stringify(data.body.Response[1],null,3))
+								let typeInv = "PURCHASE"
+								if (model.tags.additional) {
+									typeInv = "ADDITIONALPURCHASE"
+								}
+								for (let element of data.Response[2]) {
+									let uid = uuidv1();
+									session[uid] = {
+										joinAccId: model.tags.joinAccId,
+										schemeCode: schemeCode,
+										typeInv: typeInv,
+										session: model.tags.session,
+										bankId: element.BankId,
+										ip: model.tags.ip
 									}
-									
+
 									model.tags.bankMandateList.push({
 										title: "Netbanking",
-										text : element.BankName,
-										buttons : [{
-											type : 'url',
-											text : 'Pay',
-											data : 'https://development.jubi.ai/prudent/api/external/pay?u='+uid
+										text: element.BankName,
+										buttons: [{
+											type: 'url',
+											text: 'Pay',
+											data: 'https://development.jubi.ai/prudent/api/external/pay?u=' + uid
 										}]
 									})
-									setTimeout(()=>{
+									setTimeout(() => {
 										delete session[uid];
-									},1200000)
-							}
-							model.tags.skipMandate=false;
-							for(let element of data.Response[1]){
-								try{
-										if(element.DailyLimit){
-											if(maxAmountPossible<=element.DailyLimit){
-												maxAmountPossible=element.DailyLimit;
+									}, 1200000)
+								}
+								model.tags.skipMandate = false;
+								for (let element of data.Response[1]) {
+									try {
+										if (element.DailyLimit) {
+											if (maxAmountPossible <= element.DailyLimit) {
+												maxAmountPossible = element.DailyLimit;
 											}
 										}
-								}
-								catch(e){
-									// console.log(e)
-					                return reject(model)
-								}
-								let expectedAmount=parseInt(model.tags.amount);
-								if(expectedAmount<=element.DailyLimit){
+									}
+									catch (e) {
+										// console.log(e)
+										return reject(model)
+									}
+									let expectedAmount = parseInt(model.tags.amount);
+									if (expectedAmount <= element.DailyLimit) {
 										model.tags.bankMandateList.push({
 											title: "Mandate",
-											text : element.BankName.split('-')[0]+"-"+element.MandateId+", Limit of Rs. "+element.DailyLimit.toString(),
-											buttons : [{
-												text : 'Pay',
-												data : element.MandateId
+											text: element.BankName.split('-')[0] + "-" + element.MandateId + ", Limit of Rs. " + element.DailyLimit.toString(),
+											buttons: [{
+												text: 'Pay',
+												data: element.MandateId
 											}]
 										})
-									
-								}
-								else{
-									model.tags.skipMandate=true
-								}
-							}
-							if(model.tags.skipMandate){
-										sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+
 									}
-							// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
-							if(model.tags.bankMandateList.length==0){
-								let reply={
-					                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
-					                type    : "text",
-					                sender  : model.sender,
-					                language: "en"
-					            }
-								external(reply)
-								.then((data)=>{
-					                return reject(model);
-					            })
-					            .catch((e)=>{
-					                console.log(e);
-					                return reject(model)
-					            })
+									else {
+										model.tags.skipMandate = true
+									}
+								}
+								if (model.tags.skipMandate) {
+									sendExternalMessage(model, "Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+								}
+								// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+								if (model.tags.bankMandateList.length == 0) {
+									let reply = {
+										text: "Please choose an amount lesser than your available Bank Mandate limit of Rs " + maxAmountPossible,
+										type: "text",
+										sender: model.sender,
+										language: "en"
+									}
+									external(reply)
+										.then((data) => {
+											return reject(model);
+										})
+										.catch((e) => {
+											console.log(e);
+											return reject(model)
+										})
+								}
+								else {
+									model.stage = 'bankMandate'
+									return resolve(model)
+								}
 							}
-							else{
-								model.stage = 'bankMandate'
-								return resolve(model)
+							else {
+								// console.log(JSON.stringify(data.Response,null,3)+"--------------------")
+								return reject(model)
 							}
-						}
-						else{
-							// console.log(JSON.stringify(data.Response,null,3)+"--------------------")
+						})
+						.catch((e) => {
+							// console.log(e)
 							return reject(model)
-						}
-					})
-					.catch((e)=>{
-						// console.log(e)
-						return reject(model)
-					})
+						})
 				}
 			}
-			else{
+			else {
 				// console.log("no amount")
 				return reject(model)
-			}	
+			}
 		}
 	})
 }
 
-function sipDay(model){
-	return new Promise(function(resolve, reject){
-		try{
+function sipDay(model) {
+	return new Promise(function (resolve, reject) {
+		try {
 			// console.log("SIP:::::::::::::::::::::::::::::::::::::::"+model.tags.schemeApiDetails["SIPDays"]);
-			let text=matchAll(model.data, /(\d+)/gi).toArray();
-			if(text&&text.length>0){
-				text=parseInt(text[0]);
-				let validDate=false;
-				if(model.tags.schemeApiDetails["SIPDays"]!="ALL"){
-					let dates=model.tags.schemeApiDetails["SIPDays"].split(",");
-					for(let i in dates){
-						if(text==parseInt(dates[i].trim())){
-							validDate=true;
+			let text = matchAll(model.data, /(\d+)/gi).toArray();
+			if (text && text.length > 0) {
+				text = parseInt(text[0]);
+				let validDate = false;
+				if (model.tags.schemeApiDetails["SIPDays"] != "ALL") {
+					let dates = model.tags.schemeApiDetails["SIPDays"].split(",");
+					for (let i in dates) {
+						if (text == parseInt(dates[i].trim())) {
+							validDate = true;
 							break;
 						}
 					}
 				}
-				if((model.tags.schemeApiDetails["SIPDays"]==="ALL"&&text<=28&&text>0)||validDate){
-					model.tags.sipDay=text.toString();
-					api.getMandate(model.tags.ip,model.tags.session, model.tags.joinAccId)
-					.then((data)=>{
-						try{
-							// console.log(data.body)
-							data = JSON.parse(data.body)
-						}
-						catch(e){	
-							console.log(e);
-							let reply={
-				                text    : "API Not Responding Properly",
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-								console.log("111improper json")
-				                return reject(model);
-				            })
-				            .catch((e)=>{
-				                console.log("222"+e);
-				                return reject(model)
-				            })
-						}
-						try{
-							// data.body.Response=[]
-							if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-								let reply={
-					                text    : data.Response[0]['reject_reason'].trim(),
-					                type    : "text",
-					                sender  : model.sender,
-					                language: "en"
-					            }
-								external(reply)
-								.then((data)=>{
-									console.log("333")
-					                return reject(model);
-					            })
-					            .catch((e)=>{
-					                console.log("444"+e);
-					                return reject(model)
-					            })
+				if ((model.tags.schemeApiDetails["SIPDays"] === "ALL" && text <= 28 && text > 0) || validDate) {
+					model.tags.sipDay = text.toString();
+					api.getMandate(model.tags.ip, model.tags.session, model.tags.joinAccId)
+						.then((data) => {
+							try {
+								// console.log(data.body)
+								data = JSON.parse(data.body)
 							}
-							else if(data.Response&&data.Response.length>0){
-								model.tags.bankMandateList = []
-								let maxAmountPossible=0;
-								let typeInv="SIP"
-								for(let element of data.Response){
-									try{
-											if(element.DailyLimit){
-												if(maxAmountPossible<=element.DailyLimit){
-													maxAmountPossible=element.DailyLimit;
+							catch (e) {
+								console.log(e);
+								let reply = {
+									text: "API Not Responding Properly",
+									type: "text",
+									sender: model.sender,
+									language: "en"
+								}
+								external(reply)
+									.then((data) => {
+										console.log("111improper json")
+										return reject(model);
+									})
+									.catch((e) => {
+										console.log("222" + e);
+										return reject(model)
+									})
+							}
+							try {
+								// data.body.Response=[]
+								if (data.Response && data.Response.length > 0 && data.Response[0].result == "FAIL") {
+									let reply = {
+										text: data.Response[0]['reject_reason'].trim(),
+										type: "text",
+										sender: model.sender,
+										language: "en"
+									}
+									external(reply)
+										.then((data) => {
+											console.log("333")
+											return reject(model);
+										})
+										.catch((e) => {
+											console.log("444" + e);
+											return reject(model)
+										})
+								}
+								else if (data.Response && data.Response.length > 0) {
+									model.tags.bankMandateList = []
+									let maxAmountPossible = 0;
+									let typeInv = "SIP"
+									for (let element of data.Response) {
+										try {
+											if (element.DailyLimit) {
+												if (maxAmountPossible <= element.DailyLimit) {
+													maxAmountPossible = element.DailyLimit;
 												}
 											}
-									}
-									catch(e){
-										console.log("555"+e)
-						                return reject(model)
-									}
-									let expectedAmount=parseInt(model.tags.amount);
-									model.tags.skipMandate=false;
-									if(expectedAmount<=element.DailyLimit){
+										}
+										catch (e) {
+											console.log("555" + e)
+											return reject(model)
+										}
+										let expectedAmount = parseInt(model.tags.amount);
+										model.tags.skipMandate = false;
+										if (expectedAmount <= element.DailyLimit) {
 											model.tags.bankMandateList.push({
 												title: "Mandate",
-												text : element.BankName.split('-')[0]+"-"+element.MandateId+", Limit of Rs. "+element.DailyLimit.toString(),
-												buttons : [{
-													text : 'Pay',
-													data : element.MandateId
+												text: element.BankName.split('-')[0] + "-" + element.MandateId + ", Limit of Rs. " + element.DailyLimit.toString(),
+												buttons: [{
+													text: 'Pay',
+													data: element.MandateId
 												}]
 											})
-										
-									}
-									else{
-										model.tags.skipMandate=true
 
+										}
+										else {
+											model.tags.skipMandate = true
+
+										}
+									}
+									if (model.tags.skipMandate) {
+										sendExternalMessage(model, "Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
+									}
+									// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
+									if (model.tags.bankMandateList.length == 0) {
+										let reply = {
+											text: "Please choose an amount lesser than your available Bank Mandate limit of Rs " + maxAmountPossible,
+											type: "text",
+											sender: model.sender,
+											language: "en"
+										}
+										external(reply)
+											.then((data) => {
+												console.log("666")
+												model.stage = "amount"
+												return resolve(model);
+											})
+											.catch((e) => {
+												console.log("777" + e);
+												model.stage = "amount"
+												return resolve(model)
+											})
+									}
+									else {
+										delete model.stage
+										return resolve(model)
 									}
 								}
-								if(model.tags.skipMandate){
-									sendExternalMessage(model,"Hey, few mandates are not visible as the amount you wish to invest is higher than the mandate limit.")
-								}
-								// // console.log(JSON.stringify(model.tags.bankMandateList,null,3))
-								if(model.tags.bankMandateList.length==0){
-									let reply={
-						                text    : "Please choose an amount lesser than your available Bank Mandate limit of Rs "+maxAmountPossible,
-						                type    : "text",
-						                sender  : model.sender,
-						                language: "en"
-						            }
-									external(reply)
-									.then((data)=>{
-										console.log("666")
-										model.stage="amount"
-						                return resolve(model);
-						            })
-						            .catch((e)=>{
-						                console.log("777"+e);
-										model.stage="amount"
-						                return resolve(model)
-						            })
-								}
-								else{
-									delete model.stage
+								else {
+									sendExternalMessage(model, "Sorry, we can not continue the SIP transaction as you have no bank mandate linked");
+									model.stage = 'summary'
 									return resolve(model)
 								}
 							}
-							else{
-								sendExternalMessage(model,"Sorry, we can not continue the SIP transaction as you have no bank mandate linked");
-								model.stage = 'summary'
-								return resolve(model)
+							catch (e) {
+								console.log("888" + e);
+								return reject(model);
+
 							}
-						}
-						catch(e){
-							console.log("888"+e);
+						})
+						.catch(e => {
+							console.log("999" + e);
 							return reject(model);
-				            
-						}
-					})
-					.catch(e=>{
-						console.log("999"+e);
-						return reject(model);
-					})
+						})
 				}
-				else{
+				else {
 					console.log("101010not valid date")
 					return reject(model);
 				}
 			}
-			else{
+			else {
 				console.log("111111No number")
 				return reject(model);
 			}
 		}
-		catch(e){
-			console.log("121212"+e)
+		catch (e) {
+			console.log("121212" + e)
 			return reject(model);
 		}
 	});
@@ -2642,7 +2646,7 @@ function sipDay(model){
 function sipInstallments(model) {
 	return new Promise(async function (resolve, reject) {
 		console.log("inside sip installments posts")
-		
+
 		model.tags.sipInstallments = model.data;
 
 		console.log(typeof model.tags.sipInstallments)
@@ -2659,246 +2663,247 @@ function sipInstallments(model) {
 	});
 }
 
-function bankMandate(model){
-	return new Promise(function(resolve, reject){
+function bankMandate(model) {
+	return new Promise(function (resolve, reject) {
 		console.log(":::::::::::::::::::::::::::::::::::::")
-		console.log("User said : "+model.data)
-		if(model.data.startsWith(model.tags.session+"-payment-")&&model.data.split("-").length==3){
-			model.tags.transactionRefId=model.data.split("-")[2]
-			model.tags.status="Successful"
+		console.log("User said : " + model.data)
+		if (model.data.startsWith(model.tags.session + "-payment-") && model.data.split("-").length == 3) {
+			model.tags.transactionRefId = model.data.split("-")[2]
+			model.tags.status = "Successful"
 			// model.tags.paymentDone=true
 			delete model.stage
 			return resolve(model);
 		}
 
 		let arr = []
-		for(let i in model.tags.bankMandateList){
+		for (let i in model.tags.bankMandateList) {
 			arr.push(model.tags.bankMandateList[i].buttons[0].data)
 		}
 		// // console.log(arr)
-		if(arr.includes(model.data)){
-			if(model.data.includes("-nach")){
+		if (arr.includes(model.data)) {
+			if (model.data.includes("-nach")) {
 				// // console.log("nach")
 				return reject(model)
-				
+
 			}
-			else{
+			else {
 				model.tags.bankMandate = model.data
 
-				if(model.tags.investmentType==="sip"){
-						api.insertBuyCartSip(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin,model.tags.sipDay,model.tags.sipInstallments,model.tags.bankMandate,model.tags.schemeApiDetails["eKYC"])
-						.then((data)=>{
-							try{
+				if (model.tags.investmentType === "sip") {
+					api.insertBuyCartSip(model.tags.ip, model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.scheme, data[model.tags.scheme].amcCode, model.tags.divOption, model.tags.amount, model.tags.folio, model.tags.euin, model.tags.sipDay, model.tags.sipInstallments, model.tags.bankMandate, model.tags.schemeApiDetails["eKYC"])
+						.then((data) => {
+							try {
 								data = JSON.parse(data.body)
 							}
-							catch(e){	
+							catch (e) {
 								console.log(e);
-								let reply={
-					                text    : "API Not Responding Properly",
-					                type    : "text",
-					                sender  : model.sender,
-					                language: "en"
-					            }
+								let reply = {
+									text: "API Not Responding Properly",
+									type: "text",
+									sender: model.sender,
+									language: "en"
+								}
 								external(reply)
-								.then((data)=>{
-					                return reject(model);
-					            })
-					            .catch((e)=>{
-					                console.log(e);
-					                return reject(model)
-					            })
-							}
-							if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-								let reply={
-					                text    : data.Response[0]['reject_reason'].trim(),
-					                type    : "text",
-					                sender  : model.sender,
-					                language: "en"
-					            }
-								external(reply)
-								.then((data)=>{
-					                return reject(model);
-					            })
-					            .catch((e)=>{
-					                console.log(e);
-					                return reject(model)
-					            })
-							}
-							else{
-								model.tags.sipRefId=data.Response[0]["TranReferenceID"];
-								api.confirmSip(model.tags.ip,model.tags.session,model.tags.sipRefId)
-								.then((data)=>{
-									try{
-										data = JSON.parse(data.body)
-									}
-									catch(e){	
+									.then((data) => {
+										return reject(model);
+									})
+									.catch((e) => {
 										console.log(e);
-										let reply={
-							                text    : "API Not Responding Properly",
-							                type    : "text",
-							                sender  : model.sender,
-							                language: "en"
-							            }
-										external(reply)
-										.then((data)=>{
-							                return reject(model);
-							            })
-							            .catch((e)=>{
-							                console.log(e);
-							                return reject(model)
-							            })
-									}
-									if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-										let reply={
-							                text    : data.Response[0]['reject_reason'].trim(),
-							                type    : "text",
-							                sender  : model.sender,
-							                language: "en"
-							            }
-										external(reply)
-										.then((data)=>{
-							                return reject(model);
-							            })
-							            .catch((e)=>{
-							                console.log(e);
-							                return reject(model)
-							            })
-									}
-									else{
-										model.tags.transactionRefId=data.Response[0]["REFERENCENO"]
-										model.tags.sipRefId=model.tags.transactionRefId
-										model.tags.status="Successful"
-										model.tags.paymentDone=true
-										delete model.stage
-										return resolve(model)
+										return reject(model)
+									})
+							}
+							if (data.Response && data.Response.length > 0 && data.Response[0].result == "FAIL") {
+								let reply = {
+									text: data.Response[0]['reject_reason'].trim(),
+									type: "text",
+									sender: model.sender,
+									language: "en"
+								}
+								external(reply)
+									.then((data) => {
+										return reject(model);
+									})
+									.catch((e) => {
+										console.log(e);
+										return reject(model)
+									})
+							}
+							else {
+								model.tags.sipRefId = data.Response[0]["TranReferenceID"];
+								api.confirmSip(model.tags.ip, model.tags.session, model.tags.sipRefId)
+									.then((data) => {
+										try {
+											data = JSON.parse(data.body)
+										}
+										catch (e) {
+											console.log(e);
+											let reply = {
+												text: "API Not Responding Properly",
+												type: "text",
+												sender: model.sender,
+												language: "en"
+											}
+											external(reply)
+												.then((data) => {
+													return reject(model);
+												})
+												.catch((e) => {
+													console.log(e);
+													return reject(model)
+												})
+										}
+										if (data.Response && data.Response.length > 0 && data.Response[0].result == "FAIL") {
+											let reply = {
+												text: data.Response[0]['reject_reason'].trim(),
+												type: "text",
+												sender: model.sender,
+												language: "en"
+											}
+											external(reply)
+												.then((data) => {
+													return reject(model);
+												})
+												.catch((e) => {
+													console.log(e);
+													return reject(model)
+												})
+										}
+										else {
+											model.tags.transactionRefId = data.Response[0]["REFERENCENO"]
+											model.tags.sipRefId = model.tags.transactionRefId
+											model.tags.status = "Successful"
+											model.tags.paymentDone = true
+											delete model.stage
+											return resolve(model)
 
-									}
+										}
 
-								})
-								.catch(e=>{
-					                console.log(e);
-					                return reject(model)
-								})
+									})
+									.catch(e => {
+										console.log(e);
+										return reject(model)
+									})
 							}
 
 						})
-						.catch(e=>{
+						.catch(e => {
 							// console.log(e)
 							return reject(model)
 						})
 				}
-				else{
+				else {
 
-					api.bankMandate(model.tags.ip,model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.bankMandate, model.tags.amount,model.tags.additional)
-					.then((data)=>{
-						// console.log(data.body)
-						try{
-							data = JSON.parse(data.body)
-						}
-						catch(e){console.log(e);
-							return reject(model);
-						}
-						if(data.Response&&data.Response.length>0&&data.Response[0].result=="FAIL"){
-							let reply={
-				                text    : data.Response[0]['reject_reason'],
-				                type    : "text",
-				                sender  : model.sender,
-				                language: "en"
-				            }
-							external(reply)
-							.then((data)=>{
-				                return reject(model);
-				            })
-				            .catch((e)=>{
-				                console.log(e);
-				                return reject(model)
-				            })
-						}
-						else if(data){
-							model.tags.paymentSummary = data.Response[0]
-							model.tags.transactionRefId=model.tags.paymentSummary.ReferenceID
-							model.tags.status=model.tags.paymentSummary.STATUS
-							model.tags.paymentDone=true
-							delete model.stage
-							return resolve(model)
-						}
-					})
-					.catch(e=>{
-						// console.log(e) 
-						return reject(model)
-					})
+					api.bankMandate(model.tags.ip, model.tags.session, model.tags.joinAccId, data[model.tags.scheme].schemeCode, model.tags.bankMandate, model.tags.amount, model.tags.additional)
+						.then((data) => {
+							// console.log(data.body)
+							try {
+								data = JSON.parse(data.body)
+							}
+							catch (e) {
+								console.log(e);
+								return reject(model);
+							}
+							if (data.Response && data.Response.length > 0 && data.Response[0].result == "FAIL") {
+								let reply = {
+									text: data.Response[0]['reject_reason'],
+									type: "text",
+									sender: model.sender,
+									language: "en"
+								}
+								external(reply)
+									.then((data) => {
+										return reject(model);
+									})
+									.catch((e) => {
+										console.log(e);
+										return reject(model)
+									})
+							}
+							else if (data) {
+								model.tags.paymentSummary = data.Response[0]
+								model.tags.transactionRefId = model.tags.paymentSummary.ReferenceID
+								model.tags.status = model.tags.paymentSummary.STATUS
+								model.tags.paymentDone = true
+								delete model.stage
+								return resolve(model)
+							}
+						})
+						.catch(e => {
+							// console.log(e) 
+							return reject(model)
+						})
 				}
 			}
-			
+
 		}
-		else{
+		else {
 			return reject(model)
-		}	
+		}
 	})
 }
 
 //============================================================
 
-function sendExternalMessage(model,text){
-	let reply={
-            text    : text,
-            type    : "text",
-            sender  : model.sender,
-            language: "en"
-        }
-		external(reply)
-		.then((data)=>{ })
-        .catch((e)=>{
-            console.log(e);
-       })
+function sendExternalMessage(model, text) {
+	let reply = {
+		text: text,
+		type: "text",
+		sender: model.sender,
+		language: "en"
+	}
+	external(reply)
+		.then((data) => { })
+		.catch((e) => {
+			console.log(e);
+		})
 }
 
-function extractOTP(model){
-	if(model.data.match(regexOtp)){
+function extractOTP(model) {
+	if (model.data.match(regexOtp)) {
 		model.tags.otp = model.data.match(regexOtp)[0]
 		model.data = model.data.replace(model.tags.regexOtp, '')
 	}
 	return model;
 }
 
-function extractDivOption(model){
-	if(model.data.match(divOption)){
+function extractDivOption(model) {
+	if (model.data.match(divOption)) {
 		model.tags.divOption = model.data.match(divOption)[0]
 		model.data = model.data.replace(model.tags.divOption, '')
 	}
-	return model;			
+	return model;
 }
 
-function extractFolio(model){
-	if(model.data.match(regexFolio)){
+function extractFolio(model) {
+	if (model.data.match(regexFolio)) {
 		model.tags.folio = model.data.match(regexFolio)[0].match(/\d+|new folio/)[0]
-		if(model.tags.folio.includes("new folio")){
-			model.tags.folio="0";
+		if (model.tags.folio.includes("new folio")) {
+			model.tags.folio = "0";
 		}
 		model.data = model.data.replace(model.tags.folio, '')
 	}
 	return model;
 }
 
-function extractAmount(model){
-	if(model.data.includes(',')){
-		while(model.data.includes(','))
-    		model.data = model.data.replace(',', '')
+function extractAmount(model) {
+	if (model.data.includes(',')) {
+		while (model.data.includes(','))
+			model.data = model.data.replace(',', '')
 	}
-	if(model.data.match(/\d+\s*k/)){
+	if (model.data.match(/\d+\s*k/)) {
 		let a = model.data
-   		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
-   		model.data = model.data.replace(/\d+\s*k/, a)
+		a = a.match(/\d+\s*k/)[0].replace(/\s+/, '').replace('k', '000')
+		model.data = model.data.replace(/\d+\s*k/, a)
 	}
-    if(model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)){
-    	let a = model.data
+	if (model.data.match(/\d+(\s*)?(lakhs|lakh|lacs|l)/)) {
+		let a = model.data
 		a = a.match(/\d+\s*(lakhs|lakh|lacs|l)/)[0].replace(/\s+/, '').replace('lakhs', '00000').replace('lakh', '00000').replace('lacs', '00000').replace('l', '00000')
-    	model.data = model.data.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
-    }
+		model.data = model.data.replace(/\d+\s*(lakhs|lakh|lacs|l)/, a)
+	}
 	let text = matchAll(model.data, /(\d+)/gi).toArray()
-	for(let i in text){
-		if(text[i].length < 8){
-			if(!model.data.includes("-"+text[i])){
+	for (let i in text) {
+		if (text[i].length < 8) {
+			if (!model.data.includes("-" + text[i])) {
 				model.tags.amount = text[i]
 			}
 			model.data = model.data.replace(text[i], '')
@@ -2909,24 +2914,24 @@ function extractAmount(model){
 	return model;
 }
 
-function extractMobile(model){
+function extractMobile(model) {
 	let text = matchAll(model.data, /(\d+)/gi).toArray()
 
 	// // console.log(text)
-	for(let i in text){
-		if(text[i].length == 10){
+	for (let i in text) {
+		if (text[i].length == 10) {
 			model.tags.mobile = text[i]
 			model.data = model.data.replace(model.tags.mobile, '')
 			// // console.log(model.tags.mobile+"mobile")
 			break;
 		}
-		else if(text[i].length == 11&&text[i].startsWith("0")){
+		else if (text[i].length == 11 && text[i].startsWith("0")) {
 			model.tags.mobile = text[i].substring(1, 11)
 			model.data = model.data.replace(model.tags.mobile, '')
 			// console.log(model.tags.mobile+"mobile")
 			break;
 		}
-		else if(text[i].length == 12&&text[i].startsWith("91")){
+		else if (text[i].length == 12 && text[i].startsWith("91")) {
 			model.tags.mobile = text[i].substring(2, 12)
 			model.data = model.data.replace(model.tags.mobile, '')
 			// console.log(model.tags.mobile+"mobile")
@@ -2936,143 +2941,143 @@ function extractMobile(model){
 	return model;
 }
 
-function extractPan(model){
-	let matchPan=model.data.match(regexPan)
+function extractPan(model) {
+	let matchPan = model.data.match(regexPan)
 	// // console.log(matchPan)
-	if(matchPan&&matchPan.length>0&&matchPan[0]){
+	if (matchPan && matchPan.length > 0 && matchPan[0]) {
 
-		if(matchPan[0]!=model.tags.pan){
+		if (matchPan[0] != model.tags.pan) {
 			model.tags.newPan = true;
 		}
 		model.tags.pan = matchPan[0]
-		model.data=model.data.replace(model.tags.pan, '')
+		model.data = model.data.replace(model.tags.pan, '')
 		// // console.log(model.tags.pan+"pan")
 	}
 	return model;
 }
 
-function extractInvetmentType(model){
-	if(model.data.toLowerCase().includes("lumpsum")||model.data.toLowerCase().includes("one time")){
-			model.data=model.data.replace("lumpsum","")
-			model.data = model.data.replace("one time","")
-			model.tags.investmentType="lumpsum"
+function extractInvetmentType(model) {
+	if (model.data.toLowerCase().includes("lumpsum") || model.data.toLowerCase().includes("one time")) {
+		model.data = model.data.replace("lumpsum", "")
+		model.data = model.data.replace("one time", "")
+		model.tags.investmentType = "lumpsum"
 
 	}
-	else if(model.data.toLowerCase().includes("sip")||model.data.toLowerCase().includes("systematic")||model.data.toLowerCase().includes("monthly")){
-			model.data=model.data.replace("sip","")
-			model.data = model.data.replace("systematic","")
-			model.data = model.data.replace("monthly","")
-			model.tags.investmentType="sip"
-			console.log(model.tags.investmentType+"abcdef")
+	else if (model.data.toLowerCase().includes("sip") || model.data.toLowerCase().includes("systematic") || model.data.toLowerCase().includes("monthly")) {
+		model.data = model.data.replace("sip", "")
+		model.data = model.data.replace("systematic", "")
+		model.data = model.data.replace("monthly", "")
+		model.tags.investmentType = "sip"
+		console.log(model.tags.investmentType + "abcdef")
 	}
 	return model;
 }
 
-async function extractSchemeName(model){
-		let schemeNames = Object.keys(await readSchemes());
-		let dataAmc=getAmcNamesEntityReplaced(model.data);
-		model.data=dataAmc.text
-		let wordsInUserSays=model.data.toLowerCase().split(" ");
-		let count=0;
-		let startIndex;
-		let endIndex;
-		let amcIndex;
-		let amcFlag;
-		for(let wordIndex in wordsInUserSays){
-			if(words.includes(wordsInUserSays[wordIndex])){
-				count++;
-				if(count==1){
-					startIndex=wordIndex;
-					endIndex=wordIndex;
-				}
-				else{
-					endIndex=wordIndex;
-				}
+async function extractSchemeName(model) {
+	let schemeNames = Object.keys(await readSchemes());
+	let dataAmc = getAmcNamesEntityReplaced(model.data);
+	model.data = dataAmc.text
+	let wordsInUserSays = model.data.toLowerCase().split(" ");
+	let count = 0;
+	let startIndex;
+	let endIndex;
+	let amcIndex;
+	let amcFlag;
+	for (let wordIndex in wordsInUserSays) {
+		if (words.includes(wordsInUserSays[wordIndex])) {
+			count++;
+			if (count == 1) {
+				startIndex = wordIndex;
+				endIndex = wordIndex;
 			}
-			if(amc.includes(wordsInUserSays[wordIndex])&&!amcFlag){
-				amcIndex=wordIndex;
-				amcFlag=true;
+			else {
+				endIndex = wordIndex;
 			}
 		}
-		if(amcFlag){
-			// 	startIndex=amcIndex
-			// }
-
-			if(count>0){
-				let searchTerm=""
-				for(let i=parseInt(startIndex);i<=parseInt(endIndex);i++){
-					searchTerm+=wordsInUserSays[i]+" "
-				}
-				searchTerm=searchTerm.trim();
-				// // console.log(searchTerm)
-				let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
-				if(matches.bestMatch.rating>0.9){
-					model.tags.schemes = []
-					model.tags.schemes.push(matches.bestMatch.target)
-				}
-				else if(matches.bestMatch.rating>0.4||dataAmc.flag){
-					model.tags.schemes = []
-					matches.ratings=matches.ratings.sort(sortBy('-rating'));
-					model.tags.schemes = matches.ratings.splice(0,9);
-				}
-			}
+		if (amc.includes(wordsInUserSays[wordIndex]) && !amcFlag) {
+			amcIndex = wordIndex;
+			amcFlag = true;
 		}
-		return model;
-}
-function readSchemes(){
-	return new Promise((resolve,reject)=>{
+	}
+	if (amcFlag) {
+		// 	startIndex=amcIndex
+		// }
 
-		fs.readFile(path.resolve(__dirname, "../data.json"), 'utf8', function(err, data) {
-            if(err){
-                return reject(err)
-            }
-            console.log(typeof data)
-            return resolve(JSON.parse(data));
-        });
-	})
-}
-
-var amcsEntities={
-	"Axis":["axis"],
-	"Baroda Pioneer":["baroda pioneer","baroda"],
-	"Aditya Birla Sun Life":["birla sun life","birla","sun life","bnp"],
-	"BNP Paribas":["bnp paribas","bnp","paribas"],
-	"BOI AXA":["boi axa investment managers","boi","axa"],
-	"Canara Robeco":["canara robeco","canara"],
-	"DSP BlackRock":["dsp blackrock", "dsp"],
-	"Franklin":["franklin templeton","franklin","ft"],
-	"HDFC":["hdfc"],
-	"ICICI Prudential":["icici prudential","icici"],
-	"IDBI":["idbi"],
-	"IDFC":["idfc"],
-	"Kotak":["kotak mahindra","kotak","mahindra"],
-	"L&T":["l and t","lnt","l and t","l&t"],
-	"LIC MF":["lic nomura","lic"],
-	"Mirae Asset":["mirae asset global investments","mirae"],
-	"Motilal Oswal":["motilal oswal asset management services","motilal"],
-	"DHFL Pramerica":["dhfl pramerica","dhfl"],
-	"Principal":["principal pnb asset management company","pnb","principal","principal pnb"],
-	"Reliance":["reliance"],
-	"Invesco":["religare invesco","religare","invesco"],
-	"SBI":["sbi"],
-	"Sundaram":["sundaram"],
-	"Tata":["tata"],
-	"UTI":["uti"]
-}
-function getAmcNamesEntityReplaced(text){
-	let flag;
-	for(let amcElement in amcsEntities){
-		for(let alias of amcsEntities[amcElement]){
-			if(text.includes(alias)){
-				text=text.replace(alias,amcElement);
-				flag=true;		
+		if (count > 0) {
+			let searchTerm = ""
+			for (let i = parseInt(startIndex); i <= parseInt(endIndex); i++) {
+				searchTerm += wordsInUserSays[i] + " "
+			}
+			searchTerm = searchTerm.trim();
+			// // console.log(searchTerm)
+			let matches = stringSimilarity.findBestMatch(searchTerm, schemeNames)
+			if (matches.bestMatch.rating > 0.9) {
+				model.tags.schemes = []
+				model.tags.schemes.push(matches.bestMatch.target)
+			}
+			else if (matches.bestMatch.rating > 0.4 || dataAmc.flag) {
+				model.tags.schemes = []
+				matches.ratings = matches.ratings.sort(sortBy('-rating'));
+				model.tags.schemes = matches.ratings.splice(0, 9);
 			}
 		}
 	}
-	return {text:text,flag:flag};
+	return model;
 }
-function dataClean(model){
+function readSchemes() {
+	return new Promise((resolve, reject) => {
+
+		fs.readFile(path.resolve(__dirname, "../data.json"), 'utf8', function (err, data) {
+			if (err) {
+				return reject(err)
+			}
+			console.log(typeof data)
+			return resolve(JSON.parse(data));
+		});
+	})
+}
+
+var amcsEntities = {
+	"Axis": ["axis"],
+	"Baroda Pioneer": ["baroda pioneer", "baroda"],
+	"Aditya Birla Sun Life": ["birla sun life", "birla", "sun life", "bnp"],
+	"BNP Paribas": ["bnp paribas", "bnp", "paribas"],
+	"BOI AXA": ["boi axa investment managers", "boi", "axa"],
+	"Canara Robeco": ["canara robeco", "canara"],
+	"DSP BlackRock": ["dsp blackrock", "dsp"],
+	"Franklin": ["franklin templeton", "franklin", "ft"],
+	"HDFC": ["hdfc"],
+	"ICICI Prudential": ["icici prudential", "icici"],
+	"IDBI": ["idbi"],
+	"IDFC": ["idfc"],
+	"Kotak": ["kotak mahindra", "kotak", "mahindra"],
+	"L&T": ["l and t", "lnt", "l and t", "l&t"],
+	"LIC MF": ["lic nomura", "lic"],
+	"Mirae Asset": ["mirae asset global investments", "mirae"],
+	"Motilal Oswal": ["motilal oswal asset management services", "motilal"],
+	"DHFL Pramerica": ["dhfl pramerica", "dhfl"],
+	"Principal": ["principal pnb asset management company", "pnb", "principal", "principal pnb"],
+	"Reliance": ["reliance"],
+	"Invesco": ["religare invesco", "religare", "invesco"],
+	"SBI": ["sbi"],
+	"Sundaram": ["sundaram"],
+	"Tata": ["tata"],
+	"UTI": ["uti"]
+}
+function getAmcNamesEntityReplaced(text) {
+	let flag;
+	for (let amcElement in amcsEntities) {
+		for (let alias of amcsEntities[amcElement]) {
+			if (text.includes(alias)) {
+				text = text.replace(alias, amcElement);
+				flag = true;
+			}
+		}
+	}
+	return { text: text, flag: flag };
+}
+function dataClean(model) {
 	model.data = model.data.toLowerCase()
-    return model;
+	return model;
 }
 
