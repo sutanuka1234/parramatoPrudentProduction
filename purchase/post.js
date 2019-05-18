@@ -437,7 +437,7 @@ function panMobile(model) {
 						model.tags.newInvestmentType = false;
 
 					}
-					return resolve(model)
+					//return resolve(model)
 					delete model.stage
 					// console.log("mofeeeeeeeeeeeeeeeeeeeeeeeee proceed  ++++" +JSON.stringify(model))
 

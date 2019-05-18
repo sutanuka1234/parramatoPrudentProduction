@@ -14,6 +14,7 @@ function panMobile(ip,mobile, pan){
         headers : headers,
         url     : url+'AuthenticatePANMobile?IPAddress='+ip+'&PanNo='+pan+'&MobileNo='+mobile
 	}
+	console.log(url)
 	return runRequest(obj)
 }
 
