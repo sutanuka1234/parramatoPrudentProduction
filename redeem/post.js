@@ -176,10 +176,11 @@ function panMobile(model){
 			api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				 console.log("then")
-				// console.log(data.body)
+				console.log(data.body)
 				let response;
 				try{
 					response = JSON.parse(data.body)
+					//console.log(response)
 				}
 				catch(e){
 					console.log(e);
