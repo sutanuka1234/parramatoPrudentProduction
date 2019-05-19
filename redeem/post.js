@@ -226,6 +226,7 @@ function panMobile(model){
 				}
 				else{
 					model.tags.session = response.Response[0].SessionId
+					delete model.stage
 					console.log("redirection to OTP")
 					model.stage = 'otp' 
 					console.log(model.stage)
