@@ -228,6 +228,7 @@ function panMobile(model){
 					model.tags.session = response.Response[0].SessionId
 					console.log("redirection to OTP")
 					model.stage = 'otp' 
+					console.log(model.stage)
 					return resolve(model)
 				}
 			})
