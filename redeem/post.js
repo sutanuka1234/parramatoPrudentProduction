@@ -172,6 +172,7 @@ function panMobile(model){
 		}
 		else if(model.data&&model.data.includes("proceed")&&model.tags.mobile&&model.tags.pan){
 			// console.log("2")
+			console.log("here!!!!")
 			api.panMobile(model.tags.ip,model.tags.mobile, model.tags.pan)
 			.then(data=>{
 				// console.log("then")
