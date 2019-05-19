@@ -185,10 +185,12 @@ function panMobile(model){
 				catch(e){
 					console.log(e);
 					if(!model.tags.mobile){
+						console.log("catch k andar")
 						model.stage = 'mobile' 
 						return resolve(model)
 					}
 					else if(!model.tags.pan){
+						console.log("catch k andar pan")
 						model.stage = 'pan' 
 						return resolve(model)
 					}		
@@ -224,6 +226,7 @@ function panMobile(model){
 				}
 				else{
 					model.tags.session = response.Response[0].SessionId
+					console.log("redirection to OTP")
 					model.stage = 'otp' 
 					return resolve(model)
 				}
