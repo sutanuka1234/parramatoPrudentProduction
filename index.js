@@ -5,7 +5,7 @@ require("bot-middleware-jubi").Server({
     socketLocalPath: '/socket',
     httpPort:8125,
     cluster:false,
-    dbUri:'mongodb://admin:admin123456@ds123981.mlab.com:23981/crm-backend-development',
+    dbUri: 'mongodb://jubi:jubi@uatmongo.parramato.com:27017/prudentDb',
     staticDirectory:__dirname+"/static",
     adapterPath:"/adapter",
     adapterDirectory:__dirname+"/adapter",
