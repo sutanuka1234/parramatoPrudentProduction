@@ -159,15 +159,15 @@
                             '<section class="sec_dropdown">'+
                                 '<h3 onclick="showFooterMenu()">Menu</h3>'+
                                 '<ul>'+
-                                    '<li class="menu_val">Start over</li>'+
-                                    '<li class="menu_val">Invest</li>'+
-                                    '<li class="menu_val">Switch</li>'+
-                                    '<li class="menu_val">Redeem</li>'+
-                                    '<li class="menu_val">Get account statement</li>'+
-                                    '<li class="menu_val">Transaction Details</li>'+
-                                    '<li class="menu_val">Nach Mandate</li>'+
-                                    '<li class="menu_val">Talk to Customer Care</li>'+
-                                    '<li class="menu_val">Cancel conversation</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Start Over`)">Start over</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Invest`)">Invest</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Switch`)">Switch</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Redeem`)">Redeem</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Get account statement`)">Get account statement</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Transaction Details`)">Transaction Details</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Nach Mandate`)">Nach Mandate</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Talk to Customer Care`)">Talk to Customer Care</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Cancel conversation`)">Cancel conversation</li>'+
                                 '</ul>'+
                             '</section>'+
                             '<div class="trianglearrow">'+
