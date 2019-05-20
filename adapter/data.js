@@ -26,6 +26,24 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
+   "Aditya Birla Sun Life Bal Bhavishya Yojna - Wealth Plan - Regular Plan - Dividend": {
+      "amcCode": 400004,
+      "amcName": "Aditya Birla Sun Life AMC Limited",
+      "schemeCode": 42384,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Aditya Birla Sun Life Bal Bhavishya Yojna - Wealth Plan - Regular Plan - Growth": {
+      "amcCode": 400004,
+      "amcName": "Aditya Birla Sun Life AMC Limited",
+      "schemeCode": 41375,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "Aditya Birla Sun Life Balanced Advantage Fund - Dividend": {
       "amcCode": 400004,
       "amcName": "Aditya Birla Sun Life AMC Limited",
@@ -467,7 +485,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Aditya Birla Sun Life Index Fund - Dividend": {
+   "Aditya Birla Sun Life Index Fund - Regular Plan - Dividend": {
       "amcCode": 400004,
       "amcName": "Aditya Birla Sun Life AMC Limited",
       "schemeCode": 31760,
@@ -476,7 +494,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Aditya Birla Sun Life Index Fund - Growth": {
+   "Aditya Birla Sun Life Index Fund - Regular Plan - Growth": {
       "amcCode": 400004,
       "amcName": "Aditya Birla Sun Life AMC Limited",
       "schemeCode": 407,
@@ -779,6 +797,78 @@ module.exports={
       "schemeCode": 423,
       "subNatureCode": 20,
       "subNatureName": "Hybrid  -MIP",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Aditya Birla Sun Life Retirement Fund - The 30s Plan - Regular Plan - Dividend": {
+      "amcCode": 400004,
+      "amcName": "Aditya Birla Sun Life AMC Limited",
+      "schemeCode": 42767,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Aditya Birla Sun Life Retirement Fund - The 30s Plan - Regular Plan - Growth": {
+      "amcCode": 400004,
+      "amcName": "Aditya Birla Sun Life AMC Limited",
+      "schemeCode": 32078,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Aditya Birla Sun Life Retirement Fund - The 40s Plan - Regular Plan - Dividend": {
+      "amcCode": 400004,
+      "amcName": "Aditya Birla Sun Life AMC Limited",
+      "schemeCode": 42771,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Aditya Birla Sun Life Retirement Fund - The 40s Plan - Regular Plan - Growth": {
+      "amcCode": 400004,
+      "amcName": "Aditya Birla Sun Life AMC Limited",
+      "schemeCode": 42770,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Aditya Birla Sun Life Retirement Fund - The 50s Plan - Regular Plan - Dividend": {
+      "amcCode": 400004,
+      "amcName": "Aditya Birla Sun Life AMC Limited",
+      "schemeCode": 42775,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Aditya Birla Sun Life Retirement Fund - The 50s Plan - Regular Plan - Growth": {
+      "amcCode": 400004,
+      "amcName": "Aditya Birla Sun Life AMC Limited",
+      "schemeCode": 42774,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Aditya Birla Sun Life Retirement Fund - The 50s Plus Plan - Regular Plan - Dividend": {
+      "amcCode": 400004,
+      "amcName": "Aditya Birla Sun Life AMC Limited",
+      "schemeCode": 42779,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Aditya Birla Sun Life Retirement Fund - The 50s Plus Plan - Regular Plan - Growth": {
+      "amcCode": 400004,
+      "amcName": "Aditya Birla Sun Life AMC Limited",
+      "schemeCode": 42778,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
       "optionCode": 1,
       "option": "Growth"
    },
@@ -1295,6 +1385,42 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
+   "Axis Overnight Fund - Regular Plan - Daily Dividend": {
+      "amcCode": 400040,
+      "amcName": "Axis Asset Management Company Ltd.",
+      "schemeCode": 42881,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Axis Overnight Fund - Regular Plan - Growth": {
+      "amcCode": 400040,
+      "amcName": "Axis Asset Management Company Ltd.",
+      "schemeCode": 42062,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Axis Overnight Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400040,
+      "amcName": "Axis Asset Management Company Ltd.",
+      "schemeCode": 42883,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Axis Overnight Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400040,
+      "amcName": "Axis Asset Management Company Ltd.",
+      "schemeCode": 42882,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
    "Axis Regular Saver Fund - Annual Dividend": {
       "amcCode": 400040,
       "amcName": "Axis Asset Management Company Ltd.",
@@ -1664,24 +1790,6 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
-   "Baroda Income Fund - Dividend": {
-      "amcCode": 400005,
-      "amcName": "Baroda Asset Management India Limited",
-      "schemeCode": 501,
-      "subNatureCode": 25,
-      "subNatureName": "Debt-Short/Medium Term",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "Baroda Income Fund - Growth": {
-      "amcCode": 400005,
-      "amcName": "Baroda Asset Management India Limited",
-      "schemeCode": 502,
-      "subNatureCode": 25,
-      "subNatureName": "Debt-Short/Medium Term",
-      "optionCode": 1,
-      "option": "Growth"
-   },
    "Baroda Large Cap Fund - Dividend": {
       "amcCode": 400005,
       "amcName": "Baroda Asset Management India Limited",
@@ -1895,6 +2003,42 @@ module.exports={
       "schemeCode": 11855,
       "subNatureCode": 25,
       "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "BNP Paribas Dynamic Equity Fund - Regular Plan - Annual Dividend": {
+      "amcCode": 400001,
+      "amcName": "BNP Paribas Asset Management India Pvt. Ltd.",
+      "schemeCode": 42530,
+      "subNatureCode": 2,
+      "subNatureName": "Equity-Balance",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "BNP Paribas Dynamic Equity Fund - Regular Plan - Growth": {
+      "amcCode": 400001,
+      "amcName": "BNP Paribas Asset Management India Pvt. Ltd.",
+      "schemeCode": 42238,
+      "subNatureCode": 2,
+      "subNatureName": "Equity-Balance",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "BNP Paribas Dynamic Equity Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400001,
+      "amcName": "BNP Paribas Asset Management India Pvt. Ltd.",
+      "schemeCode": 42528,
+      "subNatureCode": 2,
+      "subNatureName": "Equity-Balance",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "BNP Paribas Dynamic Equity Fund - Regular Plan - Quarterly Dividend": {
+      "amcCode": 400001,
+      "amcName": "BNP Paribas Asset Management India Pvt. Ltd.",
+      "schemeCode": 42529,
+      "subNatureCode": 2,
+      "subNatureName": "Equity-Balance",
       "optionCode": 2,
       "option": "Dividend"
    },
@@ -2140,6 +2284,33 @@ module.exports={
       "subNatureName": "Equity-Diversified",
       "optionCode": 1,
       "option": "Growth"
+   },
+   "BNP Paribas Overnight Fund - Regular Plan - Daily Dividend": {
+      "amcCode": 400001,
+      "amcName": "BNP Paribas Asset Management India Pvt. Ltd.",
+      "schemeCode": 43317,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "BNP Paribas Overnight Fund - Regular Plan - Growth": {
+      "amcCode": 400001,
+      "amcName": "BNP Paribas Asset Management India Pvt. Ltd.",
+      "schemeCode": 43316,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "BNP Paribas Overnight Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400001,
+      "amcName": "BNP Paribas Asset Management India Pvt. Ltd.",
+      "schemeCode": 43318,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
    },
    "BNP Paribas Short Term Fund - Daily Dividend": {
       "amcCode": 400001,
@@ -2843,6 +3014,24 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
+   "Canara Robeco Small Cap Fund - Regular Plan - Dividend": {
+      "amcCode": 400006,
+      "amcName": "Canara Robeco Asset Management Company Limited",
+      "schemeCode": 42351,
+      "subNatureCode": 24,
+      "subNatureName": "Equity-Small & Mid Cap",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Canara Robeco Small Cap Fund - Regular Plan - Growth": {
+      "amcCode": 400006,
+      "amcName": "Canara Robeco Asset Management Company Limited",
+      "schemeCode": 42350,
+      "subNatureCode": 24,
+      "subNatureName": "Equity-Small & Mid Cap",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "Canara Robeco Ultra Short Term Fund - Regular Plan - Daily Dividend Reinvestment": {
       "amcCode": 400006,
       "amcName": "Canara Robeco Asset Management Company Limited",
@@ -3126,15 +3315,6 @@ module.exports={
       "amcCode": 400044,
       "amcName": "DHFL Pramerica Asset Managers Private Limited",
       "schemeCode": 11866,
-      "subNatureCode": 21,
-      "subNatureName": "Debt-Other Debt",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "DHFL Pramerica Floating Rate Fund - Quarterly Dividend": {
-      "amcCode": 400044,
-      "amcName": "DHFL Pramerica Asset Managers Private Limited",
-      "schemeCode": 16314,
       "subNatureCode": 21,
       "subNatureName": "Debt-Other Debt",
       "optionCode": 2,
@@ -3473,15 +3653,6 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "DHFL Pramerica Short Maturity Fund - Annual Dividend": {
-      "amcCode": 400044,
-      "amcName": "DHFL Pramerica Asset Managers Private Limited",
-      "schemeCode": 15844,
-      "subNatureCode": 25,
-      "subNatureName": "Debt-Short/Medium Term",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
    "DHFL Pramerica Short Maturity Fund - Growth": {
       "amcCode": 400044,
       "amcName": "DHFL Pramerica Asset Managers Private Limited",
@@ -3515,15 +3686,6 @@ module.exports={
       "schemeCode": 860,
       "subNatureCode": 25,
       "subNatureName": "Debt-Short/Medium Term",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "DHFL Pramerica Ultra Short Term Fund - Annual Dividend": {
-      "amcCode": 400044,
-      "amcName": "DHFL Pramerica Asset Managers Private Limited",
-      "schemeCode": 17521,
-      "subNatureCode": 21,
-      "subNatureName": "Debt-Other Debt",
       "optionCode": 2,
       "option": "Dividend"
    },
@@ -4139,6 +4301,69 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
+   "DSP NIFTY 50 Index Fund - Regular Plan - Dividend": {
+      "amcCode": 400009,
+      "amcName": "DSP Investment Managers Private Limited",
+      "schemeCode": 42615,
+      "subNatureCode": 16,
+      "subNatureName": "Equity-Index",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "DSP NIFTY 50 Index Fund - Regular Plan - Growth": {
+      "amcCode": 400009,
+      "amcName": "DSP Investment Managers Private Limited",
+      "schemeCode": 41642,
+      "subNatureCode": 16,
+      "subNatureName": "Equity-Index",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "DSP NIFTY Next 50 Index Fund - Regular Plan - Dividend": {
+      "amcCode": 400009,
+      "amcName": "DSP Investment Managers Private Limited",
+      "schemeCode": 42618,
+      "subNatureCode": 16,
+      "subNatureName": "Equity-Index",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "DSP NIFTY Next 50 Index Fund - Regular Plan - Growth": {
+      "amcCode": 400009,
+      "amcName": "DSP Investment Managers Private Limited",
+      "schemeCode": 41641,
+      "subNatureCode": 16,
+      "subNatureName": "Equity-Index",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "DSP Overnight Fund - Regular Plan - Daily Dividend": {
+      "amcCode": 400009,
+      "amcName": "DSP Investment Managers Private Limited",
+      "schemeCode": 42330,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "DSP Overnight Fund - Regular Plan - Growth": {
+      "amcCode": 400009,
+      "amcName": "DSP Investment Managers Private Limited",
+      "schemeCode": 41945,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "DSP Overnight Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400009,
+      "amcName": "DSP Investment Managers Private Limited",
+      "schemeCode": 42331,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
    "DSP Regular Savings Fund - Regular Plan - Growth": {
       "amcCode": 400009,
       "amcName": "DSP Investment Managers Private Limited",
@@ -4449,6 +4674,573 @@ module.exports={
       "amcCode": 400009,
       "amcName": "DSP Investment Managers Private Limited",
       "schemeCode": 8359,
+      "subNatureCode": 11,
+      "subNatureName": "Equity-FOF - Overseas",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Arbitrage Fund - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 29604,
+      "subNatureCode": 1,
+      "subNatureName": "Hybrid  -Arbitrage",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Arbitrage Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 27622,
+      "subNatureCode": 1,
+      "subNatureName": "Hybrid  -Arbitrage",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Arbitrage Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 37897,
+      "subNatureCode": 1,
+      "subNatureName": "Hybrid  -Arbitrage",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss ASEAN Equity Off-Shore Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 13404,
+      "subNatureCode": 11,
+      "subNatureName": "Equity-FOF - Overseas",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Balanced Advantage Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 7912,
+      "subNatureCode": 2,
+      "subNatureName": "Equity-Balance",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Balanced Advantage Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 38060,
+      "subNatureCode": 2,
+      "subNatureName": "Equity-Balance",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Balanced Advantage Fund - Regular Plan - Quarterly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 7913,
+      "subNatureCode": 2,
+      "subNatureName": "Equity-Balance",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Banking and PSU Debt Fund - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 23302,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Banking and PSU Debt Fund - Regular Plan - Fortnightly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 23798,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Banking and PSU Debt Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 23296,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Banking and PSU Debt Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 23933,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Banking and PSU Debt Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 23796,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Corporate Bond Fund - Regular Plan - Annual Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 30649,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Corporate Bond Fund - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 28402,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Corporate Bond Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 28401,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Corporate Bond Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 30648,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Corporate Bond Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 30646,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Dynamic Bond Fund - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 5438,
+      "subNatureCode": 13,
+      "subNatureName": "Debt-Income/Gilt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Dynamic Bond Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 5437,
+      "subNatureCode": 13,
+      "subNatureName": "Debt-Income/Gilt",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Emerging Markets Opportunities Equity Offshore Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 20281,
+      "subNatureCode": 11,
+      "subNatureName": "Equity-FOF - Overseas",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Equity Savings Fund - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 30731,
+      "subNatureCode": 27,
+      "subNatureName": "Equity-Equity - Savings / Income",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Equity Savings Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 30730,
+      "subNatureCode": 27,
+      "subNatureName": "Equity-Equity - Savings / Income",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Equity Savings Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 38306,
+      "subNatureCode": 27,
+      "subNatureName": "Equity-Equity - Savings / Income",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Europe Dynamic Equity Offshore Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 24618,
+      "subNatureCode": 11,
+      "subNatureName": "Equity-FOF - Overseas",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Government Securities Fund - Regular Plan - Annual Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 26583,
+      "subNatureCode": 13,
+      "subNatureName": "Debt-Income/Gilt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Government Securities Fund - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 26443,
+      "subNatureCode": 13,
+      "subNatureName": "Debt-Income/Gilt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Government Securities Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 21922,
+      "subNatureCode": 13,
+      "subNatureName": "Debt-Income/Gilt",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Government Securities Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 26582,
+      "subNatureCode": 13,
+      "subNatureName": "Debt-Income/Gilt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Government Securities Fund - Regular Plan - Weekly Dividend Reinvestment": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 26580,
+      "subNatureCode": 13,
+      "subNatureName": "Debt-Income/Gilt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Gr China Eq Off-Shore Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 7869,
+      "subNatureCode": 11,
+      "subNatureName": "Equity-FOF - Overseas",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Large & Mid Cap Fund - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 1955,
+      "subNatureCode": 4,
+      "subNatureName": "Equity-Diversified",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Large & Mid Cap Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 1956,
+      "subNatureCode": 4,
+      "subNatureName": "Equity-Diversified",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Large Cap Fund - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 7786,
+      "subNatureCode": 18,
+      "subNatureName": "Equity-Large Cap",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Large Cap Fund - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 7785,
+      "subNatureCode": 18,
+      "subNatureName": "Equity-Large Cap",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Liquid Fund - Regular Plan - Annual Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 17379,
+      "subNatureCode": 19,
+      "subNatureName": "Debt-Liquid",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Liquid Fund - Regular Plan - Daily Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 6689,
+      "subNatureCode": 19,
+      "subNatureName": "Debt-Liquid",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Liquid Fund - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 41331,
+      "subNatureCode": 19,
+      "subNatureName": "Debt-Liquid",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Liquid Fund - Regular Plan - Fortnightly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 15037,
+      "subNatureCode": 19,
+      "subNatureName": "Debt-Liquid",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Liquid Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 6688,
+      "subNatureCode": 19,
+      "subNatureName": "Debt-Liquid",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Liquid Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 6690,
+      "subNatureCode": 19,
+      "subNatureName": "Debt-Liquid",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Liquid Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 6691,
+      "subNatureCode": 19,
+      "subNatureName": "Debt-Liquid",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Long Term Equity Fund (Tax Savings) - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 7546,
+      "subNatureCode": 5,
+      "subNatureName": "Equity-ELSS",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Long Term Equity Fund (Tax Savings) - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 7545,
+      "subNatureCode": 5,
+      "subNatureName": "Equity-ELSS",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Low Duration Fund - Regular Plan - Daily Dividend Reinvestment": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 6693,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Low Duration Fund - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 17540,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Low Duration Fund - Regular Plan - Fortnightly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 6696,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Low Duration Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 6692,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Low Duration Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 6695,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Low Duration Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 6694,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Mid Cap Fund - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 3791,
+      "subNatureCode": 24,
+      "subNatureName": "Equity-Small & Mid Cap",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Mid Cap Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 3790,
+      "subNatureCode": 24,
+      "subNatureName": "Equity-Small & Mid Cap",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Multi - Asset Allocation Fund - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 7923,
+      "subNatureCode": 26,
+      "subNatureName": "Hybrid-Asset",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Multi - Asset Allocation Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 7922,
+      "subNatureCode": 26,
+      "subNatureName": "Hybrid-Asset",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Multi-Cap Fund - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 31779,
+      "subNatureCode": 4,
+      "subNatureName": "Equity-Diversified",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Multi-Cap Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 31778,
+      "subNatureCode": 4,
+      "subNatureName": "Equity-Diversified",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Short Term Fund - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 8471,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Short Term Fund - Regular Plan - Fortnightly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 8815,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Short Term Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 8470,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss Short Term Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 8797,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Short Term Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 8799,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Small Cap Fund - Regular Plan - Dividend": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 42418,
+      "subNatureCode": 24,
+      "subNatureName": "Equity-Small & Mid Cap",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Edelweiss Small Cap Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 40559,
+      "subNatureCode": 24,
+      "subNatureName": "Equity-Small & Mid Cap",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Edelweiss US Value Equity Offshore Fund - Regular Plan - Growth": {
+      "amcCode": 400035,
+      "amcName": "Edelweiss Asset Management Limited",
+      "schemeCode": 21920,
       "subNatureCode": 11,
       "subNatureName": "Equity-FOF - Overseas",
       "optionCode": 1,
@@ -4872,8 +5664,8 @@ module.exports={
       "amcCode": 400012,
       "amcName": "Franklin Templeton Asset Management (India) Private Limited",
       "schemeCode": 1010,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
+      "subNatureCode": 10,
+      "subNatureName": "Equity-FOF - Equity",
       "optionCode": 2,
       "option": "Dividend"
    },
@@ -4881,8 +5673,8 @@ module.exports={
       "amcCode": 400012,
       "amcName": "Franklin Templeton Asset Management (India) Private Limited",
       "schemeCode": 1011,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
+      "subNatureCode": 10,
+      "subNatureName": "Equity-FOF - Equity",
       "optionCode": 1,
       "option": "Growth"
    },
@@ -6191,6 +6983,24 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
+   "HSBC Large & Mid Cap Equity Fund - Regular Plan - Dividend": {
+      "amcCode": 400014,
+      "amcName": "HSBC Global Asset Management (India) Private Limited",
+      "schemeCode": 42956,
+      "subNatureCode": 4,
+      "subNatureName": "Equity-Diversified",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "HSBC Large & Mid Cap Equity Fund - Regular Plan - Growth": {
+      "amcCode": 400014,
+      "amcName": "HSBC Global Asset Management (India) Private Limited",
+      "schemeCode": 42701,
+      "subNatureCode": 4,
+      "subNatureName": "Equity-Diversified",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "HSBC Large Cap Equity Fund - Dividend": {
       "amcCode": 400014,
       "amcName": "HSBC Global Asset Management (India) Private Limited",
@@ -6267,8 +7077,8 @@ module.exports={
       "amcCode": 400014,
       "amcName": "HSBC Global Asset Management (India) Private Limited",
       "schemeCode": 28745,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
+      "subNatureCode": 10,
+      "subNatureName": "Equity-FOF - Equity",
       "optionCode": 2,
       "option": "Dividend"
    },
@@ -6276,8 +7086,8 @@ module.exports={
       "amcCode": 400014,
       "amcName": "HSBC Global Asset Management (India) Private Limited",
       "schemeCode": 28307,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
+      "subNatureCode": 10,
+      "subNatureName": "Equity-FOF - Equity",
       "optionCode": 1,
       "option": "Growth"
    },
@@ -6285,8 +7095,8 @@ module.exports={
       "amcCode": 400014,
       "amcName": "HSBC Global Asset Management (India) Private Limited",
       "schemeCode": 28746,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
+      "subNatureCode": 10,
+      "subNatureName": "Equity-FOF - Equity",
       "optionCode": 2,
       "option": "Dividend"
    },
@@ -6294,8 +7104,8 @@ module.exports={
       "amcCode": 400014,
       "amcName": "HSBC Global Asset Management (India) Private Limited",
       "schemeCode": 28309,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
+      "subNatureCode": 10,
+      "subNatureName": "Equity-FOF - Equity",
       "optionCode": 1,
       "option": "Growth"
    },
@@ -6416,96 +7226,6 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
-   "ICICI Prudential Advisor Series - Conservative Fund - Dividend": {
-      "amcCode": 400015,
-      "amcName": "ICICI Prudential Asset Management Company Limited",
-      "schemeCode": 1703,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "ICICI Prudential Advisor Series - Conservative Fund - Growth": {
-      "amcCode": 400015,
-      "amcName": "ICICI Prudential Asset Management Company Limited",
-      "schemeCode": 1704,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
-      "optionCode": 1,
-      "option": "Growth"
-   },
-   "ICICI Prudential Advisor Series - Debt Management Fund - Dividend": {
-      "amcCode": 400015,
-      "amcName": "ICICI Prudential Asset Management Company Limited",
-      "schemeCode": 1708,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "ICICI Prudential Advisor Series - Debt Management Fund - Growth": {
-      "amcCode": 400015,
-      "amcName": "ICICI Prudential Asset Management Company Limited",
-      "schemeCode": 1707,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
-      "optionCode": 1,
-      "option": "Growth"
-   },
-   "ICICI Prudential Advisor Series - Hybrid Fund - Dividend": {
-      "amcCode": 400015,
-      "amcName": "ICICI Prudential Asset Management Company Limited",
-      "schemeCode": 1700,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "ICICI Prudential Advisor Series - Hybrid Fund - Growth": {
-      "amcCode": 400015,
-      "amcName": "ICICI Prudential Asset Management Company Limited",
-      "schemeCode": 1701,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
-      "optionCode": 1,
-      "option": "Growth"
-   },
-   "ICICI Prudential Advisor Series - Passive Strategy Fund - Dividend": {
-      "amcCode": 400015,
-      "amcName": "ICICI Prudential Asset Management Company Limited",
-      "schemeCode": 1697,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "ICICI Prudential Advisor Series - Passive Strategy Fund - Growth": {
-      "amcCode": 400015,
-      "amcName": "ICICI Prudential Asset Management Company Limited",
-      "schemeCode": 1698,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
-      "optionCode": 1,
-      "option": "Growth"
-   },
-   "ICICI Prudential Advisor Series - Thematic Fund - Dividend": {
-      "amcCode": 400015,
-      "amcName": "ICICI Prudential Asset Management Company Limited",
-      "schemeCode": 1705,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "ICICI Prudential Advisor Series - Thematic Fund - Growth": {
-      "amcCode": 400015,
-      "amcName": "ICICI Prudential Asset Management Company Limited",
-      "schemeCode": 1706,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
-      "optionCode": 1,
-      "option": "Growth"
-   },
    "ICICI Prudential All Seasons Bond Fund - Annual Dividend": {
       "amcCode": 400015,
       "amcName": "ICICI Prudential Asset Management Company Limited",
@@ -6550,6 +7270,24 @@ module.exports={
       "subNatureName": "Debt-Income/Gilt",
       "optionCode": 2,
       "option": "Dividend"
+   },
+   "ICICI Prudential Asset Allocator Fund - Dividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 1703,
+      "subNatureCode": 12,
+      "subNatureName": "Hybrid  -FOF - Hybrid",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "ICICI Prudential Asset Allocator Fund - Growth": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 1704,
+      "subNatureCode": 12,
+      "subNatureName": "Hybrid  -FOF - Hybrid",
+      "optionCode": 1,
+      "option": "Growth"
    },
    "ICICI Prudential Balanced Advantage Fund - Dividend": {
       "amcCode": 400015,
@@ -6654,10 +7392,28 @@ module.exports={
       "amcCode": 400015,
       "amcName": "ICICI Prudential Asset Management Company Limited",
       "schemeCode": 40232,
-      "subNatureCode": 12,
-      "subNatureName": "Hybrid  -FOF - Hybrid",
+      "subNatureCode": 10,
+      "subNatureName": "Equity-FOF - Equity",
       "optionCode": 1,
       "option": "Growth"
+   },
+   "ICICI Prudential Bharat Consumption Fund - Cumulative": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 41946,
+      "subNatureCode": 23,
+      "subNatureName": "Equity-Sector",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "ICICI Prudential Bharat Consumption Fund - Dividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 43178,
+      "subNatureCode": 23,
+      "subNatureName": "Equity-Sector",
+      "optionCode": 2,
+      "option": "Dividend"
    },
    "ICICI Prudential Bluechip Fund - Dividend": {
       "amcCode": 400015,
@@ -6686,7 +7442,7 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
-   "ICICI Prudential Bond Fund - Half Yearly Dividend": {
+   "ICICI Prudential Bond Fund - Half Yearly Dividend Payout": {
       "amcCode": 400015,
       "amcName": "ICICI Prudential Asset Management Company Limited",
       "schemeCode": 31091,
@@ -6722,7 +7478,7 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
-   "ICICI Prudential Constant Maturity Gilt Fund - Annual Dividend": {
+   "ICICI Prudential Constant Maturity Gilt Fund - Annual Dividend Payout": {
       "amcCode": 400015,
       "amcName": "ICICI Prudential Asset Management Company Limited",
       "schemeCode": 30430,
@@ -6740,7 +7496,7 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
-   "ICICI Prudential Constant Maturity Gilt Fund - Half Yearly Dividend": {
+   "ICICI Prudential Constant Maturity Gilt Fund - Half Yearly Dividend Payout": {
       "amcCode": 400015,
       "amcName": "ICICI Prudential Asset Management Company Limited",
       "schemeCode": 30429,
@@ -6749,7 +7505,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "ICICI Prudential Constant Maturity Gilt Fund - Monthly Dividend": {
+   "ICICI Prudential Constant Maturity Gilt Fund - Monthly Dividend Payout": {
       "amcCode": 400015,
       "amcName": "ICICI Prudential Asset Management Company Limited",
       "schemeCode": 30427,
@@ -6758,7 +7514,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "ICICI Prudential Constant Maturity Gilt Fund - Quarterly Dividend": {
+   "ICICI Prudential Constant Maturity Gilt Fund - Quarterly Dividend Payout": {
       "amcCode": 400015,
       "amcName": "ICICI Prudential Asset Management Company Limited",
       "schemeCode": 30428,
@@ -6865,6 +7621,24 @@ module.exports={
       "subNatureName": "Debt-Short/Medium Term",
       "optionCode": 2,
       "option": "Dividend"
+   },
+   "ICICI Prudential Debt Management Fund - Dividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 1708,
+      "subNatureCode": 12,
+      "subNatureName": "Hybrid  -FOF - Hybrid",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "ICICI Prudential Debt Management Fund - Growth": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 1707,
+      "subNatureCode": 12,
+      "subNatureName": "Hybrid  -FOF - Hybrid",
+      "optionCode": 1,
+      "option": "Growth"
    },
    "ICICI Prudential Dividend Yield Equity Fund - Dividend": {
       "amcCode": 400015,
@@ -7127,6 +7901,24 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
+   "ICICI Prudential India Opportunities Fund - Dividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 42141,
+      "subNatureCode": 23,
+      "subNatureName": "Equity-Sector",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "ICICI Prudential India Opportunities Fund - Growth": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 42140,
+      "subNatureCode": 23,
+      "subNatureName": "Equity-Sector",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "ICICI Prudential Infrastructure Fund - Dividend": {
       "amcCode": 400015,
       "amcName": "ICICI Prudential Asset Management Company Limited",
@@ -7361,6 +8153,24 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
+   "ICICI Prudential Moderate Fund - Dividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 1700,
+      "subNatureCode": 12,
+      "subNatureName": "Hybrid  -FOF - Hybrid",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "ICICI Prudential Moderate Fund - Growth": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 1701,
+      "subNatureCode": 12,
+      "subNatureName": "Hybrid  -FOF - Hybrid",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "ICICI Prudential Money Market Fund - Daily Dividend": {
       "amcCode": 400015,
       "amcName": "ICICI Prudential Asset Management Company Limited",
@@ -7559,6 +8369,24 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
+   "ICICI Prudential Passive Strategy Fund - Dividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 1697,
+      "subNatureCode": 10,
+      "subNatureName": "Equity-FOF - Equity",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "ICICI Prudential Passive Strategy Fund - Growth": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 1698,
+      "subNatureCode": 10,
+      "subNatureName": "Equity-FOF - Equity",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "ICICI Prudential Pharma Healthcare and Diagnostics (P.H.D) Fund - Dividend": {
       "amcCode": 400015,
       "amcName": "ICICI Prudential Asset Management Company Limited",
@@ -7630,6 +8458,78 @@ module.exports={
       "subNatureName": "Hybrid  -MIP",
       "optionCode": 2,
       "option": "Dividend"
+   },
+   "ICICI Prudential Retirement Fund - Hybrid Aggressive Plan - Dividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 42627,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "ICICI Prudential Retirement Fund - Hybrid Aggressive Plan - Growth": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 25669,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "ICICI Prudential Retirement Fund - Hybrid Conservative Plan - Dividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 42624,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "ICICI Prudential Retirement Fund - Hybrid Conservative Plan - Growth": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 25668,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "ICICI Prudential Retirement Fund - Pure Debt Plan - Dividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 42630,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "ICICI Prudential Retirement Fund - Pure Debt Plan - Growth": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 25670,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "ICICI Prudential Retirement Fund - Pure Equity Plan - Dividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 42621,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "ICICI Prudential Retirement Fund - Pure Equity Plan - Growth": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 25667,
+      "subNatureCode": 28,
+      "subNatureName": "Hybrid-Solution Oriented",
+      "optionCode": 1,
+      "option": "Growth"
    },
    "ICICI Prudential Savings Fund - Daily Dividend": {
       "amcCode": 400015,
@@ -7781,6 +8681,24 @@ module.exports={
       "schemeCode": 1695,
       "subNatureCode": 23,
       "subNatureName": "Equity-Sector",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "ICICI Prudential Thematic Advantage Fund - Dividend": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 1705,
+      "subNatureCode": 10,
+      "subNatureName": "Equity-FOF - Equity",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "ICICI Prudential Thematic Advantage Fund - Growth": {
+      "amcCode": 400015,
+      "amcName": "ICICI Prudential Asset Management Company Limited",
+      "schemeCode": 1706,
+      "subNatureCode": 10,
+      "subNatureName": "Equity-FOF - Equity",
       "optionCode": 1,
       "option": "Growth"
    },
@@ -8060,6 +8978,24 @@ module.exports={
       "schemeCode": 17242,
       "subNatureCode": 3,
       "subNatureName": "Commodity-Commodity",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "IDBI Healthcare Fund - Regular Plan - Dividend": {
+      "amcCode": 400043,
+      "amcName": "IDBI Asset Management Ltd.",
+      "schemeCode": 42666,
+      "subNatureCode": 23,
+      "subNatureName": "Equity-Sector",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "IDBI Healthcare Fund - Regular Plan - Growth": {
+      "amcCode": 400043,
+      "amcName": "IDBI Asset Management Ltd.",
+      "schemeCode": 41330,
+      "subNatureCode": 23,
+      "subNatureName": "Equity-Sector",
       "optionCode": 1,
       "option": "Growth"
    },
@@ -9170,6 +10106,42 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
+   "IDFC Overnight Fund - Regular Plan - Daily Dividend": {
+      "amcCode": 400028,
+      "amcName": "IDFC Asset Management Company Limited",
+      "schemeCode": 42474,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "IDFC Overnight Fund - Regular Plan - Growth": {
+      "amcCode": 400028,
+      "amcName": "IDFC Asset Management Company Limited",
+      "schemeCode": 41901,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "IDFC Overnight Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400028,
+      "amcName": "IDFC Asset Management Company Limited",
+      "schemeCode": 42476,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "IDFC Overnight Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400028,
+      "amcName": "IDFC Asset Management Company Limited",
+      "schemeCode": 42475,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
    "IDFC Regular Savings Fund - Regular Plan - Dividend": {
       "amcCode": 400028,
       "amcName": "IDFC Asset Management Company Limited",
@@ -9284,6 +10256,87 @@ module.exports={
       "schemeCode": 40484,
       "subNatureCode": 21,
       "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "IIFL Dynamic Bond Fund - Regular Plan - Growth": {
+      "amcCode": 400047,
+      "amcName": "IIFL Asset Management Co. Ltd.",
+      "schemeCode": 17578,
+      "subNatureCode": 13,
+      "subNatureName": "Debt-Income/Gilt",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "IIFL Dynamic Bond Fund - Regular Plan - Quarterly Dividend": {
+      "amcCode": 400047,
+      "amcName": "IIFL Asset Management Co. Ltd.",
+      "schemeCode": 17580,
+      "subNatureCode": 13,
+      "subNatureName": "Debt-Income/Gilt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "IIFL Focused Equity Fund - Regular Plan - Dividend": {
+      "amcCode": 400047,
+      "amcName": "IIFL Asset Management Co. Ltd.",
+      "schemeCode": 30925,
+      "subNatureCode": 18,
+      "subNatureName": "Equity-Large Cap",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "IIFL Focused Equity Fund - Regular Plan - Dividend Reinvestment": {
+      "amcCode": 400047,
+      "amcName": "IIFL Asset Management Co. Ltd.",
+      "schemeCode": 36848,
+      "subNatureCode": 18,
+      "subNatureName": "Equity-Large Cap",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "IIFL Focused Equity Fund - Regular Plan - Growth": {
+      "amcCode": 400047,
+      "amcName": "IIFL Asset Management Co. Ltd.",
+      "schemeCode": 30046,
+      "subNatureCode": 18,
+      "subNatureName": "Equity-Large Cap",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "IIFL Liquid Fund - Regular Plan - Daily Dividend": {
+      "amcCode": 400047,
+      "amcName": "IIFL Asset Management Co. Ltd.",
+      "schemeCode": 15690,
+      "subNatureCode": 19,
+      "subNatureName": "Debt-Liquid",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "IIFL Liquid Fund - Regular Plan - Growth": {
+      "amcCode": 400047,
+      "amcName": "IIFL Asset Management Co. Ltd.",
+      "schemeCode": 15687,
+      "subNatureCode": 19,
+      "subNatureName": "Debt-Liquid",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "IIFL Liquid Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400047,
+      "amcName": "IIFL Asset Management Co. Ltd.",
+      "schemeCode": 24814,
+      "subNatureCode": 19,
+      "subNatureName": "Debt-Liquid",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "IIFL Liquid Fund - Regular Plan - Weekly Dividend Reinvst": {
+      "amcCode": 400047,
+      "amcName": "IIFL Asset Management Co. Ltd.",
+      "schemeCode": 37782,
+      "subNatureCode": 19,
+      "subNatureName": "Debt-Liquid",
       "optionCode": 2,
       "option": "Dividend"
    },
@@ -9446,6 +10499,24 @@ module.exports={
       "schemeCode": 39893,
       "subNatureCode": 2,
       "subNatureName": "Equity-Balance",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Invesco India Equity Savings Fund - Regular Plan - Dividend": {
+      "amcCode": 400021,
+      "amcName": "Invesco Asset Management Company Pvt Ltd.",
+      "schemeCode": 42669,
+      "subNatureCode": 27,
+      "subNatureName": "Equity-Equity - Savings / Income",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Invesco India Equity Savings Fund - Regular Plan - Growth": {
+      "amcCode": 400021,
+      "amcName": "Invesco Asset Management Company Pvt Ltd.",
+      "schemeCode": 41505,
+      "subNatureCode": 27,
+      "subNatureName": "Equity-Equity - Savings / Income",
       "optionCode": 1,
       "option": "Growth"
    },
@@ -9725,24 +10796,6 @@ module.exports={
       "schemeCode": 7996,
       "subNatureCode": 23,
       "subNatureName": "Equity-Sector",
-      "optionCode": 1,
-      "option": "Growth"
-   },
-   "Invesco India Regular Savings Fund - Dividend": {
-      "amcCode": 400021,
-      "amcName": "Invesco Asset Management Company Pvt Ltd.",
-      "schemeCode": 9077,
-      "subNatureCode": 20,
-      "subNatureName": "Hybrid  -MIP",
-      "optionCode": 2,
-      "option": "Dividend"
-   },
-   "Invesco India Regular Savings Fund - Growth": {
-      "amcCode": 400021,
-      "amcName": "Invesco Asset Management Company Pvt Ltd.",
-      "schemeCode": 9073,
-      "subNatureCode": 20,
-      "subNatureName": "Hybrid  -MIP",
       "optionCode": 1,
       "option": "Growth"
    },
@@ -10277,6 +11330,33 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
+   "Kotak Floating Rate Fund - Regular Plan - Growth": {
+      "amcCode": 400019,
+      "amcName": "Kotak Mahindra Asset Management Company Limited",
+      "schemeCode": 42597,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Kotak Floating Rate Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400019,
+      "amcName": "Kotak Mahindra Asset Management Company Limited",
+      "schemeCode": 43620,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Kotak Floating Rate Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400019,
+      "amcName": "Kotak Mahindra Asset Management Company Limited",
+      "schemeCode": 43619,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
    "Kotak Gilt Unit Scheme ’98 - Investment Plan - Provident Fund & Trust - Growth": {
       "amcCode": 400019,
       "amcName": "Kotak Mahindra Asset Management Company Limited",
@@ -10592,7 +11672,7 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
-   "Kotak US Equity Fund - Dividend": {
+   "Kotak US Equity Fund - Dividend Payout": {
       "amcCode": 400019,
       "amcName": "Kotak Mahindra Asset Management Company Limited",
       "schemeCode": 24913,
@@ -11303,6 +12383,33 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
+   "LIC MF Arbitrage Fund - Regular Plan - Growth": {
+      "amcCode": 400020,
+      "amcName": "LIC Mutual Fund Asset Management Limited",
+      "schemeCode": 39948,
+      "subNatureCode": 1,
+      "subNatureName": "Hybrid  -Arbitrage",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "LIC MF Arbitrage Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400020,
+      "amcName": "LIC Mutual Fund Asset Management Limited",
+      "schemeCode": 42255,
+      "subNatureCode": 1,
+      "subNatureName": "Hybrid  -Arbitrage",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "LIC MF Arbitrage Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400020,
+      "amcName": "LIC Mutual Fund Asset Management Limited",
+      "schemeCode": 42254,
+      "subNatureCode": 1,
+      "subNatureName": "Hybrid  -Arbitrage",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
    "LIC MF Banking & Financial Services Fund - Regular Plan - Dividend": {
       "amcCode": 400020,
       "amcName": "LIC Mutual Fund Asset Management Limited",
@@ -11420,6 +12527,15 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
+   "LIC MF Equity Hybrid Fund - Dividend": {
+      "amcCode": 400020,
+      "amcName": "LIC Mutual Fund Asset Management Limited",
+      "schemeCode": 2083,
+      "subNatureCode": 2,
+      "subNatureName": "Equity-Balance",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
    "LIC MF Equity Hybrid Fund - Growth": {
       "amcCode": 400020,
       "amcName": "LIC Mutual Fund Asset Management Limited",
@@ -11428,15 +12544,6 @@ module.exports={
       "subNatureName": "Equity-Balance",
       "optionCode": 1,
       "option": "Growth"
-   },
-   "LIC MF Equity Hybrid Fund- Dividend": {
-      "amcCode": 400020,
-      "amcName": "LIC Mutual Fund Asset Management Limited",
-      "schemeCode": 2083,
-      "subNatureCode": 2,
-      "subNatureName": "Equity-Balance",
-      "optionCode": 2,
-      "option": "Dividend"
    },
    "LIC MF Government Securities Fund - Regular Plan - Dividend": {
       "amcCode": 400020,
@@ -11618,6 +12725,24 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
+   "LIC MF Short Term Debt Fund - Regular Plan - Dividend": {
+      "amcCode": 400020,
+      "amcName": "LIC Mutual Fund Asset Management Limited",
+      "schemeCode": 42317,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "LIC MF Short Term Debt Fund - Regular Plan - Growth": {
+      "amcCode": 400020,
+      "amcName": "LIC Mutual Fund Asset Management Limited",
+      "schemeCode": 34304,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "LIC MF Tax Plan - Dividend": {
       "amcCode": 400020,
       "amcName": "LIC Mutual Fund Asset Management Limited",
@@ -11780,6 +12905,24 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
+   "Mahindra Pragati Bluechip Yojana - Regular Plan - Dividend": {
+      "amcCode": 400054,
+      "amcName": "Mahindra Asset Management Company Private Limited",
+      "schemeCode": 42764,
+      "subNatureCode": 18,
+      "subNatureName": "Equity-Large Cap",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Mahindra Pragati Bluechip Yojana - Regular Plan - Growth": {
+      "amcCode": 400054,
+      "amcName": "Mahindra Asset Management Company Private Limited",
+      "schemeCode": 38073,
+      "subNatureCode": 18,
+      "subNatureName": "Equity-Large Cap",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "Mahindra Rural Bharat and Consumption Yojana - Regular Plan - Dividend": {
       "amcCode": 400054,
       "amcName": "Mahindra Asset Management Company Private Limited",
@@ -11906,6 +13049,24 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
+   "Mirae Asset Focused Fund - Regular Plan - Dividend": {
+      "amcCode": 400033,
+      "amcName": "Mirae Asset Global Investment Management (India) Private Limited",
+      "schemeCode": 43331,
+      "subNatureCode": 18,
+      "subNatureName": "Equity-Large Cap",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Mirae Asset Focused Fund - Regular Plan - Growth": {
+      "amcCode": 400033,
+      "amcName": "Mirae Asset Global Investment Management (India) Private Limited",
+      "schemeCode": 42898,
+      "subNatureCode": 18,
+      "subNatureName": "Equity-Large Cap",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "Mirae Asset Great Consumer Fund - Regular Plan - Dividend": {
       "amcCode": 400033,
       "amcName": "Mirae Asset Global Investment Management (India) Private Limited",
@@ -11960,21 +13121,21 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
-   "Mirae Asset India Equity Fund - Regular Plan - Dividend": {
+   "Mirae Asset Large Cap Fund - Regular Plan - Dividend": {
       "amcCode": 400033,
       "amcName": "Mirae Asset Global Investment Management (India) Private Limited",
       "schemeCode": 4462,
-      "subNatureCode": 4,
-      "subNatureName": "Equity-Diversified",
+      "subNatureCode": 18,
+      "subNatureName": "Equity-Large Cap",
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Mirae Asset India Equity Fund - Regular Plan - Growth": {
+   "Mirae Asset Large Cap Fund - Regular Plan - Growth": {
       "amcCode": 400033,
       "amcName": "Mirae Asset Global Investment Management (India) Private Limited",
       "schemeCode": 4457,
-      "subNatureCode": 4,
-      "subNatureName": "Equity-Diversified",
+      "subNatureCode": 18,
+      "subNatureName": "Equity-Large Cap",
       "optionCode": 1,
       "option": "Growth"
    },
@@ -12599,6 +13760,33 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
+   "Principal Small Cap Fund - Regular Plan - Dividend": {
+      "amcCode": 400023,
+      "amcName": "Principal Asset Management Company Private Limited",
+      "schemeCode": 43324,
+      "subNatureCode": 24,
+      "subNatureName": "Equity-Small & Mid Cap",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Principal Small Cap Fund - Regular Plan - Dividend Reinvestment": {
+      "amcCode": 400023,
+      "amcName": "Principal Asset Management Company Private Limited",
+      "schemeCode": 43382,
+      "subNatureCode": 24,
+      "subNatureName": "Equity-Small & Mid Cap",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Principal Small Cap Fund - Regular Plan - Growth": {
+      "amcCode": 400023,
+      "amcName": "Principal Asset Management Company Private Limited",
+      "schemeCode": 36018,
+      "subNatureCode": 24,
+      "subNatureName": "Equity-Small & Mid Cap",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "Principal Tax Savings Fund": {
       "amcCode": 400023,
       "amcName": "Principal Asset Management Company Private Limited",
@@ -13163,6 +14351,24 @@ module.exports={
       "schemeCode": 24620,
       "subNatureCode": 14,
       "subNatureName": "Equity-Global",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Reliance Junior BeES FoF - Regular Plan - Dividend": {
+      "amcCode": 400025,
+      "amcName": "Reliance Nippon Life Asset Management Limited",
+      "schemeCode": 42719,
+      "subNatureCode": 10,
+      "subNatureName": "Equity-FOF - Equity",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Reliance Junior BeES FoF - Regular Plan - Growth": {
+      "amcCode": 400025,
+      "amcName": "Reliance Nippon Life Asset Management Limited",
+      "schemeCode": 40664,
+      "subNatureCode": 10,
+      "subNatureName": "Equity-FOF - Equity",
       "optionCode": 1,
       "option": "Growth"
    },
@@ -13904,6 +15110,33 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
+   "SBI Corporate Bond Fund - Regular Plan - Growth": {
+      "amcCode": 400027,
+      "amcName": "SBI Funds Management Private Limited",
+      "schemeCode": 40450,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "SBI Corporate Bond Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400027,
+      "amcName": "SBI Funds Management Private Limited",
+      "schemeCode": 42459,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "SBI Corporate Bond Fund - Regular Plan - Quarterly Dividend": {
+      "amcCode": 400027,
+      "amcName": "SBI Funds Management Private Limited",
+      "schemeCode": 42460,
+      "subNatureCode": 25,
+      "subNatureName": "Debt-Short/Medium Term",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
    "SBI Credit Risk Fund - Regular Plan - Daily Dividend": {
       "amcCode": 400027,
       "amcName": "SBI Funds Management Private Limited",
@@ -14009,6 +15242,24 @@ module.exports={
       "schemeCode": 2747,
       "subNatureCode": 2,
       "subNatureName": "Equity-Balance",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "SBI Equity Minimum Variance Fund - Regular Plan - Dividend": {
+      "amcCode": 400027,
+      "amcName": "SBI Funds Management Private Limited",
+      "schemeCode": 42859,
+      "subNatureCode": 23,
+      "subNatureName": "Equity-Sector",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "SBI Equity Minimum Variance Fund - Regular Plan - Growth": {
+      "amcCode": 400027,
+      "amcName": "SBI Funds Management Private Limited",
+      "schemeCode": 33878,
+      "subNatureCode": 23,
+      "subNatureName": "Equity-Sector",
       "optionCode": 1,
       "option": "Growth"
    },
@@ -14561,7 +15812,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "SBI Small Cap Fund - Regular Plan - Dividend": {
+   "SBI Small Cap Fund - Regular Plan - Dividend Payout": {
       "amcCode": 400027,
       "amcName": "SBI Funds Management Private Limited",
       "schemeCode": 7886,
@@ -15033,6 +16284,51 @@ module.exports={
       "amcCode": 400029,
       "amcName": "Sundaram Asset Management Company Limited",
       "schemeCode": 41265,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Sundaram Overnight Fund - Regular Plan - Daily Dividend": {
+      "amcCode": 400029,
+      "amcName": "Sundaram Asset Management Company Limited",
+      "schemeCode": 43073,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Sundaram Overnight Fund - Regular Plan - Fortnightly Dividend": {
+      "amcCode": 400029,
+      "amcName": "Sundaram Asset Management Company Limited",
+      "schemeCode": 43075,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Sundaram Overnight Fund - Regular Plan - Growth": {
+      "amcCode": 400029,
+      "amcName": "Sundaram Asset Management Company Limited",
+      "schemeCode": 42000,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Sundaram Overnight Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400029,
+      "amcName": "Sundaram Asset Management Company Limited",
+      "schemeCode": 43076,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Sundaram Overnight Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400029,
+      "amcName": "Sundaram Asset Management Company Limited",
+      "schemeCode": 43074,
       "subNatureCode": 21,
       "subNatureName": "Debt-Other Debt",
       "optionCode": 2,
@@ -15587,7 +16883,7 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
-   "Tata Infrastructure Fund - Dividend": {
+   "Tata Infrastructure Fund - Regular Plan - Dividend": {
       "amcCode": 400030,
       "amcName": "Tata Asset Management Limited",
       "schemeCode": 3253,
@@ -15596,7 +16892,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "Tata Infrastructure Fund - Growth": {
+   "Tata Infrastructure Fund - Regular Plan - Growth": {
       "amcCode": 400030,
       "amcName": "Tata Asset Management Limited",
       "schemeCode": 3254,
@@ -15731,6 +17027,24 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
+   "Tata Overnight Fund - Regular Plan - Daily Dividend": {
+      "amcCode": 400030,
+      "amcName": "Tata Asset Management Limited",
+      "schemeCode": 43202,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Tata Overnight Fund - Regular Plan - Growth": {
+      "amcCode": 400030,
+      "amcName": "Tata Asset Management Limited",
+      "schemeCode": 42706,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 1,
+      "option": "Growth"
+   },
    "Tata Resources & Energy Fund - Regular Plan - Dividend": {
       "amcCode": 400030,
       "amcName": "Tata Asset Management Limited",
@@ -15852,6 +17166,33 @@ module.exports={
       "amcCode": 400030,
       "amcName": "Tata Asset Management Limited",
       "schemeCode": 3206,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Tata Ultra Short Term Fund - Regular Plan - Growth": {
+      "amcCode": 400030,
+      "amcName": "Tata Asset Management Limited",
+      "schemeCode": 41798,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 1,
+      "option": "Growth"
+   },
+   "Tata Ultra Short Term Fund - Regular Plan - Monthly Dividend": {
+      "amcCode": 400030,
+      "amcName": "Tata Asset Management Limited",
+      "schemeCode": 42345,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 2,
+      "option": "Dividend"
+   },
+   "Tata Ultra Short Term Fund - Regular Plan - Weekly Dividend": {
+      "amcCode": 400030,
+      "amcName": "Tata Asset Management Limited",
+      "schemeCode": 42344,
       "subNatureCode": 21,
       "subNatureName": "Debt-Other Debt",
       "optionCode": 2,
@@ -16217,7 +17558,7 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
-   "UTI India Lifestyle Fund - Regular Plan - Dividend": {
+   "UTI India Consumer Fund - Regular Plan - Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 3580,
@@ -16226,7 +17567,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI India Lifestyle Fund - Regular Plan - Growth": {
+   "UTI India Consumer Fund - Regular Plan - Growth": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 3581,
@@ -16253,7 +17594,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Liquid Fund - Cash Plan - Institutional - Daily Dividend": {
+   "UTI Liquid Cash Plan - Regular Plan - Daily Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 3591,
@@ -16262,7 +17603,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Liquid Fund - Cash Plan - Institutional - Weekly Dividend": {
+   "UTI Liquid Cash Plan - Regular Plan - Weekly Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 3593,
@@ -16370,7 +17711,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Money Market Fund - Institutional Plan - Daily Dividend": {
+   "UTI Money Market Fund - Regular Plan - Daily Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 7915,
@@ -16378,6 +17719,15 @@ module.exports={
       "subNatureName": "Debt-Other Debt",
       "optionCode": 2,
       "option": "Dividend"
+   },
+   "UTI Money Market Fund - Regular Plan - Growth": {
+      "amcCode": 400032,
+      "amcName": "UTI Asset Management Company Private Limited",
+      "schemeCode": 7914,
+      "subNatureCode": 21,
+      "subNatureName": "Debt-Other Debt",
+      "optionCode": 1,
+      "option": "Growth"
    },
    "UTI Multi Asset Fund - Regular Plan - Dividend": {
       "amcCode": 400032,
@@ -16478,7 +17828,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Short Term Income Fund - Institutional - Annual Dividend": {
+   "UTI Short Term Income Fund - Regular Plan - Annual Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 32737,
@@ -16487,7 +17837,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Short Term Income Fund - Institutional - Flexi Dividend": {
+   "UTI Short Term Income Fund - Regular Plan - Flexi Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 24425,
@@ -16496,7 +17846,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Short Term Income Fund - Institutional - Growth": {
+   "UTI Short Term Income Fund - Regular Plan - Growth": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 3656,
@@ -16505,7 +17855,7 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
-   "UTI Short Term Income Fund - Institutional - Half Yearly Dividend": {
+   "UTI Short Term Income Fund - Regular Plan - Half Yearly Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 30810,
@@ -16514,7 +17864,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Short Term Income Fund - Institutional - Monthly Dividend": {
+   "UTI Short Term Income Fund - Regular Plan - Monthly Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 19591,
@@ -16523,7 +17873,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Short Term Income Fund - Institutional - Quarterly Dividend": {
+   "UTI Short Term Income Fund - Regular Plan - Quarterly Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 3655,
@@ -16550,7 +17900,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Treasury Advantage Fund - Institutional Plan - Daily Dividend": {
+   "UTI Treasury Advantage Fund - Regular Plan - Daily Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 3600,
@@ -16559,7 +17909,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Treasury Advantage Fund - Institutional Plan - Flexi Dividend": {
+   "UTI Treasury Advantage Fund - Regular Plan - Flexi Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 30783,
@@ -16568,7 +17918,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Treasury Advantage Fund - Institutional Plan - Fortnightly Dividend": {
+   "UTI Treasury Advantage Fund - Regular Plan - Fortnightly Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 30781,
@@ -16577,7 +17927,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Treasury Advantage Fund - Institutional Plan - Growth": {
+   "UTI Treasury Advantage Fund - Regular Plan - Growth": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 3601,
@@ -16586,7 +17936,7 @@ module.exports={
       "optionCode": 1,
       "option": "Growth"
    },
-   "UTI Treasury Advantage Fund - Institutional Plan - Half Yearly Dividend": {
+   "UTI Treasury Advantage Fund - Regular Plan - Half Yearly Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 30782,
@@ -16595,7 +17945,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Treasury Advantage Fund - Institutional Plan - Monthly Dividend": {
+   "UTI Treasury Advantage Fund - Regular Plan - Monthly Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 3602,
@@ -16604,7 +17954,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Treasury Advantage Fund - Institutional Plan - Quarterly Dividend": {
+   "UTI Treasury Advantage Fund - Regular Plan - Quarterly Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 14882,
@@ -16613,7 +17963,7 @@ module.exports={
       "optionCode": 2,
       "option": "Dividend"
    },
-   "UTI Treasury Advantage Fund - Institutional Plan - Weekly Dividend": {
+   "UTI Treasury Advantage Fund - Regular Plan - Weekly Dividend": {
       "amcCode": 400032,
       "amcName": "UTI Asset Management Company Private Limited",
       "schemeCode": 3603,
