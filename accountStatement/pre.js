@@ -206,7 +206,7 @@ function statement(model){
 					},
 					{
                         data : "account statement",
-                        text : 'account statement'
+                        text : 'Account statement'
 					}
 					
 				]
