@@ -1,79 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" class="ios iphone mobile landscape">
+<head>
+    <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />        
+        <title></title>      
+        <meta property="og:title" content="bankbazaarbot"/>
+        <meta property="og:type" content="Powered By Jubi" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="apple-mobile-web-app-title" content="bot">
+        <link rel="apple-touch-icon" href="./icon.png">
+        <link rel="apple-touch-startup-image" href="./icon.png">
+        <link rel="manifest" href="./manifest.json" >
+    </head>
+    <body>    
+        <section class="secCloseMsg" id="secCloseMsg" style="display: block;">
+            <div class="btnClose"><i class="fa fa-times" onclick="closeOpenMsg()"></i></div>
+            <p>Hey, I am FUNDZBOT. Your anytime investment friend! Click below.</p>
+        </section>
+        <section class="sec_closeview" id="secCloseview" onclick="openChatBot()" style="display: block;">
+            <img src="https://www.fundzbot.com/images/closeIcon.png" id="closeImage" class="img-responsive">
+        </section>             
+        <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+        <script type="text/javascript"  src="./loader.js"></script>
+        <script type="text/javascript" src="./pwa.js"></script>  
+        <script src="./js/jubievents.js"></script>
+        <script src="./js/bundle.js"></script>
+        <div id="jubi-chat-loader-app"></div> 
+        <script>
+            function toggleFooterMenu(){
+                let footermenu = document.getElementById("secMenucontent");
+                if(footermenu.style.display==="none"){
+                    footermenu.style.display = "block";
+                }
+                else{
+                    footermenu.style.display = "none";
+                }
+            }
 
-    
-    <!DOCTYPE html>
-    <html lang="en" class="ios iphone mobile landscape">
-    <head>
-        <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-            <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />        
-            <title></title>      
-            <meta property="og:title" content="bankbazaarbot"/>
-            <meta property="og:type" content="Powered By Jubi" />
-            <meta name="apple-mobile-web-app-capable" content="yes">
-            <meta name="apple-mobile-web-app-status-bar-style" content="default">
-            <meta name="apple-mobile-web-app-title" content="bot">
-            <link rel="apple-touch-icon" href="./icon.png">
-            <link rel="apple-touch-startup-image" href="./icon.png">
-            <link rel="manifest" href="./manifest.json" >
-        </head>
-        <body>    
-            <section class="secCloseMsg" id="secCloseMsg" style="display: block;">
-                <div class="btnClose"><i class="fa fa-times" onclick="closeOpenMsg()"></i></div>
-                <p>Hey, I am FUNDZBOT. Your anytime investment friend! Click below.</p>
-            </section>
-            <section class="sec_closeview" id="secCloseview" onclick="openChatBot()" style="display: block;">
-                <img src="https://www.fundzbot.com/images/closeIcon.png" id="closeImage" class="img-responsive">
-            </section>             
-            <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
-            <script type="text/javascript"  src="./loader.js"></script>
-            <script type="text/javascript" src="./pwa.js"></script>  
-            <div id="jubi-chat-loader-app"></div> 
-            <script>
-                function showFooterMenu(){
-                    let footermenu = document.getElementById("secMenucontent");
-                    if(footermenu.style.display==="none"){
-                        footermenu.style.display = "block";
-                    }
-                    else{
-                        footermenu.style.display = "none";
-                    }
+
+            let secCloseview=document.getElementById("secCloseview")
+            let secCloseMsg = document.getElementById("secCloseMsg")
+            function hideChatBot(){
+                let chatBot = document.getElementById("rightpanel");
+                if(chatBot.style.display==="block"){
+                    chatBot.style.display = "none";
+                    secCloseview.style.display="block";
+                    secCloseMsg.style.display="block";
                 }
-    
-    
-                let secCloseview=document.getElementById("secCloseview")
-                let secCloseMsg = document.getElementById("secCloseMsg")
-                function hideChatBot(){
-                    let chatBot = document.getElementById("rightpanel");
-                    if(chatBot.style.display==="block"){
-                        chatBot.style.display = "none";
-                        secCloseview.style.display="block";
-                        secCloseMsg.style.display="block";
-                    }
-                    else{
-                        chatBot.style.display = "block";
-                    }
+                else{
+                    chatBot.style.display = "block";
                 }
-                function closeOpenMsg(){
-                    let message = document.getElementById("secCloseMsg");
-                    if(message.style.display ==="block"){
-                        message.style.display="none";
-                    }
-                    else{
-                        message.style.display="block";
-                    }
+            }
+            function closeOpenMsg(){
+                let message = document.getElementById("secCloseMsg");
+                if(message.style.display ==="block"){
+                    message.style.display="none";
                 }
-    
-                function openChatBot(){
-                    let rightpanel = document.getElementById("rightpanel");
-                    if(rightpanel.style.display==="none"){
-                        rightpanel.style.display="block";
-                        secCloseview.style.display="none";
-                        secCloseMsg.style.display="none";
-                    }
-                    else{
-                        rightpanel.style.display="none";
-                    }
+                else{
+                    message.style.display="block";
                 }
-            </script>
-        </body>
-    </html>
+            }
+
+            function openChatBot(){
+                let rightpanel = document.getElementById("rightpanel");
+                if(rightpanel.style.display==="none"){
+                    rightpanel.style.display="block";
+                    secCloseview.style.display="none";
+                    secCloseMsg.style.display="none";
+                }
+                else{
+                    rightpanel.style.display="none";
+                }
+            }
+        </script>
+    </body>
+</html>

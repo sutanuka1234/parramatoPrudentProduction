@@ -96,9 +96,10 @@
         socket: "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js",
         responsiveVoice :"https://code.responsivevoice.org/responsivevoice.js",
         nluComponent:"https://unpkg.com/compromise@latest/builds/compromise.min.js",
-        bundle: "https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/js/bundle.test.js"
+        // bundle: "https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/js/bundle.test.js"
+        bundle: "./js/bundle.test.js"
     });
-                window.directMultiplier=1;
+            window.directMultiplier=1;
             window.fallbackMultiplier=0.8;
             window.speechOnBrowser="Hindi Female"
             window.speechGenderBackend="FEMALE"
@@ -157,24 +158,24 @@
                     '<article class="artMenu">'+
                         '<article class="secMenucontent" id="secMenucontent" style="display: none;">'+
                             '<section class="sec_dropdown">'+
-                                '<h3 onclick="showFooterMenu()">Menu</h3>'+
+                                '<h3 onclick="toggleFooterMenu()">Menu</h3>'+
                                 '<ul>'+
-                                    '<li class="menu_val" onclick="window.askBot(`Start Over`)">Start over</li>'+
-                                    '<li class="menu_val" onclick="window.askBot(`Invest`)">Invest</li>'+
-                                    '<li class="menu_val" onclick="window.askBot(`Switch`)">Switch</li>'+
-                                    '<li class="menu_val" onclick="window.askBot(`Redeem`)">Redeem</li>'+
-                                    '<li class="menu_val" onclick="window.askBot(`Get account statement`)">Get account statement</li>'+
-                                    '<li class="menu_val" onclick="window.askBot(`Transaction Details`)">Transaction Details</li>'+
-                                    '<li class="menu_val" onclick="window.askBot(`Nach Mandate`)">Nach Mandate</li>'+
-                                    '<li class="menu_val" onclick="window.askBot(`Talk to Customer Care`)">Talk to Customer Care</li>'+
-                                    '<li class="menu_val" onclick="window.askBot(`Cancel conversation`)">Cancel conversation</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Start Over`);toggleFooterMenu()">Start over</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Invest`);toggleFooterMenu()">Invest</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Switch`);toggleFooterMenu()">Switch</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Redeem`);toggleFooterMenu()">Redeem</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Get account statement`);toggleFooterMenu()">Get account statement</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Transaction Details`);toggleFooterMenu()">Transaction Details</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Nach Mandate`);toggleFooterMenu()">Nach Mandate</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Talk to Customer Care`);toggleFooterMenu()">Talk to Customer Care</li>'+
+                                    '<li class="menu_val" onclick="window.askBot(`Cancel conversation`);toggleFooterMenu()">Cancel conversation</li>'+
                                 '</ul>'+
                             '</section>'+
                             '<div class="trianglearrow">'+
                                 '<img src="https://www.fundzbot.com/images/triangledown.png" class="img-responsive">'+
                             '</div>'+
                         '</article>'+
-                        '<div class="iconMenu" id="show-footer-menu" onclick="showFooterMenu()"><i class="fa fas fa-bars"></i></div>'+
+                        '<div class="iconMenu" id="show-footer-menu" onclick="toggleFooterMenu()"><i class="fa fas fa-bars"></i></div>'+
                     '</article>'+
                     '<aside class="jubi-muteUnmuteVoice" style="display:none;">'+
                         '<div id="jubi-unmuteVoice">'+
@@ -267,6 +268,5 @@
     '</section>'+
 '</section>';
     
-            })();
-            
-    
+})();
+
