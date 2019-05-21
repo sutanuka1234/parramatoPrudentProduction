@@ -201,17 +201,17 @@ footer a:hover {text-decoration: none; color: #20354d; }
  color: rgb(45, 45, 45);
  font-size: 13px;
  text-align: left;
- min-height: 42px;
+ height: 50px;
  overflow: hidden;
  margin-bottom: 6px;
  padding: 4px 10px 0px;
  border-bottom: 0px solid #ececec;
  margin: 0px 0 0; }
 .pm-bxslidebtn a, .pm-sliderContent p{font-size:12px;}
-.pm-sliderContent p {min-height: 53px;
- margin: 0 0 1px;
+.pm-sliderContent p {
+ margin: 0 0 0 10px;
  color: rgb(56, 56, 56);
- max-height: 63px;
+ height: 63px;
  overflow: hidden;
  font-size: 12px;
  text-align: left;
@@ -1088,6 +1088,7 @@ background: none;
   text-align: right;
   position: relative;
   border: 0px;
+  outline: none;
 }
 .jubi-sec_newFooter button:hover {
  border: 0;
