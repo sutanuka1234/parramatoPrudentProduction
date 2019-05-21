@@ -280,7 +280,7 @@ function summary(model){
 				type:"quickReply",
 	            text:"Your redemption is processed and reference ID is "+model.tags.redeemReferenceId+". What would you like to do next?",
 	            next:{
-	                data: [
+	       /*          data: [
 	                	{
 	                		data : "Invest",
 	                		text : "Invest"
@@ -306,7 +306,7 @@ function summary(model){
 	                		data : "FAQs",
 	                		text : "FAQs"
 	                	}
-	                ]
+	                ] */
 	            }
 			}
 		}
@@ -345,6 +345,46 @@ function summary(model){
 	                		data : "FAQs",
 	                		text : "FAQs"
 	                	}
+					]
+					data: [
+	                	{
+	                		data : "Talk to customer care",
+	                		text : "Talk to customer care"
+	                	},
+	                	{
+	                		data : "Invest",
+	                		text : "Invest"
+	                	},
+	                	{
+	                		data : "Start SIP",
+	                		text : "Start SIP"
+	                	},
+	                	{
+	                		data : "Redeem",
+	                		text : "Redeem"
+	                	},
+	                	{
+	                		data : "Switch",
+	                		text : "Switch"
+	                	},
+	                	
+	                	{
+	                		data : "STP",
+	                		text : "STP"
+	                	},
+	                	{
+	                		data : "FAQs",
+	                		text : "FAQs"
+						},
+						{
+	                		data : "Nach Mandate",
+	                		text : "Nach Mandate"
+	                	},
+	                	{
+	                		data : "Account Statement",
+	                		text : "Account Statement"
+						},
+						
 	                ]
 	            }
 			}
