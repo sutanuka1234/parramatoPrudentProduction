@@ -57,6 +57,10 @@ function start(model){
                         text : 'Invest Now'
                     },
                     {
+                        data : "Start SIP",
+                        text : 'Start SIP'
+                    },
+                    {
                         data : 'Redeem Now',
                         text : 'Redeem Now'
                     },
@@ -83,6 +87,10 @@ function start(model){
                     {
                         data : "Nach Mandate",
                         text : 'Nach Mandate'
+                    },
+                    {
+                        data : "Talk to Customer Care",
+                        text : 'Talk to Customer Care'
                     }
                 ]
             }
