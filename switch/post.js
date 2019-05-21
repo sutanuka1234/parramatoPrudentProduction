@@ -795,8 +795,8 @@ function scheme(model){
 						sendExternalMessage(model,message)
 						let filteredData={}
 						for(let key in amcdata){
-							if(data[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]){
-								filteredData[key]=data[key]
+							if(amcdata[key].amcCode==model.tags.switchSchemeObj["AMC_CODE"]){
+								filteredData[key]=amcdata[key]
 							}
 						}
 
