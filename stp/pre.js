@@ -507,7 +507,15 @@ function summary(model){
 	                	{
 	                		data : "FAQs",
 	                		text : "FAQs"
-	                	}
+						},
+						{
+	                		data : "Nach Mandate",
+	                		text : "Nach Mandate"
+	                	},
+	                	{
+	                		data : "Account Statement",
+	                		text : "Account Statement"
+						},
 	                ]
 	            }
 			}
