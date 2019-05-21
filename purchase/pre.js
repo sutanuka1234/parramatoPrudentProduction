@@ -481,7 +481,11 @@ function summary(model){
 	                	{
 	                		data : "STP",
 	                		text : "STP"
-	                	},
+						},
+						{	data : "Nach Mandate",
+						text : "Nach Mandate"},
+						{	data : "Talk to Customer Care",
+						text : "Talk to Customer Care"},
 	                	{
 	                		data : "FAQs",
 	                		text : "FAQs"
