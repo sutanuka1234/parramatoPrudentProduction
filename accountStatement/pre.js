@@ -205,8 +205,8 @@ function statement(model){
                         text : 'Nach Mandate'
 					},
 					{
-                        data : "Nach Mandate",
-                        text : 'Nach Mandate'
+                        data : "account statement",
+                        text : 'account statement'
 					}
 					
 				]

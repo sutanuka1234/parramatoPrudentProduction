@@ -46,7 +46,7 @@ function getExistingSchemes(ip,session, joinAccId){
 		headers : headers,
 		url 	: url+'GetAdditionalInvestScheme?IPAddress='+ip+'&SessionId='+session+'&JoinAccId='+joinAccId
 	}
-	console.log("account statement object")
+	console.log("account statement object!!!!")
 	console.log(JSON.stringify(obj))
 	return runRequest(obj)
 }
