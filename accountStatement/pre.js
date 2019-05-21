@@ -203,7 +203,12 @@ function statement(model){
                     {
                         data : "Nach Mandate",
                         text : 'Nach Mandate'
-                    }
+					},
+					{
+                        data : "Nach Mandate",
+                        text : 'Nach Mandate'
+					}
+					
 				]
 			}
 		}

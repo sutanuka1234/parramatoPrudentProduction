@@ -125,6 +125,7 @@ function main(req, res){
 function panMobile(model){
 	return new Promise(function(resolve, reject){
 		model=dataClean(model);
+		model = extractPan(model);
 		if(model.data.toLowerCase().includes("not")&&model.data.toLowerCase().includes("me")){
 			model.tags.mobile = false;
 			model.tags.pan = false;
@@ -135,7 +136,7 @@ function panMobile(model){
 			console.log(JSON.stringify(model) + ":::::::::::PAN MOBILE")
 			return resolve(model);
 		}
-		model = extractPan(model);
+		
 		if(model.tags.newPan){
 			let temp = {pan:model.tags.pan}
 			if(model.tags.newFolio){
