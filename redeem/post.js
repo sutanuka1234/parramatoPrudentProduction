@@ -1103,6 +1103,7 @@ function confirm(model){
 
 	return new Promise(function(resolve, reject){
 		if(model.data.toLowerCase().includes("yes")){
+			console.log("post confirm")
 			api.confirmRedemption(model.tags.ip,model.tags.session,model.tags.refrenceIdRedeemTxn)
 			.then((data)=>{
 				console.log("here it comes")

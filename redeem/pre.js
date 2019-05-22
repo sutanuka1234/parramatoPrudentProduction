@@ -274,6 +274,7 @@ function confirm(model){
 
 function summary(model){
 	return new Promise(function(resolve, reject){
+		console.log("pre summary")
 		console.log(JSON.stringify(model.tags,null,3))
 		if(model.tags.redeemReferenceId){
 			model.reply={
