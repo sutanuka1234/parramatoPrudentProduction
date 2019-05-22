@@ -220,7 +220,7 @@ function otp(model) {
 		else {
 			model.reply = {
 				
-				type: "Button",
+				type: "button",
 				text: "Kindly provide an OTP sent to your mobile number (" + formatter.apply(model.tags.mobile) + "), in case if you have not received any OTP click Resend",
 				next: {
 					data: [{
