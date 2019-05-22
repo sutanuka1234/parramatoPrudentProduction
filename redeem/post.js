@@ -1145,7 +1145,7 @@ function confirm(model){
 		            })
 				}
 				else{
-					console.log("summaryyyyy")
+					console.log("summaryyyyybajhskajsl")
 					model.tags.redeemReferenceId=data.Response[0]["ReferenceNo"];
 					model.stage="summary"
 					return resolve(model)
