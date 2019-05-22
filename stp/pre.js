@@ -479,7 +479,7 @@ function summary(model){
 		if(model.tags.stpReferenceId){
 			model.reply={
 				type:"quickReply",
-	            text:"Thanks, your reference id is "+model.tags.stpReferenceId+". What would you like to do next?",
+	            text:"Thanks, your reference id is "+model.tags.stpReferenceId+". What would you like to do next ?",
 	            next:{
 	                data: [
 	                	{
@@ -515,7 +515,15 @@ function summary(model){
 	                	{
 	                		data : "Account Statement",
 	                		text : "Account Statement"
+						},	
+						{
+	                		data : "Transaction Details",
+	                		text : "Transaction Details"
 						},
+						{
+	                		data : "Talk to customer care",
+	                		text : "Talk to customer care "
+	                	}
 	                ]
 	            }
 			}
