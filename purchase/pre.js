@@ -181,6 +181,7 @@ function investmentType(model) {
 
 
 			model.reply = {
+				
 				type: "button",
 				text: "Make a choice",
 				next: {
@@ -218,8 +219,15 @@ function otp(model) {
 		}
 		else {
 			model.reply = {
+				
 				type: "text",
-				text: "Kindly provide an OTP sent to your mobile number (" + formatter.apply(model.tags.mobile) + "), in case if you have not received any OTP type 'Resend'"
+				text: "Kindly provide an OTP sent to your mobile number (" + formatter.apply(model.tags.mobile) + "), in case if you have not received any OTP click Resend",
+				next: {
+					data: [{
+						text: "Resend",
+						data: "Resend"
+					}]
+				}
 			}
 		}
 		return resolve(model)

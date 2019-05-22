@@ -449,6 +449,7 @@ function panMobile(model) {
 					model.tags.panMobile = false;
 					model.stage = "panMobile";
 					return resolve(model);
+					
 					break;
 				default:
 					if (model.data && model.tags.mobile && model.tags.pan) {
