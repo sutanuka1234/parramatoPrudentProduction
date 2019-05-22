@@ -281,7 +281,7 @@ function summary(model){
 				type:"quickReply",
 	            text:"Your redemption is processed and reference ID is "+model.tags.redeemReferenceId+". What would you like to do next?",
 	            next:{
-	       /*          data: [
+	                data: [
 	                	{
 	                		data : "Invest",
 	                		text : "Invest"
@@ -307,7 +307,7 @@ function summary(model){
 	                		data : "FAQs",
 	                		text : "FAQs"
 	                	}
-	                ] */
+	                ]
 	            }
 			}
 		}
