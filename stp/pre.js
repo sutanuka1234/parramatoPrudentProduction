@@ -398,7 +398,7 @@ function stpWeekDay(model){
 			            		text:"Mon"
 			            	},{
 			            		data:"tue",
-			            		text:"Wed"
+			            		text:"tue"
 			            	},{
 			            		data:"wed",
 			            		text:"Wed"
