@@ -213,8 +213,14 @@ function otp(model) {
 		if (model.tags.resend) {
 			model.tags.resend = undefined
 			model.reply = {
-				type: "text",
-				text: "The new OTP is sent to your mobile number (" + formatter.apply(model.tags.mobile) + "), Please share it here. In case if you have not received any OTP, we would send you one if you say 'resend'"
+				type: "button",
+				text: "The new OTP is sent to your mobile number (" + formatter.apply(model.tags.mobile) + "), Please share it here. In case if you have not received any OTP, we would send you one if you say 'resend'",
+				next: {
+					data: [{
+						text: "Resend",
+						data: "Resend"
+					}]
+				}
 			}
 		}
 		else {
