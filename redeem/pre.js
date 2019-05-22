@@ -315,7 +315,7 @@ function summary(model){
 				type:"quickReply",
 	            text:"Could not proceed with the redemption with given details. However you can try again or go ahead with the following.",
 	            next:{
-	                data: [
+	       /*          data: [
 	                	{
 	                		data : "Talk to customer care",
 	                		text : "Talk to customer care"
@@ -345,7 +345,7 @@ function summary(model){
 	                		data : "FAQs",
 	                		text : "FAQs"
 	                	}
-					]
+					] */
 					data: [
 	                	{
 	                		data : "Talk to customer care",
