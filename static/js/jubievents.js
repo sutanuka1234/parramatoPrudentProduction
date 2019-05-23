@@ -1,4 +1,5 @@
     $(document).ready(function(){
+        let firstClick = false
         $("#jubi-secIframe").fadeIn(500);                
         $('#chatProceed').fadeIn(1000);
         $('.chatProceed-botimg').fadeIn(1000);                            
@@ -84,7 +85,20 @@
             $("#button-send").show();
             $("#jubi-redSend").show();
         })
-        
+        $("#jubi-secCloseview").click(function () {
+            $("#jubi-aside_fullopenview").show(200);
+            $("#jubi-secCloseview").hide(200);
+            $("#jubi-secCloseMsg").hide(200);
+            if (!firstClick) {
+                setTimeout(function () {
+                    if (window.jubiStartEvent) {
+                        window.jubiStartEvent()
+                        firstClick = true;
+                    }
+                }, 300)
+            }
+    
+        })
 
 
 
