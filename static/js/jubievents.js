@@ -2,6 +2,9 @@ $(document).ready(function () {
 
     let firstClick = false
 
+
+    $("#secCloseMsg").show();
+    $("#jubi-secCloseview").show();
     $("#jubi-secIframe").fadeIn(500);
     $('#chatProceed').fadeIn(1000);
     $('.chatProceed-botimg').fadeIn(1000);
@@ -25,11 +28,11 @@ $(document).ready(function () {
         $("#button-send").show();
         $("#voice-buttons").hide();
     })
-    $("#jubi-secCloseview").click(function () {
-        $("#jubi-aside_fullopenview").show(200);
-        $("#jubi-secCloseview").hide(200);
-        $("#jubi-secCloseMsg").hide(200);
-    })
+    // $("#jubi-secCloseview").click(function () {
+    //     $("#jubi-aside_fullopenview").show(200);
+    //     $("#jubi-secCloseview").hide(200);
+    //     $("#jubi-secCloseMsg").hide(200);
+    // })
     $("#jubi-secHideChat").click(function () {
         $("#jubi-aside_fullopenview").hide(200);
         $("#jubi-secCloseview").show(200);
@@ -88,8 +91,16 @@ $(document).ready(function () {
         $("#jubi-redSend").show();
     })
 
+    function showChatBot(){
+        $("#rightpanel").show(200);
+        $("#pm-secIframe").show(200);
+        $("#jubi-secCloseview").hide(200);
+        $("#secCloseMsg").hide(200);
+    }
+
     $("#jubi-secCloseview").click(function () {
-        $("#jubi-aside_fullopenview").show(200);
+        $("#rightpanel").show(200);
+        $("#pm-secIframe").show(200);
         $("#jubi-secCloseview").hide(200);
         $("#jubi-secCloseMsg").hide(200);
         if (!firstClick) {
@@ -133,4 +144,58 @@ $(document).ready(function () {
             }
         }, 500);
     });
-});           
+});        
+
+
+
+
+function toggleFooterMenu() {
+    let footermenu = document.getElementById("secMenucontent");
+    if (footermenu.style.display === "none") {
+        footermenu.style.display = "block";
+    }
+    else {
+        footermenu.style.display = "none";
+    }
+}
+
+
+function hideChatBot() {
+    let chatBot = document.getElementById("rightpanel");
+    if (chatBot.style.display === "block") {
+        chatBot.style.display = "none";
+        $("#jubi-secCloseview").show(200);
+        $("#secCloseMsg").show(200);
+    }
+    else {
+        chatBot.style.display = "block";
+    }
+}
+function closeOpenMsg() {
+    let message = document.getElementById("secCloseMsg");
+    if (message.style.display === "block") {
+        message.style.display = "none";
+    }
+    else {
+        message.style.display = "block";
+    }
+}
+
+function openChatBot() {
+    let rightpanel = document.getElementById("rightpanel");
+    if (rightpanel.style.display === "none") {
+        rightpanel.style.display = "block";
+        secCloseview.style.display = "none";
+        secCloseMsg.style.display = "none";
+    }
+    else {
+        rightpanel.style.display = "none";
+    }
+}          
+
+    function showChatBot(){
+    $("#rightpanel").show(200);
+    $("#pm-secIframe").show(200);
+    $("#jubi-secCloseview").hide(200);
+    $("#secCloseMsg").hide(200);
+    }

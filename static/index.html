@@ -18,67 +18,19 @@
 </head>
 
 <body>
-    <section class="secCloseMsg" id="secCloseMsg" style="display: block;">
+    <section class="secCloseMsg" id="secCloseMsg" style="display: none;">
         <div class="btnClose"><i class="fa fa-times" onclick="closeOpenMsg()"></i></div>
         <p>Hey, I am FUNDZBOT. Your anytime investment friend! Click below.</p>
     </section>
     <!-- <section class="sec_closeview" id="secCloseview" onclick="openChatBot()" style="display: block;"> -->
-    <section class="sec_closeview" id="jubi-secCloseview" style="display: block;"></section>
-    <img src="https://www.fundzbot.com/images/closeIcon.png" id="closeImage" class="img-responsive">
+    <section class="sec_closeview" id="jubi-secCloseview" style="display: none;" onclick="showChatBot()">
+        <img src="https://www.fundzbot.com/images/closeIcon.png" id="closeImage" class="img-responsive">
     </section>
     <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
     <script type="text/javascript" src="./loader.js" async defer></script>
     <script type="text/javascript" src="./pwa.js"></script>
-    <script src="./js/jubievents.js"></script>
-    <!-- <script src="./js/bundle.js"></script> -->
     <div id="jubi-chat-loader-app"></div>
-    <script>
-        function toggleFooterMenu() {
-            let footermenu = document.getElementById("secMenucontent");
-            if (footermenu.style.display === "none") {
-                footermenu.style.display = "block";
-            }
-            else {
-                footermenu.style.display = "none";
-            }
-        }
-
-
-        let secCloseview = document.getElementById("secCloseview")
-        let secCloseMsg = document.getElementById("secCloseMsg")
-        function hideChatBot() {
-            let chatBot = document.getElementById("rightpanel");
-            if (chatBot.style.display === "block") {
-                chatBot.style.display = "none";
-                secCloseview.style.display = "block";
-                secCloseMsg.style.display = "block";
-            }
-            else {
-                chatBot.style.display = "block";
-            }
-        }
-        function closeOpenMsg() {
-            let message = document.getElementById("secCloseMsg");
-            if (message.style.display === "block") {
-                message.style.display = "none";
-            }
-            else {
-                message.style.display = "block";
-            }
-        }
-
-        function openChatBot() {
-            let rightpanel = document.getElementById("rightpanel");
-            if (rightpanel.style.display === "none") {
-                rightpanel.style.display = "block";
-                secCloseview.style.display = "none";
-                secCloseMsg.style.display = "none";
-            }
-            else {
-                rightpanel.style.display = "none";
-            }
-        }
-    </script>
+    
 </body>
 
 </html>
