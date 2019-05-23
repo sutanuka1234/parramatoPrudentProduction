@@ -1,4 +1,3 @@
-
 "use strict";
 (function () {
 
@@ -307,4 +306,3 @@
 
     window.runOnJubiStartEvent = true;
 })();
-

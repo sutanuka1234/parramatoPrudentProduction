@@ -1,5 +1,7 @@
     $(document).ready(function(){
+
         let firstClick = false
+
         $("#jubi-secIframe").fadeIn(500);                
         $('#chatProceed').fadeIn(1000);
         $('.chatProceed-botimg').fadeIn(1000);                            
@@ -85,6 +87,7 @@
             $("#button-send").show();
             $("#jubi-redSend").show();
         })
+        
         $("#jubi-secCloseview").click(function () {
             $("#jubi-aside_fullopenview").show(200);
             $("#jubi-secCloseview").hide(200);
@@ -100,9 +103,12 @@
     
         })
 
-
-
-        
+    // function openChatbot(){
+    //     $("#jubi-aside_fullopenview").show(200);
+    //     $("#jubi-secCloseview").hide(200);
+    //     $("#jubi-secCloseMsg").hide(200);  
+    // } 
+      
         $("body").click(function (e) {
             setTimeout(function () {
                 if ($("textarea").is(":focus")) {
@@ -128,9 +134,3 @@
             }, 500);
         });
     });           
-    
-    function openChatbot(){
-        $("#jubi-aside_fullopenview").show(200);
-        $("#jubi-secCloseview").hide(200);
-        $("#jubi-secCloseMsg").hide(200);  
-    }
