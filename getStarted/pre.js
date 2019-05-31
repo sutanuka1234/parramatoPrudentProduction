@@ -69,7 +69,7 @@ function start(model){
                         text : 'Switch Now'
                     },
                     {
-                        data : "STP Now",
+                        data : "I want to avail STP facility for my Mutual Fund",
                         text : 'STP Now'
                     },
                     {
