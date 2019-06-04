@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     let firstClick = false
 
-
+    
     $("#secCloseMsg").show();
     $("#jubi-secCloseview").show();
     $("#jubi-secIframe").fadeIn(500);
@@ -91,18 +91,18 @@ $(document).ready(function () {
         $("#jubi-redSend").show();
     })
 
-    function showChatBot(){
-        $("#rightpanel").show(200);
+    // function showChatBot(){
+    //     $("#jubi-aside_fullopenview").show(200);
+    //     $("#pm-secIframe").show(200);
+    //     $("#jubi-secCloseview").hide(200);
+    //     $("#secCloseMsg").hide(200);
+    // }
+
+    $("#jubi-secCloseview").click(function () {
+        $("#jubi-aside_fullopenview").show(200);
         $("#pm-secIframe").show(200);
         $("#jubi-secCloseview").hide(200);
         $("#secCloseMsg").hide(200);
-    }
-
-    $("#jubi-secCloseview").click(function () {
-        $("#rightpanel").show(200);
-        $("#pm-secIframe").show(200);
-        $("#jubi-secCloseview").hide(200);
-        $("#jubi-secCloseMsg").hide(200);
         if (!firstClick) {
             setTimeout(function () {
                 if (window.jubiStartEvent) {
@@ -161,7 +161,7 @@ function toggleFooterMenu() {
 
 
 function hideChatBot() {
-    let chatBot = document.getElementById("rightpanel");
+    let chatBot = document.getElementById("jubi-aside_fullopenview");
     if (chatBot.style.display === "block") {
         chatBot.style.display = "none";
         $("#jubi-secCloseview").show(200);
@@ -181,21 +181,21 @@ function closeOpenMsg() {
     }
 }
 
-function openChatBot() {
-    let rightpanel = document.getElementById("rightpanel");
-    if (rightpanel.style.display === "none") {
-        rightpanel.style.display = "block";
-        secCloseview.style.display = "none";
-        secCloseMsg.style.display = "none";
-    }
-    else {
-        rightpanel.style.display = "none";
-    }
-}          
+// function openChatBot() {
+//     let rightpanel = document.getElementById("rightpanel");
+//     if (rightpanel.style.display === "none") {
+//         rightpanel.style.display = "block";
+//         secCloseview.style.display = "none";
+//         secCloseMsg.style.display = "none";
+//     }
+//     else {
+//         rightpanel.style.display = "none";
+//     }
+// }          
 
-    function showChatBot(){
-    $("#rightpanel").show(200);
-    $("#pm-secIframe").show(200);
-    $("#jubi-secCloseview").hide(200);
-    $("#secCloseMsg").hide(200);
-    }
+    // function showChatBot(){
+    // $("#rightpanel").show(200);
+    // $("#pm-secIframe").show(200);
+    // $("#jubi-secCloseview").hide(200);
+    // $("#secCloseMsg").hide(200);
+    // }
