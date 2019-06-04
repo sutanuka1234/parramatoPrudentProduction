@@ -305,3 +305,20 @@
 
     window.runOnJubiStartEvent = true;
 })();
+
+
+function handleConnectionChange(event) {
+    let netStatus = document.getElementById("internet-detect");
+    if (event.type == "offline") {
+        netStatus.style.display = "block";
+        netStatus.innerHTML = '<p class="offline">You are offline</p>';
+    }
+    if (event.type == "online") {
+        netStatus.innerHTML = '<p class="online">You are online</p>';
+        setTimeout(function () {
+            netStatus.style.display = "none";
+        }, 2000)
+    }
+}
+window.addEventListener('online', handleConnectionChange);
+window.addEventListener('offline', handleConnectionChange);
