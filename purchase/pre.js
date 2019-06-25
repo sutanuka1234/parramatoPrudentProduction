@@ -329,6 +329,7 @@ function amount(model) {
 
 function holding(model) {
 	return new Promise(function (resolve, reject) {
+		console.log("holding")
 		if (model.tags.joinAccList) {
 			model.reply = {
 				type: "generic",
