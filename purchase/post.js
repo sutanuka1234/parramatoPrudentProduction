@@ -1085,6 +1085,7 @@ function holding(model) {
 		model.tags.additional = false;
 		model.tags.folio = undefined;
 		if (model.tags.joinAccIdList.includes(model.data)) {
+			console.log("here inside holding")
 			for (let element of model.tags.joinAcc) {
 				// console.log(element.JoinAccId+"::"+model.data)
 				if (element.JoinAccId == model.data) {
