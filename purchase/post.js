@@ -958,6 +958,7 @@ function askSchemeName(model) {
 		else if (matches.bestMatch.rating > 0.10 || dataAmc.flag) {
 			// // console.log("one")
 			matches.ratings = matches.ratings.sort(sortBy('-rating'));
+			console.log("sorting")
 			model.tags.schemes = matches.ratings.splice(0, 9);
 		}
 		else {
@@ -965,6 +966,7 @@ function askSchemeName(model) {
 			return reject(model);
 		}
 		if (model.tags.schemes) {
+			console.log("pusing /////////////")
 			model.tags.schemeList = []
 			model.tags.schemes.forEach(function (element) {
 				model.tags.schemeList.push({
@@ -987,6 +989,7 @@ function askSchemeName(model) {
 
 function showSchemeName(model) {
 	return new Promise(function (resolve, reject) {
+		console.log("inside showsvhemename")
 		if (model.data.toLowerCase().includes("cancel") || model.data.toLowerCase().includes("stop") || model.data.toLowerCase().trim() == "exit") {
 			return reject(model)
 		}
