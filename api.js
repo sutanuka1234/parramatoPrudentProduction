@@ -45,6 +45,7 @@ function otp(ip,session, otp){
 		url 	: url+'ConfirmOTP?IPAddress='+ip+'&SessionId='+session+'&OTPCode='+otp
 	}
 	console.log(obj)
+	console.log(JSON.stringify(obj))
 	return runRequest(obj)
 }
 

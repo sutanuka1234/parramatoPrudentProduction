@@ -787,6 +787,7 @@ function otp(model) {
 						else {
 							model.tags.joinAcc = response.Response
 							// console.log("sent message")
+							console.log(model.tags.joinAcc+"joinAcc")
 							model.tags.investorName = model.tags.joinAcc[0].JoinHolderName.split("/")[0];
 							sendExternalMessage(model, "Hi " + model.tags.joinAcc[0].JoinHolderName.split("/")[0] + ", " + greeting[Math.floor(Math.random() * 3)]);
 							model.tags.joinAccIdList = []
