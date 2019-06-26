@@ -840,6 +840,7 @@ function scheme(model){
 
 function askSchemeName(model){
 	return new Promise(function(resolve, reject){
+		console.log("here")
 		if(model.data.toLowerCase().includes("cancel")||model.data.toLowerCase().includes("stop")||model.data.toLowerCase().trim()=="exit"){
 			return reject(model)
 		}
