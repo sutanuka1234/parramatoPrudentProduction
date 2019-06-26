@@ -1077,6 +1077,7 @@ function showSchemeName(model) {
 
 function holding(model) {
 	return new Promise(function (resolve, reject) {
+		console.log("holding")
 		model.tags.divOption = undefined
 		model.tags.schemeApiDetails = undefined
 		model.tags.tranId = undefined
