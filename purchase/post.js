@@ -1077,13 +1077,14 @@ function showSchemeName(model) {
 
 function holding(model) {
 	return new Promise(function (resolve, reject) {
-		console.log("holding!!!!!!!!!!!!!!")
+		console.log("holding!!!!!!!!!!!!!!??")
 		model.tags.divOption = undefined
 		model.tags.schemeApiDetails = undefined
 		model.tags.tranId = undefined
 		model.tags.transactionRefId = undefined
 		model.tags.additional = false;
 		model.tags.folio = undefined;
+		console.log("model.data " +model.data)
 		if (model.tags.joinAccIdList.includes(model.data)) {
 			console.log("here inside holding")
 			for (let element of model.tags.joinAcc) {
