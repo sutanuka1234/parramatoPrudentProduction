@@ -932,6 +932,7 @@ function investmentType(model) {
 
 function askSchemeName(model) {
 	return new Promise(function (resolve, reject) {
+		console.log("post ask scheme name")
 		if (model.data.toLowerCase().includes("cancel") || model.data.toLowerCase().includes("stop") || model.data.toLowerCase().trim() == "exit") {
 			return reject(model)
 		}
