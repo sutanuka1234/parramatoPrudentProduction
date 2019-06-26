@@ -14,7 +14,7 @@ let obj = {
 	otp 	: otp,
 	holding : holding,
 	scheme 	: scheme,
-	//askSchemeName:askSchemeName,
+	askSchemeName:askSchemeName,
 	showSchemeName:showSchemeName,
 	agreement:agreement,
 	euin	: euin,
