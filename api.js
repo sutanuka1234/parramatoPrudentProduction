@@ -103,6 +103,9 @@ function getScheme(ip,session, joinAccId, fundsType, amcId, schemeOption, subNat
 			}
 		}		
 	}
+	//console.log()
+	console.log(obj)
+	console.log(JSON.stringify(obj))
 
 	return runRequest(obj)
 }
@@ -118,6 +121,8 @@ function getClientAllFolio(ip,session){
 		headers : headers,
 		url 	: url+'GetClientAllFolio?IPAddress='+ip+'&SessionId='+session
 	}
+	console.log(obj)
+	console.log(JSON.stringify(obj))
 	return runRequest(obj)
 }
 // getClientAllFolio("190.100.10.200","7C772321713D21713D21713D21713D21713D2F612A21713D2F612A236425").then((data)=>{
@@ -138,6 +143,8 @@ function getAccountStatement(ip, session, folio, amcId){
 		headers : headers,
 		url 	: url+"GetAccountStatement?IPAddress="+ip+"&SessionId="+session+"&FolioNo="+folio+"&AMCCode="+amcId
 	}
+	console.log(obj)
+	console.log(JSON.stringify(obj))
 	return runRequest(obj)
 }
 
@@ -150,6 +157,8 @@ function getTransactionDetails(ip,session,txId){
 		headers : headers,
 		url 	: url+"TransactionDetailsGet?IPAddress="+ip+"&SessionId="+session+"&TranReferenceID="+txId
 	}
+	console.log(obj)
+	console.log(JSON.stringify(obj))
 	return runRequest(obj)
 }
 
@@ -163,6 +172,8 @@ function getMandateDetails(ip,session){
 		headers : headers,
 		url 	: url+"MandateDetailsGet?IPAddress="+ip+"&SessionId="+session
 	}
+	console.log(obj)
+	console.log(JSON.stringify(obj))
 	return runRequest(obj)
 }
 
@@ -208,7 +219,9 @@ function getFolio(ip,session, joinAccId, schemeCode, amcId,investmentType,switch
 				headers : headers,
 				url 	: url+'GetFolioNo?IPAddress='+ip+'&SessionId='+session+'&JoinAccId='+joinAccId+'&SchemeCode='+schemeCode+'&AMCId='+amcId
 			}
-		}		
+		}
+		console.log(obj)
+		console.log(JSON.stringify(obj))		
 	}
 	return runRequest(obj)
 }
