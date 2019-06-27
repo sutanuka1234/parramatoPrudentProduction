@@ -348,6 +348,14 @@ footer a:hover {text-decoration: none; color: #20354d; }
 }
 .pm-arrowLeftchat { position: absolute; left: -10px; width: 15px; top: 8px;}
 .pm-leftInput p{font-size:15px;display:inline-block;margin:0;word-break:break-word; }
+#jubi-chat-loader-app .jubi-msgReplyTime h5 {
+  margin: 0;
+  float: left;
+  font-size: 10px;
+  color: #9f9f9f;
+  text-align: right;
+  width: 100%;
+}
 .pm-pointLeftchat{position:absolute;bottom:-26px;left:-7px;display:none; }
 .pm-pointLeftchat img{width:35px; }
 .pm-bxRightchat{float:right;width:100%;margin:10px 0 25px; }
