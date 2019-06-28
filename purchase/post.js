@@ -1098,6 +1098,7 @@ function holding(model) {
 					break;
 				}
 			}
+			console.log(JSON.parse(model.data))
 			model.tags.joinAccId = model.data
 			// // console.log("INVESTMENT TYPE::::::::::")
 			// // console.log(model.tags.investmentType)
