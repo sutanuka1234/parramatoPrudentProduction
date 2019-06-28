@@ -873,7 +873,7 @@ function otp(model) {
 
 
 function agreement(model) {
-	return new Promise(function (resolve, reject) {
+	return new Promise(async function (resolve, reject) {
 		console.log(model.tags.schemeApiDetails)
 		if (model.data.toLowerCase().trim().includes("i accept and agree")) {
 			if (model.tags.additional) {
@@ -895,7 +895,7 @@ function agreement(model) {
 
 
 function investmentType(model) {
-	return new Promise(function (resolve, reject) {
+	return new Promise(async function (resolve, reject) {
 		if (model.data.toLowerCase().includes("lumpsum") || model.data.toLowerCase().includes("one time")) {
 			console.log("here _________lumpsum")
 			model.tags.investmentType = "lumpsum"
@@ -932,7 +932,7 @@ function investmentType(model) {
 
 
 function askSchemeName(model) {
-	return new Promise(function (resolve, reject) {
+	return new Promise(async function (resolve, reject) {
 		console.log("post ask scheme name")
 		if (model.data.toLowerCase().includes("cancel") || model.data.toLowerCase().includes("stop") || model.data.toLowerCase().trim() == "exit") {
 			return reject(model)
@@ -989,7 +989,7 @@ function askSchemeName(model) {
 }
 
 function showSchemeName(model) {
-	return new Promise(function (resolve, reject) {
+	return new Promise(async function (resolve, reject) {
 		console.log("inside showsvhemename")
 		if (model.data.toLowerCase().includes("cancel") || model.data.toLowerCase().includes("stop") || model.data.toLowerCase().trim() == "exit") {
 			return reject(model)
@@ -1077,7 +1077,7 @@ function showSchemeName(model) {
 //============================================================
 
 function holding(model) {
-	return new Promise(function (resolve, reject) {
+	return new Promise(async function (resolve, reject) {
 		console.log("holding!!!!!!!!!!!!!!??")
 		model.tags.divOption = undefined
 		model.tags.schemeApiDetails = undefined
@@ -1091,6 +1091,7 @@ function holding(model) {
 			for (let element of model.tags.joinAcc) {
 				// console.log(element.JoinAccId+"::"+model.data)
 				if (element.JoinAccId == model.data) {
+					console.log("its a matchhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
 					sendExternalMessage(model, "Going ahead with " + element.JoinHolderName)
 					break;
 				}
@@ -1104,6 +1105,7 @@ function holding(model) {
 						// // console.log(response.body)
 						try {
 							response = JSON.parse(response.body)
+							console.log("json.parse response")
 							// console.log(JSON.stringify(response,null,3))
 						}
 						catch (e) {
@@ -1463,7 +1465,7 @@ function holding(model) {
 }
 
 function additional(model) {
-	return new Promise(function (resolve, reject) {
+	return new Promise(async function (resolve, reject) {
 		if (model.data.toLowerCase().includes("yes") && model.tags.existingSchemeDetailsSet.length > 0) {
 			api.getScheme(model.tags.ip, model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode)
 				.then((response) => {
@@ -1675,7 +1677,7 @@ function additional(model) {
 }
 
 function euin(model) {
-	return new Promise(function (resolve, reject) {
+	return new Promise(async function (resolve, reject) {
 		console.log(model.tags.schemeApiDetails)
 		model.tags.decideStage = undefined
 		try {
@@ -1867,7 +1869,7 @@ function euin(model) {
 
 
 function folio(model) {
-	return new Promise(function (resolve, reject) {
+	return new Promise(async function (resolve, reject) {
 		// console.log("::::::::::::::::::::::::EUIN::::::::::::::::::::::::")
 		// console.log(JSON.stringify(model.tags.euinApiDetails,null,3))
 		console.log(model.tags.schemeApiDetails)
@@ -2125,7 +2127,7 @@ function folio(model) {
 
 
 function divOps(model) {
-	return new Promise(function (resolve, reject) {
+	return new Promise(async function (resolve, reject) {
 		model = extractAmount(model)
 		// model = extractFolio(model)
 		console.log(model.tags.schemeApiDetails)
@@ -2286,7 +2288,7 @@ function divOps(model) {
 //============================================================
 
 function amount(model) {
-	return new Promise(function (resolve, reject) {
+	return new Promise(async function (resolve, reject) {
 		model = dataClean(model)
 		model = extractAmount(model)
 		if (model.tags.amount && model.tags.schemeApiDetails) {
@@ -2496,7 +2498,7 @@ function amount(model) {
 }
 
 function sipDay(model) {
-	return new Promise(function (resolve, reject) {
+	return new Promise(async function (resolve, reject) {
 		try {
 			// console.log("SIP:::::::::::::::::::::::::::::::::::::::"+model.tags.schemeApiDetails["SIPDays"]);
 			let text = matchAll(model.data, /(\d+)/gi).toArray();
@@ -2673,7 +2675,7 @@ function sipInstallments(model) {
 }
 
 function bankMandate(model) {
-	return new Promise(function (resolve, reject) {
+	return new Promise( async function (resolve, reject) {
 		console.log(":::::::::::::::::::::::::::::::::::::")
 		console.log("User said : " + model.data)
 		if (model.data.startsWith(model.tags.session + "-payment-") && model.data.split("-").length == 3) {
