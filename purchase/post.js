@@ -1228,6 +1228,7 @@ console.log("next if")
 								})
 								.catch((e) => {
 									console.log(e);
+									console.log("yahs")
 									return reject(model)
 								})
 						}
