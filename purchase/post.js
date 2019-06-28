@@ -1244,8 +1244,9 @@ console.log("next if")
 						external(reply)
 							.then((data) => {
 								model.stage = 'askSchemeName'
-								model.tags.schemes = undefined;
-								model.tags.scheme = undefined;
+								model.tags.selectedSchemeName = false
+								model.tags.schemes = false;
+								model.tags.scheme = false;
 								return resolve(model)
 							})
 							.catch((e) => {
