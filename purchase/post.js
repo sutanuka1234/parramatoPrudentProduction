@@ -1103,8 +1103,9 @@ function holding(model) {
 			// // console.log("INVESTMENT TYPE::::::::::")
 			// // console.log(model.tags.investmentType)
 			if (model.tags.investmentType == "sip") {
-				api.getScheme(model.tags.ip, model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode, true)
-					.then((response) => {
+				try{
+			let response=await api.getScheme(model.tags.ip, model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode, true)
+					
 						// // console.log(response.body)
 						try {
 							response = JSON.parse(response.body)
@@ -1228,8 +1229,8 @@ function holding(model) {
 									return reject(model)
 								})
 						}
-					})
-					.catch(e => {
+					}
+					catch(e) {
 						// console.log(e)
 						let reply = {
 							text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
@@ -1249,7 +1250,7 @@ function holding(model) {
 								return reject(model)
 							})
 						return reject(model)
-					})
+					}
 			}
 			else {
 				api.getExistingSchemes(model.tags.ip, model.tags.session, model.tags.joinAccId)
