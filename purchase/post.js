@@ -1211,7 +1211,12 @@ console.log("next if")
 							}
 						}
 						else {
-							console.log("elseeeeeeeeeeeeeeeeeeeeeees")
+							model.stage = 'askSchemeName'
+									model.tags.selectedSchemeName = false
+									model.tags.schemes = false;
+									model.tags.scheme = false;
+									return resolve(model)
+							/* console.log("elseeeeeeeeeeeeeeeeeeeeeees")
 							let reply = {
 								text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
 								type: "text",
@@ -1220,18 +1225,18 @@ console.log("next if")
 							}
 							external(reply)
 								.then((data) => {
-								
 									model.stage = 'askSchemeName'
 									model.tags.selectedSchemeName = false
 									model.tags.schemes = false;
 									model.tags.scheme = false;
 									return resolve(model)
+									
 								})
 								.catch((e) => {
 									console.log(e);
 									console.log("yahs")
 									return reject(model)
-								})
+								}) */
 						}
 					}
 					catch(e) {
