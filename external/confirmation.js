@@ -98,3 +98,17 @@ function sendExternalData(data){
         }
     });
 }
+//// request({
+            //     uri     :'https://development.jubi.ai/prudent-whatsapp/sendNotification',
+            //     json    :data,
+            //     method  :'POST'   
+            // },(err,req,body)=>{
+            //     if(err){   
+            //         console.log(err)
+            //         return reject("Something went wrong.");
+            //     }
+            //     else{
+            //         console.log(body);
+			return resolve({});
+            //     }
+            // })     

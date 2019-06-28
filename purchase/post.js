@@ -1220,6 +1220,7 @@ console.log("next if")
 							}
 							external(reply)
 								.then((data) => {
+									console.log("here")
 									model.stage = 'askSchemeName'
 									model.tags.schemes = undefined;
 									model.tags.scheme = undefined;
