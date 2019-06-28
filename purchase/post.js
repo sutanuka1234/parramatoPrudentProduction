@@ -1089,8 +1089,10 @@ function holding(model) {
 		if (model.tags.joinAccIdList.includes(model.data)) {
 			console.log("here inside holding")
 			for (let element of model.tags.joinAcc) {
+				
 				// console.log(element.JoinAccId+"::"+model.data)
 				if (element.JoinAccId == model.data) {
+					console.log("abcdabcd....")
 					console.log("its a matchhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
 					sendExternalMessage(model, "Going ahead with " + element.JoinHolderName)
 					break;
