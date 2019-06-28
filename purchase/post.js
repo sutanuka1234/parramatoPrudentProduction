@@ -1211,6 +1211,7 @@ console.log("next if")
 							}
 						}
 						else {
+							console.log("elseeeeeeeeeeeeeeeeeeeeeees")
 							let reply = {
 								text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
 								type: "text",
