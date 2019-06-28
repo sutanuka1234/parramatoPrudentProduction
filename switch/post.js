@@ -1008,9 +1008,11 @@ function showSchemeName(model){
 								sendExternalMessage(model,"Going ahead with "+model.tags.scheme)
 								api.getScheme(model.tags.ip,model.tags.session, model.tags.joinAccId, '2', data[model.tags.scheme].amcCode, data[model.tags.scheme].optionCode, data[model.tags.scheme].subNatureCode,undefined,model.tags.folio,model.tags.switchSchemeObj["SCHEMECODE"],true)
 								.then((response)=>{
-									console.log(response.body)
+									//console.log(response.body)
+									let res
 									try{
 										response = JSON.parse(response.body)
+										console.log("here here here?????")
 										if(response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME){
 
 											console.log("1")
