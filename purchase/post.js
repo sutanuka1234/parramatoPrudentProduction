@@ -1108,7 +1108,7 @@ function holding(model) {
 					
 						// // console.log(response.body)
 						try {
-							response = JSON.parse(response.body)
+							console.log(JSON.parse(response.body))
 							console.log("json.parse response")
 							// console.log(JSON.stringify(response,null,3))
 						}
@@ -1211,12 +1211,7 @@ console.log("next if")
 							}
 						}
 						else {
-							model.stage = 'askSchemeName'
-									model.tags.selectedSchemeName = false
-									model.tags.schemes = false;
-									model.tags.scheme = false;
-									return resolve(model)
-							/* console.log("elseeeeeeeeeeeeeeeeeeeeeees")
+							console.log("elseeeeeeeeeeeeeeeeeeeeeees")
 							let reply = {
 								text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
 								type: "text",
@@ -1236,7 +1231,7 @@ console.log("next if")
 									console.log(e);
 									console.log("yahs")
 									return reject(model)
-								}) */
+								})
 						}
 					}
 					catch(e) {
