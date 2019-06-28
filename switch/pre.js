@@ -227,6 +227,7 @@ function divOps(model){
 
 function askSchemeName(model){
 	return new Promise(function(resolve, reject){
+		console.log("abcd")
 		if(!model.tags.schemes){
 			model.reply={
 				type:"text",
