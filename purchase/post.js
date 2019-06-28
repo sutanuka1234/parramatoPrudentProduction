@@ -1117,7 +1117,7 @@ function holding(model) {
 							// console.log(e)
 						}
 						if (response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME) {
-
+console.log("next if")
 							for (let element of response.Response[0]) {
 								if (element["SCHEMECODE"] == data[model.tags.scheme].schemeCode) {
 									model.tags.schemeApiDetails = element
