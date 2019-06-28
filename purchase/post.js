@@ -1108,7 +1108,7 @@ function holding(model) {
 					
 						// // console.log(response.body)
 						try {
-							console.log(JSON.stringify(response.body))
+							conaole.log(response)
 							console.log("________________________")
 							console.log("json.parse response")
 							// console.log(JSON.stringify(response,null,3))
