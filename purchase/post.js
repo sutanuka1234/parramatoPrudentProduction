@@ -111,7 +111,7 @@ let greeting = ["Hope you are doing great today", "Good to see you!", "Hope you 
 
 function main(req, res) {
 	// console.log(req.params.stage)
-	console.log(req.params.stage)
+	console.log(req.params.stage+"main")
 	var buttonStageArr = req.body.data.split("|||")
 	if (buttonStageArr.length == 2 && obj[buttonStageArr[0]]) {
 		req.body.data = buttonStageArr[1]
