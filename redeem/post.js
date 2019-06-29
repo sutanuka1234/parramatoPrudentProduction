@@ -1,16 +1,5 @@
 "use strict"
 module.exports={
-	main:main
-}
-
-let api = require('../api.js')
-let external = require('../external.js')
-let words = require('../words.js')
-let stringSimilarity = require('string-similarity');
-let sortBy = require('sort-by')
-let matchAll = require('match-all')
-const size=10
-let obj = {
 	panMobile : panMobile,
 	mobile	: mobile,
 	pan		: pan,
@@ -21,6 +10,17 @@ let obj = {
 	amount 	:amount,
 	confirm : confirm
 }
+
+let api = require('../api.js')
+let external = require('../external.js')
+let words = require('../words.js')
+let stringSimilarity = require('string-similarity');
+let sortBy = require('sort-by')
+let matchAll = require('match-all')
+const size=10
+/* let obj = {
+	
+} */
 
 
 let regexMobile	= /[789]\d{9}/gi
@@ -87,7 +87,7 @@ let sortedJourney=["panMobile",
 
 let greeting = ["Hope you are doing great today", "Good to see you!", "Hope you are having a good time", "Hope you are doing well today."]
 
-function main(req, res){
+/* function main(req, res){
 		console.log(req.params.stage)
 		console.log(req.body.data)
 		var buttonStageArr=req.body.data.split("|||")
@@ -116,7 +116,7 @@ function main(req, res){
 				res.sendStatus(203)
 		}
 		
-}
+} */
 
 //============================================================
 
