@@ -87,7 +87,7 @@ let sortedJourney=["panMobile",
 
 let greeting = ["Hope you are doing great today", "Good to see you!", "Hope you are having a good time", "Hope you are doing well today."]
 
-/* function main(req, res){
+ function main(req, res){
 		console.log(req.params.stage)
 		console.log(req.body.data)
 		var buttonStageArr=req.body.data.split("|||")
@@ -116,7 +116,7 @@ let greeting = ["Hope you are doing great today", "Good to see you!", "Hope you 
 				res.sendStatus(203)
 		}
 		
-} */
+} 
 
 //============================================================
 
