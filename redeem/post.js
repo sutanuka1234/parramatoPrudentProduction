@@ -1,5 +1,16 @@
 "use strict"
 module.exports={
+	main:main
+}
+
+let api = require('../api.js')
+let external = require('../external.js')
+let words = require('../words.js')
+let stringSimilarity = require('string-similarity');
+let sortBy = require('sort-by')
+let matchAll = require('match-all')
+const size=10
+let obj = {
 	panMobile : panMobile,
 	mobile	: mobile,
 	pan		: pan,
@@ -10,17 +21,6 @@ module.exports={
 	amount 	:amount,
 	confirm : confirm
 }
-
-let api = require('../api.js')
-let external = require('../external.js')
-let words = require('../words.js')
-let stringSimilarity = require('string-similarity');
-let sortBy = require('sort-by')
-let matchAll = require('match-all')
-const size=10
-/* let obj = {
-	
-} */
 
 
 let regexMobile	= /[789]\d{9}/gi
