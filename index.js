@@ -28,7 +28,6 @@ app.post('/external/confirmation', (req,res)=>{
     require('./external/confirmation').main(req, res)
 })
 
-/* app.post('/:folder/:type/:stage', (req,res)=>{
+app.post('/:folder/:type/:stage', (req,res)=>{
     require('./'+req.params.folder+'/'+req.params.type).main(req, res)
 })
- */
