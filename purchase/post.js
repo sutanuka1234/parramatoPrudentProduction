@@ -1314,6 +1314,7 @@ console.log("next if")
 									// // console.log(response.body)
 									try {
 										response = JSON.parse(response.body)
+										console.log("abcd")
 										console.log(response)
 										// console.log(JSON.stringify(response,null,3))
 									}
@@ -1323,6 +1324,7 @@ console.log("next if")
 									}
 
 									if (response.Response && response.Response[0] && response.Response[0][0] && response.Response[0][0].FUNDNAME) {
+										console.log("next iffff")
 										for (let element of response.Response[0]) {
 											if (element["SCHEMECODE"] == data[model.tags.scheme].schemeCode) {
 												model.tags.schemeApiDetails = element
@@ -1417,7 +1419,8 @@ console.log("next if")
 												})
 										}
 									}
-									else {console.log("Else!!!!")
+									else {
+										console.log("Else!!!!")
 										let reply = {
 											text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
 											type: "text",
