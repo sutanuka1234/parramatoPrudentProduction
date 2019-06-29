@@ -1314,6 +1314,7 @@ console.log("next if")
 									// // console.log(response.body)
 									try {
 										response = JSON.parse(response.body)
+										console.log(response)
 										// console.log(JSON.stringify(response,null,3))
 									}
 									catch (e) {
@@ -1416,7 +1417,7 @@ console.log("next if")
 												})
 										}
 									}
-									else {
+									else {console.log("Else!!!!")
 										let reply = {
 											text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
 											type: "text",
