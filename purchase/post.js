@@ -1110,9 +1110,10 @@ function holding(model) {
 					
 						// // console.log(response.body)
 						try {
-							conaole.log(response)
+							//conaole.log(response)
+							response = JSON.parse(response.body)
 							console.log("________________________")
-							console.log("json.parse response")
+							//console.log("json.parse response")
 							// console.log(JSON.stringify(response,null,3))
 						}
 						catch (e) {
@@ -1126,7 +1127,7 @@ console.log("next if")
 									model.tags.schemeApiDetails = element
 								}
 							}
-							if (model.tags.schemeApiDetails == undefined) {
+							if (model.tags.schemeApiDetails == false) {
 								let reply = {
 									text: 'The scheme ' + model.tags.scheme + ' cannot be purchased with this account',
 									type: "text",
