@@ -105,7 +105,7 @@ function getScheme(ip,session, joinAccId, fundsType, amcId, schemeOption, subNat
 	}
 	//console.log()
 	console.log(obj)
-	console.log(JSON.stringify(obj))
+	
 
 	return runRequest(obj)
 }
