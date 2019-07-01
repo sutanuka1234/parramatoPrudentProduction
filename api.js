@@ -5,8 +5,8 @@ var headers = {
     UserName    : "Prudent",
     Password    : "Prudent@123"
 }
-// var url = 'https://www.prudentcorporate.com/cbapi/'
-var url = "https://prudentcorporate.com/CBAPIUAT/"
+ var url = 'https://www.prudentcorporate.com/cbapi/'
+//var url = "https://prudentcorporate.com/CBAPIUAT/"
 
 function panMobile(ip,mobile, pan){
 	if(!ip||ip==undefined||ip=="localhost"){
