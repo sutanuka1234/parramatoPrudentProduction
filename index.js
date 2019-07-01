@@ -5,11 +5,11 @@ require("bot-middleware-jubi").Server({
     socketLocalPath: '/socket',
     httpPort:8125,
     cluster:false,
-    dbUri: 'mongodb://jubi:jubi@uatmongo.parramato.com:27017/prudentDb',
+    dbUri: 'mongodb://jubi:jubi@uatmongo.parramato.com:27017/prudentDb',//
     staticDirectory:__dirname+"/static",
     adapterPath:"/adapter",
     adapterDirectory:__dirname+"/adapter",
-    projectId:"ClonePrudentProduction_432543815345",
+    projectId:"parramatoPrudentProduction_571731615155",
     // dashbotKey:"VxtYPVW6168LIiXwqpIku9wE",
     directMultiplier:1,
     fallbackMultiplier:0.8,
