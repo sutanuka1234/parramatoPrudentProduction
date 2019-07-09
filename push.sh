@@ -1,4 +1,4 @@
-git pull origin master
+git pull origin parramato
 git add .
 echo "Please enter comment: "
 read comment

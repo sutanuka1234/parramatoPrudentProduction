@@ -132,7 +132,7 @@
         socket: "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js",
         responsiveVoice: "https://code.responsivevoice.org/responsivevoice.js",
         nluComponent: "https://unpkg.com/compromise@latest/builds/compromise.min.js",
-        bundle: "https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/js/bundle.test.js",
+        bundle: "https://parramato.com/bot-view/parramatoPrudentProduction_571731615155/dev/js/bundle.test.js",
         // bundle: "./js/bundle.test.js"
         jubiEvents:"./js/jubievents.js"
     });
@@ -141,7 +141,7 @@
     window.speechOnBrowser = "Hindi Female"
     window.speechGenderBackend = "FEMALE"
     window.speechLanguageCodeBackend = "en-US"
-    window.jubiUrl = 'https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/';
+    window.jubiUrl = 'https://parramato.com/bot-view/parramatoPrudentProduction_571731615155/dev/';
     window.jubiModal = {
         url: 'wss://development.jubi.ai',
         path: '/prudent-uat/socket',
@@ -151,7 +151,7 @@
             },
             css: {
             },
-            images: { "logo": "https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/logo.png", "sendIcon": "./images/icon_send.png", "sendIconActive": "./images/iconRed_send.png", "loaderBotChat": "./images/loading_new.gif", "userIcon": "./images/rightUser.png", "botIcon": "./images/boticon.png", "logoIcon": "./images/logo-icon.png", "voiceIcon": "https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/voice.png", "closeWebView": "https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/closeWebView.png", "attachment": "https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/attachment.png", "permissionIcon": "./images/loading_new.gif" },
+            images: { "logo": "https://parramato.com/bot-view/parramatoPrudentProduction_571731615155/dev/images/logo.png", "sendIcon": "./images/icon_send.png", "sendIconActive": "./images/iconRed_send.png", "loaderBotChat": "./images/loading_new.gif", "userIcon": "./images/rightUser.png", "botIcon": "./images/boticon.png", "logoIcon": "./images/logo-icon.png", "voiceIcon": "https://parramato.com/bot-view/parramatoPrudentProduction_571731615155/dev/images/voice.png", "closeWebView": "https://parramato.com/bot-view/parramatoPrudentProduction_571731615155/dev/images/closeWebView.png", "attachment": "https://parramato.com/bot-view/parramatoPrudentProduction_571731615155/dev/images/attachment.png", "permissionIcon": "./images/loading_new.gif" },
             text: {
                 closeMessage: '',
                 headMessage: 'Ask me anything.'
@@ -239,17 +239,17 @@
             '</article>' +
             '<aside class="jubi-muteUnmuteVoice" style="display:none;">' +
             '<div id="jubi-unmuteVoice">' +
-            '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/unmute.png">' +
+            '<img src="https://parramato.com/bot-view/parramatoPrudentProduction_571731615155/dev/images/unmute.png">' +
             '</div>' +
             '<div id="jubi-muteVoice">' +
-            '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/mute.png">' +
+            '<img src="https://parramato.com/bot-view/parramatoPrudentProduction_571731615155/dev/images/mute.png">' +
             '</div>' +
             '</aside>' +
 
 
             '<div class="voice-buttons" id="voice-buttons" style="display:none;">' +
             '<div class="voiceIcon" id="button-play-ws">' +
-            '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/voice.png" class="img-fluid">' +
+            '<img src="https://parramato.com/bot-view/parramatoPrudentProduction_571731615155/dev/images/voice.png" class="img-fluid">' +
             '</div>' +
             '<div class="voicePulse" id="button-stop-ws">' +
             '<div class="sk-three-bounce">' +
@@ -273,7 +273,7 @@
             '<div class="uploadbox" style="display:none;">' +
             '<label>' +
             '<div class="inputfile">' +
-            '<img src="https://parramato.com/bot-view/ClonePrudentProduction_432543815345/dev/images/attachment.png" class="img-responsive">' +
+            '<img src="https://parramato.com/bot-view/parramatoPrudentProduction_571731615155/dev/images/attachment.png" class="img-responsive">' +
             '<input class="jubi-file-upload" type="file" name="fileName" >' +
             '</div>' +
             '<div class="button-section" style="display:none">' +

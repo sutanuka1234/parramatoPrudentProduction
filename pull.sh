@@ -1,3 +1,3 @@
 git pull origin parramato
-sudo pm2 restart prudentwebpara
-sudo pm2 logs prudentwebpara
+sudo pm2 restart prudentparramato 
+sudo pm2 logs prudentparramato 
