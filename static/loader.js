@@ -144,7 +144,7 @@
     window.jubiUrl = 'https://parramato.com/bot-view/parramatoPrudentProduction_571731615155/dev/';
     window.jubiModal = {
         url: 'wss://142.93.220.139',
-        path: '/prudent-parramato/socket',
+        path: '/prudentparramato/socket',
         static: {
             url: window.jubiUrl,
             scripts: {
