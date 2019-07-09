@@ -143,8 +143,8 @@
     window.speechLanguageCodeBackend = "en-US"
     window.jubiUrl = 'https://parramato.com/bot-view/parramatoPrudentProduction_571731615155/dev/';
     window.jubiModal = {
-        url: 'wss://development.jubi.ai',
-        path: '/prudent-uat/socket',
+        url: 'wss://142.93.220.139',
+        path: '/prudent-parramato/socket',
         static: {
             url: window.jubiUrl,
             scripts: {

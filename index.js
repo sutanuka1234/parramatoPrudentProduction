@@ -1,6 +1,6 @@
 require("bot-middleware-jubi").Server({
     root:"https://142.93.220.139",//http://142.93.220.139
-    socketDomain: "wss:////142.93.220.139",
+    socketDomain: "wss://142.93.220.139",
     socketPath: '/prudentparramato/socket',
     socketLocalPath: '/socket',
     httpPort:8125,
