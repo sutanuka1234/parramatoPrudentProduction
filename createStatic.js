@@ -1,9 +1,9 @@
 require("bot-middleware-jubi").createFrontend({
-    root:"https://development.jubi.ai",
-    socketDomain: "wss://development.jubi.ai",
-    socketPath: '/prudent-uat/socket',
+    root:"https://prudentparramato/",
+    socketDomain: "wss://prudentparramato/",
+    socketPath: '/prudentparramato//socket',
     staticDirectory:__dirname+"/static",
-    projectId:"ClonePrudentProduction_432543815345",
+    projectId:"parramatoPrudentProduction_571731615155",
     passphraseMiddleware:"YGUYGgyjgblgUGIYGIGkwhbiuashbo98u9283hr9h24rqIYGI932kbidbiadsYE",
     firebaseWebConfig:{
         apiKey: "AIzaSyAWRgLmcIz4EZCrq_B1BVIk8a_RFmKHYeo",
